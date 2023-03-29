@@ -72,6 +72,11 @@ class AlQuranController extends Controller
             }
         }
 
-        return 'saved';
+        return redirect()->to('/al-Quran');
+    }
+
+    public function edit($id)
+    {
+        return 'In Progress!';
     }
 }

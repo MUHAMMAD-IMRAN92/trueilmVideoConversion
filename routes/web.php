@@ -21,3 +21,4 @@ Route::get('al-Quran', [App\Http\Controllers\AlQuranController::class, 'index'])
 Route::get('all-surah', [App\Http\Controllers\AlQuranController::class, 'allAyat'])->name('ayat');
 Route::get('surah/create', [App\Http\Controllers\AlQuranController::class, 'add'])->name('surah.add');
 Route::post('surah/store', [App\Http\Controllers\AlQuranController::class, 'store'])->name('surah.store');
+Route::get('ayat/edit/{id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('surah.edit');

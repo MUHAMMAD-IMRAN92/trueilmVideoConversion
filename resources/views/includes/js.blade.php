@@ -101,7 +101,7 @@
                        "mRender": function(data, type, row) {
 
                            return `<td>
-                                <a  class="ml-2" href="{{ url('admin/brand/edit/`+row.id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                <a  class="ml-2" href="{{ url('ayat/edit/`+row.id+`') }}"><i class="feather icon-edit-2"></i></a>
                                 </td>`
                        }
                    },
