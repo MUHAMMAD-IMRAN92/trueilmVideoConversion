@@ -1,0 +1,143 @@
+   <!-- BEGIN: Vendor JS-->
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+   <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+   <!-- BEGIN Vendor JS-->
+
+   <!-- BEGIN: Page Vendor JS-->
+   <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/extensions/tether.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/extensions/shepherd.min.js') }}"></script>
+   <!-- END: Page Vendor JS-->
+
+   <!-- BEGIN: Theme JS-->
+   <script src="{{ asset('app-assets/js/core/app-menu.js') }}"></script>
+   <script src="{{ asset('app-assets/js/core/app.js') }}"></script>
+   <script src="{{ asset('app-assets/js/scripts/components.js') }}"></script>
+   <!-- END: Theme JS-->
+
+   <!-- BEGIN: Page JS-->
+   <script src="{{ asset('app-assets/js/scripts/pages/dashboard-analytics.js') }}"></script>
+   <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.js') }}"></script>
+   <!-- END: Page JS-->
+   <script src="{{ asset('app-assets/js/scripts/datatables/datatable.js') }}"></script>
+
+   <!-- BEGIN: Page Vendor JS-->
+
+   <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/dataTables.select.min.j') }}"></script>
+   <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+   <!-- BEGIN: Page Vendor JS-->
+   <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+   <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js') }}"></script>
+
+   <!-- END: Page Vendor JS-->
+   <!-- BEGIN: Page JS-->
+   <script src="{{ asset('app-assets/js/scripts/ui/data-list-view.js') }}"></script>
+   {{-- <script src="{{ asset('app-assets/vendors/js/charts/echarts/echarts.min.js') }}"></script>
+   <script src="{{ asset('app-assets/js/scripts/charts/chart-echart.js') }}"></script> --}}
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+   <!-- END: Page JS-->
+   <script>
+       $(document).ready(function() {
+
+           $('.summernote').summernote({
+               height: 150,
+               codemirror: {
+                   theme: 'default'
+               }
+           });
+
+           $('#ayat-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-surah') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.surah + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.ayat != null) {
+                               des = row.ayat;
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.para_no + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.ruku + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('admin/brand/edit/`+row.id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#add-translation').on('click', function() {
+               var html;
+               html =
+                   `<div class="col-12">
+
+                        <p>Language</p>
+                        <fieldset class="form-group">
+                            <select class="form-control" name="langs[]" id="basicSelect">
+                                <option value="ar">Arabic</option>
+                                <option value="en">English</option>
+                                <option value="ur">Urud</option>
+                                <option value="hi">Hindi</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="col-12">
+                            <label for="">Ayat</label>
+                            <fieldset class="form-group">
+                                <textarea class="summernote" name="translations[]"></textarea>
+                            </fieldset>
+                     </div>`;
+
+               $('.append-inputs').append(html);
+               $('.summernote').summernote();
+           });
+
+
+       });
+   </script>
