@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
 
-Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-Route::get('al-Quran', [App\Http\Controllers\AlQuranController::class, 'index'])->name('al-Quran');
-Route::get('all-surah', [App\Http\Controllers\AlQuranController::class, 'allAyat'])->name('ayat');
-Route::get('surah/create', [App\Http\Controllers\AlQuranController::class, 'add'])->name('surah.add');
-Route::post('surah/store', [App\Http\Controllers\AlQuranController::class, 'store'])->name('surah.store');
-Route::get('ayat/edit/{id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('surah.edit');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('al-Quran', [App\Http\Controllers\AlQuranController::class, 'index'])->name('al-Quran');
+    Route::get('all-surah', [App\Http\Controllers\AlQuranController::class, 'allAyat'])->name('ayat');
+    Route::get('surah/create', [App\Http\Controllers\AlQuranController::class, 'add'])->name('surah.add');
+    Route::post('surah/store', [App\Http\Controllers\AlQuranController::class, 'store'])->name('surah.store');
+    Route::get('ayat/edit/{id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('surah.edit');
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

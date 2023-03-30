@@ -19,7 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts /apexcharts.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts    /apexcharts.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/vendors/css/extensions/tether-theme-arrows.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/tether.min.css') }}">
@@ -383,15 +383,14 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="{{ url('/') }}">
-                        {{-- <div class="brand-logo"></div>
-                        <h2 class="brand-text mb-0">SpaceERP</h2> --}}
+
                         <div>
-                            <img src="{{ url('/app-assets/images/logo/space_logo.png') }}" alt=""
+                            <img src="{{ url('/app-assets/images/logo/true_ilm_logo1.png') }}" alt=""
                                 style="
-                            margin-left: 66px;
+                            margin-left: 50px;
                             margin-top: -9px;
                             height: 5rem;
-                            width: 5rem;
+                            width: 8rem;
                         ">
                         </div>
                     </a></li>
