@@ -15,9 +15,9 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Surah</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Ayat</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Add Surah
+                                    <li class="breadcrumb-item active">Add Ayat
                                     </li>
                                 </ol>
                             </div>
@@ -54,7 +54,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('surah.store') }}" method="POST"
+                                        <form class="form form-vertical" action="{{ route('ayat.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
