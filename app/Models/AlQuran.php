@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AlQuran extends Model
 {
     use HasFactory;
+    protected $connection = 'mongodb';
 
     public function translations()
     {

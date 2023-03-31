@@ -38,8 +38,8 @@ type User {
 type Mutation {
     createUser(
         name: String!
-        email: String!
-        password: String!
+        email: String! @rules(apply: ["email"])
+        password: String! @hash
         phone: String!
     ): User! @create
 }
