@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AlQuran extends Model
 {
     use HasFactory;
+
+    public function translations()
+    {
+        return $this->hasMany(AlQuranTranslation::class, 'ayat_id' , 'id');
+    }
 }

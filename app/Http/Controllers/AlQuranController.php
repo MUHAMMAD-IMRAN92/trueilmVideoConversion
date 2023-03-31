@@ -50,7 +50,7 @@ class AlQuranController extends Controller
     }
     public function add()
     {
-        return view('Al_Quran.add_surah');
+        return view('Al_Quran.add_ayat');
     }
     public function store(AyatRequest $request)
     {
@@ -77,6 +77,9 @@ class AlQuranController extends Controller
 
     public function edit($id)
     {
-        return 'In Progress!';
+       return $ayat = AlQuran::where('id', $id)->with('translations')->get();
+        return view('edit_ayat', [
+            'ayat' => $ayat
+        ]);
     }
 }
