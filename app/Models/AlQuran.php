@@ -9,7 +9,7 @@ class AlQuran extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $table = 'users';
+    protected $table = 'al_quran';
     public function translations()
     {
         return $this->hasMany(AlQuranTranslation::class, 'ayat_id', 'id');
