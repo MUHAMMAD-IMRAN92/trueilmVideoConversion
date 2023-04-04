@@ -59,20 +59,25 @@
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
+
+                                                    <input type="hidden" id="" class="form-control" name="id"
+                                                        placeholder="" value="{{ $ayat->id }}" required>
+
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Surah</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="surah" placeholder="" required>
+                                                                    name="surah" placeholder=""
+                                                                    value="{{ $ayat->surah }}" required>
 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                     <div class="col-12">
+                                                    <div class="col-12">
                                                         <label for="">Ayat</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="ayat"></textarea>
+                                                            <textarea class="summernote" name="ayat">{{ $ayat->ayat }}</textarea>
                                                         </fieldset>
                                                     </div>
 
@@ -81,7 +86,8 @@
                                                             <label for="contact-info-icon">Para#</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
-                                                                    name="para" placeholder="" required>
+                                                                    name="para" placeholder=""
+                                                                    value="{{ $ayat->para_no }}" required>
 
                                                             </div>
 
@@ -92,21 +98,43 @@
                                                             <label for="contact-info-icon">Rukūʿ</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
-                                                                    name="ruku" placeholder="" required>
+                                                                    name="ruku" placeholder=""
+                                                                    value="{{ $ayat->ruku }}" required>
 
                                                             </div>
 
                                                         </div>
                                                     </div>
 
+                                                    @foreach ($ayat->translations as $aya)
+                                                        <div class="col-12">
 
+                                                            <p>Language</p>
+                                                            <fieldset class="form-group">
+                                                                <select class="form-control" name="langs[]"
+                                                                    id="basicSelect">
+                                                                    <option value="ar" {{$aya->lang == 'ar' ? 'selected' : '' }}>Arabic</option>
+                                                                    <option value="en" {{$aya->lang == 'en' ? 'selected' : '' }}>English</option>
+                                                                    <option value="ur" {{$aya->lang == 'ur' ? 'selected' : '' }}>Urud</option>
+                                                                    <option value="hi" {{$aya->lang == 'hi' ? 'selected' : '' }}>Hindi</option>
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="">Ayat</label>
+                                                            <fieldset class="form-group">
+                                                                <textarea class="summernote" name="translations[]">{{$aya->translation}}</textarea>
+                                                            </fieldset>
+                                                        </div>
+                                                    @endforeach ()
                                                 </div>
                                                 <div class="col-12" id="add-translation" style="text-align: right">
                                                     <span class="btn btn-primary mr-1 mb-1">Add
                                                         Translation</span>
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>

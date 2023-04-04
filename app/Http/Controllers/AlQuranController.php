@@ -77,9 +77,33 @@ class AlQuranController extends Controller
 
     public function edit($id)
     {
-       return $ayat = AlQuran::where('id', $id)->with('translations')->get();
-        return view('edit_ayat', [
+        $ayat = AlQuran::where('_id', $id)->with('translations')->first();
+        return view('Al_Quran.edit_ayat', [
             'ayat' => $ayat
         ]);
+    }
+
+    public function update(Request $request)
+    {
+        $alQuran = AlQuran::where('_id', $request->id)->first();
+
+        $alQuranTranslation = AlQuranTranslation::where('ayat_id', $request->id)->delete();
+        $alQuran->surah = $request->surah;
+        $alQuran->ayat = $request->ayat;
+        $alQuran->para_no = $request->para;
+        $alQuran->ruku = $request->ruku;
+        $alQuran->added_by = 1;
+        $alQuran->save();
+        if ($request->translations) {
+            foreach ($request->langs as $key => $lang) {
+                $alQuranTranslation = new AlQuranTranslation();
+                $alQuranTranslation->lang = $lang;
+                $alQuranTranslation->translation = $request->translations[$key];
+                $alQuranTranslation->ayat_id = $alQuran->id;
+                $alQuranTranslation->added_by = 1;
+                $alQuranTranslation->save();
+            }
+        }
+        return redirect()->to('/al-Quran');
     }
 }
