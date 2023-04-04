@@ -9,5 +9,5 @@ class AlQuranTranslation extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $table = 'al_quran_translation';
+    protected $table = 'al_quran_translations';
 }
