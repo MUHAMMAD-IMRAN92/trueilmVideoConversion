@@ -418,6 +418,11 @@
                             class="fa fa-book" aria-hidden="true"></i>
                         <span class="menu-item" data-i18n="Analytics">Al-Quran</span></a>
                 </li>
+                <i class="far fa-typewriter"></i>
+                <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
+                            class="fa fa-keyboard-o"></i>
+                        <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
+                </li>
 
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"

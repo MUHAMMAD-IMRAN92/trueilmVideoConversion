@@ -83,7 +83,7 @@ class AlQuranController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(AyatRequest $request)
     {
         $alQuran = AlQuran::where('_id', $request->id)->first();
 
