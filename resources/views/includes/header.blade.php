@@ -426,6 +426,9 @@
                 <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
                             class="fa fa-book"></i>
                         <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
+                <li class="@if (request()->is('eBook*')) active @endif "><a href="{{ url('eBook') }}"><i
+                            class="fa fa-book"></i>
+                        <span class="menu-item" data-i18n="Analytics">eBook</span></a>
                 </li>
 
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i

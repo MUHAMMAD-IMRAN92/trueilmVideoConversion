@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('ayat/update', [App\Http\Controllers\AlQuranController::class, 'update'])->name('ayat.update');
 
     Route::get('publisher', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
-    Route::get('all-publisher', [App\Http\Controllers\PublisherController::class, 'allPublisher'])->name('publisher');
+    Route::get('all-publisher', [App\Http\Controllers\PublisherController::class, 'allPublisher'])->name('publisher.all');
     Route::get('publisher/create', [App\Http\Controllers\PublisherController::class, 'add'])->name('publisher.add');
     Route::post('publisher/store', [App\Http\Controllers\PublisherController::class, 'store'])->name('publisher.store');
     Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
@@ -42,4 +42,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('hadith/store', [App\Http\Controllers\HadeesController::class, 'store'])->name('hadith.store');
     Route::get('hadith/edit/{id}', [App\Http\Controllers\HadeesController::class, 'edit'])->name('hadith.edit');
     Route::post('hadith/update', [App\Http\Controllers\HadeesController::class, 'update'])->name('hadith.update');
+
+
+    Route::get('eBook', [App\Http\Controllers\BookController::class, 'index'])->name('eBook');
+    Route::get('all-eBook', [App\Http\Controllers\BookController::class, 'allPublisher'])->name('eBook.all');
+    Route::get('eBook/create', [App\Http\Controllers\BookController::class, 'add'])->name('eBook.add');
+    Route::post('eBook/store', [App\Http\Controllers\BookController::class, 'store'])->name('eBook.store');
+    Route::get('eBook/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('eBook.edit');
+    Route::post('eBook/update', [App\Http\Controllers\BookController::class, 'update'])->name('eBook.update');
 });
