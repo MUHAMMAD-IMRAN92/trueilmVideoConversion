@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class AlQuranTranslation extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $table = 'books';
+    protected $table = 'al_quran_translations';
 }
