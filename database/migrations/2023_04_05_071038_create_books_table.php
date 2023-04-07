@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('file');
-            $table->string('thumbnail')->nullable();
+            $table->string('cover')->nullable();
             $table->string('tags');
             $table->unsignedBigInteger('added_by');
             $table->timestamps();
