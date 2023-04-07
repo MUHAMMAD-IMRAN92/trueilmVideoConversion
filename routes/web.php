@@ -35,4 +35,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
     Route::post('publisher/update', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
 
+
+    Route::get('hadith', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');
+    Route::get('all-hadith', [App\Http\Controllers\HadeesController::class, 'allhadith'])->name('hadith');
+    Route::get('hadith/create', [App\Http\Controllers\HadeesController::class, 'add'])->name('hadith.add');
+    Route::post('hadith/store', [App\Http\Controllers\HadeesController::class, 'store'])->name('hadith.store');
+    Route::get('hadith/edit/{id}', [App\Http\Controllers\HadeesController::class, 'edit'])->name('hadith.edit');
+    Route::post('hadith/update', [App\Http\Controllers\HadeesController::class, 'update'])->name('hadith.update');
 });

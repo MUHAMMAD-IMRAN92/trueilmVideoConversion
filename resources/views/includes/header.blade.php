@@ -423,6 +423,10 @@
                             class="fa fa-keyboard-o"></i>
                         <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
                 </li>
+                <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
+                            class="fa fa-book"></i>
+                        <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
+                </li>
 
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"
