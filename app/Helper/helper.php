@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Response;
 
-function sendSuccess($message, $data)
+function sendSuccess($msg, $data = null)
 {
-    return Response::json(array('status' => 'success', 'message' => $message, 'data' => $data), 200, []);
+    return Response::json(['status' => 200, 'message' => $msg, 'data' => $data]);
 }
 
-function sendError($error_message, $code, $data = null)
+function sendError($msg, $data = null)
 {
-    return Response::json(array('status' => 'error', 'message' => $error_message, 'data' => $data), $code);
+    return Response::json(['status' => 400, 'message' => $msg, 'data' => $data]);
 }

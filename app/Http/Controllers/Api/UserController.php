@@ -23,6 +23,6 @@ class UserController extends Controller
             $email = 'imran@gmail.com';
             Mail::to($email)->send(new UserVarification());
         }
-        return sendSuccess('Mail Has Been Sent To Your Email Address!', 'done');
+        return sendSuccess('Mail Has Been Sent!');
     }
 }
