@@ -1,7 +1,7 @@
 @component('mail::message')
-    
 
-    @component('mail::button', ['url' => ''])
+
+    @component('mail::button', ['url' => url('varified-user')])
         Varify You Email
     @endcomponent
 

@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     public function sendVerifyEmail(Request $request)
     {
+
         $request->validate([
             'id' => 'required',
         ]);
@@ -19,10 +20,9 @@ class UserController extends Controller
         $user = User::find($request->id);
         if ($user) {
             $userEmail = $user->email;
-
-            Mail::to($user->email)->send(new UserVarification($user));
+            $email = 'imran@gmail.com';
+            Mail::to($email)->send(new UserVarification());
         }
-
         return sendSuccess('Mail Has Been Sent To Your Email Address!', 'done');
     }
 }
