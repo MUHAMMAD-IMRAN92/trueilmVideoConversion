@@ -63,23 +63,29 @@
                                                     <div class="col-12">
                                                         <label for="">Hadith</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description"></textarea>
+                                                            <textarea class="summernote" name="hadith"></textarea>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-12">
+
+                                                        <label for="">Type</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="form-control" name="type" id="basicSelect">
+                                                                <option value="1">Hadees-e-Qudsi</option>
+                                                                <option value="2">Hadees-e-Zaeef</option>
+                                                                <option value="3">Hadees-e-Sahih</option>
+                                                            </select>
                                                         </fieldset>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 col-12">
-
-                                                    <label for="">Type</label>
-
-                                                    <fieldset class="form-group">
-                                                        <select class="form-control" name="type" id="basicSelect">
-                                                            <option>Hadees-e-Qudsi</option>
-                                                            <option>Hadees-e-Zaeef</option>
-                                                            <option>Hadees-e-Sahih</option>
-                                                        </select>
-                                                    </fieldset>
-                                                </div>
+                                                <br>
                                                 <div class="col-12">
+                                                    <span type="" id="add-reference"
+                                                        class="btn btn-primary mr-1 mb-1">Add
+                                                        Reference</span>
+                                                    <span type="" id="add-translation"
+                                                        class="btn btn-primary mr-1 mb-1">Add
+                                                        Translation</span>
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>

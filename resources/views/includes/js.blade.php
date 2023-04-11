@@ -208,6 +208,37 @@
                }],
                "order": false
            });
+           $('#hadees-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-hadith') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.hadees + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('hadith/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#add-translation').on('click', function() {
                var html;
                html =
@@ -224,11 +255,36 @@
                         </fieldset>
                     </div>
                     <div class="col-12">
-                            <label for="">Ayat</label>
+                            <label for="">Translation</label>
                             <fieldset class="form-group">
                                 <textarea class="summernote" name="translations[]"></textarea>
                             </fieldset>
                      </div>`;
+
+               $('.append-inputs').append(html);
+               $('.summernote').summernote();
+           });
+           $('#add-reference').on('click', function() {
+               var html;
+               html =
+                   `<div class="col-12">
+
+                        <p>Reference</p>
+                        <fieldset class="form-group">
+                            <select class="form-control" name="reference_book[]" id="basicSelect">
+                                <option value="1">Sahih ul Bukhari</option>
+                                <option value="2">Al Sahih Li Muslim</option>
+                                <option value="3">Jame ut Tirmezi</option>
+                                <option value="4">Sunan e Abi Dawood</option>
+                                <option value="5">Sunan e Nasa</option>
+                                <option value="6">Sunan e Ibn-e-Maja</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="col-12">
+                            <label for="">Reference #</label>
+                            <input type="number" id="" class="form-control" name="ref_number[]" placeholder="" >
+                    </div>`;
 
                $('.append-inputs').append(html);
                $('.summernote').summernote();
