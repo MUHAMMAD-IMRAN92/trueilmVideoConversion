@@ -16,12 +16,12 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required'
         ]);
-        return $request->all();
+
         if ($validator->fails()) {
             return sendError('Validation Failed!', $validator->errors());
         }
 
-        return  $user = User::where('_id', $request->id)->first();
+        $user = User::find($request->id);
         if ($user) {
             $userEmail = $user->email;
             // $email = 'imran@gmail.com';
