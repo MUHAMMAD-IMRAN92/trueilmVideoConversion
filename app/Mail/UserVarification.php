@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,9 +17,10 @@ class UserVarification extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $user;
+    public function __construct($usr)
     {
-        //
+        $this->user = $usr;
     }
 
     /**
@@ -28,6 +30,8 @@ class UserVarification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user_varification');
+        return $this->markdown('emails.user_varification', [
+            'user', $this->user,
+        ]);
     }
 }
