@@ -26,7 +26,9 @@ class UserController extends Controller
             $userEmail = $user->email;
             // $email = 'imran@gmail.com';
             Mail::to($userEmail)->send(new UserVarification($user));
+            return sendSuccess('Mail Has Been Sent!', []);
+        } else {
+            return sendError('User Not Found!', []);
         }
-        return sendSuccess('Mail Has Been Sent!', []);
     }
 }
