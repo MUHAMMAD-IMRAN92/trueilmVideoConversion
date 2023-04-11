@@ -15,6 +15,10 @@ class CreateHadeesReferencesTable extends Migration
     {
         Schema::create('hadees_references', function (Blueprint $table) {
             $table->id();
+            $table->integer('reference_book');
+            $table->integer('reference_number');
+            $table->unsignedBigInteger('hadees_id');
+            $table->unsignedBigInteger('added_by');
             $table->timestamps();
         });
     }

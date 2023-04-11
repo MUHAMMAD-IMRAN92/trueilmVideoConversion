@@ -92,7 +92,7 @@ class AlQuranController extends Controller
         $alQuran->ayat = $request->ayat;
         $alQuran->para_no = $request->para;
         $alQuran->ruku = $request->ruku;
-        $alQuran->added_by = 1;
+        $alQuran->added_by = $this->user->id;
         $alQuran->save();
         if ($request->translations) {
             foreach ($request->langs as $key => $lang) {
@@ -100,7 +100,7 @@ class AlQuranController extends Controller
                 $alQuranTranslation->lang = $lang;
                 $alQuranTranslation->translation = $request->translations[$key];
                 $alQuranTranslation->ayat_id = $alQuran->id;
-                $alQuranTranslation->added_by = 1;
+                $alQuranTranslation->added_by = $this->user->id;
                 $alQuranTranslation->save();
             }
         }

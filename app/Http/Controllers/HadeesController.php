@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HadeesRequest;
 use App\Models\Hadees;
+use App\Models\HadeesReference;
+use App\Models\HadeesTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +24,7 @@ class HadeesController extends Controller
     {
         return view('hadees.index');
     }
-    public function allPublisher(Request $request)
+    public function allHadith(Request $request)
     {
         $draw = $request->get('draw');
         $start = $request->get('start');
@@ -49,35 +51,80 @@ class HadeesController extends Controller
     }
     public function add()
     {
-        return view('publisher.add');
+        return view('hadees.add');
     }
     public function store(HadeesRequest $request)
     {
-        $publisher = new Hadees();
-        $publisher->name = $request->name;
-        $publisher->description = $request->description;
-        $publisher->added_by = $this->user->id;
-        $publisher->save();
+        $hadees = new Hadees();
+        $hadees->hadees = $request->hadith;
+        $hadees->type = $request->type;
+        $hadees->added_by = $this->user->id;
+        $hadees->save();
 
-        return redirect()->to('/publisher')->with('msg', 'Publisher Saved Successfully!');;
+        if ($request->translations) {
+            foreach ($request->langs as $key => $lang) {
+                $hadeesTranslation = new HadeesTranslation();
+                $hadeesTranslation->lang = $lang;
+                $hadeesTranslation->translation = $request->translations[$key];
+                $hadeesTranslation->hadees_id = $hadees->id;
+                $hadeesTranslation->added_by = $this->user->id;
+                $hadeesTranslation->save();
+            }
+        }
+        if ($request->ref_number) {
+            foreach ($request->reference_book as $key => $book) {
+                $hadeesReference = new HadeesReference();
+                $hadeesReference->reference_book = $book;
+                $hadeesReference->reference_number = $request->ref_number[$key];
+                $hadeesReference->hadees_id = $hadees->id;
+                $hadeesReference->added_by = $this->user->id;
+                $hadeesReference->save();
+            }
+        }
+
+        return redirect()->to('/hadith')->with('msg', 'Hadith Saved Successfully!');;
     }
 
     public function edit($id)
     {
-        $publisher = Hadees::where('_id', $id)->first();
-        return view('publisher.edit', [
-            'publisher' => $publisher
+        $hadees = Hadees::where('_id', $id)->with('translations', 'references')->first();
+        return view('hadees.edit', [
+            'hadees' => $hadees
         ]);
     }
 
     public function update(HadeesRequest $request)
     {
-        $publisher = Hadees::where('_id', $request->id)->first();
-        $publisher->name = $request->name;
-        $publisher->description = $request->description;
-        $publisher->added_by = $this->user->id;
-        $publisher->save();
+        $hadees = Hadees::where('_id', $request->id)->first();
+        $hadees->hadees = $request->hadith;
+        $hadees->type = $request->type;
+        $hadees->added_by = $this->user->id;
+        $hadees->save();
 
-        return redirect()->to('/publisher')->with('msg', 'Publisher Updated Successfully!');;
+        HadeesTranslation::where('hadees_id', $request->id)->delete();
+        HadeesReference::where('hadees_id', $request->id)->delete();
+
+
+        if ($request->translations) {
+            foreach ($request->langs as $key => $lang) {
+                $hadeesTranslation = new HadeesTranslation();
+                $hadeesTranslation->lang = $lang;
+                $hadeesTranslation->translation = $request->translations[$key];
+                $hadeesTranslation->hadees_id = $hadees->id;
+                $hadeesTranslation->added_by = $this->user->id;
+                $hadeesTranslation->save();
+            }
+        }
+        if ($request->ref_number) {
+            foreach ($request->reference_book as $key => $book) {
+                $hadeesReference = new HadeesReference();
+                $hadeesReference->reference_book = $book;
+                $hadeesReference->reference_number = $request->ref_number[$key];
+                $hadeesReference->hadees_id = $hadees->id;
+                $hadeesReference->added_by = $this->user->id;
+                $hadeesReference->save();
+            }
+        }
+        return redirect()->to('/hadith')->with('msg', 'Hadith Updated Successfully!');;
     }
 }

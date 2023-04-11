@@ -126,7 +126,7 @@
                                                                 <textarea class="summernote" name="translations[]">{{$aya->translation}}</textarea>
                                                             </fieldset>
                                                         </div>
-                                                    @endforeach ()
+                                                    @endforeach
                                                 </div>
                                                 <div class="col-12" id="add-translation" style="text-align: right">
                                                     <span class="btn btn-primary mr-1 mb-1">Add

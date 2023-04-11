@@ -63,8 +63,7 @@
                                         <table class="table" id="hadees-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th class="description-td">Detail</th>
+                                                    <th>Hadith</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
