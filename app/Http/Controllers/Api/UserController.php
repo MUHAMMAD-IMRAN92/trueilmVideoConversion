@@ -21,7 +21,7 @@ class UserController extends Controller
             return sendError('Validation Failed!', $validator->errors());
         }
 
-        $user = User::find($request->id);
+      return  $user = User::find($request->id);
         if ($user) {
             $userEmail = $user->email;
             // $email = 'imran@gmail.com';
