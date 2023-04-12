@@ -8,5 +8,5 @@
     @endcomponent
 
     Thanks
-    {{ config('app.name') }}
+    {{$user->name}}
 @endcomponent
