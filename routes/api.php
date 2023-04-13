@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('send-varification-email',  [App\Http\Controllers\Api\UserController::class, 'sendVerifyEmail']);
+Route::get('reset-password-email',  [App\Http\Controllers\Api\UserController::class, 'resetPassword']);

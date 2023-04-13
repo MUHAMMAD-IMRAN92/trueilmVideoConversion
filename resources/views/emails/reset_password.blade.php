@@ -1,10 +1,10 @@
 @component('mail::message')
 
-    Please click below button to verify you email:
+    Please click below button to reset your password:
     @component('mail::button', [
         'url' => url("localhost:3000/verify-account?email=$user->email &token=$user->id"),
     ])
-        Verify Your Email
+        Reset Password
     @endcomponent
 
     Thanks
