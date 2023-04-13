@@ -16,9 +16,10 @@ class ResetPassword extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $user;
+    public function __construct($usr)
     {
-        //
+        $this->user = $usr;
     }
 
     /**
@@ -28,6 +29,8 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reset_password');
+        return $this->markdown('emails.reset_password', [
+            'user', $this->user,
+        ]);
     }
 }
