@@ -31,13 +31,13 @@ class UserController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = User::where('deleted_at', null)->count();
-        $brands = User::where('deleted_at', null)->when($search, function ($q) use ($search) {
+        $totalBrands = User::whereNull('deleted_at')->whereNotNull('type')->count();
+        $brands = User::whereNull('deleted_at')->whereNotNull('type')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = User::where('deleted_at', null)->when($search, function ($q) use ($search) {
+        $brandsCount = User::whereNull('deleted_at')->whereNotNull('type')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
             });
