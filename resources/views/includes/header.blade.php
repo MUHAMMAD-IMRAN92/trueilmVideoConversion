@@ -414,22 +414,30 @@
                     </ul>
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
-                <li class="@if (request()->is('al-Quran*')) active @endif "><a href="{{ url('al-Quran') }}"><i
-                            class="fa fa-book" aria-hidden="true"></i>
-                        <span class="menu-item" data-i18n="Analytics">Al-Quran</span></a>
-                </li>
-                <i class="far fa-typewriter"></i>
-                <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
-                            class="fa fa-keyboard-o"></i>
-                        <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
-                </li>
-                <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
-                            class="fa fa-book"></i>
-                        <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
-                <li class="@if (request()->is('eBook*')) active @endif "><a href="{{ url('eBook') }}"><i
-                            class="fa fa-book"></i>
-                        <span class="menu-item" data-i18n="Analytics">eBook</span></a>
-                </li>
+                @if (auth()->user()->type == 1 || auth()->user()->type == 2)
+                    <li class="@if (request()->is('al-Quran*')) active @endif "><a href="{{ url('al-Quran') }}"><i
+                                class="fa fa-book" aria-hidden="true"></i>
+                            <span class="menu-item" data-i18n="Analytics">Al-Quran</span></a>
+                    </li>
+                    <i class="far fa-typewriter"></i>
+                    <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
+                                class="fa fa-keyboard-o"></i>
+                            <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
+                    </li>
+                    <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
+                                class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
+                    <li class="@if (request()->is('eBook*')) active @endif "><a href="{{ url('eBook') }}"><i
+                                class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">eBook</span></a>
+                    </li>
+                @endif
+                @if (auth()->user()->type == 1)
+                    <li class="@if (request()->is('users*')) active @endif "><a
+                            href="{{ url('user-management') }}"><i class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">User Management</span></a>
+                    </li>
+                @endif
 
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"

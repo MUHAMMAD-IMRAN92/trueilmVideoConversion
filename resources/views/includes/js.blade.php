@@ -239,6 +239,50 @@
                }],
                "order": false
            });
+           $('#user-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-user') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           return '<td>' +
+                               row.email +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.phone + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#add-translation').on('click', function() {
                var html;
                html =

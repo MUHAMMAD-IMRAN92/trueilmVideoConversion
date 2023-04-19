@@ -50,4 +50,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('eBook/store', [App\Http\Controllers\BookController::class, 'store'])->name('eBook.store');
     Route::get('eBook/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('eBook.edit');
     Route::post('eBook/update', [App\Http\Controllers\BookController::class, 'update'])->name('eBook.update');
+
+    Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+    Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');
+    Route::get('user/create', [App\Http\Controllers\UserController::class, 'add'])->name('user.add');
+    Route::post('user/store', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+    Route::get('user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+    Route::post('user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 });
