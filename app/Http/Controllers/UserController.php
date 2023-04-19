@@ -31,13 +31,13 @@ class UserController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = User::count();
-        $brands = User::when($search, function ($q) use ($search) {
+        $totalBrands = User::where('deleted_at', null)->count();
+        $brands = User::where('deleted_at', null)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = User::when($search, function ($q) use ($search) {
+        $brandsCount = User::where('deleted_at', null)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
             });
@@ -111,5 +111,12 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->to('/user-management')->with('msg', 'User Updated Successfully!');;
+    }
+
+    public function delete($id)
+    {
+        $user = User::where('_id', $id)->first();
+        $user->delete();
+        return redirect()->to('/user-management')->with('msg', 'User Deleted Successfully!');
     }
 }
