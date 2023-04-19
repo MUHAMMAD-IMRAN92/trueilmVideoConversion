@@ -268,6 +268,20 @@
                            return '<td>' +
                                row.phone + '</td>'
                        }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var type;
+                           if (row.type == 1) {
+                               type = 'Admin';
+                           } else if (row.type == 2) {
+                               type = 'Publisher';
+                           } else {
+                               type = 'Institute';
+                           }
+                           return '<td>' +
+                               type + '</td>'
+                       }
                    }, {
                        "mRender": function(data, type, row) {
 

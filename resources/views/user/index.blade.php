@@ -65,6 +65,7 @@
                                                     <th>Name</th>
                                                     <th class="description-td">Email</th>
                                                     <th class="">Phone</th>
+                                                    <th class="">Role</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
