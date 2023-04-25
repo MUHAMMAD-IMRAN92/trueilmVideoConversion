@@ -66,23 +66,14 @@ class UserController extends Controller
         } else {
             $type = 3;
         }
-        // $user = new User();
-        // $user->name = $request->name;
-        // $user->email = $request->email;
-        // $user->phone = $request->phone;
-        // $user->password = Hash::make($request->password);
-        // $user->added_by = $this->user->id;
-        // $user->type = $type;
-        // $user->save();
         $user = new User();
-        $user->name = 'admin';
-        $user->email = 'admin@gmail.com';
-        $user->phone = '';
-        $user->password = Hash::make('password');
-        $user->added_by = 0;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->password = Hash::make($request->password);
+        $user->added_by = $this->user->id;
         $user->type = $type;
         $user->save();
-        $user->assignRole('Admin');
 
         return redirect()->to('/user-management')->with('msg', 'User Saved Successfully!');;
     }
