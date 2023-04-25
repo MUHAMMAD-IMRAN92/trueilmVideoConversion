@@ -434,6 +434,10 @@
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Admin'))
+                    <li class="@if (request()->is('category*')) active @endif "><a href="{{ url('category') }}"><i
+                                class="fa fa-list-alt"></i>
+                            <span class="menu-item" data-i18n="Analytics">Category</span></a>
+                    </li>
                     <li class="@if (request()->is('users*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">User Management</span></a>
