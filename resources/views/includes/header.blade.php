@@ -414,7 +414,8 @@
                     </ul>
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
-                @if (auth()->user()->type == 1 || auth()->user()->type == 2)
+                @if (auth()->user()->hasRole('Admin') ||
+                        auth()->user()->hasRole('Publisher'))
                     <li class="@if (request()->is('al-Quran*')) active @endif "><a href="{{ url('al-Quran') }}"><i
                                 class="fa fa-book" aria-hidden="true"></i>
                             <span class="menu-item" data-i18n="Analytics">Al-Quran</span></a>
@@ -432,7 +433,7 @@
                             <span class="menu-item" data-i18n="Analytics">eBook</span></a>
                     </li>
                 @endif
-                @if (auth()->user()->type == 1)
+                @if (auth()->user()->hasRole('Admin'))
                     <li class="@if (request()->is('users*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">User Management</span></a>
@@ -743,7 +744,7 @@
                         <li><a href="auth-login.html"><i class="feather icon-circle"></i><span class="menu-item"
                                     data-i18n="Login">Login</span></a>
                         </li>
-                        <li><a href="auth-register.html"><i class="feather icon-circle"></i><span class="menu-item"
+                     {{--   <li><a href="auth-register.html"><i class="feather icon-circle"></i><span class="menu-item"
                                     data-i18n="Register">Register</span></a>
                         </li>
                         <li><a href="auth-forgot-password.html"><i class="feather icon-circle"></i><span

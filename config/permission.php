@@ -13,7 +13,7 @@ return [
          * `Spatie\Permission\Contracts\Permission` contract.
          */
 
-        'permission' => Spatie\Permission\Models\Permission::class,
+        'permission' => Maklad\Permission\Models\Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -24,11 +24,11 @@ return [
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
-        'role' => Spatie\Permission\Models\Role::class,
+        'role' => Maklad\Permission\Models\Role::class,
 
     ],
 
-    'table_names' => [
+    'collection_names' => [
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -70,31 +70,11 @@ return [
 
         'role_has_permissions' => 'role_has_permissions',
     ],
+    'cache_expiration_time' => 60 * 24,
+    'log_registration_exception' => true,
+    'log_registration_exception' => true,
 
-    'column_names' => [
-        /*
-         * Change this if you want to name the related pivots other than defaults
-         */
-        'role_pivot_key' => null, //default 'role_id',
-        'permission_pivot_key' => null, //default 'permission_id',
-
-        /*
-         * Change this if you want to name the related model primary key other than
-         * `model_id`.
-         *
-         * For example, this would be nice if your primary keys are all UUIDs. In
-         * that case, name this `model_uuid`.
-         */
-
-        'model_morph_key' => 'model_id',
-
-        /*
-         * Change this if you want to use the teams feature and your related model's
-         * foreign key is other than `team_id`.
-         */
-
-        'team_foreign_key' => 'team_id',
-    ],
+    
 
     /*
      * When set to true, the method for checking permissions will be registered on the gate.

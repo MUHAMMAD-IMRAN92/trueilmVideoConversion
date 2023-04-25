@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "496d0a5064d3cf9881ed85aecc809771",
+    "content-hash": "8dcd27800ac1558b936c2e304c2a2683",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1970,16 +1970,16 @@
         },
         {
             "name": "mll-lab/laravel-graphiql",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/laravel-graphiql.git",
-                "reference": "7ab997c5edf28b1dfd2710216ddd6ddbae837457"
+                "reference": "0c20cd7e7321f59fc63b51ea3f31c21c1b4ea74c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/7ab997c5edf28b1dfd2710216ddd6ddbae837457",
-                "reference": "7ab997c5edf28b1dfd2710216ddd6ddbae837457",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/0c20cd7e7321f59fc63b51ea3f31c21c1b4ea74c",
+                "reference": "0c20cd7e7321f59fc63b51ea3f31c21c1b4ea74c",
                 "shasum": ""
             },
             "require": {
@@ -1991,7 +1991,13 @@
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.29",
                 "laravel/lumen-framework": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6 || ^7 || ^8 || ^9 || ^10",
-                "mll-lab/php-cs-fixer-config": "^4.4"
+                "mll-lab/php-cs-fixer-config": "^4.4",
+                "nunomaduro/larastan": "^2.4.1",
+                "orchestra/testbench": "^4 || ^5 || ^6 || ^7.7 || ^8.8",
+                "phpstan/extension-installer": "^1",
+                "phpstan/phpstan": "^1.10.3",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.1.1"
             },
             "type": "library",
             "extra": {
@@ -2024,9 +2030,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mll-lab/laravel-graphiql/issues",
-                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v1.2.1"
+                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v1.2.2"
             },
-            "time": "2023-03-30T14:08:51+00:00"
+            "time": "2023-04-04T15:41:13+00:00"
         },
         {
             "name": "mongodb/mongodb",
@@ -2198,6 +2204,84 @@
                 }
             ],
             "time": "2023-02-06T13:44:46+00:00"
+        },
+        {
+            "name": "mostafamaklad/laravel-permission-mongodb",
+            "version": "v3.1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mostafamaklad/laravel-permission-mongodb.git",
+                "reference": "5e268ffad67015d54a945e4e53de2c27f8f61a00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mostafamaklad/laravel-permission-mongodb/zipball/5e268ffad67015d54a945e4e53de2c27f8f61a00",
+                "reference": "5e268ffad67015d54a945e4e53de2c27f8f61a00",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^6.0|^7.0|^8.0",
+                "illuminate/container": "^6.0|^7.0|^8.0",
+                "illuminate/contracts": "^6.0|^7.0|^8.0",
+                "jenssegers/mongodb": "^3.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "monolog/monolog": "^1.23|^2.0",
+                "orchestra/testbench": "^3.2|^4.0|^5.0",
+                "phpunit/phpunit": "^5.7|^6.0|^7.0|^8.0",
+                "squizlabs/php_codesniffer": "^3.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Maklad\\Permission\\PermissionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maklad\\Permission\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mostafa Maklad",
+                    "email": "dev.mostafa.maklad@gmail.com",
+                    "homepage": "https://github.com/mostafamaklad",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "The original module"
+                }
+            ],
+            "description": "Permission handling for Laravel 5.2 and up using mongodb",
+            "homepage": "https://github.com/mostafamaklad/laravel-permission-mongodb",
+            "keywords": [
+                "Maklad",
+                "acl",
+                "jenssegers",
+                "laravel",
+                "mongodb",
+                "mostafa",
+                "mostafamaklad",
+                "permission",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/mostafamaklad/laravel-permission-mongodb/issues",
+                "source": "https://github.com/mostafamaklad/laravel-permission-mongodb/tree/v3.1"
+            },
+            "time": "2020-10-04T08:48:01+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -2981,25 +3065,25 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -3028,9 +3112,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/log",
@@ -3434,88 +3518,6 @@
                 }
             ],
             "time": "2023-01-12T18:13:24+00:00"
-        },
-        {
-            "name": "spatie/laravel-permission",
-            "version": "5.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "a88ed98c8937442737e0c50163682e832d608f13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/a88ed98c8937442737e0c50163682e832d608f13",
-                "reference": "a88ed98c8937442737e0c50163682e832d608f13",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/auth": "^7.0|^8.0|^9.0|^10.0",
-                "illuminate/container": "^7.0|^8.0|^9.0|^10.0",
-                "illuminate/contracts": "^7.0|^8.0|^9.0|^10.0",
-                "illuminate/database": "^7.0|^8.0|^9.0|^10.0",
-                "php": "^7.3|^8.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0",
-                "phpunit/phpunit": "^9.4",
-                "predis/predis": "^1.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "5.x-dev",
-                    "dev-master": "5.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Spatie\\Permission\\PermissionServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Spatie\\Permission\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Permission handling for Laravel 6.0 and up",
-            "homepage": "https://github.com/spatie/laravel-permission",
-            "keywords": [
-                "acl",
-                "laravel",
-                "permission",
-                "permissions",
-                "rbac",
-                "roles",
-                "security",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/5.9.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-02-06T21:37:02+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6725,16 +6727,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.21.3",
+            "version": "v1.21.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "3042ff8cf403817c340d5a7762b2d32900239f46"
+                "reference": "5e59b4a57181020477e2b18943b27493638e3f89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/3042ff8cf403817c340d5a7762b2d32900239f46",
-                "reference": "3042ff8cf403817c340d5a7762b2d32900239f46",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/5e59b4a57181020477e2b18943b27493638e3f89",
+                "reference": "5e59b4a57181020477e2b18943b27493638e3f89",
                 "shasum": ""
             },
             "require": {
@@ -6786,7 +6788,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2023-03-13T01:22:10+00:00"
+            "time": "2023-03-30T12:28:55+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -8630,7 +8632,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": [],
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.3|^8.0"

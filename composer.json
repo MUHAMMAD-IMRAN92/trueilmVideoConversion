@@ -18,8 +18,8 @@
         "laravel/ui": "^3.4",
         "mll-lab/laravel-graphiql": "^1.2",
         "mongodb/mongodb": "*",
-        "nuwave/lighthouse": "^5.71",
-        "spatie/laravel-permission": "^5.9"
+        "mostafamaklad/laravel-permission-mongodb": "^3.1",
+        "nuwave/lighthouse": "^5.71"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -67,8 +67,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "disable-tls": true,
+        "secure-http": false
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": false
 }

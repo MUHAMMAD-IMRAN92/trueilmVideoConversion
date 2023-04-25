@@ -162,7 +162,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...

@@ -7,8 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Maklad\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -67,22 +66,36 @@ class UserController extends Controller
         } else {
             $type = 3;
         }
+        // $user = new User();
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->phone = $request->phone;
+        // $user->password = Hash::make($request->password);
+        // $user->added_by = $this->user->id;
+        // $user->type = $type;
+        // $user->save();
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password = Hash::make($request->password);
-        $user->added_by = $this->user->id;
+        $user->name = 'admin';
+        $user->email = 'admin@gmail.com';
+        $user->phone = '';
+        $user->password = Hash::make('password');
+        $user->added_by = 0;
         $user->type = $type;
         $user->save();
-
-        $user->assignRole($request->input('role'));
+        $user->assignRole('Admin');
 
         return redirect()->to('/user-management')->with('msg', 'User Saved Successfully!');;
     }
 
     public function edit($id)
     {
+        $user = User::where('name', 'dev')->first();
+        $role = Role::where('name', 'Admin')->first();
+        // $permission = Permission::create(['name' => 'all']);
+        // $role->givePermissionTo($permission);
+        // $user->assignRole($role);
+
+
         $user = User::where('_id', $id)->first();
         $roles = Role::all();
 
