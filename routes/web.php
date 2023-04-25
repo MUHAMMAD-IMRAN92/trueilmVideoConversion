@@ -59,16 +59,3 @@ Route::middleware(['auth'])->group(function () {
     Route::post('user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
     Route::get('user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
 });
-
-
-Route::get('create-admin', function () {
-    $user = new User();
-    $user->name = 'admin';
-    $user->email = 'admin@gmail.com';
-    $user->phone = '';
-    $user->password = \Hash::make('password');
-    $user->added_by = 0;
-    $user->type = 1;
-    $user->save();
-    $user->assignRole('Admin');
-});
