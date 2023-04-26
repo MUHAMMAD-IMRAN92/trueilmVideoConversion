@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
     Route::get('all-book', [App\Http\Controllers\BookController::class, 'allPublisher'])->name('book.all');
-    Route::get('book/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');
+    Route::get('book/{type}/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');
     Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store');
     Route::get('book/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('book.edit');
     Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update');

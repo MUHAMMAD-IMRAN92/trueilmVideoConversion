@@ -29,10 +29,9 @@
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
-                            <a href="{{ route('book.add') }}"> <button
+                            <a href="{{ url("book/$type/create") }}"> <button
                                     class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
-                                        class="add-brand-font">Add Book</span> <i class="fa fa-plus"
-                                        aria-hidden="true"></i>
+                                        class="add-brand-font">Add Book</span> <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button></a>
 
                         </div>
