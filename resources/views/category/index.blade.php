@@ -14,12 +14,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Books</h2>
+                            <h2 class="content-header-title float-left mb-0">Category</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('categories', $type) }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Books
+                                    <li class="breadcrumb-item active">Category
                                     </li>
                                 </ol>
                             </div>
@@ -29,12 +29,12 @@
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
-                            <a href="{{ route('book.add') }}"> <button
-                                    class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
-                                        class="add-brand-font">Add eBook</span> <i class="fa fa-plus"
+                            <a href="{{ url("category/$type/create") }}">
+                                <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
+                                    type="button"><span class="add-brand-font">Add Categroy</span> <i class="fa fa-plus"
                                         aria-hidden="true"></i>
-                                </button></a>
-
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -60,12 +60,11 @@
 
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
-                                        <table class="table" id="ebook-table">
+                                        <table class="table" id="category-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th class="description-td">Description</th>
-                                                    <th class="">Tags</th>
+                                                    <th>Name</th>
+                                                    <th class="description-td">Detail</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

@@ -9,7 +9,7 @@ use MongoDB\Client;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------s
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -44,12 +44,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('hadith/update', [App\Http\Controllers\HadeesController::class, 'update'])->name('hadith.update');
 
 
-    Route::get('eBook', [App\Http\Controllers\BookController::class, 'index'])->name('eBook');
-    Route::get('all-eBook', [App\Http\Controllers\BookController::class, 'allPublisher'])->name('eBook.all');
-    Route::get('eBook/create', [App\Http\Controllers\BookController::class, 'add'])->name('eBook.add');
-    Route::post('eBook/store', [App\Http\Controllers\BookController::class, 'store'])->name('eBook.store');
-    Route::get('eBook/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('eBook.edit');
-    Route::post('eBook/update', [App\Http\Controllers\BookController::class, 'update'])->name('eBook.update');
+    Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
+    Route::get('all-book', [App\Http\Controllers\BookController::class, 'allPublisher'])->name('book.all');
+    Route::get('book/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');
+    Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store');
+    Route::get('book/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('book.edit');
+    Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update');
 
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
     Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');
@@ -58,4 +58,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
     Route::post('user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
     Route::get('user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
+
+    Route::get('categories/{type}', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
+    Route::get('all-category', [App\Http\Controllers\CategoryController::class, 'allCategory'])->name('category.all');
+    Route::get('category/{type}/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.add');
+    Route::post('category/store', [App\Http\Controllers\CategoryController::class, 'store'])->name('category.store');
+    Route::get('category/{type}/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
+    Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
 });

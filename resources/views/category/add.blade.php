@@ -10,14 +10,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Edit Publisher</h2>
+                            <h2 class="content-header-title float-left mb-0">Add Category</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('publisher') }}">Publisher</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('categories', $type) }}">Category</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Edit Publisher
+                                    <li class="breadcrumb-item active">Add Category
                                     </li>
                                 </ol>
                             </div>
@@ -54,21 +54,20 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('publisher.update') }}"
+                                        <form class="form form-vertical" action="{{ route('category.store') }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="">Name</label>
+                                                            <label for="">Title</label>
                                                             <div class="position-relative">
                                                                 <input type="hidden" id="" class="form-control"
-                                                                    name="id" placeholder=""
-                                                                    value="{{ $publisher->_id }}" required>
+                                                                    name="type" placeholder=""
+                                                                    value="{{ $type }}">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="name" placeholder=""
-                                                                    value="{{ $publisher->name }}" required>
+                                                                    name="title" placeholder="" required>
 
                                                             </div>
                                                         </div>
@@ -76,7 +75,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description">{{ $publisher->description }}</textarea>
+                                                            <textarea class="summernote" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
                                                 </div>

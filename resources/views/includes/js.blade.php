@@ -163,7 +163,7 @@
                    "searchPlaceholder": "Search here"
                },
                "ajax": {
-                   url: '<?= url('all-eBook') ?>'
+                   url: '<?= url('all-book') ?>'
                },
                "columns": [{
                        "mRender": function(data, type, row) {
@@ -288,6 +288,53 @@
                            return `<td>
                                 <a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                 <a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#category-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-category') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description;
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var eye = 'feather icon-eye';
+                           if (row.status == 1) {
+                               eye = 'feather icon-eye-off';
+                           }
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('category/`+row.type+`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
+                               eye + `"></i></a>
                                 </td>`
                        }
                    },

@@ -15,7 +15,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('eBook') }}">eBook</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('books', $type) }}">eBook</a>
                                     </li>
                                     <li class="breadcrumb-item active">Add eBook
                                     </li>
@@ -54,7 +54,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('eBook.store') }}" method="POST"
+                                        <form class="form form-vertical" action="{{ route('book.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
@@ -87,7 +87,18 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Cover Image</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="cover">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Tags</label>
@@ -98,6 +109,21 @@
 
                                                             </div>
                                                         </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+
+                                                        <label for="">Category</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="form-control" name="category" id="basicSelect">
+                                                                <option disabled selected>Select Category</option>
+                                                                @foreach ($categories as $category)
+                                                                    <option value="{{ $category->_id }}">
+                                                                        {{ $category->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">

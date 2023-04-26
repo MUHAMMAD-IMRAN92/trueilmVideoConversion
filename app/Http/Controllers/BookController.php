@@ -4,23 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class BookController extends Controller
 {
     public $user;
+    public $type;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
-
+            $this->type =  Session::get('type');
             return $next($request);
         });
     }
-    public function index()
+    public function index($type)
     {
+        Session::put('type', $type);
         return view('eBook.index');
     }
     public function allPublisher(Request $request)
@@ -29,13 +33,13 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::count();
-        $brands = Book::when($search, function ($q) use ($search) {
+        $totalBrands = Book::where('type', $this->type)->count();
+        $brands = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::when($search, function ($q) use ($search) {
+        $brandsCount = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -50,23 +54,35 @@ class BookController extends Controller
     }
     public function add()
     {
-        return view('eBook.add');
+        $categories = Category::where('type', $this->type)->get();
+        return view('eBook.add', [
+            'type' => $this->type,
+            'categories' => $categories
+        ]);
     }
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
         if ($request->has('file')) {
-            $file = $request->file;
+            $file = $request->file('file');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path =   $request->file('idcard_picture')->storeAs('images', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
+            $path = $file->storeAs('files', $file_name);
+            $book->file = $path;
+        }
+        if ($request->has('cover')) {
+            $file = $request->cover;
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $request->file('cover')->storeAs('covers', $file_name, 'public');
+            $book->cover = $path;
         }
         $book->added_by = $this->user->id;
+        $book->category_id = $request->category;
+        $book->type = $this->type;
         $book->save();
 
-        return redirect()->to('/publisher')->with('msg', 'Publisher Saved Successfully!');;
+        return redirect()->to('books/' . $this->type)->with('msg', 'Content Saved Successfully!');;
     }
 
     public function edit($id)
@@ -79,12 +95,13 @@ class BookController extends Controller
 
     public function update(BookRequest $request)
     {
-        $publisher = Book::where('_id', $request->id)->first();
-        $publisher->name = $request->name;
-        $publisher->description = $request->description;
-        $publisher->added_by = $this->user->id;
-        $publisher->save();
+        $book = Book::where('_id', $request->id)->first();
+        $book->name = $request->name;
+        $book->description = $request->description;
+        $book->added_by = $this->user->id;
+        $book->type = $book->type;
+        $book->save();
 
-        return redirect()->to('/publisher')->with('msg', 'Publisher Updated Successfully!');;
+        return redirect()->to('books/' .  $this->type)->with('msg', 'Content Updated Successfully!');;
     }
 }

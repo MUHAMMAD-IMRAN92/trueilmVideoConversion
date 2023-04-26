@@ -428,16 +428,54 @@
                     <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
-                    <li class="@if (request()->is('eBook*')) active @endif "><a href="{{ url('eBook') }}"><i
-                                class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">eBook</span></a>
+
+                    <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                                data-i18n="Ecommerce">Content Management</span></a>
+                        <ul class="menu-content">
+                            <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span
+                                        class="menu-title" data-i18n="Ecommerce">eBook</span></a>
+                                <ul class="menu-content">
+                                    <li class="@if (request()->is('categories/1') || request()->is('category/1*')) active @endif "><a
+                                            href="{{ url('categories/1') }}"><i class="fa fa-list-alt"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Category</span></a>
+                                    </li>
+                                    <li class="@if (request()->is('book/1*')) active @endif "><a
+                                            href="{{ url('books/1') }}"><i class="fa fa-book"></i>
+                                            <span class="menu-item" data-i18n="Analytics">eBooks</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" nav-item"><a href="#"><i class="fa fa-play"></i><span
+                                        class="menu-title" data-i18n="Ecommerce">Audio Book</span></a>
+                                <ul class="menu-content">
+                                    <li class="@if (request()->is('categories/2') || request()->is('category/2*')) active @endif "><a
+                                            href="{{ url('categories/2') }}"><i class="fa fa-list-alt"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Category</span></a>
+                                    </li>
+                                    <li class="@if (request()->is('book/2')) active @endif "><a
+                                            href="{{ url('books/2') }}"><i class="fa fa-book"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Audio Books</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class=" nav-item"><a href="#"><i class="fa fa-file"></i><span
+                                        class="menu-title" data-i18n="Ecommerce">Papers</span></a>
+                                <ul class="menu-content">
+                                    <li class="@if (request()->is('categories/3') || request()->is('category/3*')) active @endif "><a
+                                            href="{{ url('categories/3') }}"><i class="fa fa-list-alt"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Category</span></a>
+                                    </li>
+                                    <li class="@if (request()->is('book/3*')) active @endif "><a
+                                            href="{{ url('books/3') }}"><i class="fa fa-file"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Papers</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Admin'))
-                    <li class="@if (request()->is('category*')) active @endif "><a href="{{ url('category') }}"><i
-                                class="fa fa-list-alt"></i>
-                            <span class="menu-item" data-i18n="Analytics">Category</span></a>
-                    </li>
                     <li class="@if (request()->is('users*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">User Management</span></a>

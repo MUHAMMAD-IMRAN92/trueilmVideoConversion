@@ -15,7 +15,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('eBook') }}">eBook</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('books' , $type) }}">eBook</a>
                                     </li>
                                     <li class="breadcrumb-item active">Add eBook
                                     </li>
@@ -54,7 +54,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('eBook.update') }}"
+                                        <form class="form form-vertical" action="{{ route('book.update') }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
