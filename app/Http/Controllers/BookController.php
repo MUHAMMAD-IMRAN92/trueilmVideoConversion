@@ -76,7 +76,7 @@ class BookController extends Controller
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('files', $file_name);
-            $book->cover = $path;
+            $book->cover = $base_path . $path;
         }
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
