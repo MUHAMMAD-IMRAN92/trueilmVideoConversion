@@ -15,9 +15,9 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('books', $type) }}">eBook</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('books', $type) }}">Book</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Add eBook
+                                    <li class="breadcrumb-item active">Edit Book
                                     </li>
                                 </ol>
                             </div>
