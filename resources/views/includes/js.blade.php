@@ -168,7 +168,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
                            return '<td>' +
-                               row.name + '</td>'
+                               row.title + '</td>'
                        }
                    },
                    {
@@ -184,12 +184,18 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var des = '';
-                           if (row.description != null) {
-                               des = row.description;
+                           var type = '';
+                           if (row.type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.type == 3) {
+                               type = 'Research Paper';
                            }
                            return '<td>' +
-                               des +
+                               type +
                                '</td>'
                        }
                    },
