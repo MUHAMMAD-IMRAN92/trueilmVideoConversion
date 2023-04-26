@@ -65,11 +65,12 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
+        $base_path = url('public/');
         if ($request->has('file')) {
             $file = $request->file('file');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('files', $file_name);
-            $book->file = $path;
+            $book->file = $base_path . $path;
         }
         if ($request->has('cover')) {
             $file = $request->file('cover');
