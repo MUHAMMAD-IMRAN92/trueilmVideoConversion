@@ -31,7 +31,7 @@
                         <div class="dropdown">
                             <a href="{{ route('book.add') }}"> <button
                                     class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
-                                        class="add-brand-font">Add eBook</span> <i class="fa fa-plus"
+                                        class="add-brand-font">Add Book</span> <i class="fa fa-plus"
                                         aria-hidden="true"></i>
                                 </button></a>
 

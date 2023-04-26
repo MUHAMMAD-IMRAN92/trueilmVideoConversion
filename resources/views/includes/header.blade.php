@@ -452,7 +452,7 @@
                                             href="{{ url('categories/2') }}"><i class="fa fa-list-alt"></i>
                                             <span class="menu-item" data-i18n="Analytics">Category</span></a>
                                     </li>
-                                    <li class="@if (request()->is('book/2')) active @endif "><a
+                                    <li class="@if (request()->is('books/2')) active @endif "><a
                                             href="{{ url('books/2') }}"><i class="fa fa-book"></i>
                                             <span class="menu-item" data-i18n="Analytics">Audio Books</span></a>
                                     </li>
@@ -465,7 +465,7 @@
                                             href="{{ url('categories/3') }}"><i class="fa fa-list-alt"></i>
                                             <span class="menu-item" data-i18n="Analytics">Category</span></a>
                                     </li>
-                                    <li class="@if (request()->is('book/3*')) active @endif "><a
+                                    <li class="@if (request()->is('books/3*')) active @endif "><a
                                             href="{{ url('books/3') }}"><i class="fa fa-file"></i>
                                             <span class="menu-item" data-i18n="Analytics">Papers</span></a>
                                     </li>
