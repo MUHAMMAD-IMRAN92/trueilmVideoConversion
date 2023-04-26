@@ -102,10 +102,24 @@ class BookController extends Controller
     public function update(BookRequest $request)
     {
         $book = Book::where('_id', $request->id)->first();
-        $book->name = $request->name;
+        $book->title = $request->title;
         $book->description = $request->description;
+        $base_path = url('storage');
+        if ($request->has('file')) {
+            $file = $request->file('file');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('files', $file_name, 'public');
+            $book->file = $base_path . '/' .  $path;
+        }
+        if ($request->has('cover')) {
+            $file = $request->file('cover');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('files_covers', $file_name, 'public');
+            $book->cover = $base_path . '/' . $path;
+        }
         $book->added_by = $this->user->id;
-        $book->type = $book->type;
+        $book->category_id = $request->category;
+        $book->type = $this->type;
         $book->save();
 
         return redirect()->to('books/' .  $this->type)->with('msg', 'Content Updated Successfully!');;
