@@ -439,7 +439,7 @@
                                             href="{{ url('categories/1') }}"><i class="fa fa-list-alt"></i>
                                             <span class="menu-item" data-i18n="Analytics">Category</span></a>
                                     </li>
-                                    <li class="@if (request()->is('book/1*') || request()->is('book/1*')) ) active @endif "><a
+                                    <li class="@if (request()->is('books/1*') || request()->is('book/1*')) ) active @endif "><a
                                             href="{{ url('books/1') }}"><i class="fa fa-book"></i>
                                             <span class="menu-item" data-i18n="Analytics">eBooks</span></a>
                                     </li>
