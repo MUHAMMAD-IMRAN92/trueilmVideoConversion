@@ -70,13 +70,13 @@ class BookController extends Controller
             $file = $request->file('file');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('files', $file_name, 'public');
-            $book->file = $base_path . $path;
+            $book->file = $base_path . '/' .  $path;
         }
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('files_covers', $file_name, 'public');
-            $book->cover = $base_path . $path;
+            $book->cover = $base_path . '/' . $path;
         }
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
