@@ -99,7 +99,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12">
+                                                    {{-- <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Tags</label>
                                                             <div class="position-relative">
@@ -109,7 +109,7 @@
 
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
 
                                                     <div class="col-12">
 
@@ -125,6 +125,8 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+
+
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
@@ -145,3 +147,4 @@
     </div>
     <!-- END: Content-->
 @endsection
+

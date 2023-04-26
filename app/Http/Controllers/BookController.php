@@ -90,9 +90,12 @@ class BookController extends Controller
 
     public function edit($id)
     {
-        $publisher = Book::where('_id', $id)->first();
-        return view('publisher.edit', [
-            'publisher' => $publisher
+        $categories = Category::where('type', $this->type)->get();
+        $book = Book::where('_id', $id)->first();
+        return view('eBook.edit', [
+            'book' => $book,
+            'type' => $this->type,
+            'categories' => $categories
         ]);
     }
 

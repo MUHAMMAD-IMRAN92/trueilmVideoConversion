@@ -203,7 +203,7 @@
                        "mRender": function(data, type, row) {
 
                            return `<td>
-                                <a  class="ml-2" href="{{ url('publisher/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                <a  class="ml-2" href="{{ url('book/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                 </td>`
                        }
                    },

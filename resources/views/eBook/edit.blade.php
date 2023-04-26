@@ -15,7 +15,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('books' , $type) }}">eBook</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('books', $type) }}">eBook</a>
                                     </li>
                                     <li class="breadcrumb-item active">Add eBook
                                     </li>
@@ -54,8 +54,8 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('book.update') }}"
-                                            method="POST" enctype="multipart/form-data">
+                                        <form class="form form-vertical" action="{{ route('book.update') }}" method="POST"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
@@ -65,10 +65,10 @@
                                                             <div class="position-relative">
                                                                 <input type="hidden" id="" class="form-control"
                                                                     name="id" placeholder=""
-                                                                    value="{{ $eBook->_id }}" required>
+                                                                    value="{{ $book->_id }}" required>
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder=""
-                                                                    value="{{ $eBook->title }}" required>
+                                                                    value="{{ $book->title }}" required>
 
                                                             </div>
                                                         </div>
@@ -76,7 +76,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description">{{ $eBook->description }}</textarea>
+                                                            <textarea class="summernote" name="description">{{ $book->description }}</textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">
@@ -91,21 +91,51 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Cover Image</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="cover">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    {{-- <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Tags</label>
                                                             <div class="position-relative">
-                                                                <input type="text" name="tags[]" data-role="tagsinput" id=""
-                                                                    class="form-control" name="title" placeholder=""
-                                                                    required>
+                                                                <input type="text" name="tags[]" data-role="tagsinput"
+                                                                    id="" class="form-control" name="title"
+                                                                    placeholder="" required>
 
                                                             </div>
                                                         </div>
+                                                    </div> --}}
+
+                                                    <div class="col-12">
+
+                                                        <label for="">Category</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="form-control" name="category" id="basicSelect">
+                                                                <option disabled selected>Select Category</option>
+                                                                @foreach ($categories as $category)
+                                                                    <option
+                                                                        {{ $book->category_id == $category->_id ? 'selected' : '' }}
+                                                                        value="{{ $category->_id }}">
+                                                                        {{ $category->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>
