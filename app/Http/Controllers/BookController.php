@@ -25,7 +25,9 @@ class BookController extends Controller
     public function index($type)
     {
         Session::put('type', $type);
-        return view('eBook.index');
+        return view('eBook.index', [
+            'type' => $this->type
+        ]);
     }
     public function allPublisher(Request $request)
     {
