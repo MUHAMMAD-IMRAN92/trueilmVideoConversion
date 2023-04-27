@@ -75,6 +75,8 @@ class UserController extends Controller
         $user->type = $type;
         $user->save();
 
+        $user->assignRole($request->input('role'));
+
         return redirect()->to('/user-management')->with('msg', 'User Saved Successfully!');;
     }
 
