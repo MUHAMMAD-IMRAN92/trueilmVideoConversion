@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store');
     Route::get('book/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('book.edit');
     Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update');
+    Route::get('book/update-status/{id}', [App\Http\Controllers\BookController::class, 'updateStatus'])->name('book.statusUpdate');
 
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
     Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');

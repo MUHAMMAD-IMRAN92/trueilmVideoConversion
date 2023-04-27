@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('image')->nullable();
             $table->integer('type');
             $table->integer('created_by');
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

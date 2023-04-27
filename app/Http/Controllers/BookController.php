@@ -56,7 +56,7 @@ class BookController extends Controller
     }
     public function add()
     {
-        $categories = Category::where('type', $this->type)->get();
+        $categories = Category::where('type', $this->type)->where('status', 1)->get();
         return view('eBook.add', [
             'type' => $this->type,
             'categories' => $categories
@@ -83,6 +83,7 @@ class BookController extends Controller
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
         $book->type = $this->type;
+        $book->status = 1;
         $book->save();
 
         return redirect()->to('books/' . $this->type)->with('msg', 'Content Saved Successfully!');;
@@ -90,7 +91,7 @@ class BookController extends Controller
 
     public function edit($id)
     {
-        $categories = Category::where('type', $this->type)->get();
+        $categories = Category::where('type', $this->type)->where('status', 1)->get();
         $book = Book::where('_id', $id)->first();
         return view('eBook.edit', [
             'book' => $book,
@@ -120,8 +121,20 @@ class BookController extends Controller
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
         $book->type = $this->type;
+        $book->status = 1;
         $book->save();
 
         return redirect()->to('books/' .  $this->type)->with('msg', 'Content Updated Successfully!');;
+    }
+    public function updateStatus($id)
+    {
+        $book = Book::where('_id', $id)->first();
+        $status = $book->status == 1 ? 0 : 1;
+
+        $book->update([
+            'status' => $status
+        ]);
+
+        return redirect()->back();
     }
 }

@@ -10,4 +10,5 @@ class Book extends Eloquent
     use HasFactory;
     protected $connection = 'mongodb';
     protected $table = 'books';
+    protected $guarded = [];
 }

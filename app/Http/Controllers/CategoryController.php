@@ -65,7 +65,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->added_by = $this->user->id;
         $category->type = $request->type;
-        $category->status = 0;
+        $category->status = 1;
         $category->save();
 
         return redirect()->to('categories/' . $this->type)->with('msg', 'Publisher Saved Successfully!');;
