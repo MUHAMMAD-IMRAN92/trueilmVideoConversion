@@ -64,6 +64,22 @@ class BookController extends Controller
     }
     public function store(Request $request)
     {
+        if ($this->type == 1) {
+            $validated = $request->validate([
+                'title' => 'required',
+                'file' => 'required|file|mimes:epub',
+            ]);
+        } elseif ($this->type == 2) {
+            $validated = $request->validate([
+                'title' => 'required',
+                'file' => 'required|file|mimes:mp3',
+            ]);
+        } elseif ($this->type == 3) {
+            $validated = $request->validate([
+                'title' => 'required',
+                'file' => 'required|file|mimes:docs,txt,', 'pdf'
+            ]);
+        }
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
@@ -100,7 +116,7 @@ class BookController extends Controller
         ]);
     }
 
-    public function update(BookRequest $request)
+    public function update(Request $request)
     {
         $book = Book::where('_id', $request->id)->first();
         $book->title = $request->title;

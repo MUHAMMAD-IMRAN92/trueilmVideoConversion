@@ -258,4 +258,9 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     #vendor-products-configration td:last-child p {
         margin: 0 5px;
     }
+
+    .td-img {
+        width: 100px;
+        height: 100px;
+    }
 </style>

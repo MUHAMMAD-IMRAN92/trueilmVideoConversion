@@ -181,6 +181,13 @@
                                des +
                                '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.cover}
+                               /></td>`
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
@@ -339,9 +346,9 @@
                    {
                        "mRender": function(data, type, row) {
 
-                           return '<td><img src="' +
+                           return '<td><img class="td-img"  src="' +
                                row.image +
-                               '}}/></td>'
+                               '/></td>'
                        }
                    },
                    {
