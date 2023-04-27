@@ -65,6 +65,7 @@
                                                 <tr>
                                                     <th>Name</th>
                                                     <th class="description-td">Detail</th>
+                                                    <th class="">Image</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

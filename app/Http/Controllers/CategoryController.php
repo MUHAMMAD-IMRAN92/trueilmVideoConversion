@@ -66,6 +66,13 @@ class CategoryController extends Controller
         $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->status = 1;
+        if ($request->has('image')) {
+            $base_path = url('storage');
+            $file = $request->file('image');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('categories_image', $file_name, 'public');
+            $category->image = $base_path . '/' . $path;
+        }
         $category->save();
 
         return redirect()->to('categories/' . $this->type)->with('msg', 'Publisher Saved Successfully!');;
@@ -88,6 +95,13 @@ class CategoryController extends Controller
         $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->status = $category->status;
+        if ($request->has('image')) {
+            $base_path = url('storage');
+            $file = $request->file('image');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('categories_image', $file_name, 'public');
+            $category->image = $base_path . '/' . $path;
+        }
         $category->save();
 
         return redirect()->to('categories/' . $this->type)->with('msg', 'Publisher Updated Successfully!');;

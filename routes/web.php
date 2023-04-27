@@ -67,4 +67,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('category/{type}/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
     Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
     Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
+
+
+    Route::get('/create-admin', function () {
+    });
 });

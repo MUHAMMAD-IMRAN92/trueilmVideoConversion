@@ -338,6 +338,14 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+
+                           return '<td><img src="{{ '+
+                                                       row.image
+                                                       +' }}/></td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
                            var eye = 'feather icon-eye';
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';

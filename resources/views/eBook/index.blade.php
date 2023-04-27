@@ -64,6 +64,7 @@
                                                 <tr>
                                                     <th>Title</th>
                                                     <th class="description-td">Description</th>
+                                                    <th class="">Cover</th>
                                                     <th class="">Type</th>
                                                     <th>Action</th>
                                                 </tr>
