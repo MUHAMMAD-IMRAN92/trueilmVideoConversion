@@ -339,9 +339,9 @@
                    {
                        "mRender": function(data, type, row) {
 
-                           return '<td><img src="{{ '+
-                                                       row.image
-                                                       +' }}/></td>'
+                           return '<td><img src="' +
+                               row.image +
+                               '}}/></td>'
                        }
                    },
                    {
