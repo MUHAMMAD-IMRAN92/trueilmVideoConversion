@@ -31,20 +31,32 @@ class BookController extends Controller
     }
     public function allBooks(Request $request)
     {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::approved()->where('type', $this->type)->count();
+        $totalBrands = Book::approved()->where('type', $this->type)->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->count();
         $brands = Book::approved()->where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::approved()->where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
             'draw' => $draw,

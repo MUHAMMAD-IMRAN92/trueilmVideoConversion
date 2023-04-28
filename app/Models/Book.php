@@ -24,6 +24,6 @@ class Book extends Eloquent
 
     public function scopeApproved($query)
     {
-        return $query->where('status', 0);
+        return $query->where('approved', 1);
     }
 }

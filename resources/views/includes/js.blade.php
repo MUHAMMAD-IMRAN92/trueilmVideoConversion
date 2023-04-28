@@ -191,6 +191,18 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var author = '';
+                           if (row.author != null) {
+                               author = row.author;
+                           } else {
+                               author = 'N/A'
+                           }
+                           return '<td>' +
+                               author + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
                            var type = '';
                            if (row.type == 1) {
                                type = 'eBook';
@@ -371,7 +383,6 @@
                }],
                "order": false
            });
-
            $('#pending-book-table').DataTable({
                "processing": true,
                "serverSide": true,
@@ -404,6 +415,19 @@
                            return `<td><img class="td-img" src=
                                ${row.cover}
                                /></td>`
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var author = '';
+                           if (row.author != null) {
+                               author = row.author;
+                           } else {
+                               author = 'N/A'
+                           }
+                           return '<td>' +
+                               author + '</td>'
+
                        }
                    },
                    {

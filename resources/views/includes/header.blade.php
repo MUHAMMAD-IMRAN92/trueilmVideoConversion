@@ -243,8 +243,8 @@
                                 data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"
                                         style="margin-top:10px">
-                                        {{-- {{ auth()->user()->name }} --}}
-                                    </span><span class="user-status">Admin</span></div><span></span>
+                                    </span><span class="user-status">{{ auth()->user()->name }}
+                                    </span></div><span></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 {{-- <a class="dropdown-item"

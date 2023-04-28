@@ -12,7 +12,7 @@
                 <!-- Dashboard Ecommerce Starts -->
                 <section id="dashboard-ecommerce">
                     <div class="row">
-                        @if (auth()->user()->type == 1 || auth()->user()->type == 2)
+                        @if (auth()->user()->hasRole('Admin'))
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -29,6 +29,7 @@
                                 </div> --}} <br>
                                 </div>
                             </div>
+
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -45,6 +46,9 @@
                                 </div> --}} <br>
                                 </div>
                             </div>
+                        @endif
+                        @if (auth()->user()->hasRole('Admin') ||
+                                auth()->user()->hasRole('Publisher'))
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -53,7 +57,14 @@
                                                 <i class="feather icon-package text-warning font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h2 class="text-bold-700 mt-1">{{ App\Models\Book::approved()->count() }}</h2>
+                                        <h2 class="text-bold-700 mt-1">
+                                            {{ App\Models\Book::approved()->when(
+                                                    !auth()->user()->hasRole('Admin'),
+                                                    function ($query) {
+                                                        $query->where('added_by', auth()->user()->id);
+                                                    },
+                                                )->count() }}
+                                        </h2>
                                         <p class="mb-0">Books</p>
                                     </div>
                                     {{-- <div class="card-content">
@@ -70,9 +81,20 @@
                                                 <i class="fa fa-language text-success font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h2 class="text-bold-700 mt-1">{{ App\Models\Book::pendingApprove()->count() }}</h2>
-                                        <p class="mb-0">Pending For Approval <u style="font-size: 10px"><a
-                                                    href="{{ url('book/pending-for-approval') }}">Click</a></u>
+                                        <h2 class="text-bold-700 mt-1">
+                                            {{ App\Models\Book::pendingApprove()->when(
+                                                    !auth()->user()->hasRole('Admin'),
+                                                    function ($query) {
+                                                        $query->where('added_by', auth()->user()->id);
+                                                    },
+                                                )->count() }}
+                                        </h2>
+                                        <p class="mb-0">Pending For Approval <u style="font-size: 10px">
+                                                @if (auth()->user()->hasRole('Admin'))
+                                                    <a href="{{ url('book/pending-for-approval') }}">Click</a>
+                                                @endif
+                                            </u>
+
                                         </p>
                                     </div>
                                     {{-- <div class="card-content">
