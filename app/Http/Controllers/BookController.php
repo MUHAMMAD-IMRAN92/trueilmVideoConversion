@@ -119,7 +119,7 @@ class BookController extends Controller
         return redirect()->to('books/' . $this->type)->with('msg', 'Content Saved Successfully!');
     }
 
-    public function edit($id)
+    public function edit($type, $id)
     {
         $categories = Category::active()->where('type', $this->type)->get();
         $book = Book::where('_id', $id)->first();

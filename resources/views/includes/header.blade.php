@@ -476,9 +476,13 @@
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Admin'))
-                    <li class="@if (request()->is('users*')) active @endif "><a
+                    <li class="@if (request()->is('user*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">User Management</span></a>
+                    </li>
+                    <li class="@if (request()->is('book/pending-*')) active @endif "><a
+                            href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Books For Approval</span></a>
                     </li>
                 @endif
 

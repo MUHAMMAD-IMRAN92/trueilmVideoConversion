@@ -79,9 +79,9 @@
                                                             <textarea class="summernote" name="description">{{ $book->description }}</textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">eBook</label>
+                                                            <label for="basicInputFile">Book</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
                                                                     id="inputGroupFile01" name="file">
@@ -91,7 +91,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Cover Image</label>
                                                             <div class="custom-file">
@@ -114,8 +114,20 @@
                                                             </div>
                                                         </div>
                                                     </div> --}}
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Author</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="author"
+                                                                        value="{{ $book->author }}" placeholder="" required>
 
-                                                    <div class="col-12">
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
 
                                                         <label for="">Category</label>
                                                         <fieldset class="form-group">
