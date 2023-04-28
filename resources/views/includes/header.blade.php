@@ -421,10 +421,10 @@
                             <span class="menu-item" data-i18n="Analytics">Al-Quran</span></a>
                     </li>
                     <i class="far fa-typewriter"></i>
-                    <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
+                    {{-- <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
                                 class="fa fa-keyboard-o"></i>
                             <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
-                    </li>
+                    </li> --}}
                     <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
@@ -483,6 +483,10 @@
                     <li class="@if (request()->is('book/pending-*')) active @endif "><a
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Books For Approval</span></a>
+                    </li>
+                    <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
+                                class="fa-solid fa-diploma"></i>
+                            <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                     </li>
                 @endif
 
