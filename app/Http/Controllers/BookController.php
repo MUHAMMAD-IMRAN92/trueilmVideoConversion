@@ -100,6 +100,8 @@ class BookController extends Controller
         $book->category_id = $request->category;
         $book->type = $this->type;
         $book->status = 1;
+        $book->approved = 0;
+        $book->author = $request->author;
         $book->save();
 
         return redirect()->to('books/' . $this->type)->with('msg', 'Content Saved Successfully!');
@@ -137,7 +139,9 @@ class BookController extends Controller
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
         $book->type = $this->type;
-        $book->status = 1;
+        $book->status =  $book->status;
+        $book->approved =  $book->approved;
+        $book->author = $request->author;
         $book->save();
 
         return redirect()->to('books/' .  $this->type)->with('msg', 'Content Updated Successfully!');;

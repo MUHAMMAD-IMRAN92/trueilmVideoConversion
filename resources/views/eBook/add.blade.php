@@ -75,7 +75,7 @@
                                                             <textarea class="summernote" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Book</label>
                                                             <div class="custom-file">
@@ -87,7 +87,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Cover Image</label>
                                                             <div class="custom-file">
@@ -99,6 +99,20 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Author</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="author" placeholder=""
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+
                                                     {{-- <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Tags</label>
@@ -111,7 +125,7 @@
                                                         </div>
                                                     </div> --}}
 
-                                                    <div class="col-12">
+                                                    <div class="col-6">
 
                                                         <label for="">Category</label>
                                                         <fieldset class="form-group">
@@ -147,4 +161,3 @@
     </div>
     <!-- END: Content-->
 @endsection
-
