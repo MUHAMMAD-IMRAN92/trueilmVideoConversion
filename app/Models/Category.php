@@ -12,4 +12,10 @@ class Category extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'categories';
     protected $guarded = [];
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 0);
+    }
 }

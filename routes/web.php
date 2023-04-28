@@ -45,12 +45,16 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
-    Route::get('all-book', [App\Http\Controllers\BookController::class, 'allPublisher'])->name('book.all');
+    Route::get('all-book', [App\Http\Controllers\BookController::class, 'allBooks'])->name('book.all');
     Route::get('book/{type}/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');
     Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store');
     Route::get('book/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('book.edit');
     Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update');
     Route::get('book/update-status/{id}', [App\Http\Controllers\BookController::class, 'updateStatus'])->name('book.statusUpdate');
+    Route::get('book/pending-for-approval', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove');
+    Route::get('all-pending-book', [App\Http\Controllers\BookController::class, 'allPendingForApprovalBooks'])->name('book.all-panding');
+    Route::get('book/approve/{id}', [App\Http\Controllers\BookController::class, 'approveBook'])->name('book.approveBook');
+
 
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
     Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');

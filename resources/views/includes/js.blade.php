@@ -371,6 +371,72 @@
                }],
                "order": false
            });
+
+           $('#pending-book-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-pending-book') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description;
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.cover}
+                               /></td>`
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var type = '';
+                           if (row.type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.type == 3) {
+                               type = 'Research Paper';
+                           }
+                           return '<td>' +
+                               type +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-thumbs-up" style="font-size:24px"></i></a>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#add-translation').on('click', function() {
                var html;
                html =

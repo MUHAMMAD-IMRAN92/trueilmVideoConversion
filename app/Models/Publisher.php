@@ -10,4 +10,10 @@ class Publisher extends Eloquent
     use HasFactory;
     protected $connection = 'mongodb';
     protected $table = 'publishers';
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 0);
+    }
 }

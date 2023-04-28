@@ -29,19 +29,19 @@ class BookController extends Controller
             'type' => $this->type
         ]);
     }
-    public function allPublisher(Request $request)
+    public function allBooks(Request $request)
     {
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::where('type', $this->type)->count();
-        $brands = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
+        $totalBrands = Book::approved()->where('type', $this->type)->count();
+        $brands = Book::approved()->where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
+        $brandsCount = Book::approved()->where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -56,7 +56,7 @@ class BookController extends Controller
     }
     public function add()
     {
-        $categories = Category::where('type', $this->type)->where('status', 1)->get();
+        $categories = Category::active()->where('type', $this->type)->get();
         return view('eBook.add', [
             'type' => $this->type,
             'categories' => $categories
@@ -102,12 +102,12 @@ class BookController extends Controller
         $book->status = 1;
         $book->save();
 
-        return redirect()->to('books/' . $this->type)->with('msg', 'Content Saved Successfully!');;
+        return redirect()->to('books/' . $this->type)->with('msg', 'Content Saved Successfully!');
     }
 
     public function edit($id)
     {
-        $categories = Category::where('type', $this->type)->where('status', 1)->get();
+        $categories = Category::active()->where('type', $this->type)->get();
         $book = Book::where('_id', $id)->first();
         return view('eBook.edit', [
             'book' => $book,
@@ -152,5 +152,47 @@ class BookController extends Controller
         ]);
 
         return redirect()->back();
+    }
+    public function pendingForApprove()
+    {
+        return view('eBook.pending_index', [
+            'type' => $this->type
+        ]);
+    }
+    public function allPendingForApprovalBooks(Request $request)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Book::pendingApprove()->count();
+        $brands = Book::pendingApprove()->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Book::pendingApprove()->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
+    public function approveBook($id)
+    {
+        $book = Book::where('_id', $id)->first();
+        $approved = 1;
+
+        $book->update([
+            'approved' => $approved
+        ]);
+
+        return redirect()->back()->with('msg', 'Content Approved Successfully!');
     }
 }

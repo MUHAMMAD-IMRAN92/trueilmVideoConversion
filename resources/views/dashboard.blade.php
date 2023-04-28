@@ -32,28 +32,12 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
-                                        <div class="avatar bg-rgba-success p-50 m-0">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-language text-success font-medium-5"></i>
-                                            </div>
-                                        </div>
-                                        <h2 class="text-bold-700 mt-1">{{ App\Models\AlQuranTranslation::count() }}</h2>
-                                        <p class="mb-0">Translation</p>
-                                    </div>
-                                    {{-- <div class="card-content">
-                                    <div id="line-area-chart-2"></div>
-                                </div> --}} <br>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="card">
-                                    <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-danger p-50 m-0">
                                             <div class="avatar-content">
                                                 <i class="feather icon-shopping-cart text-danger font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h2 class="text-bold-700 mt-1">0</h2>
+                                        <h2 class="text-bold-700 mt-1">{{ App\Models\Hadees::count() }}</h2>
                                         <p class="mb-0">Hadis</p>
                                     </div>
                                     {{-- <div class="card-content">
@@ -69,13 +53,31 @@
                                                 <i class="feather icon-package text-warning font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h2 class="text-bold-700 mt-1">0</h2>
+                                        <h2 class="text-bold-700 mt-1">{{ App\Models\Book::approved()->count() }}</h2>
                                         <p class="mb-0">Books</p>
                                     </div>
                                     {{-- <div class="card-content">
                                     <div id="line-area-chart-4"></div>
                                 </div> --}}
                                     <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+                                        <div class="avatar bg-rgba-success p-50 m-0">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-language text-success font-medium-5"></i>
+                                            </div>
+                                        </div>
+                                        <h2 class="text-bold-700 mt-1">{{ App\Models\Book::pendingApprove()->count() }}</h2>
+                                        <p class="mb-0">Pending For Approval <u style="font-size: 10px"><a
+                                                    href="{{ url('book/pending-for-approval') }}">Click</a></u>
+                                        </p>
+                                    </div>
+                                    {{-- <div class="card-content">
+                                    <div id="line-area-chart-2"></div>
+                                </div> --}} <br>
                                 </div>
                             </div>
                         @endif

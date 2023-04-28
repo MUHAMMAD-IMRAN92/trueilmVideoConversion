@@ -11,4 +11,19 @@ class Book extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'books';
     protected $guarded = [];
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 0);
+    }
+
+    public function scopePendingApprove($query)
+    {
+        return $query->where('approved', 0);
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('status', 0);
+    }
 }
