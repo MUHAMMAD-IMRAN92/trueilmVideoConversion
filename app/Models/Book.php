@@ -12,6 +12,7 @@ class Book extends Eloquent
     protected $table = 'books';
     protected $guarded = [];
 
+    protected $appends = ['user_name'];
     public function scopeActive($query)
     {
         return $query->where('status', 0);
@@ -25,5 +26,13 @@ class Book extends Eloquent
     public function scopeApproved($query)
     {
         return $query->where('approved', 1);
+    }
+
+    public function getUserNameAttribute()
+    {
+        // return $this->added_by;
+        $user = User::where('_id', $this->added_by)->first();
+
+        return @$user->name;
     }
 }

@@ -176,6 +176,8 @@
                            var des = '';
                            if (row.description != null) {
                                des = row.description;
+                           } else {
+                               des = '--';
                            }
                            return '<td>' +
                                des +
@@ -195,7 +197,7 @@
                            if (row.author != null) {
                                author = row.author;
                            } else {
-                               author = 'N/A'
+                               author = '--'
                            }
                            return '<td>' +
                                author + '</td>'
@@ -216,6 +218,17 @@
                            return '<td>' +
                                type +
                                '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
                        }
                    },
                    {
@@ -404,6 +417,8 @@
                            var des = '';
                            if (row.description != null) {
                                des = row.description;
+                           } else {
+                               des = '--';
                            }
                            return '<td>' +
                                des +
@@ -423,7 +438,7 @@
                            if (row.author != null) {
                                author = row.author;
                            } else {
-                               author = 'N/A'
+                               author = '--'
                            }
                            return '<td>' +
                                author + '</td>'
@@ -445,6 +460,17 @@
                            return '<td>' +
                                type +
                                '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
                        }
                    },
                    {

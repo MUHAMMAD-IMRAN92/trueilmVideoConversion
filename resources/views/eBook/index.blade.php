@@ -67,6 +67,7 @@
                                                     <th class="">Cover</th>
                                                     <th class="">Author</th>
                                                     <th class="">Type</th>
+                                                    <th class="">Added By</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
