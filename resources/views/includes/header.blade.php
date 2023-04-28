@@ -485,7 +485,7 @@
                             <span class="menu-item" data-i18n="Analytics">Books For Approval</span></a>
                     </li>
                     <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
-                                class="fa-solid fa-diploma"></i>
+                                class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                     </li>
                 @endif
