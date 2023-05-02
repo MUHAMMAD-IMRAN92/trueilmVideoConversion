@@ -69,10 +69,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
     Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
 
-    Route::get('courses', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
-    Route::get('all-publisher', [App\Http\Controllers\PublisherController::class, 'allPublisher'])->name('publisher.all');
-    Route::get('publisher/create', [App\Http\Controllers\PublisherController::class, 'add'])->name('publisher.add');
-    Route::post('publisher/store', [App\Http\Controllers\PublisherController::class, 'store'])->name('publisher.store');
-    Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
-    Route::post('publisher/update', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
+    Route::get('courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
+    Route::get('all-courses', [App\Http\Controllers\CourseController::class, 'allCourses'])->name('courses.all');
+    Route::get('courses/create', [App\Http\Controllers\CourseController::class, 'add'])->name('courses.add');
+    Route::post('courses/store', [App\Http\Controllers\CourseController::class, 'store'])->name('courses.store');
+    Route::get('courses/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('courses.edit');
+    Route::post('courses/update', [App\Http\Controllers\CourseController::class, 'update'])->name('courses.update');
 });
