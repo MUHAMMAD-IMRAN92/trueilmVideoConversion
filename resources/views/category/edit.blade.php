@@ -82,7 +82,7 @@
                                                             <textarea class="summernote" name="description">{{ $category->description }}</textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Image</label>
                                                             <div class="custom-file">
