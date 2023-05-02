@@ -82,6 +82,18 @@
                                                             <textarea class="summernote" name="description">{{ $category->description }}</textarea>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Image</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="image">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-12">
