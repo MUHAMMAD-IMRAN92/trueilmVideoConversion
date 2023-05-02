@@ -414,21 +414,36 @@
                     </ul>
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
-                @if (auth()->user()->hasRole('Admin') ||
-                        auth()->user()->hasRole('Publisher'))
+
+                @if (auth()->user()->hasRole('Admin'))
                     <li class="@if (request()->is('al-Quran*')) active @endif "><a href="{{ url('al-Quran') }}"><i
                                 class="fa fa-book" aria-hidden="true"></i>
                             <span class="menu-item" data-i18n="Analytics">Al-Quran</span></a>
                     </li>
                     <i class="far fa-typewriter"></i>
                     {{-- <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
-                                class="fa fa-keyboard-o"></i>
-                            <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
-                    </li> --}}
+                    class="fa fa-keyboard-o"></i>
+                <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
+                     </li> --}}
                     <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
 
+                    <li class="@if (request()->is('user*')) active @endif "><a
+                            href="{{ url('user-management') }}"><i class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">User Management</span></a>
+                    </li>
+                    <li class="@if (request()->is('book/pending-*')) active @endif "><a
+                            href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Books For Approval</span></a>
+                    </li>
+                    <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
+                                class="fa fa-list"></i>
+                            <span class="menu-item" data-i18n="Analytics">Courses</span></a>
+                    </li>
+                @endif
+                @if (auth()->user()->hasRole('Admin') ||
+                        auth()->user()->hasRole('Publisher'))
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Content Management</span></a>
                         <ul class="menu-content">
@@ -475,21 +490,6 @@
                         </ul>
                     </li>
                 @endif
-                @if (auth()->user()->hasRole('Admin'))
-                    <li class="@if (request()->is('user*')) active @endif "><a
-                            href="{{ url('user-management') }}"><i class="fa fa-user"></i>
-                            <span class="menu-item" data-i18n="Analytics">User Management</span></a>
-                    </li>
-                    <li class="@if (request()->is('book/pending-*')) active @endif "><a
-                            href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Books For Approval</span></a>
-                    </li>
-                    <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
-                                class="fa fa-list"></i>
-                            <span class="menu-item" data-i18n="Analytics">Courses</span></a>
-                    </li>
-                @endif
-
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"
                     data-i18n="eCommerce">Create Pages</span></a>
