@@ -98,7 +98,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserRequest $request)
+    public function update(Request $request)
     {
         $type = 0;
         if ($request->role == 'Admin') {
