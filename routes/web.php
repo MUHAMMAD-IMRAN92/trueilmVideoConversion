@@ -35,14 +35,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
     Route::post('publisher/update', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
 
-
     Route::get('hadith', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');
     Route::get('all-hadith', [App\Http\Controllers\HadeesController::class, 'allhadith'])->name('hadith');
     Route::get('hadith/create', [App\Http\Controllers\HadeesController::class, 'add'])->name('hadith.add');
     Route::post('hadith/store', [App\Http\Controllers\HadeesController::class, 'store'])->name('hadith.store');
     Route::get('hadith/edit/{id}', [App\Http\Controllers\HadeesController::class, 'edit'])->name('hadith.edit');
     Route::post('hadith/update', [App\Http\Controllers\HadeesController::class, 'update'])->name('hadith.update');
-
 
     Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
     Route::get('all-book', [App\Http\Controllers\BookController::class, 'allBooks'])->name('book.all');
@@ -54,7 +52,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/pending-for-approval', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove');
     Route::get('all-pending-book', [App\Http\Controllers\BookController::class, 'allPendingForApprovalBooks'])->name('book.all-panding');
     Route::get('book/approve/{id}', [App\Http\Controllers\BookController::class, 'approveBook'])->name('book.approveBook');
-
 
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
     Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');
@@ -71,4 +68,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('category/{type}/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
     Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
     Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
+
+    Route::get('courses', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
+    Route::get('all-publisher', [App\Http\Controllers\PublisherController::class, 'allPublisher'])->name('publisher.all');
+    Route::get('publisher/create', [App\Http\Controllers\PublisherController::class, 'add'])->name('publisher.add');
+    Route::post('publisher/store', [App\Http\Controllers\PublisherController::class, 'store'])->name('publisher.store');
+    Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
+    Route::post('publisher/update', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
 });

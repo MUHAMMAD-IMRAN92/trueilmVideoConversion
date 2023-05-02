@@ -484,10 +484,10 @@
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Books For Approval</span></a>
                     </li>
-                    {{-- <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
+                    <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Courses</span></a>
-                    </li> --}}
+                    </li>
                 @endif
 
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
