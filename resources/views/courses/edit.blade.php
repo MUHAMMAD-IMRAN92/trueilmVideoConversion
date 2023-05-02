@@ -10,14 +10,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Add eBook</h2>
+                            <h2 class="content-header-title float-left mb-0">Edit Course</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('books', $type) }}">Book</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('courses') }}">Courses</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Edit Book
+                                    <li class="breadcrumb-item active">Edit Course
                                     </li>
                                 </ol>
                             </div>
@@ -54,8 +54,8 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('book.update') }}" method="POST"
-                                            enctype="multipart/form-data">
+                                        <form class="form form-vertical" action="{{ route('course.update') }}"
+                                            method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
@@ -65,10 +65,10 @@
                                                             <div class="position-relative">
                                                                 <input type="hidden" id="" class="form-control"
                                                                     name="id" placeholder=""
-                                                                    value="{{ $book->_id }}" required>
+                                                                    value="{{ $course->_id }}" required>
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder=""
-                                                                    value="{{ $book->title }}" required>
+                                                                    value="{{ $course->title }}" required>
 
                                                             </div>
                                                         </div>
@@ -76,78 +76,47 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description">{{ $book->description }}</textarea>
+                                                            <textarea class="summernote" name="description">{{ $course->description }}</textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
+
+                                                    <div class="col-md-12">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book</label>
+                                                            <label for="basicInputFile">Image</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file">
+                                                                    id="inputGroupFile01" name="image">
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Cover Image</label>
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="cover">
-                                                                <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
-                                                                    file</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    {{-- <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="">Tags</label>
-                                                            <div class="position-relative">
-                                                                <input type="text" name="tags[]" data-role="tagsinput"
-                                                                    id="" class="form-control" name="title"
-                                                                    placeholder="" required>
 
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Author</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="author"
-                                                                        value="{{ $book->author }}" placeholder="" required>
-
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-6">
-
-                                                        <label for="">Category</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="form-control" name="category" id="basicSelect">
-                                                                <option disabled selected>Select Category</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option
-                                                                        {{ $book->category_id == $category->_id ? 'selected' : '' }}
-                                                                        value="{{ $category->_id }}">
-                                                                        {{ $category->title }}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </fieldset>
-                                                    </div>
                                                 </div>
+                                                <h2>Lessons:</h2>
+                                                <div class="row">
+                                                    @foreach ($course->lessons as $lesson)
+                                                        @if ($lesson->video)
+                                                            <div class="col-md-4">
+                                                                <video style="width:300px ; height:300px"
+                                                                    src="{{ $lesson->video->video }}" controls></video>
+                                                                <h4>{{ $lesson->title }}</h4>
 
+                                                                {{-- <p>{!! $lesson->description !!}</p> <a
+                                                                    href="{{ url('lesson/delete/' . $lesson->id) }}"
+                                                                    class="btn btn-danger">Delete</a> --}}
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                                <br>
+                                                <div class="col-12" id="add-lesson" style="text-align: right">
+                                                    <span class="btn btn-primary mr-1 mb-1">Add
+                                                        Lesson</span>
+                                                </div>
                                                 <div class="col-12">
-                                                    <button type="submit"
-                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>

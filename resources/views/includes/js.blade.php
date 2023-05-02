@@ -530,8 +530,8 @@
                                eye = 'feather icon-eye-off';
                            }
                            return `<td>
-                                <a  class="ml-2" href="{{ url('book/`+ row.type +`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                <a  class="ml-2" href="{{ url('book/update-status/`+row._id+`') }}"><i class="` +
+                                <a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                <a  class="ml-2" href="{{ url('course/update-status/`+row._id+`') }}"><i class="` +
                                eye + `"></i></a>
                                 </td>`
                        }
@@ -589,6 +589,34 @@
                             <label for="">Reference #</label>
                             <input type="number" id="" class="form-control" name="ref_number[]" placeholder="" >
                     </div>`;
+
+               $('.append-inputs').append(html);
+               $('.summernote').summernote();
+           });
+           $('#add-lesson').on('click', function() {
+               var html;
+               html =
+                   `<div class="col-6">
+                            <label for="">Lesson Title</label>
+                            <input type="text" id="" class="form-control" name="lessons[]" placeholder="" >
+                    </div>
+                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Video</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="videos[]">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div><div class="col-12">
+                            <label for="">Description</label>
+                            <fieldset class="form-group">
+                                <textarea class="summernote" name="descriptions[]"></textarea>
+                            </fieldset>
+                     </div>`;
 
                $('.append-inputs').append(html);
                $('.summernote').summernote();

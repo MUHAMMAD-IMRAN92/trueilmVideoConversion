@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseLesson;
+use App\Models\LessonVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,63 +48,103 @@ class CourseController extends Controller
         );
         return json_encode($data);
     }
-    public function create()
+    public function add()
     {
-        return view('course.add');
+        return view('courses.add');
     }
     public function store(Request $request)
     {
-        $Course = new Course();
-        $Course->title = $request->title;
-        $Course->description = $request->description;
-        $Course->added_by = $this->user->id;
-        $Course->type = $request->type;
-        $Course->status = 1;
+        $course = new Course();
+        $course->title = $request->title;
+        $course->description = $request->description;
+        $course->added_by = $this->user->id;
+        $course->status = 1;
         if ($request->has('image')) {
             $base_path = url('storage');
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('categories_image', $file_name, 'public');
-            $Course->image = $base_path . '/' . $path;
+            $path = $file->storeAs('courses_images', $file_name, 'public');
+            $course->image = $base_path . '/' . $path;
         }
-        $Course->save();
+        $course->save();
+        if ($request->lessons) {
+            foreach ($request->lessons as $key => $lesson) {
+                $courseLesson = new CourseLesson();
+                $courseLesson->title = $lesson;
+                $courseLesson->description = $request->descriptions[$key];
+                $courseLesson->course_id = $course->id;
+                $courseLesson->added_by = $this->user->id;
+                $courseLesson->save();
 
-        return redirect()->to('index')->with('msg', 'Course Updated Successfully!');;
+                $lessonVideo = new LessonVideo();
+                if ($request->videos[$key]) {
+                    $base_path = url('storage');
+                    $file = $request->videos[$key];
+                    $file_name = time() . '.' . $file->getClientOriginalExtension();
+                    $path = $file->storeAs('courses_videos', $file_name, 'public');
+
+                    $lessonVideo->video = $base_path . '/' . $path;
+                    $lessonVideo->lesson_id = $courseLesson->id;
+                    $lessonVideo->save();
+                }
+            }
+        }
+        return redirect()->to('/courses')->with('msg', 'Course Saved Successfully!');;
     }
 
-    public function edit($type, $id)
+    public function edit($id)
     {
-        $Course = Course::where('_id', $id)->first();
-        return view('Course.edit', [
-            'Course' => $Course
+        $course = Course::where('_id', $id)->with('lessons.video')->first();
+        return view('courses.edit', [
+            'course' => $course
         ]);
     }
 
     public function update(Request $request)
     {
-        $Course = Course::where('_id', $request->id)->first();
-        $Course->title = $request->title;
-        $Course->description = $request->description;
-        $Course->added_by = $this->user->id;
-        $Course->type = $request->type;
-        $Course->status = $Course->status;
+        $course = Course::where('_id', $request->id)->first();
+        $course->title = $request->title;
+        $course->description = $request->description;
+        $course->added_by = $this->user->id;
+        $course->status = 1;
         if ($request->has('image')) {
             $base_path = url('storage');
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('categories_image', $file_name, 'public');
-            $Course->image = $base_path . '/' . $path;
+            $path = $file->storeAs('courses_images', $file_name, 'public');
+            $course->image = $base_path . '/' . $path;
         }
-        $Course->save();
+        $course->save();
+        if ($request->lessons) {
+            foreach ($request->lessons as $key => $lesson) {
+                $courseLesson = new CourseLesson();
+                $courseLesson->lang = $lesson;
+                $courseLesson->description = $request->descriptions[$key];
+                $courseLesson->course_id = $course->id;
+                $courseLesson->added_by = $this->user->id;
+                $courseLesson->save();
 
-        return redirect()->to('index')->with('msg', 'Course Updated Successfully!');
+                $lessonVideo = new LessonVideo();
+                if ($request->videos[$key]) {
+                    $base_path = url('storage');
+                    $file = $request->videos[$key];
+                    $file_name = time() . '.' . $file->getClientOriginalExtension();
+                    $path = $file->storeAs('courses_videos', $file_name, 'public');
+
+                    $lessonVideo->video = $base_path . '/' . $path;
+                    $lessonVideo->lesson_id = $courseLesson->id;
+                    $lessonVideo->save();
+                }
+            }
+        }
+        return redirect()->to('/courses')->with('msg', 'Course Saved Successfully!');;
     }
     public function updateStatus($id)
     {
-        $Course = Course::where('_id', $id)->first();
-        $status = $Course->status == 1 ? 0 : 1;
+        $course = Course::where('_id', $id)->first();
+        $status = $course->status == 1 ? 0 : 1;
 
-        $Course->update([
+        $course->update([
             'status' => $status
         ]);
 

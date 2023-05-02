@@ -71,8 +71,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
     Route::get('all-courses', [App\Http\Controllers\CourseController::class, 'allCourses'])->name('courses.all');
-    Route::get('courses/create', [App\Http\Controllers\CourseController::class, 'add'])->name('courses.add');
-    Route::post('courses/store', [App\Http\Controllers\CourseController::class, 'store'])->name('courses.store');
-    Route::get('courses/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('courses.edit');
-    Route::post('courses/update', [App\Http\Controllers\CourseController::class, 'update'])->name('courses.update');
+    Route::get('course/create', [App\Http\Controllers\CourseController::class, 'add'])->name('course.add');
+    Route::post('course/store', [App\Http\Controllers\CourseController::class, 'store'])->name('course.store');
+    Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
+    Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
+    Route::get('course/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('course.statusUpdate');
+
 });

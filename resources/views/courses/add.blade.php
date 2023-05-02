@@ -10,12 +10,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Add eBook</h2>
+                            <h2 class="content-header-title float-left mb-0">Add Course</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('books', $type) }}">Book</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('courses') }}">Courses</a>
                                     </li>
                                     <li class="breadcrumb-item active">Add Book
                                     </li>
@@ -54,7 +54,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('book.store') }}" method="POST"
+                                        <form class="form form-vertical" action="{{ route('course.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
@@ -75,72 +75,24 @@
                                                             <textarea class="summernote" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
+
+                                                    <div class="col-md-12">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book</label>
+                                                            <label for="basicInputFile">Image</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file">
+                                                                    id="inputGroupFile01" name="image">
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Cover Image</label>
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="cover">
-                                                                <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
-                                                                    file</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Author</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="author" placeholder=""
-                                                                        required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-
-                                                    {{-- <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="">Tags</label>
-                                                            <div class="position-relative">
-                                                                <input type="text" name="tags[]" data-role="tagsinput"
-                                                                    id="" class="form-control" name="title"
-                                                                    placeholder="" required>
-
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
-
-                                                    <div class="col-6">
-
-                                                        <label for="">Category</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="form-control" name="category" id="basicSelect">
-                                                                <option disabled selected>Select Category</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->_id }}">
-                                                                        {{ $category->title }}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </fieldset>
-                                                    </div>
-
-
+                                                </div>
+                                                <div class="col-12" id="add-lesson" style="text-align: right">
+                                                    <span class="btn btn-primary mr-1 mb-1">Add
+                                                        Lesson</span>
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
