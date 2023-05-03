@@ -78,3 +78,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 });
+
+Route::group(array('domain' => 'trueilm.com'), function () {
+    Route::get('/test', [App\Http\Controllers\HomeController::class, 'test']);
+});
