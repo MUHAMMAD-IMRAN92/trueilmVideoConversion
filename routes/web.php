@@ -22,6 +22,7 @@ Route::group(['domain' => 'trueilm.com'], function () {
         echo 'test route!';
     });
 });
+Route::group(['domain' => 'admin.trueilm.com'],function(){
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
@@ -82,4 +83,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
+});
 });
