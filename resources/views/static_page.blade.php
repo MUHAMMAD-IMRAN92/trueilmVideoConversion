@@ -17,11 +17,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
 
     .btn-color {
         background-color: blue;
         margin-left: 30%;
+    }
+
+    .logo {
+        position: absolute;
+        z-index: 1;
+        top: 2rem;
     }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,28 +36,42 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <body class="body-class">
-    <div class="row append">
-        @csrf
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-            <input type="email" class="form-control " id="exampleFormControlInput1" placeholder="name@example.com"
-                name="email">
-        </div>
-        <div class="ml-5">
-            <button type="submit" id="submit" class="btn btn-primary mt-3 btn-color">Subscribe</button>
-        </div>
+    <div class="logo">
+        <img src="{{ asset('app-assets/images/backgrounds/staticlogo.png') }}" alt="">
     </div>
+    <div class="row append" style="position: relative;">
+        <form>
+            @csrf
+            <div class="mb-3">
+
+                <span class="" style="color:white;display:none">Please Enter Email!</span>
+                <br>
+                <input type="email" class="form-control " id="exampleFormControlInput1" placeholder="name@example.com"
+                    name="email">
+            </div>
+            <div class="ml-5">
+                <button type="submit" id="submit" class="btn btn-primary mt-3 btn-color">Subscribe</button>
+            </div>
+        </form>
+    </div>
+    {{-- url('../app-assets/images/backgrounds/trueilm-logo') --}}
 
 </html>
 <script>
     $(document).ready(function() {
-        $('#submit').on('click', function() {
-            var html = `<div class="card">
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            if ($('#exampleFormControlInput1').val() != "") {
+                var html = `<div class="card">
             <div class="card-body">
                 You Are Subscribed  Successfully!
             </div>
             </div> `;
-            $('.append').html(html);
+                $('.append').html(html);
+            } else {
+                $('span').css('display', 'block');
+            }
+
         })
     });
 </script>

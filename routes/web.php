@@ -17,7 +17,7 @@ use MongoDB\Client;
 |
 */
 
-Route::group(['domain' => 'trueilm.com'], function () {
+Route::group(['domain' => '127.0.0.1'], function () {
     Route::get('/', function () {
         return view('static_page');
     });
