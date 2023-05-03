@@ -18,10 +18,10 @@ use MongoDB\Client;
 */
 
 Route::group(['domain' => 'trueilm.com'], function () {
-    Route::get('/test', function () {
+    Route::get('/', function () {
         return view('static_page');
     });
-    Route::post('/post', function (Request  $request) {
+    Route::post('/', function (Request  $request) {
         return $request->all();
     });
 });
