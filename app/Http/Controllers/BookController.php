@@ -89,7 +89,7 @@ class BookController extends Controller
         } elseif ($this->type == 3) {
             $validated = $request->validate([
                 'title' => 'required',
-                'file' => 'required|file|mimes:docs,txt,', 'pdf'
+                'file' => 'required|file|mimes:epub,pdf',
             ]);
         }
         $book = new Book();

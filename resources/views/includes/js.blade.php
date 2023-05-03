@@ -598,13 +598,13 @@
                html =
                    `<div class="col-6">
                             <label for="">Lesson Title</label>
-                            <input type="text" id="" class="form-control" name="lessons[]" placeholder="" >
+                            <input type="text" id="" required class="form-control" name="lessons[]" placeholder="" >
                     </div>
                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Video</label>
                                                             <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
+                                                                <input type="file" required class="custom-file-input"
                                                                     id="inputGroupFile01" name="videos[]">
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose

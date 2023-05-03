@@ -64,7 +64,7 @@
                                                             <label for="">Title</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="title" placeholder="" required>
+                                                                    name="title" required placeholder="" required>
 
                                                             </div>
                                                         </div>
