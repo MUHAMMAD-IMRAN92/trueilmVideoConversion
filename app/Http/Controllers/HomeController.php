@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubcriptionEmail;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,8 +26,11 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    public function test()
+    public function saveEmail(Request $request)
     {
-        echo 'test route!';
+        $email = new SubcriptionEmail();
+        $email->email = $request->email;
+        $email->save();
+        return redirect()->back()->with('msg', 'You are subscribed successfully!');
     }
 }

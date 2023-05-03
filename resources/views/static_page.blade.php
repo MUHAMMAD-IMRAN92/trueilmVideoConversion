@@ -40,14 +40,15 @@
         <img src="{{ asset('app-assets/images/backgrounds/staticlogo.png') }}" alt="">
     </div>
     <div class="row append" style="position: relative;">
-        <form>
+        <form action="{{ url('/test') }}" method="POST">
             @csrf
             <div class="mb-3">
+                @if (\Session::has('msg'))
+                    <span style="color:white;"> {{ \Session::get('msg') }} </span>
+                @endif
 
-                <span class="" style="color:white;display:none">Please Enter Email!</span>
-                <br>
-                <input type="email" class="form-control " id="exampleFormControlInput1" placeholder="name@example.com"
-                    name="email">
+                <input type="email" required class="form-control " id="exampleFormControlInput1"
+                    placeholder="name@example.com" name="email">
             </div>
             <div class="ml-5">
                 <button type="submit" id="submit" class="btn btn-primary mt-3 btn-color">Subscribe</button>
@@ -59,19 +60,19 @@
 </html>
 <script>
     $(document).ready(function() {
-        $('form').on('submit', function(e) {
-            e.preventDefault();
-            if ($('#exampleFormControlInput1').val() != "") {
-                var html = `<div class="card">
-            <div class="card-body">
-                You Are Subscribed  Successfully!
-            </div>
-            </div> `;
-                $('.append').html(html);
-            } else {
-                $('span').css('display', 'block');
-            }
+        // $('form').on('submit', function(e) {
+        //     // e.preventDefault();
+        //     if ($('#exampleFormControlInput1').val() != "") {
+        //         var html = `<div class="card">
+        //     <div class="card-body">
+        //         You Are Subscribed  Successfully!
+        //     </div>
+        //     </div> `;
+        //         $('.append').html(html);
+        //     } else {
+        //         $('span').css('display', 'block');
+        //     }
 
-        })
+        // })
     });
 </script>
