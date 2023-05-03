@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 });
 
-Route::group(['domain' => '127.0.0.1'], function () {
+Route::group(['domain' => 'trueilm.com'], function () {
     Route::get('/test', function () {
         echo 'test route!';
     });
