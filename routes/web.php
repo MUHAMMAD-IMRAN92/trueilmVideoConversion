@@ -18,14 +18,11 @@ use MongoDB\Client;
 */
 
 Route::group(['domain' => 'trueilm.com'], function () {
-    Route::get('/test', function () {
-        echo 'test route!';
-    });
     Route::get('/', function () {
-        echo 'test2 route!';
+        return view('static_page');
     });
 });
-Route::group(['domain' => 'admin.trueilm.com'],function(){
+Route::group(['domain' => 'admin.trueilm.com'], function () {
     Auth::routes();
 
     Route::middleware(['auth'])->group(function () {
