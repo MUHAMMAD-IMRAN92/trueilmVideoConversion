@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/pending-for-approval', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove');
     Route::get('all-pending-book', [App\Http\Controllers\BookController::class, 'allPendingForApprovalBooks'])->name('book.all-panding');
     Route::get('book/approve/{id}', [App\Http\Controllers\BookController::class, 'approveBook'])->name('book.approveBook');
+    Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
 
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
     Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');
@@ -76,5 +77,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
-
 });

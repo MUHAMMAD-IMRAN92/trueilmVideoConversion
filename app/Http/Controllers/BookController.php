@@ -41,17 +41,17 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::approved()->where('type', $this->type)->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::where('type', $this->type)->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
-        $brands = Book::approved()->where('type', $this->type)->when($search, function ($q) use ($search) {
+        $brands = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::approved()->where('type', $this->type)->when($search, function ($q) use ($search) {
+        $brandsCount = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -210,5 +210,17 @@ class BookController extends Controller
         ]);
 
         return redirect()->back()->with('msg', 'Content Approved Successfully!');
+    }
+
+    public function rejectBook($id)
+    {
+        $book = Book::where('_id', $id)->first();
+        $approved = 2;
+
+        $book->update([
+            'approved' => $approved
+        ]);
+
+        return redirect()->back()->with('msg', 'Content Reject Successfully!');
     }
 }

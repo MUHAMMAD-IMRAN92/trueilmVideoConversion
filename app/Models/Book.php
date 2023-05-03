@@ -27,7 +27,10 @@ class Book extends Eloquent
     {
         return $query->where('approved', 1);
     }
-
+    public function scopeRejected($query)
+    {
+        return $query->where('approved', 2);
+    }
     public function getUserNameAttribute()
     {
         // return $this->added_by;

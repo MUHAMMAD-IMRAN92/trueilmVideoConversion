@@ -67,9 +67,7 @@
                                         </h2>
                                         <p class="mb-0">Books</p>
                                     </div>
-                                    {{-- <div class="card-content">
-                                    <div id="line-area-chart-4"></div>
-                                </div> --}}
+
                                     <br>
                                 </div>
                             </div>
@@ -97,9 +95,34 @@
 
                                         </p>
                                     </div>
-                                    {{-- <div class="card-content">
-                                    <div id="line-area-chart-2"></div>
-                                </div> --}} <br>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+                                        <div class="avatar bg-rgba-success p-50 m-0">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-language text-success font-medium-5"></i>
+                                            </div>
+                                        </div>
+                                        <h2 class="text-bold-700 mt-1">
+                                            {{ App\Models\Book::rejected()->when(
+                                                    !auth()->user()->hasRole('Admin'),
+                                                    function ($query) {
+                                                        $query->where('added_by', auth()->user()->id);
+                                                    },
+                                                )->count() }}
+                                        </h2>
+                                        <p class="mb-0">Rejected<u style="font-size: 10px">
+                                                {{-- @if (auth()->user()->hasRole('Admin'))
+                                                    <a href="{{ url('book/pending-for-approval') }}">Click</a>
+                                                @endif --}}
+                                            </u>
+
+                                        </p>
+                                    </div>
+                                    <br>
                                 </div>
                             </div>
                         @endif

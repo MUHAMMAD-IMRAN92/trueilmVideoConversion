@@ -219,6 +219,23 @@
                                type +
                                '</td>'
                        }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var approved = '';
+                           if (row.approved == 0) {
+                               approved = 'Pending For Approval';
+                           }
+                           if (row.approved == 2) {
+                               approved = 'Rejected';
+                           }
+                           if (row.approved == 1) {
+                               approved = 'Approved';
+                           }
+                           return '<td>' +
+                               approved +
+                               '</td>'
+                       }
                    }, {
                        "mRender": function(data, type, row) {
                            var user_name = '';
@@ -476,7 +493,8 @@
                    {
                        "mRender": function(data, type, row) {
                            return `<td>
-                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-thumbs-up" style="font-size:24px"></i></a>
+                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                                <a  class="ml-2" href="{{ url('book/reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>
                                 </td>`
                        }
                    },
