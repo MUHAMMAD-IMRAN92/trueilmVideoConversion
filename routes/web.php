@@ -18,10 +18,10 @@ use MongoDB\Client;
 */
 
 Route::group(['domain' => 'trueilm.com'], function () {
+    Route::post('/post', [App\Http\Controllers\HomeController::class, 'saveEmail']);
     Route::get('/', function () {
         return view('static_page');
     });
-    Route::post('/test', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
 Route::group(['domain' => 'admin.trueilm.com'], function () {
     Auth::routes();

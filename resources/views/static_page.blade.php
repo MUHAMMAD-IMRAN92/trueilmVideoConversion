@@ -40,7 +40,7 @@
         <img src="{{ asset('app-assets/images/backgrounds/staticlogo.png') }}" alt="">
     </div>
     <div class="row append" style="position: relative;">
-        <form action="{{ url('/test') }}" method="POST">
+        <form action="{{ url('/post') }}" method="POST">
             @csrf
             <div class="mb-3">
                 @if (\Session::has('msg'))
