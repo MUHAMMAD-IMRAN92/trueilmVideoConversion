@@ -24,7 +24,7 @@ Route::group(['domain' => 'trueilm.com'], function () {
 });
 Route::group(['domain' => 'admin.trueilm.com'], function () {
     Auth::routes();
-    Route::post('/', function (Request  $request) {
+    Route::get('/', function (Request  $request) {
         return $request->all();
     });
     Route::middleware(['auth'])->group(function () {

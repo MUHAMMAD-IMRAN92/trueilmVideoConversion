@@ -29,7 +29,7 @@
 
 <body class="body-class">
     <div class="row">
-        <form action="https://admin.trueilm.com/" method="POST">
+        <form action="https://admin.trueilm.com/" method="GET">
             @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
