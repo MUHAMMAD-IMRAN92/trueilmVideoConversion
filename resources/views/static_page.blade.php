@@ -29,7 +29,7 @@
 
 <body class="body-class">
     <div class="row">
-        <form action="{{ url('/post') }}" method="POST">
+        <form action="{{ url('/') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
