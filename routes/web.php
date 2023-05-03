@@ -80,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::group(array('domain' => 'https://trueilm.com'), function () {
-    Route::get('/', function () {
+    Route::get('/login', function () {
         echo 'test route!';
     });
 });
