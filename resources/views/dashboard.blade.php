@@ -35,7 +35,7 @@
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-danger p-50 m-0">
                                             <div class="avatar-content">
-                                                <i class="feather icon-shopping-cart text-danger font-medium-5"></i>
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">{{ App\Models\Hadees::count() }}</h2>
@@ -54,7 +54,7 @@
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-warning p-50 m-0">
                                             <div class="avatar-content">
-                                                <i class="feather icon-package text-warning font-medium-5"></i>
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
@@ -76,7 +76,7 @@
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-success p-50 m-0">
                                             <div class="avatar-content">
-                                                <i class="fa fa-language text-success font-medium-5"></i>
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
@@ -87,7 +87,7 @@
                                                     },
                                                 )->count() }}
                                         </h2>
-                                        <p class="mb-0">Pending For Approval <u style="font-size: 10px">
+                                        <p class="mb-0">Pending For Approval Book <u style="font-size: 10px">
                                                 @if (auth()->user()->hasRole('Admin'))
                                                     <a href="{{ url('book/pending-for-approval') }}">Click</a>
                                                 @endif
@@ -103,7 +103,7 @@
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-success p-50 m-0">
                                             <div class="avatar-content">
-                                                <i class="fa fa-language text-success font-medium-5"></i>
+                                                <i class="fa fa-book text-danger font-medium-5"></i>
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
@@ -114,7 +114,7 @@
                                                     },
                                                 )->count() }}
                                         </h2>
-                                        <p class="mb-0">Rejected<u style="font-size: 10px">
+                                        <p class="mb-0">Rejected Books<u style="font-size: 10px">
                                                 {{-- @if (auth()->user()->hasRole('Admin'))
                                                     <a href="{{ url('book/pending-for-approval') }}">Click</a>
                                                 @endif --}}
