@@ -80,5 +80,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::group(array('domain' => 'trueilm.com'), function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'test']);
+    Route::get('/', function () {
+        echo 'test route!';
+    });
 });
