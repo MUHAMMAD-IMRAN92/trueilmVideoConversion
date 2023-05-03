@@ -75,6 +75,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('course/store', [App\Http\Controllers\CourseController::class, 'store'])->name('course.store');
     Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
-    Route::get('course/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('course.statusUpdate');
+    Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 
 });

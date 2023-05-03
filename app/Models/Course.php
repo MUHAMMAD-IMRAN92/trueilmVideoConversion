@@ -9,6 +9,7 @@ class Course extends Eloquent
 {
     use HasFactory;
 
+    protected $guarded = [];
     public function lessons()
     {
         return $this->hasMany(CourseLesson::class, 'course_id', 'id');
