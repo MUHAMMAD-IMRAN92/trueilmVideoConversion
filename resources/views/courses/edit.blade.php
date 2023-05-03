@@ -102,8 +102,8 @@
                                                                 <video style="width:300px ; height:300px"
                                                                     src="{{ $lesson->video->video }}" controls></video>
                                                                 <h4>{{ $lesson->title }}</h4>
-
-                                                                {{-- <p>{!! $lesson->description !!}</p> <a
+                                                                <p>{!! $lesson->description !!}</p>
+                                                                {{--  <a
                                                                     href="{{ url('lesson/delete/' . $lesson->id) }}"
                                                                     class="btn btn-danger">Delete</a> --}}
                                                             </div>
