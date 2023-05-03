@@ -29,12 +29,12 @@
 
 <body class="body-class">
     <div class="row">
-        <form action="{{ url('/') }}" method="POST">
+        <form action="https://admin.trueilm.com/" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control " id="exampleFormControlInput1"
-                    placeholder="name@example.com" name="email">
+                <input type="email" class="form-control " id="exampleFormControlInput1" placeholder="name@example.com"
+                    name="email">
             </div>
             <div class="ml-5">
                 <button type="submit" class="btn btn-primary mt-3 btn-color">Subscribe</button>
