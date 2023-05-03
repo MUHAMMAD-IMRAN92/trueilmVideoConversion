@@ -10,7 +10,7 @@
 <style>
     .body-class {
         background-image: url('../app-assets/images/backgrounds/static-page-image.png');
-        height: 97.8vh;
+        height: 98vh;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position: center;
