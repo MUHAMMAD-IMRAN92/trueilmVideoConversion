@@ -24,9 +24,7 @@ Route::group(['domain' => 'trueilm.com'], function () {
 });
 Route::group(['domain' => 'admin.trueilm.com'], function () {
     Auth::routes();
-    Route::get('/', function (Request  $request) {
-        return $request->all();
-    });
+
     Route::middleware(['auth'])->group(function () {
         Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
         Route::get('al-Quran', [App\Http\Controllers\AlQuranController::class, 'index'])->name('al-Quran');

@@ -28,18 +28,28 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <body class="body-class">
-    <div class="row">
-        <form action="https://admin.trueilm.com/" method="GET">
-            @csrf
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" class="form-control " id="exampleFormControlInput1" placeholder="name@example.com"
-                    name="email">
-            </div>
-            <div class="ml-5">
-                <button type="submit" class="btn btn-primary mt-3 btn-color">Subscribe</button>
-            </div>
-        </form>
+    <div class="row append">
+        @csrf
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control " id="exampleFormControlInput1" placeholder="name@example.com"
+                name="email">
+        </div>
+        <div class="ml-5">
+            <button type="submit" id="submit" class="btn btn-primary mt-3 btn-color">Subscribe</button>
+        </div>
     </div>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $('#submit').on('click', function() {
+            var html = `<div class="card">
+            <div class="card-body">
+                You Are Subscribed  Successfully!
+            </div>
+            </div> `;
+            $('.append').html(html);
+        })
+    });
+</script>
