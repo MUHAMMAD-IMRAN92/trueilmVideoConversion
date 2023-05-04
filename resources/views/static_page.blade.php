@@ -40,7 +40,7 @@
         <img src="{{ asset('app-assets/images/backgrounds/staticlogo.png') }}" alt="">
     </div>
     <div class="row append" style="position: relative;">
-        <form action="{{ url('/post') }}" method="POST">
+        <form action="{{ url('post') }}" method="POST">
             @csrf
             <div class="mb-3">
                 @if (\Session::has('msg'))
@@ -60,19 +60,19 @@
 </html>
 <script>
     $(document).ready(function() {
-        $('form').on('submit', function(e) {
-            e.preventDefault();
-            if ($('#exampleFormControlInput1').val() != "") {
-                var html = `<div class="card">
-            <div class="card-body">
-                You Are Subscribed  Successfully!
-            </div>
-            </div> `;
-                $('.append').html(html);
-            } else {
-                $('span').css('display', 'block');
-            }
+        // $('form').on('submit', function(e) {
+        //     e.preventDefault();
+        //     if ($('#exampleFormControlInput1').val() != "") {
+        //         var html = `<div class="card">
+        //     <div class="card-body">
+        //         You Are Subscribed  Successfully!
+        //     </div>
+        //     </div> `;
+        //         $('.append').html(html);
+        //     } else {
+        //         $('span').css('display', 'block');
+        //     }
 
-        })
+        // })
     });
 </script>
