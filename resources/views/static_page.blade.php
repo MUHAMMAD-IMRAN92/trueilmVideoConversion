@@ -64,19 +64,19 @@
 </html>
 <script>
     $(document).ready(function() {
-        // $('form').on('submit', function(e) {
-        //     e.preventDefault();
-        //     if ($('#exampleFormControlInput1').val() != "") {
-        //         var html = `<div class="card">
-        //     <div class="card-body">
-        //         You Are Subscribed  Successfully!
-        //     </div>
-        //     </div> `;
-        //         $('.append').html(html);
-        //     } else {
-        //         $('span').css('display', 'block');
-        //     }
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            if ($('#exampleFormControlInput1').val() != "") {
+                var html = `<div class="card">
+            <div class="card-body">
+                You Are Subscribed  Successfully!
+            </div>
+            </div> `;
+                $('.append').html(html);
+            } else {
+                $('span').css('display', 'block');
+            }
 
-        // })
+        })
     });
 </script>
