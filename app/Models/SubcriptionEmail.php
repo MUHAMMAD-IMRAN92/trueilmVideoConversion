@@ -9,5 +9,6 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class SubcriptionEmail extends Eloquent
 {
     use HasFactory;
+    protected $connection = 'mongodb';
     protected $table = "subscriptions_email";
 }
