@@ -17,12 +17,7 @@ use MongoDB\Client;
 |
 */
 
-Route::group(['domain' => 'trueilm.com'], function () {
-    Route::get('/', function () {
-        return view('static_page');
-    });
-    // Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
-});
+
 Route::group(['domain' => 'admin.trueilm.com'], function () {
     Auth::routes();
 
@@ -85,4 +80,10 @@ Route::group(['domain' => 'admin.trueilm.com'], function () {
         Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
         Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
     });
+});
+Route::group(['domain' => 'trueilm.com'], function () {
+    Route::get('/', function () {
+        return view('static_page');
+    });
+    Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
