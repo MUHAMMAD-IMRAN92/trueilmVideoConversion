@@ -17,12 +17,13 @@ use MongoDB\Client;
 |
 */
 
-Route::group(['domain' => 'trueilm.com'], function () {
+Route::domain('trueilm.com')->group(function () {
     Route::get('/', function () {
         return view('static_page');
     });
     Route::post('post', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
+
 Route::group(['domain' => 'admin.trueilm.com'], function () {
     Auth::routes();
 
