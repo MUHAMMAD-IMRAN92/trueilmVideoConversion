@@ -28,7 +28,6 @@ class HomeController extends Controller
     }
     public function saveEmail(Request $request)
     {
-        return $request->all();
         $email = new SubcriptionEmail();
         $email->email = $request->email;
         $email->save();
