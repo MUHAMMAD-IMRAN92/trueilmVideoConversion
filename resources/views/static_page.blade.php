@@ -44,7 +44,7 @@
             <h2 style="color:white">Coming Soon!</h2>
         </center>
 
-        <form action="{{ url('post') }}" method="POST">
+        <form action="{{ url('/') }}" method="POST">
             @csrf
             <div class="mb-3">
                 @if (\Session::has('msg'))
