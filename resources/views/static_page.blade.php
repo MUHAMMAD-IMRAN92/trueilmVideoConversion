@@ -12,7 +12,7 @@
         background-image: url('../app-assets/images/backgrounds/static-page-image.png');
         height: 98vh;
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+        background-size: cover;
         background-position: center;
         display: flex;
         justify-content: center;
@@ -30,6 +30,21 @@
         z-index: 1;
         top: 2rem;
     }
+    .form-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .subscribe{
+        text-align: center;
+        justify-content: center;
+        margin: 0;
+        margin: o auto;
+    }
+    .coming-soon{
+        margin: 1rem 0;
+        text-align: center
+    }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -39,10 +54,10 @@
     <div class="logo">
         <img src="{{ asset('app-assets/images/backgrounds/staticlogo.png') }}" alt="">
     </div>
-    <div class="row append" style="position: relative;">
-        <center>
+    <div class="row append form-container" style="position: relative;">
+        <div class="coming-soon">
             <h2 style="color:white">Coming Soon!</h2>
-        </center>
+        </div>
 
         <form action="{{ url('/') }}" method="POST">
             @csrf
@@ -54,8 +69,8 @@
                 <input type="email" required class="form-control " id="exampleFormControlInput1"
                     placeholder="name@example.com" name="email">
             </div>
-            <div class="ml-5">
-                <button type="submit" id="submit" class="btn btn-primary mt-3 btn-color">Subscribe</button>
+            <div class="subscribe">
+                <button type="submit" id="submit" class="btn btn-primary mt-3">Subscribe</button>
             </div>
         </form>
     </div>
