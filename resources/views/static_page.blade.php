@@ -40,7 +40,7 @@
         <img src="{{ asset('app-assets/images/backgrounds/staticlogo.png') }}" alt="">
     </div>
     <div class="row append" style="position: relative;">
-        <h2>Coming Soon!</h2>
+        <h2 style="color:white">Coming Soon!</h2>
         <form action="{{ url('post') }}" method="POST">
             @csrf
             <div class="mb-3">
