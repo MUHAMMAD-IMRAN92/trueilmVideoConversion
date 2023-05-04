@@ -43,7 +43,7 @@
         <center>
             <h2 style="color:white">Coming Soon!</h2>
         </center>
-        <br><br>
+
         <form action="{{ url('post') }}" method="POST">
             @csrf
             <div class="mb-3">
