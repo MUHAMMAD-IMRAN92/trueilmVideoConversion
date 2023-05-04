@@ -21,7 +21,7 @@ Route::group(['domain' => 'trueilm.com'], function () {
     Route::get('/', function () {
         return view('static_page');
     });
-    Route::get('/post', [App\Http\Controllers\HomeController::class, 'saveEmail']);
+    Route::post('/post', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
 // Route::group(['domain' => 'admin.trueilm.com'], function () {
 //     Auth::routes();
