@@ -24,7 +24,7 @@ class CategoryController extends Controller
     {
         Session::put('type', $type);
         return view('category.index', [
-            'type' => $type
+            'type' => Session::get('type')
         ]);
     }
     public function allCategory(Request $request)
@@ -33,13 +33,13 @@ class CategoryController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Category::where('type', $this->type)->count();
-        $brands = Category::where('type', $this->type)->when($search, function ($q) use ($search) {
+        $totalBrands = Category::where('type', Session::get('type'))->count();
+        $brands = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Category::where('type', $this->type)->when($search, function ($q) use ($search) {
+        $brandsCount = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             });
@@ -55,7 +55,7 @@ class CategoryController extends Controller
     public function create()
     {
         return view('category.add', [
-            'type' => $this->type
+            'type' => Session::get('type')
         ]);
     }
     public function store(CategoryRequest $request)
@@ -75,7 +75,7 @@ class CategoryController extends Controller
         }
         $category->save();
 
-        return redirect()->to('categories/' . $this->type)->with('msg', 'Publisher Saved Successfully!');;
+        return redirect()->to('categories/' . Session::get('type'))->with('msg', 'Publisher Saved Successfully!');;
     }
 
     public function edit($type, $id)
@@ -83,7 +83,7 @@ class CategoryController extends Controller
         $category = Category::where('_id', $id)->first();
         return view('category.edit', [
             'category' => $category,
-            'type' => $this->type
+            'type' => Session::get('type')
         ]);
     }
 
@@ -104,7 +104,7 @@ class CategoryController extends Controller
         }
         $category->save();
 
-        return redirect()->to('categories/' . $this->type)->with('msg', 'Publisher Updated Successfully!');;
+        return redirect()->to('categories/' . Session::get('type'))->with('msg', 'Publisher Updated Successfully!');;
     }
     public function updateStatus($id)
     {

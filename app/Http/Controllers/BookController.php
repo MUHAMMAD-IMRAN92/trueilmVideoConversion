@@ -26,7 +26,7 @@ class BookController extends Controller
     {
         Session::put('type', $type);
         return view('eBook.index', [
-            'type' => $this->type
+            'type' => Session::get('type')
         ]);
     }
     public function allBooks(Request $request)
@@ -41,17 +41,17 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::where('type', $this->type)->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::where('type', Session::get('type'))->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
-        $brands = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
+        $brands = Book::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::where('type', $this->type)->when($search, function ($q) use ($search) {
+        $brandsCount = Book::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -68,25 +68,25 @@ class BookController extends Controller
     }
     public function add()
     {
-        $categories = Category::active()->where('type', $this->type)->get();
+        $categories = Category::active()->where('type', Session::get('type'))->get();
         return view('eBook.add', [
-            'type' => $this->type,
+            'type' => Session::get('type'),
             'categories' => $categories
         ]);
     }
     public function store(Request $request)
     {
-        if ($this->type == 1) {
+        if (Session::get('type') == 1) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file' => 'required|file|mimes:epub',
             ]);
-        } elseif ($this->type == 2) {
+        } elseif (Session::get('type') == 2) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file' => 'required|file|mimes:mp3',
             ]);
-        } elseif ($this->type == 3) {
+        } elseif (Session::get('type') == 3) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file' => 'required|file|mimes:epub,pdf',
@@ -110,22 +110,22 @@ class BookController extends Controller
         }
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
-        $book->type = $this->type;
+        $book->type = Session::get('type');
         $book->status = 1;
         $book->approved = 0;
         $book->author = $request->author;
         $book->save();
 
-        return redirect()->to('books/' . $this->type)->with('msg', 'Content Saved Successfully!');
+        return redirect()->to('books/' . Session::get('type'))->with('msg', 'Content Saved Successfully!');
     }
 
     public function edit($type, $id)
     {
-        $categories = Category::active()->where('type', $this->type)->get();
+        $categories = Category::active()->where('type', Session::get('type'))->get();
         $book = Book::where('_id', $id)->first();
         return view('eBook.edit', [
             'book' => $book,
-            'type' => $this->type,
+            'type' => Session::get('type'),
             'categories' => $categories
         ]);
     }
@@ -150,13 +150,13 @@ class BookController extends Controller
         }
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
-        $book->type = $this->type;
+        $book->type = Session::get('type');
         $book->status =  $book->status;
         $book->approved =  $book->approved;
         $book->author = $request->author;
         $book->save();
 
-        return redirect()->to('books/' .  $this->type)->with('msg', 'Content Updated Successfully!');;
+        return redirect()->to('books/' .  Session::get('type'))->with('msg', 'Content Updated Successfully!');;
     }
     public function updateStatus($id)
     {
@@ -172,7 +172,7 @@ class BookController extends Controller
     public function pendingForApprove()
     {
         return view('eBook.pending_index', [
-            'type' => $this->type
+            'type' => Session::get('type')
         ]);
     }
     public function allPendingForApprovalBooks(Request $request)
