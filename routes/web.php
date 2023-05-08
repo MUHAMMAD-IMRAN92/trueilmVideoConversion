@@ -23,7 +23,7 @@ Route::group(['domain' => 'trueilm.com'], function () {
     });
     Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
-Route::group(['domain' => 'admin.trueilm.com' , 'domain' => '127.0.0.1'], function () {
+Route::group(['domain' => 'admin.trueilm.com'], function () {
     Auth::routes();
 
     Route::middleware(['auth'])->group(function () {
