@@ -2,7 +2,7 @@
 
     Please click below button to reset your password:
     @component('mail::button', [
-        'url' => "app.trueilm.com/verify-account?email=$user->email &token=$user->id",
+        'url' => "https://app.trueilm.com/verify-account?email=$user->email &token=$user->id",
     ])
         Reset Password
     @endcomponent
