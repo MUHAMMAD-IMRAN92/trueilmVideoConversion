@@ -416,14 +416,14 @@
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
 
                 @if (auth()->user()->hasRole('Admin'))
-                    <li class="@if (request()->is('al-Quran*')) active @endif "><a href="{{ url('al-Quran') }}"><i
+                    <li class="@if (request()->is('al-Quran*') || request()->is('surah*') || request()->is('ayat*')) active @endif "><a href="{{ url('al-Quran') }}"><i
                                 class="fa fa-book" aria-hidden="true"></i>
                             <span class="menu-item" data-i18n="Analytics">Al-Quran</span></a>
                     </li>
                     <i class="far fa-typewriter"></i>
                     {{-- <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
                     class="fa fa-keyboard-o"></i>
-                <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
+                    <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
                      </li> --}}
                     <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
                                 class="fa fa-book"></i>

@@ -10,14 +10,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Edit Surah</h2>
+                            <h2 class="content-header-title float-left mb-0">Add Surah</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Surah</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Edit Surah
+                                    <li class="breadcrumb-item active">Add Surah
                                     </li>
                                 </ol>
                             </div>
@@ -44,87 +44,61 @@
                 </div>
             @endforeach
             <div class="content-body">
-                <h1 class="">{{ $surah->surah }}</h1>
-                <h6 class="">{!! $surah->description !!}</h6>
+              
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
 
-                        <div class="col-md-9 col-9 ayat-insert">
-                            <div class="card card-height">
+                        <div class="col-md-12 col-12">
+                            <div class="card">
 
                                 <div class="card-content">
                                     <div class="card-body">
-
-
-                                        <form class="form form-vertical" action="{{ route('ayat.store') }}" method="POST"
+                                        <form class="form form-vertical" action="{{ route('surah.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            <div class="form-body" id="add-ayat-div">
+                                            <div class="form-body">
                                                 <div class="row append-inputs">
-                                                    <input type="hidden" id="" class="form-control"
-                                                        name="surah_id" placeholder="" value="" required>
                                                     <div class="col-12">
-                                                        <label for="">Ayat</label>
+                                                        <div class="form-group">
+                                                            <label for="">Surah</label>
+                                                            <div class="position-relative">
+                                                                <input type="text" id="" class="form-control"
+                                                                    name="surah" placeholder="" required>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="ayat"></textarea>
+                                                            <textarea class="summernote" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
 
                                                     <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="contact-info-icon">Para#</label>
-                                                            <div class="position-relative">
-                                                                <input type="number" id="" class="form-control"
-                                                                    name="para" placeholder="" value="" required>
-                                                            </div>
 
-                                                        </div>
+                                                        <p>Type</p>
+                                                        <fieldset class="form-group">
+                                                            <select class="form-control" name="type" id="basicSelect">
+                                                                <option value="1">Makki</option>
+                                                                <option value="2">Madani</option>
+                                                            </select>
+                                                        </fieldset>
                                                     </div>
 
-                                                </div>
-                                                <div class="col-12" id="add-translation" style="text-align: right">
-                                                    <span class="btn btn-primary mr-1 mb-1">Add
-                                                        Translation</span>
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
-
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-3 ayat-data">
-                            <div class="card card-height">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        @foreach ($surah->ayats as $ayat)
-                                            <ul class="navigation navigation-main" id="main-menu-navigation"
-                                                data-menu="menu-navigation">
-
-                                                <li class="@if (request()->is($surah->id . '/' . $ayat->id . '*')) active @endif "><a
-                                                        href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
-                                                        <span class="menu-item"
-                                                            data-i18n="Analytics">{!! $ayat->ayat !!}</span></a>
-                                                </li>
-                                            </ul>
-                                        @endforeach
-                                        <div class="" id="" style="text-align: center">
-                                            <a href="{{ url('ayat/create/' . $surah->id) }}"> <span
-                                                    class="btn btn-primary mr-1 mb-1">Add
-                                                    Ayat</span></a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
                 </section>
                 <!-- // Basic Vertical form layout section end -->
 

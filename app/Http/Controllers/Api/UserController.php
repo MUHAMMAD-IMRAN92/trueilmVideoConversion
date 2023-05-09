@@ -14,6 +14,7 @@ class UserController extends Controller
 {
     public function sendVerifyEmail(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'id' => 'required'
         ]);

@@ -263,4 +263,24 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         width: 100px;
         height: 100px;
     }
+
+    .card-height {
+        max-height: 600px;
+        overflow-y: scroll;
+        overflow-y: auto;
+    }
+
+    .left-to-right {
+        text-align: right;
+        margin-right: 20px
+    }
+
+    /* .match-height{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .ayat-insert,.ayat-data{
+        flex-grow: 1 !important;
+    } */
 </style>

@@ -15,9 +15,9 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Ayat</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Surah</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Edit Ayat
+                                    <li class="breadcrumb-item active">Edit Surah
                                     </li>
                                 </ol>
                             </div>
@@ -44,36 +44,28 @@
                 </div>
             @endforeach
             <div class="content-body">
-
+                <h1 class="">{{ $surah->surah }}</h1>
+                <h6 class="">{!! $surah->description !!}</h6>
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
 
-                        <div class="col-md-12 col-12">
-                            <div class="card">
+                        <div class="col-md-9 col-9 ayat-insert">
+                            <div class="card card-height">
 
                                 <div class="card-content">
                                     <div class="card-body">
+
+
                                         <form class="form form-vertical" action="{{ route('ayat.update') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            <div class="form-body">
+                                            <div class="form-body" id="add-ayat-div">
                                                 <div class="row append-inputs">
-
-                                                    <input type="hidden" id="" class="form-control" name="id"
+                                                    <input type="hidden" id="" class="form-control"
+                                                        name="surah_id" placeholder="" value="{{ $surah->id }}" required>
+                                                    <input type="hidden" id="" class="form-control" name="ayat_id"
                                                         placeholder="" value="{{ $ayat->id }}" required>
-
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="">Surah</label>
-                                                            <div class="position-relative">
-                                                                <input type="text" id="" class="form-control"
-                                                                    name="surah" placeholder=""
-                                                                    value="{{ $ayat->surah }}" required>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-12">
                                                         <label for="">Ayat</label>
                                                         <fieldset class="form-group">
@@ -81,69 +73,93 @@
                                                         </fieldset>
                                                     </div>
 
-                                                    <div class="col-6">
+                                                    <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="contact-info-icon">Para#</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
                                                                     name="para" placeholder=""
                                                                     value="{{ $ayat->para_no }}" required>
-
                                                             </div>
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="contact-info-icon">Rukūʿ</label>
-                                                            <div class="position-relative">
-                                                                <input type="number" id="" class="form-control"
-                                                                    name="ruku" placeholder=""
-                                                                    value="{{ $ayat->ruku }}" required>
-
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
                                                     @foreach ($ayat->translations as $aya)
-                                                        <div class="col-12">
+                                                        <div class="col-12 ">
 
                                                             <p>Language</p>
                                                             <fieldset class="form-group">
                                                                 <select class="form-control" name="langs[]"
                                                                     id="basicSelect">
-                                                                    <option value="ar" {{$aya->lang == 'ar' ? 'selected' : '' }}>Arabic</option>
-                                                                    <option value="en" {{$aya->lang == 'en' ? 'selected' : '' }}>English</option>
-                                                                    <option value="ur" {{$aya->lang == 'ur' ? 'selected' : '' }}>Urud</option>
-                                                                    <option value="hi" {{$aya->lang == 'hi' ? 'selected' : '' }}>Hindi</option>
+                                                                    <option value="ar"
+                                                                        {{ $aya->lang == 'ar' ? 'selected' : '' }}>Arabic
+                                                                    </option>
+                                                                    <option value="en"
+                                                                        {{ $aya->lang == 'en' ? 'selected' : '' }}>English
+                                                                    </option>
+                                                                    <option value="ur"
+                                                                        {{ $aya->lang == 'ur' ? 'selected' : '' }}>Urud
+                                                                    </option>
+                                                                    <option value="hi"
+                                                                        {{ $aya->lang == 'hi' ? 'selected' : '' }}>Hindi
+                                                                    </option>
                                                                 </select>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="col-12">
+                                                        <div class="col-12 ">
                                                             <label for="">Ayat</label>
                                                             <fieldset class="form-group">
-                                                                <textarea class="summernote" name="translations[]">{{$aya->translation}}</textarea>
+                                                                <textarea class="summernote" name="translations[]">{{ $aya->translation }}</textarea>
                                                             </fieldset>
                                                         </div>
                                                     @endforeach
                                                 </div>
+
+
                                                 <div class="col-12" id="add-translation" style="text-align: right">
                                                     <span class="btn btn-primary mr-1 mb-1">Add
                                                         Translation</span>
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit"
-                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
+
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3 col-3 ayat-data">
+                            <div class="card card-height">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        @foreach ($surah->ayats as $ayat)
+                                            <div class="main-menu-content" style="margin-top: 2rem;">
+                                                <ul class="navigation navigation-main" id="main-menu-navigation"
+                                                    data-menu="menu-navigation">
+
+                                                    <li class="@if (request()->is('/surah*')) active @endif "><a
+                                                            href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
+                                                            <span class="menu-item"
+                                                                data-i18n="Analytics">{!! Str::limit("$ayat->ayat", 50) !!}</span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endforeach
+                                        <div class="" id="" style="text-align: center">
+                                            <a href="{{ url('ayat/create/' . $surah->id) }}"> <span
+                                                    class="btn btn-primary mr-1 mb-1">Add
+                                                    Ayat</span></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </section>
                 <!-- // Basic Vertical form layout section end -->
 

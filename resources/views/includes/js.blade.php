@@ -80,8 +80,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var des = '';
-                           if (row.ayat != null) {
-                               des = row.ayat;
+                           if (row.description != null) {
+                               des = row.description;
                            }
                            return '<td>' +
                                des +
@@ -90,19 +90,20 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var type = '';
+                           if (type == 1) {
+                               type = 'Makki Surah';
+                           } else {
+                               type = 'Madni Surah';
+                           }
                            return '<td>' +
-                               row.para_no + '</td>'
-                       }
-                   }, {
-                       "mRender": function(data, type, row) {
-                           return '<td>' +
-                               row.ruku + '</td>'
+                               row.type + '</td>'
                        }
                    }, {
                        "mRender": function(data, type, row) {
 
                            return `<td>
-                                <a  class="ml-2" href="{{ url('ayat/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                <a  class="ml-2" href="{{ url('surah/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                 </td>`
                        }
                    },
@@ -639,5 +640,11 @@
                $('.append-inputs').append(html);
                $('.summernote').summernote();
            });
+
+           $('#add-ayat').on('click', function() {
+               $('#add-ayat-div').css('display', 'block')
+               $('.card-height ').css('height', '600px')
+               $('#no-ayat-added-div').css('display', 'none')
+           })
        });
    </script>
