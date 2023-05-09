@@ -2,7 +2,7 @@
 
     Please click below button to verify you email:
     @component('mail::button', [
-        'url' => url("localhost:3000/verify-account?email=$user->email &token=$user->id"),
+        'url' => url("app.trueilm.com/verify-account?email=$user->email &token=$user->id"),
     ])
         Verify Your Email
     @endcomponent
