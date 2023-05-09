@@ -47,7 +47,7 @@ class AlQuranController extends Controller
             }
         }
 
-        return redirect()->to('/al-Quran')->with('msg', 'Ayat Saved Successfully!');
+        return redirect()->to('al-Quran')->with('msg', 'Ayat Saved Successfully!');
     }
 
     public function edit($surahId, $ayatId)
@@ -82,6 +82,6 @@ class AlQuranController extends Controller
                 $alQuranTranslation->save();
             }
         }
-        return redirect()->to('/al-Quran')->with('msg', 'Ayat Updated Successfully!');;
+        return redirect()->back()->with('msg', 'Ayat Updated Successfully!');;
     }
 }

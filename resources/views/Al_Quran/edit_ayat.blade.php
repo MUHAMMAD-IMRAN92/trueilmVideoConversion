@@ -2,6 +2,67 @@
 
 @section('content')
     <!-- BEGIN: Content-->
+    <style>
+        .ayat-data .active {
+            background-color: black;
+            border-radius: 10px;
+        }
+
+        .active a {
+            color: white;
+        }
+
+        .ayat-list ul li {
+            list-style: none;
+        }
+
+        .ayat-list .active a {
+            display: flex;
+            background: linear-gradient(118deg, #141414, #141414);
+            box-shadow: 0 0 10px 1px #141414;
+            color: #fff;
+            font-weight: 400;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            line-height: 1.45;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
+
+        .ayat-list a {
+            display: flex;
+            animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+            color: #565656;
+            line-height: 1.45;
+            font-weight: 400;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
+
+        .ayat-list ul {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .ayat-list ul li i {
+            margin-right: 1rem;
+            float: left;
+            font-size: 1.2rem;
+        }
+
+        .ayat-list ul li p {
+            margin: 0 !important;
+        }
+
+        .card-body ul {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    </style>
+
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -43,15 +104,76 @@
                     </button>
                 </div>
             @endforeach
+            @if (\Session::has('msg'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ \Session::get('msg') }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endif
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="reference" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog modal-dialog-centered">
+                    <form action="{{ url('referencing') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Add Reference</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" value="1" name="referal">
+                                <input type="hidden" value="{{ $ayat->id }}" name="referal_id">
+                                <div class="col-12">
+                                    <label for="">Reference Type</label>
+                                    <fieldset class="form-group">
+                                        <select class="form-control" id="" name="ref_type" required>
+                                            <option value="3">eBook</option>
+                                            <option value="4">Audio</option>
+                                            <option value="5">Research Paper</option>
+                                            <option value="6">Tafseer</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset class="form-group">
+                                        <label for="basicInputFile">Refernce</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                                name="file">
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                file</label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
             <div class="content-body">
                 <h1 class="">{{ $surah->surah }}</h1>
                 <h6 class="">{!! $surah->description !!}</h6>
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
-                    <div class="row match-height">
+                    <div class="row ">
 
-                        <div class="col-md-9 col-9 ayat-insert">
-                            <div class="card card-height">
+                        <div class="col-md-9 col-9 ">
+                            <div class="card">
 
                                 <div class="card-content">
                                     <div class="card-body">
@@ -63,9 +185,11 @@
                                             <div class="form-body" id="add-ayat-div">
                                                 <div class="row append-inputs">
                                                     <input type="hidden" id="" class="form-control"
-                                                        name="surah_id" placeholder="" value="{{ $surah->id }}" required>
-                                                    <input type="hidden" id="" class="form-control" name="ayat_id"
-                                                        placeholder="" value="{{ $ayat->id }}" required>
+                                                        name="surah_id" placeholder="" value="{{ $surah->id }}"
+                                                        required>
+                                                    <input type="hidden" id="" class="form-control"
+                                                        name="ayat_id" placeholder="" value="{{ $ayat->id }}"
+                                                        required>
                                                     <div class="col-12">
                                                         <label for="">Ayat</label>
                                                         <fieldset class="form-group">
@@ -115,13 +239,19 @@
                                                     @endforeach
                                                 </div>
 
+                                                <div class="col-12" style="text-align: right">
 
-                                                <div class="col-12" id="add-translation" style="text-align: right">
-                                                    <span class="btn btn-primary mr-1 mb-1">Add
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#reference">
+                                                        Add Reference
+                                                    </button>
+
+                                                    <span id="add-translation" class="btn btn-primary">Add
                                                         Translation</span>
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
 
@@ -132,22 +262,26 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-3 ayat-data">
-                            <div class="card card-height">
+                            <div class="card ">
                                 <div class="card-content">
                                     <div class="card-body">
                                         @foreach ($surah->ayats as $ayat)
-                                            <div class="main-menu-content" style="margin-top: 2rem;">
-                                                <ul class="navigation navigation-main" id="main-menu-navigation"
-                                                    data-menu="menu-navigation">
+                                            <div class="ayat-list">
+                                                <ul class="" id="" data-menu="menu-navigation">
 
-                                                    <li class="@if (request()->is('/surah*')) active @endif "><a
-                                                            href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
+                                                    <li class="@if (request()->is('*/' . $ayat->id)) active @endif ">
+                                                        <a href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
+                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
                                                             <span class="menu-item"
-                                                                data-i18n="Analytics">{!! Str::limit("$ayat->ayat", 50) !!}</span></a>
+                                                                data-i18n="Analytics">{!! Str::limit("$ayat->ayat", 50) !!}
+                                                            </span>
+                                                        </a>
                                                     </li>
+
                                                 </ul>
                                             </div>
                                         @endforeach
+                                        <br>
                                         <div class="" id="" style="text-align: center">
                                             <a href="{{ url('ayat/create/' . $surah->id) }}"> <span
                                                     class="btn btn-primary mr-1 mb-1">Add
@@ -162,7 +296,6 @@
 
                 </section>
                 <!-- // Basic Vertical form layout section end -->
-
             </div>
         </div>
     </div>

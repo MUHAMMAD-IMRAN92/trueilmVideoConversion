@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateReferencesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    //type = type of referral(1=>Ayat  , 2=>Hadith , 3=>ebooks , 4=>audio book , 5=>papers)
+    //reference_type = type of reference(1=>Ayat ,2=>Hadith , 3=>ebooks , 4=>audio book , 5=>papers , 6 => Tafseer)
+    public function up()
+    {
+        Schema::create('references', function (Blueprint $table) {
+            $table->id();
+            $table->integer('type');
+            $table->string('referal_id');
+            $table->string('reference');
+            $table->integer('reference_type');
+            $table->integer('added_by');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('references');
+    }
+}

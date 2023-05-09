@@ -43,8 +43,19 @@
                     </button>
                 </div>
             @endforeach
+            @if (\Session::has('msg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <p class="mb-0">
+                    {{ \Session::get('msg') }}
+                </p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                </button>
+            </div>
+        @endif
+
             <div class="content-body">
-              
+
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">

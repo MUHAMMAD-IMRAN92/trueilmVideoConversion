@@ -97,17 +97,15 @@
                                                 <h2>Lessons:</h2>
                                                 <div class="row">
                                                     @foreach ($course->lessons as $lesson)
-                                                        @if ($lesson->video)
-                                                            <div class="col-md-4">
-                                                                <video style="width:300px ; height:300px"
-                                                                    src="{{ $lesson->video->video }}" controls></video>
-                                                                <h4>{{ $lesson->title }}</h4>
-                                                                <p>{!! $lesson->description !!}</p>
-                                                                {{--  <a
+                                                        <div class="col-md-4">
+                                                            <video style="width:300px ; height:300px"
+                                                                src="{{ $lesson->video }}" controls></video>
+                                                            <h4>{{ $lesson->title }}</h4>
+                                                            <p>{!! $lesson->description !!}</p>
+                                                            {{--  <a
                                                                     href="{{ url('lesson/delete/' . $lesson->id) }}"
                                                                     class="btn btn-danger">Delete</a> --}}
-                                                            </div>
-                                                        @endif
+                                                        </div>
                                                     @endforeach
                                                 </div>
                                                 <br>

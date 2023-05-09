@@ -74,19 +74,16 @@ class CourseController extends Controller
                 $courseLesson->description = $request->descriptions[$key];
                 $courseLesson->course_id = $course->id;
                 $courseLesson->added_by = $this->user->id;
-                $courseLesson->save();
 
-                $lessonVideo = new LessonVideo();
                 if ($request->videos[$key]) {
                     $base_path = url('storage');
                     $file = $request->videos[$key];
                     $file_name = time() . '.' . $file->getClientOriginalExtension();
                     $path = $file->storeAs('courses_videos', $file_name, 'public');
 
-                    $lessonVideo->video = $base_path . '/' . $path;
-                    $lessonVideo->lesson_id = $courseLesson->id;
-                    $lessonVideo->save();
+                    $courseLesson->video = $base_path . '/' . $path;
                 }
+                $courseLesson->save();
             }
         }
         return redirect()->to('/courses')->with('msg', 'Course Saved Successfully!');;
@@ -122,19 +119,16 @@ class CourseController extends Controller
                 $courseLesson->description = $request->descriptions[$key];
                 $courseLesson->course_id = $course->id;
                 $courseLesson->added_by = $this->user->id;
-                $courseLesson->save();
 
-                $lessonVideo = new LessonVideo();
                 if ($request->videos[$key]) {
                     $base_path = url('storage');
                     $file = $request->videos[$key];
                     $file_name = time() . '.' . $file->getClientOriginalExtension();
                     $path = $file->storeAs('courses_videos', $file_name, 'public');
 
-                    $lessonVideo->video = $base_path . '/' . $path;
-                    $lessonVideo->lesson_id = $courseLesson->id;
-                    $lessonVideo->save();
+                    $courseLesson->video = $base_path . '/' . $path;
                 }
+                $courseLesson->save();
             }
         }
         return redirect()->to('/courses')->with('msg', 'Course Saved Successfully!');;
