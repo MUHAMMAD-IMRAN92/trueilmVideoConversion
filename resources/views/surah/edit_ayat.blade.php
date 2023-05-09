@@ -53,7 +53,7 @@
                 </button>
             </div>
         @endif
-    
+
             <div class="content-body">
 
                 <h1 class="">{{ $surah->surah }}</h1>
@@ -186,7 +186,7 @@
                                                 </div>
                                             </form> --}}
                                             <div id="no-ayat-added-div">
-                                                No ,.m Added In This Surah Yet!</div>
+                                                No Ayat Added In This Surah Yet!</div>
                                         @endif
 
                                     </div>
