@@ -17,7 +17,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required'
         ]);
-
+        return $request->all();
         if ($validator->fails()) {
             return sendError('Validation Failed!', $validator->errors());
         }
