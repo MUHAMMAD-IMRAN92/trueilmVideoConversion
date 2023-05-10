@@ -97,6 +97,7 @@
                                                 <h2>Lessons:</h2>
                                                 <div class="row">
                                                     @foreach ($course->lessons as $lesson)
+
                                                         <div class="col-md-4">
                                                             <video style="width:300px ; height:300px"
                                                                 src="{{ $lesson->video }}" controls></video>

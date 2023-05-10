@@ -91,7 +91,7 @@ class CourseController extends Controller
 
     public function edit($id)
     {
-        $course = Course::where('_id', $id)->with('lessons.video')->first();
+        $course = Course::where('_id', $id)->with('lessons')->first();
         return view('courses.edit', [
             'course' => $course
         ]);
