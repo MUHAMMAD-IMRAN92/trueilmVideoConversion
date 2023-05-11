@@ -93,8 +93,11 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-
+                                                    <div class="col-12 " id="lesson-heading" style="display:none">
+                                                        <h2>New Lessons:</h2>
+                                                    </div>
                                                 </div>
+
                                                 <h2>Lessons:</h2>
                                                 <div class="row">
                                                     @foreach ($course->lessons as $lesson)
