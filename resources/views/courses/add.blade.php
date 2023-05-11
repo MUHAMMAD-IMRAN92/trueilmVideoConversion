@@ -54,7 +54,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('course.store') }}" method="POST"
+                                        <form class="form form-vertical" id="disable-btn-submit" action="{{ route('course.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
@@ -87,43 +87,14 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12">
-                                                        <h2 id="lesson-heading" style="display: none">Lessons:</h2>
-                                                    </div>
-                                                    <div class="row" id="copy" style="display:none">
-                                                        <label for="">Lesson Title</label>
-                                                        <div class="col-6">
-                                                            <input type="text" id="" required
-                                                                class="form-control" name="lessons[]" placeholder="">
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <fieldset class="form-group">
-                                                                <label for="">Video</label>
-                                                                <div class="custom-file">
-                                                                    <input type="file" required class="custom-file-input"
-                                                                        id="" name="videos[]" accept="video/*">
-                                                                    <label class="custom-file-label" for="">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="">Description</label>
-                                                            <fieldset class="form-group">
-                                                                <textarea class="summernote" name="descriptions[]"></textarea>
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
-
-
                                                 </div>
                                                 <div class="col-12" id="add-lesson" style="text-align: right">
                                                     <span class="btn btn-primary mr-1 mb-1">Add
                                                         Lesson</span>
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit"
-                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit" class="btn btn-primary mr-1 mb-1"
+                                                        id="submit-btn">Submit</button>
 
                                                 </div>
                                             </div>

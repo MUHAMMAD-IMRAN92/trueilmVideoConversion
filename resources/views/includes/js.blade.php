@@ -618,13 +618,13 @@
                html =
                    `<div class="col-6">
                             <label for="">Lesson Title</label>
-                            <input type="text" id="" required class="form-control" name="lessons[]" placeholder="" >
+                            <input type="text" id=""  class="form-control" name="lessons[]" placeholder="" >
                     </div>
                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Video</label>
                                                             <div class="custom-file">
-                                                                <input type="file" required class="custom-file-input"
+                                                                <input type="file"  class="custom-file-input"
                                                                     id="file-upload-input" name="videos[]" accept="video/*">
                                                                 <label class="custom-file-label"
                                                                     for="">Choose
@@ -646,5 +646,9 @@
                $('.card-height ').css('height', '600px')
                $('#no-ayat-added-div').css('display', 'none')
            });
+           $('#disable-btn-submit').on('submit', function() {
+               $('#submit-btn').prop('disabled', 'true');
+           })
+
        });
    </script>

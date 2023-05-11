@@ -54,8 +54,9 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('course.update') }}"
-                                            method="POST" enctype="multipart/form-data">
+                                        <form class="form form-vertical" id="disable-btn-submit"
+                                            action="{{ route('course.update') }}" method="POST"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
@@ -97,7 +98,6 @@
                                                 <h2>Lessons:</h2>
                                                 <div class="row">
                                                     @foreach ($course->lessons as $lesson)
-
                                                         <div class="col-md-4">
                                                             <video style="width:300px ; height:300px"
                                                                 src="{{ $lesson->video }}" controls></video>
@@ -115,7 +115,8 @@
                                                         Lesson</span>
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit" id="submit-btn"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>
