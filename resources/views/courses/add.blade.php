@@ -54,7 +54,8 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" id="disable-btn-submit" action="{{ route('course.store') }}" method="POST"
+                                        <form class="form form-vertical" id="disable-btn-submit"
+                                            action="{{ route('course.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
@@ -87,6 +88,9 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                </div>
+                                                <div class="col-12" id="lesson-heading">
+                                                    <h2>Lessons:</h2>
                                                 </div>
                                                 <div class="col-12" id="add-lesson" style="text-align: right">
                                                     <span class="btn btn-primary mr-1 mb-1">Add
