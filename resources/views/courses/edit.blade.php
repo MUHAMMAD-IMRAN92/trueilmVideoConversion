@@ -81,7 +81,7 @@
                                                         </fieldset>
                                                     </div>
 
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-10">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Image</label>
                                                             <div class="custom-file">
@@ -92,6 +92,9 @@
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
+                                                    </div>
+                                                    <div class="col-md-2 ">
+                                                        <img src="{{$course->image}}" alt="course image" style="width:150px; height:150px">
                                                     </div>
                                                     <div class="col-12 " id="lesson-heading" style="display:none">
                                                         <h2>New Lessons:</h2>
