@@ -32,12 +32,12 @@ class CourseController extends Controller
         $totalBrands = Course::count();
         $brands = Course::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
+                $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
+                $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
