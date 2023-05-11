@@ -88,9 +88,9 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                </div>
-                                                <div class="col-12" id="lesson-heading">
-                                                    <h2>Lessons:</h2>
+                                                    <div class="col-12 " id="lesson-heading"  style="display:none">
+                                                        <h2>Lessons:</h2>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12" id="add-lesson" style="text-align: right">
                                                     <span class="btn btn-primary mr-1 mb-1">Add
