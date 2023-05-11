@@ -115,7 +115,7 @@ class CourseController extends Controller
         if ($request->lessons) {
             foreach ($request->lessons as $key => $lesson) {
                 $courseLesson = new CourseLesson();
-                $courseLesson->lang = $lesson;
+                $courseLesson->title = $lesson;
                 $courseLesson->description = $request->descriptions[$key];
                 $courseLesson->course_id = $course->id;
                 $courseLesson->added_by = $this->user->id;
