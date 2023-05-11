@@ -613,6 +613,7 @@
                $('.summernote').summernote();
            });
            $('#add-lesson').on('click', function() {
+               $('#lesson-heading').css('display', 'block')
                var html;
                html =
                    `<div class="col-6">
@@ -624,9 +625,9 @@
                                                             <label for="basicInputFile">Video</label>
                                                             <div class="custom-file">
                                                                 <input type="file" required class="custom-file-input"
-                                                                    id="inputGroupFile01" name="videos[]">
+                                                                    id="file-upload-input" name="videos[]" accept="video/*">
                                                                 <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
+                                                                    for="">Choose
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
@@ -640,11 +641,10 @@
                $('.append-inputs').append(html);
                $('.summernote').summernote();
            });
-
            $('#add-ayat').on('click', function() {
                $('#add-ayat-div').css('display', 'block')
                $('.card-height ').css('height', '600px')
                $('#no-ayat-added-div').css('display', 'none')
-           })
+           });
        });
    </script>

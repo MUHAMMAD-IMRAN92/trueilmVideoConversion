@@ -78,16 +78,43 @@
 
                                                     <div class="col-md-12">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Image</label>
+                                                            <label for="">Image</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="image">
-                                                                <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
+                                                                    id="" name="image" accept="image/*">
+                                                                <label class="custom-file-label" for="">Choose
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <h2 id="lesson-heading" style="display: none">Lessons:</h2>
+                                                    </div>
+                                                    <div class="row" id="copy" style="display:none">
+                                                        <label for="">Lesson Title</label>
+                                                        <div class="col-6">
+                                                            <input type="text" id="" required
+                                                                class="form-control" name="lessons[]" placeholder="">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <fieldset class="form-group">
+                                                                <label for="">Video</label>
+                                                                <div class="custom-file">
+                                                                    <input type="file" required class="custom-file-input"
+                                                                        id="" name="videos[]" accept="video/*">
+                                                                    <label class="custom-file-label" for="">Choose
+                                                                        file</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="">Description</label>
+                                                            <fieldset class="form-group">
+                                                                <textarea class="summernote" name="descriptions[]"></textarea>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
 
                                                 </div>
                                                 <div class="col-12" id="add-lesson" style="text-align: right">
@@ -95,7 +122,8 @@
                                                         Lesson</span>
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>
