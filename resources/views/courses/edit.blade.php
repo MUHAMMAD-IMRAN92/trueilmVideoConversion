@@ -94,7 +94,7 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-2 ">
-                                                        <img src="{{$course->image}}" alt="course image" style="width:150px; height:150px">
+                                                        <img src="{{$course->image}}" alt="course image" style="width:150px; height:120px">
                                                     </div>
                                                     <div class="col-12 " id="lesson-heading" style="display:none">
                                                         <h2>New Lessons:</h2>
