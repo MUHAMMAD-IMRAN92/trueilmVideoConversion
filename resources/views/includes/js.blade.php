@@ -614,6 +614,7 @@
            });
            $('#add-lesson').on('click', function() {
                $('#lesson-heading').css('display', 'block')
+               var lenght = $('.custom-file-input').length;
                var html;
                html =
                    `<div class="col-6">
@@ -625,8 +626,9 @@
                                                             <label for="basicInputFile">Video</label>
                                                             <div class="custom-file">
                                                                 <input type="file"  class="custom-file-input"
-                                                                    id="file-upload-input" name="videos[]" accept="video/*">
-                                                                <label class="custom-file-label"
+                                                                  id="file-upload-input" name="videos[]" accept="video/*"
+                                                                  onchange="fileSelect(event,${lenght})">
+                                                                <label class="custom-file-label" id="label-${lenght}"
                                                                     for="">Choose
                                                                     file</label>
                                                             </div>
@@ -641,6 +643,7 @@
                $('.append-inputs').append(html);
                $('.summernote').summernote();
            });
+
            $('#add-ayat').on('click', function() {
                $('#add-ayat-div').css('display', 'block')
                $('.card-height ').css('height', '600px')
@@ -651,4 +654,9 @@
            })
 
        });
+
+       function fileSelect(e, l) {
+           console.log(e.target.files[0].name);
+           $('#label-' + l).text(e.target.files[0].name);
+       }
    </script>

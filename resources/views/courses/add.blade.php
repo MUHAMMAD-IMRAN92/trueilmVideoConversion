@@ -88,7 +88,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12 " id="lesson-heading"  style="display:none">
+                                                    <div class="col-12 " id="lesson-heading" style="display:none">
                                                         <h2>Lessons:</h2>
                                                     </div>
                                                 </div>
