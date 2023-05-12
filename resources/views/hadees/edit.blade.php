@@ -1,6 +1,66 @@
 @extends('layouts.default_layout')
 
 @section('content')
+    <style>
+        .ayat-data .active {
+            background-color: black;
+            border-radius: 10px;
+        }
+
+        .active a {
+            color: white;
+        }
+
+        .ayat-list ul li {
+            list-style: none;
+        }
+
+        .ayat-list .active a {
+            display: flex;
+            background: linear-gradient(118deg, #141414, #141414);
+            box-shadow: 0 0 10px 1px #141414;
+            color: #fff;
+            font-weight: 400;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            line-height: 1.45;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
+
+        .ayat-list a {
+            display: flex;
+            animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+            color: #565656;
+            line-height: 1.45;
+            font-weight: 400;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
+
+        .ayat-list ul {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .ayat-list ul li i {
+            margin-right: 1rem;
+            float: left;
+            font-size: 1.2rem;
+        }
+
+        .ayat-list ul li p {
+            margin: 0 !important;
+        }
+
+        .card-body ul {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    </style>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -10,14 +70,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Edit Hadith</h2>
+                            <h2 class="content-header-title float-left mb-0">Edit Surah</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('hadith') }}">Hadith</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Surah</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Edit Hadith
+                                    <li class="breadcrumb-item active">Edit Surah
                                     </li>
                                 </ol>
                             </div>
@@ -43,17 +103,32 @@
                     </button>
                 </div>
             @endforeach
+            @if (\Session::has('msg'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ \Session::get('msg') }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endif
+
             <div class="content-body">
 
+                <h1 class="">{{ $hadeesBook->title }}</h1>
+                <h6 class="">{!! $hadeesBook->description !!}</h6>
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
-                    <div class="row match-height">
+                    <div class="row ">
 
-                        <div class="col-md-12 col-12">
-                            <div class="card">
+                        <div class="col-md-9 col-9 ayat-insert">
+                            <div class="card ">
 
                                 <div class="card-content">
                                     <div class="card-body">
+
+
                                         <form class="form form-vertical" action="{{ route('hadith.update') }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
@@ -62,6 +137,8 @@
 
                                                     <div class="col-12">
                                                         <input type="hidden" name="id" id=""
+                                                            value="{{ $hadeesBook->id }}">
+                                                        <input type="hidden" name="hadees_id" id=""
                                                             value="{{ $hadees->id }}">
                                                         <label for="">Hadith</label>
                                                         <fieldset class="form-group">
@@ -96,7 +173,8 @@
                                                                         {{ $h->lang == 'ar' ? 'selected' : '' }}>Arabic
                                                                     </option>
                                                                     <option value="en"
-                                                                        {{ $h->lang == 'en' ? 'selected' : '' }}>English
+                                                                        {{ $h->lang == 'en' ? 'selected' : '' }}>
+                                                                        English
                                                                     </option>
                                                                     <option value="ur"
                                                                         {{ $h->lang == 'ur' ? 'selected' : '' }}>Urud
@@ -114,48 +192,11 @@
                                                             </fieldset>
                                                         </div>
                                                     @endforeach
-                                                    @foreach ($hadees->references as $r)
-                                                        <div class="col-12">
 
-                                                            <p>Reference</p>
-                                                            <fieldset class="form-group">
-                                                                <select class="form-control" name="reference_book[]"
-                                                                    id="basicSelect">
-                                                                    <option value="1"
-                                                                        {{ $r->reference_book == '1' ? 'selected' : '' }}>
-                                                                        Sahih ul Bukhari</option>
-                                                                    <option value="2"
-                                                                        {{ $r->reference_book == '2' ? 'selected' : '' }}>
-                                                                        Al Sahih Li Muslim</option>
-                                                                    <option value="3"
-                                                                        {{ $r->reference_book == '3' ? 'selected' : '' }}>
-                                                                        Jame ut Tirmezi</option>
-                                                                    <option value="4"
-                                                                        {{ $r->reference_book == '4' ? 'selected' : '' }}>
-                                                                        Sunan e Abi Dawood</option>
-                                                                    <option value="5"
-                                                                        {{ $r->reference_book == '5' ? 'selected' : '' }}>
-                                                                        Sunan e Nasa</option>
-                                                                    <option value="6"
-                                                                        {{ $r->reference_book == '6' ? 'selected' : '' }}>
-                                                                        Sunan e Ibn-e-Maja</option>
-                                                                </select>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="">Reference #</label>
-                                                            <input type="number" id="" class="form-control"
-                                                                name="ref_number[]"
-                                                                value="{{ $r->reference_number }}"placeholder="">
-
-                                                        </div>
-                                                    @endforeach
                                                 </div>
                                                 <br>
                                                 <div class="col-12">
-                                                    <span type="" id="add-reference"
-                                                        class="btn btn-primary mr-1 mb-1">Add
-                                                        Reference</span>
+
                                                     <span type="" id="add-translation"
                                                         class="btn btn-primary mr-1 mb-1">Add
                                                         Translation</span>
@@ -164,11 +205,46 @@
                                                 </div>
                                             </div>
                                         </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-3 ayat-data">
+                            <div class="card ">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        @foreach ($hadeesBook->hadees as $hadith)
+                                            <div class="ayat-list">
+                                                <ul class="" id="" data-menu="menu-navigation">
+
+                                                    <li class="@if (request()->is('*/' . $hadith->id)) active @endif ">
+                                                        <a
+                                                            href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
+                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                            <span class="menu-item"
+                                                                data-i18n="Analytics">{!! Str::limit("$hadith->hadees", 50) !!}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        @endforeach
+                                        <br>
+                                        <div class="" id="" style="text-align: center">
+                                            <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
+                                                    class="btn btn-primary mr-1 mb-1">Add
+                                                    Hadith</span></a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </section>
                 <!-- // Basic Vertical form layout section end -->
 

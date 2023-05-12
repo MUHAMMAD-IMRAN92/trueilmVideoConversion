@@ -277,19 +277,19 @@
                    "searchPlaceholder": "Search here"
                },
                "ajax": {
-                   url: '<?= url('all-hadith') ?>'
+                   url: '<?= url('all-hadith-books') ?>'
                },
                "columns": [{
                        "mRender": function(data, type, row) {
                            return '<td>' +
-                               row.hadees + '</td>'
+                               row.title + '</td>'
                        }
                    },
                    {
                        "mRender": function(data, type, row) {
 
                            return `<td>
-                                <a  class="ml-2" href="{{ url('hadith/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                <a  class="ml-2" href="{{ url('hadith/book/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                 </td>`
                        }
                    },
@@ -389,9 +389,9 @@
                    {
                        "mRender": function(data, type, row) {
 
-                           return '<td><img class="td-img"  src="' +
-                               row.image +
-                               '/></td>'
+                        return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
                        }
                    },
                    {

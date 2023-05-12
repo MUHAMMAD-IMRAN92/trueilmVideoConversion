@@ -68,50 +68,13 @@
                                 <div class="card-content">
                                     <div class="card-body">
 
-                                        <form class="form form-vertical" action="{{ route('hadith.store') }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="form-body">
-                                                <div class="row append-inputs">
-
-                                                    <div class="col-12">
-                                                        <input type="hidden" name="book_id" id=""
-                                                            value="{{ $hadeesBook->id }}">
-                                                        <label for="">Hadith</label>
-                                                        <fieldset class="form-group">
-                                                            <textarea class="summernote" name="hadith"></textarea>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-12">
-
-                                                        <label for="">Type</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="form-control" name="type" id="basicSelect">
-                                                                <option value="1">
-                                                                    Hadees-e-Qudsi</option>
-                                                                <option value="2">
-                                                                    Hadees-e-Zaeef</option>
-                                                                <option value="3">
-                                                                    Hadees-e-Sahih</option>
-                                                            </select>
-                                                        </fieldset>
-                                                    </div>
-
-
-                                                </div>
-                                                <br>
-                                                <div class="col-12">
-
-                                                    <span type="" id="add-translation"
-                                                        class="btn btn-primary mr-1 mb-1">Add
-                                                        Translation</span>
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
-
-                                                </div>
-                                            </div>
-                                        </form>
-
-
+                                        @if (!isset($hadees))
+                                            <div id="no-ayat-added-div">
+                                                Please Select Hadith!</div>
+                                        @else
+                                            <div id="no-ayat-added-div">
+                                                No Hadees Added In This Book Yet!</div>
+                                        @endif
 
                                     </div>
                                 </div>
@@ -124,7 +87,7 @@
                                         @foreach ($hadeesBook->hadees as $hadith)
                                             <ul class="" id="" data-menu="menu-navigation">
 
-                                                <li class="@if (request()->is($hadeesBook->id . '/' . $hadith->id . '*')) active @endif "><a
+                                                <li class="@if (request()->is($hadeesBook->id . '/' . $hadith->id)) active @endif "><a
                                                         href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
                                                         <span class="menu-item"
                                                             data-i18n="Analytics">{!! $hadith->hadees !!}</span></a>
@@ -134,7 +97,7 @@
                                         <div class="" id="" style="text-align: center">
                                             <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
                                                     class="btn btn-primary mr-1 mb-1">Add
-                                                    Ayat</span></a>
+                                                    Hadith</span></a>
                                         </div>
 
                                     </div>

@@ -425,7 +425,7 @@
                     class="fa fa-keyboard-o"></i>
                     <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
                      </li> --}}
-                    <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith') }}"><i
+                    <li class="@if (request()->is('hadith*')) active @endif "><a href="{{ url('hadith/books') }}"><i
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
 

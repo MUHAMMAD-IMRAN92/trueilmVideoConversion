@@ -10,14 +10,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Edit Surah</h2>
+                            <h2 class="content-header-title float-left mb-0">Add Hadith</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Surah</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('hadith') }}">Hadith Books</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Edit Surah
+                                    <li class="breadcrumb-item active">Add Hadith Book
                                     </li>
                                 </ol>
                             </div>
@@ -43,106 +43,54 @@
                     </button>
                 </div>
             @endforeach
-            @if (\Session::has('msg'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <p class="mb-0">
-                        {{ \Session::get('msg') }}
-                    </p>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
-                    </button>
-                </div>
-            @endif
-
             <div class="content-body">
 
-                <h1 class="">{{ $hadeesBook->title }}</h1>
-                <h6 class="">{!! $hadeesBook->description !!}</h6>
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
 
-                        <div class="col-md-9 col-9 ayat-insert">
-                            <div class="card card-height">
+                        <div class="col-md-12 col-12">
+                            <div class="card">
 
                                 <div class="card-content">
                                     <div class="card-body">
-
-                                        <form class="form form-vertical" action="{{ route('hadith.store') }}" method="POST"
-                                            enctype="multipart/form-data">
+                                        <form class="form form-vertical" action="{{ route('hadith.book.store') }}"
+                                            method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
 
                                                     <div class="col-12">
-                                                        <input type="hidden" name="book_id" id=""
-                                                            value="{{ $hadeesBook->id }}">
-                                                        <label for="">Hadith</label>
-                                                        <fieldset class="form-group">
-                                                            <textarea class="summernote" name="hadith"></textarea>
-                                                        </fieldset>
+                                                        <label for="">Hadith Book</label>
+                                                        <input type="text" id="" class="form-control"
+                                                            name="title" placeholder="" required>
                                                     </div>
                                                     <div class="col-12">
 
                                                         <label for="">Type</label>
                                                         <fieldset class="form-group">
-                                                            <select class="form-control" name="type" id="basicSelect">
-                                                                <option value="1">
-                                                                    Hadees-e-Qudsi</option>
-                                                                <option value="2">
-                                                                    Hadees-e-Zaeef</option>
-                                                                <option value="3">
-                                                                    Hadees-e-Sahih</option>
-                                                            </select>
+                                                            <textarea class="summernote" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
-
-
                                                 </div>
                                                 <br>
                                                 <div class="col-12">
-
+                                                    {{-- <span type="" id="add-reference"
+                                                        class="btn btn-primary mr-1 mb-1">Add
+                                                        Reference</span>
                                                     <span type="" id="add-translation"
                                                         class="btn btn-primary mr-1 mb-1">Add
-                                                        Translation</span>
+                                                        Translation</span> --}}
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>
                                         </form>
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-3 ayat-data">
-                            <div class="card card-height">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        @foreach ($hadeesBook->hadees as $hadith)
-                                            <ul class="" id="" data-menu="menu-navigation">
-
-                                                <li class="@if (request()->is($hadeesBook->id . '/' . $hadith->id . '*')) active @endif "><a
-                                                        href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
-                                                        <span class="menu-item"
-                                                            data-i18n="Analytics">{!! $hadith->hadees !!}</span></a>
-                                                </li>
-                                            </ul>
-                                        @endforeach
-                                        <div class="" id="" style="text-align: center">
-                                            <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
-                                                    class="btn btn-primary mr-1 mb-1">Add
-                                                    Ayat</span></a>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </section>
                 <!-- // Basic Vertical form layout section end -->
 
