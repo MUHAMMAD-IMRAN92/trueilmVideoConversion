@@ -19,11 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['app.trueilm.com/*'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => ['*'],
 
-    'allowed_headers' => ['app.trueilm.com/*'],
+    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
