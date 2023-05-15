@@ -44,7 +44,13 @@ class ReferenceController extends Controller
         $reference = new Reference();
         $reference->type = $request->referal;
         $reference->referal_id = $request->referal_id;
-        $reference->reference = $request->type;
+        if ($request->has('file')) {
+            $base_path = url('storage');
+            $file = $request->file('file');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('files', $file_name, 'public');
+            $reference->reference  = $base_path . '/' .  $path;
+        }
         $reference->reference_type = $request->ref_type;
         $reference->added_by = $this->user->id;
         $reference->save();

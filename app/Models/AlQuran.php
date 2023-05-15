@@ -15,4 +15,8 @@ class AlQuran extends Eloquent
     {
         return $this->hasMany(AlQuranTranslation::class, 'ayat_id', 'id');
     }
+    public function references()
+    {
+        return $this->hasMany(Reference::class, 'referal_id', 'id');
+    }
 }

@@ -70,14 +70,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Edit Surah</h2>
+                            <h2 class="content-header-title float-left mb-0">Hadith Book</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Surah</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('hadith') }}">Hadith Books</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Edit Surah
+                                    <li class="breadcrumb-item active">Edit Hadith Book
                                     </li>
                                 </ol>
                             </div>
@@ -113,6 +113,52 @@
                     </button>
                 </div>
             @endif
+            <div class="modal fade" id="reference" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog modal-dialog-centered">
+                    <form action="{{ url('referencing') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Add Reference</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" value="2" name="referal">
+                                <input type="hidden" value="{{ $hadees->id }}" name="referal_id">
+                                <div class="col-12">
+                                    <label for="">Reference Type</label>
+                                    <fieldset class="form-group">
+                                        <select class="form-control" id="" name="ref_type" required>
+                                            <option value="3">eBook</option>
+                                            <option value="4">Audio</option>
+                                            <option value="5">Research Paper</option>
+                                            <option value="6">Tafseer</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset class="form-group">
+                                        <label for="basicInputFile">Refernce</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                                name="file">
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                file</label>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
             <div class="content-body">
 
@@ -195,12 +241,19 @@
 
                                                 </div>
                                                 <br>
-                                                <div class="col-12">
+                                                <div class="col-12" style="text-align: right">
 
-                                                    <span type="" id="add-translation"
-                                                        class="btn btn-primary mr-1 mb-1">Add
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#reference">
+                                                        Add Reference
+                                                    </button>
+
+                                                    <span id="add-translation" class="btn btn-primary">Add
                                                         Translation</span>
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>

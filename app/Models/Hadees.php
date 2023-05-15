@@ -16,6 +16,6 @@ class Hadees extends Eloquent
     }
     public function references()
     {
-        return $this->hasMany(HadeesReference::class, 'hadees_id', 'id');
+        return $this->hasMany(Reference::class, 'referal_id', 'id');
     }
 }

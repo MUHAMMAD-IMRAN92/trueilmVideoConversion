@@ -109,7 +109,7 @@ class HadeesController extends Controller
     public function edit($bookId, $hadeesId)
     {
         $hadeesBook = HadeesBooks::where('_id', $bookId)->with('hadees')->first();
-        $hadees = Hadees::where('_id', $hadeesId)->first();
+        $hadees = Hadees::where('_id', $hadeesId)->with('references')->first();
         return view('hadees.edit', [
             'hadeesBook' => $hadeesBook,
             'hadees' => $hadees
