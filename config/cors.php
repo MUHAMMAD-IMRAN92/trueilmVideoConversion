@@ -15,15 +15,15 @@ return [
     |
     */
 
-    'paths' => ['*'],
+    'paths' => ['https://admin.trueilm.com/*'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['https://admin.trueilm.com/*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://admin.trueilm.com/*'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['https://admin.trueilm.com/*'],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['https://admin.trueilm.com/*'],
 
     'exposed_headers' => [],
 
