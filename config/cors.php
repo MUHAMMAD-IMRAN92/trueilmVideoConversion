@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['app.trueilm.com/*', 'sanctum/csrf-cookie'],
+    'paths' => ['*'],
 
     'allowed_methods' => ['*'],
 
