@@ -15,13 +15,13 @@ return [
     |
     */
 
-    'paths' => ['app.trueilm.com/*'],
+    'paths' => ['https://app.trueilm.com/*' ,'api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
     'allowed_origins' => ['*'],
 
-    'allowed_origins_patterns' => ['*'],
+    'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
