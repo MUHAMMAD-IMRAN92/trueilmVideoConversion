@@ -15,15 +15,15 @@ return [
     |
     */
 
-    'paths' => ['https://app.trueilm.com/*'],
+    'paths' => ['app.trueilm.com/*'],
 
-    'allowed_methods' => ['https://app.trueilm.com/*'],
+    'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://app.trueilm.com/*'],
+    'allowed_origins' => ['app.trueilm.com/*'],
 
-    'allowed_origins_patterns' => ['https://app.trueilm.com/*'],
+    'allowed_origins_patterns' => ['*'],
 
-    'allowed_headers' => ['https://app.trueilm.com/*'],
+    'allowed_headers' => ['app.trueilm.com/*'],
 
     'exposed_headers' => [],
 
