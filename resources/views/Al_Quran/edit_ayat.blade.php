@@ -328,17 +328,17 @@
                                                                 <div class="col-4 d-flex">
                                                                     <h4 onclick="editable('{{ $key }}')"><span
                                                                             class="badge badge-info ml-1"><i
-                                                                                class="fa fa-pencil">Edit</i></span></h4>
+                                                                                class="fa fa-pencil">&nbspEdit</i></span></h4>
                                                                     <h4
                                                                         onclick="saveTranslation('{{ $ayatId }}','{{ $transId }}','{{ $key }}')">
                                                                         <span class="badge badge-success ml-1"><i
-                                                                                class="fa fa-pencil">Save</i></span>
+                                                                                class="fa fa-save">&nbspSave</i></span>
                                                                     </h4>
 
                                                                     <h4
                                                                         onclick="deleteTranslation('{{ $ayatId }}','{{ $transId }}','{{ $key }}')">
                                                                         <span class="badge badge-danger ml-1"><i
-                                                                                class="fa fa-trash">Delete</i></span>
+                                                                                class="fa fa-trash">&nbspDelete</i></span>
                                                                     </h4>
                                                                 </div>
                                                             </div>
