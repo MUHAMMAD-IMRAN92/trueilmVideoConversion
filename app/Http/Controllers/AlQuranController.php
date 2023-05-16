@@ -36,6 +36,10 @@ class AlQuranController extends Controller
         $alQuran->ayat = $request->ayat;
         $alQuran->para_no = $request->para;
         $alQuran->added_by = $this->user->id;
+        $alQuran->manzil = $request->manzil;
+        $alQuran->ruku = $request->ruku;
+        $alQuran->sequence = $request->sequence;
+        $alQuran->sajda = $request->sajda;
         $alQuran->save();
         if ($request->translations) {
             foreach ($request->langs as $key => $lang) {

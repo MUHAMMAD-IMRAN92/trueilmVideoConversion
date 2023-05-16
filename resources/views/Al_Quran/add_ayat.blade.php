@@ -108,14 +108,14 @@
                                                 <a class="nav-link active" id="home-tab-fill" data-toggle="pill"
                                                     href="#home-fill" aria-expanded="true">Ayat</a>
                                             </li>
-                                            <li class="nav-item">
+                                            {{-- <li class="nav-item">
                                                 <a class="nav-link" id="translation-tab-fill" data-toggle="pill"
                                                     href="#translation-fill" aria-expanded="true">Add Translation</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="tafseer-tab-fill" data-toggle="pill"
                                                     href="#tafseer-fill" aria-expanded="true">Add Tafseer</a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-9">
-                            <form class="form form-vertical" action="{{ route('ayat.update') }}" method="POST"
+                            <form class="form form-vertical" action="{{ route('ayat.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -243,117 +243,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="translation-fill"
-                                        aria-labelledby="translation-tab-fill" aria-expanded="true">
 
-                                        <div class="row append-inputs">
-
-                                            <div class="col-12 lang ">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row m-0 p-0">
-                                                            <label for="">Language</label>
-                                                            <fieldset class="form-group">
-                                                                <select class="form-control" name="langs[]"
-                                                                    id="basicSelect">
-                                                                    <option value="ar">
-                                                                        Arabic
-                                                                    </option>
-                                                                    <option value="en">
-                                                                        English
-                                                                    </option>
-                                                                    <option value="ur">
-                                                                        Urud
-                                                                    </option>
-                                                                    <option value="hi">
-                                                                        Hindi
-                                                                    </option>
-                                                                </select>
-                                                            </fieldset>
-
-                                                            <div class="col-12 m-0 p-0">
-                                                                <label for="">Translation</label>
-
-                                                                <fieldset class="form-group">
-                                                                    <textarea class="summernote" name="translations[]"></textarea>
-                                                                </fieldset>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-7">
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <span id="add-translation" class="btn btn-primary">Add
-                                                            Translation</span>
-                                                        <button type="submit" class="btn btn-primary ">Submit</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div role="tabpanel" class="tab-pane" id="tafseer-fill"
-                                        aria-labelledby="tafseer-tab-fill" aria-expanded="true">
-                                        <div class="form-body">
-                                            <div class="row tafseer-append-inputs">
-
-                                                <div class="col-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <p>Language</p>
-                                                            <fieldset class="form-group">
-                                                                <select class="form-control" name="langs[]"
-                                                                    id="basicSelect">
-                                                                    <option value="ar">
-                                                                        Arabic
-                                                                    </option>
-                                                                    <option value="en">
-                                                                        English
-                                                                    </option>
-                                                                    <option value="ur">
-                                                                        Urud
-                                                                    </option>
-                                                                    <option value="hi">
-                                                                        Hindi
-                                                                    </option>
-                                                                </select>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="">Tafseer</label>
-                                                            <fieldset class="form-group">
-                                                                <textarea class="summernote" name="translations[]"></textarea>
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-7 col-lg-8">
-                                                        </div>
-                                                        <div class="col-md-5 col-lg-4">
-                                                            <span id="add-tafseer" class="btn btn-primary">Add
-                                                                Tafseer</span>
-                                                            <button type="submit"
-                                                                class="btn btn-primary ">Submit</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </form>
 
