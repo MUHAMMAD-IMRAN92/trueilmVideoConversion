@@ -58,6 +58,7 @@ class SurahController extends Controller
         $alQuran->description = $request->description;
         $alQuran->type = $request->type;
         $alQuran->added_by = $this->user->id;
+
         $alQuran->save();
 
 
@@ -84,6 +85,7 @@ class SurahController extends Controller
         $alQuran->para_no = $request->para;
         $alQuran->ruku = $request->ruku;
         $alQuran->added_by = $this->user->id;
+
         $alQuran->save();
 
         return redirect()->to('/al-Quran')->with('msg', 'Ayat Updated Successfully!');;

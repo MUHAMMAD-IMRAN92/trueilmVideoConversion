@@ -31,6 +31,19 @@ class AlQuranController extends Controller
     }
     public function store(Request $request)
     {
+
+
+        $alQuran = Surah::where('_id', $request->surah_id)->first();
+
+
+        $alQuran->surah = $request->surah;
+        $alQuran->ayat = $request->ayat;
+        $alQuran->para_no = $request->para;
+        $alQuran->ruku = $request->ruku;
+        $alQuran->added_by = $this->user->id;
+
+        $alQuran->save();
+
         $alQuran = new AlQuran();
         $alQuran->surah_id = $request->surah_id;
         $alQuran->ayat = $request->ayat;
@@ -40,6 +53,7 @@ class AlQuranController extends Controller
         $alQuran->ruku = $request->ruku;
         $alQuran->sequence = $request->sequence;
         $alQuran->sajda = $request->sajda;
+        $alQuran->waqf = $request->waqf;
         $alQuran->save();
         if ($request->translations) {
             foreach ($request->langs as $key => $lang) {
@@ -76,6 +90,15 @@ class AlQuranController extends Controller
 
     public function update(Request $request)
     {
+        $alQuran = Surah::where('_id', $request->surah_id)->first();
+
+        $alQuran->surah = $request->surah;
+        $alQuran->ayat = $request->ayat;
+        $alQuran->para_no = $request->para;
+        $alQuran->ruku = $request->ruku;
+        $alQuran->added_by = $this->user->id;
+
+        $alQuran->save();
 
         $alQuran = AlQuran::where('_id', $request->ayat_id)->first();
 
@@ -87,6 +110,7 @@ class AlQuranController extends Controller
         $alQuran->ruku = $request->ruku;
         $alQuran->sequence = $request->sequence;
         $alQuran->sajda = $request->sajda;
+        $alQuran->waqf = $request->waqf;
         $alQuran->save();
 
         $alQuranTranslation = AlQuranTranslation::where('ayat_id', $request->ayat_id)->delete();

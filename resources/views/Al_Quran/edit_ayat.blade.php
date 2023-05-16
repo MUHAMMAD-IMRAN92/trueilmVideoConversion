@@ -268,7 +268,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="number" id=""
                                                                         placeholder="e.g. 1234" class="form-control"
-                                                                        name="sequence " placeholder=""
+                                                                        name="sequence" placeholder=""
                                                                         value="{{ $ayat->sequence }}" required>
                                                                 </div>
 
@@ -280,7 +280,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="number" id=""
                                                                         placeholder="e.g. 1234" class="form-control"
-                                                                        name="waqf " placeholder=""
+                                                                        name="waqf" placeholder=""
                                                                         value="{{ $ayat->waqf }}" required>
                                                                 </div>
 
@@ -323,13 +323,14 @@
                                                                     <h4 id="saved-span-{{ $key }}"
                                                                         style="display:none"> <span
                                                                             class="badge badge-success "><i
-                                                                            class="fa fa-check">Translation
-                                                                            Saved</i></span></h4>
+                                                                                class="fa fa-check">Translation
+                                                                                Saved</i></span></h4>
                                                                 </div>
                                                                 <div class="col-4 d-flex">
                                                                     <h4 onclick="editable('{{ $key }}')"><span
                                                                             class="badge badge-info ml-1"><i
-                                                                                class="fa fa-pencil">&nbspEdit</i></span></h4>
+                                                                                class="fa fa-pencil">&nbspEdit</i></span>
+                                                                    </h4>
                                                                     <h4
                                                                         onclick="saveTranslation('{{ $ayatId }}','{{ $transId }}','{{ $key }}')">
                                                                         <span class="badge badge-success ml-1"><i
