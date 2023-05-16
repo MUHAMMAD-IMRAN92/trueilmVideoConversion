@@ -322,7 +322,8 @@
 
                                                                     <h4 id="saved-span-{{ $key }}"
                                                                         style="display:none"> <span
-                                                                            class="badge badge-success ">Translation
+                                                                            class="badge badge-success "><i
+                                                                            class="fa fa-check">Translation
                                                                             Saved</i></span></h4>
                                                                 </div>
                                                                 <div class="col-4 d-flex">
