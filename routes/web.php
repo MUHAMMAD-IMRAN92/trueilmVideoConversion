@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('ayat/store', [App\Http\Controllers\AlQuranController::class, 'store'])->name('ayat.store');
     Route::get('ayat/edit/{surah_id}/{ayat_id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('ayat.edit');
     Route::post('ayat/update', [App\Http\Controllers\AlQuranController::class, 'update'])->name('ayat.update');
+    Route::get('ayat/translation/delete', [App\Http\Controllers\AlQuranController::class, 'deleteTranslation'])->name('ayat.translaton.delete');
+    Route::get('ayat/translation/update', [App\Http\Controllers\AlQuranController::class, 'updateTranslation'])->name('ayat.translaton.update');
 
     Route::get('al-Quran', [App\Http\Controllers\SurahController::class, 'index'])->name('al-Quran');
     Route::get('all-surah', [App\Http\Controllers\SurahController::class, 'allSurah'])->name('surah');
@@ -95,6 +97,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 
     Route::post('referencing', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
-
 });
 // });

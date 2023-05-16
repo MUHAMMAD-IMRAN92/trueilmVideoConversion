@@ -389,7 +389,7 @@
                    {
                        "mRender": function(data, type, row) {
 
-                        return `<td><img class="td-img" src=
+                           return `<td><img class="td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -564,25 +564,27 @@
            });
            $('#add-translation').on('click', function() {
                var html;
-               html =
-                   `<div class="col-12">
-
-                        <p>Language</p>
-                        <fieldset class="form-group">
-                            <select class="form-control" name="langs[]" id="basicSelect">
-                                <option value="ar">Arabic</option>
-                                <option value="en">English</option>
-                                <option value="ur">Urud</option>
-                                <option value="hi">Hindi</option>
-                            </select>
-                        </fieldset>
-                    </div>
-                    <div class="col-12">
-                            <label for="">Translation</label>
+               html = ` <div class="col-12">
+                    <div class="card" >
+                    <div class="card-body">
+                            <p>Language</p>
                             <fieldset class="form-group">
-                                <textarea class="summernote" name="translations[]"></textarea>
+                                <select class="form-control" name="langs[]" id="basicSelect">
+                                    <option value="ar">Arabic</option>
+                                    <option value="en">English</option>
+                                    <option value="ur">Urud</option>
+                                    <option value="hi">Hindi</option>
+                                </select>
                             </fieldset>
-                     </div>`;
+                            </div>
+                            <div class="col-12">
+                                <label for="">Translation</label>
+                                <fieldset class="form-group">
+                                    <textarea class="summernote" name="translations[]"></textarea>
+                                </fieldset>
+                        </div>
+                    </div>
+                </div>`;
 
                $('.append-inputs').append(html);
                $('.summernote').summernote();
@@ -643,7 +645,65 @@
                $('.append-inputs').append(html);
                $('.summernote').summernote();
            });
+           $('#add-translation').on('click', function() {
+               $('.no-translation-div').css('display', 'none');
+               var div = $('.lang');
+               var lang = allElements.length;
+               var html;
+               html = ` <div class="col-12 translation-div-${lang}">
+                    <div class="card" >
+                    <div class="card-body">
+                            <p>Language</p>
+                            <fieldset class="form-group">
+                                <select class="form-control" name="langs[]" id="basicSelect">
+                                    <option value="ar">Arabic</option>
+                                    <option value="en">English</option>
+                                    <option value="ur">Urud</option>
+                                    <option value="hi">Hindi</option>
+                                </select>
+                            </fieldset>
+                            </div>
+                            <div class="col-12">
+                                <label for="">Translation</label>
+                                <fieldset class="form-group">
+                                    <textarea class="summernote" name="translations[]"></textarea>
+                                </fieldset>
+                        </div>
+                    </div>
+                </div>`;
 
+               $('.append-inputs').append(html);
+               $('.summernote').summernote();
+           });
+           $('#add-tafseer').on('click', function() {
+               $('.no-tafseer-div').css('display', 'none');
+
+               var html;
+               html = ` <div class="col-12">
+                    <div class="card" >
+                    <div class="card-body">
+                            <p>Language</p>
+                            <fieldset class="form-group">
+                                <select class="form-control" name="taf_langs[]" id="basicSelect">
+                                    <option value="ar">Arabic</option>
+                                    <option value="en">English</option>
+                                    <option value="ur">Urud</option>
+                                    <option value="hi">Hindi</option>
+                                </select>
+                            </fieldset>
+                            </div>
+                            <div class="col-12">
+                                <label for="">Translation</label>
+                                <fieldset class="form-group">
+                                    <textarea class="summernote" name="tafseers[]"></textarea>
+                                </fieldset>
+                        </div>
+                    </div>
+                </div>`;
+
+               $('.tafseer-append-inputs').append(html);
+               $('.summernote').summernote();
+           });
            $('#add-ayat').on('click', function() {
                $('#add-ayat-div').css('display', 'block')
                $('.card-height ').css('height', '600px')
@@ -651,12 +711,66 @@
            });
            $('#disable-btn-submit').on('submit', function() {
                $('#submit-btn').prop('disabled', 'true');
-           })
+           });
+
+
 
        });
 
        function fileSelect(e, l) {
            console.log(e.target.files[0].name);
            $('#label-' + l).text(e.target.files[0].name);
+       }
+
+       function deleteTranslation(ayatId, tranId, key) {
+           $('.translation-div-' + key).remove();
+
+           $.ajax({
+               type: "GET",
+               url: "{{ url('ayat/translation/delete') }}",
+               data: {
+                   ayatId: ayatId,
+                   transId: tranId,
+               },
+               dataType: "json",
+               success: function(response) {
+                   console.log(response);
+               },
+           });
+       }
+
+       function editable(key) {
+           $('#non-editble-translation-' + key).css('display', 'none');
+           $('#editble-' + key).css('display', 'block');
+       }
+
+       function saveTranslation(ayatId, tranId, key) {
+
+           var lang = $('#lang-select-' + key).val();
+           var translation = $('#trans-input-' + key).val();
+           $.ajax({
+               type: "GET",
+               url: "{{ url('ayat/translation/update') }}",
+               data: {
+                   ayatId: ayatId,
+                   transId: tranId,
+                   lang: lang,
+                   translation: translation,
+               },
+               dataType: "json",
+               success: function(response) {
+                   console.log(response);
+                   $('#saved-span-' + key).css('display', 'block');
+                   setTimeout(() => {
+                       $('#saved-span-' + key).css('display', 'none');
+
+                   }, 3000);
+                   $('#trans-input-' + key).val(response.translation);
+                   $('#non-edit-para-des-' + key).html(response.translation);
+                   $('#editble-' + key).css('display', 'none');
+                   $('#non-editble-translation-' + key).css('display', 'block');
+               }
+           });
+
        }
    </script>

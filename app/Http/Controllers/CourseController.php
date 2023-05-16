@@ -123,7 +123,7 @@ class CourseController extends Controller
                 if ($request->videos[$key]) {
                     $base_path = url('storage');
                     $file = $request->videos[$key];
-                    $file_name = time() . '.' . $file->getClientOriginalExtension();
+                    $file_name = rand(0, 99999) . '.' . time() . '.' . $file->getClientOriginalExtension();
                     $path = $file->storeAs('courses_videos', $file_name, 'public');
 
                     $courseLesson->video = $base_path . '/' . $path;
