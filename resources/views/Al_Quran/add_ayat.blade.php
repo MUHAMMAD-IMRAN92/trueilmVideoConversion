@@ -1,7 +1,6 @@
 @extends('layouts.default_layout')
 
 @section('content')
-    <!-- BEGIN: Content-->
     <style>
         .ayat-data .active {
             background-color: black;
@@ -60,6 +59,12 @@
         .card-body ul {
             margin-bottom: 0 !important;
             padding-bottom: 0 !important;
+        }
+
+        .render-ayat {
+            white-space: nowrap;
+            overflow: hidden;
+            /* max-width: var(--mapList-characters); */
         }
     </style>
 
@@ -256,7 +261,7 @@
                                             <div class="ayat-list">
                                                 <ul class="" id="" data-menu="menu-navigation">
 
-                                                    <li class="@if (request()->is('*/' . $ayat->id)) active @endif ">
+                                                    <li class="@if (request()->is('*/' . $ayat->id)) active @endif render-ayat">
                                                         <a href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
                                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                                             <span class="menu-item"

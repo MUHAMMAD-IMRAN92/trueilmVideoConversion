@@ -14,6 +14,7 @@
 
         .ayat-list ul li {
             list-style: none;
+            margin: 5px auto;
         }
 
         .ayat-list .active a {
@@ -65,7 +66,8 @@
         .render-ayat {
             white-space: nowrap;
             overflow: hidden;
-            max-width: var(--mapList-characters);
+            background-image: linear-gradient(to right, #00000030, #ffff);
+    border-radius: 10px;
         }
     </style>
 
