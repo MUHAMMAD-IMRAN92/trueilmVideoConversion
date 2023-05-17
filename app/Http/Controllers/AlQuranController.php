@@ -154,4 +154,45 @@ class AlQuranController extends Controller
 
         return $alQuranTranslation;
     }
+    public function saveTranslation(Request $request)
+    {
+        $alQuranTranslation = new AlQuranTranslation();
+        $alQuranTranslation->lang = $request->lang;
+        $alQuranTranslation->translation = $request->translation;
+        $alQuranTranslation->ayat_id = $request->ayatId;
+        $alQuranTranslation->added_by = $this->user->id;
+        $alQuranTranslation->save();
+
+        return $alQuranTranslation;
+    }
+
+    public function deleteTafseer(Request $request)
+    {
+        $alQuranTafseer = Tafseer::where('_id', $request->tafseerId)->delete();
+        return sendSuccess('Deleted!', []);
+    }
+
+    public function updateTafseer(Request $request)
+    {
+        $alQuranTafseer = Tafseer::where('_id', $request->tafseerId)->first();
+        $alQuranTafseer->lang = $request->lang;
+        $alQuranTafseer->tafseer = $request->tafseer;
+        $alQuranTafseer->ayat_id = $request->ayatId;
+        $alQuranTafseer->added_by = $this->user->id;
+        $alQuranTafseer->save();
+
+        return $alQuranTafseer;
+    }
+    public function saveTafseer(Request $request)
+    {
+
+        $alQuranTafseer = new Tafseer();
+        $alQuranTafseer->lang = $request->lang;
+        $alQuranTafseer->tafseer = $request->tafseer;
+        $alQuranTafseer->ayat_id = $request->ayatId;
+        $alQuranTafseer->added_by = $this->user->id;
+        $alQuranTafseer->save();
+
+        return $alQuranTafseer;
+    }
 }

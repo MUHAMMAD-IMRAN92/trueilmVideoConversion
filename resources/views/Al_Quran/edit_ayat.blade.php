@@ -349,7 +349,7 @@
                                                                 id="non-editble-translation-{{ $key }}">
 
                                                                 <p>Language :
-                                                                    <b>{{ $aya->lang }}
+                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $aya->lang }}
                                                                     </b>
                                                                 </p>
 
@@ -419,7 +419,10 @@
                                                     <div class="col-md-7">
                                                     </div>
                                                     <div class="col-md-5">
-                                                        <span id="add-translation" class="btn btn-primary">Add
+                                                        {{-- <span id="add-translation" class="btn btn-primary">Add
+                                                            Translation</span> --}}
+                                                        <span onclick="addTranslation('{{ $ayat->id }}')"
+                                                            class="btn btn-primary">Add
                                                             Translation</span>
                                                         <button type="submit" class="btn btn-primary ">Submit</button>
                                                     </div>
@@ -430,15 +433,69 @@
 
                                     <div role="tabpanel" class="tab-pane" id="tafseer-fill"
                                         aria-labelledby="tafseer-tab-fill" aria-expanded="true">
-                                        <div class="form-body">
-                                            <div class="row tafseer-append-inputs">
-                                                @forelse ($ayat->tafseers as $tafseer)
-                                                    <div class="col-12">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <p>Language</p>
+
+                                        <div class="row tafseer-append-inputs">
+                                            @forelse ($ayat->tafseers as $key=> $tafseer)
+                                                @php
+                                                    $ayatId = $ayat->id;
+                                                    $tafseerId = $tafseer->id;
+                                                @endphp
+                                                <div class="col-12 tafseer-divs tafseer-div-{{ $key }}">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-8 ">
+
+                                                                    <h4 id="saved-span-{{ $key }}"
+                                                                        style="display:none"> <span
+                                                                            class="badge badge-success "><i
+                                                                                class="fa fa-check">Translation
+                                                                                Saved</i></span></h4>
+                                                                </div>
+                                                                <div class="col-4 d-flex">
+                                                                    <h4 onclick="editableTafseer('{{ $key }}')">
+                                                                        <span class="badge badge-info ml-1"><i
+                                                                                class="fa fa-pencil">&nbspEdit</i></span>
+                                                                    </h4>
+                                                                    <h4
+                                                                        onclick="saveTafseer('{{ $ayatId }}','{{ $tafseerId }}','{{ $key }}')">
+                                                                        <span class="badge badge-success ml-1"><i
+                                                                                class="fa fa-save">&nbspSave</i></span>
+                                                                    </h4>
+
+                                                                    <h4
+                                                                        onclick="deleteTafseer('{{ $ayatId }}','{{ $tafseerId }}','{{ $key }}')">
+                                                                        <span class="badge badge-danger ml-1"><i
+                                                                                class="fa fa-trash">&nbspDelete</i></span>
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row ml-1"
+                                                                id="non-editble-tafseer-{{ $key }}">
+
+                                                                <p>Language :
+                                                                    <b
+                                                                        id="tafseer-non-edit-lang-select-{{ $key }}">{{ $tafseer->lang }}
+                                                                    </b>
+                                                                </p>
+
+                                                                <div class="col-12">
+
+                                                                    <span class=""
+                                                                        id="tafseer-non-edit-para-des-{{ $key }}"
+                                                                        style="margin-left:10px!important">
+                                                                        {!! $tafseer->tafseer !!}</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row m-0 p-0"
+                                                                id="tafseer-editble-{{ $key }}"
+                                                                style="display:none">
+                                                                <label for="">Language</label>
                                                                 <fieldset class="form-group">
                                                                     <select class="form-control" name="langs[]"
+                                                                        id="tafseer-lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         <option value="ar"
                                                                             {{ $tafseer->lang == 'ar' ? 'selected' : '' }}>
@@ -458,43 +515,46 @@
                                                                         </option>
                                                                     </select>
                                                                 </fieldset>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="">Tafseer</label>
-                                                                <fieldset class="form-group">
-                                                                    <textarea class="summernote" name="translations[]">{{ $tafseer->tafseer }}</textarea>
-                                                                </fieldset>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @empty
-                                                    <div class="col-12 no-tafseer-div">
 
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <center>
-                                                                    No Tafseer Added In This Ayat
-                                                                </center>
+                                                                <div class="col-12 m-0 p-0">
+                                                                    <label for="">Translation</label>
+
+                                                                    <fieldset class="form-group">
+                                                                        <textarea class="summernote" id="tafseer-trans-input-{{ $key }}" name="translations[]">{{ $tafseer->tafseer }}</textarea>
+                                                                    </fieldset>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @endforelse
-                                            </div>
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-7 col-lg-8">
+                                                </div>
+                                            @empty
+                                                <div class="col-12 no-tafseer-div">
+
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <center>
+                                                                No Tafseer Added In This Ayat
+                                                            </center>
                                                         </div>
-                                                        <div class="col-md-5 col-lg-4">
-                                                            <span id="add-tafseer" class="btn btn-primary">Add
-                                                                Tafseer</span>
-                                                            <button type="submit"
-                                                                class="btn btn-primary ">Submit</button>
-                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-7 col-lg-8">
+                                                    </div>
+                                                    <div class="col-md-5 col-lg-4">
+                                                        <span onclick="addTafseer('{{ $ayat->id }}')"
+                                                            class="btn btn-primary">Add
+                                                            Tafseer</span>
+                                                        <button type="submit" class="btn btn-primary ">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
 
                                 </div>
