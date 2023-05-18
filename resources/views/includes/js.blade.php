@@ -79,12 +79,13 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var des = '';
+                           var des= "";
                            if (row.description != null) {
-                               des = row.description.slice(0, 300) + `...`;
+                               des = row.description.slice(0, 300);
                            }
+                           var concat =des."...";
                            return '<td>' +
-                               des +
+                            concat +
                                '</td>'
                        }
                    },
