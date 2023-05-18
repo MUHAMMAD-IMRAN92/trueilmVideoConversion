@@ -12,7 +12,7 @@ class CreateReferencesTable extends Migration
      * @return void
      */
     //type = type of referral(1=>Ayat  , 2=>Hadith , 3=>ebooks , 4=>audio book , 5=>papers)
-    //reference_type = type of reference(1=>Ayat ,2=>Hadith , 3=>ebooks , 4=>audio book , 5=>papers , 6 => Tafseer)
+    //reference_type = type of reference(1=>ebook ,2=>audio , 3=>paper , 4=>Ayat , 5=>Hdith , 6 => Tafseer)
     public function up()
     {
         Schema::create('references', function (Blueprint $table) {

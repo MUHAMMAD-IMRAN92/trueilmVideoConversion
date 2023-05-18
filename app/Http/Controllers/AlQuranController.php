@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AyatRequest;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
+use App\Models\Book;
 use App\Models\Surah;
 use App\Models\Tafseer;
 use Illuminate\Http\Request;
@@ -195,4 +196,11 @@ class AlQuranController extends Controller
 
         return $alQuranTafseer;
     }
+
+    function getFiles(Request $request)
+    {
+        return Book::where('type', $request->type)->get();
+    }
+
+ 
 }

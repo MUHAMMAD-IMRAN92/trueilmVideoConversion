@@ -67,7 +67,7 @@
             white-space: nowrap;
             overflow: hidden;
             background-image: linear-gradient(to right, #00000030, #ffff);
-    border-radius: 10px;
+            border-radius: 10px;
         }
     </style>
 
@@ -106,53 +106,6 @@
 
 
 
-            <!-- Modal -->
-            <div class="modal fade" id="reference" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog modal-dialog-centered">
-                    <form action="{{ url('referencing') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Add Reference</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" value="1" name="referal">
-                                <input type="hidden" value="{{ $ayat->id }}" name="referal_id">
-                                <div class="col-12">
-                                    <label for="">Reference Type</label>
-                                    <fieldset class="form-group">
-                                        <select class="form-control" id="" name="ref_type" required>
-                                            <option value="3">eBook</option>
-                                            <option value="4">Audio</option>
-                                            <option value="5">Research Paper</option>
-                                            <option value="6">Tafseer</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                    <fieldset class="form-group">
-                                        <label for="basicInputFile">Refernce</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                                name="file">
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose
-                                                file</label>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
 
 
             <div class="content-body">
@@ -179,6 +132,10 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" id="tafseer-tab-fill" data-toggle="pill"
                                                     href="#tafseer-fill" aria-expanded="true">Add Tafseer</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="reference-tab-fill" data-toggle="pill"
+                                                    href="#reference-fill" aria-expanded="true">Add Reference</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -328,7 +285,7 @@
                                                             <div class="row">
                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="saved-span-{{ $key }}"
+                                                                    <h4 id="translation-saved-span-{{ $key }}"
                                                                         style="display:none"> <span
                                                                             class="badge badge-success "><i
                                                                                 class="fa fa-check">Translation
@@ -438,7 +395,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div role="tabpanel" class="tab-pane" id="tafseer-fill"
                                         aria-labelledby="tafseer-tab-fill" aria-expanded="true">
 
@@ -454,10 +410,10 @@
                                                             <div class="row">
                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="saved-span-{{ $key }}"
+                                                                    <h4 id="tafseer-saved-span-{{ $key }}"
                                                                         style="display:none"> <span
                                                                             class="badge badge-success "><i
-                                                                                class="fa fa-check">Translation
+                                                                                class="fa fa-check">Tafseer
                                                                                 Saved</i></span></h4>
                                                                 </div>
                                                                 <div class="col-4 d-flex">
@@ -564,7 +520,93 @@
                                         </div>
 
                                     </div>
+                                    <div role="tabpanel" class="tab-pane" id="reference-fill"
+                                        aria-labelledby="reference-tab-fill" aria-expanded="true">
+                                        <div class="row reference-append-inputs">
 
+                                            <div class="col-12 references ">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                                <div class="col-10">
+                                                                    <h4 id="reference-saved-span"
+                                                                        style="display:none">
+                                                                        <span class="badge badge-success "><i
+                                                                                class="fa fa-check">Translation
+                                                                                Saved</i></span>
+                                                                    </h4>
+                                                                </div>
+
+                                                            </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="table bordered">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <th>Book Title</th>
+                                                                            <th>Type</th>
+                                                                            <th>Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="ref-table">
+                                                                            @forelse ($ayat->references as $key=>$reference)
+                                                                                <tr class=""
+                                                                                    id="ref-tr-{{ $key }}">
+                                                                                    <td>{{ $reference->reference_title }}
+                                                                                    </td>
+                                                                                    <td>{{ $reference->type == 1 ? 'eBook' : '' }}{{ $reference->type == 2 ? 'Audio Book' : '' }}
+                                                                                        {{ $reference->type == 3 ? 'Audio Book' : '' }}
+                                                                                    </td>
+                                                                                    <td><i class="fa fa-trash"
+                                                                                            onclick="deleteReference('{{ $ayat->id }}', '{{ $reference->_id }}' , '{{ $key }}')"></i>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @empty
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                                        <center>
+                                                                                            No Reference Added In This Ayat
+                                                                                        </center>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            @endforelse
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- <p>Book : <b>{{ $reference->reference_title }}</b> </p>
+
+                                                        <p>Type :
+                                                            <b>b>
+                                                        </p> --}}
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-7">
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-5">
+                                                        <span onclick="addReference('{{ $ayat->id }}')"
+                                                            class="btn btn-primary">Add
+                                                            Reference</span>
+                                                        <button type="submit" class="btn btn-primary ">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </form>
 

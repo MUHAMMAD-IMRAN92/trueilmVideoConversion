@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Reference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,41 +21,23 @@ class ReferenceController extends Controller
     }
     public function add(Request $request)
     {
-        if ($request->ref_type == 3) {
-            $validator = Validator::make($request->all(), [
-                'file' => 'required|mimes:epub'
-            ]);
-        } elseif ($request->ref_type == 4) {
-            $validator = Validator::make($request->all(), [
-                'file' => 'required|mimes:mp3'
-            ]);
-        } elseif ($request->ref_type == 5) {
-            $validator = Validator::make($request->all(), [
-                'file' => 'required|mimes:pdf,epub'
-            ]);
-        } else {
-            $validator = Validator::make($request->all(), []);
-        }
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $reference = new Reference();
-        $reference->type = $request->referal;
-        $reference->referal_id = $request->referal_id;
-        if ($request->has('file')) {
-            $base_path = url('storage');
-            $file = $request->file('file');
-            $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('files', $file_name, 'public');
-            $reference->reference  = $base_path . '/' .  $path;
-        }
+        $reference->type = $request->type;
+        $reference->referal_id = $request->ayatId;
         $reference->reference_type = $request->ref_type;
+        if ($request->fileId) {
+            $book = Book::where('_id', $request->fileId)->first();
+            $reference->reference = $book->file;
+            $reference->reference_title = $book->title;
+        }
         $reference->added_by = $this->user->id;
         $reference->save();
 
-        return redirect()->back()->with('msg', 'Reference Added Successfully!');
+        return $reference;
+    }
+    function delete(Request $request)
+    {
+        $reference = Reference::where('_id', $request->ref_id)->delete();
+        return sendSuccess('Deleted!', []);
     }
 }

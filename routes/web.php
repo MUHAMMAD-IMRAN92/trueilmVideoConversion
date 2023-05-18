@@ -44,6 +44,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ayat/tafseer/update', [App\Http\Controllers\AlQuranController::class, 'updateTafseer'])->name('ayat.tafseer.update');
     Route::get('ayat/tafseer/save', [App\Http\Controllers\AlQuranController::class, 'saveTafseer'])->name('ayat.tafseer.save');
 
+    //Ayat Reference
+    Route::get('referene/get_files', [App\Http\Controllers\AlQuranController::class, 'getFiles'])->name('ayat.reference.files');
+    Route::get('reference/delete', [App\Http\Controllers\ReferenceController::class, 'delete'])->name('ayat.reference.delete');
+
     Route::get('al-Quran', [App\Http\Controllers\SurahController::class, 'index'])->name('al-Quran');
     Route::get('all-surah', [App\Http\Controllers\SurahController::class, 'allSurah'])->name('surah');
     Route::get('surah/create', [App\Http\Controllers\SurahController::class, 'add'])->name('surah.add');
@@ -104,6 +108,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 
-    Route::post('referencing', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
+    Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
 });
 // });

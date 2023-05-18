@@ -693,6 +693,8 @@
            $('#label-' + l).text(e.target.files[0].name);
        }
 
+
+       // Ayat Translation
        function deleteTranslation(ayatId, tranId, key) {
            $('.translation-div-' + key).remove();
 
@@ -736,9 +738,9 @@
                dataType: "json",
                success: function(response) {
                    console.log(response);
-                   $('#saved-span-' + key).css('display', 'block');
+                   $('#translation-saved-span-' + key).css('display', 'block');
                    setTimeout(() => {
-                       $('#saved-span-' + key).css('display', 'none');
+                       $('#translation-saved-span-' + key).css('display', 'none');
 
                    }, 3000);
                    $('#non-edit-lang-select-' + key).html(response.lang);
@@ -763,7 +765,7 @@
                                     <div class="card-body">
                                         <div class="row">
                             <div class="col-8 ">
-                                <h4 id="saved-span-${lang }"
+                                <h4 id="translation-saved-span-${lang }"
                                     style="display:none"> <span
                                         class="badge badge-success "><i
                                             class="fa fa-check">Translation
@@ -786,6 +788,7 @@
                             <p>Language</p>
                             <fieldset class="form-group">
                                 <select class="form-control" name="langs[]" id="new-lang-select-${lang}">
+                                    <option value="" selected>Please Select Language</option>
                                     <option value="ar">Arabic</option>
                                     <option value="en">English</option>
                                     <option value="ur">Urud</option>
@@ -843,8 +846,8 @@
                                                             <div class="row">
                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="saved-span-${key }"
-                                                                        style="display:none"> <span
+                                                                    <h4 id="translation-saved-span-${key }"
+                                                                        style=""> <span
                                                                             class="badge badge-success "><i
                                                                                 class="fa fa-check">Translation
                                                                                 Saved</i></span></h4>
@@ -892,6 +895,8 @@
                                                                     <select class="form-control" name="langs[]"
                                                                         id="lang-select-${ key }"
                                                                         id="basicSelect">
+                                                                        <option value="" >Please Select Language</option>
+
                                                                         <option value="ar"
                                                                            ${response.lang }== 'ar' ? 'selected' : ''>
                                                                             Arabic
@@ -922,6 +927,11 @@
                                                         </div>
                                                     </div>
                                                 </div>`;
+                   //    $('#translation-saved-span-' + key).css('display', 'block');
+                   setTimeout(() => {
+                       $('#translation-saved-span-' + key).css('display', 'none');
+
+                   }, 3000);
                    $('.append-inputs').append(html);
                    $('.summernote').summernote();
                }
@@ -929,7 +939,7 @@
        }
 
 
-       //Tafseer
+       //Ayat Tafseer
        function deleteTafseer(ayatId, tafseerId, key) {
 
 
@@ -977,9 +987,9 @@
                dataType: "json",
                success: function(response) {
                    console.log(response);
-                   $('#saved-span-' + key).css('display', 'block');
+                   $('#tafseer-saved-span-' + key).css('display', 'block');
                    setTimeout(() => {
-                       $('#saved-span-' + key).css('display', 'none');
+                       $('#tafseer-saved-span-' + key).css('display', 'none');
 
                    }, 3000);
                    $('#tafseer-non-edit-lang-select-' + key).html(response.lang);
@@ -1003,7 +1013,7 @@
                                     <div class="card-body">
                                         <div class="row">
                             <div class="col-8 ">
-                                <h4 id="saved-span-${lang }"
+                                <h4 id="tafseer-saved-span-${lang }"
                                     style="display:none"> <span
                                         class="badge badge-success "><i
                                             class="fa fa-check">Translation
@@ -1026,6 +1036,7 @@
                             <p>Language</p>
                             <fieldset class="form-group">
                                 <select class="form-control" name="langs[]" id="tafseer-new-lang-select-${lang}">
+                                    <option value="" selected>Please Select Language</option>
                                     <option value="ar">Arabic</option>
                                     <option value="en">English</option>
                                     <option value="ur">Urud</option>
@@ -1082,10 +1093,10 @@
                                                             <div class="row">
                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="saved-span-${ key }"
-                                                                        style="display:none"> <span
+                                                                    <h4 id="tafseer-saved-span-${ key }"
+                                                                        style=""> <span
                                                                             class="badge badge-success "><i
-                                                                                class="fa fa-check">Translation
+                                                                                class="fa fa-check">Tafseer
                                                                                 Saved</i></span></h4>
                                                                 </div>
                                                                 <div class="col-4 d-flex">
@@ -1130,7 +1141,9 @@
                                                                 <fieldset class="form-group">
                                                                     <select class="form-control" name="langs[]"
                                                                         id="tafseer-lang-select-${ key }"
-                                                                        id="basicSelect">
+                                                                        >
+                                                                        <option value="" selected>Please Select Language</option>
+
                                                                         <option value="ar"
                                                                            ${response.lang }== 'ar' ? 'selected' : ''>
                                                                             Arabic
@@ -1161,9 +1174,159 @@
                                                         </div>
                                                     </div>
                                                 </div>`;
+                   setTimeout(() => {
+                       $('#tafseer-saved-span-' + key).css('display', 'none');
+
+                   }, 3000);
                    $('.tafseer-append-inputs').append(html);
                    $('.summernote').summernote();
                }
+           });
+       }
+
+       //Ayat References
+       function addReference(ayatId) {
+           $('.no-reference-div').css('display', 'none');
+           var div = $('.references');
+           var lang = div.length;
+           var html;
+           html = `
+                        <div class="col-12 references reference-div-${lang}">
+
+                                    <div class="card" >
+                                    <div class="card-body">
+                                        <div class="row">
+                                                <div class="col-8 ">
+                                                    <h4 id="reference-saved-span-${lang }"
+                                                        style="display:none"> <span
+                                                            class="badge badge-success "><i
+                                                                class="fa fa-check">Translation
+                                                                Saved</i></span>
+                                                    </h4>
+                                                </div>
+                                                <div class="col-4 d-flex">
+
+                                                    <h4
+                                                        onclick="saveReference('${ayatId}','${lang}')">
+                                                        <span class="badge badge-success ml-1"><i
+                                                                class="fa fa-save">&nbspSave</i></span>
+                                                    </h4>
+                                                    <h4
+                                                        onclick="deleteReference('${lang }')">
+                                                        <span class="badge badge-danger ml-1"><i
+                                                                class="fa fa-trash">&nbspDelete</i></span>
+                                                    </h4>
+                                                </div>
+                                         </div>
+                            <p>Type</p>
+                            <fieldset class="form-group">
+                                <select class="form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}">
+                                    <option value="" selected>Please Select Language</option>
+                                    <option value="1">eBook</option>
+                                    <option value="2">Audio</option>
+                                    <option value="3">Paper</option>
+                                </select>
+                            </fieldset>
+                                <label for="">File</label>
+                                <fieldset class="form-group">
+                                    <select class="form-control " name="file[]" id="file-new-lang-select-${lang}">
+                                    <option value="" selected>Please Select File</option>
+
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+                </div> `;
+
+           $('.reference-append-inputs').append(html);
+           $('.summernote').summernote();
+       }
+
+       function getFilesAjax(key) {
+           var referenceType = $('#reference-new-lang-select-' + key).val();
+
+           $.ajax({
+               type: "GET",
+               url: "{{ url('referene/get_files') }}",
+               data: {
+                   type: referenceType,
+               },
+               dataType: "json",
+               success: function(response) {
+
+                   var html = '<option value="" selected disabled>Please Select File</option>';
+                   response.forEach(element => {
+                       html += `<option value="${element._id}">${element.title}</option>`;
+                       $('#file-new-lang-select-' + key).html(html);
+                   });
+               },
+           });
+       }
+
+       function saveReference(ayatId, key) {
+           var type = $('#reference-new-lang-select-' + key).val();
+           var fileId = $('#file-new-lang-select-' + key).val();
+
+           $.ajax({
+               type: "GET",
+               url: "{{ url('referene/add') }}",
+               data: {
+                   type: 1,
+                   ayatId: ayatId,
+                   ref_type: type,
+                   fileId: fileId
+               },
+               dataType: "json",
+               success: function(response) {
+
+                   var html;
+                   var type;
+                   if (response.type == 1) {
+                       type = "eBook";
+                   } else if (response.type == 2) {
+                       type = "Audio Book";
+
+                   } else {
+                       type = "Research Paper";
+                   }
+                   console.log(response);
+                   html = `<tr class=""
+                                id="ref-tr-${key }">
+                                <td>${ response.reference_title }
+                                </td>
+                                <td>${type}
+                                </td>
+                                <td><i class="fa fa-trash"
+                                        onclick="deleteReference(${ response.referal_id}, ${ response._id} , ${ key })"></i>
+                                </td>
+                         </tr>`;
+                   $('.ref-table').append(html);
+
+                   $('.reference-div-' + key).remove();
+                   $('#reference-saved-span').css('display', 'block');
+                   setTimeout(() => {
+                       $('#reference-saved-span').css('display', 'none');
+
+                   }, 3000);
+               },
+           });
+       }
+
+       function deleteReference(ayatId, ref_id, key) {
+
+           $.ajax({
+               type: "GET",
+               url: "{{ url('reference/delete') }}",
+               data: {
+                   ayatId: ayatId,
+                   ref_id: ref_id,
+               },
+               dataType: "json",
+               success: function(response) {
+                   $('#ref-tr-' + key).remove();
+               },
            });
        }
    </script>
