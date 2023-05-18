@@ -84,7 +84,7 @@
                                des = row.description.slice(0, 300);
                            }
                            return '<td>' +
-                               des +
+                               des+ `...` +
                                '</td>'
                        }
                    },
