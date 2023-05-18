@@ -699,22 +699,22 @@
        function deleteTranslation(ayatId, tranId, key) {
            $('.translation-div-' + key).remove();
 
-           $.ajax({
-               type: "GET",
-               url: "{{ url('ayat/translation/delete') }}",
-               data: {
-                   ayatId: ayatId,
-                   transId: tranId,
-               },
-               dataType: "json",
-               success: function(response) {
-                   console.log(response);
-               },
-           });
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "{{ url('ayat/translation/delete') }}",
+        //        data: {
+        //            ayatId: ayatId,
+        //            transId: tranId,
+        //        },
+        //        dataType: "json",
+        //        success: function(response) {
+        //            console.log(response);
+        //        },
+        //    });
            var div = $('.lang');
-           var lang = div.length;
-           if (lang == 0) {
-               $('.no-translation-div').css('display', 'block');
+          alert(div.length);
+           if (div.length == 0) {
+               $('#no-translation-div').css('display', 'block');
            }
 
        }
@@ -754,7 +754,7 @@
        }
 
        function addTranslation(ayatId) {
-           $('.no-translation-div').css('display', 'none');
+           $('#no-translation-div').css('display', 'none');
            var div = $('.lang');
            var lang = div.length;
            var html;
@@ -816,11 +816,9 @@
        function deleteNewTranslation(key) {
            $('.translation-div-' + key).remove();
            var div = $('.lang');
-           var lang = div.length;
-           console.log(lang);
-           if (lang == 0) {
-
-               $('.no-translation-div').css('display', 'block');
+           console.log(div.length);
+           if (div.length == 0) {
+               $('#no-translation-div').css('display', 'block');
            }
        }
 
@@ -896,7 +894,7 @@
                                                                     <select class="form-control" name="langs[]"
                                                                         id="lang-select-${ key }"
 
-                                                                        default-value =  ${ response.lang }
+                                                                        value =  ${ response.lang }
                                                                         >
                                                                         <option value="" >Please Select Language</option>
                                                                         <option value="ar"
@@ -1012,7 +1010,7 @@
            var lang = div.length;
            var html;
            html = `
-                        <div class="col-12 tafseer-div-${lang}">
+                        <div class="col-12 tafseer-divs tafseer-div-${lang}">
 
                                     <div class="card" >
                                     <div class="card-body">

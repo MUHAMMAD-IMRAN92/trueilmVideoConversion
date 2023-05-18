@@ -10,7 +10,7 @@
         }
 
         .ayat-list .active a {
-            color: white;
+            color: black;
         }
 
         .ayat-list ul li {
@@ -25,9 +25,8 @@
         .ayat-list .active a {
             float: right;
             display: flex;
-            background: linear-gradient(to right, #00000030, #ffff);
-            box-shadow: 0 0 10px 1px #141414;
-            color: #fff;
+
+
             font-weight: 400;
             font-size: 1.1rem;
             border-radius: 4px;
@@ -73,16 +72,12 @@
         .render-ayat {
             white-space: nowrap;
             overflow: hidden;
-            background-image: linear-gradient(to right, #00000030, #ffff);
+            background-image: linear-gradient(to left, #00000030, #ffff);
             border-radius: 10px;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
             display: inherit;
-        }
-
-        .new-item-ayat {
-            color: #fff !important;
         }
     </style>
 
@@ -379,9 +374,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-12 " id="no-translation-div" style="display:none">
 
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <center>
+                                                                No Translation Added In This Ayat
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @empty
-                                                <div class="col-12 no-translation-div">
+                                                <div class="col-12 " id="no-translation-div">
 
                                                     <div class="card">
                                                         <div class="card-body">
@@ -503,6 +507,16 @@
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 no-tafseer-div" style="display:none">
+
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <center>
+                                                                No Tafseer Added In This Ayat
+                                                            </center>
                                                         </div>
                                                     </div>
                                                 </div>
