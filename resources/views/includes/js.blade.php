@@ -90,14 +90,14 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var type = '';
-                           if (type == 1) {
+                           var type;
+                           if (row.type == 1) {
                                type = 'Makki Surah';
                            } else {
                                type = 'Madni Surah';
                            }
                            return '<td>' +
-                               row.type + '</td>'
+                               type + '</td>'
                        }
                    }, {
                        "mRender": function(data, type, row) {
