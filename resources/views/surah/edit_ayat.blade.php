@@ -10,7 +10,7 @@
             border: 3px solid black;
         }
 
-        .active a {
+        .ayat-data .active a {
             color: white;
         }
 
