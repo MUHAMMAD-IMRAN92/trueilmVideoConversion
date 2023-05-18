@@ -79,13 +79,13 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var des= "";
+                           var des = "";
                            if (row.description != null) {
                                des = row.description.slice(0, 300);
                            }
 
                            return '<td>' +
-                            des +
+                               des +
                                '</td>'
                        }
                    },
@@ -895,23 +895,24 @@
                                                                 <fieldset class="form-group">
                                                                     <select class="form-control" name="langs[]"
                                                                         id="lang-select-${ key }"
-                                                                        id="basicSelect">
-                                                                        <option value="" >Please Select Language</option>
 
+                                                                        default-value =  ${ response.lang }
+                                                                        >
+                                                                        <option value="" >Please Select Language</option>
                                                                         <option value="ar"
-                                                                           ${response.lang }== 'ar' ? 'selected' : ''>
+                                                                           >
                                                                             Arabic
                                                                         </option>
                                                                         <option value="en"
-                                                                           ${response.lang }== 'en' ? 'selected' : '' >
+                                                                            >
                                                                             English
                                                                         </option>
                                                                         <option value="ur"
-                                                                           ${response.lang }== 'ur' ? 'selected' : '' >
+                                                                            >
                                                                             Urud
                                                                         </option>
                                                                         <option value="hi"
-                                                                           ${response.lang }== 'hi' ? 'selected' : '' >
+                                                                            >
                                                                             Hindi
                                                                         </option>
                                                                     </select>
@@ -928,6 +929,7 @@
                                                         </div>
                                                     </div>
                                                 </div>`;
+
                    //    $('#translation-saved-span-' + key).css('display', 'block');
                    setTimeout(() => {
                        $('#translation-saved-span-' + key).css('display', 'none');
@@ -935,6 +937,8 @@
                    }, 3000);
                    $('.append-inputs').append(html);
                    $('.summernote').summernote();
+
+                   $('#lang-select-' + key).val(response.lang)
                }
            });
        }
@@ -1146,19 +1150,19 @@
                                                                         <option value="" selected>Please Select Language</option>
 
                                                                         <option value="ar"
-                                                                           ${response.lang }== 'ar' ? 'selected' : ''>
+                                                                          >
                                                                             Arabic
                                                                         </option>
                                                                         <option value="en"
-                                                                           ${response.lang }== 'en' ? 'selected' : '' >
+                                                                           >
                                                                             English
                                                                         </option>
                                                                         <option value="ur"
-                                                                           ${response.lang }== 'ur' ? 'selected' : '' >
+                                                                           >
                                                                             Urud
                                                                         </option>
                                                                         <option value="hi"
-                                                                           ${response.lang }== 'hi' ? 'selected' : '' >
+                                                                           >
                                                                             Hindi
                                                                         </option>
                                                                     </select>
@@ -1181,6 +1185,8 @@
                    }, 3000);
                    $('.tafseer-append-inputs').append(html);
                    $('.summernote').summernote();
+                   $('#tafseer-lang-select-' + key).val(response.lang)
+
                }
            });
        }
