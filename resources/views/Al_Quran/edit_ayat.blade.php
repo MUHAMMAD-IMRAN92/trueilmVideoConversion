@@ -9,7 +9,7 @@
             border: 3px solid black;
         }
 
-        .active a {
+        .ayat-list .active a {
             color: white;
         }
 
