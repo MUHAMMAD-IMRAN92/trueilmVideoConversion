@@ -83,9 +83,9 @@
                            if (row.description != null) {
                                des = row.description.slice(0, 300);
                            }
-                           var concat =des."...";
+
                            return '<td>' +
-                            concat +
+                            des +
                                '</td>'
                        }
                    },
