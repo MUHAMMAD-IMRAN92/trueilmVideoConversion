@@ -3,7 +3,7 @@
 @section('content')
     <style>
         .ayat-data .active {
-            background-color: black;
+            background-color: rgb(70, 66, 66);
             border-radius: 10px;
         }
 

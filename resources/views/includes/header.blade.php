@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading"  data-textdirection="rtl">
 <!-- BEGIN: Head-->
 @include('includes.css')
 

@@ -4,8 +4,9 @@
     <!-- BEGIN: Content-->
     <style>
         .ayat-data .active {
-            background-color: black;
+
             border-radius: 10px;
+            border: 3px solid black;
         }
 
         .active a {
@@ -16,10 +17,13 @@
             list-style: none;
             margin: 5px auto;
         }
-
+        .ayat-list a span{
+            flex-direction: row-reverse;
+        }
         .ayat-list .active a {
+            float: right;
             display: flex;
-            background: linear-gradient(118deg, #141414, #141414);
+            background: linear-gradient(to right, #00000030, #ffff);
             box-shadow: 0 0 10px 1px #141414;
             color: #fff;
             font-weight: 400;
@@ -32,6 +36,7 @@
         }
 
         .ayat-list a {
+            float: right;
             display: flex;
             animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
             color: #565656;
@@ -68,6 +73,13 @@
             overflow: hidden;
             background-image: linear-gradient(to right, #00000030, #ffff);
             border-radius: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: inherit;
+        }
+        .new-item-ayat{
+color: #fff !important;
         }
     </style>
 
@@ -528,16 +540,15 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                                <div class="col-10">
-                                                                    <h4 id="reference-saved-span"
-                                                                        style="display:none">
-                                                                        <span class="badge badge-success "><i
-                                                                                class="fa fa-check">Translation
-                                                                                Saved</i></span>
-                                                                    </h4>
-                                                                </div>
-
+                                                            <div class="col-10">
+                                                                <h4 id="reference-saved-span" style="display:none">
+                                                                    <span class="badge badge-success "><i
+                                                                            class="fa fa-check">Translation
+                                                                            Saved</i></span>
+                                                                </h4>
                                                             </div>
+
+                                                        </div>
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="table bordered">
@@ -623,7 +634,7 @@
                                                         class="@if (request()->is('*/' . $ayat->id)) active @endif render-ayat ">
                                                         <a href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
                                                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                            <span class="menu-item"
+                                                            <span class="d-flex menu-item new-item-ayat"
                                                                 data-i18n="Analytics">{!! $ayat->ayat !!}
                                                             </span>
                                                         </a>
