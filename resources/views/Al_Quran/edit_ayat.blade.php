@@ -17,9 +17,11 @@
             list-style: none;
             margin: 5px auto;
         }
-        .ayat-list a span{
+
+        .ayat-list a span {
             flex-direction: row-reverse;
         }
+
         .ayat-list .active a {
             float: right;
             display: flex;
@@ -78,8 +80,9 @@
             overflow: hidden;
             display: inherit;
         }
-        .new-item-ayat{
-color: #fff !important;
+
+        .new-item-ayat {
+            color: #fff !important;
         }
     </style>
 

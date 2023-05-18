@@ -1,74 +1,89 @@
 @extends('layouts.default_layout')
 
 @section('content')
-    <style>
-        .ayat-data .active {
-            background-color: rgb(70, 66, 66);
-            border-radius: 10px;
-        }
+<style>
+    .ayat-data .active {
 
-        .active a {
-            color: white;
-        }
+        border-radius: 10px;
+        border: 3px solid black;
+    }
 
-        .ayat-list ul li {
-            list-style: none;
-            margin: 5px auto;
-        }
+    .active a {
+        color: white;
+    }
 
-        .ayat-list .active a {
-            display: flex;
-            background: linear-gradient(118deg, #141414, #141414);
-            box-shadow: 0 0 10px 1px #141414;
-            color: #fff;
-            font-weight: 400;
-            font-size: 1.1rem;
-            border-radius: 4px;
-            padding: 10px 15px 10px 15px;
-            line-height: 1.45;
-            transition: padding 0.35s ease 0s !important;
-            font-size: 1.2rem !important;
-        }
+    .ayat-list ul li {
+        list-style: none;
+        margin: 5px auto;
+    }
 
-        .ayat-list a {
-            display: flex;
-            animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
-            color: #565656;
-            line-height: 1.45;
-            font-weight: 400;
-            border-radius: 4px;
-            padding: 10px 15px 10px 15px;
-            transition: padding 0.35s ease 0s !important;
-            font-size: 1.2rem !important;
-        }
+    .ayat-list a span {
+        flex-direction: row-reverse;
+    }
 
-        .ayat-list ul {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
+    .ayat-list .active a {
+        float: right;
+        display: flex;
+        background: linear-gradient(to right, #00000030, #ffff);
+        box-shadow: 0 0 10px 1px #141414;
+        color: #fff;
+        font-weight: 400;
+        font-size: 1.1rem;
+        border-radius: 4px;
+        padding: 10px 15px 10px 15px;
+        line-height: 1.45;
+        transition: padding 0.35s ease 0s !important;
+        font-size: 1.2rem !important;
+    }
 
-        .ayat-list ul li i {
-            margin-right: 1rem;
-            float: left;
-            font-size: 1.2rem;
-        }
+    .ayat-list a {
+        float: right;
+        display: flex;
+        animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+        color: #565656;
+        line-height: 1.45;
+        font-weight: 400;
+        border-radius: 4px;
+        padding: 10px 15px 10px 15px;
+        transition: padding 0.35s ease 0s !important;
+        font-size: 1.2rem !important;
+    }
 
-        .ayat-list ul li p {
-            margin: 0 !important;
-        }
+    .ayat-list ul {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
 
-        .card-body ul {
-            margin-bottom: 0 !important;
-            padding-bottom: 0 !important;
-        }
+    .ayat-list ul li i {
+        margin-right: 1rem;
+        float: left;
+        font-size: 1.2rem;
+    }
 
-        .render-ayat {
-            white-space: nowrap;
-            overflow: hidden;
-            background-image: linear-gradient(to right, #00000030, #ffff);
-            border-radius: 10px;
-        }
-    </style>
+    .ayat-list ul li p {
+        margin: 0 !important;
+    }
+
+    .card-body ul {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .render-ayat {
+        white-space: nowrap;
+        overflow: hidden;
+        background-image: linear-gradient(to right, #00000030, #ffff);
+        border-radius: 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: inherit;
+    }
+
+    .new-item-ayat {
+        color: #fff !important;
+    }
+</style>
 
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -255,7 +270,7 @@
                             </form>
 
                         </div>
-                        <div class="col-md-3  ayat-data">
+                        <div class="col-md-3 col-3 ayat-data">
                             <div class="card ">
                                 <div class="card-content">
                                     <div class="card-body">
@@ -264,10 +279,10 @@
                                                 <ul class="" id="" data-menu="menu-navigation">
 
                                                     <li
-                                                        class="@if (request()->is('*/' . $ayat->id)) active @endif render-ayat">
+                                                        class="@if (request()->is('*/' . $ayat->id)) active @endif render-ayat ">
                                                         <a href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
                                                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                            <span class="menu-item"
+                                                            <span class="d-flex menu-item new-item-ayat"
                                                                 data-i18n="Analytics">{!! $ayat->ayat !!}
                                                             </span>
                                                         </a>
