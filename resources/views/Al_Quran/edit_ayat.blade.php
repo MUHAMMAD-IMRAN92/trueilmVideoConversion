@@ -650,7 +650,7 @@
                                                     <li
                                                         class="@if (request()->is('*/' . $ayat->id)) active @endif render-ayat ">
                                                         <a href="{{ url('/ayat/edit/' . $surah->id . '/' . $ayat->id) }}">
-                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+
                                                             <span class="d-flex menu-item new-item-ayat"
                                                                 data-i18n="Analytics">{!! $ayat->ayat !!}
                                                             </span>
