@@ -223,7 +223,7 @@
                                                 </div>
                                             </form> --}}
                                             <div id="no-ayat-added-div">
-                                                Please Select Ayat!</div>
+                                              <center>  Please Select Ayat!</center></div>
                                         @else
                                             {{-- <form class="form form-vertical" action="{{ route('ayat.store') }}"
                                                 method="POST" enctype="multipart/form-data">
