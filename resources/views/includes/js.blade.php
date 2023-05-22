@@ -785,7 +785,7 @@
                         </div>
                             <p>Language</p>
                             <fieldset class="form-group">
-                                <select class="form-control" name="langs[]" id="new-lang-select-${lang}">
+                                <select class="form-control" name="langs[]" required id="new-lang-select-${lang}">
                                     <option value="" selected>Please Select Language</option>
                                     <option value="ar">Arabic</option>
                                     <option value="en">English</option>
@@ -797,7 +797,7 @@
                             <div class="col-12">
                                 <label for="">Translation</label>
                                 <fieldset class="form-group">
-                                    <textarea class="summernote" name="translations[]" id="new-description-${lang}"></textarea>
+                                    <textarea class="summernote" required name="translations[]" id="new-description-${lang}"></textarea>
                                 </fieldset>
                         </div>
                     </div>
@@ -889,7 +889,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" name="langs[]"
+                                                                    <select class="form-control" required name="langs[]"
                                                                         id="lang-select-${ key }"
 
                                                                         value =  ${ response.lang }
@@ -918,7 +918,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="trans-input-${key}" name="translations[]">${ response.translation }</textarea>
+                                                                        <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.translation }</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -1037,7 +1037,7 @@
                         </div>
                             <p>Language</p>
                             <fieldset class="form-group">
-                                <select class="form-control" name="taf_langs[]" id="tafseer-new-lang-select-${lang}">
+                                <select class="form-control" name="taf_langs[]" required id="tafseer-new-lang-select-${lang}">
                                     <option value="" selected>Please Select Language</option>
                                     <option value="ar">Arabic</option>
                                     <option value="en">English</option>
@@ -1049,7 +1049,7 @@
                             <div class="col-12">
                                 <label for="">Translation</label>
                                 <fieldset class="form-group">
-                                    <textarea class="summernote" name="tafseers[]" id="tafseer-new-description-${lang}"></textarea>
+                                    <textarea class="summernote" required name="tafseers[]" id="tafseer-new-description-${lang}"></textarea>
                                 </fieldset>
                         </div>
                     </div>
@@ -1144,7 +1144,7 @@
                                                                 <fieldset class="form-group">
                                                                     <select class="form-control" name="taf_langs[]"
                                                                         id="tafseer-lang-select-${ key }"
-                                                                        >
+                                                                        required>
                                                                         <option value="" selected>Please Select Language</option>
 
                                                                         <option value="ar"
@@ -1170,7 +1170,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]">${ response.tafseer }</textarea>
+                                                                        <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]" required>${ response.tafseer }</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -1225,7 +1225,7 @@
                                          </div>
                             <p>Type</p>
                             <fieldset class="form-group">
-                                <select class="form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}">
+                                <select class="form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}" required>
                                     <option value="" selected>Please Select Language</option>
                                     <option value="1">eBook</option>
                                     <option value="2">Audio</option>
@@ -1234,7 +1234,7 @@
                             </fieldset>
                                 <label for="">File</label>
                                 <fieldset class="form-group">
-                                    <select class="form-control " name="file[]" id="file-new-lang-select-${lang}">
+                                    <select class="form-control " name="file[]" id="file-new-lang-select-${lang}" required>
                                     <option value="" selected>Please Select File</option>
 
                                 </select>
