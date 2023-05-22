@@ -578,7 +578,7 @@
                                                                         </thead>
                                                                         <tbody class="ref-table">
                                                                             @forelse ($ayat->references as $key=>$reference)
-                                                                                <tr  class="ref-tr"
+                                                                                <tr class="ref-tr"
                                                                                     id="ref-tr-{{ $key }}">
                                                                                     <td>{{ $reference->reference_title }}
                                                                                     </td>
@@ -593,19 +593,15 @@
                                                                                     style="display:none">
                                                                                     <td></td>
                                                                                     <td>
-                                                                                        <center>
-                                                                                            No Reference Added In This Ayat
-                                                                                        </center>
+                                                                                        No Reference Added In This Ayat
                                                                                     </td>
                                                                                     <td></td>
                                                                                 </tr>
                                                                             @empty
                                                                                 <tr class="no-reference-tr">
                                                                                     <td></td>
-                                                                                    <td>
-                                                                                        <center>
-                                                                                            No Reference Added In This Ayat
-                                                                                        </center>
+                                                                                    <td >
+                                                                                        No Reference Added In This Ayat
                                                                                     </td>
                                                                                     <td></td>
                                                                                 </tr>

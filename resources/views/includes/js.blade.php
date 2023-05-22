@@ -1323,22 +1323,22 @@
        function deleteReference(ayatId, ref_id, key) {
 
            $.ajax({
-                   type: "GET",
-                   url: "{{ url('reference/delete') }}",
-                   data: {
-                       ayatId: ayatId,
-                       ref_id: ref_id,
-                   },
-                   dataType: "json",
-                   success: function(response) {
-                       $('#ref-tr-' + key).remove();
-                       //    $('.reference-div-' + key).remove();
-                       var allElements = $('.ref-tr');
-                       var count = allElements.length;
-                       if (count == 0) {
-                               $('.no-reference-tr').css('display', 'block');
-                           }
-                       },
-                   });
-           }
+               type: "GET",
+               url: "{{ url('reference/delete') }}",
+               data: {
+                   ayatId: ayatId,
+                   ref_id: ref_id,
+               },
+               dataType: "json",
+               success: function(response) {
+                   $('#ref-tr-' + key).remove();
+                   //    $('.reference-div-' + key).remove();
+                   var allElements = $('.ref-tr');
+                   var count = allElements.length;
+                   if (count == 0) {
+                       $('.no-reference-tr').css('display', 'block');
+                   }
+               },
+           });
+       }
    </script>
