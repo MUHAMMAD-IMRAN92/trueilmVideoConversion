@@ -699,18 +699,18 @@
        function deleteTranslation(ayatId, tranId, key) {
            $('.translation-div-' + key).remove();
 
-           //    $.ajax({
-           //        type: "GET",
-           //        url: "{{ url('ayat/translation/delete') }}",
-           //        data: {
-           //            ayatId: ayatId,
-           //            transId: tranId,
-           //        },
-           //        dataType: "json",
-           //        success: function(response) {
-           //            console.log(response);
-           //        },
-           //    });
+           $.ajax({
+               type: "GET",
+               url: "{{ url('ayat/translation/delete') }}",
+               data: {
+                   ayatId: ayatId,
+                   transId: tranId,
+               },
+               dataType: "json",
+               success: function(response) {
+                   console.log(response);
+               },
+           });
            var div = $('.lang');
            if (div.length == 0) {
                $('#no-translation-div').css('display', 'block');
@@ -1299,7 +1299,7 @@
                    console.log(response);
                    $('.no-reference-tr').css('display', 'none');
 
-                   html = `<tr class=""
+                   html = `<tr class="ref-tr"
                     id="ref-tr-${key }">
                     <td>${ response.reference_title }
                         </td>
@@ -1323,22 +1323,22 @@
        function deleteReference(ayatId, ref_id, key) {
 
            $.ajax({
-               type: "GET",
-               url: "{{ url('reference/delete') }}",
-               data: {
-                   ayatId: ayatId,
-                   ref_id: ref_id,
-               },
-               dataType: "json",
-               success: function(response) {
-                   $('#ref-tr-' + key).remove();
-                   $('.reference-div-' + key).remove();
-                   var allElements = $('.references');
-                   var count = allElements.length;
-                   if (count == 0) {
-                       $('.no-reference-tr').css('display', 'block');
-                   }
-               },
-           });
-       }
+                   type: "GET",
+                   url: "{{ url('reference/delete') }}",
+                   data: {
+                       ayatId: ayatId,
+                       ref_id: ref_id,
+                   },
+                   dataType: "json",
+                   success: function(response) {
+                       $('#ref-tr-' + key).remove();
+                       //    $('.reference-div-' + key).remove();
+                       var allElements = $('.ref-tr');
+                       var count = allElements.length;
+                       if (count == 0) {
+                               $('.no-reference-tr').css('display', 'block');
+                           }
+                       },
+                   });
+           }
    </script>

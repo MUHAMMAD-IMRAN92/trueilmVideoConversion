@@ -578,7 +578,7 @@
                                                                         </thead>
                                                                         <tbody class="ref-table">
                                                                             @forelse ($ayat->references as $key=>$reference)
-                                                                                <tr class=""
+                                                                                <tr  class="ref-tr"
                                                                                     id="ref-tr-{{ $key }}">
                                                                                     <td>{{ $reference->reference_title }}
                                                                                     </td>
