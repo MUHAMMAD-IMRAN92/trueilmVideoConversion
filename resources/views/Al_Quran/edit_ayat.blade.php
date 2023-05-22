@@ -107,11 +107,10 @@
             @endif
             <div class="row">
 
-                <div class="col-9">
+                <div class="col-12">
                     <h1 class="">{{ $surah->surah }}</h1>
                     <h6 class="">{!! $surah->description !!}</h6>
                 </div>
-                <div class="col-3"></div>
             </div>
 
 
@@ -191,9 +190,8 @@
                                                                 <label for="contact-info-icon">Juz#</label>
                                                                 <div class="position-relative">
                                                                     <input type="number" id=""
-                                                                        class="form-control" name="para"
-                                                                        placeholder="" value="{{ $ayat->para_no }}"
-                                                                        required>
+                                                                        class="form-control" name="para" placeholder=""
+                                                                        value="{{ $ayat->para_no }}" required>
                                                                 </div>
 
                                                             </div>
