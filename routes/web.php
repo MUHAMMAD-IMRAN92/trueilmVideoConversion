@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Ayat Tafseer
     Route::get('ayat/tafseer/delete', [App\Http\Controllers\AlQuranController::class, 'deleteTafseer'])->name('ayat.tafseer.delete');
-    Route::posr('ayat/tafseer/update', [App\Http\Controllers\AlQuranController::class, 'updateTafseer'])->name('ayat.tafseer.update');
+    Route::post('ayat/tafseer/update', [App\Http\Controllers\AlQuranController::class, 'updateTafseer'])->name('ayat.tafseer.update');
     Route::post('ayat/tafseer/save', [App\Http\Controllers\AlQuranController::class, 'saveTafseer'])->name('ayat.tafseer.save');
 
     //Ayat Reference
