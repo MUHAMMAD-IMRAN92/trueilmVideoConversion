@@ -12,14 +12,14 @@
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">Add Surah</h2>
                             <div class="breadcrumb-wrapper col-12">
-                                <ol class="breadcrumb">
+                                {{-- <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="{{ route('al-Quran') }}">Surah</a>
                                     </li>
                                     <li class="breadcrumb-item active">Add Surah
                                     </li>
-                                </ol>
+                                </ol> --}}
                             </div>
                         </div>
                     </div>
