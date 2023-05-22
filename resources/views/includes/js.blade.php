@@ -58,7 +58,16 @@
                height: 150,
                codemirror: {
                    theme: 'default'
-               }
+               },
+               toolbar: [
+                   // [groupName, [list of button]]
+                   ['style', ['bold', 'italic', 'underline', 'clear']],
+                   ['font', ['strikethrough', 'superscript', 'subscript']],
+                   ['fontsize', ['fontsize' , 'fontname']],
+                   ['color', ['color']],
+                   ['para', ['ul', 'ol', 'paragraph']],
+                   ['height', ['height']]
+               ]
            });
 
            $('#ayat-table').DataTable({
