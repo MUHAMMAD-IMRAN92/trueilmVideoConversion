@@ -90,7 +90,7 @@
                        "mRender": function(data, type, row) {
                            var des = "";
                            if (row.description != null) {
-                               des = row.description.slice(0, 300);
+                               des = row.description.slice(0, 100);
                            }
 
                            return '<td>' +
