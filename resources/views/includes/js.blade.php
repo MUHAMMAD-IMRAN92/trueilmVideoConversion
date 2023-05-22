@@ -699,20 +699,19 @@
        function deleteTranslation(ayatId, tranId, key) {
            $('.translation-div-' + key).remove();
 
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "{{ url('ayat/translation/delete') }}",
-        //        data: {
-        //            ayatId: ayatId,
-        //            transId: tranId,
-        //        },
-        //        dataType: "json",
-        //        success: function(response) {
-        //            console.log(response);
-        //        },
-        //    });
+           //    $.ajax({
+           //        type: "GET",
+           //        url: "{{ url('ayat/translation/delete') }}",
+           //        data: {
+           //            ayatId: ayatId,
+           //            transId: tranId,
+           //        },
+           //        dataType: "json",
+           //        success: function(response) {
+           //            console.log(response);
+           //        },
+           //    });
            var div = $('.lang');
-          alert(div.length);
            if (div.length == 0) {
                $('#no-translation-div').css('display', 'block');
            }
@@ -1271,6 +1270,7 @@
        }
 
        function saveReference(ayatId, key) {
+
            var type = $('#reference-new-lang-select-' + key).val();
            var fileId = $('#file-new-lang-select-' + key).val();
 
@@ -1297,18 +1297,19 @@
                        type = "Research Paper";
                    }
                    console.log(response);
-                   html = `<tr class=""
-                                id="ref-tr-${key }">
-                                <td>${ response.reference_title }
-                                </td>
-                                <td>${type}
-                                </td>
-                                <td><i class="fa fa-trash"
-                                        onclick="deleteReference(${ response.referal_id}, ${ response._id} , ${ key })"></i>
-                                </td>
-                         </tr>`;
-                   $('.ref-table').append(html);
+                   $('.no-reference-tr').css('display', 'none');
 
+                   html = `<tr class=""
+                    id="ref-tr-${key }">
+                    <td>${ response.reference_title }
+                        </td>
+                        <td>${type}
+                            </td>
+                            <td><i class="fa fa-trash"
+                                onclick="deleteReference('${response.referal_id}', '${ response._id}' , '${ key }')"></i>
+                                </td>
+                                </tr>`;
+                   $('.ref-table').append(html);
                    $('.reference-div-' + key).remove();
                    $('#reference-saved-span').css('display', 'block');
                    setTimeout(() => {
@@ -1331,6 +1332,12 @@
                dataType: "json",
                success: function(response) {
                    $('#ref-tr-' + key).remove();
+                   $('.reference-div-' + key).remove();
+                   var allElements = $('.references');
+                   var count = allElements.length;
+                   if (count == 0) {
+                       $('.no-reference-tr').css('display', 'block');
+                   }
                },
            });
        }

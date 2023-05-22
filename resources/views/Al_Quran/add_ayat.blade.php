@@ -95,7 +95,7 @@
                 </div>
             @endforeach
             @if (\Session::has('msg'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert"> 
                     <p class="mb-0">
                         {{ \Session::get('msg') }}
                     </p>

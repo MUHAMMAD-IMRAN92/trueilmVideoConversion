@@ -589,8 +589,18 @@
                                                                                             onclick="deleteReference('{{ $ayat->id }}', '{{ $reference->_id }}' , '{{ $key }}')"></i>
                                                                                     </td>
                                                                                 </tr>
+                                                                                <tr class="no-reference-tr"
+                                                                                    style="display:none">
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                                        <center>
+                                                                                            No Reference Added In This Ayat
+                                                                                        </center>
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
                                                                             @empty
-                                                                                <tr>
+                                                                                <tr class="no-reference-tr">
                                                                                     <td></td>
                                                                                     <td>
                                                                                         <center>
