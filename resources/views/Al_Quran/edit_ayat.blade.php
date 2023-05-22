@@ -335,7 +335,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" required name="langs[]"
+                                                                    <select class="form-control"  name="langs[]"
                                                                         id="lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         <option value="ar"
@@ -361,7 +361,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" required id="trans-input-{{ $key }}" name="translations[]">{{ $aya->translation }}</textarea>
+                                                                        <textarea class="summernote"  id="trans-input-{{ $key }}" name="translations[]">{{ $aya->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -471,7 +471,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" required name="taf_langs[]"
+                                                                    <select class="form-control"  name="taf_langs[]"
                                                                         id="tafseer-lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         <option value="ar"
@@ -497,7 +497,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" required id="tafseer-trans-input-{{ $key }}" name="tafseers[]">{{ $tafseer->tafseer }}</textarea>
+                                                                        <textarea class="summernote"  id="tafseer-trans-input-{{ $key }}" name="tafseers[]">{{ $tafseer->tafseer }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
