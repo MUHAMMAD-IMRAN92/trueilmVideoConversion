@@ -1037,7 +1037,7 @@
                         </div>
                             <p>Language</p>
                             <fieldset class="form-group">
-                                <select class="form-control" name="langs[]" id="tafseer-new-lang-select-${lang}">
+                                <select class="form-control" name="taf_langs[]" id="tafseer-new-lang-select-${lang}">
                                     <option value="" selected>Please Select Language</option>
                                     <option value="ar">Arabic</option>
                                     <option value="en">English</option>
@@ -1049,7 +1049,7 @@
                             <div class="col-12">
                                 <label for="">Translation</label>
                                 <fieldset class="form-group">
-                                    <textarea class="summernote" name="translations[]" id="tafseer-new-description-${lang}"></textarea>
+                                    <textarea class="summernote" name="tafseers[]" id="tafseer-new-description-${lang}"></textarea>
                                 </fieldset>
                         </div>
                     </div>
@@ -1142,7 +1142,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" name="langs[]"
+                                                                    <select class="form-control" name="taf_langs[]"
                                                                         id="tafseer-lang-select-${ key }"
                                                                         >
                                                                         <option value="" selected>Please Select Language</option>
@@ -1170,7 +1170,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="tafseer-trans-input-${key}" name="translations[]">${ response.tafseer }</textarea>
+                                                                        <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]">${ response.tafseer }</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>

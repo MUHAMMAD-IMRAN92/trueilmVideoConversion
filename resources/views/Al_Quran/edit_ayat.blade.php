@@ -113,10 +113,6 @@
                 </div>
             </div>
 
-
-
-
-
             <div class="content-body">
 
                 <!-- Basic Vertical form layout section start -->
