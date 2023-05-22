@@ -471,7 +471,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" name="langs[]"
+                                                                    <select class="form-control" name="taf_langs[]"
                                                                         id="tafseer-lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         <option value="ar"
@@ -497,7 +497,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="tafseer-trans-input-{{ $key }}" name="translations[]">{{ $tafseer->tafseer }}</textarea>
+                                                                        <textarea class="summernote" id="tafseer-trans-input-{{ $key }}" name="tafseers[]">{{ $tafseer->tafseer }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>

@@ -727,7 +727,7 @@
                type: "POST",
                url: "{{ url('ayat/translation/update') }}",
                data: {
-                "_token": "{{ csrf_token() }}",
+                   "_token": "{{ csrf_token() }}",
                    ayatId: ayatId,
                    transId: tranId,
                    lang: lang,
@@ -826,7 +826,7 @@
                type: "POST",
                url: "{{ url('ayat/translation/save') }}",
                data: {
-                "_token": "{{ csrf_token() }}",
+                   "_token": "{{ csrf_token() }}",
                    ayatId: ayatId,
                    lang: lang,
                    translation: translation,
@@ -980,7 +980,7 @@
                type: "post",
                url: "{{ url('ayat/tafseer/update') }}",
                data: {
-                "_token": "{{ csrf_token() }}",
+                   "_token": "{{ csrf_token() }}",
                    ayatId: ayatId,
                    tafseerId: tafseerId,
                    lang: lang,
@@ -1080,7 +1080,7 @@
                url: "{{ url('ayat/tafseer/save') }}",
                data: {
                    "_token": "{{ csrf_token() }}",
-                    ayatId: ayatId,
+                   ayatId: ayatId,
                    lang: lang,
                    tafseer: tafseer,
                },

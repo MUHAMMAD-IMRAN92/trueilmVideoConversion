@@ -6,6 +6,7 @@ use App\Http\Requests\AyatRequest;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Book;
+use App\Models\Reference;
 use App\Models\Surah;
 use App\Models\Tafseer;
 use Illuminate\Http\Request;
@@ -65,6 +66,23 @@ class AlQuranController extends Controller
                 $tafseer->save();
             }
         }
+        if ($request->reference_type) {
+            foreach ($request->reference_type as $key => $refType) {
+
+                $reference = new Reference();
+                $reference->type = 1;
+                $reference->referal_id = $alQuran->id;
+                $reference->reference_type = $refType;
+                if ($request->file) {
+                    $book = Book::where('_id', $request->file[$key])->first();
+                    $reference->reference = $book->file;
+                    $reference->reference_title = $book->title;
+                }
+                $reference->added_by = $this->user->id;
+                $reference->save();
+            }
+        }
+
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Saved Successfully!');
     }
 
@@ -115,6 +133,23 @@ class AlQuranController extends Controller
                 $tafseer->save();
             }
         }
+        if ($request->reference_type) {
+            foreach ($request->reference_type as $key => $refType) {
+
+                $reference = new Reference();
+                $reference->type = 1;
+                $reference->referal_id = $alQuran->id;
+                $reference->reference_type = $refType;
+                if ($request->file) {
+                    $book = Book::where('_id', $request->file[$key])->first();
+                    $reference->reference = $book->file;
+                    $reference->reference_title = $book->title;
+                }
+                $reference->added_by = $this->user->id;
+                 $reference->save();
+            }
+        }
+
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Updated Successfully!');;
     }
     public function deleteTranslation(Request $request)
@@ -180,6 +215,4 @@ class AlQuranController extends Controller
     {
         return Book::where('type', $request->type)->get();
     }
-
-
 }
