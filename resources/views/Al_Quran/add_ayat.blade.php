@@ -1,84 +1,84 @@
 @extends('layouts.default_layout')
 
 @section('content')
-<style>
-    .ayat-data .active {
+    <style>
+        .ayat-data .active {
 
-        border-radius: 10px;
-        border: 3px solid black;
-    }
+            border-radius: 10px;
+            border: 3px solid black;
+        }
 
-    .ayat-list .active a {
-        color: black;
-    }
+        .ayat-list .active a {
+            color: black;
+        }
 
-    .ayat-list ul li {
-        list-style: none;
-        margin: 5px auto;
-    }
+        .ayat-list ul li {
+            list-style: none;
+            margin: 5px auto;
+        }
 
-    .ayat-list a span {
-        flex-direction: row-reverse;
-    }
+        .ayat-list a span {
+            flex-direction: row-reverse;
+        }
 
-    .ayat-list .active a {
-        float: right;
-        display: flex;
+        .ayat-list .active a {
+            float: right;
+            display: flex;
 
 
-        font-weight: 400;
-        font-size: 1.1rem;
-        border-radius: 4px;
-        padding: 10px 15px 10px 15px;
-        line-height: 1.45;
-        transition: padding 0.35s ease 0s !important;
-        font-size: 1.2rem !important;
-    }
+            font-weight: 400;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            line-height: 1.45;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
 
-    .ayat-list a {
-        float: right;
-        display: flex;
-        animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
-        color: #565656;
-        line-height: 1.45;
-        font-weight: 400;
-        border-radius: 4px;
-        padding: 10px 15px 10px 15px;
-        transition: padding 0.35s ease 0s !important;
-        font-size: 1.2rem !important;
-    }
+        .ayat-list a {
+            float: right;
+            display: flex;
+            animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+            color: #565656;
+            line-height: 1.45;
+            font-weight: 400;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
 
-    .ayat-list ul {
-        padding: 0 !important;
-        margin: 0 !important;
-    }
+        .ayat-list ul {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
 
-    .ayat-list ul li i {
-        margin-right: 1rem;
-        float: left;
-        font-size: 1.2rem;
-    }
+        .ayat-list ul li i {
+            margin-right: 1rem;
+            float: left;
+            font-size: 1.2rem;
+        }
 
-    .ayat-list ul li p {
-        margin: 0 !important;
-    }
+        .ayat-list ul li p {
+            margin: 0 !important;
+        }
 
-    .card-body ul {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
+        .card-body ul {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
 
-    .render-ayat {
-        white-space: nowrap;
-        overflow: hidden;
-        background-image: linear-gradient(to left, #00000030, #ffff);
-        border-radius: 10px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: inherit;
-    }
-</style>
+        .render-ayat {
+            white-space: nowrap;
+            overflow: hidden;
+            background-image: linear-gradient(to left, #00000030, #ffff);
+            border-radius: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: inherit;
+        }
+    </style>
 
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -95,7 +95,7 @@
                 </div>
             @endforeach
             @if (\Session::has('msg'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert"> 
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <p class="mb-0">
                         {{ \Session::get('msg') }}
                     </p>
@@ -242,7 +242,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="number" id=""
                                                                         placeholder="e.g. 1234" class="form-control"
-                                                                        name="waqf " placeholder="" value=""
+                                                                        name="waqf" placeholder="" value=""
                                                                         required>
                                                                 </div>
 

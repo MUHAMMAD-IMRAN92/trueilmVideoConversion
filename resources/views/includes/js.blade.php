@@ -736,7 +736,7 @@
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
            $.ajax({
-               type: "GET",
+               type: "POST",
                url: "{{ url('ayat/translation/update') }}",
                data: {
                    ayatId: ayatId,
@@ -834,7 +834,7 @@
            var lang = $('#new-lang-select-' + key).val();
            var translation = $('#new-description-' + key).val();
            $.ajax({
-               type: "GET",
+               type: "POST",
                url: "{{ url('ayat/translation/save') }}",
                data: {
                    ayatId: ayatId,
@@ -987,7 +987,7 @@
            var lang = $('#tafseer-lang-select-' + key).val();
            var tafseer = $('#tafseer-trans-input-' + key).val();
            $.ajax({
-               type: "GET",
+               type: "post",
                url: "{{ url('ayat/tafseer/update') }}",
                data: {
                    ayatId: ayatId,
@@ -1085,7 +1085,7 @@
            var lang = $('#tafseer-new-lang-select-' + key).val();
            var tafseer = $('#tafseer-new-description-' + key).val();
            $.ajax({
-               type: "GET",
+               type: "post",
                url: "{{ url('ayat/tafseer/save') }}",
                data: {
                    ayatId: ayatId,

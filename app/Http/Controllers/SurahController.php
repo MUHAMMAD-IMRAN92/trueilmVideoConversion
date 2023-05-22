@@ -81,9 +81,8 @@ class SurahController extends Controller
 
 
         $alQuran->surah = $request->surah;
-        $alQuran->ayat = $request->ayat;
-        $alQuran->para_no = $request->para;
-        $alQuran->ruku = $request->ruku;
+        $alQuran->description = $request->description;
+        $alQuran->type = $request->type;
         $alQuran->added_by = $this->user->id;
 
         $alQuran->save();

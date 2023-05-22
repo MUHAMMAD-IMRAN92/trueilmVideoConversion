@@ -32,6 +32,8 @@ class AlQuranController extends Controller
     }
     public function store(Request $request)
     {
+
+        // return $request->all();
         $alQuran = new AlQuran();
         $alQuran->surah_id = $request->surah_id;
         $alQuran->ayat = $request->ayat;

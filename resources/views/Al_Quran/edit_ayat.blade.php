@@ -600,7 +600,7 @@
                                                                             @empty
                                                                                 <tr class="no-reference-tr">
                                                                                     <td></td>
-                                                                                    <td >
+                                                                                    <td class="ml-2">
                                                                                         No Reference Added In This Ayat
                                                                                     </td>
                                                                                     <td></td>
