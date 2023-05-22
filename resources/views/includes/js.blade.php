@@ -88,18 +88,6 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var des = "";
-                           if (row.description != null) {
-                               des = row.description.slice(0, 100);
-                           }
-
-                           return '<td>' +
-                               des +
-                               '</td>'
-                       }
-                   },
-                   {
-                       "mRender": function(data, type, row) {
                            var type;
                            if (row.type == 1) {
                                type = 'Makki Surah';

@@ -64,7 +64,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Surah</th>
-                                                    <th class="description-td">Description</th>
+
                                                     <th class="">Type</th>
                                                     <th>Action</th>
                                                 </tr>
