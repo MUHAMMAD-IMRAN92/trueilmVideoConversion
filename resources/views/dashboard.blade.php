@@ -24,9 +24,7 @@
                                         <h2 class="text-bold-700 mt-1">{{ App\Models\AlQuran::count() }}</h2>
                                         <p class="mb-0">Surah</p>
                                     </div>
-                                    {{-- <div class="card-content">
-                                    <div id="line-area-chart-1"></div>
-                                </div> --}} <br>
+                                    <br>
                                 </div>
                             </div>
 
@@ -41,9 +39,7 @@
                                         <h2 class="text-bold-700 mt-1">{{ App\Models\Hadees::count() }}</h2>
                                         <p class="mb-0">Hadis</p>
                                     </div>
-                                    {{-- <div class="card-content">
-                                    <div id="line-area-chart-3"></div>
-                                </div> --}} <br>
+                                    <br>
                                 </div>
                             </div>
                         @endif
@@ -115,9 +111,7 @@
                                                 )->count() }}
                                         </h2>
                                         <p class="mb-0">Rejected Books<u style="font-size: 10px">
-                                                {{-- @if (auth()->user()->hasRole('Admin'))
-                                                    <a href="{{ url('book/pending-for-approval') }}">Click</a>
-                                                @endif --}}
+                                               
                                             </u>
 
                                         </p>

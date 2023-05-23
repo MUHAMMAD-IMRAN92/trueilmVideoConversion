@@ -260,10 +260,7 @@
 
                                                     <div class="col-12" style="text-align: right">
 
-                                                        {{-- <button type="button" class="btn btn-primary"
-                                                            data-toggle="modal" data-target="#reference">
-                                                            Add Reference
-                                                        </button> --}}
+
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
 
@@ -397,8 +394,7 @@
                                                     <div class="col-md-7">
                                                     </div>
                                                     <div class="col-md-5">
-                                                        {{-- <span id="add-translation" class="btn btn-primary">Add
-                                                            Translation</span> --}}
+
                                                         <span onclick="addTranslation('{{ $ayat->id }}')"
                                                             class="btn btn-primary">Add
                                                             Translation</span>

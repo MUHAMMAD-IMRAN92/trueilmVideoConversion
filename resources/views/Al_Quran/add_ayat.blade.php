@@ -132,14 +132,6 @@
                                                 <a class="nav-link active" id="home-tab-fill" data-toggle="pill"
                                                     href="#home-fill" aria-expanded="true">Ayat</a>
                                             </li>
-                                            {{-- <li class="nav-item">
-                                                <a class="nav-link" id="translation-tab-fill" data-toggle="pill"
-                                                    href="#translation-fill" aria-expanded="true">Add Translation</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="tafseer-tab-fill" data-toggle="pill"
-                                                    href="#tafseer-fill" aria-expanded="true">Add Tafseer</a>
-                                            </li> --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -253,10 +245,6 @@
 
                                                     <div class="col-12" style="text-align: right">
 
-                                                        {{-- <button type="button" class="btn btn-primary"
-                                                            data-toggle="modal" data-target="#reference">
-                                                            Add Reference
-                                                        </button> --}}
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
 

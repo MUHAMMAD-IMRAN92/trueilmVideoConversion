@@ -1,7 +1,6 @@
 @extends('layouts.default_layout')
 
 @section('content')
-    {{-- <textarea id="summernote" name="editordata"></textarea> --}}
 
 
     <!-- BEGIN: Content-->
@@ -16,12 +15,7 @@
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">Category</h2>
                             <div class="breadcrumb-wrapper col-12">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a>
-                                    </li>
-                                    <li class="breadcrumb-item active">Category
-                                    </li>
-                                </ol>
+
                             </div>
                         </div>
                     </div>
