@@ -59,7 +59,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Juz</th>
-                                                    <th>Description</th>
+
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

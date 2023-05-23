@@ -127,11 +127,6 @@
                            return '<td>' +
                                row.juz + '</td>'
                        }
-                   }, {
-                       "mRender": function(data, type, row) {
-                           return '<td>' +
-                               row.description + '</td>'
-                       }
                    },
                    {
                        "mRender": function(data, type, row) {
