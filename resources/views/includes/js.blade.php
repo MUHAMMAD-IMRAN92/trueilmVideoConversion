@@ -1102,7 +1102,7 @@
                             </fieldset>
                             </div>
                             <div class="col-12">
-                                <label for="">Translation</label>
+                                <label for="">Tafseer</label>
                                 <fieldset class="form-group">
                                     <textarea class="summernote" required name="tafseers[]" id="tafseer-new-description-${lang}"></textarea>
                                 </fieldset>
@@ -1236,7 +1236,7 @@
                                                                 </fieldset>
 
                                                                 <div class="col-12 m-0 p-0">
-                                                                    <label for="">Translation</label>
+                                                                    <label for="">Tafseer</label>
 
                                                                     <fieldset class="form-group">
                                                                         <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]" required>${ response.tafseer }</textarea>

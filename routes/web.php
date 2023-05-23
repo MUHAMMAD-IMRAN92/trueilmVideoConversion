@@ -48,6 +48,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('referene/get_files', [App\Http\Controllers\AlQuranController::class, 'getFiles'])->name('ayat.reference.files');
     Route::get('reference/delete', [App\Http\Controllers\ReferenceController::class, 'delete'])->name('ayat.reference.delete');
 
+    //juz
+    Route::get('juzz', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
+    Route::get('all-courses', [App\Http\Controllers\CourseController::class, 'allCourses'])->name('courses.all');
+    Route::get('course/create', [App\Http\Controllers\CourseController::class, 'add'])->name('course.add');
+    Route::post('course/store', [App\Http\Controllers\CourseController::class, 'store'])->name('course.store');
+    Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
+    Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
+
     Route::get('al-Quran', [App\Http\Controllers\SurahController::class, 'index'])->name('al-Quran');
     Route::get('all-surah', [App\Http\Controllers\SurahController::class, 'allSurah'])->name('surah');
     Route::get('surah/create', [App\Http\Controllers\SurahController::class, 'add'])->name('surah.add');

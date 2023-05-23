@@ -490,7 +490,7 @@
                                                                 </fieldset>
 
                                                                 <div class="col-12 m-0 p-0">
-                                                                    <label for="">Translation</label>
+                                                                    <label for="">Tafseer</label>
 
                                                                     <fieldset class="form-group">
                                                                         <textarea class="summernote"  id="tafseer-trans-input-{{ $key }}" name="tafseers[]">{{ $tafseer->tafseer }}</textarea>
