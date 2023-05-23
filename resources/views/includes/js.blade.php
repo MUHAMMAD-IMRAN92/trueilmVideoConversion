@@ -585,7 +585,21 @@
                 </div>`;
 
                $('.append-inputs').append(html);
-               $('.summernote').summernote();
+               //    $('.summernote').summernote({
+               //        height: 150,
+               //        codemirror: {
+               //            theme: 'default'
+               //        },
+               //        toolbar: [
+               //            // [groupName, [list of button]]
+               //            ['style', ['bold', 'italic', 'underline', 'clear']],
+               //            ['font', ['strikethrough', 'superscript', 'subscript']],
+               //            ['fontsize', ['fontsize', 'fontname']],
+               //            ['color', ['color']],
+               //            ['para', ['ul', 'ol', 'paragraph']],
+               //            ['height', ['height']]
+               //        ]
+               //    });
            });
            $('#add-reference').on('click', function() {
                var html;
@@ -671,7 +685,21 @@
                 </div>`;
 
                $('.tafseer-append-inputs').append(html);
-               $('.summernote').summernote();
+               //    $('.summernote').summernote({
+               //        height: 300,
+               //        codemirror: {
+               //            theme: 'default'
+               //        },
+               //        toolbar: [
+               //            // [groupName, [list of button]]
+               //            ['style', ['bold', 'italic', 'underline', 'clear']],
+               //            ['font', ['strikethrough', 'superscript', 'subscript']],
+               //            ['fontsize', ['fontsize', 'fontname']],
+               //            ['color', ['color']],
+               //            ['para', ['ul', 'ol', 'paragraph']],
+               //            ['height', ['height']]
+               //        ]
+               //    });
            });
            $('#add-ayat').on('click', function() {
                $('#add-ayat-div').css('display', 'block')
@@ -807,7 +835,21 @@
                 `;
 
            $('.append-inputs').append(html);
-           $('.summernote').summernote();
+           $('.summernote').summernote({
+               height: 150,
+               codemirror: {
+                   theme: 'default'
+               },
+               toolbar: [
+                   // [groupName, [list of button]]
+                   ['style', ['bold', 'italic', 'underline', 'clear']],
+                   ['font', ['strikethrough', 'superscript', 'subscript']],
+                   ['fontsize', ['fontsize', 'fontname']],
+                   ['color', ['color']],
+                   ['para', ['ul', 'ol', 'paragraph']],
+                   ['height', ['height']]
+               ]
+           });
        }
 
        function deleteNewTranslation(key) {
@@ -932,8 +974,21 @@
 
                    }, 3000);
                    $('.append-inputs').append(html);
-                   $('.summernote').summernote();
-
+                   $('.summernote').summernote({
+                       height: 150,
+                       codemirror: {
+                           theme: 'default'
+                       },
+                       toolbar: [
+                           // [groupName, [list of button]]
+                           ['style', ['bold', 'italic', 'underline', 'clear']],
+                           ['font', ['strikethrough', 'superscript', 'subscript']],
+                           ['fontsize', ['fontsize', 'fontname']],
+                           ['color', ['color']],
+                           ['para', ['ul', 'ol', 'paragraph']],
+                           ['height', ['height']]
+                       ]
+                   });
                    $('#lang-select-' + key).val(response.lang)
                }
            });
@@ -1059,7 +1114,21 @@
                 `;
 
            $('.tafseer-append-inputs').append(html);
-           $('.summernote').summernote();
+           $('.summernote').summernote({
+               height: 150,
+               codemirror: {
+                   theme: 'default'
+               },
+               toolbar: [
+                   // [groupName, [list of button]]
+                   ['style', ['bold', 'italic', 'underline', 'clear']],
+                   ['font', ['strikethrough', 'superscript', 'subscript']],
+                   ['fontsize', ['fontsize', 'fontname']],
+                   ['color', ['color']],
+                   ['para', ['ul', 'ol', 'paragraph']],
+                   ['height', ['height']]
+               ]
+           });
        }
 
        function deleteNewTafseer(key) {
@@ -1182,7 +1251,21 @@
 
                    }, 3000);
                    $('.tafseer-append-inputs').append(html);
-                   $('.summernote').summernote();
+                   $('.summernote').summernote({
+                       height: 150,
+                       codemirror: {
+                           theme: 'default'
+                       },
+                       toolbar: [
+                           // [groupName, [list of button]]
+                           ['style', ['bold', 'italic', 'underline', 'clear']],
+                           ['font', ['strikethrough', 'superscript', 'subscript']],
+                           ['fontsize', ['fontsize', 'fontname']],
+                           ['color', ['color']],
+                           ['para', ['ul', 'ol', 'paragraph']],
+                           ['height', ['height']]
+                       ]
+                   });
                    $('#tafseer-lang-select-' + key).val(response.lang)
 
                }
