@@ -165,18 +165,22 @@
                                                                 <textarea class="summernote" name="ayat"></textarea>
                                                             </fieldset>
                                                         </div>
-
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="contact-info-icon">Juz#</label>
-                                                                <div class="position-relative">
-                                                                    <input type="number" id=""
-                                                                        class="form-control" name="para" placeholder=""
-                                                                        value="" required>
-                                                                </div>
 
-                                                            </div>
+                                                            <label for="">Juz</label>
+                                                            <fieldset class="form-group">
+                                                                <select class=" select2 form-control" name="juz"
+                                                                    id="basicSelect">
+                                                                    <option disabled selected>Select juz</option>
+                                                                    @foreach ($juzs as $juz)
+                                                                        <option value="{{ $juz->_id }}">
+                                                                            {{ $juz->juz }}</option>
+                                                                    @endforeach
+
+                                                                </select>
+                                                            </fieldset>
                                                         </div>
+
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="contact-info-icon">Mazil</label>

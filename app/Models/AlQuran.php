@@ -11,6 +11,10 @@ class AlQuran extends Eloquent
     use HasFactory;
     protected $connection = 'mongodb';
     protected $table = 'al_qurans';
+
+    protected $appends = ['para_title'];
+
+
     public function translations()
     {
         return $this->hasMany(AlQuranTranslation::class, 'ayat_id', 'id');
@@ -22,5 +26,12 @@ class AlQuran extends Eloquent
     public function tafseers()
     {
         return $this->hasMany(Tafseer::class, 'ayat_id', 'id');
+    }
+    public function getParaTitleAttribute()
+    {
+        // return $this->added_by;
+        $juz = juz::where('_id', $this->para_no)->first();
+
+        return @$juz->juz;
     }
 }

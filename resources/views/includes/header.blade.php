@@ -323,10 +323,10 @@
                                     <span class="menu-item" data-i18n="Analytics">Surahs</span></a>
                             </li>
 
-                            {{-- <li class="@if (request()->is('juz*') || request()->is('juz*') || request()->is('juz*')) active @endif "><a
-                                    href="{{ url('juz') }}"><i class="fa fa-book" aria-hidden="true"></i>
+                            <li class="@if (request()->is('juz*') || request()->is('juz*') || request()->is('juz*')) active @endif "><a
+                                    href="{{ url('juz') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Juz</span></a>
-                            </li> --}}
+                            </li>
 
                         </ul>
                     </li>

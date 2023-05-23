@@ -180,18 +180,24 @@
                                                                 <textarea class="summernote" name="ayat">{{ $ayat->ayat }}</textarea>
                                                             </fieldset>
                                                         </div>
-
                                                         <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="contact-info-icon">Juz#</label>
-                                                                <div class="position-relative">
-                                                                    <input type="number" id=""
-                                                                        class="form-control" name="para" placeholder=""
-                                                                        value="{{ $ayat->para_no }}" required>
-                                                                </div>
 
-                                                            </div>
+                                                            <label for="">Juz</label>
+                                                            <fieldset class="form-group">
+                                                                <select class="form-control" name="juz"
+                                                                    id="basicSelect">
+                                                                    <option disabled selected>Select juz</option>
+                                                                    @foreach ($juzs as $juz)
+                                                                        <option
+                                                                            {{ $juz->_id == $ayat->para_no ? 'selected' : '' }}
+                                                                            value="{{ $juz->_id }}">
+                                                                            {{ $juz->juz }}</option>
+                                                                    @endforeach
+
+                                                                </select>
+                                                            </fieldset>
                                                         </div>
+
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label for="contact-info-icon">Mazil</label>
@@ -332,7 +338,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control"  name="langs[]"
+                                                                    <select class="form-control" name="langs[]"
                                                                         id="lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         <option value="ar"
@@ -358,7 +364,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote"  id="trans-input-{{ $key }}" name="translations[]">{{ $aya->translation }}</textarea>
+                                                                        <textarea class="summernote" id="trans-input-{{ $key }}" name="translations[]">{{ $aya->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -467,7 +473,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control"  name="taf_langs[]"
+                                                                    <select class="form-control" name="taf_langs[]"
                                                                         id="tafseer-lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         <option value="ar"
@@ -493,7 +499,7 @@
                                                                     <label for="">Tafseer</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote"  id="tafseer-trans-input-{{ $key }}" name="tafseers[]">{{ $tafseer->tafseer }}</textarea>
+                                                                        <textarea class="summernote" id="tafseer-trans-input-{{ $key }}" name="tafseers[]">{{ $tafseer->tafseer }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>

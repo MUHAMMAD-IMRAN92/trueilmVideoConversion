@@ -6,6 +6,7 @@ use App\Http\Requests\AyatRequest;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Book;
+use App\Models\Juz;
 use App\Models\Reference;
 use App\Models\Surah;
 use App\Models\Tafseer;
@@ -27,8 +28,10 @@ class AlQuranController extends Controller
     public function add($surahId)
     {
         $surah = Surah::where('_id', $surahId)->with('ayats')->first();
+        $juzs = Juz::all();
         return view('Al_Quran.add_ayat', [
-            'surah' => $surah
+            'surah' => $surah,
+            'juzs' => $juzs
         ]);
     }
     public function store(Request $request)
@@ -38,7 +41,7 @@ class AlQuranController extends Controller
         $alQuran = new AlQuran();
         $alQuran->surah_id = $request->surah_id;
         $alQuran->ayat = $request->ayat;
-        $alQuran->para_no = $request->para;
+        $alQuran->para_no = $request->juz;
         $alQuran->added_by = $this->user->id;
         $alQuran->manzil = $request->manzil;
         $alQuran->ruku = $request->ruku;
@@ -90,9 +93,11 @@ class AlQuranController extends Controller
     {
         $surah = Surah::where('_id', $surahId)->with('ayats')->first();
         $ayat = AlQuran::where('_id', $ayatId)->with('translations')->first();
+        $juzs = Juz::all();
         return view('Al_Quran.edit_ayat', [
             'surah' => $surah,
-            'ayat' => $ayat
+            'ayat' => $ayat,
+            'juzs' => $juzs
         ]);
     }
 
@@ -102,7 +107,7 @@ class AlQuranController extends Controller
 
         $alQuran->surah_id = $request->surah_id;
         $alQuran->ayat = $request->ayat;
-        $alQuran->para_no = $request->para;
+        $alQuran->para_no = $request->juz;
         $alQuran->added_by = $this->user->id;
         $alQuran->manzil = $request->manzil;
         $alQuran->ruku = $request->ruku;
@@ -146,7 +151,7 @@ class AlQuranController extends Controller
                     $reference->reference_title = $book->title;
                 }
                 $reference->added_by = $this->user->id;
-                 $reference->save();
+                $reference->save();
             }
         }
 
