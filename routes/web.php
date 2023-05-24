@@ -117,15 +117,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
-
-    Route::get('languages/add', function () {
-        $arr = ['en' => 'English', 'ur' => 'Urdu', 'ar' => 'Arabic', 'ms' => 'Malay'];
-
-        foreach ($arr as $key => $ar) {
-            $lang = new Languages();
-            $lang->code = $key;
-            $lang->title = $ar;
-            $lang->save();
-        }
-    });
 });
