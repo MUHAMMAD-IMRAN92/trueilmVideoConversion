@@ -1336,8 +1336,8 @@
                                                     <h4 id="reference-saved-span-${lang }"
                                                         style="display:none"> <span
                                                             class="badge badge-success "><i
-                                                                class="fa fa-check">Translation
-                                                                Saved</i></span>
+                                                                class="fa fa-check">Reference
+                                                                Attached</i></span>
                                                     </h4>
                                                 </div>
                                                 <div class="col-4 d-flex">
