@@ -131,7 +131,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.description.slice(0, 150);
+                               des = row.description.slice(0, 150);
                            }
                            return '<td>' +
                                des + '</td>'
