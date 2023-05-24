@@ -127,6 +127,11 @@
                            return '<td>' +
                                row.juz + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.description.slice(0, 150) + '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {

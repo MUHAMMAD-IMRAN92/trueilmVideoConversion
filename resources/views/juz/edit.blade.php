@@ -65,8 +65,8 @@
                                                             <label for="">Juz</label>
                                                             <div class="position-relative">
                                                                 <input type="hidden" id="" class="form-control"
-                                                                name="id" placeholder=""
-                                                                value="{{ $juz->_id }}" required>
+                                                                    name="id" placeholder=""
+                                                                    value="{{ $juz->_id }}" required>
                                                                 <input type="text" id="" class="form-control"
                                                                     name="juz" placeholder=""
                                                                     value="{{ $juz->juz }}" required>
@@ -77,7 +77,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description">{{ $juz->description }}</textarea>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description" value="">{{ $juz->description }}</textarea>
                                                         </fieldset>
                                                     </div>
 
