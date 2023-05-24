@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Languages;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,6 @@ Route::group(['domain' => 'trueilm.com'], function () {
     });
     Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
-// Route::group(['domain' => 'admin.trueilm.com'], function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
@@ -117,5 +117,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
+
+    Route::get('languages/add', function () {
+        $arr = ['en' => 'English', 'ur' => 'Urdu', 'ar' => 'Arabic', 'ms' => 'Malay'];
+
+        foreach ($arr as $key => $ar) {
+            $lang = new Languages();
+            $lang->code = $key;
+            $lang->title = $ar;
+            $lang->save();
+        }
+    });
 });
-// });
