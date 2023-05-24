@@ -1357,7 +1357,7 @@
                             <p>Type</p>
                             <fieldset class="form-group">
                                 <select class="form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}" required>
-                                    <option value="" selected>Please Select Language</option>
+                                    <option value="" selected>Please Select Reference</option>
                                     <option value="1">eBook</option>
                                     <option value="2">Audio</option>
                                     <option value="3">Paper</option>
