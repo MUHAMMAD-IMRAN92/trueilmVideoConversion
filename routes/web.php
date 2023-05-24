@@ -117,4 +117,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
+    Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
 });

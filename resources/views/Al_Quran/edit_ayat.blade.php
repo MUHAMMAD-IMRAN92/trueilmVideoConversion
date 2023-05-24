@@ -321,7 +321,7 @@
                                                                 id="non-editble-translation-{{ $key }}">
 
                                                                 <p>Language :
-                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $aya->lang }}
+                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $aya->lang_title }}
                                                                     </b>
                                                                 </p>
 
@@ -341,22 +341,13 @@
                                                                     <select class="form-control" name="langs[]"
                                                                         id="lang-select-{{ $key }}"
                                                                         id="basicSelect">
-                                                                        <option value="ar"
-                                                                            {{ $aya->lang == 'ar' ? 'selected' : '' }}>
-                                                                            Arabic
-                                                                        </option>
-                                                                        <option value="en"
-                                                                            {{ $aya->lang == 'en' ? 'selected' : '' }}>
-                                                                            English
-                                                                        </option>
-                                                                        <option value="ur"
-                                                                            {{ $aya->lang == 'ur' ? 'selected' : '' }}>
-                                                                            Urud
-                                                                        </option>
-                                                                        <option value="hi"
-                                                                            {{ $aya->lang == 'hi' ? 'selected' : '' }}>
-                                                                            Hindi
-                                                                        </option>
+                                                                        @foreach ($languages as $langkey => $lang)
+                                                                            <option value="{{ $lang->_id }}"
+                                                                                {{ $lang->_id == $aya->lang ? 'selected' : '' }}>
+                                                                                {{ $lang->title }}
+                                                                            </option>
+                                                                        @endforeach
+
                                                                     </select>
                                                                 </fieldset>
 
@@ -455,7 +446,7 @@
 
                                                                 <p>Language :
                                                                     <b
-                                                                        id="tafseer-non-edit-lang-select-{{ $key }}">{{ $tafseer->lang }}
+                                                                        id="tafseer-non-edit-lang-select-{{ $key }}">{{ $tafseer->lang_title }}
                                                                     </b>
                                                                 </p>
 
@@ -476,22 +467,12 @@
                                                                     <select class="form-control" name="taf_langs[]"
                                                                         id="tafseer-lang-select-{{ $key }}"
                                                                         id="basicSelect">
-                                                                        <option value="ar"
-                                                                            {{ $tafseer->lang == 'ar' ? 'selected' : '' }}>
-                                                                            Arabic
-                                                                        </option>
-                                                                        <option value="en"
-                                                                            {{ $tafseer->lang == 'en' ? 'selected' : '' }}>
-                                                                            English
-                                                                        </option>
-                                                                        <option value="ur"
-                                                                            {{ $tafseer->lang == 'ur' ? 'selected' : '' }}>
-                                                                            Urud
-                                                                        </option>
-                                                                        <option value="hi"
-                                                                            {{ $tafseer->lang == 'hi' ? 'selected' : '' }}>
-                                                                            Hindi
-                                                                        </option>
+                                                                        @foreach ($languages as $tafkey => $lang)
+                                                                            <option value="{{ $lang->_id }}"
+                                                                                {{ $lang->_id == $tafseer->lang ? 'selected' : '' }}>
+                                                                                {{ $lang->title }}
+                                                                            </option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </fieldset>
 

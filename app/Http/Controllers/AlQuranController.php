@@ -7,6 +7,7 @@ use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Book;
 use App\Models\Juz;
+use App\Models\Languages;
 use App\Models\Reference;
 use App\Models\Surah;
 use App\Models\Tafseer;
@@ -27,11 +28,13 @@ class AlQuranController extends Controller
 
     public function add($surahId)
     {
-        $surah = Surah::where('_id', $surahId)->with('ayats')->first();
+        $surah = Surah::where('_id', $surahId)->with(['ayats' => function ($q) {
+            $q->orderBy('sequence', 'asc');
+        }])->first();
         $juzs = Juz::all();
         return view('Al_Quran.add_ayat', [
             'surah' => $surah,
-            'juzs' => $juzs
+            'juzs' => $juzs,
         ]);
     }
     public function store(Request $request)
@@ -91,13 +94,17 @@ class AlQuranController extends Controller
 
     public function edit($surahId, $ayatId)
     {
-        $surah = Surah::where('_id', $surahId)->with('ayats')->first();
+        $surah = Surah::where('_id', $surahId)->with(['ayats' => function ($q) {
+            $q->orderBy('sequence', 'asc');
+        }])->first();
         $ayat = AlQuran::where('_id', $ayatId)->with('translations')->first();
         $juzs = Juz::all();
+        $languages = Languages::all();
         return view('Al_Quran.edit_ayat', [
             'surah' => $surah,
             'ayat' => $ayat,
-            'juzs' => $juzs
+            'juzs' => $juzs,
+            'languages' => $languages
         ]);
     }
 
@@ -172,6 +179,7 @@ class AlQuranController extends Controller
         $alQuranTranslation->added_by = $this->user->id;
         $alQuranTranslation->save();
 
+
         return $alQuranTranslation;
     }
     public function saveTranslation(Request $request)
@@ -183,7 +191,13 @@ class AlQuranController extends Controller
         $alQuranTranslation->added_by = $this->user->id;
         $alQuranTranslation->save();
 
-        return $alQuranTranslation;
+
+        $data = [];
+        $languages = Languages::all();
+        $data['ayat'] = $alQuranTranslation;
+        $data['lang'] = $languages;
+
+        return $data;
     }
 
     public function deleteTafseer(Request $request)
@@ -213,7 +227,12 @@ class AlQuranController extends Controller
         $alQuranTafseer->added_by = $this->user->id;
         $alQuranTafseer->save();
 
-        return $alQuranTafseer;
+        $data = [];
+        $languages = Languages::all();
+        $data['ayat'] = $alQuranTafseer;
+        $data['lang'] = $languages;
+
+        return $data;
     }
 
     function getFiles(Request $request)

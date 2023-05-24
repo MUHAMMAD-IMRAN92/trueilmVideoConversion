@@ -597,6 +597,7 @@
                "order": false
            });
            $('#add-translation').on('click', function() {
+
                var html;
                html = ` <div class="col-12">
                     <div class="card" >
@@ -799,13 +800,13 @@
                },
                dataType: "json",
                success: function(response) {
-                   console.log(response);
                    $('#translation-saved-span-' + key).css('display', 'block');
                    setTimeout(() => {
                        $('#translation-saved-span-' + key).css('display', 'none');
 
                    }, 3000);
-                   $('#non-edit-lang-select-' + key).html(response.lang);
+                   //    console.log(response);
+                   $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
                    $('#non-edit-para-des-' + key).html(response.translation);
                    $('#editble-' + key).css('display', 'none');
@@ -816,10 +817,20 @@
 
        function addTranslation(ayatId) {
            $('#no-translation-div').css('display', 'none');
-           var div = $('.lang');
-           var lang = div.length;
-           var html;
-           html = `
+           var opt = null;
+           $.ajax({
+               type: "GET",
+               url: "{{ url('languages') }}",
+               dataType: "json",
+               success: function(response) {
+                   response.forEach(function(e) {
+                       //    opt = response;
+                       opt += `<option value="${e._id}">${e.title}</option>`;
+                   })
+                   var div = $('.lang');
+                   var lang = div.length;
+                   var html;
+                   html = `
 
                         <div class="col-12 lang translation-div-${lang}">
 
@@ -851,10 +862,7 @@
                             <fieldset class="form-group">
                                 <select class="form-control" name="langs[]" required id="new-lang-select-${lang}">
                                     <option value="" selected>Please Select Language</option>
-                                    <option value="ar">Arabic</option>
-                                    <option value="en">English</option>
-                                    <option value="ur">Urud</option>
-                                    <option value="hi">Hindi</option>
+                                    ${opt}
                                 </select>
                             </fieldset>
                             </div>
@@ -870,22 +878,26 @@
                 </div>
                 `;
 
-           $('.append-inputs').append(html);
-           $('.summernote').summernote({
-               height: 150,
-               codemirror: {
-                   theme: 'default'
+                   $('.append-inputs').append(html);
+                   $('.summernote').summernote({
+                       height: 150,
+                       codemirror: {
+                           theme: 'default'
+                       },
+                       toolbar: [
+                           // [groupName, [list of button]]
+                           ['style', ['bold', 'italic', 'underline', 'clear']],
+                           ['font', ['strikethrough', 'superscript', 'subscript']],
+                           ['fontsize', ['fontsize', 'fontname']],
+                           ['color', ['color']],
+                           ['para', ['ul', 'ol', 'paragraph']],
+                           ['height', ['height']]
+                       ]
+                   });
                },
-               toolbar: [
-                   // [groupName, [list of button]]
-                   ['style', ['bold', 'italic', 'underline', 'clear']],
-                   ['font', ['strikethrough', 'superscript', 'subscript']],
-                   ['fontsize', ['fontsize', 'fontname']],
-                   ['color', ['color']],
-                   ['para', ['ul', 'ol', 'paragraph']],
-                   ['height', ['height']]
-               ]
            });
+           console.log(opt);
+
        }
 
        function deleteNewTranslation(key) {
@@ -913,7 +925,15 @@
                success: function(response) {
                    console.log(response);
                    $('.translation-div-' + key).remove();
-
+                   var opt = '';
+                   response.lang.forEach(function(e) {
+                       //    opt = response;
+                       var selected = '';
+                       if (response.ayat.lang == e._id) {
+                           selected = 'selected';
+                       }
+                       opt += `<option value="${e._id}"  ${selected}>${e.title}</option>`;
+                   })
                    var html;
                    html = `<div class="col-12 lang translation-div-${key }">
                                                     <div class="card">
@@ -933,13 +953,13 @@
                                                                                 class="fa fa-pencil">&nbspEdit</i></span>
                                                                     </h4>
                                                                     <h4
-                                                                        onclick="saveTranslation('${response.ayat_id}','${response._id}','${key }')">
+                                                                        onclick="saveTranslation('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
                                                                         <span class="badge badge-success ml-1"><i
                                                                                 class="fa fa-save">&nbspSave</i></span>
                                                                     </h4>
 
                                                                     <h4
-                                                                        onclick="deleteTranslation('${response.ayat_id}','${response._id}','${key }')">
+                                                                        onclick="deleteTranslation('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
                                                                         <span class="badge badge-danger ml-1"><i
                                                                                 class="fa fa-trash">&nbspDelete</i></span>
                                                                     </h4>
@@ -950,7 +970,7 @@
                                                                 id="non-editble-translation-${key}">
 
                                                                 <p>Language :
-                                                                    <b id="non-edit-lang-select-${ key }">${response.lang }
+                                                                    <b id="non-edit-lang-select-${ key }">${response.ayat.lang_title }
                                                                     </b>
                                                                 </p>
 
@@ -959,7 +979,7 @@
                                                                     <span class=""
                                                                         id="non-edit-para-des-${ key }"
                                                                         style="margin-left:10px!important">
-                                                                         ${response.translation}</span>
+                                                                         ${response.ayat.translation}</span>
                                                                 </div>
 
                                                             </div>
@@ -970,25 +990,10 @@
                                                                     <select class="form-control" required name="langs[]"
                                                                         id="lang-select-${ key }"
 
-                                                                        value =  ${ response.lang }
+                                                                        value =  ${ response.ayat.lang_title }
                                                                         >
                                                                         <option value="" >Please Select Language</option>
-                                                                        <option value="ar"
-                                                                           >
-                                                                            Arabic
-                                                                        </option>
-                                                                        <option value="en"
-                                                                            >
-                                                                            English
-                                                                        </option>
-                                                                        <option value="ur"
-                                                                            >
-                                                                            Urud
-                                                                        </option>
-                                                                        <option value="hi"
-                                                                            >
-                                                                            Hindi
-                                                                        </option>
+                                                                        ${opt}
                                                                     </select>
                                                                 </fieldset>
 
@@ -996,7 +1001,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.translation }</textarea>
+                                                                        <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.ayat.translation }</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -1025,7 +1030,7 @@
                            ['height', ['height']]
                        ]
                    });
-                   $('#lang-select-' + key).val(response.lang)
+                   $('#lang-select-' + key).val(response.ayat.lang)
                }
            });
        }
@@ -1085,7 +1090,7 @@
                        $('#tafseer-saved-span-' + key).css('display', 'none');
 
                    }, 3000);
-                   $('#tafseer-non-edit-lang-select-' + key).html(response.lang);
+                   $('#tafseer-non-edit-lang-select-' + key).html(response.lang_title);
                    $('#tafseer-trans-input-' + key).val(response.tafseer);
                    $('#tafseer-non-edit-para-des-' + key).html(response.tafseer);
                    $('#tafseer-editble-' + key).css('display', 'none');
@@ -1096,10 +1101,20 @@
 
        function addTafseer(ayatId) {
            $('.no-tafseer-div').css('display', 'none');
-           var div = $('.tafseer-divs');
-           var lang = div.length;
-           var html;
-           html = `
+           var opt = '';
+           $.ajax({
+               type: "GET",
+               url: "{{ url('languages') }}",
+               dataType: "json",
+               success: function(response) {
+                   response.forEach(function(e) {
+                       //    opt = response;
+                       opt += `<option value="${e._id}">${e.title}</option>`;
+                   })
+                   var div = $('.tafseer-divs');
+                   var lang = div.length;
+                   var html;
+                   html = `
                         <div class="col-12 tafseer-divs tafseer-div-${lang}">
 
                                     <div class="card" >
@@ -1130,10 +1145,7 @@
                             <fieldset class="form-group">
                                 <select class="form-control" name="taf_langs[]" required id="tafseer-new-lang-select-${lang}">
                                     <option value="" selected>Please Select Language</option>
-                                    <option value="ar">Arabic</option>
-                                    <option value="en">English</option>
-                                    <option value="ur">Urud</option>
-                                    <option value="hi">Hindi</option>
+                                   ${opt}
                                 </select>
                             </fieldset>
                             </div>
@@ -1149,22 +1161,25 @@
                 </div>
                 `;
 
-           $('.tafseer-append-inputs').append(html);
-           $('.summernote').summernote({
-               height: 150,
-               codemirror: {
-                   theme: 'default'
-               },
-               toolbar: [
-                   // [groupName, [list of button]]
-                   ['style', ['bold', 'italic', 'underline', 'clear']],
-                   ['font', ['strikethrough', 'superscript', 'subscript']],
-                   ['fontsize', ['fontsize', 'fontname']],
-                   ['color', ['color']],
-                   ['para', ['ul', 'ol', 'paragraph']],
-                   ['height', ['height']]
-               ]
+                   $('.tafseer-append-inputs').append(html);
+                   $('.summernote').summernote({
+                       height: 150,
+                       codemirror: {
+                           theme: 'default'
+                       },
+                       toolbar: [
+                           // [groupName, [list of button]]
+                           ['style', ['bold', 'italic', 'underline', 'clear']],
+                           ['font', ['strikethrough', 'superscript', 'subscript']],
+                           ['fontsize', ['fontsize', 'fontname']],
+                           ['color', ['color']],
+                           ['para', ['ul', 'ol', 'paragraph']],
+                           ['height', ['height']]
+                       ]
+                   });
+               }
            });
+
        }
 
        function deleteNewTafseer(key) {
@@ -1193,7 +1208,15 @@
                success: function(response) {
                    console.log(response);
                    $('.tafseer-div-' + key).remove();
-
+                   var opt = '';
+                   response.lang.forEach(function(e) {
+                       //    opt = response;
+                       var selected = '';
+                       if (response.ayat.lang == e._id) {
+                           selected = 'selected';
+                       }
+                       opt += `<option value="${e._id}"  ${selected}>${e.title}</option>`;
+                   })
                    var html;
                    html = `<div class="col-12 tafseer-divs tafseer-div-${ key }">
                                                     <div class="card">
@@ -1213,13 +1236,13 @@
                                                                                 class="fa fa-pencil">&nbspEdit</i></span>
                                                                     </h4>
                                                                     <h4
-                                                                        onclick="saveTafseer('${response.ayat_id}','${response._id}','${key }')">
+                                                                        onclick="saveTafseer('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
                                                                         <span class="badge badge-success ml-1"><i
                                                                                 class="fa fa-save">&nbspSave</i></span>
                                                                     </h4>
 
                                                                     <h4
-                                                                        onclick="deleteTafseer('${response.ayat_id}','${response._id}','${key }')">
+                                                                        onclick="deleteTafseer('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
                                                                         <span class="badge badge-danger ml-1"><i
                                                                                 class="fa fa-trash">&nbspDelete</i></span>
                                                                     </h4>
@@ -1230,7 +1253,7 @@
                                                                 id="non-editble-tafseer-${key}">
 
                                                                 <p>Language :
-                                                                    <b id="tafseer-non-edit-lang-select-${ key }">${response.lang }
+                                                                    <b id="tafseer-non-edit-lang-select-${ key }">${response.ayat.lang_title }
                                                                     </b>
                                                                 </p>
 
@@ -1239,7 +1262,7 @@
                                                                     <span class=""
                                                                         id="tafseer-non-edit-para-des-${ key }"
                                                                         style="margin-left:10px!important">
-                                                                         ${response.tafseer}</span>
+                                                                         ${response.ayat.tafseer}</span>
                                                                 </div>
 
                                                             </div>
@@ -1252,22 +1275,7 @@
                                                                         required>
                                                                         <option value="" selected>Please Select Language</option>
 
-                                                                        <option value="ar"
-                                                                          >
-                                                                            Arabic
-                                                                        </option>
-                                                                        <option value="en"
-                                                                           >
-                                                                            English
-                                                                        </option>
-                                                                        <option value="ur"
-                                                                           >
-                                                                            Urud
-                                                                        </option>
-                                                                        <option value="hi"
-                                                                           >
-                                                                            Hindi
-                                                                        </option>
+                                                                       ${opt}
                                                                     </select>
                                                                 </fieldset>
 
@@ -1275,7 +1283,7 @@
                                                                     <label for="">Tafseer</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]" required>${ response.tafseer }</textarea>
+                                                                        <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]" required>${ response.ayat.tafseer }</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -1302,7 +1310,7 @@
                            ['height', ['height']]
                        ]
                    });
-                   $('#tafseer-lang-select-' + key).val(response.lang)
+                   $('#tafseer-lang-select-' + key).val(response.ayat.lang)
 
                }
            });
@@ -1336,7 +1344,7 @@
                                                                 class="fa fa-save">&nbspSave</i></span>
                                                     </h4>
                                                     <h4
-                                                        onclick="deleteReference('${lang }')">
+                                                        onclick="deleteNewReference('${lang}')">
                                                         <span class="badge badge-danger ml-1"><i
                                                                 class="fa fa-trash">&nbspDelete</i></span>
                                                     </h4>
@@ -1460,5 +1468,10 @@
                    }
                },
            });
+       }
+
+       function deleteNewReference(key) {
+           // alert(key);
+           $('.reference-div-' + key).remove();
        }
    </script>

@@ -34,4 +34,6 @@ class AlQuran extends Eloquent
 
         return @$juz->juz;
     }
+
+
 }

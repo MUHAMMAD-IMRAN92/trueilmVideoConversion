@@ -226,7 +226,8 @@
                                                                 <div class="position-relative">
                                                                     <input type="number" id=""
                                                                         placeholder="e.g. 1234" class="form-control"
-                                                                        name="sequence" placeholder="" value=""
+                                                                        name="sequence" placeholder=""
+                                                                        value="{{ \App\Models\AlQuran::max('sequence') + 1 }}"
                                                                         required>
                                                                 </div>
 
