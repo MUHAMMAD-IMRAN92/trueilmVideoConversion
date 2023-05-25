@@ -19,7 +19,7 @@
                 </div>
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
-                        
+
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description">{{ $course->description }}</textarea>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $course->description }}</textarea>
                                                         </fieldset>
                                                     </div>
 
