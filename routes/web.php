@@ -118,4 +118,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
+
+    Route::get('/fileupload' , [App\Http\Controllers\UserController::class, 'fileupload']);
 });

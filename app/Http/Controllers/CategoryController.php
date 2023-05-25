@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -66,12 +67,13 @@ class CategoryController extends Controller
         $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->status = 1;
+
         if ($request->has('image')) {
-            $base_path = url('storage');
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('categories_image', $file_name, 'public');
-            $category->image = $base_path . '/' . $path;
+            $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $category->image  = $path;
         }
         $category->save();
 
@@ -96,11 +98,11 @@ class CategoryController extends Controller
         $category->type = $request->type;
         $category->status = $category->status;
         if ($request->has('image')) {
-            $base_path = url('storage');
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('categories_image', $file_name, 'public');
-            $category->image = $base_path . '/' . $path;
+            $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $category->image  = $path;
         }
         $category->save();
 

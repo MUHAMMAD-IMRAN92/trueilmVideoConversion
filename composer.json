@@ -17,6 +17,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "league/flysystem-aws-s3-v3": "^1.0@dev",
         "mll-lab/laravel-graphiql": "^1.2",
         "mongodb/mongodb": "*",
         "mostafamaklad/laravel-permission-mongodb": "^3.1",

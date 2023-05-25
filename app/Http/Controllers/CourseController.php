@@ -7,6 +7,7 @@ use App\Models\CourseLesson;
 use App\Models\LessonVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -59,12 +60,13 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->added_by = $this->user->id;
         $course->status = 1;
+
         if ($request->has('image')) {
-            $base_path = url('storage');
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('courses_images', $file_name, 'public');
-            $course->image = $base_path . '/' . $path;
+            $path =   $request->file('image')->storeAs('courses_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $course->image  = $path;
         }
         $course->save();
         if ($request->lessons) {
@@ -76,12 +78,13 @@ class CourseController extends Controller
                 $courseLesson->added_by = $this->user->id;
 
                 if ($request->videos[$key]) {
-                    $base_path = url('storage');
+
                     $file = $request->videos[$key];
                     $file_name = time() . '.' . $file->getClientOriginalExtension();
-                    $path = $file->storeAs('courses_videos', $file_name, 'public');
+                    $path = $file->storeAs('courses_videos', $file_name, 's3');
+                    Storage::disk('s3')->setVisibility($path, 'public');
 
-                    $courseLesson->video = $base_path . '/' . $path;
+                    $courseLesson->video = $path;
                 }
                 $courseLesson->save();
             }
@@ -105,11 +108,11 @@ class CourseController extends Controller
         $course->added_by = $this->user->id;
         $course->status = 1;
         if ($request->has('image')) {
-            $base_path = url('storage');
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('courses_images', $file_name, 'public');
-            $course->image = $base_path . '/' . $path;
+            $path =   $request->file('image')->storeAs('courses_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $course->image  = $path;
         }
         $course->save();
         if ($request->lessons) {
@@ -120,13 +123,15 @@ class CourseController extends Controller
                 $courseLesson->course_id = $course->id;
                 $courseLesson->added_by = $this->user->id;
 
-                if ($request->videos[$key]) {
-                    $base_path = url('storage');
-                    $file = $request->videos[$key];
-                    $file_name = rand(0, 99999) . '.' . time() . '.' . $file->getClientOriginalExtension();
-                    $path = $file->storeAs('courses_videos', $file_name, 'public');
 
-                    $courseLesson->video = $base_path . '/' . $path;
+                if ($request->videos[$key]) {
+
+                    $file = $request->videos[$key];
+                    $file_name = time() . '.' . $file->getClientOriginalExtension();
+                    $path = $file->storeAs('courses_videos', $file_name, 's3');
+                    Storage::disk('s3')->setVisibility($path, 'public');
+
+                    $courseLesson->video = $path;
                 }
                 $courseLesson->save();
             }

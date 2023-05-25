@@ -125,4 +125,5 @@ class UserController extends Controller
         $user->delete();
         return redirect()->to('/user-management')->with('msg', 'User Deleted Successfully!');
     }
+
 }

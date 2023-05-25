@@ -64,7 +64,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description"></textarea>
+                                                            <textarea  class="form-control" id="basicTextarea" rows="3" placeholder=""  name="description"></textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">

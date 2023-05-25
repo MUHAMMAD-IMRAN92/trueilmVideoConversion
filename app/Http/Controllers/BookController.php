@@ -99,14 +99,16 @@ class BookController extends Controller
         if ($request->has('file')) {
             $file = $request->file('file');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('files', $file_name, 'public');
-            $book->file = $base_path . '/' .  $path;
+            $path =   $request->file('file')->storeAs('files', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $book->file = $path;
         }
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('files_covers', $file_name, 'public');
-            $book->cover = $base_path . '/' . $path;
+            $path =   $request->file('cover')->storeAs('files_covers', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $book->image = $path;
         }
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
@@ -139,15 +141,18 @@ class BookController extends Controller
         if ($request->has('file')) {
             $file = $request->file('file');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('files', $file_name, 'public');
-            $book->file = $base_path . '/' .  $path;
+            $path =   $request->file('file')->storeAs('files', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $book->file = $path;
         }
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('files_covers', $file_name, 'public');
-            $book->cover = $base_path . '/' . $path;
+            $path =   $request->file('cover')->storeAs('files_covers', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $book->image = $path;
         }
+
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
         $book->type = Session::get('type');
@@ -156,7 +161,7 @@ class BookController extends Controller
         $book->author = $request->author;
         $book->save();
 
-        return redirect()->to('books/' .  Session::get('type'))->with('msg', 'Content Updated Successfully!');;
+        return redirect()->to('books/' .  Session::get('type'))->with('msg', 'Content Updated Successfully!');
     }
     public function updateStatus($id)
     {
