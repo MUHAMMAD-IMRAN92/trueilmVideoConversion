@@ -60,13 +60,13 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->added_by = $this->user->id;
         $course->status = 1;
-
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('image')->storeAs('courses_images', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $course->image  = $path;
+            $course->image  = $base_path . $path;
         }
         $course->save();
         if ($request->lessons) {
@@ -84,7 +84,7 @@ class CourseController extends Controller
                     $path = $file->storeAs('courses_videos', $file_name, 's3');
                     Storage::disk('s3')->setVisibility($path, 'public');
 
-                    $courseLesson->video = $path;
+                    $courseLesson->video =  $base_path . $path;
                 }
                 $courseLesson->save();
             }
@@ -107,12 +107,13 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->added_by = $this->user->id;
         $course->status = 1;
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('image')->storeAs('courses_images', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $course->image  = $path;
+            $course->image  = $base_path . $path;
         }
         $course->save();
         if ($request->lessons) {
@@ -131,7 +132,7 @@ class CourseController extends Controller
                     $path = $file->storeAs('courses_videos', $file_name, 's3');
                     Storage::disk('s3')->setVisibility($path, 'public');
 
-                    $courseLesson->video = $path;
+                    $courseLesson->video = $base_path . $path;
                 }
                 $courseLesson->save();
             }

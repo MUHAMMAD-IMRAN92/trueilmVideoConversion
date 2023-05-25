@@ -67,13 +67,13 @@ class CategoryController extends Controller
         $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->status = 1;
-
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $category->image  = $path;
+            $category->image  = $base_path . $path;
         }
         $category->save();
 
@@ -97,12 +97,13 @@ class CategoryController extends Controller
         $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->status = $category->status;
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $category->image  = $path;
+            $category->image  = $base_path . $path;
         }
         $category->save();
 

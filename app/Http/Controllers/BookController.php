@@ -95,20 +95,20 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
-        $base_path = url('storage');
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('file')) {
             $file = $request->file('file');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('file')->storeAs('files', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $book->file = $path;
+            $book->file = $base_path.$path;
         }
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('cover')->storeAs('files_covers', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $book->image = $path;
+            $book->image = $base_path.$path;
         }
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
@@ -137,20 +137,20 @@ class BookController extends Controller
         $book = Book::where('_id', $request->id)->first();
         $book->title = $request->title;
         $book->description = $request->description;
-        $base_path = url('storage');
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('file')) {
             $file = $request->file('file');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('file')->storeAs('files', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $book->file = $path;
+            $book->file =  $base_path . $path;
         }
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('cover')->storeAs('files_covers', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $book->image = $path;
+            $book->image = $base_path . $path;
         }
 
         $book->added_by = $this->user->id;
