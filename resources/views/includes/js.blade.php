@@ -763,10 +763,12 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
-                           if (row.name == '')
-                               row.name = '--'
+                        name = '';
+                           if (row.name == ''){
+                              name = '--'
+                           }
                            return '<td>' +
-                               row.name + '</td>'
+                               name + '</td>'
                        }
                    },
                    {
