@@ -332,18 +332,29 @@
                     </li>
 
                     <i class="far fa-typewriter"></i>
-                    {{-- <li class="@if (request()->is('publisher*')) active @endif "><a href="{{ url('publisher') }}"><i
-                    class="fa fa-keyboard-o"></i>
-                    <span class="menu-item" data-i18n="Analytics">Publisher</span></a>
-                     </li> --}}
+
                     <li class="@if (request()->is('hadith*')) active @endif "><a
                             href="{{ url('hadith/books') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
+                    <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
+                                data-i18n="Ecommerce">User Management</span></a>
+                        <ul class="menu-content">
+                            <li class="@if (request()->is('user*')) active @endif "><a
+                                    href="{{ url('user-management') }}"><i class="fa fa-user"></i>
+                                    <span class="menu-item" data-i18n="Analytics">User Management</span></a>
+                            </li>
 
-                    <li class="@if (request()->is('user*')) active @endif "><a
+                            <li class="@if (request()->is('app*')) active @endif "><a
+                                    href="{{ url('app-users') }}"><i class="fa fa-user"></i>
+                                    <span class="menu-item" data-i18n="Analytics">App Users</span></a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    {{-- <li class="@if (request()->is('user*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">User Management</span></a>
-                    </li>
+                    </li> --}}
                     <li class="@if (request()->is('book/pending-*')) active @endif "><a
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Content for Approval</span></a>

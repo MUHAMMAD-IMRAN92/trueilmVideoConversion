@@ -99,6 +99,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
     Route::post('user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
     Route::get('user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
+    //app users
+    Route::get('app-users', [App\Http\Controllers\UserController::class, 'appUsers'])->name('app.user');
+    Route::get('all-app-user', [App\Http\Controllers\UserController::class, 'allAppUser'])->name('all.app.user');
+
 
     Route::get('categories/{type}', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
     Route::get('all-category', [App\Http\Controllers\CategoryController::class, 'allCategory'])->name('category.all');
@@ -119,5 +123,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
 
-    Route::get('/fileupload' , [App\Http\Controllers\UserController::class, 'fileupload']);
+    Route::get('/fileupload', [App\Http\Controllers\UserController::class, 'fileupload']);
 });

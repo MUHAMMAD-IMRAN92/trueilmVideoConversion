@@ -751,7 +751,43 @@
                $('#submit-btn').prop('disabled', 'true');
            });
 
+           $('#app-user-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-app-user') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
 
+                           return '<td>' +
+                               row.email +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.phone + '</td>'
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
 
        });
 
