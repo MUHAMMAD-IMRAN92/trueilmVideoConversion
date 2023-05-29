@@ -763,9 +763,9 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
-                        name = '';
-                           if (row.name == ''){
-                              name = '--'
+                           name = '--';
+                           if (row.name != '') {
+                               name = row.name
                            }
                            return '<td>' +
                                name + '</td>'
