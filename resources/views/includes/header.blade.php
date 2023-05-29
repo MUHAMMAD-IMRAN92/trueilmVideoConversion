@@ -346,11 +346,11 @@
                     </li>
                     <li class="@if (request()->is('book/pending-*')) active @endif "><a
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Books For Approval</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Content for Approval</span></a>
                     </li>
                     <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
                                 class="fa fa-list"></i>
-                            <span class="menu-item" data-i18n="Analytics">Courses</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Course Management</span></a>
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Admin') ||
