@@ -14,7 +14,7 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Books</h2>
+                            <h2 class="content-header-title float-left mb-0">Content</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -26,7 +26,7 @@
                         <div class="dropdown">
                             <a href="{{ url("book/$type/create") }}"> <button
                                     class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
-                                        class="add-brand-font">Add Book</span> <i class="fa fa-plus" aria-hidden="true"></i>
+                                        class="add-brand-font">Add Content</span> <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button></a>
 
                         </div>
