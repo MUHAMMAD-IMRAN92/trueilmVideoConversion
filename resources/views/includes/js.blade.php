@@ -214,7 +214,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0,150);
+                               des = row.description.slice(0, 150);
                            } else {
                                des = '--';
                            }
@@ -417,7 +417,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0,150);
+                               des = row.description.slice(0, 150);
                            }
                            return '<td>' +
                                des +
@@ -472,7 +472,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0,150);
+                               des = row.description.slice(0, 150);
                            } else {
                                des = '--';
                            }
@@ -564,7 +564,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0,150);
+                               des = row.description.slice(0, 150);
                            } else {
                                des = '--';
                            }
@@ -763,6 +763,8 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
+                           if (row.name == 'undefined')
+                               row.name = '--'
                            return '<td>' +
                                row.name + '</td>'
                        }
