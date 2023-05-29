@@ -763,7 +763,7 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
-                           if (row.name == 'undefined')
+                           if (row.name == '')
                                row.name = '--'
                            return '<td>' +
                                row.name + '</td>'
