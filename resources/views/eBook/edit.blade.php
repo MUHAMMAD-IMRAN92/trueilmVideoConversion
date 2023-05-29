@@ -66,7 +66,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea  class="form-control" id="basicTextarea" rows="3" placeholder=""  name="description">{{ $book->description }}</textarea>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $book->description }}</textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-6">
@@ -121,7 +121,8 @@
 
                                                         <label for="">Category</label>
                                                         <fieldset class="form-group">
-                                                            <select class="form-control" name="category" id="basicSelect">
+                                                            <select class="select2 form-control" name="category"
+                                                                id="basicSelect">
                                                                 <option disabled selected>Select Category</option>
                                                                 @foreach ($categories as $category)
                                                                     <option
@@ -136,8 +137,7 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <button type="submit"
-                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>
