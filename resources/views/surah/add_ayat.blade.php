@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">Add Surah</h2>
                             <div class="breadcrumb-wrapper col-12">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -34,15 +34,15 @@
                 </div>
             @endforeach
             @if (\Session::has('msg'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <p class="mb-0">
-                    {{ \Session::get('msg') }}
-                </p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
-                </button>
-            </div>
-        @endif
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ \Session::get('msg') }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endif
 
             <div class="content-body">
 
@@ -81,7 +81,7 @@
 
                                                         <p>Type</p>
                                                         <fieldset class="form-group">
-                                                            <select class="form-control" name="type" id="basicSelect">
+                                                            <select class="select2 form-control" name="type" id="basicSelect">
                                                                 <option value="1">Makki</option>
                                                                 <option value="2">Madani</option>
                                                             </select>

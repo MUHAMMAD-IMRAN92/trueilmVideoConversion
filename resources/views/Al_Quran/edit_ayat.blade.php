@@ -338,7 +338,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" name="langs[]"
+                                                                    <select class="select2 form-control" name="langs[]"
                                                                         id="lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         @foreach ($languages as $langkey => $lang)
@@ -464,7 +464,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" name="taf_langs[]"
+                                                                    <select class="select2 form-control" name="taf_langs[]"
                                                                         id="tafseer-lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         @foreach ($languages as $tafkey => $lang)

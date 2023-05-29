@@ -52,6 +52,9 @@
 
    <!-- END: Page JS-->
    <script>
+       $(".js-example-tags").select2({
+           tags: true
+       });
        $(document).ready(function() {
 
            $('.summernote').summernote({
@@ -904,7 +907,7 @@
                         </div>
                             <p>Language</p>
                             <fieldset class="form-group">
-                                <select class="form-control" name="langs[]" required id="new-lang-select-${lang}">
+                                <select class="select2 form-control" name="langs[]" required id="new-lang-select-${lang}">
                                     <option value="" selected>Please Select Language</option>
                                     ${opt}
                                 </select>
@@ -937,6 +940,9 @@
                            ['para', ['ul', 'ol', 'paragraph']],
                            ['height', ['height']]
                        ]
+                   });
+                   $('#new-lang-select-' + lang).select2({
+                       tags: true
                    });
                },
            });
@@ -1031,7 +1037,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" required name="langs[]"
+                                                                    <select style="width:100%" class="select2 form-control" required name="langs[]"
                                                                         id="lang-select-${ key }"
 
                                                                         value =  ${ response.ayat.lang_title }
@@ -1073,6 +1079,9 @@
                            ['para', ['ul', 'ol', 'paragraph']],
                            ['height', ['height']]
                        ]
+                   });
+                   $('#lang-select-' + key).select2({
+                       tags: true
                    });
                    $('#lang-select-' + key).val(response.ayat.lang)
                }
@@ -1187,7 +1196,7 @@
                         </div>
                             <p>Language</p>
                             <fieldset class="form-group">
-                                <select class="form-control" name="taf_langs[]" required id="tafseer-new-lang-select-${lang}">
+                                <select class="select2 form-control" name="taf_langs[]" required id="tafseer-new-lang-select-${lang}">
                                     <option value="" selected>Please Select Language</option>
                                    ${opt}
                                 </select>
@@ -1220,6 +1229,9 @@
                            ['para', ['ul', 'ol', 'paragraph']],
                            ['height', ['height']]
                        ]
+                   });
+                   $('#tafseer-new-lang-select-' + lang).select2({
+                       tags: true
                    });
                }
            });
@@ -1314,7 +1326,7 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="form-control" name="taf_langs[]"
+                                                                    <select style="width:100%" class="select2 form-control" name="taf_langs[]"
                                                                         id="tafseer-lang-select-${ key }"
                                                                         required>
                                                                         <option value="" selected>Please Select Language</option>
@@ -1355,6 +1367,9 @@
                        ]
                    });
                    $('#tafseer-lang-select-' + key).val(response.ayat.lang)
+                   $('#tafseer-lang-select-' + key).select2({
+                       tags: true
+                   });
 
                }
            });
@@ -1396,7 +1411,7 @@
                                          </div>
                             <p>Type</p>
                             <fieldset class="form-group">
-                                <select class="form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}" required>
+                                <select class="selct2 form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}" required>
                                     <option value="" selected>Please Select Reference</option>
                                     <option value="1">eBook</option>
                                     <option value="2">Audio</option>
@@ -1405,7 +1420,7 @@
                             </fieldset>
                                 <label for="">File</label>
                                 <fieldset class="form-group">
-                                    <select class="form-control " name="file[]" id="file-new-lang-select-${lang}" required>
+                                    <select class="selct2 form-control " name="file[]" id="file-new-lang-select-${lang}" required>
                                     <option value="" selected>Please Select File</option>
 
                                 </select>
@@ -1418,6 +1433,9 @@
 
            $('.reference-append-inputs').append(html);
            $('.summernote').summernote();
+           $('#file-new-lang-select-' + lang).select2({
+               tags: true
+           });
        }
 
        function getFilesAjax(key) {
