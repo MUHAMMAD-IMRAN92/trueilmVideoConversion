@@ -328,6 +328,17 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
 
                            return `<td>
                                 <a  class="ml-2" href="{{ url('hadith/book/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
@@ -1536,22 +1547,22 @@
            $('.reference-div-' + key).remove();
        }
        //Hadith Translations
-       function addHadithTranslation(ayatId) {
-           $('#no-translation-div').css('display', 'none');
-           var opt = "";
-           $.ajax({
-               type: "GET",
-               url: "{{ url('languages') }}",
-               dataType: "json",
-               success: function(response) {
-                   response.forEach(function(e) {
-                       //    opt = response;
-                       opt += `<option value="${e._id}">${e.title}</option>`;
-                   })
-                   var div = $('.lang');
-                   var lang = div.length;
-                   var html;
-                   html = `
+          function addHadithTranslation(ayatId) {
+              $('#no-translation-div').css('display', 'none');
+              var opt = "";
+              $.ajax({
+                  type: "GET",
+                  url: "{{ url('languages') }}",
+                  dataType: "json",
+                  success: function(response) {
+                      response.forEach(function(e) {
+                          //    opt = response;
+                          opt += `<option value="${e._id}">${e.title}</option>`;
+                      })
+                      var div = $('.lang');
+                      var lang = div.length;
+                      var html;
+                      html = `
 
                         <div class="col-12 lang translation-div-${lang}">
 
@@ -1599,57 +1610,57 @@
                 </div>
                 `;
 
-                   $('.hadith-append-inputs').append(html);
-                   $('.summernote').summernote({
-                       height: 150,
-                       codemirror: {
-                           theme: 'default'
-                       },
-                       toolbar: [
+                      $('.hadith-append-inputs').append(html);
+                      $('.summernote').summernote({
+                          height: 150,
+                          codemirror: {
+                              theme: 'default'
+                          },
+                          toolbar: [
 
-                           ['style', ['bold', 'italic', 'underline', 'clear']],
-                           ['font', ['strikethrough', 'superscript', 'subscript']],
-                           ['fontsize', ['fontsize', 'fontname']],
-                           ['color', ['color']],
-                           ['para', ['ul', 'ol', 'paragraph']],
-                           ['height', ['height']]
-                       ]
-                   });
-                   $('#new-lang-select-' + lang).select2({
-                       tags: true
-                   });
-               },
-           });
+                              ['style', ['bold', 'italic', 'underline', 'clear']],
+                              ['font', ['strikethrough', 'superscript', 'subscript']],
+                              ['fontsize', ['fontsize', 'fontname']],
+                              ['color', ['color']],
+                              ['para', ['ul', 'ol', 'paragraph']],
+                              ['height', ['height']]
+                          ]
+                      });
+                      $('#new-lang-select-' + lang).select2({
+                          tags: true
+                      });
+                  },
+              });
 
-       }
+          }
 
-       function saveNewHadithTranslation(hadithId, key) {
-           var lang = $('#new-lang-select-' + key).val();
-           var translation = $('#new-description-' + key).val();
-           $.ajax({
-               type: "POST",
-               url: "{{ url('hadith/translation/save') }}",
-               data: {
-                   "_token": "{{ csrf_token() }}",
-                   hadithId: hadithId,
-                   lang: lang,
-                   translation: translation,
-               },
-               dataType: "json",
-               success: function(response) {
-                   console.log(response);
-                   $('.translation-div-' + key).remove();
-                   var opt = '';
-                   response.lang.forEach(function(e) {
-                       //    opt = response;
-                       var selected = '';
-                       if (response.hadees.lang == e._id) {
-                           selected = 'selected';
-                       }
-                       opt += `<option value="${e._id}"  ${selected}>${e.title}</option>`;
-                   })
-                   var html;
-                   html = `<div class="col-12 lang translation-div-${key }">
+          function saveNewHadithTranslation(hadithId, key) {
+              var lang = $('#new-lang-select-' + key).val();
+              var translation = $('#new-description-' + key).val();
+              $.ajax({
+                  type: "POST",
+                  url: "{{ url('hadith/translation/save') }}",
+                  data: {
+                      "_token": "{{ csrf_token() }}",
+                      hadithId: hadithId,
+                      lang: lang,
+                      translation: translation,
+                  },
+                  dataType: "json",
+                  success: function(response) {
+                      console.log(response);
+                      $('.translation-div-' + key).remove();
+                      var opt = '';
+                      response.lang.forEach(function(e) {
+                          //    opt = response;
+                          var selected = '';
+                          if (response.hadees.lang == e._id) {
+                              selected = 'selected';
+                          }
+                          opt += `<option value="${e._id}"  ${selected}>${e.title}</option>`;
+                      })
+                      var html;
+                      html = `<div class="col-12 lang translation-div-${key }">
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div class="row">
@@ -1723,85 +1734,84 @@
                                                     </div>
                                                 </div>`;
 
-                   //    $('#translation-saved-span-' + key).css('display', 'block');
-                   setTimeout(() => {
-                       $('#translation-saved-span-' + key).css('display', 'none');
+                      //    $('#translation-saved-span-' + key).css('display', 'block');
+                      setTimeout(() => {
+                          $('#translation-saved-span-' + key).css('display', 'none');
 
-                   }, 3000);
-                   $('.hadith-append-inputs').append(html);
-                   $('.summernote').summernote({
-                       height: 150,
-                       codemirror: {
-                           theme: 'default'
-                       },
-                       toolbar: [
-                           // [groupName, [list of button]]
-                           ['style', ['bold', 'italic', 'underline', 'clear']],
-                           ['font', ['strikethrough', 'superscript', 'subscript']],
-                           ['fontsize', ['fontsize', 'fontname']],
-                           ['color', ['color']],
-                           ['para', ['ul', 'ol', 'paragraph']],
-                           ['height', ['height']]
-                       ]
-                   });
-                   $('#lang-select-' + key).select2({
-                       tags: true
-                   });
-                   $('#lang-select-' + key).val(response.hadees.lang)
-               }
-           });
-       }
+                      }, 3000);
+                      $('.hadith-append-inputs').append(html);
+                      $('.summernote').summernote({
+                          height: 150,
+                          codemirror: {
+                              theme: 'default'
+                          },
+                          toolbar: [
+                              // [groupName, [list of button]]
+                              ['style', ['bold', 'italic', 'underline', 'clear']],
+                              ['font', ['strikethrough', 'superscript', 'subscript']],
+                              ['fontsize', ['fontsize', 'fontname']],
+                              ['color', ['color']],
+                              ['para', ['ul', 'ol', 'paragraph']],
+                              ['height', ['height']]
+                          ]
+                      });
+                      $('#lang-select-' + key).select2({
+                          tags: true
+                      });
+                      $('#lang-select-' + key).val(response.hadees.lang)
+                  }
+              });
+          }
 
-       function deleteHadithTranslation(hadithId, transId, key) {
-           $('.translation-div-' + key).remove();
+          function deleteHadithTranslation(hadithId, transId, key) {
+              $('.translation-div-' + key).remove();
 
-           $.ajax({
-               type: "GET",
-               url: "{{ url('hadith/translation/delete') }}",
-               data: {
-                   hadithId: hadithId,
-                   transId: transId,
-               },
-               dataType: "json",
-               success: function(response) {
-                   console.log(response);
-               },
-           });
-           var div = $('.lang');
-           if (div.length == 0) {
-               $('#no-translation-div').css('display', 'block');
+              $.ajax({
+                  type: "GET",
+                  url: "{{ url('hadith/translation/delete') }}",
+                  data: {
+                      hadithId: hadithId,
+                      transId: transId,
+                  },
+                  dataType: "json",
+                  success: function(response) {
+                      console.log(response);
+                  },
+              });
+              var div = $('.lang');
+              if (div.length == 0) {
+                  $('#no-translation-div').css('display', 'block');
 
-           }
-       }
+              }
+          }
 
-       function saveHadithTranslation(hadithId, tranId, key) {
-           var lang = $('#lang-select-' + key).val();
-           var translation = $('#trans-input-' + key).val();
-           $.ajax({
-               type: "POST",
-               url: "{{ url('hadith/translation/update') }}",
-               data: {
-                   "_token": "{{ csrf_token() }}",
-                   hadithId: hadithId,
-                   transId: tranId,
-                   lang: lang,
-                   translation: translation,
-               },
-               dataType: "json",
-               success: function(response) {
-                   $('#translation-saved-span-' + key).css('display', 'block');
-                   setTimeout(() => {
-                       $('#translation-saved-span-' + key).css('display', 'none');
+          function saveHadithTranslation(hadithId, tranId, key) {
+              var lang = $('#lang-select-' + key).val();
+              var translation = $('#trans-input-' + key).val();
+              $.ajax({
+                  type: "POST",
+                  url: "{{ url('hadith/translation/update') }}",
+                  data: {
+                      "_token": "{{ csrf_token() }}",
+                      hadithId: hadithId,
+                      transId: tranId,
+                      lang: lang,
+                      translation: translation,
+                  },
+                  dataType: "json",
+                  success: function(response) {
+                      $('#translation-saved-span-' + key).css('display', 'block');
+                      setTimeout(() => {
+                          $('#translation-saved-span-' + key).css('display', 'none');
 
-                   }, 3000);
-                   //    console.log(response);
-                   $('#non-edit-lang-select-' + key).html(response.lang_title);
-                   $('#trans-input-' + key).val(response.translation);
-                   $('#non-edit-para-des-' + key).html(response.translation);
-                   $('#editble-' + key).css('display', 'none');
-                   $('#non-editble-translation-' + key).css('display', 'block');
-               }
-           });
-       }
-
+                      }, 3000);
+                      //    console.log(response);
+                      $('#non-edit-lang-select-' + key).html(response.lang_title);
+                      $('#trans-input-' + key).val(response.translation);
+                      $('#non-edit-para-des-' + key).html(response.translation);
+                      $('#editble-' + key).css('display', 'none');
+                      $('#non-editble-translation-' + key).css('display', 'block');
+                  }
+              });
+          }
    </script>
