@@ -325,6 +325,18 @@
                            return '<td>' +
                                row.title + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
