@@ -59,7 +59,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Hadith</th>
-                                                    <th>Description</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
