@@ -51,15 +51,15 @@
                                                 <div class="row append-inputs">
 
                                                     <div class="col-12">
-                                                        <label for="">Hadith Book</label>
+                                                        <label for="">Title</label>
                                                         <input type="text" id="" class="form-control"
                                                             name="title" placeholder="" required>
                                                     </div>
                                                     <div class="col-12">
 
-                                                        <label for="">Type</label>
+                                                        <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description"></textarea>
+                                                            <textarea class="form-control" rows="5" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
                                                 </div>

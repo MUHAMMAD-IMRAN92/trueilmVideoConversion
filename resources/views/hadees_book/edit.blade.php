@@ -68,20 +68,30 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3 col-3 ayat-data">
-                            <div class="card card-height">
+                            <div class="card ">
                                 <div class="card-content">
                                     <div class="card-body">
                                         @foreach ($hadeesBook->hadees as $hadith)
-                                            <ul class="" id="" data-menu="menu-navigation">
+                                            <div class="ayat-list">
+                                                <ul class="" id="" data-menu="menu-navigation">
 
-                                                <li class="@if (request()->is($hadeesBook->id . '/' . $hadith->id)) active @endif "><a
-                                                        href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
-                                                        <span class="menu-item"
-                                                            data-i18n="Analytics">{!! $hadith->hadees !!}</span></a>
-                                                </li>
-                                            </ul>
+                                                    <li
+                                                        class="@if (request()->is($hadeesBook->id . '/' . $hadith->id)) active @endif render-ayat ">
+                                                        <a
+                                                            href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
+
+                                                            <span class="d-flex menu-item new-item-ayat"
+                                                                data-i18n="Analytics">{{ $hadith->hadees }}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
                                         @endforeach
+                                        <br>
                                         <div class="" id="" style="text-align: center">
                                             <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
                                                     class="btn btn-primary mr-1 mb-1">Add

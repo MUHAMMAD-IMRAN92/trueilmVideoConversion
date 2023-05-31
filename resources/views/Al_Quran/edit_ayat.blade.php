@@ -105,18 +105,18 @@
                     </button>
                 </div>
             @endif
-            <div class="row">
+            <section id="basic-vertical-layouts">
+                <div class="row">
 
-                <div class="col-12">
-                    <h1 class="">{{ $surah->surah }}</h1>
-                    <h6 class="">{!! $surah->description !!}</h6>
+                    <div class="col-12">
+                        <h1 class="">{{ $surah->surah }}</h1>
+                        <h6 class="">{!! $surah->description !!}</h6>
+                    </div>
                 </div>
-            </div>
 
-            <div class="content-body">
+                <div class="content-body">
 
-                <!-- Basic Vertical form layout section start -->
-                <section id="basic-vertical-layouts">
+                    <!-- Basic Vertical form layout section start -->
                     <div class="row">
                         <div class="col-md-9 col-9 ">
 
@@ -464,7 +464,8 @@
                                                                 style="display:none">
                                                                 <label for="">Language</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="select2 form-control" name="taf_langs[]"
+                                                                    <select class="select2 form-control"
+                                                                        name="taf_langs[]"
                                                                         id="tafseer-lang-select-{{ $key }}"
                                                                         id="basicSelect">
                                                                         @foreach ($languages as $tafkey => $lang)
@@ -657,12 +658,11 @@
                     </div>
 
 
-            </div>
+                </div>
+
+            </section>
+
+
         </div>
 
-        </section>
-
-    </div>
-    </div>
-    </div>
-@endsection
+    @endsection

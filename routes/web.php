@@ -80,6 +80,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('hadith/update', [App\Http\Controllers\HadeesController::class, 'update'])->name('hadith.update');
     Route::get('hadith/book/edit/{id}', [App\Http\Controllers\HadeesController::class, 'editBook'])->name('hadith.book.edit');
 
+    Route::get('hadith/translation/delete', [App\Http\Controllers\HadeesController::class, 'deleteTranslation'])->name('hadith.translaton.delete');
+    Route::post('hadith/translation/update', [App\Http\Controllers\HadeesController::class, 'updateTranslation'])->name('hadith.translaton.update');
+    Route::post('hadith/translation/save', [App\Http\Controllers\HadeesController::class, 'saveTranslation'])->name('hadith.translaton.save');
+
+
     Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
     Route::get('all-book', [App\Http\Controllers\BookController::class, 'allBooks'])->name('book.all');
     Route::get('book/{type}/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');

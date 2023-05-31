@@ -1088,7 +1088,6 @@
            });
        }
 
-
        //Ayat Tafseer
        function deleteTafseer(ayatId, tafseerId, key) {
 
@@ -1536,4 +1535,273 @@
            // alert(key);
            $('.reference-div-' + key).remove();
        }
+       //Hadith Translations
+       function addHadithTranslation(ayatId) {
+           $('#no-translation-div').css('display', 'none');
+           var opt = "";
+           $.ajax({
+               type: "GET",
+               url: "{{ url('languages') }}",
+               dataType: "json",
+               success: function(response) {
+                   response.forEach(function(e) {
+                       //    opt = response;
+                       opt += `<option value="${e._id}">${e.title}</option>`;
+                   })
+                   var div = $('.lang');
+                   var lang = div.length;
+                   var html;
+                   html = `
+
+                        <div class="col-12 lang translation-div-${lang}">
+
+                                    <div class="card" >
+                                    <div class="card-body">
+                                        <div class="row">
+                            <div class="col-8 ">
+                                <h4 id="translation-saved-span-${lang }"
+                                    style="display:none"> <span
+                                        class="badge badge-success "><i
+                                            class="fa fa-check">Translation
+                                            Saved</i></span></h4>
+                            </div>
+                            <div class="col-4 d-flex">
+
+                                <h4
+                                    onclick="saveNewHadithTranslation('${ayatId}','${lang }')">
+                                    <span class="badge badge-success ml-1"><i
+                                            class="fa fa-save">&nbspSave</i></span>
+                                </h4>
+                                <h4
+                                    onclick="deleteNewTranslation('${lang }')">
+                                    <span class="badge badge-danger ml-1"><i
+                                            class="fa fa-trash">&nbspDelete</i></span>
+                                </h4>
+                            </div>
+                        </div>
+                            <p>Language</p>
+                            <fieldset class="form-group">
+                                <select class="select2 form-control" name="langs[]" required id="new-lang-select-${lang}">
+                                    <option value="" selected>Please Select Language</option>
+                                    ${opt}
+                                </select>
+                            </fieldset>
+                            </div>
+                            <div class="col-12">
+                                <label for="">Translation</label>
+                                <fieldset class="form-group">
+                                    <textarea class="summernote" required name="translations[]" id="new-description-${lang}"></textarea>
+                                </fieldset>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                `;
+
+                   $('.hadith-append-inputs').append(html);
+                   $('.summernote').summernote({
+                       height: 150,
+                       codemirror: {
+                           theme: 'default'
+                       },
+                       toolbar: [
+
+                           ['style', ['bold', 'italic', 'underline', 'clear']],
+                           ['font', ['strikethrough', 'superscript', 'subscript']],
+                           ['fontsize', ['fontsize', 'fontname']],
+                           ['color', ['color']],
+                           ['para', ['ul', 'ol', 'paragraph']],
+                           ['height', ['height']]
+                       ]
+                   });
+                   $('#new-lang-select-' + lang).select2({
+                       tags: true
+                   });
+               },
+           });
+
+       }
+
+       function saveNewHadithTranslation(hadithId, key) {
+           var lang = $('#new-lang-select-' + key).val();
+           var translation = $('#new-description-' + key).val();
+           $.ajax({
+               type: "POST",
+               url: "{{ url('hadith/translation/save') }}",
+               data: {
+                   "_token": "{{ csrf_token() }}",
+                   hadithId: hadithId,
+                   lang: lang,
+                   translation: translation,
+               },
+               dataType: "json",
+               success: function(response) {
+                   console.log(response);
+                   $('.translation-div-' + key).remove();
+                   var opt = '';
+                   response.lang.forEach(function(e) {
+                       //    opt = response;
+                       var selected = '';
+                       if (response.hadees.lang == e._id) {
+                           selected = 'selected';
+                       }
+                       opt += `<option value="${e._id}"  ${selected}>${e.title}</option>`;
+                   })
+                   var html;
+                   html = `<div class="col-12 lang translation-div-${key }">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-8 ">
+
+                                                                    <h4 id="translation-saved-span-${key }"
+                                                                        style=""> <span
+                                                                            class="badge badge-success "><i
+                                                                                class="fa fa-check">Translation
+                                                                                Saved</i></span></h4>
+                                                                </div>
+                                                                <div class="col-4 d-flex">
+                                                                    <h4 onclick="editable('${ key }')"><span
+                                                                            class="badge badge-info ml-1"><i
+                                                                                class="fa fa-pencil">&nbspEdit</i></span>
+                                                                    </h4>
+                                                                    <h4
+                                                                        onclick="saveHadithTranslation('${response.hadees.hadees_id}','${response.hadees._id}','${key }')">
+                                                                        <span class="badge badge-success ml-1"><i
+                                                                                class="fa fa-save">&nbspSave</i></span>
+                                                                    </h4>
+
+                                                                    <h4
+                                                                        onclick="deleteHadithTranslation('${response.hadees.hadees_id}','${response.hadees._id}','${key }')">
+                                                                        <span class="badge badge-danger ml-1"><i
+                                                                                class="fa fa-trash">&nbspDelete</i></span>
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row ml-1"
+                                                                id="non-editble-translation-${key}">
+
+                                                                <p>Language :
+                                                                    <b id="non-edit-lang-select-${ key }">${response.hadees.lang_title }
+                                                                    </b>
+                                                                </p>
+
+                                                                <div class="col-12">
+
+                                                                    <span class=""
+                                                                        id="non-edit-para-des-${ key }"
+                                                                        style="margin-left:10px!important">
+                                                                         ${response.hadees.translation}</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row m-0 p-0" id="editble-${ key }"
+                                                                style="display:none">
+                                                                <label for="">Language</label>
+                                                                <fieldset class="form-group">
+                                                                    <select style="width:100%" class="select2 form-control" required name="langs[]"
+                                                                        id="lang-select-${ key }"
+
+                                                                        value =  ${ response.hadees.lang_title }
+                                                                        >
+                                                                        <option value="" >Please Select Language</option>
+                                                                        ${opt}
+                                                                    </select>
+                                                                </fieldset>
+
+                                                                <div class="col-12 m-0 p-0">
+                                                                    <label for="">Translation</label>
+
+                                                                    <fieldset class="form-group">
+                                                                        <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.hadees.translation }</textarea>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+
+                   //    $('#translation-saved-span-' + key).css('display', 'block');
+                   setTimeout(() => {
+                       $('#translation-saved-span-' + key).css('display', 'none');
+
+                   }, 3000);
+                   $('.hadith-append-inputs').append(html);
+                   $('.summernote').summernote({
+                       height: 150,
+                       codemirror: {
+                           theme: 'default'
+                       },
+                       toolbar: [
+                           // [groupName, [list of button]]
+                           ['style', ['bold', 'italic', 'underline', 'clear']],
+                           ['font', ['strikethrough', 'superscript', 'subscript']],
+                           ['fontsize', ['fontsize', 'fontname']],
+                           ['color', ['color']],
+                           ['para', ['ul', 'ol', 'paragraph']],
+                           ['height', ['height']]
+                       ]
+                   });
+                   $('#lang-select-' + key).select2({
+                       tags: true
+                   });
+                   $('#lang-select-' + key).val(response.hadees.lang)
+               }
+           });
+       }
+
+       function deleteHadithTranslation(hadithId, transId, key) {
+           $('.translation-div-' + key).remove();
+
+           $.ajax({
+               type: "GET",
+               url: "{{ url('hadith/translation/delete') }}",
+               data: {
+                   hadithId: hadithId,
+                   transId: transId,
+               },
+               dataType: "json",
+               success: function(response) {
+                   console.log(response);
+               },
+           });
+           var div = $('.lang');
+           if (div.length == 0) {
+               $('#no-translation-div').css('display', 'block');
+
+           }
+       }
+
+       function saveHadithTranslation(hadithId, tranId, key) {
+           var lang = $('#lang-select-' + key).val();
+           var translation = $('#trans-input-' + key).val();
+           $.ajax({
+               type: "POST",
+               url: "{{ url('hadith/translation/update') }}",
+               data: {
+                   "_token": "{{ csrf_token() }}",
+                   hadithId: hadithId,
+                   transId: tranId,
+                   lang: lang,
+                   translation: translation,
+               },
+               dataType: "json",
+               success: function(response) {
+                   $('#translation-saved-span-' + key).css('display', 'block');
+                   setTimeout(() => {
+                       $('#translation-saved-span-' + key).css('display', 'none');
+
+                   }, 3000);
+                   //    console.log(response);
+                   $('#non-edit-lang-select-' + key).html(response.lang_title);
+                   $('#trans-input-' + key).val(response.translation);
+                   $('#non-edit-para-des-' + key).html(response.translation);
+                   $('#editble-' + key).css('display', 'none');
+                   $('#non-editble-translation-' + key).css('display', 'block');
+               }
+           });
+       }
+
    </script>

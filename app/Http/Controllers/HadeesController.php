@@ -7,6 +7,7 @@ use App\Models\Hadees;
 use App\Models\HadeesBooks;
 use App\Models\HadeesReference;
 use App\Models\HadeesTranslation;
+use App\Models\Languages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,7 +53,7 @@ class HadeesController extends Controller
     }
     public function addBook()
     {
-        return view('hadees_book.add_book');
+        return view('hadees_book.add');
     }
     public function storeBook(Request $request)
     {
@@ -109,10 +110,13 @@ class HadeesController extends Controller
     public function edit($bookId, $hadeesId)
     {
         $hadeesBook = HadeesBooks::where('_id', $bookId)->with('hadees')->first();
-        $hadees = Hadees::where('_id', $hadeesId)->with('references')->first();
+        $hadees = Hadees::where('_id', $hadeesId)->with('translations', 'references')->first();
+        $languages = Languages::all();
+
         return view('hadees.edit', [
             'hadeesBook' => $hadeesBook,
-            'hadees' => $hadees
+            'hadees' => $hadees,
+            'languages' => $languages
         ]);
     }
 
@@ -139,5 +143,41 @@ class HadeesController extends Controller
         }
 
         return redirect()->to("hadith/edit/$hadees->book_id/$hadees->id")->with('msg', 'Hadith Updated Successfully!');
+    }
+
+    public function deleteTranslation(Request $request)
+    {
+        $hadeesTranslation = HadeesTranslation::where('_id', $request->transId)->delete();
+        return sendSuccess('Deleted!', []);
+    }
+
+    public function updateTranslation(Request $request)
+    {
+        $hadeesTranslation = HadeesTranslation::where('_id', $request->transId)->first();
+        $hadeesTranslation->lang = $request->lang;
+        $hadeesTranslation->translation = $request->translation;
+        $hadeesTranslation->hadees_id = $request->hadithId;
+        $hadeesTranslation->added_by = $this->user->id;
+        $hadeesTranslation->save();
+
+
+        return $hadeesTranslation;
+    }
+    public function saveTranslation(Request $request)
+    {
+        $hadeesTranslation = new HadeesTranslation();
+        $hadeesTranslation->lang = $request->lang;
+        $hadeesTranslation->translation = $request->translation;
+        $hadeesTranslation->hadees_id = $request->hadithId;
+        $hadeesTranslation->added_by = $this->user->id;
+        $hadeesTranslation->save();
+
+
+        $data = [];
+        $languages = Languages::all();
+        $data['hadees'] = $hadeesTranslation;
+        $data['lang'] = $languages;
+
+        return $data;
     }
 }

@@ -67,19 +67,10 @@
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
-                    <div class="row breadcrumbs-top">
-                        <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Hadith Book</h2>
-                            <div class="breadcrumb-wrapper col-12">
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
-                     
+
                     </div>
                 </div>
             </div>
@@ -103,193 +94,344 @@
                     </button>
                 </div>
             @endif
-            <div class="modal fade" id="reference" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog modal-dialog-centered">
-                    <form action="{{ url('referencing') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Add Reference</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" value="2" name="referal">
-                                <input type="hidden" value="{{ $hadees->id }}" name="referal_id">
-                                <div class="col-12">
-                                    <label for="">Reference Type</label>
-                                    <fieldset class="form-group">
-                                        <select class="form-control" id="" name="ref_type" required>
-                                            <option value="3">eBook</option>
-                                            <option value="4">Audio</option>
-                                            <option value="5">Research Paper</option>
-                                            <option value="6">Tafseer</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                    <fieldset class="form-group">
-                                        <label for="basicInputFile">Refernce</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                                name="file">
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose
-                                                file</label>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+
 
             <div class="content-body">
-
-                <h1 class="">{{ $hadeesBook->title }}</h1>
-                <h6 class="">{!! $hadeesBook->description !!}</h6>
-                <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
-                    <div class="row ">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="">{{ $hadeesBook->title }}</h1>
+                            <h6 class="">{{ $hadeesBook->description }}</h6>
+                        </div>
+                    </div>
+                    <div class="content-body">
+                        <!-- Basic Vertical form layout section start -->
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
 
-                        <div class="col-md-9 col-9 ayat-insert">
-                            <div class="card ">
+                                            <ul class="nav nav-pills nav-fill">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="home-tab-fill" data-toggle="pill"
+                                                        href="#home-fill" aria-expanded="true">Hadith</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="translation-tab-fill" data-toggle="pill"
+                                                        href="#translation-fill" aria-expanded="true">Add Translation</a>
+                                                </li>
 
-                                <div class="card-content">
-                                    <div class="card-body">
-
-
-                                        <form class="form form-vertical" action="{{ route('hadith.update') }}"
-                                            method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="form-body">
-                                                <div class="row append-inputs">
-
-                                                    <div class="col-12">
-                                                        <input type="hidden" name="id" id=""
-                                                            value="{{ $hadeesBook->id }}">
-                                                        <input type="hidden" name="hadees_id" id=""
-                                                            value="{{ $hadees->id }}">
-                                                        <label for="">Hadith</label>
-                                                        <fieldset class="form-group">
-                                                            <textarea class="summernote" name="hadith">{{ $hadees->hadees }}</textarea>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-12">
-
-                                                        <label for="">Type</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="form-control" name="type" id="basicSelect">
-                                                                <option value="1"
-                                                                    {{ $hadees->type == 1 ? 'selected' : '' }}>
-                                                                    Hadees-e-Qudsi</option>
-                                                                <option value="2"
-                                                                    {{ $hadees->type == 2 ? 'selected' : '' }}>
-                                                                    Hadees-e-Zaeef</option>
-                                                                <option value="3"
-                                                                    {{ $hadees->type == 3 ? 'selected' : '' }}>
-                                                                    Hadees-e-Sahih</option>
-                                                            </select>
-                                                        </fieldset>
-                                                    </div>
-                                                    @foreach ($hadees->translations as $h)
-                                                        <div class="col-12">
-
-                                                            <p>Language</p>
-                                                            <fieldset class="form-group">
-                                                                <select class="form-control" name="langs[]"
-                                                                    id="basicSelect">
-                                                                    <option value="ar"
-                                                                        {{ $h->lang == 'ar' ? 'selected' : '' }}>Arabic
-                                                                    </option>
-                                                                    <option value="en"
-                                                                        {{ $h->lang == 'en' ? 'selected' : '' }}>
-                                                                        English
-                                                                    </option>
-                                                                    <option value="ur"
-                                                                        {{ $h->lang == 'ur' ? 'selected' : '' }}>Urud
-                                                                    </option>
-                                                                    <option value="hi"
-                                                                        {{ $h->lang == 'hi' ? 'selected' : '' }}>Hindi
-                                                                    </option>
-                                                                </select>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <label for="">Translation</label>
-                                                            <fieldset class="form-group">
-                                                                <textarea class="summernote" name="translations[]">{{ $h->translation }}</textarea>
-                                                            </fieldset>
-                                                        </div>
-                                                    @endforeach
-
-                                                </div>
-                                                <br>
-                                                <div class="col-12" style="text-align: right">
-
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                        data-target="#reference">
-                                                        Add Reference
-                                                    </button>
-
-                                                    <span id="add-translation" class="btn btn-primary">Add
-                                                        Translation</span>
-                                                </div>
-                                                <div class="col-12">
-                                                    <button type="submit"
-                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
-
-                                                </div>
-                                            </div>
-                                        </form>
-
-
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="reference-tab-fill" data-toggle="pill"
+                                                        href="#reference-fill" aria-expanded="true">Add Reference</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
-                        <div class="col-md-3 col-3 ayat-data">
-                            <div class="card ">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        @foreach ($hadeesBook->hadees as $hadith)
-                                            <div class="ayat-list">
-                                                <ul class="" id="" data-menu="menu-navigation">
+                        <div class="row ">
+                            <div class="col-md-9">
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="home-fill"
+                                        aria-labelledby="home-tab-fill" aria-expanded="true">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <form class="form form-vertical" action="{{ route('hadith.store') }}"
+                                                    method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="form-body">
+                                                        <div class="row append-inputs">
 
-                                                    <li class="@if (request()->is('*/' . $hadith->id)) active @endif ">
-                                                        <a
-                                                            href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
-                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                            <span class="menu-item"
-                                                                data-i18n="Analytics">{!! Str::limit("$hadith->hadees", 50) !!}
-                                                            </span>
-                                                        </a>
-                                                    </li>
+                                                            <div class="col-12">
+                                                                <input type="hidden" name="book_id" id=""
+                                                                    value="{{ $hadeesBook->id }}">
+                                                                <label for="">Hadith</label>
+                                                                <fieldset class="form-group">
+                                                                    <textarea class="summernote" name="hadith"></textarea>
+                                                                </fieldset>
+                                                            </div>
+                                                            <div class="col-12">
 
-                                                </ul>
+                                                                <label for="">Type</label>
+                                                                <fieldset class="form-group">
+                                                                    <select class="select2 form-control" name="type"
+                                                                        id="basicSelect">
+                                                                        <option value="1">
+                                                                            Hadees-e-Qudsi</option>
+                                                                        <option value="2">
+                                                                            Hadees-e-Zaeef</option>
+                                                                        <option value="3">
+                                                                            Hadees-e-Sahih</option>
+                                                                    </select>
+                                                                </fieldset>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-12" style="text-align: right">
+
+                                                            <button type="submit"
+                                                                class="btn btn-primary mr-1 mb-1">Submit</button>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+
                                             </div>
-                                        @endforeach
-                                        <br>
-                                        <div class="" id="" style="text-align: center">
-                                            <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
-                                                    class="btn btn-primary mr-1 mb-1">Add
-                                                    Hadith</span></a>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="translation-fill"
+                                        aria-labelledby="translation-tab-fill" aria-expanded="true">
+
+                                        <div class="row hadith-append-inputs">
+                                            @forelse ($hadees->translations as $key => $trans)
+                                                @php
+                                                    $hadeesId = $hadees->id;
+                                                    $transId = $trans->id;
+                                                @endphp
+                                                <div class="col-12 lang translation-div-{{ $key }}">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-8 ">
+
+                                                                    <h4 id="translation-saved-span-{{ $key }}"
+                                                                        style="display:none"> <span
+                                                                            class="badge badge-success "><i
+                                                                                class="fa fa-check">Translation
+                                                                                Saved</i></span></h4>
+                                                                </div>
+                                                                <div class="col-4 d-flex">
+                                                                    <h4 onclick="editable('{{ $key }}')"><span
+                                                                            class="badge badge-info ml-1"><i
+                                                                                class="fa fa-pencil">&nbspEdit</i></span>
+                                                                    </h4>
+                                                                    <h4
+                                                                        onclick="saveHadithTranslation('{{ $hadeesId }}','{{ $transId }}','{{ $key }}')">
+                                                                        <span class="badge badge-success ml-1"><i
+                                                                                class="fa fa-save">&nbspSave</i></span>
+                                                                    </h4>
+
+                                                                    <h4
+                                                                        onclick="deleteHadithTranslation('{{ $hadeesId }}','{{ $transId }}','{{ $key }}')">
+                                                                        <span class="badge badge-danger ml-1"><i
+                                                                                class="fa fa-trash">&nbspDelete</i></span>
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row ml-1"
+                                                                id="non-editble-translation-{{ $key }}">
+
+                                                                <p>Language :
+                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $trans->lang_title }}
+                                                                    </b>
+                                                                </p>
+
+                                                                <div class="col-12">
+
+                                                                    <span class=""
+                                                                        id="non-edit-para-des-{{ $key }}"
+                                                                        style="margin-left:10px!important">
+                                                                        {!! $trans->translation !!}</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row m-0 p-0" id="editble-{{ $key }}"
+                                                                style="display:none">
+                                                                <label for="">Language</label>
+                                                                <fieldset class="form-group">
+                                                                    <select class="select2 form-control" name="langs[]"
+                                                                        id="lang-select-{{ $key }}"
+                                                                        id="basicSelect">
+                                                                        @foreach ($languages as $langkey => $lang)
+                                                                            <option value="{{ $lang->_id }}"
+                                                                                {{ $lang->_id == $trans->lang ? 'selected' : '' }}>
+                                                                                {{ $lang->title }}
+                                                                            </option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </fieldset>
+
+                                                                <div class="col-12 m-0 p-0">
+                                                                    <label for="">Translation</label>
+
+                                                                    <fieldset class="form-group">
+                                                                        <textarea class="summernote" id="trans-input-{{ $key }}" name="translations[]">{{  $trans->translation }}</textarea>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 " id="no-translation-div" style="display:none">
+
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <center>
+                                                                No Translation Added In This Ayat
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                <div class="col-12 " id="no-translation-div">
+
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <center>
+                                                                No Translation Added In This Ayat
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                    </div>
+                                                    <div class="col-md-5">
+
+                                                        <span onclick="addHadithTranslation('{{ $hadees->id }}')"
+                                                            class="btn btn-primary">Add
+                                                            Translation</span>
+                                                        <button type="submit" class="btn btn-primary ">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="reference-fill"
+                                        aria-labelledby="reference-tab-fill" aria-expanded="true">
+                                        <div class="row reference-append-inputs">
+
+                                            <div class="col-12 references ">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <h4 id="reference-saved-span" style="display:none">
+                                                                    <span class="badge badge-success "><i
+                                                                            class="fa fa-check">Reference
+                                                                            Attached</i></span>
+                                                                </h4>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="table bordered">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <th>Book Title</th>
+                                                                            <th>Type</th>
+                                                                            <th>Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="ref-table">
+                                                                            @forelse ($hadees->references as $key=>$reference)
+                                                                                <tr class="ref-tr"
+                                                                                    id="ref-tr-{{ $key }}">
+                                                                                    <td>{{ $reference->reference_title }}
+                                                                                    </td>
+                                                                                    <td>{{ $reference->type == 1 ? 'eBook' : '' }}{{ $reference->type == 2 ? 'Audio Book' : '' }}
+                                                                                        {{ $reference->type == 3 ? 'Audio Book' : '' }}
+                                                                                    </td>
+                                                                                    <td><i class="fa fa-trash"
+                                                                                            onclick="deleteReference('{{ $hadees->id }}', '{{ $reference->_id }}' , '{{ $key }}')"></i>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr class="no-reference-tr"
+                                                                                    style="display:none">
+                                                                                    <td></td>
+                                                                                    <td>
+                                                                                        No Reference Added In This Ayat
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            @empty
+                                                                                <tr class="no-reference-tr">
+                                                                                    <td></td>
+                                                                                    <td class="ml-2">
+                                                                                        No Reference Added In This Ayat
+                                                                                    </td>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            @endforelse
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- <p>Book : <b>{{ $reference->reference_title }}</b> </p>
+
+                                                <p>Type :
+                                                    <b>b>
+                                                </p> --}}
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-lg-7">
+                                                    </div>
+                                                    <div class="col-md-6 col-lg-5">
+                                                        <span onclick="addReference('{{ $hadees->id }}')"
+                                                            class="btn btn-primary">Add
+                                                            Reference</span>
+                                                        <button type="submit" class="btn btn-primary ">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-3 col-3 ayat-data">
+                                <div class="card card-height">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            @foreach ($hadeesBook->hadees as $hadith)
+                                                <ul class="" id="" data-menu="menu-navigation">
+
+                                                    <li class="@if (request()->is($hadeesBook->id . '/' . $hadith->id . '*')) active @endif "><a
+                                                            href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
+                                                            <span class="menu-item"
+                                                                data-i18n="Analytics">{!! $hadith->hadees !!}</span></a>
+                                                    </li>
+                                                </ul>
+                                            @endforeach
+                                            <div class="" id="" style="text-align: center">
+                                                <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
+                                                        class="btn btn-primary mr-1 mb-1">Add
+                                                        Hadith</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+
                     </div>
 
                 </section>
-                <!-- // Basic Vertical form layout section end -->
 
             </div>
         </div>
