@@ -151,7 +151,7 @@
                                                                     value="{{ $hadeesBook->id }}">
                                                                 <label for="">Hadith</label>
                                                                 <fieldset class="form-group">
-                                                                    <textarea class="summernote" name="hadith"></textarea>
+                                                                    <textarea class="summernote" name="hadith">{{ $hadees->hadees }}</textarea>
                                                                 </fieldset>
                                                             </div>
                                                             <div class="col-12">
@@ -159,12 +159,15 @@
                                                                 <label for="">Type</label>
                                                                 <fieldset class="form-group">
                                                                     <select class="select2 form-control" name="type"
-                                                                        id="basicSelect">
-                                                                        <option value="1">
+                                                                        id="basicSelect" value=" {{ $hadees->type }}">
+                                                                        <option value="1"
+                                                                            {{ $hadees->type == 1 ? 'selected' : '' }}>
                                                                             Hadees-e-Qudsi</option>
-                                                                        <option value="2">
+                                                                        <option value="2"
+                                                                            {{ $hadees->type == 2 ? 'selected' : '' }}>
                                                                             Hadees-e-Zaeef</option>
-                                                                        <option value="3">
+                                                                        <option
+                                                                            value="3"{{ $hadees->type == 3 ? 'selected' : '' }}>
                                                                             Hadees-e-Sahih</option>
                                                                     </select>
                                                                 </fieldset>
@@ -263,7 +266,7 @@
                                                                     <label for="">Translation</label>
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="trans-input-{{ $key }}" name="translations[]">{{  $trans->translation }}</textarea>
+                                                                        <textarea class="summernote" id="trans-input-{{ $key }}" name="translations[]">{{ $trans->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
