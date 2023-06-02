@@ -13,30 +13,30 @@ class StripeController extends Controller
     public function createCusCard(Request $request)
     {
 
-            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            Stripe::setApiKey(env('STRIPE_SECRET'));
-            // Create a new customer with a source (i.e. a Stripe token)
-            $user = User::where('_id', $request->user_id)->first();
-            if ($user->customer == null) {
-                $customer = $stripe->customers->create([
-                    'name' => $user->name,
-                    'email' => $user->email,
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        // Create a new customer with a source (i.e. a Stripe token)
+        $user = User::where('_id', $request->user_id)->first();
+        if ($user->customer == null) {
+            $customer = $stripe->customers->create([
+                'name' => $user->name,
+                'email' => $user->email,
 
-                    // 'payment_method' => $request->input('id'),
-                ]);
-                $user->customer =  $customer->id;
-                $user->save();
-            } else {
-                $customer = $user->customer;
+                // 'payment_method' => $request->input('id'),
+            ]);
+            $user->customer =  $customer->id;
+            $user->save();
+        } else {
+            $customer = $user->customer;
 
-                $stripe->customers->createSource(
-                    $customer,
-                    ['source' => $request->paymentMethods]
-                );
-            }
-            return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
+            $stripe->customers->createSource(
+                $customer,
+                ['source' => $request->paymentMethods]
+            );
         }
+        return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
     }
+
 
     public function subscribe(Request $request)
     {
