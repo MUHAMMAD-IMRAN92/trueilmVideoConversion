@@ -12,7 +12,7 @@ class StripeController extends Controller
 {
     public function createCusCard(Request $request)
     {
-        try {
+
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             Stripe::setApiKey(env('STRIPE_SECRET'));
             // Create a new customer with a source (i.e. a Stripe token)
@@ -35,8 +35,6 @@ class StripeController extends Controller
                 );
             }
             return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
-        } catch (Exception $e) {
-            return response()->json(['status' => '401', 'message' => 'error', 'data' => $e]);
         }
     }
 
