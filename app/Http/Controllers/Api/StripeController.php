@@ -31,7 +31,7 @@ class StripeController extends Controller
                 \Stripe\Customer::createSource(
                     $customer,
                     [
-                        'source' => $request->id,
+                        'source' => $request->paymentMethod,
                     ]
                 );
             }
