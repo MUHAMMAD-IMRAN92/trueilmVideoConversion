@@ -12,7 +12,6 @@ class StripeController extends Controller
 {
     public function createCusCard(Request $request)
     {
-
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         Stripe::setApiKey(env('STRIPE_SECRET'));
         // Create a new customer with a source (i.e. a Stripe token)
@@ -21,7 +20,10 @@ class StripeController extends Controller
             $customer = $stripe->customers->create([
                 'name' => $user->name,
                 'email' => $user->email,
-                'payment_method' => $request->input('paymentMethod'),
+                'payment_method' => $request->paymentMethod,
+                'invoice_settings' => [
+                    'default_payment_method' => $request->paymentMethod,
+                ],
             ]);
             $user->customer =  $customer->id;
             $user->save();
