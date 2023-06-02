@@ -21,7 +21,6 @@ class StripeController extends Controller
             $customer = $stripe->customers->create([
                 'name' => $user->name,
                 'email' => $user->email,
-                'default_payment_method' =>  $request->input('paymentMethod'),
                 'payment_method' => $request->input('paymentMethod'),
             ]);
             $user->customer =  $customer->id;
