@@ -31,7 +31,7 @@ class StripeController extends Controller
 
             $stripe->customers->createSource(
                 $customer,
-                ['payment_method' => $request->paymentMethod]
+                ['source' => $request->paymentMethod]
             );
         }
         return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
