@@ -36,7 +36,7 @@ class StripeController extends Controller
                 );
             }
 
-            return response()->json(['status' => '200', 'message' => 'customers saved!', 'data' => $user]);
+            return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
         } catch (Exception $e) {
             return response()->json(['status' => '401', 'message' => 'error', 'data' => $e]);
         }
