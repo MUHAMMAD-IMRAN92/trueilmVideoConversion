@@ -25,3 +25,4 @@ Route::get('reset-password-email',  [App\Http\Controllers\Api\UserController::cl
 
 //stripe
 Route::get('stripe/add-card-customer', [App\Http\Controllers\Api\StripeController::class, 'createCusCard']);
+Route::get('stripe/subscribe-plan', [App\Http\Controllers\Api\StripeController::class, 'subscribe']);
