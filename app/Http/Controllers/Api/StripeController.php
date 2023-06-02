@@ -35,25 +35,22 @@ class StripeController extends Controller
 
     public function subscribe(Request $request)
     {
-        try {
-            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            Stripe::setApiKey(env('STRIPE_SECRET'));
-            $user = User::where('email', $request->email)->first();
-            if ($user->customer) {
-                $subscription = $stripe->subscriptions->create([
-                    'customer' => $user->customer,
-                    'items' => [
-                        [
-                            'price' => env($request->plan),
-                        ],
+
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $user = User::where('email', $request->email)->first();
+        if ($user->customer) {
+            $subscription = $stripe->subscriptions->create([
+                'customer' => $user->customer,
+                'items' => [
+                    [
+                        'price' => env($request->plan),
                     ],
-                ]);
-                return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => []]);
-            } else {
-                return response()->json(['status' => '401', 'message' => 'Something went wrong!', 'data' => []]);
-            }
-        } catch (Exception $e) {
-            return response()->json(['status' => '401', 'message' => 'Something went wrong!', 'data' => $e]);
+                ],
+            ]);
+            return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => []]);
+        } else {
+            return response()->json(['status' => '401', 'message' => 'Something went wrong!', 'data' => []]);
         }
     }
 }
