@@ -28,11 +28,10 @@ class StripeController extends Controller
                 $user->save();
             } else {
                 $customer = $user->customer;
-                \Stripe\Customer::createSource(
+
+                $stripe->customers->createSource(
                     $customer,
-                    [
-                        'source' => $request->paymentMethod,
-                    ]
+                    ['source' => $request->paymentMethods]
                 );
             }
             return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
