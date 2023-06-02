@@ -7,11 +7,13 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Cashier\Billable;
 use Maklad\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasRoles;
+    use Billable;
 
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     protected $connection = 'mongodb';
