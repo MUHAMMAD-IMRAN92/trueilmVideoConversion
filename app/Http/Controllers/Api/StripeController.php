@@ -16,7 +16,7 @@ class StripeController extends Controller
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             Stripe::setApiKey(env('STRIPE_SECRET'));
             // Create a new customer with a source (i.e. a Stripe token)
-            $user = User::where('_id', $request->user_id)->first();
+          return  $user = User::where('_id', $request->user_id)->first();
             if ($user->customer == null) {
                 $customer = $stripe->customers->create([
                     'name' => $user->name,
@@ -35,7 +35,6 @@ class StripeController extends Controller
                     ]
                 );
             }
-
             return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
         } catch (Exception $e) {
             return response()->json(['status' => '401', 'message' => 'error', 'data' => $e]);
