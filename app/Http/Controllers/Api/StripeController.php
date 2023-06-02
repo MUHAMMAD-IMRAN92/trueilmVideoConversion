@@ -49,9 +49,7 @@ class StripeController extends Controller
                     ],
                 ],
             ]);
-            $staus =  $subscription['latest_invoice'];
-            $plan =  $plan = $subscription['plan'];
-            return response()->json(['status' => $subscription,'plan' => $plan , 'message' => 'Plan Subscribed!', 'data' => []]);
+            return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => []]);
         } else {
             return response()->json(['status' => '401', 'message' => 'Something went wrong!', 'data' => []]);
         }
