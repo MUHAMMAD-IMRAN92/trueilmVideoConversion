@@ -22,17 +22,12 @@ class StripeController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
 
-                // 'payment_method' => $request->input('id'),
+                'payment_method' => $request->input('paymentMethod'),
             ]);
             $user->customer =  $customer->id;
             $user->save();
         } else {
             $customer = $user->customer;
-
-            $stripe->customers->createSource(
-                $customer,
-                ['PaymentMethods' => $request->paymentMethod]
-            );
         }
         return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
     }
