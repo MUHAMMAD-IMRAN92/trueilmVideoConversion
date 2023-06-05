@@ -56,9 +56,10 @@ class StripeController extends Controller
                 'expand' => ['latest_invoice.payment_intent'],
             ]);
 
-             return date('Y-m-d H:i:s', $subscription->current_period_end);
+             return $subscription;
             $user->plan = env($request->plan);
-            // $user->expiery_date = ;
+            $user->start_date = date('Y-m-d H:i:s', $subscription->current_period_end);;
+            $user->expiery_date = date('Y-m-d H:i:s', $subscription->current_period_end);;
             $user->save();
             return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => ['subscription' => $subscription]]);
         } else {
