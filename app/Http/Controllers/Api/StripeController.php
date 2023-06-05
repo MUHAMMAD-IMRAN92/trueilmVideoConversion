@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomerCard;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -27,6 +28,11 @@ class StripeController extends Controller
             ]);
             $user->customer =  $customer->id;
             $user->save();
+
+            $customerCard = new CustomerCard();
+            $customerCard->customer_id = $user->customer;
+            $customerCard->card_id = $request->paymentMethod;
+            $customerCard->save();
         } else {
             $customer = $user->customer;
         }
