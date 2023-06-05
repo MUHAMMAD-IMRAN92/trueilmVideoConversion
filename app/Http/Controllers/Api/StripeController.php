@@ -42,7 +42,7 @@ class StripeController extends Controller
 
     public function subscribe(Request $request)
     {
-
+        return $request->all();
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = User::where('email', $request->email)->first();
