@@ -49,7 +49,7 @@ class StripeController extends Controller
                     ],
                 ],
             ]);
-            return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => []]);
+            return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => ['latest_invoice' => $subscription->latest_invoice]]);
         } else {
             return response()->json(['status' => '401', 'message' => 'Something went wrong!', 'data' => []]);
         }
