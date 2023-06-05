@@ -46,7 +46,7 @@ class StripeController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = User::where('email', $request->email)->first();
         if ($user->customer) {
-          return  $subscription = $stripe->subscriptions->create([
+            $subscription = $stripe->subscriptions->create([
                 'customer' => $user->customer,
                 'items' => [
                     [
@@ -55,6 +55,8 @@ class StripeController extends Controller
                 ],
                 'expand' => ['latest_invoice.payment_intent'],
             ]);
+
+            return $subscription->current_period_end;
             $user->plan = env($request->plan);
             // $user->expiery_date = ;
             $user->save();
