@@ -48,8 +48,9 @@ class StripeController extends Controller
                         'price' => env($request->plan),
                     ],
                 ],
+                'expand' => ['latest_invoice.payment_intent'],
             ]);
-            return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => ['latest_invoice' => $subscription->latest_invoice]]);
+            return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => ['subscription' => $subscription]]);
         } else {
             return response()->json(['status' => '401', 'message' => 'Something went wrong!', 'data' => []]);
         }
