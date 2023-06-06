@@ -57,8 +57,8 @@ class StripeController extends Controller
             ]);
 
             $user->plan = env($request->plan);
-            $user->start_date = date('Y-m-d H:i:s', $subscription->current_period_start);;
-            $user->expiery_date = date('Y-m-d H:i:s', $subscription->current_period_end);;
+            $user->start_date = date('Y-m-d H:i:s', $subscription->current_period_start);
+            $user->expiery_date = date('Y-m-d H:i:s', $subscription->current_period_end);
             $user->save();
             return response()->json(['status' => '200', 'message' => 'Plan Subscribed!', 'data' => ['subscription' => $subscription]]);
         } else {
