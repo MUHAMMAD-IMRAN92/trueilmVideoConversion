@@ -53,10 +53,10 @@ class CategoryController extends Controller
         );
         return json_encode($data);
     }
-    public function create()
+    public function create($type)
     {
         return view('category.add', [
-            'type' => Session::get('type')
+            'type' => $type
         ]);
     }
     public function store(CategoryRequest $request)
