@@ -229,7 +229,7 @@
                        "mRender": function(data, type, row) {
 
                            return `<td><img class="td-img" src=
-                               ${row.cover}
+                               ${row.image}
                                /></td>`
                        }
                    },
@@ -499,7 +499,7 @@
                        "mRender": function(data, type, row) {
 
                            return `<td><img class="td-img" src=
-                               ${row.cover}
+                               ${row.image}
                                /></td>`
                        }
                    },
