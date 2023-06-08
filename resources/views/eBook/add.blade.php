@@ -53,6 +53,8 @@
                                                         <div class="form-group">
                                                             <label for="">Title</label>
                                                             <div class="position-relative">
+                                                                <input type="hidden" id="" value="{{$type}}" class="form-control"
+                                                                    name="type" placeholder="" required>
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder="" required>
 
@@ -62,7 +64,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea  class="form-control" id="basicTextarea" rows="3" placeholder=""  name="description"></textarea>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-6">
@@ -119,7 +121,8 @@
 
                                                         <label for="">Category</label>
                                                         <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="category" id="basicSelect">
+                                                            <select class="select2 form-control" name="category"
+                                                                id="basicSelect">
                                                                 <option disabled selected>Select Category</option>
                                                                 @foreach ($categories as $category)
                                                                     <option value="{{ $category->_id }}">

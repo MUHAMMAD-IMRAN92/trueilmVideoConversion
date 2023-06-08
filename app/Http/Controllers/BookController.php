@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Models\Book;
+use App\Models\BookContent;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class BookController extends Controller
     {
         Session::put('type', $type);
         return view('eBook.index', [
-            'type' => Session::get('type')
+            'type' => $type
         ]);
     }
     public function allBooks(Request $request)
@@ -66,11 +67,11 @@ class BookController extends Controller
         );
         return json_encode($data);
     }
-    public function add()
+    public function add($type)
     {
-        $categories = Category::active()->where('type', Session::get('type'))->get();
+        $categories = Category::active()->where('type', $type)->get();
         return view('eBook.add', [
-            'type' => Session::get('type'),
+            'type' => $type,
             'categories' => $categories
         ]);
     }
@@ -101,24 +102,33 @@ class BookController extends Controller
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('file')->storeAs('files', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $book->file = $base_path.$path;
+            $book->file = $base_path . $path;
         }
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('cover')->storeAs('files_covers', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            $book->image = $base_path.$path;
+            $book->image = $base_path . $path;
         }
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
-        $book->type = Session::get('type');
+        $book->type = $request->type;
         $book->status = 1;
         $book->approved = 0;
         $book->author = $request->author;
         $book->save();
 
-        return redirect()->to('books/' . Session::get('type'))->with('msg', 'Content Saved Successfully!');
+        // $bookContent = new BookContent();
+        // if ($request->has('file')) {
+        //     $file = $request->file('file');
+        //     $file_name = time() . '.' . $file->getClientOriginalExtension();
+        //     $path =   $request->file('file')->storeAs('files', $file_name, 's3');
+        //     Storage::disk('s3')->setVisibility($path, 'public');
+        //     $book->file = $base_path . $path;
+        // }
+
+        return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
     }
 
     public function edit($type, $id)
@@ -127,7 +137,7 @@ class BookController extends Controller
         $book = Book::where('_id', $id)->first();
         return view('eBook.edit', [
             'book' => $book,
-            'type' => Session::get('type'),
+            'type' => $type,
             'categories' => $categories
         ]);
     }
@@ -155,13 +165,13 @@ class BookController extends Controller
 
         $book->added_by = $this->user->id;
         $book->category_id = $request->category;
-        $book->type = Session::get('type');
+        $book->type = $request->type;
         $book->status =  $book->status;
         $book->approved =  $book->approved;
         $book->author = $request->author;
         $book->save();
 
-        return redirect()->to('books/' .  Session::get('type'))->with('msg', 'Content Updated Successfully!');
+        return redirect()->to('books/' .  $request->type)->with('msg', 'Content Updated Successfully!');
     }
     public function updateStatus($id)
     {

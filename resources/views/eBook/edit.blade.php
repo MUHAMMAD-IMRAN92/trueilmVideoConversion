@@ -53,6 +53,9 @@
                                                         <div class="form-group">
                                                             <label for="">Name</label>
                                                             <div class="position-relative">
+                                                                <input type="hidden" id=""
+                                                                    value="{{ $type }}" class="form-control"
+                                                                    name="type" placeholder="" required>
                                                                 <input type="hidden" id="" class="form-control"
                                                                     name="id" placeholder=""
                                                                     value="{{ $book->_id }}" required>
@@ -137,7 +140,8 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>
