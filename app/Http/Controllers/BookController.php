@@ -19,7 +19,7 @@ class BookController extends Controller
     {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
-            $this->type =  Session::get('type');
+            $this->type =  Session::get('bookType');
             return $next($request);
         });
     }
@@ -42,17 +42,17 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::where('type', Session::get('type'))->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::where('type', Session::get('bookType'))->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
-        $brands = Book::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
+        $brands = Book::where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
+        $brandsCount = Book::where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -133,7 +133,7 @@ class BookController extends Controller
 
     public function edit($type, $id)
     {
-        $categories = Category::active()->where('type', Session::get('type'))->get();
+        $categories = Category::active()->where('type', $type)->get();
         $book = Book::where('_id', $id)->first();
         return view('eBook.edit', [
             'book' => $book,
