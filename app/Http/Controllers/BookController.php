@@ -25,7 +25,8 @@ class BookController extends Controller
     }
     public function index($type)
     {
-        Session::put('type', $type);
+        Session::put('bookType', $type);
+
         return view('eBook.index', [
             'type' => $type
         ]);
@@ -42,7 +43,7 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::where('type', Session::get('bookType'))->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
         $brands = Book::where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
