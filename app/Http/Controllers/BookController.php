@@ -81,30 +81,24 @@ class BookController extends Controller
         if (Session::get('type') == 1) {
             $validated = $request->validate([
                 'title' => 'required',
-                'file' => 'required|file|mimes:epub',
+                'file.*' => 'required|file|mimes:epub',
             ]);
         } elseif (Session::get('type') == 2) {
             $validated = $request->validate([
                 'title' => 'required',
-                'file' => 'required|file|mimes:mp3',
+                'file.*' => 'required|file|mimes:mp3',
             ]);
         } elseif (Session::get('type') == 3) {
             $validated = $request->validate([
                 'title' => 'required',
-                'file' => 'required|file|mimes:epub,pdf',
+                'file.*' => 'required|file|mimes:epub,pdf',
             ]);
         }
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-        if ($request->has('file')) {
-            $file = $request->file('file');
-            $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path =   $request->file('file')->storeAs('files', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $book->file = $base_path . $path;
-        }
+
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -118,16 +112,20 @@ class BookController extends Controller
         $book->status = 1;
         $book->approved = 0;
         $book->author = $request->author;
+        $book->book_pages = $request->pages;
+        $book->serial_no = $request->sr_no;
         $book->save();
-
-        // $bookContent = new BookContent();
-        // if ($request->has('file')) {
-        //     $file = $request->file('file');
-        //     $file_name = time() . '.' . $file->getClientOriginalExtension();
-        //     $path =   $request->file('file')->storeAs('files', $file_name, 's3');
-        //     Storage::disk('s3')->setVisibility($path, 'public');
-        //     $book->file = $base_path . $path;
-        // }
+        foreach ($request->file as $key => $file) {
+            $bookContent = new BookContent();
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $file->storeAs('files', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $bookContent->file = $base_path . $path;
+            $bookContent->book_id = $book->id;
+            $bookContent->book_name = $file->getClientOriginalName();
+            $bookContent->sequence = $key;
+            $bookContent->save();
+        }
 
         return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
     }
@@ -149,13 +147,13 @@ class BookController extends Controller
         $book->title = $request->title;
         $book->description = $request->description;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-        if ($request->has('file')) {
-            $file = $request->file('file');
-            $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path =   $request->file('file')->storeAs('files', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $book->file =  $base_path . $path;
-        }
+        // if ($request->has('file')) {
+        //     $file = $request->file('file');
+        //     $file_name = time() . '.' . $file->getClientOriginalExtension();
+        //     $path =   $request->file('file')->storeAs('files', $file_name, 's3');
+        //     Storage::disk('s3')->setVisibility($path, 'public');
+        //     $book->file =  $base_path . $path;
+        // }
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -171,7 +169,17 @@ class BookController extends Controller
         $book->approved =  $book->approved;
         $book->author = $request->author;
         $book->save();
-
+        foreach ($request->file as $key => $file) {
+            $bookContent = new BookContent();
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $file->storeAs('files', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $bookContent->file = $base_path . $path;
+            $bookContent->book_id = $book->id;
+            $bookContent->book_name = $file->getClientOriginalName();
+            $bookContent->sequence = $key;
+            $bookContent->save();
+        }
         return redirect()->to('books/' .  $request->type)->with('msg', 'Content Updated Successfully!');
     }
     public function updateStatus($id)
@@ -238,5 +246,13 @@ class BookController extends Controller
         ]);
 
         return redirect()->back()->with('msg', 'Content Reject Successfully!');
+    }
+
+    public function list($type, $id)
+    {
+        $content = BookContent::where('book_id', $id)->get();
+        return view('eBook.book_list', [
+            'content' => $content
+        ]);
     }
 }

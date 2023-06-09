@@ -53,7 +53,8 @@
                                                         <div class="form-group">
                                                             <label for="">Title</label>
                                                             <div class="position-relative">
-                                                                <input type="hidden" id="" value="{{$type}}" class="form-control"
+                                                                <input type="hidden" id=""
+                                                                    value="{{ $type }}" class="form-control"
                                                                     name="type" placeholder="" required>
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder="" required>
@@ -72,7 +73,7 @@
                                                             <label for="basicInputFile">Book</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file">
+                                                                    id="inputGroupFile01" name="file[]" multiple>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
@@ -133,10 +134,36 @@
                                                         </fieldset>
                                                     </div>
 
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Serial Number</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="sr_no"
+                                                                        placeholder="" required>
 
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Book Pages</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="number" id=""
+                                                                        class="form-control" name="pages"
+                                                                        placeholder="" required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>

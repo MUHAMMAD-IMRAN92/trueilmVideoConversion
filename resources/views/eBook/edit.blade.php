@@ -137,6 +137,35 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Serial Number</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="sr_no"
+                                                                        placeholder="" value="{{ $book->sr_no }}"
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Book Pages</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="number" id=""
+                                                                        class="form-control" name="pages"
+                                                                        placeholder="" value="{{ $book->pages }}"
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-12">
