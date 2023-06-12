@@ -91,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store');
     Route::get('book/{type}/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('book.edit');
     Route::get('book/{type}/list/{id}', [App\Http\Controllers\BookController::class, 'list'])->name('book.list');
+    Route::post('book/update/sequence', [App\Http\Controllers\BookController::class, 'updateSequence'])->name('book.sequence');
     Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update');
     Route::get('book/update-status/{id}', [App\Http\Controllers\BookController::class, 'updateStatus'])->name('book.statusUpdate');
     Route::get('book/pending-for-approval', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove');

@@ -78,17 +78,17 @@ class BookController extends Controller
     }
     public function store(Request $request)
     {
-        if (Session::get('type') == 1) {
+        if ( $request->type == 1) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:epub',
             ]);
-        } elseif (Session::get('type') == 2) {
+        } elseif ( $request->type == 2) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:mp3',
             ]);
-        } elseif (Session::get('type') == 3) {
+        } elseif ( $request->type == 3) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:epub,pdf',
@@ -126,8 +126,11 @@ class BookController extends Controller
             $bookContent->sequence = $key;
             $bookContent->save();
         }
-
-        return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
+        if ($request->type == 2) {
+            return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
+        } else {
+            return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
+        }
     }
 
     public function edit($type, $id)
@@ -180,7 +183,11 @@ class BookController extends Controller
             $bookContent->sequence = $key;
             $bookContent->save();
         }
-        return redirect()->to('books/' .  $request->type)->with('msg', 'Content Updated Successfully!');
+        if ($request->type == 2) {
+            return redirect()->to('book/' . $request->type . 'list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
+        } else {
+            return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
+        }
     }
     public function updateStatus($id)
     {
@@ -250,9 +257,21 @@ class BookController extends Controller
 
     public function list($type, $id)
     {
-        $content = BookContent::where('book_id', $id)->get();
+        $content = BookContent::where('book_id', $id)->orderBy('sequence' , 'desc')->get();
         return view('eBook.book_list', [
+            'book_id' => $id,
             'content' => $content
         ]);
+    }
+    public function updateSequence(Request $request)
+    {
+        if ($request->chapters) {
+            foreach ($request->chapters as $key => $chapter) {
+                $bookContent = BookContent::where('_id', $chapter)->update([
+                    'sequence' => $request->sequence[$key]
+                ]);
+            }
+        }
+        return redirect()->back()->with('msg', 'Sequence Updated Successfully!');;
     }
 }
