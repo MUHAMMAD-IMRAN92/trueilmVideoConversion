@@ -1,12 +1,7 @@
 @extends('layouts.default_layout')
 
 @section('content')
-    <style>
-        .select2-container {
-            width: 100%;
-            display: block;
-        }
-    </style>
+
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -167,7 +162,7 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="form-group col-md-6 ">
-                                                        <label for="basicInputFile">Tag</label>
+                                                        <label for="basicInputFile">Tags</label>
 
                                                         <select class="select2 multiple-select form-control"
                                                             multiple="multiple" name="tags[]">
