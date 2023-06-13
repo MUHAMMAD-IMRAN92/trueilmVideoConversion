@@ -145,7 +145,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
                                                                         class="form-control" name="sr_no"
-                                                                        placeholder="" value="{{ $book->sr_no }}"
+                                                                        placeholder="" value="{{ $book->serial_no }}"
                                                                         required>
 
                                                                 </div>
@@ -159,7 +159,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="number" id=""
                                                                         class="form-control" name="pages"
-                                                                        placeholder="" value="{{ $book->pages }}"
+                                                                        placeholder="" value="{{ $book->book_pages }}"
                                                                         required>
 
                                                                 </div>
@@ -168,6 +168,18 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group col-md-6 ">
+                                                    <label for="basicInputFile">Tag</label>
+
+                                                    <select class="select2 multiple-select form-control"
+                                                        multiple="multiple" name="tags[]">
+                                                        @foreach ($tags as $tag)
+                                                            <option value="{{ $tag->title }}"
+                                                                {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
+                                                                {{ $tag->title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                                 <div class="col-12">
                                                     <button type="submit"
                                                         class="btn btn-primary mr-1 mb-1">Submit</button>

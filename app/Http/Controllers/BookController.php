@@ -6,6 +6,8 @@ use App\Http\Requests\BookRequest;
 use App\Models\Book;
 use App\Models\BookContent;
 use App\Models\Category;
+use App\Models\ContentTag;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -70,25 +72,28 @@ class BookController extends Controller
     }
     public function add($type)
     {
+        $tags = Tag::all();
         $categories = Category::active()->where('type', $type)->get();
         return view('eBook.add', [
             'type' => $type,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ]);
     }
     public function store(Request $request)
     {
-        if ( $request->type == 1) {
+
+        if ($request->type == 1) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:epub',
             ]);
-        } elseif ( $request->type == 2) {
+        } elseif ($request->type == 2) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:mp3',
             ]);
-        } elseif ( $request->type == 3) {
+        } elseif ($request->type == 3) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:epub,pdf',
@@ -126,6 +131,11 @@ class BookController extends Controller
             $bookContent->sequence = $key;
             $bookContent->save();
         }
+        foreach ($request->tags as $key => $tag) {
+            $tag = Tag::firstOrCreate(['title' => $tag]);
+
+            $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
+        }
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
@@ -137,10 +147,15 @@ class BookController extends Controller
     {
         $categories = Category::active()->where('type', $type)->get();
         $book = Book::where('_id', $id)->first();
+        $contentTag = ContentTag::where('content_id', $id)->get();
+        $tags = Tag::all();
+
         return view('eBook.edit', [
             'book' => $book,
             'type' => $type,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags,
+            'contentTags' =>  $contentTag
         ]);
     }
 
@@ -171,17 +186,27 @@ class BookController extends Controller
         $book->status =  $book->status;
         $book->approved =  $book->approved;
         $book->author = $request->author;
+        $book->book_pages = $request->pages;
+        $book->serial_no = $request->sr_no;
         $book->save();
-        foreach ($request->file as $key => $file) {
-            $bookContent = new BookContent();
-            $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path =   $file->storeAs('files', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $bookContent->file = $base_path . $path;
-            $bookContent->book_id = $book->id;
-            $bookContent->book_name = $file->getClientOriginalName();
-            $bookContent->sequence = $key;
-            $bookContent->save();
+        if ($request->file) {
+            foreach ($request->file as $key => $file) {
+                $bookContent = new BookContent();
+                $file_name = time() . '.' . $file->getClientOriginalExtension();
+                $path =   $file->storeAs('files', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $bookContent->file = $base_path . $path;
+                $bookContent->book_id = $book->id;
+                $bookContent->book_name = $file->getClientOriginalName();
+                $bookContent->sequence = $key;
+                $bookContent->save();
+            }
+        }
+
+        foreach ($request->tags as $key => $tag) {
+            $tag = Tag::firstOrCreate(['title' => $tag]);
+
+            $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
         }
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . 'list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
@@ -257,7 +282,7 @@ class BookController extends Controller
 
     public function list($type, $id)
     {
-        $content = BookContent::where('book_id', $id)->orderBy('sequence' , 'desc')->get();
+        $content = BookContent::where('book_id', $id)->orderBy('sequence', 'desc')->get();
         return view('eBook.book_list', [
             'book_id' => $id,
             'content' => $content

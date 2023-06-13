@@ -1750,4 +1750,17 @@
                }
            });
        }
-   </script>
+       $('.multiple-select').select2({
+           tags: true,
+           tokenSeparators: [',', ' ']
+       });
+
+       $('.multiple-select').on('select2:selecting', function(e) {
+           var value = e.params.args.data.id;
+           // if (value && value.trim() !== '') {
+           //     var option = new Option(value, true);
+           //     $(this).append(option).trigger('change');
+           // }
+           $(this).val($(this).val()).trigger('change');
+       });
+</script>
