@@ -131,10 +131,12 @@ class BookController extends Controller
             $bookContent->sequence = $key;
             $bookContent->save();
         }
-        foreach ($request->tags as $key => $tag) {
-            $tag = Tag::firstOrCreate(['title' => $tag]);
+        if ($request->tags) {
+            foreach ($request->tags as $key => $tag) {
+                $tag = Tag::firstOrCreate(['title' => $tag]);
 
-            $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
+            }
         }
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
@@ -202,11 +204,12 @@ class BookController extends Controller
                 $bookContent->save();
             }
         }
+        if ($request->tags) {
+            foreach ($request->tags as $key => $tag) {
+                $tag = Tag::firstOrCreate(['title' => $tag]);
 
-        foreach ($request->tags as $key => $tag) {
-            $tag = Tag::firstOrCreate(['title' => $tag]);
-
-            $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
+            }
         }
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . 'list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
