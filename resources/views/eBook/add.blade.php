@@ -172,6 +172,21 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Content Suitble</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="suitble"
+                                                                id="basicSelect">
+                                                                <option disabled selected>Select Category</option>
+                                                                @foreach ($suitbles as $suitble)
+                                                                    <option value="{{ $suitble->_id }}">
+                                                                        {{ $suitble->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="submit"

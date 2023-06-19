@@ -172,10 +172,27 @@
                                                         <select class="select2 multiple-select form-control"
                                                             multiple="multiple" name="tags[]">
                                                             @foreach ($tags as $tag)
-                                                                <option value="{{ $tag->title }}"   {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
+                                                                <option value="{{ $tag->title }}"
+                                                                    {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
                                                                     {{ $tag->title }}</option>
                                                             @endforeach
                                                         </select>
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Content Suitble</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="suitble"
+                                                                id="basicSelect">
+                                                                <option disabled selected>Select Category</option>
+                                                                @foreach ($suitbles as $suitble)
+                                                                    <option value="{{ $suitble->_id }}"
+                                                                        {{ $book->content_suitble == $suitble->_id ? 'selected' : '' }}>
+                                                                        {{ $suitble->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
                                                     </div>
                                                 </div>
 

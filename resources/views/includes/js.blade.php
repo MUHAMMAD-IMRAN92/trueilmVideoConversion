@@ -302,12 +302,14 @@
                                    `<a class="ml-2" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`
                            }
                            return `<td>
+                            <div class="d-flex">
                                 <a  class="ml-2" href="{{ url('book/`+ row.type +`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>` +
                                list +
                                `<a  class="ml-2" href="{{ url('book/update-status/`+row._id+`') }}"><i class="` +
                                eye +
                                `"></i></a>
-                                </td>`
+                                </td>
+                                </div>`
                        }
                    },
                ],

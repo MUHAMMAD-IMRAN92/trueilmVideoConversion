@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\BookContent;
 use App\Models\Category;
 use App\Models\ContentTag;
+use App\Models\Suitable;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,10 +75,12 @@ class BookController extends Controller
     {
         $tags = Tag::all();
         $categories = Category::active()->where('type', $type)->get();
+        $suitbles = Suitable::all();
         return view('eBook.add', [
             'type' => $type,
             'categories' => $categories,
-            'tags' => $tags
+            'tags' => $tags,
+            'suitbles' => $suitbles
         ]);
     }
     public function store(Request $request)
@@ -119,6 +122,7 @@ class BookController extends Controller
         $book->author = $request->author;
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
+        $book->content_suitble = $request->suitble;
         $book->save();
         foreach ($request->file as $key => $file) {
             $bookContent = new BookContent();
@@ -152,13 +156,14 @@ class BookController extends Controller
         $book = Book::where('_id', $id)->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $tags = Tag::all();
-
+        $suitbles = Suitable::all();
         return view('eBook.edit', [
             'book' => $book,
             'type' => $type,
             'categories' => $categories,
             'tags' => $tags,
-            'contentTags' =>  $contentTag
+            'contentTags' =>  $contentTag,
+            'suitbles' => $suitbles
         ]);
     }
 
@@ -191,6 +196,7 @@ class BookController extends Controller
         $book->author = $request->author;
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
+        $book->content_suitble = $request->suitble;
         $book->save();
         if ($request->file) {
             foreach ($request->file as $key => $file) {
