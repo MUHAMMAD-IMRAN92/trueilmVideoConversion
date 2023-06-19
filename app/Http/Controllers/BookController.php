@@ -219,7 +219,7 @@ class BookController extends Controller
             }
         }
         if ($request->type == 2) {
-            return redirect()->to('book/' . $request->type . 'list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
+            return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
             return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
         }
