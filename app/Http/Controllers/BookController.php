@@ -129,6 +129,7 @@ class BookController extends Controller
             $bookContent->book_id = $book->id;
             $bookContent->book_name = $file->getClientOriginalName();
             $bookContent->sequence = $key;
+            $book->type = $request->type;
             $bookContent->save();
         }
         if ($request->tags) {
