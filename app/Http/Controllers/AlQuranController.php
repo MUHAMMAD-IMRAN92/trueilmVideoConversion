@@ -13,6 +13,8 @@ use App\Models\Surah;
 use App\Models\Tafseer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Tag;
+use App\Models\ContentTag;
 
 class AlQuranController extends Controller
 {
@@ -31,10 +33,12 @@ class AlQuranController extends Controller
         $surah = Surah::where('_id', $surahId)->with(['ayats' => function ($q) {
             $q->orderBy('sequence', 'asc');
         }])->first();
+        $tags = Tag::all();
         $juzs = Juz::all();
         return view('Al_Quran.add_ayat', [
             'surah' => $surah,
             'juzs' => $juzs,
+            'tags' => $tags
         ]);
     }
     public function store(Request $request)
@@ -88,7 +92,13 @@ class AlQuranController extends Controller
                 $reference->save();
             }
         }
+        if ($request->tags) {
+            foreach ($request->tags as $key => $tag) {
+                $tag = Tag::firstOrCreate(['title' => $tag]);
 
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => 4]);
+            }
+        }
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Saved Successfully!');
     }
 
@@ -99,12 +109,16 @@ class AlQuranController extends Controller
         }])->first();
         $ayat = AlQuran::where('_id', $ayatId)->with('translations')->first();
         $juzs = Juz::all();
+        $tags = Tag::all();
+        $contentTag = ContentTag::where('content_id', $ayatId)->get();
         $languages = Languages::all();
         return view('Al_Quran.edit_ayat', [
             'surah' => $surah,
             'ayat' => $ayat,
             'juzs' => $juzs,
-            'languages' => $languages
+            'languages' => $languages,
+            'tags' => $tags,
+            'contentTags' =>  $contentTag
         ]);
     }
 
@@ -161,7 +175,14 @@ class AlQuranController extends Controller
                 $reference->save();
             }
         }
+        if ($request->tags) {
+            ContentTag::where(['content_id' => $alQuran->id, 'content_type' => 4])->delete();
+            foreach ($request->tags as $key => $tag) {
+                $tag = Tag::firstOrCreate(['title' => $tag]);
 
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => 4]);
+            }
+        }
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Updated Successfully!');;
     }
     public function deleteTranslation(Request $request)

@@ -138,6 +138,7 @@ class BookController extends Controller
         }
         if ($request->tags) {
             foreach ($request->tags as $key => $tag) {
+
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
@@ -212,6 +213,8 @@ class BookController extends Controller
             }
         }
         if ($request->tags) {
+
+            ContentTag::where('content_id', $book->id)->delete();
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 

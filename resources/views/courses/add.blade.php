@@ -78,6 +78,17 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="basicInputFile">Tags</label>
+
+                                                        <select class="select2 multiple-select form-control"
+                                                            multiple="multiple" name="tags[]">
+                                                            @foreach ($tags as $tag)
+                                                                <option value="{{ $tag->title }}">
+                                                                    {{ $tag->title }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                     <div class="col-12 " id="lesson-heading" style="display:none">
                                                         <h2>Lessons:</h2>
                                                     </div>

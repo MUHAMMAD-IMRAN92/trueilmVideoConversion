@@ -6,8 +6,10 @@ use App\Models\Course;
 use App\Models\CourseLesson;
 use App\Models\LessonVideo;
 use Illuminate\Http\Request;
+use App\Models\ContentTag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Tag;
 
 class CourseController extends Controller
 {
@@ -51,7 +53,10 @@ class CourseController extends Controller
     }
     public function add()
     {
-        return view('courses.add');
+        $tags = Tag::all();
+        return view('courses.add', [
+            'tags' => $tags
+        ]);
     }
     public function store(Request $request)
     {
@@ -68,7 +73,16 @@ class CourseController extends Controller
             Storage::disk('s3')->setVisibility($path, 'public');
             $course->image  = $base_path . $path;
         }
+
         $course->save();
+        if ($request->tags) {
+            foreach ($request->tags as $key => $tag) {
+
+                $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $course->id, 'content_type' => 6]);
+            }
+        }
         if ($request->lessons) {
             foreach ($request->lessons as $key => $lesson) {
                 $courseLesson = new CourseLesson();
@@ -95,8 +109,12 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::where('_id', $id)->with('lessons')->first();
+        $contentTag = ContentTag::where('content_id', $id)->get();
+        $tags = Tag::all();
         return view('courses.edit', [
-            'course' => $course
+            'course' => $course,
+            'tags' => $tags,
+            'contentTags' =>  $contentTag,
         ]);
     }
 
@@ -116,6 +134,15 @@ class CourseController extends Controller
             $course->image  = $base_path . $path;
         }
         $course->save();
+        if ($request->tags) {
+
+            ContentTag::where('content_id', $course->id)->delete();
+            foreach ($request->tags as $key => $tag) {
+                $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $course->id, 'content_type' => 6]);
+            }
+        }
         if ($request->lessons) {
             foreach ($request->lessons as $key => $lesson) {
                 $courseLesson = new CourseLesson();

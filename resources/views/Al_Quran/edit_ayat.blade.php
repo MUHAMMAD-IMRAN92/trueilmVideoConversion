@@ -261,7 +261,18 @@
 
                                                             </div>
                                                         </div>
+                                                        <div class="form-group col-md-6 ">
+                                                            <label for="basicInputFile">Tags</label>
 
+                                                            <select class="select2 multiple-select form-control"
+                                                                multiple="multiple" name="tags[]">
+                                                                @foreach ($tags as $tag)
+                                                                    <option value="{{ $tag->title }}"
+                                                                        {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
+                                                                        {{ $tag->title }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
 
                                                     <div class="col-12" style="text-align: right">
