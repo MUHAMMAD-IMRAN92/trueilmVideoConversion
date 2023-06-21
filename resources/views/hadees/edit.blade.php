@@ -140,7 +140,7 @@
                                         aria-labelledby="home-tab-fill" aria-expanded="true">
                                         <div class="card">
                                             <div class="card-body">
-                                                <form class="form form-vertical" action="{{ route('hadith.store') }}"
+                                                <form class="form form-vertical" action="{{ route('hadith.update') }}"
                                                     method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-body">
@@ -149,6 +149,8 @@
                                                             <div class="col-12">
                                                                 <input type="hidden" name="book_id" id=""
                                                                     value="{{ $hadeesBook->id }}">
+                                                                    <input type="hidden" name="hadees_id" id=""
+                                                                    value="{{ $hadees->id }}">
                                                                 <label for="">Hadith</label>
                                                                 <fieldset class="form-group">
                                                                     <textarea class="summernote" name="hadith">{{ $hadees->hadees }}</textarea>
@@ -172,7 +174,18 @@
                                                                     </select>
                                                                 </fieldset>
                                                             </div>
+                                                            <div class="form-group col-md-12 ">
+                                                                <label for="basicInputFile">Tags</label>
 
+                                                                <select class="select2 multiple-select form-control"
+                                                                    multiple="multiple" name="tags[]">
+                                                                    @foreach ($tags as $tag)
+                                                                        <option value="{{ $tag->title }}"
+                                                                            {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
+                                                                            {{ $tag->title }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
 
                                                         </div>
                                                         <br>

@@ -10,6 +10,8 @@ use App\Models\HadeesTranslation;
 use App\Models\Languages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Tag;
+use App\Models\ContentTag;
 
 class HadeesController extends Controller
 {
@@ -69,10 +71,11 @@ class HadeesController extends Controller
     {
         $hadeesBook = HadeesBooks::where('_id', $id)->first();
         $hadees = Hadees::where('_id', $hadeesBook->id)->get();
-
+        $tags = Tag::all();
         return view('hadees.add', [
             'hadeesBook' => $hadeesBook,
-            'hadees' => $hadees
+            'hadees' => $hadees,
+            'tags' => $tags
         ]);
     }
     public function store(HadeesRequest $request)
@@ -94,7 +97,13 @@ class HadeesController extends Controller
                 $hadeesTranslation->save();
             }
         }
+        if ($request->tags) {
+            foreach ($request->tags as $key => $tag) {
+                $tag = Tag::firstOrCreate(['title' => $tag]);
 
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' => 5]);
+            }
+        }
         return redirect()->to("hadith/edit/$request->book_id/$hadees->id")->with('msg', 'Hadith Saved Successfully!');
     }
 
@@ -112,11 +121,14 @@ class HadeesController extends Controller
         $hadeesBook = HadeesBooks::where('_id', $bookId)->with('hadees')->first();
         $hadees = Hadees::where('_id', $hadeesId)->with('translations', 'references')->first();
         $languages = Languages::all();
-
+        $tags = Tag::all();
+        $contentTag = ContentTag::where('content_id', $hadeesId)->get();
         return view('hadees.edit', [
             'hadeesBook' => $hadeesBook,
             'hadees' => $hadees,
-            'languages' => $languages
+            'languages' => $languages,
+            'tags' => $tags,
+            'contentTags' =>  $contentTag
         ]);
     }
 
@@ -141,7 +153,14 @@ class HadeesController extends Controller
                 $hadeesTranslation->save();
             }
         }
+        if ($request->tags) {
+            ContentTag::where(['content_id' => $hadees->id, 'content_type' => 4])->delete();
+            foreach ($request->tags as $key => $tag) {
+                $tag = Tag::firstOrCreate(['title' => $tag]);
 
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' => 5]);
+            }
+        }
         return redirect()->to("hadith/edit/$hadees->book_id/$hadees->id")->with('msg', 'Hadith Updated Successfully!');
     }
 
