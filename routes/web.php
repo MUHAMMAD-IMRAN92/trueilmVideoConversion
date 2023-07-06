@@ -84,6 +84,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('hadith/translation/update', [App\Http\Controllers\HadeesController::class, 'updateTranslation'])->name('hadith.translaton.update');
     Route::post('hadith/translation/save', [App\Http\Controllers\HadeesController::class, 'saveTranslation'])->name('hadith.translaton.save');
 
+    //author
+    Route::get('author', [App\Http\Controllers\AuthorController::class, 'index'])->name('author');
+    Route::get('all-author', [App\Http\Controllers\AuthorController::class, 'allauthor'])->name('author.all');
+    Route::get('author/create', [App\Http\Controllers\AuthorController::class, 'add'])->name('author.add');
+    Route::post('author/store', [App\Http\Controllers\AuthorController::class, 'store'])->name('author.store');
+    Route::get('author/edit/{id}', [App\Http\Controllers\AuthorController::class, 'edit'])->name('author.edit');
+    Route::post('author/update', [App\Http\Controllers\AuthorController::class, 'update'])->name('author.update');
+
 
     Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
     Route::get('all-book', [App\Http\Controllers\BookController::class, 'allBooks'])->name('book.all');

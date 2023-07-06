@@ -197,6 +197,48 @@
                }],
                "order": false
            });
+           $('#author-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-author') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description;
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('author/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#ebook-table').DataTable({
                "processing": true,
                "serverSide": true,
