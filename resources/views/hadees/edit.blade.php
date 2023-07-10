@@ -149,11 +149,11 @@
                                                             <div class="col-12">
                                                                 <input type="hidden" name="book_id" id=""
                                                                     value="{{ $hadeesBook->id }}">
-                                                                    <input type="hidden" name="hadees_id" id=""
+                                                                <input type="hidden" name="hadees_id" id=""
                                                                     value="{{ $hadees->id }}">
                                                                 <label for="">Hadith</label>
                                                                 <fieldset class="form-group">
-                                                                    <textarea class="summernote" name="hadith">{{ $hadees->hadees }}</textarea>
+                                                                    <textarea class="" cols="110" rows="8" style="text-align: right;" name="hadith">{{ $hadees->hadees }}</textarea>
                                                                 </fieldset>
                                                             </div>
                                                             <div class="col-12">

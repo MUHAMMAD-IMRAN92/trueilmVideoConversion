@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AyatRequest;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
+use App\Models\Author;
 use App\Models\Book;
 use App\Models\Juz;
 use App\Models\Languages;
@@ -112,13 +113,14 @@ class AlQuranController extends Controller
         $tags = Tag::all();
         $contentTag = ContentTag::where('content_id', $ayatId)->get();
         $languages = Languages::all();
+        $author = Author::all();
         return view('Al_Quran.edit_ayat', [
             'surah' => $surah,
             'ayat' => $ayat,
             'juzs' => $juzs,
             'languages' => $languages,
             'tags' => $tags,
-            'contentTags' =>  $contentTag
+            'contentTags' =>  $contentTag,
         ]);
     }
 

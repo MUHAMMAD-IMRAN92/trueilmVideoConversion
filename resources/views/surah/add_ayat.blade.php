@@ -81,30 +81,42 @@
 
                                                         <p>Type</p>
                                                         <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="type" id="basicSelect">
+                                                            <select class="select2 form-control" name="type"
+                                                                id="basicSelect">
                                                                 <option value="1">Makki</option>
                                                                 <option value="2">Madani</option>
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="">Sequence</label>
+                                                            <div class="position-relative">
+                                                                <input type="number" id="" class="form-control"
+                                                                    name="sequence" placeholder="" required>
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
-                                                </div>
                                             </div>
-                                        </form>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+
+                                            </div>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- // Basic Vertical form layout section end -->
-
             </div>
+            </section>
+            <!-- // Basic Vertical form layout section end -->
+
         </div>
+    </div>
     </div>
     <!-- END: Content-->
 @endsection

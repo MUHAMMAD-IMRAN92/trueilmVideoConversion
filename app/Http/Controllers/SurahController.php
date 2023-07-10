@@ -57,7 +57,7 @@ class SurahController extends Controller
         $alQuran->surah = $request->surah;
         $alQuran->description = $request->description;
         $alQuran->type = $request->type;
-        $alQuran->added_by = $this->user->id;
+        $alQuran->sequence = $request->sequence;
 
         $alQuran->save();
 
@@ -84,6 +84,7 @@ class SurahController extends Controller
         $alQuran->description = $request->description;
         $alQuran->type = $request->type;
         $alQuran->added_by = $this->user->id;
+        $alQuran->sequence = $request->sequence;
 
         $alQuran->save();
 

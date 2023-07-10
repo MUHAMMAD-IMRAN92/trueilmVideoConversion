@@ -156,7 +156,7 @@
                                                             value="{{ $hadeesBook->id }}">
                                                         <label for="">Hadith</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="hadith"></textarea>
+                                                            <textarea class="" cols="110" rows="8" style="text-align: right;" name="hadith"></textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-12">

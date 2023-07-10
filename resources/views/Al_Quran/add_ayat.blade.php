@@ -162,7 +162,7 @@
                                                         <div class="col-12">
                                                             <label for="">Ayat</label>
                                                             <fieldset class="form-group">
-                                                                <textarea class="summernote" name="ayat"></textarea>
+                                                                <textarea style="text-align: right;" class="" cols="110" rows="8"  name="ayat"></textarea>
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-6">
