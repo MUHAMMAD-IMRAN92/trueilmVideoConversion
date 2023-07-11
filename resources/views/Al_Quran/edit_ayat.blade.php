@@ -105,6 +105,16 @@
                     </button>
                 </div>
             @endif
+            @if (\Session::has('dmsg'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p class="mb-0">
+                    {{ \Session::get('dmsg') }}
+                </p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                </button>
+            </div>
+        @endif
             <section id="basic-vertical-layouts">
                 <div class="row">
 
@@ -293,8 +303,7 @@
                                         <div class="row">
                                             <div class="col-9"></div>
                                             <div class="col-3"><span data-toggle="modal" data-target="#author-lang"
-                                                    class="btn btn-primary">Add
-                                                    Translation</span></div>
+                                                    class="btn btn-primary">Create New</span></div>
                                         </div>
                                         <br>
                                         <div class="row append-inputs">
@@ -553,8 +562,7 @@
                                             <div class="col-9"></div>
                                             <div class="col-3"> <span onclick="addTafseer('{{ $ayat->id }}')"
                                                     class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#author-lang">Add
-                                                    Tafseer</span></div>
+                                                    data-target="#author-lang">Create New</span></div>
                                         </div>
                                         <br>
                                         <div class="row tafseer-append-inputs">

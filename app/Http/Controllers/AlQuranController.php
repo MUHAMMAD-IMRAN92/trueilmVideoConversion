@@ -107,7 +107,7 @@ class AlQuranController extends Controller
     {
         $authLang =  AuthorLanguage::where('author_id', $request->author)->where('lang_id', $request->lang)->first();
         if ($authLang) {
-            return redirect()->back()->with('msg', 'Author Language Already Exits!');
+            return redirect()->back()->with('dmsg', 'Author Language Already Exits!');
         } else {
             $authorLanguage = AuthorLanguage::create([
                 'author_id' => $request->author,
