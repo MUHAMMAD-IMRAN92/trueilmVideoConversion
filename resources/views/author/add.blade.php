@@ -48,7 +48,7 @@
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
-                                                <div class="row append-inputs">
+                                                <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Name</label>
@@ -65,18 +65,20 @@
                                                             <textarea class="" cols="153" rows="8" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Image</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="image" accept="image/*">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <fieldset class="form-group">
-                                                        <label for="">Image</label>
-                                                        <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id=""
-                                                                name="image" accept="image/*">
-                                                            <label class="custom-fi`le-label" for="">Choose
-                                                                file</label>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
+
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
