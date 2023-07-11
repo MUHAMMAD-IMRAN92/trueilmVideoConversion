@@ -327,7 +327,7 @@
                                     href="{{ url('juz') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                             </li>
-                            <li class="@if (request()->is('author*') || request()->is('author*') || request()->is('juz*')) active @endif "><a
+                            <li class="@if (request()->is('author*') || request()->is('author*') || request()->is('author*')) active @endif "><a
                                 href="{{ url('author') }}"><i class="fa fa-user"></i>
                                 <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
