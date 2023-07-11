@@ -802,26 +802,30 @@
 
 
        // Ayat Translation
-       function deleteTranslation(ayatId, tranId, key) {
-           $('.translation-div-' + key).remove();
+       function deleteTranslation(transId, authLang, key, type) {
 
            $.ajax({
                type: "GET",
                url: "{{ url('ayat/translation/delete') }}",
                data: {
-                   ayatId: ayatId,
-                   transId: tranId,
+                   authLang: authLang,
+                   transId: transId,
+                   type: type
                },
                dataType: "json",
                success: function(response) {
                    console.log(response);
+                   $('#non-edit-para-des-' + key).html('');
+                   $('#trans-input-' + key).html('');
+
                },
            });
-           var div = $('.lang');
-           if (div.length == 0) {
-               $('#no-translation-div').css('display', 'block');
-           }
 
+           $('#translation-delete-span-' + key).css('display', 'block');
+                   setTimeout(() => {
+                       $('#translation-delete-span-' + key).css('display', 'none');
+
+                   }, 3000);
        }
 
        function editable(key) {
@@ -829,18 +833,24 @@
            $('#editble-' + key).css('display', 'block');
        }
 
-       function saveTranslation(ayatId, tranId, key) {
+       function saveTranslation(authorLang, key) {
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
+           var ayatId = $('#ayat-id-' + key).val();
+           var transId = $('#trans-id-' + key).val();
+           var type = $('#type-' + key).val();
+           console.log(ayatId + '----------------->' + key);
            $.ajax({
                type: "POST",
                url: "{{ url('ayat/translation/update') }}",
                data: {
                    "_token": "{{ csrf_token() }}",
                    ayatId: ayatId,
-                   transId: tranId,
+                   transId: transId,
                    lang: lang,
+                   author_lang: authorLang,
                    translation: translation,
+                   type: type
                },
                dataType: "json",
                success: function(response) {

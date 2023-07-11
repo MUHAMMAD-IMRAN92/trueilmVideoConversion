@@ -290,9 +290,15 @@
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="translation-fill"
                                         aria-labelledby="translation-tab-fill" aria-expanded="true">
-
+                                        <div class="row">
+                                            <div class="col-9"></div>
+                                            <div class="col-3"><span data-toggle="modal" data-target="#author-lang"
+                                                    class="btn btn-primary">Add
+                                                    Translation</span></div>
+                                        </div>
+                                        <br>
                                         <div class="row append-inputs">
-                                            @forelse ($ayat->translations as $key => $aya)
+                                            {{-- @forelse ($ayat->translations as $key => $aya)
                                                 @php
                                                     $ayatId = $ayat->id;
                                                     $transId = $aya->id;
@@ -394,6 +400,138 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @endforelse --}}
+                                            @forelse ($authorLanguages as $key => $authLang)
+                                                @php
+                                                    // $key = $key1 + count($authorLanguages);
+                                                    $authlanggId = $authLang->id;
+                                                @endphp
+                                                <div class="col-12 lang translation-div-{{ $key }}">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-8 ">
+
+                                                                    <h4 id="translation-saved-span-{{ $key }}"
+                                                                        style="display:none"> <span
+                                                                            class="badge badge-success "><i
+                                                                                class="fa fa-check">Translation
+                                                                                Saved</i></span></h4>
+                                                                    <h4 id="translation-delete-span-{{ $key }}"
+                                                                        style="display:none"> <span
+                                                                            class="badge badge-success "><i
+                                                                                class="fa fa-check">Translation
+                                                                                Deleted</i></span></h4>
+                                                                </div>
+                                                                <div class="col-4 d-flex">
+                                                                    <h4 onclick="editable('{{ $key }}')"><span
+                                                                            class="badge badge-info ml-1"><i
+                                                                                class="fa fa-pencil">&nbspEdit</i></span>
+                                                                    </h4>
+                                                                    <h4
+                                                                        onclick="saveTranslation('{{ $authlanggId }}','{{ $key }}')">
+                                                                        <span class="badge badge-success ml-1"><i
+                                                                                class="fa fa-save">&nbspSave</i></span>
+                                                                    </h4>
+                                                                    @php
+                                                                        $translation = $ayat->translations
+                                                                            ->where('author_lang', $authlanggId)
+                                                                            ->where('type', 1)
+                                                                            ->first();
+                                                                    @endphp
+                                                                    <h4
+                                                                        onclick="deleteTranslation('{{ @$translation->_id }}','{{ $authlanggId }}','{{ $key }}' , 1)">
+                                                                        <span class="badge badge-danger ml-1"><i
+                                                                                class="fa fa-trash">&nbspDelete</i></span>
+                                                                    </h4>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row ml-1"
+                                                                id="non-editble-translation-{{ $key }}">
+
+                                                                <p>Author - Language :
+                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $authLang->author->name }}
+                                                                        - {{ $authLang->language->title }}
+                                                                    </b>
+                                                                </p>
+                                                                {{-- <p>Language :
+                                                                    <b id="non-edit-lang-select-{{ $key }}">
+                                                                    </b>
+                                                                </p> --}}
+
+                                                                <div class="col-12">
+
+                                                                    <span class=""
+                                                                        id="non-edit-para-des-{{ $key }}"
+                                                                        style="margin-left:10px!important">
+                                                                        {{ @$translation->translation }}</span>
+                                                                    <input type="hidden"
+                                                                        id="ayat-id-{{ $key }}"
+                                                                        value="{{ request()->ayat_id }}">
+                                                                    <input type="hidden"
+                                                                        id="trans-id-{{ $key }}"
+                                                                        value="{{ @$translation->_id }}">
+                                                                    <input type="hidden" id="type-{{ $key }}"
+                                                                        value="1">
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row m-0 p-0" id="editble-{{ $key }}"
+                                                                style="display:none">
+                                                                {{-- <label for="">Language</label> --}}
+                                                                {{-- <fieldset class="form-group">
+                                                                    <select class="select2 form-control" name="langs[]"
+                                                                        id="lang-select-{{ $key }}"
+                                                                        id="basicSelect">
+                                                                        @foreach ($languages as $langkey => $lang)
+                                                                            <option value="{{ $lang->_id }}"
+                                                                                {{ $lang->_id == $aya->lang ? 'selected' : '' }}>
+                                                                                {{ $lang->title }}
+                                                                            </option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </fieldset> --}}
+                                                                <p>Author - Language :
+                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $authLang->author->name }}
+                                                                        - {{ $authLang->language->title }}
+                                                                    </b>
+                                                                </p>
+
+                                                                <div class="col-12 m-0 p-0">
+                                                                    {{-- <label for="">Translation</label> --}}
+                                                                    <input type="hidden" name="author_langs[]"
+                                                                        value="{{ $authlanggId }}">
+                                                                    <fieldset class="form-group">
+                                                                        <textarea class="" cols="110" rows="8" id="trans-input-{{ $key }}" name="translations[]">{{ @$translation->translation }}</textarea>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 " id="no-translation-div" style="display:none">
+
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <center>
+                                                                No Translation Added In This Ayat
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                <div class="col-12 " id="no-translation-div">
+
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <center>
+                                                                No Translation Added In This Ayat
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @endforelse
                                         </div>
                                         <div class="card">
@@ -403,9 +541,6 @@
                                                     </div>
                                                     <div class="col-md-5">
 
-                                                        <span onclick="addTranslation('{{ $ayat->id }}')"
-                                                            class="btn btn-primary">Add
-                                                            Translation</span>
                                                         <button type="submit" class="btn btn-primary ">Submit</button>
                                                     </div>
                                                 </div>
@@ -414,38 +549,55 @@
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="tafseer-fill"
                                         aria-labelledby="tafseer-tab-fill" aria-expanded="true">
-
+                                        <div class="row">
+                                            <div class="col-9"></div>
+                                            <div class="col-3"> <span onclick="addTafseer('{{ $ayat->id }}')"
+                                                    class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#author-lang">Add
+                                                    Tafseer</span></div>
+                                        </div>
+                                        <br>
                                         <div class="row tafseer-append-inputs">
-                                            @forelse ($ayat->tafseers as $key=> $tafseer)
+                                            @forelse ($authorLanguages as $key1 => $authLang)
                                                 @php
-                                                    $ayatId = $ayat->id;
-                                                    $tafseerId = $tafseer->id;
+                                                    $key = $key1 + count($authorLanguages);
+                                                    $authlanggId = $authLang->id;
                                                 @endphp
-                                                <div class="col-12 tafseer-divs tafseer-div-{{ $key }}">
+                                                <div class="col-12 lang translation-div-{{ $key }}">
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="tafseer-saved-span-{{ $key }}"
+                                                                    <h4 id="translation-saved-span-{{ $key }}"
                                                                         style="display:none"> <span
                                                                             class="badge badge-success "><i
-                                                                                class="fa fa-check">Tafseer
+                                                                                class="fa fa-check">Translation
                                                                                 Saved</i></span></h4>
+                                                                    <h4 id="translation-delete-span-{{ $key }}"
+                                                                        style="display:none"> <span
+                                                                            class="badge badge-success "><i
+                                                                                class="fa fa-check">Translation
+                                                                                Deleted</i></span></h4>
                                                                 </div>
                                                                 <div class="col-4 d-flex">
-                                                                    <h4 onclick="editableTafseer('{{ $key }}')">
-                                                                        <span class="badge badge-info ml-1"><i
+                                                                    <h4 onclick="editable('{{ $key }}')"><span
+                                                                            class="badge badge-info ml-1"><i
                                                                                 class="fa fa-pencil">&nbspEdit</i></span>
                                                                     </h4>
                                                                     <h4
-                                                                        onclick="saveTafseer('{{ $ayatId }}','{{ $tafseerId }}','{{ $key }}')">
+                                                                        onclick="saveTranslation('{{ $authlanggId }}','{{ $key }}')">
                                                                         <span class="badge badge-success ml-1"><i
                                                                                 class="fa fa-save">&nbspSave</i></span>
                                                                     </h4>
-
+                                                                    @php
+                                                                        $translation = $ayat->translations
+                                                                            ->where('author_lang', $authlanggId)
+                                                                            ->where('type', 2)
+                                                                            ->first();
+                                                                    @endphp
                                                                     <h4
-                                                                        onclick="deleteTafseer('{{ $ayatId }}','{{ $tafseerId }}','{{ $key }}')">
+                                                                        onclick="deleteTranslation('{{ @$translation->_id }}','{{ $authlanggId }}','{{ $key }}' , 1)">
                                                                         <span class="badge badge-danger ml-1"><i
                                                                                 class="fa fa-trash">&nbspDelete</i></span>
                                                                     </h4>
@@ -453,69 +605,84 @@
                                                             </div>
 
                                                             <div class="row ml-1"
-                                                                id="non-editble-tafseer-{{ $key }}">
+                                                                id="non-editble-translation-{{ $key }}">
 
-                                                                <p>Language :
-                                                                    <b
-                                                                        id="tafseer-non-edit-lang-select-{{ $key }}">{{ $tafseer->lang_title }}
+                                                                <p>Author - Language :
+                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $authLang->author->name }}
+                                                                        - {{ $authLang->language->title }}
                                                                     </b>
                                                                 </p>
-
+                                                                {{-- <p>Language :
+                                                                <b id="non-edit-lang-select-{{ $key }}">
+                                                                </b>
+                                                            </p> --}}
                                                                 <div class="col-12">
 
                                                                     <span class=""
-                                                                        id="tafseer-non-edit-para-des-{{ $key }}"
+                                                                        id="non-edit-para-des-{{ $key }}"
                                                                         style="margin-left:10px!important">
-                                                                        {!! $tafseer->tafseer !!}</span>
+                                                                        {{ @$translation->translation }}</span>
+                                                                    <input type="hidden"
+                                                                        id="ayat-id-{{ $key }}"
+                                                                        value="{{ request()->ayat_id }}">
+                                                                    <input type="hidden"
+                                                                        id="trans-id-{{ $key }}"
+                                                                        value="{{ @$translation->_id }}">
+                                                                    <input type="hidden" id="type-{{ $key }}"
+                                                                        value="2">
                                                                 </div>
 
                                                             </div>
-                                                            <div class="row m-0 p-0"
-                                                                id="tafseer-editble-{{ $key }}"
+                                                            <div class="row m-0 p-0" id="editble-{{ $key }}"
                                                                 style="display:none">
-                                                                <label for="">Language</label>
-                                                                <fieldset class="form-group">
-                                                                    <select class="select2 form-control"
-                                                                        name="taf_langs[]"
-                                                                        id="tafseer-lang-select-{{ $key }}"
-                                                                        id="basicSelect">
-                                                                        @foreach ($languages as $tafkey => $lang)
-                                                                            <option value="{{ $lang->_id }}"
-                                                                                {{ $lang->_id == $tafseer->lang ? 'selected' : '' }}>
-                                                                                {{ $lang->title }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </fieldset>
+                                                                {{-- <label for="">Language</label> --}}
+                                                                {{-- <fieldset class="form-group">
+                                                                <select class="select2 form-control" name="langs[]"
+                                                                    id="lang-select-{{ $key }}"
+                                                                    id="basicSelect">
+                                                                    @foreach ($languages as $langkey => $lang)
+                                                                        <option value="{{ $lang->_id }}"
+                                                                            {{ $lang->_id == $aya->lang ? 'selected' : '' }}>
+                                                                            {{ $lang->title }}
+                                                                        </option>
+                                                                    @endforeach
+
+                                                                </select>
+                                                            </fieldset> --}}
+                                                                <p>Author - Language :
+                                                                    <b id="non-edit-lang-select-{{ $key }}">{{ $authLang->author->name }}
+                                                                        - {{ $authLang->language->title }}
+                                                                    </b>
+                                                                </p>
 
                                                                 <div class="col-12 m-0 p-0">
-                                                                    <label for="">Tafseer</label>
+                                                                    {{-- <label for="">Translation</label> --}}
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="tafseer-trans-input-{{ $key }}" name="tafseers[]">{{ $tafseer->tafseer }}</textarea>
+                                                                        <textarea cols="110" rows="8" id="trans-input-{{ $key }}" name="tafseers[]">{{ @$translation->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 no-tafseer-div" style="display:none">
+                                                <div class="col-12 " id="no-translation-div" style="display:none">
 
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <center>
-                                                                No Tafseer Added In This Ayat
+                                                                No Translation Added In This Ayat
                                                             </center>
                                                         </div>
                                                     </div>
                                                 </div>
                                             @empty
-                                                <div class="col-12 no-tafseer-div">
+                                                <div class="col-12 " id="no-translation-div">
 
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <center>
-                                                                No Tafseer Added In This Ayat
+                                                                No Translation Added In This Ayat
                                                             </center>
                                                         </div>
                                                     </div>
@@ -528,9 +695,7 @@
                                                     <div class="col-md-7 col-lg-8">
                                                     </div>
                                                     <div class="col-md-5 col-lg-4">
-                                                        <span onclick="addTafseer('{{ $ayat->id }}')"
-                                                            class="btn btn-primary">Add
-                                                            Tafseer</span>
+
                                                         <button type="submit" class="btn btn-primary ">Submit</button>
                                                     </div>
                                                 </div>
@@ -667,7 +832,76 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal fade bd-example-modal-lg" id="author-lang" tabindex="-1" role="dialog"
+                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <form action="{{ url('/author_lang') }}" method="POST">
+                                @csrf
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Author - Language</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-12">
 
+                                        </div>
+                                        <div class="col-12">
+                                            @if (\Session::has('msg'))
+                                                <div class="alert alert-success alert-dismissible fade show"
+                                                    role="alert">
+                                                    <p class="mb-0">
+                                                        {{ \Session::get('msg') }}
+                                                    </p>
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true"><i
+                                                                class="feather icon-x-circle"></i></span>
+                                                    </button>
+                                                </div>
+                                            @endif
+                                            <label for="">Author</label>
+                                            <fieldset class="form-group">
+                                                <select class=" select2 form-control" name="author" id="basicSelect1"
+                                                    required>
+                                                    <option disabled selected>Select Author</option>
+                                                    @foreach ($author as $auth)
+                                                        <option value="{{ $auth->_id }}">
+                                                            {{ $auth->name }}</option>
+                                                    @endforeach
+
+                                                </select>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="col-12">
+
+                                            <label for="">Languages</label>
+                                            <fieldset class="form-group">
+                                                <select class=" select2 form-control" name="lang" id="basicSelect2"
+                                                    required>
+                                                    <option disabled selected>Select Author</option>
+                                                    @foreach ($languages as $lang)
+                                                        <option value="{{ $lang->_id }}">
+                                                            {{ $lang->title }}</option>
+                                                    @endforeach
+
+                                                </select>
+                                            </fieldset>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -675,5 +909,4 @@
 
 
         </div>
-
     @endsection

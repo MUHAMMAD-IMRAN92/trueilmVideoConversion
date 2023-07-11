@@ -6,6 +6,7 @@ use App\Http\Requests\AyatRequest;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Author;
+use App\Models\AuthorLanguage;
 use App\Models\Book;
 use App\Models\Juz;
 use App\Models\Languages;
@@ -58,7 +59,7 @@ class AlQuranController extends Controller
         $alQuran->waqf = $request->waqf;
         $alQuran->save();
         if ($request->translations) {
-            foreach ($request->langs as $key => $lang) {
+            foreach ($request->author_langs as $key => $lang) {
                 $alQuranTranslation = new AlQuranTranslation();
                 $alQuranTranslation->lang = $lang;
                 $alQuranTranslation->translation = $request->translations[$key];
@@ -68,7 +69,7 @@ class AlQuranController extends Controller
             }
         }
         if ($request->tafseers) {
-            foreach ($request->taf_langs as $key => $lang) {
+            foreach ($request->author_langs as $key => $lang) {
                 $tafseer = new Tafseer();
                 $tafseer->lang = $lang;
                 $tafseer->tafseer = $request->tafseers[$key];
@@ -102,17 +103,31 @@ class AlQuranController extends Controller
         }
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Saved Successfully!');
     }
-
+    public function authorLanguage(Request $request)
+    {
+        $authLang =  AuthorLanguage::where('author_id', $request->author)->where('lang_id', $request->lang)->first();
+        if ($authLang) {
+            return redirect()->back()->with('msg', 'Author Language Already Exits!');
+        } else {
+            $authorLanguage = AuthorLanguage::create([
+                'author_id' => $request->author,
+                'lang_id' => $request->lang
+            ]);
+            return redirect()->back()->with('msg', 'Author Language Saved Successfully!');
+        }
+    }
     public function edit($surahId, $ayatId)
     {
         $surah = Surah::where('_id', $surahId)->with(['ayats' => function ($q) {
             $q->orderBy('sequence', 'asc');
         }])->first();
-        $ayat = AlQuran::where('_id', $ayatId)->with('translations')->first();
+        $ayat = AlQuran::where('_id', $ayatId)->with('translations', 'tafseers')->first();
         $juzs = Juz::all();
         $tags = Tag::all();
         $contentTag = ContentTag::where('content_id', $ayatId)->get();
         $languages = Languages::all();
+
+        $authorLanguages =  AuthorLanguage::with('author', 'language')->get();
         $author = Author::all();
         return view('Al_Quran.edit_ayat', [
             'surah' => $surah,
@@ -121,6 +136,8 @@ class AlQuranController extends Controller
             'languages' => $languages,
             'tags' => $tags,
             'contentTags' =>  $contentTag,
+            'author' => $author,
+            'authorLanguages' => $authorLanguages
         ]);
     }
 
@@ -140,25 +157,29 @@ class AlQuranController extends Controller
         $alQuran->save();
 
         $alQuranTranslation = AlQuranTranslation::where('ayat_id', $request->ayat_id)->delete();
-        $alQuranTranslation = Tafseer::where('ayat_id', $request->ayat_id)->delete();
+        // $alQuranTranslation = Tafseer::where('ayat_id', $request->ayat_id)->delete();
         if ($request->translations) {
-            foreach ($request->langs as $key => $lang) {
+            foreach ($request->author_langs as $key => $lang) {
                 $alQuranTranslation = new AlQuranTranslation();
                 $alQuranTranslation->lang = $lang;
                 $alQuranTranslation->translation = $request->translations[$key];
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = $this->user->id;
+                $alQuranTranslation->author_lang = $lang;
+                $alQuranTranslation->type = 1;
                 $alQuranTranslation->save();
             }
         }
         if ($request->tafseers) {
-            foreach ($request->taf_langs as $key => $lang) {
-                $tafseer = new Tafseer();
-                $tafseer->lang = $lang;
-                $tafseer->tafseer = $request->tafseers[$key];
-                $tafseer->ayat_id = $alQuran->id;
-                $tafseer->added_by = $this->user->id;
-                $tafseer->save();
+            foreach ($request->author_langs as $key => $lang) {
+                $alQuranTranslation = new AlQuranTranslation();
+                $alQuranTranslation->lang = $lang;
+                $alQuranTranslation->translation = $request->tafseers[$key];
+                $alQuranTranslation->ayat_id = $alQuran->id;
+                $alQuranTranslation->added_by = $this->user->id;
+                $alQuranTranslation->author_lang = $lang;
+                $alQuranTranslation->type = 2;
+                $alQuranTranslation->save();
             }
         }
         if ($request->reference_type) {
@@ -178,7 +199,6 @@ class AlQuranController extends Controller
             }
         }
         if ($request->tags) {
-            ContentTag::where(['content_id' => $alQuran->id, 'content_type' => 4])->delete();
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
@@ -195,12 +215,24 @@ class AlQuranController extends Controller
 
     public function updateTranslation(Request $request)
     {
+        // return $request->all();
         $alQuranTranslation = AlQuranTranslation::where('_id', $request->transId)->first();
-        $alQuranTranslation->lang = $request->lang;
-        $alQuranTranslation->translation = $request->translation;
-        $alQuranTranslation->ayat_id = $request->ayatId;
-        $alQuranTranslation->added_by = $this->user->id;
-        $alQuranTranslation->save();
+        if ($alQuranTranslation) {
+            $alQuranTranslation->translation = $request->translation;
+            $alQuranTranslation->ayat_id = $request->ayatId;
+            $alQuranTranslation->author_lang = $request->author_lang;
+            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->save();
+        } else {
+            $alQuranTranslation = new AlQuranTranslation();
+            $alQuranTranslation->translation = $request->translation;
+            $alQuranTranslation->ayat_id = $request->ayatId;
+            $alQuranTranslation->author_lang = $request->author_lang;
+            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->save();
+        }
 
 
         return $alQuranTranslation;
@@ -211,6 +243,7 @@ class AlQuranController extends Controller
         $alQuranTranslation->lang = $request->lang;
         $alQuranTranslation->translation = $request->translation;
         $alQuranTranslation->ayat_id = $request->ayatId;
+        $alQuranTranslation->author_lang = $request->author_lang;
         $alQuranTranslation->added_by = $this->user->id;
         $alQuranTranslation->save();
 
