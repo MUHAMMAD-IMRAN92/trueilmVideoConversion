@@ -66,8 +66,24 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description">{{ $author->description }}</textarea>
+                                                            <textarea class="" cols="153" rows="8"   name="description">{{$author->description}}</textarea>
                                                         </fieldset>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Image</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="image" accept="image/*">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-2 ">
+                                                        <img src="{{ $author->image }}" alt="course image"
+                                                            style="width:150px; height:120px">
                                                     </div>
                                                 </div>
 

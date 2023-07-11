@@ -6,7 +6,7 @@ use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 
 class AuthorController extends Controller
 {
@@ -58,6 +58,14 @@ class AuthorController extends Controller
         $author->name = $request->name;
         $author->description = $request->description;
         $author->added_by = $this->user->id;
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $request->file('image')->storeAs('author_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $author->image  = $base_path . $path;
+        }
         $author->save();
 
         return redirect()->to('/author')->with('msg', 'Author Saved Successfully!');
@@ -77,6 +85,14 @@ class AuthorController extends Controller
         $author->name = $request->name;
         $author->description = $request->description;
         $author->added_by = $this->user->id;
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $request->file('image')->storeAs('author_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $author->image  = $base_path . $path;
+        }
         $author->save();
 
         return redirect()->to('/author')->with('msg', 'Author Updated Successfully!');
