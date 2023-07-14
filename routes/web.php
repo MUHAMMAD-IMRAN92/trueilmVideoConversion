@@ -104,6 +104,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/update-status/{id}', [App\Http\Controllers\BookController::class, 'updateStatus'])->name('book.statusUpdate');
     Route::get('book/pending-for-approval', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove');
     Route::get('all-pending-book', [App\Http\Controllers\BookController::class, 'allPendingForApprovalBooks'])->name('book.all-panding');
+    Route::get('book/rejected', [App\Http\Controllers\BookController::class, 'rejected'])->name('book.rejected');
+    Route::get('all-rejected-book', [App\Http\Controllers\BookController::class, 'allRejectedBooks'])->name('book.all-rejected');
     Route::get('book/approve/{id}', [App\Http\Controllers\BookController::class, 'approveBook'])->name('book.approveBook');
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
 

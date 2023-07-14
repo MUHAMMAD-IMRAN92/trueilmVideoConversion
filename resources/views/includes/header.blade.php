@@ -328,8 +328,8 @@
                                     <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                             </li>
                             <li class="@if (request()->is('author*') || request()->is('author*') || request()->is('author*')) active @endif "><a
-                                href="{{ url('author') }}"><i class="fa fa-user"></i>
-                                <span class="menu-item" data-i18n="Analytics">Author</span></a>
+                                    href="{{ url('author') }}"><i class="fa fa-user"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
                         </ul>
                     </li>
@@ -355,12 +355,26 @@
                         </ul>
                     </li>
                     {{-- <li class="@if (request()->is('user*')) active @endif "><a
-                            href="{{ url('user-management') }}"><i class="fa fa-user"></i>
+                        href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">User Management</span></a>
                     </li> --}}
-                    <li class="@if (request()->is('book/pending-*')) active @endif "><a
+                    {{-- <li class="@if (request()->is('book/pending-*')) active @endif "><a
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Content for Approval</span></a>
+                    </li> --}}
+                    <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                                data-i18n="Ecommerce">Content for Approval</span></a>
+                        <ul class="menu-content">
+                            <li class="@if (request()->is('book/pending-*')) active @endif "><a
+                                    href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
+                            </li>
+                            <li class="@if (request()->is('book/rejected-*')) active @endif "><a
+                                href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
+                            </li>
+
+                        </ul>
                     </li>
                     <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
                                 class="fa fa-list"></i>

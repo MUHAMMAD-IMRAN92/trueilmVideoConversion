@@ -56,7 +56,6 @@
            tags: true
        });
        $(document).ready(function() {
-
            $('.summernote').summernote({
                height: 150,
                codemirror: {
@@ -599,7 +598,110 @@
                        "mRender": function(data, type, row) {
                            return `<td>
                                 <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                                <a  class="ml-2" href="{{ url('book/reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>
+                                <span class="ml-2"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></span>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#rejected-book-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-rejected-book') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var author = '';
+                           if (row.author != null) {
+                               author = row.author;
+                           } else {
+                               author = '--'
+                           }
+                           return '<td>' +
+                               author + '</td>'
+
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var type = '';
+                           if (row.type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.type == 3) {
+                               type = 'Research Paper';
+                           }
+                           return '<td>' +
+                               type +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var reason = '';
+                           if (row.reason != null) {
+                               reason = row.reason;
+                           } else {
+                               reason = '--'
+                           }
+                           return '<td>' +
+                               reason + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
                                 </td>`
                        }
                    },
@@ -1836,4 +1938,12 @@
            // }
            $(this).val($(this).val()).trigger('change');
        });
+
+       function reasonModal(key) {
+           $('#book_id').val(key);
+           var newUrl = "{{ url('book/reject/') }}" +'/'+ key;
+           $('#reason_form').attr('action', newUrl);
+
+           $('#reason').modal('show');
+       }
    </script>

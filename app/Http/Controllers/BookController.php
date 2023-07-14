@@ -281,13 +281,14 @@ class BookController extends Controller
         return redirect()->back()->with('msg', 'Content Approved Successfully!');
     }
 
-    public function rejectBook($id)
+    public function rejectBook(Request $request, $id)
     {
         $book = Book::where('_id', $id)->first();
         $approved = 2;
 
         $book->update([
-            'approved' => $approved
+            'approved' => $approved,
+            'reason' => $request->reason
         ]);
 
         return redirect()->back()->with('msg', 'Content Reject Successfully!');
@@ -311,5 +312,37 @@ class BookController extends Controller
             }
         }
         return redirect()->back()->with('msg', 'Sequence Updated Successfully!');;
+    }
+
+    public function rejected()
+    {
+        return view('eBook.rejected', [
+            'type' => Session::get('type')
+        ]);
+    }
+    public function allRejectedBooks(Request $request)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Book::rejected()->count();
+        $brands = Book::rejected()->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Book::rejected()->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
     }
 }
