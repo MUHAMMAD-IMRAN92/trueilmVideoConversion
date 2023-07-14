@@ -12,16 +12,14 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Carbon\Carbon;
 
-class EmailExport implements FromCollection
+class EmailExport implements FromCollection, WithMapping, WithHeadings
 {
+
     /**
      * @return \Illuminate\Support\Collection
      */
 
-    public function headings(): array
-    {
-        return ['Email', 'Registered_at'];
-    }
+
     public function collection()
     {
         $emails = SubcriptionEmail::select('email', 'created_at')->get();
@@ -30,10 +28,17 @@ class EmailExport implements FromCollection
     }
     public function map($row): array
     {
-        $currentDate = Carbon::now();
+
         return [
-            $row->email,
-            $row->created_at->format('Y-m-d'),
+            'Email' => $row->email,
+            'Registered_at' => $row->created_at->format('Y-m-d'),
+        ];
+    }
+    public function headings(): array
+    {
+        return [
+            'Email' => 'Email',
+            'Registered_at' => 'Registered_at',
         ];
     }
 }
