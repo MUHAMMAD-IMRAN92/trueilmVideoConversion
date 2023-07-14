@@ -60,6 +60,7 @@
                                                     <th>Name</th>
                                                     <th class="description-td">Email</th>
                                                     <th class="">Phone</th>
+                                                    <th class="">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

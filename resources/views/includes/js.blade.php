@@ -784,6 +784,19 @@
                            return '<td>' +
                                row.phone + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var status = '';
+                           if (row.status == 0) {
+                               status = 'Not Subscribed';
+                           } else {
+                               status = 'Subscribed';
+
+                           }
+                           return '<td>' +
+                               status +
+                               '</td>'
+                       }
                    },
                ],
                "columnDefs": [{
@@ -822,10 +835,10 @@
            });
 
            $('#translation-delete-span-' + key).css('display', 'block');
-                   setTimeout(() => {
-                       $('#translation-delete-span-' + key).css('display', 'none');
+           setTimeout(() => {
+               $('#translation-delete-span-' + key).css('display', 'none');
 
-                   }, 3000);
+           }, 3000);
        }
 
        function editable(key) {

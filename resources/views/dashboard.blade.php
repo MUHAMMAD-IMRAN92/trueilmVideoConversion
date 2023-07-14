@@ -54,14 +54,14 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->when(
+                                            {{ App\Models\Book::approved()->active()->when(
                                                     !auth()->user()->hasRole('Admin'),
                                                     function ($query) {
                                                         $query->where('added_by', auth()->user()->id);
                                                     },
                                                 )->count() }}
                                         </h2>
-                                        <p class="mb-0">Books</p>
+                                        <p class="mb-0">Total Books</p>
                                     </div>
 
                                     <br>
@@ -99,7 +99,7 @@
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-success p-50 m-0">
                                             <div class="avatar-content">
-                                                <i class="fa fa-book text-danger font-medium-5"></i>
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
@@ -111,7 +111,82 @@
                                                 )->count() }}
                                         </h2>
                                         <p class="mb-0">Rejected Books<u style="font-size: 10px">
-                                               
+
+                                            </u>
+
+                                        </p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+                                        <div class="avatar bg-rgba-success p-50 m-0">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
+                                            </div>
+                                        </div>
+                                        <h2 class="text-bold-700 mt-1">
+                                            {{ App\Models\Book::approved()->active()->ebook()->when(
+                                                    !auth()->user()->hasRole('Admin'),
+                                                    function ($query) {
+                                                        $query->where('added_by', auth()->user()->id);
+                                                    },
+                                                )->count() }}
+                                        </h2>
+                                        <p class="mb-0">eBooks<u style="font-size: 10px">
+
+                                            </u>
+
+                                        </p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+                                        <div class="avatar bg-rgba-success p-50 m-0">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
+                                            </div>
+                                        </div>
+                                        <h2 class="text-bold-700 mt-1">
+                                            {{ App\Models\Book::approved()->active()->audio()->when(
+                                                    !auth()->user()->hasRole('Admin'),
+                                                    function ($query) {
+                                                        $query->where('added_by', auth()->user()->id);
+                                                    },
+                                                )->count() }}
+                                        </h2>
+                                        <p class="mb-0">Audio Books<u style="font-size: 10px">
+
+                                            </u>
+
+                                        </p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+                                        <div class="avatar bg-rgba-success p-50 m-0">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
+                                            </div>
+                                        </div>
+                                        <h2 class="text-bold-700 mt-1">
+                                            {{ App\Models\Book::approved()->active()->paper()->when(
+                                                    !auth()->user()->hasRole('Admin'),
+                                                    function ($query) {
+                                                        $query->where('added_by', auth()->user()->id);
+                                                    },
+                                                )->count() }}
+                                        </h2>
+                                        <p class="mb-0">Research Papers<u style="font-size: 10px">
+
                                             </u>
 
                                         </p>

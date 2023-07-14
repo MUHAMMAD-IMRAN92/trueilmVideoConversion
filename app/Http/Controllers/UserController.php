@@ -128,6 +128,7 @@ class UserController extends Controller
 
     public function appUsers()
     {
+        $user = User::where('email', 'testp@gmail.com')->first();
         return view('user.app_users');
     }
     public function allAppUser(Request $request)

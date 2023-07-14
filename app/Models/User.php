@@ -48,5 +48,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getStatusAttribute()
+    {
+        $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
+        if ($this->custimer) {
+            $dataActive = $stripe->subscriptions->all(['customer' => $this->customer]);
+            return count($dataActive->data);
+        } else {
+            return 0;
+        }
+    }
+
+    protected $appends = ['status'];
+
     protected $dates = ['deleted_at'];
 }

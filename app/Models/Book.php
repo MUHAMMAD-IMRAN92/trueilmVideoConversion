@@ -15,9 +15,21 @@ class Book extends Eloquent
     protected $appends = ['user_name'];
     public function scopeActive($query)
     {
-        return $query->where('status', 0);
+        return $query->where('status', 1);
+    }
+    public function scopeEbook($query)
+    {
+        return $query->where('type', '1');
     }
 
+    public function scopeAudio($query)
+    {
+        return $query->where('type', '2');
+    }
+    public function scopePaper($query)
+    {
+        return $query->where('type', '3');
+    }
     public function scopePendingApprove($query)
     {
         return $query->where('approved', 0);
