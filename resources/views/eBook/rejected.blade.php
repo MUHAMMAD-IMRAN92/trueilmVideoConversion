@@ -11,7 +11,7 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Content</h2>
+                            <h2 class="content-header-title float-left mb-0">Rejected Content</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -43,9 +43,9 @@
                                         <table class="table" id="rejected-book-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Title</th>
+                                                    <th>Cover</th>
+                                                    <th class="">Title</th>
                                                     <th class="description-td">Description</th>
-                                                    <th class="">Cover</th>
                                                     <th class="">Author</th>
                                                     <th class="">Type</th>
                                                     <th class="">Added By</th>

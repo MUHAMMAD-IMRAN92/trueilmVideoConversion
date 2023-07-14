@@ -250,6 +250,13 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
                            return '<td>' +
                                row.title + '</td>'
                        }
@@ -265,13 +272,6 @@
                            return '<td>' +
                                des +
                                '</td>'
-                       }
-                   }, {
-                       "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
                        }
                    },
                    {
@@ -529,6 +529,13 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
                            return '<td>' +
                                row.title + '</td>'
                        }
@@ -544,13 +551,6 @@
                            return '<td>' +
                                des +
                                '</td>'
-                       }
-                   }, {
-                       "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
                        }
                    },
                    {
@@ -621,6 +621,13 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
                            return '<td>' +
                                row.title + '</td>'
                        }
@@ -636,13 +643,6 @@
                            return '<td>' +
                                des +
                                '</td>'
-                       }
-                   }, {
-                       "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
                        }
                    },
                    {
@@ -1941,7 +1941,7 @@
 
        function reasonModal(key) {
            $('#book_id').val(key);
-           var newUrl = "{{ url('book/reject/') }}" +'/'+ key;
+           var newUrl = "{{ url('book/reject/') }}" + '/' + key;
            $('#reason_form').attr('action', newUrl);
 
            $('#reason').modal('show');

@@ -369,7 +369,7 @@
                                     href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
                             </li>
-                            <li class="@if (request()->is('book/rejected-*')) active @endif "><a
+                            <li class="@if (request()->is('book/rejected*')) active @endif "><a
                                 href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                             </li>
