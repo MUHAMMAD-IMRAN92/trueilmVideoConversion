@@ -128,7 +128,14 @@ class UserController extends Controller
 
     public function appUsers()
     {
-        $user = User::where('email', 'testp@gmail.com')->first();
+        $user = User::where('email', 'lorem@mailinator.com')->first();
+        $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
+        if ($user->custimer) {
+            return $dataActive = $stripe->subscriptions->all(['customer' => $user->customer]);
+            return count($dataActive->data);
+        } else {
+            return 0;
+        }
         return view('user.app_users');
     }
     public function allAppUser(Request $request)
