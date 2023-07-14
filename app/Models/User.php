@@ -51,7 +51,7 @@ class User extends Authenticatable
     public function getStatusAttribute()
     {
         $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
-        if ($this->custimer) {
+        if ($this->customer) {
             $dataActive = $stripe->subscriptions->all(['customer' => $this->customer]);
             return count($dataActive->data);
         } else {
