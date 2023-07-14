@@ -130,7 +130,7 @@ class UserController extends Controller
     {
         $user = User::where('email', 'lorem@mailinator.com')->first();
         $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
-        if ($user->custimer) {
+        if ($user->customer) {
             return $dataActive = $stripe->subscriptions->all(['customer' => $user->customer]);
             return count($dataActive->data);
         } else {
