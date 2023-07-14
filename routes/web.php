@@ -141,4 +141,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
 
     Route::get('/fileupload', [App\Http\Controllers\UserController::class, 'fileupload']);
+
+    //support
+
+    Route::get('support', [App\Http\Controllers\SupportController::class, 'index'])->name('support');
+    Route::get('all-support', [App\Http\Controllers\SupportController::class, 'allSupport'])->name('support.all');
 });

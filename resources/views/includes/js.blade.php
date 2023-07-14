@@ -975,7 +975,7 @@
 
                    }, 3000);
                    //    console.log(response);
-                   $('#non-edit-lang-select-' + key).html(response.lang_title);
+                //    $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
                    $('#non-edit-para-des-' + key).html(response.translation);
                    $('#editble-' + key).css('display', 'none');
