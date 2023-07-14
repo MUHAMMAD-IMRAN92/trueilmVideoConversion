@@ -370,7 +370,7 @@
                                     <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
                             </li>
                             <li class="@if (request()->is('book/rejected*')) active @endif "><a
-                                href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
+                                    href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                             </li>
 
@@ -379,6 +379,10 @@
                     <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Course Management</span></a>
+                    </li>
+                    <li class="@if (request()->is('subscription_email*')) active @endif "><a href="{{ url('/subscription_email') }}"><i
+                                class="fa fa-list"></i>
+                            <span class="menu-item" data-i18n="Analytics">Email Subscriptions</span></a>
                     </li>
                     {{-- <li class="@if (request()->is('support*')) active @endif "><a href="{{ url('/support') }}"><i
                                 class="fa fa-question"></i>

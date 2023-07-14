@@ -11,4 +11,8 @@ class SubcriptionEmail extends Eloquent
     use HasFactory;
     protected $connection = 'mongodb';
     protected $table = "subscriptions_email";
+
+    protected $casts = [
+        'created_at' => 'date:Y-m-d',
+    ];
 }

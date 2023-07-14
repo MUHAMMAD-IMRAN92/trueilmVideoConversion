@@ -146,4 +146,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('support', [App\Http\Controllers\SupportController::class, 'index'])->name('support');
     Route::get('all-support', [App\Http\Controllers\SupportController::class, 'allSupport'])->name('support.all');
+
+    //subcription email
+    Route::get('subscription_email', [App\Http\Controllers\HomeController::class, 'allEmails'])->name('subscription');
+    Route::get('all_subcription_email', [App\Http\Controllers\HomeController::class, 'allSubscriptionEmail'])->name('subscription.all');
+    Route::get('export_email', [App\Http\Controllers\HomeController::class, 'exportEmail'])->name('export');
 });

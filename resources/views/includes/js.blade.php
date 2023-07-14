@@ -462,6 +462,39 @@
                }],
                "order": false
            });
+           $('#subs-email-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all_subcription_email') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return '<td>' +
+                               row.email +
+                               '</td>'
+                       }
+                   },{
+                       "mRender": function(data, type, row) {
+
+                           return '<td>' +
+                               row.created_at +
+                               '</td>'
+                       }
+                   },
+
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#category-table').DataTable({
                "processing": true,
                "serverSide": true,
@@ -975,7 +1008,7 @@
 
                    }, 3000);
                    //    console.log(response);
-                //    $('#non-edit-lang-select-' + key).html(response.lang_title);
+                   //    $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
                    $('#non-edit-para-des-' + key).html(response.translation);
                    $('#editble-' + key).css('display', 'none');
