@@ -238,6 +238,75 @@
                }],
                "order": false
            });
+
+           $('#book-for-sale-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all_books_for_sale') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.price + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           return `<td>
+
+                                <a  class="ml-2" href="{{ url('book_for_sale/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a></td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#ebook-table').DataTable({
                "processing": true,
                "serverSide": true,

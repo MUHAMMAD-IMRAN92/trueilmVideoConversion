@@ -380,14 +380,19 @@
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Course Management</span></a>
                     </li>
+                    <li class="@if (request()->is('books_for_sale*')) active @endif "><a
+                            href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>
+                    </li>
                     <li class="@if (request()->is('subscription_email*')) active @endif "><a
                             href="{{ url('/subscription_email') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Email Subscriptions</span></a>
                     </li>
-                    <li class="@if (request()->is('glossary*')) active @endif "><a href="{{ url('/glossary') }}"><i
-                                class="fa fa-list"></i>
+                    <li class="@if (request()->is('glossary*')) active @endif "><a
+                            href="{{ url('/glossary') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Glossary</span></a>
                     </li>
+
                     <li class="@if (request()->is('support*')) active @endif "><a href="{{ url('/support') }}"><i
                                 class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Support</span></a>

@@ -10,7 +10,7 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Edit Content</h2>
+                            <h2 class="content-header-title float-left mb-0">Add Book</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -44,24 +44,18 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('book.update') }}" method="POST"
-                                            enctype="multipart/form-data">
+                                        <form class="form form-vertical" action="{{ route('book_for_sale.store') }}"
+                                            method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="">Name</label>
+                                                            <label for="">Title</label>
                                                             <div class="position-relative">
-                                                                <input type="hidden" id=""
-                                                                    value="{{ $type }}" class="form-control"
-                                                                    name="type" placeholder="" required>
-                                                                <input type="hidden" id="" class="form-control"
-                                                                    name="id" placeholder=""
-                                                                    value="{{ $book->_id }}" required>
+
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="title" placeholder=""
-                                                                    value="{{ $book->title }}" required>
+                                                                    name="title" placeholder="" required>
 
                                                             </div>
                                                         </div>
@@ -69,21 +63,10 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $book->description }}</textarea>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book</label>
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file">
-                                                                <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
-                                                                    file</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
+
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Cover Image</label>
@@ -96,6 +79,20 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Author</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="author" placeholder=""
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+
                                                     {{-- <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Tags</label>
@@ -107,19 +104,7 @@
                                                             </div>
                                                         </div>
                                                     </div> --}}
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Author</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="author"
-                                                                        value="{{ $book->author }}" placeholder="" required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
                                                     <div class="col-6">
 
                                                         <label for="">Category</label>
@@ -128,9 +113,7 @@
                                                                 id="basicSelect">
                                                                 <option disabled selected>Select Category</option>
                                                                 @foreach ($categories as $category)
-                                                                    <option
-                                                                        {{ $book->category_id == $category->_id ? 'selected' : '' }}
-                                                                        value="{{ $category->_id }}">
+                                                                    <option value="{{ $category->_id }}">
                                                                         {{ $category->title }}</option>
                                                                 @endforeach
 
@@ -144,8 +127,7 @@
                                                             <div class="custom-file">
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
-                                                                        class="form-control" name="sr_no"
-                                                                        placeholder="" value="{{ $book->serial_no }}"
+                                                                        class="form-control" name="sr_no" placeholder=""
                                                                         required>
 
                                                                 </div>
@@ -154,68 +136,24 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book Pages</label>
+                                                            <label for="basicInputFile">Price</label>
                                                             <div class="custom-file">
                                                                 <div class="position-relative">
                                                                     <input type="number" id=""
-                                                                        class="form-control" name="pages"
-                                                                        placeholder="" value="{{ $book->book_pages }}"
+                                                                        class="form-control" name="price" placeholder=""
                                                                         required>
 
                                                                 </div>
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="form-group col-md-6 ">
-                                                        <label for="basicInputFile">Tags</label>
 
-                                                        <select class="select2 multiple-select form-control"
-                                                            multiple="multiple" name="tags[]">
-                                                            @foreach ($tags as $tag)
-                                                                <option value="{{ $tag->title }}"
-                                                                    {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
-                                                                    {{ $tag->title }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-6">
+                                                    <div class="col-12">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mr-1 mb-1">Submit</button>
 
-                                                        <label for="">Content Suitble</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="suitble"
-                                                                id="basicSelect">
-                                                                <option disabled selected>Select Category</option>
-                                                                @foreach ($suitbles as $suitble)
-                                                                    <option value="{{ $suitble->_id }}"
-                                                                        {{ $book->content_suitble == $suitble->_id ? 'selected' : '' }}>
-                                                                        {{ $suitble->title }}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </fieldset>
                                                     </div>
                                                 </div>
-
-                                                {{-- <div class="form-group col col-md-6">
-                                                    <fieldset class="form-group">
-                                                        <label for="basicInputFile">Tag</label>
-                                                        <select class="select2 multiple-select form-control"
-                                                            multiple="multiple" name="tags[]">
-                                                            @foreach ($tags as $tag)
-                                                                <option value="{{ $tag->title }}"
-                                                                    {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
-                                                                    {{ $tag->title }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </fieldset>
-                                                </div> --}}
-
-                                                <div class="col-12">
-                                                    <button type="submit"
-                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
-
-                                                </div>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>

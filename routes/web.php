@@ -157,4 +157,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('glossary/store', [App\Http\Controllers\GlossoryController::class, 'store'])->name('glossary.store');
     Route::get('glossary/edit/{id}', [App\Http\Controllers\GlossoryController::class, 'edit'])->name('glossary.edit');
     Route::post('glossary/update', [App\Http\Controllers\GlossoryController::class, 'update'])->name('glossary.update');
+
+    //book for sale
+    Route::get('books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'index'])->name('books_for_sale');
+    Route::get('all_books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'allBookForSale'])->name('books_for_sale.all');
+    Route::get('book_for_sale/create', [App\Http\Controllers\BookForSaleController::class, 'add'])->name('book_for_sale.add');
+    Route::post('book_for_sale/store', [App\Http\Controllers\BookForSaleController::class, 'store'])->name('book_for_sale.store');
+    Route::get('book_for_sale/edit/{id}', [App\Http\Controllers\BookForSaleController::class, 'edit'])->name('book_for_sale.edit');
+    Route::post('book_for_sale/update', [App\Http\Controllers\BookForSaleController::class, 'update'])->name('book_for_sale.update');
 });
