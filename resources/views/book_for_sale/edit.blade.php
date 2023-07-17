@@ -70,18 +70,7 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $book->description }}</textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book</label>
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file">
-                                                                <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
-                                                                    file</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
+
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Cover Image</label>
