@@ -179,6 +179,8 @@ class HadeesController extends Controller
             }
         }
         if ($request->glossary) {
+            ContentGlossary::where('content_id', $hadees->id)->delete();
+
             foreach ($request->glossary as $key => $g) {
                 // $tag = Tag::firstOrCreate(['title' => $tag]);
 
