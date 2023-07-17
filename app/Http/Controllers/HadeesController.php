@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
 use App\Models\ContentTag;
+use App\Models\ContentGlossary;
+use App\Models\Glossory;
 
 class HadeesController extends Controller
 {
@@ -71,11 +73,14 @@ class HadeesController extends Controller
     {
         $hadeesBook = HadeesBooks::where('_id', $id)->first();
         $hadees = Hadees::where('_id', $hadeesBook->id)->get();
+        $glossary = Glossory::all();
         $tags = Tag::all();
         return view('hadees.add', [
             'hadeesBook' => $hadeesBook,
             'hadees' => $hadees,
-            'tags' => $tags
+            'tags' => $tags,
+            'glossary' => $glossary
+
         ]);
     }
     public function store(HadeesRequest $request)
@@ -104,6 +109,13 @@ class HadeesController extends Controller
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' => 5]);
             }
         }
+        if ($request->glossary) {
+            foreach ($request->glossary as $key => $g) {
+                // $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $hadees->id, 'content_type' => 5]);
+            }
+        }
         return redirect()->to("hadith/edit/$request->book_id/$hadees->id")->with('msg', 'Hadith Saved Successfully!');
     }
 
@@ -123,12 +135,17 @@ class HadeesController extends Controller
         $languages = Languages::all();
         $tags = Tag::all();
         $contentTag = ContentTag::where('content_id', $hadeesId)->get();
+        $glossary = Glossory::all();
+
+        $contentGlossary = ContentGlossary::where('content_id', $hadeesId)->get();
         return view('hadees.edit', [
             'hadeesBook' => $hadeesBook,
             'hadees' => $hadees,
             'languages' => $languages,
             'tags' => $tags,
-            'contentTags' =>  $contentTag
+            'contentTags' =>  $contentTag,
+            'glossary' => $glossary,
+            'contentGlossary' =>  $contentGlossary
         ]);
     }
 
@@ -159,6 +176,13 @@ class HadeesController extends Controller
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' => 5]);
+            }
+        }
+        if ($request->glossary) {
+            foreach ($request->glossary as $key => $g) {
+                // $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $hadees->id, 'content_type' => 4]);
             }
         }
         return redirect()->to("hadith/edit/$hadees->book_id/$hadees->id")->with('msg', 'Hadith Updated Successfully!');

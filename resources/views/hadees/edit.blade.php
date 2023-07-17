@@ -174,7 +174,7 @@
                                                                     </select>
                                                                 </fieldset>
                                                             </div>
-                                                            <div class="form-group col-md-12 ">
+                                                            <div class="form-group col-md-6 ">
                                                                 <label for="basicInputFile">Tags</label>
 
                                                                 <select class="select2 multiple-select form-control"
@@ -186,7 +186,18 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
+                                                            <div class="form-group col-md-6 ">
+                                                                <label for="basicInputFile">Glossary</label>
 
+                                                                <select class="select2 multiple-select form-control"
+                                                                    multiple="multiple" name="glossary[]">
+                                                                    @foreach ($glossary as $gloss)
+                                                                        <option value="{{ $gloss->_id }}"
+                                                                            {{ $contentGlossary->contains('glossary_id', $gloss->id) == true ? 'selected' : '' }}>
+                                                                            {{ $gloss->title }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                         <br>
                                                         <div class="col-12" style="text-align: right">

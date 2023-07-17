@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
+use App\Models\Glossory;
+use App\Models\ContentGlossary;
 
 class BookController extends Controller
 {
@@ -76,16 +78,18 @@ class BookController extends Controller
         $tags = Tag::all();
         $categories = Category::active()->where('type', $type)->get();
         $suitbles = Suitable::all();
+        $glossary = Glossory::all();
         return view('eBook.add', [
             'type' => $type,
             'categories' => $categories,
             'tags' => $tags,
-            'suitbles' => $suitbles
+            'suitbles' => $suitbles,
+            'glossary' => $glossary
         ]);
     }
     public function store(Request $request)
     {
-
+        // return $request->all();
         if ($request->type == 1) {
             $validated = $request->validate([
                 'title' => 'required',
@@ -144,6 +148,14 @@ class BookController extends Controller
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
+        if ($request->glossary) {
+            foreach ($request->glossary as $key => $g) {
+
+                // $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentTag = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $book->id, 'content_type' => $request->type]);
+            }
+        }
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
@@ -158,13 +170,19 @@ class BookController extends Controller
         $contentTag = ContentTag::where('content_id', $id)->get();
         $tags = Tag::all();
         $suitbles = Suitable::all();
+        $glossary = Glossory::all();
+
+        $contentGlossary = ContentGlossary::where('content_id', $id)->get();
+
         return view('eBook.edit', [
             'book' => $book,
             'type' => $type,
             'categories' => $categories,
             'tags' => $tags,
             'contentTags' =>  $contentTag,
-            'suitbles' => $suitbles
+            'suitbles' => $suitbles,
+            'glossary' => $glossary,
+            'contentGlossary' => $contentGlossary
         ]);
     }
 
@@ -221,6 +239,17 @@ class BookController extends Controller
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
+        if ($request->glossary) {
+            ContentGlossary::where('content_id', $book->id)->delete();
+
+            foreach ($request->glossary as $key => $g) {
+
+                // $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentGlossary = ContentGlossary::create(['glossary_id' => $g, 'content_id' => $book->id, 'content_type' => $request->type]);
+            }
+        }
+
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {

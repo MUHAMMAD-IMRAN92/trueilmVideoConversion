@@ -162,7 +162,7 @@
                                                         <div class="col-12">
                                                             <label for="">Ayat</label>
                                                             <fieldset class="form-group">
-                                                                <textarea style="text-align: right;" class="" cols="110" rows="8"  name="ayat"></textarea>
+                                                                <textarea style="text-align: right;" class="" cols="110" rows="8" name="ayat"></textarea>
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-6">
@@ -253,6 +253,17 @@
                                                                 @foreach ($tags as $tag)
                                                                     <option value="{{ $tag->title }}">
                                                                         {{ $tag->title }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6 ">
+                                                            <label for="basicInputFile">Glossary</label>
+
+                                                            <select class="select2 multiple-select form-control"
+                                                                multiple="multiple" name="glossary[]">
+                                                                @foreach ($glossary as $gloss)
+                                                                    <option value="{{ $gloss->_id }}">
+                                                                        {{ $gloss->title }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>

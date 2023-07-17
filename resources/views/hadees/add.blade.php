@@ -175,7 +175,7 @@
                                                         </fieldset>
                                                     </div>
 
-                                                    <div class="form-group col-md-12">
+                                                    <div class="form-group col-md-6">
                                                         <label for="basicInputFile">Tags</label>
 
                                                         <select class="select2 multiple-select form-control"
@@ -183,6 +183,17 @@
                                                             @foreach ($tags as $tag)
                                                                 <option value="{{ $tag->title }}">
                                                                     {{ $tag->title }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6 ">
+                                                        <label for="basicInputFile">Glossary</label>
+
+                                                        <select class="select2 multiple-select form-control"
+                                                            multiple="multiple" name="glossary[]">
+                                                            @foreach ($glossary as $gloss)
+                                                                <option value="{{ $gloss->_id }}">
+                                                                    {{ $gloss->title }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

@@ -8,6 +8,7 @@ use App\Models\AlQuranTranslation;
 use App\Models\Author;
 use App\Models\AuthorLanguage;
 use App\Models\Book;
+use App\Models\ContentGlossary;
 use App\Models\Juz;
 use App\Models\Languages;
 use App\Models\Reference;
@@ -17,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
 use App\Models\ContentTag;
+use App\Models\Glossory;
 
 class AlQuranController extends Controller
 {
@@ -36,11 +38,13 @@ class AlQuranController extends Controller
             $q->orderBy('sequence', 'asc');
         }])->first();
         $tags = Tag::all();
+        $glossary = Glossory::all();
         $juzs = Juz::all();
         return view('Al_Quran.add_ayat', [
             'surah' => $surah,
             'juzs' => $juzs,
-            'tags' => $tags
+            'tags' => $tags,
+            'glossary' => $glossary
         ]);
     }
     public function store(Request $request)
@@ -101,6 +105,13 @@ class AlQuranController extends Controller
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => 4]);
             }
         }
+        if ($request->glossary) {
+            foreach ($request->glossary as $key => $g) {
+                // $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $alQuran->id, 'content_type' => 4]);
+            }
+        }
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Saved Successfully!');
     }
     public function authorLanguage(Request $request)
@@ -129,6 +140,9 @@ class AlQuranController extends Controller
 
         $authorLanguages =  AuthorLanguage::with('author', 'language')->get();
         $author = Author::all();
+        $glossary = Glossory::all();
+
+        $contentGlossary = ContentGlossary::where('content_id', $ayatId)->get();
         return view('Al_Quran.edit_ayat', [
             'surah' => $surah,
             'ayat' => $ayat,
@@ -137,7 +151,9 @@ class AlQuranController extends Controller
             'tags' => $tags,
             'contentTags' =>  $contentTag,
             'author' => $author,
-            'authorLanguages' => $authorLanguages
+            'authorLanguages' => $authorLanguages,
+            'glossary' => $glossary,
+            'contentGlossary' =>  $contentGlossary
         ]);
     }
 
@@ -203,6 +219,15 @@ class AlQuranController extends Controller
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => 4]);
+            }
+        }
+        if ($request->glossary) {
+            ContentGlossary::where('content_id', $alQuran->id)->delete();
+
+            foreach ($request->glossary as $key => $g) {
+                // $tag = Tag::firstOrCreate(['title' => $tag]);
+
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $alQuran->id, 'content_type' => 4]);
             }
         }
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Updated Successfully!');;

@@ -194,6 +194,18 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="form-group col-md-6 ">
+                                                        <label for="basicInputFile">Glossary</label>
+
+                                                        <select class="select2 form-control" multiple="multiple"
+                                                            name="glossary[]">
+                                                            @foreach ($glossary as $g)
+                                                                <option value="{{ $g->id }}"
+                                                                    {{ $contentGlossary->contains('glossary_id', $g->_id) == true ? 'selected' : '' }}>
+                                                                    {{ $g->title }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
 
                                                 {{-- <div class="form-group col col-md-6">

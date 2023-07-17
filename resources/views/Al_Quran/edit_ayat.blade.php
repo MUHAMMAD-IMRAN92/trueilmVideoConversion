@@ -106,15 +106,15 @@
                 </div>
             @endif
             @if (\Session::has('dmsg'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <p class="mb-0">
-                    {{ \Session::get('dmsg') }}
-                </p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
-                </button>
-            </div>
-        @endif
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ \Session::get('dmsg') }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endif
             <section id="basic-vertical-layouts">
                 <div class="row">
 
@@ -280,6 +280,18 @@
                                                                     <option value="{{ $tag->title }}"
                                                                         {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
                                                                         {{ $tag->title }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6 ">
+                                                            <label for="basicInputFile">Glossary</label>
+
+                                                            <select class="select2 multiple-select form-control"
+                                                                multiple="multiple" name="glossary[]">
+                                                                @foreach ($glossary as $gloss)
+                                                                    <option value="{{ $gloss->_id }}"
+                                                                        {{ $contentGlossary->contains('glossary_id', $gloss->id) == true ? 'selected' : '' }}>
+                                                                        {{ $gloss->title }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
