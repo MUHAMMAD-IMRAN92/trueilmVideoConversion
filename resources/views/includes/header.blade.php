@@ -380,7 +380,7 @@
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Course Management</span></a>
                     </li>
-                    <li class="@if (request()->is('books_for_sale*')) active @endif "><a
+                    <li class="@if (request()->is('*for_sale*')) active @endif "><a
                             href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>
                     </li>
