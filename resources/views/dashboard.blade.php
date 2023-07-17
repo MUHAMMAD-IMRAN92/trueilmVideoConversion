@@ -21,7 +21,7 @@
                                                 <i class="fa fa-book text-primary font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h2 class="text-bold-700 mt-1">{{ App\Models\AlQuran::count() }}</h2>
+                                        <h2 class="text-bold-700 mt-1">{{ App\Models\Surah::count() }}</h2>
                                         <p class="mb-0">Surah</p>
                                     </div>
                                     <br>

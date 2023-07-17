@@ -479,7 +479,7 @@
                                row.email +
                                '</td>'
                        }
-                   },{
+                   }, {
                        "mRender": function(data, type, row) {
 
                            return '<td>' +
@@ -791,6 +791,55 @@
                                 <a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                 <a  class="ml-2" href="{{ url('course/update-status/`+row._id+`') }}"><i class="` +
                                eye + `"></i></a>
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#support-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-support') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var name = "";
+                           if (row.user != null) {
+                               name = row.user.name;
+                           } else {
+                               name = '--';
+                           }
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+
+                           return '<td>' +
+                               row.status +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+
                                 </td>`
                        }
                    },

@@ -9,4 +9,9 @@ class Support extends Eloquent
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function user()
+    {
+        return $this->hasMany(User::class, '_id', 'user_id');
+    }
 }

@@ -384,10 +384,10 @@
                                 class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Email Subscriptions</span></a>
                     </li>
-                    {{-- <li class="@if (request()->is('support*')) active @endif "><a href="{{ url('/support') }}"><i
+                    <li class="@if (request()->is('support*')) active @endif "><a href="{{ url('/support') }}"><i
                                 class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Support</span></a>
-                    </li> --}}
+                    </li>
                 @endif
                 @if (auth()->user()->hasRole('Admin') ||
                         auth()->user()->hasRole('Publisher'))

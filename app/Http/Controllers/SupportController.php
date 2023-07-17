@@ -17,8 +17,9 @@ class SupportController extends Controller
             return $next($request);
         });
     }
-    public function index($type)
+    public function index()
     {
+
         return view('support.index');
     }
     public function allSupport(Request $request)
@@ -32,7 +33,7 @@ class SupportController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->with('user')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Support::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -46,4 +47,7 @@ class SupportController extends Controller
         );
         return json_encode($data);
     }
+
+
+
 }
