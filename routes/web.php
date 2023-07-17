@@ -139,11 +139,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
-
     Route::get('/fileupload', [App\Http\Controllers\UserController::class, 'fileupload']);
 
     //support
-
     Route::get('support', [App\Http\Controllers\SupportController::class, 'index'])->name('support');
     Route::get('all-support', [App\Http\Controllers\SupportController::class, 'allSupport'])->name('support.all');
 
@@ -151,4 +149,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('subscription_email', [App\Http\Controllers\HomeController::class, 'allEmails'])->name('subscription');
     Route::get('all_subcription_email', [App\Http\Controllers\HomeController::class, 'allSubscriptionEmail'])->name('subscription.all');
     Route::get('export_email', [App\Http\Controllers\HomeController::class, 'exportEmail'])->name('export');
+
+    //Glossory
+    Route::get('glossary', [App\Http\Controllers\GlossoryController::class, 'index'])->name('glossary');
+    Route::get('all-glossary', [App\Http\Controllers\GlossoryController::class, 'allglossory'])->name('glossary.all');
+    Route::get('glossary/create', [App\Http\Controllers\GlossoryController::class, 'add'])->name('glossary.add');
+    Route::post('glossary/store', [App\Http\Controllers\GlossoryController::class, 'store'])->name('glossary.store');
+    Route::get('glossary/edit/{id}', [App\Http\Controllers\GlossoryController::class, 'edit'])->name('glossary.edit');
+    Route::post('glossary/update', [App\Http\Controllers\GlossoryController::class, 'update'])->name('glossary.update');
 });
