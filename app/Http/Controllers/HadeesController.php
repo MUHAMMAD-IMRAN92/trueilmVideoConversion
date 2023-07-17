@@ -171,7 +171,7 @@ class HadeesController extends Controller
             }
         }
         if ($request->tags) {
-            ContentTag::where(['content_id' => $hadees->id, 'content_type' => 4])->delete();
+            ContentTag::where('content_id', $hadees->id)->delete();
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
