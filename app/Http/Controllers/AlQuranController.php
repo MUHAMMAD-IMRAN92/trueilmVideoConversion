@@ -215,6 +215,8 @@ class AlQuranController extends Controller
             }
         }
         if ($request->tags) {
+
+            ContentTag::where('content_id', $alQuran->id)->delete();
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
