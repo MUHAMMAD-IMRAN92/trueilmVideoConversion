@@ -80,58 +80,36 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Author</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="author" placeholder=""
-                                                                        required>
-
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-
-                                                    {{-- <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="">Tags</label>
-                                                            <div class="position-relative">
-                                                                <input type="text" name="tags[]" data-role="tagsinput"
-                                                                    id="" class="form-control" name="title"
-                                                                    placeholder="" required>
+                                                            <label for="">Author</label>
+                                                            <input type="text" id="" class="form-control"
+                                                                name="author" placeholder="" value="" required>
 
-                                                            </div>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
+
 
 
 
                                                     <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Serial Number</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="sr_no" placeholder=""
-                                                                        required>
+                                                        <div class="form-group">
+                                                            <label for="">Serial Number</label>
+                                                            <input type="text" id="" class="form-control"
+                                                                name="sr_no" placeholder="" value="" required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
+                                                        </div>
+
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Price</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="number" id=""
-                                                                        class="form-control" name="price" placeholder=""
-                                                                        required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
+                                                        <div class="form-group">
+                                                            <label for="">Price</label>
+                                                            <input type="text" id="" class="form-control"
+                                                                name="price" placeholder="" value="" required>
+
+                                                        </div>
+
+
                                                     </div>
                                                     <div class="col-md-6">
 

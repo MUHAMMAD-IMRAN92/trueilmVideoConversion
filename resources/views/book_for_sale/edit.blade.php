@@ -64,7 +64,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-md-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $book->description }}</textarea>
@@ -85,49 +85,38 @@
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Author</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="author"
-                                                                        value="{{ $book->author }}" placeholder="" required>
+                                                        <div class="form-group">
+                                                            <label for="">Author</label>
+                                                            <input type="text" id="" class="form-control"
+                                                                name="author" placeholder="" value="{{ $book->author }}"
+                                                                required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
+                                                        </div>
                                                     </div>
 
 
 
 
                                                     <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Serial Number</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="sr_no" placeholder=""
-                                                                        value="{{ $book->serial_no }}" required>
+                                                        <div class="form-group">
+                                                            <label for="">Serial Number</label>
+                                                            <input type="text" id="" class="form-control"
+                                                                name="sr_no" placeholder="" value="{{ $book->serial_no }}"
+                                                                required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
+                                                        </div>
+
                                                     </div>
                                                     <div class="col-md-6">
 
+                                                        <div class="form-group">
+                                                            <label for="">Price</label>
+                                                            <input type="text" id="" class="form-control"
+                                                                name="price" placeholder="" value="{{ $book->price }}"
+                                                                required>
 
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Price</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="number" id=""
-                                                                        class="form-control" name="price"
-                                                                        placeholder=""value="{{ $book->price }}" required>
+                                                        </div>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
 
                                                     </div>
                                                     <div class="col-md-6">
