@@ -98,7 +98,7 @@
                                                         </fieldset>
                                                     </div>
 
-                                                    <div class="col-6">
+                                                    <div class="col-md-6">
 
                                                         <label for="">Category</label>
                                                         <fieldset class="form-group">
