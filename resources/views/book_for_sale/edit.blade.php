@@ -83,17 +83,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    {{-- <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="">Tags</label>
-                                                            <div class="position-relative">
-                                                                <input type="text" name="tags[]" data-role="tagsinput"
-                                                                    id="" class="form-control" name="title"
-                                                                    placeholder="" required>
 
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Author</label>
@@ -107,6 +97,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+
                                                     <div class="col-6">
 
                                                         <label for="">Category</label>
@@ -115,9 +106,8 @@
                                                                 id="basicSelect">
                                                                 <option disabled selected>Select Category</option>
                                                                 @foreach ($categories as $category)
-                                                                    <option
-                                                                        {{ $book->category_id == $category->_id ? 'selected' : '' }}
-                                                                        value="{{ $category->_id }}">
+                                                                    <option value="{{ $category->_id }}"
+                                                                        {{ $book->category_id == $category->_id ? 'selected' : '' }}>
                                                                         {{ $category->title }}</option>
                                                                 @endforeach
 
@@ -125,15 +115,15 @@
                                                         </fieldset>
                                                     </div>
 
+
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Serial Number</label>
                                                             <div class="custom-file">
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
-                                                                        class="form-control" name="sr_no"
-                                                                        placeholder="" value="{{ $book->serial_no }}"
-                                                                        required>
+                                                                        class="form-control" name="sr_no" placeholder=""
+                                                                        value="{{ $book->serial_no }}" required>
 
                                                                 </div>
                                                             </div>
@@ -142,33 +132,21 @@
                                                     <div class="col-md-6">
 
 
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInputFile">Price</label>
-                                                                <div class="custom-file">
-                                                                    <div class="position-relative">
-                                                                        <input type="number" id=""
-                                                                            class="form-control" name="price"
-                                                                            placeholder=""value="{{ $book->price }}"  required>
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Price</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="number" id=""
+                                                                        class="form-control" name="price"
+                                                                        placeholder=""value="{{ $book->price }}"
+                                                                        required>
 
-                                                                    </div>
                                                                 </div>
-                                                            </fieldset>
+                                                            </div>
+                                                        </fieldset>
 
                                                     </div>
 
-                                                    {{-- <div class="form-group col col-md-6">
-                                                    <fieldset class="form-group">
-                                                        <label for="basicInputFile">Tag</label>
-                                                        <select class="select2 multiple-select form-control"
-                                                            multiple="multiple" name="tags[]">
-                                                            @foreach ($tags as $tag)
-                                                                <option value="{{ $tag->title }}"
-                                                                    {{ $contentTags->contains('tag_id', $tag->id) == true ? 'selected' : '' }}>
-                                                                    {{ $tag->title }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </fieldset>
-                                                </div> --}}
 
                                                     <div class="col-12">
                                                         <button type="submit"

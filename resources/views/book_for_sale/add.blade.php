@@ -104,7 +104,6 @@
                                                             </div>
                                                         </div>
                                                     </div> --}}
-
                                                     <div class="col-6">
 
                                                         <label for="">Category</label>
@@ -120,6 +119,7 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+
 
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
