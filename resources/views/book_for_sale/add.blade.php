@@ -48,7 +48,7 @@
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
-                                                <div class="row append-inputs">
+                                                <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Title</label>
