@@ -100,8 +100,8 @@
 
                                                     <div class="col-md-6">
 
-                                                        <label for="">Category</label>
                                                         <fieldset class="form-group">
+                                                            <label for="">Category</label>
                                                             <select class="select2 form-control" name="category"
                                                                 id="basicSelect">
                                                                 <option disabled selected>Select Category</option>
