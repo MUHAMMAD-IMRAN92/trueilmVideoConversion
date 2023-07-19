@@ -194,6 +194,22 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">GLossary</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 multiple-select form-control"
+                                                            multiple="multiple" name="glossary[]">
+                                                                <option disabled selected>Select Suitable</option>
+                                                                @foreach ($glossary as $g)
+                                                                    <option value="{{ $g->_id }}"
+                                                                        {{ $contentGlossary->contains('glossary_id', $g->id) == true ? 'selected' : '' }}>
+                                                                        {{ $g->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
 
                                                 {{-- <div class="form-group col col-md-6">
