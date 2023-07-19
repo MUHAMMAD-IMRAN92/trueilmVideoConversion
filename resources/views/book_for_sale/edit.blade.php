@@ -85,7 +85,7 @@
                                                     </div>
 
                                                     <div class="col-6">
-                                                        <fieldset class="form-group" style="position: relative">
+                                                        <fieldset class="form-group" style="">
                                                             <label for="category">Category</label>
                                                             <select class="select2 form-control" name="category"
                                                                 id="category">
