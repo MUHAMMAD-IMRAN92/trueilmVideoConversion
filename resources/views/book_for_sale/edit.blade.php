@@ -119,12 +119,12 @@
 
 
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    {{-- <div class="col-md-6">
 
                                                         <fieldset class="form-group">
                                                             <label for="">Category</label>
                                                             <select class="select2 form-control" name="category"
-                                                                id="basicSelect">
+                                                                id="">
                                                                 <option disabled selected>Select Category</option>
                                                                 @foreach ($categories as $category)
                                                                     <option value="{{ $category->_id }}"
@@ -134,7 +134,7 @@
 
                                                             </select>
                                                         </fieldset>
-                                                    </div>
+                                                    </div> --}}
 
                                                     <div class="col-12">
                                                         <button type="submit"
