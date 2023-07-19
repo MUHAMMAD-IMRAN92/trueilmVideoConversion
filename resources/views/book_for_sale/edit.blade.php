@@ -84,11 +84,10 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-6">
-
-                                                        <label for="">Category</label>
                                                         <fieldset class="form-group">
+                                                            <label for="category">Category</label>
                                                             <select class="select2 form-control" name="category"
-                                                                id="basicSelect">
+                                                                id="category">
                                                                 <option disabled selected>Select Category</option>
                                                                 @foreach ($categories as $category)
                                                                     <option
