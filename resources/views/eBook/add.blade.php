@@ -123,7 +123,7 @@
                                                         <label for="basicSelect">Category</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="category"
-                                                                id="basicSelect">
+                                                                id="">
                                                                 <option disabled selected>Select Category</option>
                                                                 @foreach ($categories as $category)
                                                                     <option value="{{ $category->_id }}">
@@ -176,7 +176,7 @@
                                                         <label for="">Content Suitable</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="suitble"
-                                                                id="basicSelect">
+                                                                id="">
                                                                 <option disabled selected>Select Suitable</option>
                                                                 @foreach ($suitbles as $suitble)
                                                                     <option value="{{ $suitble->_id }}">
