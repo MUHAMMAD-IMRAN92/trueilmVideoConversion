@@ -79,6 +79,21 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Category</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="category"
+                                                                id="basicSelect">
+                                                                <option disabled selected>Select Category</option>
+                                                                @foreach ($categories as $category)
+                                                                    <option value="{{ $category->_id }}">
+                                                                        {{ $category->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Author</label>
@@ -111,21 +126,7 @@
 
 
                                                     </div>
-                                                    {{-- <div class="col-md-6">
 
-                                                        <fieldset class="form-group">
-                                                            <label for="">Category</label>
-                                                            <select class="select2 form-control" name="category"
-                                                                id="">
-                                                                <option disabled selected>Select Category</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->_id }}">
-                                                                        {{ $category->title }}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </fieldset>
-                                                    </div> --}}
                                                     <div class="col-12">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
