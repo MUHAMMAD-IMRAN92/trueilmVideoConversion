@@ -52,7 +52,7 @@
 
    <!-- END: Page JS-->
    <script>
-       $(".js-example-tags").select2({
+       $(".select2").select2({
            tags: true
        });
        $(document).ready(function() {

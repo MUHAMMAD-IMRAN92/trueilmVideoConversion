@@ -83,8 +83,9 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+
                                                     <div class="col-6">
-                                                        <fieldset class="form-group">
+                                                        <fieldset class="form-group" style="position: relative">
                                                             <label for="category">Category</label>
                                                             <select class="select2 form-control" name="category"
                                                                 id="category">
@@ -95,10 +96,10 @@
                                                                         value="{{ $category->_id }}">
                                                                         {{ $category->title }}</option>
                                                                 @endforeach
-
                                                             </select>
                                                         </fieldset>
                                                     </div>
+
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Author</label>
