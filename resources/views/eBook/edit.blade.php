@@ -180,11 +180,11 @@
                                                     </div>
                                                     <div class="col-6">
 
-                                                        <label for="">Content Suitble</label>
+                                                        <label for="">Content Suitable</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="suitble"
-                                                                id="basicSelect">
-                                                                <option disabled selected>Select Category</option>
+                                                                id="">
+                                                                <option disabled selected>Select Suitable</option>
                                                                 @foreach ($suitbles as $suitble)
                                                                     <option value="{{ $suitble->_id }}"
                                                                         {{ $book->content_suitble == $suitble->_id ? 'selected' : '' }}>
