@@ -2128,4 +2128,14 @@
 
            $('#reason').modal('show');
        }
+
+       function priceRadioFunction(val) {
+           if (val == 1) {
+               $('#price').prop("disabled", false);
+               console.log($('#price').val());
+           } else {
+               $('#price').prop("disabled", true);
+               console.log($('#price').val());
+           }
+       }
    </script>

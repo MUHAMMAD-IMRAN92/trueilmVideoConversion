@@ -77,7 +77,7 @@
                                                             <label for="basicInputFile">Book</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file">
+                                                                    id="inputGroupFile01" name="file[]" multiple>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
@@ -184,7 +184,7 @@
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="suitble"
                                                                 id="">
-                                                                <option disabled selected>Select Suitable</option>
+                                                                <option disabled>Select Suitable</option>
                                                                 @foreach ($suitbles as $suitble)
                                                                     <option value="{{ $suitble->_id }}"
                                                                         {{ $book->content_suitble == $suitble->_id ? 'selected' : '' }}>
@@ -199,8 +199,8 @@
                                                         <label for="">GLossary</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 multiple-select form-control"
-                                                            multiple="multiple" name="glossary[]">
-                                                                <option disabled selected>Select Suitable</option>
+                                                                multiple="multiple" name="glossary[]">
+
                                                                 @foreach ($glossary as $g)
                                                                     <option value="{{ $g->_id }}"
                                                                         {{ $contentGlossary->contains('glossary_id', $g->id) == true ? 'selected' : '' }}>
@@ -210,7 +210,51 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="form-group col-md-6 mt-2">
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(0)"
+                                                                        {{ $book->p_type == 0 ? 'checked' : '' }}
+                                                                        value="0">
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Freemium</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(1)" value="1"
+                                                                        {{ $book->p_type == 1 ? 'checked' : '' }}>
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Premium</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <label for="">Price</label>
+                                                            <input type="number" class="form-control" name="price"
+                                                                placeholder="" id="price" required value="{{$book->price}}"
+                                                                {{ $book->p_type == 0 ? 'disabled' : '' }}>
+
+                                                        </div>
+
+
+                                                    </div>
                                                 </div>
+
 
                                                 {{-- <div class="form-group col col-md-6">
                                                     <fieldset class="form-group">

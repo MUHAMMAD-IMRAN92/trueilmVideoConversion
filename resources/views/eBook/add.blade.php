@@ -197,7 +197,47 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    <div class="form-group col-md-6 mt-2">
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(0)" checked
+                                                                        value="0">
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Freemium</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(1)" value="1">
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Premium</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
 
+                                                        <div class="form-group">
+                                                            <label for="">Price</label>
+                                                            <input type="number" class="form-control" name="price"
+                                                                placeholder="" id="price" value="" required
+                                                                disabled>
+
+                                                        </div>
+
+
+                                                    </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="submit"

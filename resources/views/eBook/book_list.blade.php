@@ -34,15 +34,15 @@
                 </div>
             @endforeach
             @if (\Session::has('msg'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <p class="mb-0">
-                    {{ \Session::get('msg') }}
-                </p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
-                </button>
-            </div>
-        @endif
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ \Session::get('msg') }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endif
             <div class="content-body">
 
                 <!-- Basic Vertical form layout section start -->
@@ -57,8 +57,7 @@
                                         <section id="basic-datatable">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <form action={{ url('/book/update/sequence/') }}
-                                                        method="POST">
+                                                    <form action={{ url('/book/update/sequence/') }} method="POST">
                                                         @csrf
                                                         <div class="card">
                                                             <div class="card-content">
@@ -72,7 +71,8 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                                <input type="hidden" name="book_id" class="{{$book_id}}">
+                                                                                <input type="hidden" name="book_id"
+                                                                                    class="{{ $book_id }}">
                                                                                 @foreach ($content as $key => $c)
                                                                                     <tr>
                                                                                         <td>{{ $c->book_name }}</td>

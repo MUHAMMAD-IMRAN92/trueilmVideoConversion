@@ -127,6 +127,12 @@ class BookController extends Controller
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
         $book->content_suitble = $request->suitble;
+        $book->p_type = $request->pRadio;
+        if ($request->pRadio == 0) {
+            $book->price = 0;
+        } else {
+            $book->price = $request->price;
+        }
         $book->save();
         foreach ($request->file as $key => $file) {
             $bookContent = new BookContent();
@@ -188,17 +194,28 @@ class BookController extends Controller
 
     public function update(Request $request)
     {
+        if ($request->type == 1) {
+            $validated = $request->validate([
+                'title' => 'required',
+                'file.*' => 'required|file|mimes:epub',
+            ]);
+        } elseif ($request->type == 2) {
+            $validated = $request->validate([
+                'title' => 'required',
+                'file.*' => 'required|file|mimes:mp3',
+            ]);
+        } elseif ($request->type == 3) {
+            $validated = $request->validate([
+                'title' => 'required',
+                'file.*' => 'required|file|mimes:epub,pdf',
+            ]);
+        }
+
         $book = Book::where('_id', $request->id)->first();
         $book->title = $request->title;
         $book->description = $request->description;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-        // if ($request->has('file')) {
-        //     $file = $request->file('file');
-        //     $file_name = time() . '.' . $file->getClientOriginalExtension();
-        //     $path =   $request->file('file')->storeAs('files', $file_name, 's3');
-        //     Storage::disk('s3')->setVisibility($path, 'public');
-        //     $book->file =  $base_path . $path;
-        // }
+
         if ($request->has('cover')) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -216,9 +233,21 @@ class BookController extends Controller
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
         $book->content_suitble = $request->suitble;
+        $book->p_type = $request->pRadio;
+        if ($request->pRadio == 0) {
+            $book->price = 0;
+        } else {
+            $book->price = $request->price;
+        }
         $book->save();
         if ($request->file) {
             foreach ($request->file as $key => $file) {
+                $count = BookContent::where('book_id', $book->_id)->count();
+                if ($key == 0) {
+                    $seq = $count + 1;
+                } else {
+                    $seq = $count + $key;
+                }
                 $bookContent = new BookContent();
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
                 $path =   $file->storeAs('files', $file_name, 's3');
@@ -226,7 +255,7 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $bookContent->sequence = $key;
+                $bookContent->sequence = (int)$seq;
                 $bookContent->save();
             }
         }
@@ -253,7 +282,6 @@ class BookController extends Controller
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
-            return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
         }
     }
     public function updateStatus($id)
@@ -325,7 +353,7 @@ class BookController extends Controller
 
     public function list($type, $id)
     {
-        $content = BookContent::where('book_id', $id)->orderBy('sequence', 'desc')->get();
+        $content = BookContent::where('book_id', $id)->orderBy('sequence', 'asc')->get();
         return view('eBook.book_list', [
             'book_id' => $id,
             'content' => $content
@@ -336,7 +364,7 @@ class BookController extends Controller
         if ($request->chapters) {
             foreach ($request->chapters as $key => $chapter) {
                 $bookContent = BookContent::where('_id', $chapter)->update([
-                    'sequence' => $request->sequence[$key]
+                    'sequence' => (int)$request->sequence[$key]
                 ]);
             }
         }
