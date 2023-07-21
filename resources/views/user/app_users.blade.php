@@ -61,6 +61,7 @@
                                                     <th class="description-td">Email</th>
                                                     <th class="">Phone</th>
                                                     <th class="">Status</th>
+                                                    {{-- <th class="">Action</th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>

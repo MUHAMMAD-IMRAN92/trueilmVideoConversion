@@ -119,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
     //app users
     Route::get('app-users', [App\Http\Controllers\UserController::class, 'appUsers'])->name('app.user');
     Route::get('all-app-user', [App\Http\Controllers\UserController::class, 'allAppUser'])->name('all.app.user');
+    Route::get('user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
 
 
     Route::get('categories/{type}', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');

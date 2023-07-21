@@ -155,4 +155,8 @@ class UserController extends Controller
         );
         return json_encode($data);
     }
+    public function userBookReadingDetail($id)
+    {
+        return $id;
+    }
 }

@@ -70,13 +70,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description"></textarea>
+                                                            <textarea style="text-align: right;width:100%" name="description" class="form-control"  rows="8" ></textarea>
                                                         </fieldset>
                                                     </div>
-
                                                     <div class="col-12">
 
                                                         <p>Type</p>

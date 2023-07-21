@@ -146,14 +146,20 @@
                                                     <div class="form-body">
                                                         <div class="row append-inputs">
 
-                                                            <div class="col-12">
-                                                                <input type="hidden" name="book_id" id=""
-                                                                    value="{{ $hadeesBook->id }}">
-                                                                <input type="hidden" name="hadees_id" id=""
-                                                                    value="{{ $hadees->id }}">
+                                                            <input type="hidden" name="book_id" id=""
+                                                                value="{{ $hadeesBook->id }}">
+                                                            <input type="hidden" name="hadees_id" id=""
+                                                                value="{{ $hadees->id }}">
+                                                            {{-- <div class="col-12">
                                                                 <label for="">Hadith</label>
                                                                 <fieldset class="form-group">
                                                                     <textarea class="" cols="110" rows="8" style="text-align: right;" name="hadith">{{ $hadees->hadees }}</textarea>
+                                                                </fieldset>
+                                                            </div> --}}
+                                                            <div class="col-12">
+                                                                <label for="">Hadith</label>
+                                                                <fieldset class="form-group">
+                                                                    <textarea   class="form-control" rows="8" name="hadith">{{ $hadees->hadees }}</textarea>
                                                                 </fieldset>
                                                             </div>
                                                             <div class="col-12">
