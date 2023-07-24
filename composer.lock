@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b28618a11944fa144fc3f363a951235e",
+    "content-hash": "6252dd9945cafd950e772cc073e6b2e4",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -10466,7 +10466,8 @@
         "doctrine/dbal": 20,
         "fruitcake/laravel-cors": 20,
         "laravel/cashier": 20,
-        "league/flysystem-aws-s3-v3": 20
+        "league/flysystem-aws-s3-v3": 20,
+        "maatwebsite/excel": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

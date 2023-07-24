@@ -6,6 +6,9 @@ use App\Models\SubcriptionEmail;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EmailExport;
+use App\Mail\NewsletterVarification;
+use App\Mail\NewsletterAdmin;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -33,6 +36,8 @@ class HomeController extends Controller
         $email = new SubcriptionEmail();
         $email->email = $request->email;
         $email->save();
+        Mail::to($email->email)->send(new NewsletterVarification($email));
+        Mail::to(env('MAIL_FROM_NAME'))->send(new NewsletterAdmin($email));
         return redirect()->back()->with('msg', 'You are subscribed successfully!');
     }
     public function allEmails()
@@ -67,5 +72,16 @@ class HomeController extends Controller
     public function exportEmail()
     {
         return Excel::download(new EmailExport, 'Emails.xlsx');
+    }
+
+    public function sendEmailToPrevoius(Request $request)
+    {
+        ini_set('max_execution_time', 0);
+        $emails =  SubcriptionEmail::all();
+        foreach ($emails as $email) {
+            Mail::to($email->email)->send(new NewsletterVarification($email));
+            Mail::to(env('MAIL_FROM_NAME'))->send(new NewsletterAdmin($email));
+        }
+        return 'sent successfully!';
     }
 }

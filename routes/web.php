@@ -24,6 +24,8 @@ Route::group(['domain' => 'trueilm.com'], function () {
     });
     Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
+
+Route::get('sendEmailToPrevoius',  [App\Http\Controllers\HomeController::class, 'sendEmailToPrevoius']);
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {

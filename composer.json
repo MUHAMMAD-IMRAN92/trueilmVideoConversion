@@ -11,7 +11,7 @@
         "php": "^7.3|^8.0",
         "doctrine/dbal": "3.7.x-dev",
         "fruitcake/laravel-cors": "^3.0@dev",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.5",
         "jenssegers/mongodb": "*",
         "laravel/cashier": "13.x-dev",
         "laravel/framework": "^8.75",

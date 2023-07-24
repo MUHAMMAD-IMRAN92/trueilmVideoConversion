@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\BookLastSeen;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -157,6 +158,6 @@ class UserController extends Controller
     }
     public function userBookReadingDetail($id)
     {
-        return $id;
+        return BookLastSeen::where('user_id', $id)->with('book')->get();
     }
 }
