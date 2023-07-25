@@ -869,19 +869,7 @@
 
                                         </div>
                                         <div class="form-group col-md-12 ">
-                                            @if (\Session::has('msg'))
-                                                <div class="alert alert-success alert-dismissible fade show"
-                                                    role="alert">
-                                                    <p class="mb-0">
-                                                        {{ \Session::get('msg') }}
-                                                    </p>
-                                                    <button type="button" class="close" data-dismiss="alert"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true"><i
-                                                                class="feather icon-x-circle"></i></span>
-                                                    </button>
-                                                </div>
-                                            @endif
+
                                             <label for="">Author</label>
                                             <fieldset class="form-group">
                                                 <select class="select2 form-control" name="author" id="basicSelect1"
