@@ -31,25 +31,7 @@ class NewsletterVarification extends Mailable
      */
     public function build()
     {
-        $email = new Mail();
-
-        // Set the sender (From) information
-        $email->setFrom("salam@gmail.com", "Some guy");
-
-        // Set the recipient (To) information
-        $email->addTo(new To("imran.skylinxtech@gmail.com", "Another guy"));
-
-        // Set the template ID
-        $email->setTemplateId("d-9c8e85a4e7e144df80d4b725d4e55634");
-
-        // === Here comes the dynamic template data! ===
-        $email->addDynamicTemplateDatas([]);
-
-        // Initialize the SendGrid API key
-        $sendgrid = new \SendGrid(env('MAIL_PASSWORD'));
-
-        // Send the email using the send() method
-        $response = $sendgrid->send($email);
-        return '1';
+        return $this->markdown('emails.new_letter_varification')
+            ->from(env('MAIL_FROM_ADDRESS'));
     }
 }

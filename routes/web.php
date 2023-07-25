@@ -19,10 +19,7 @@ use MongoDB\Client;
 */
 
 Route::group(['domain' => 'trueilm.com'], function () {
-    Route::get('/', function () {
-        return view('static_page');
-    });
-    Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
+
 });
 
 Route::get('sendEmailToPrevoius',  [App\Http\Controllers\HomeController::class, 'sendEmailToPrevoius']);
@@ -169,3 +166,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book_for_sale/edit/{id}', [App\Http\Controllers\BookForSaleController::class, 'edit'])->name('book_for_sale.edit');
     Route::post('book_for_sale/update', [App\Http\Controllers\BookForSaleController::class, 'update'])->name('book_for_sale.update');
 });
+Route::get('/', function () {
+    return view('static_page');
+});
+Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);

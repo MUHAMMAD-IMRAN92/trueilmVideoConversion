@@ -51,7 +51,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <body class="body-class">
-    <div class="logo">
+    <div class="logo mt-5">
         <img src="{{ asset('app-assets/images/backgrounds/staticlogo.png') }}" alt="">
     </div>
     <div class="row append form-container" style="position: relative;">

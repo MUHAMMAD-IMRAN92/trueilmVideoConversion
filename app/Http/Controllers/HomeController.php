@@ -38,7 +38,92 @@ class HomeController extends Controller
         $email->save();
         // Mail::to($email->email)->send(new NewsletterVarification($email));
         // Mail::send(new NewsletterAdmin($email));
-        return redirect()->back()->with('msg', 'You are subscribed successfully!');
+        try {
+            $api_key = env('MAIL_PASSWORD');
+            $api_url = "https://api.sendgrid.com/v3/mail/send";
+
+            // Set the email details and template variables
+            $to_email =  $email->email;
+            $from_email = env('MAIL_FROM_ADDRESS');
+            $template_id = "d-597d210c4a514c7982b774607a93738a";
+            $template_vars = [];
+
+            // Set the payload as a JSON string
+            $payload = json_encode([
+                "personalizations" => [
+                    [
+                        "to" => [
+                            [
+                                "email" => $to_email
+                            ]
+                        ],
+                    ]
+                ],
+                "from" => [
+                    "email" => $from_email
+                ],
+                "template_id" => $template_id
+            ]);
+
+            // Set the cURL options and send the POST request
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $api_url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Authorization: Bearer $api_key",
+                "Content-Type: application/json"
+            ]);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+
+            //Admin Email
+            $to_email =  'salam@trueilm.com';
+            $from_email = env('MAIL_FROM_ADDRESS');
+            $template_id = "d-9c8e85a4e7e144df80d4b725d4e55634";
+            $template_vars = [
+                'email' => $email->email
+            ];
+
+            // Set the payload as a JSON string
+            $payload = json_encode([
+                "personalizations" => [
+                    [
+                        "to" => [
+                            [
+                                "email" => $to_email
+                            ]
+                        ],
+                        "dynamic_template_data" => $template_vars
+                    ]
+                ],
+                "from" => [
+                    "email" => $from_email
+                ],
+                "template_id" => $template_id
+            ]);
+
+            // Set the cURL options and send the POST request
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $api_url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                "Authorization: Bearer $api_key",
+                "Content-Type: application/json"
+            ]);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            // Handle the response
+
+            return redirect()->back()->with('msg', 'You are subscribed successfully!');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
     public function allEmails()
     {
