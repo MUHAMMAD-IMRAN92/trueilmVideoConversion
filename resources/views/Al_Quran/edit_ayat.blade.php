@@ -868,7 +868,7 @@
                                         <div class="col-12">
 
                                         </div>
-                                        <div class="col-12">
+                                        <div class="form-group col-md-12 ">
                                             @if (\Session::has('msg'))
                                                 <div class="alert alert-success alert-dismissible fade show"
                                                     role="alert">
@@ -896,7 +896,7 @@
                                             </fieldset>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="form-group col-md-12 ">
 
                                             <label for="">Languages</label>
                                             <fieldset class="form-group">
