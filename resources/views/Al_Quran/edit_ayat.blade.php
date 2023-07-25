@@ -870,8 +870,7 @@
                                             <div class="form-group col-12">
                                                 <label for="basicInputFile">Author</label>
 
-                                                <select class="select2 multiple-select form-control" multiple="multiple"
-                                                    name="author">
+                                                <select class="select2  form-control" name="author">
                                                     <option disabled>Select Author</option>
                                                     @foreach ($author as $auth)
                                                         <option value="{{ $auth->_id }}">
@@ -882,8 +881,7 @@
                                             <div class="form-group col-12">
 
                                                 <label for="basicInputFile">Language</label>
-                                                <select class="select2 multiple-select form-control" multiple="multiple"
-                                                    name="lang">
+                                                <select class="select2  form-control" name="lang">
                                                     <option disabled>Select Language</option>
                                                     @foreach ($languages as $lang)
                                                         <option value="{{ $lang->_id }}">
