@@ -866,30 +866,31 @@
                                     </div>
                                     <div class="modal-body">
 
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="basicInputFile">Author</label>
 
-                                        <div class="form-group col-md-12">
-                                            <label for="basicInputFile">Author</label>
+                                                <select class="select2 multiple-select form-control" multiple="multiple"
+                                                    name="author">
+                                                    <option disabled>Select Author</option>
+                                                    @foreach ($author as $auth)
+                                                        <option value="{{ $auth->_id }}">
+                                                            {{ $auth->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="basicInputFile">Language</label>
 
-                                            <select class="select2 multiple-select form-control" multiple="multiple"
-                                                name="author">
-                                                <option disabled>Select Author</option>
-                                                @foreach ($author as $auth)
-                                                    <option value="{{ $auth->_id }}">
-                                                        {{ $auth->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label for="basicInputFile">Language</label>
-
-                                            <select class="select2 multiple-select form-control" multiple="multiple"
-                                                name="lang">
-                                                <option disabled>Select Language</option>
-                                                @foreach ($languages as $lang)
-                                                    <option value="{{ $lang->_id }}">
-                                                        {{ $lang->title }}</option>
-                                                @endforeach
-                                            </select>
+                                                <select class="select2 multiple-select form-control" multiple="multiple"
+                                                    name="lang">
+                                                    <option disabled>Select Language</option>
+                                                    @foreach ($languages as $lang)
+                                                        <option value="{{ $lang->_id }}">
+                                                            {{ $lang->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
