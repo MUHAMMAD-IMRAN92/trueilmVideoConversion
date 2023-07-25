@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookForSale;
+use App\Models\BookForSaleInventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
@@ -96,14 +97,20 @@ class BookForSaleController extends Controller
         $book->price = $request->price;
         $book->save();
 
+        $bookForSale =new BookForSaleInventory();
+        $bookForSale->book_id   =    $book->_id;
+        $bookForSale->quantity   =    $request->quantity;
+        $bookForSale->added_by = $this->user->id;
+        $bookForSale->status = 1;
+        $bookForSale->save();
 
-        return redirect()->to('books_for_sale/' . $request->type)->with('msg', 'Content Saved Successfully!');
+        return redirect()->to('books_for_sale/' . $request->type)->with('msg', 'Book Saved Successfully!');
     }
 
     public function edit($id)
     {
         $categories = Category::active()->get();
-        $book = BookForSale::where('_id', $id)->first();
+        $book = BookForSale::where('_id', $id)->with('inventory')->first();
 
 
         return view('book_for_sale.edit', [
@@ -134,8 +141,17 @@ class BookForSaleController extends Controller
         $book->price = $request->price;
 
         $book->save();
+        $updateStatus=  BookForSaleInventory::where('book_id' , $book->_id)->where('status' , 1)->update([
+            'status'=>0
+        ]);
+        $bookForSale =new BookForSaleInventory();
+        $bookForSale->book_id   =    $book->_id;
+        $bookForSale->quantity   =    $request->quantity;
+        $bookForSale->added_by = $this->user->id;
+        $bookForSale->status = 1;
+        $bookForSale->save();
 
 
-        return redirect()->to('books_for_sale/' . $request->type)->with('msg', 'Content Updated Successfully!');
+        return redirect()->to('books_for_sale/' . $request->type)->with('msg', 'Book Updated Successfully!');
     }
 }

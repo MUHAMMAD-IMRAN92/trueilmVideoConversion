@@ -135,6 +135,17 @@
 
 
                                                     </div>
+                                                     <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <label for="">Quantity</label>
+                                                            <input type="number" id="" class="form-control"
+                                                                name="quantity" placeholder="" value="{{@$book->inventory->quantity}}" required>
+
+                                                        </div>
+
+
+                                                    </div>
                                                     {{-- <div class="col-md-6">
 
                                                         <fieldset class="form-group">

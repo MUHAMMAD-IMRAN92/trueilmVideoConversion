@@ -17,4 +17,7 @@ class BookForSale extends Eloquent
 
         return @$user->name;
     }
+    public function inventory(){
+        return $this->hasOne(BookForSaleInventory::class , 'book_id' , '_id')->where('status' , 1);
+    }
 }

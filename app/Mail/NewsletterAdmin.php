@@ -29,7 +29,7 @@ class NewsletterAdmin extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_FROM_NAME'))->cc('ibtehaj.r@broomstickcreative.com')->markdown('emails.new_letter_vrification_admin', [
+        return $this->markdown('emails.new_letter_vrification_admin', [
             'user' => $this->user
         ]);
     }

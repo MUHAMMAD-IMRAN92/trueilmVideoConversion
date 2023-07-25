@@ -126,7 +126,17 @@
 
 
                                                     </div>
+                                                    <div class="col-md-6">
 
+                                                        <div class="form-group">
+                                                            <label for="">Quantity</label>
+                                                            <input type="number" id="" class="form-control"
+                                                                name="quantity" placeholder="" value="" required>
+
+                                                        </div>
+
+
+                                                    </div>
                                                     <div class="col-12">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
