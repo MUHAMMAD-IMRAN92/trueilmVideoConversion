@@ -79,6 +79,9 @@
             overflow: hidden;
             display: inherit;
         }
+        .select2.select2-container.select2-container--default{
+            width: 100% !important;
+        }
     </style>
 
     <div class="app-content content">
@@ -856,45 +859,55 @@
                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <form action="{{ url('/author_lang') }}" method="POST">
-                                @csrf
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Author - Language</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
+                                <div class="form-body">
+                                    @csrf
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Author - Language</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
 
-                                        <div class="row">
-                                            <div class="form-group col-12">
-                                                <label for="basicInputFile">Author</label>
+                                            <div class="row">
+                                                <div class="col-12">
 
-                                                <select class="select2  form-control" name="author">
-                                                    <option disabled>Select Author</option>
-                                                    @foreach ($author as $auth)
-                                                        <option value="{{ $auth->_id }}">
-                                                            {{ $auth->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-12">
+                                                    <label for="">Author</label>
+                                                    <fieldset class="form-group">
+                                                        <select class="select2 form-control" name="author"
+                                                            id="">
 
-                                                <label for="basicInputFile">Language</label>
-                                                <select class="select2  form-control" name="lang">
-                                                    <option disabled>Select Language</option>
-                                                    @foreach ($languages as $lang)
-                                                        <option value="{{ $lang->_id }}">
-                                                            {{ $lang->title }}</option>
-                                                    @endforeach
-                                                </select>
+                                                            @foreach ($author as $auth)
+                                                                <option value="{{ $auth->_id }}">
+                                                                    {{ $auth->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-12">
+
+
+                                                    <label for="">Language</label>
+                                                    <fieldset class="form-group">
+                                                        <select class="select2 form-control" name="lang"
+                                                            id="">
+                                                            @foreach ($languages as $lang)
+                                                                <option value="{{ $lang->_id }}">
+                                                                    {{ $lang->title }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
