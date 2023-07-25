@@ -867,7 +867,7 @@
                                     <div class="modal-body">
 
                                         <div class="row">
-                                            <div class="form-group col-md-12">
+                                            <div class="form-group col-12">
                                                 <label for="basicInputFile">Author</label>
 
                                                 <select class="select2 multiple-select form-control" multiple="multiple"
@@ -879,9 +879,9 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="basicInputFile">Language</label>
+                                            <div class="form-group col-12">
 
+                                                <label for="basicInputFile">Language</label>
                                                 <select class="select2 multiple-select form-control" multiple="multiple"
                                                     name="lang">
                                                     <option disabled>Select Language</option>
