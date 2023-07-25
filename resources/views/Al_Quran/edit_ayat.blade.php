@@ -187,7 +187,7 @@
                                                         <div class="col-12">
                                                             <label for="">Ayat</label>
                                                             <fieldset class="form-group">
-                                                                <textarea  class="form-control"  rows="8" name="ayat" style="text-align: right;width:100%">{{ $ayat->ayat }}</textarea>
+                                                                <textarea class="form-control" rows="8" name="ayat" style="text-align: right;width:100%">{{ $ayat->ayat }}</textarea>
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-6">
@@ -866,38 +866,31 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <div class="form-group col-md-12 ">
 
-                                            <label for="">Author</label>
-                                            <fieldset class="form-group">
-                                                <select class="select2 form-control" name="author" id="basicSelect1"
-                                                    required>
-                                                    <option disabled>Select Author</option>
-                                                    @foreach ($author as $auth)
-                                                        <option value="{{ $auth->_id }}">
-                                                            {{ $auth->name }}</option>
-                                                    @endforeach
+                                        <div class="form-group col-md-12">
+                                            <label for="basicInputFile">Author</label>
 
-                                                </select>
-                                            </fieldset>
+                                            <select class="select2 multiple-select form-control" multiple="multiple"
+                                                name="author">
+                                                <option disabled>Select Author</option>
+                                                @foreach ($author as $auth)
+                                                    <option value="{{ $auth->_id }}">
+                                                        {{ $auth->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="basicInputFile">Language</label>
 
-                                        <div class="form-group col-md-12 ">
-
-                                            <label for="">Languages</label>
-                                            <fieldset class="form-group">
-                                                <select class="select2 form-control" name="lang" id="basicSelect2"
-                                                    required>
-                                                    <option disabled>Select Author</option>
-                                                    @foreach ($languages as $lang)
-                                                        <option value="{{ $lang->_id }}">
-                                                            {{ $lang->title }}</option>
-                                                    @endforeach
-
-                                                </select>
-                                            </fieldset>
+                                            <select class="select2 multiple-select form-control" multiple="multiple"
+                                                name="lang">
+                                                <option disabled>Select Language</option>
+                                                @foreach ($languages as $lang)
+                                                    <option value="{{ $lang->_id }}">
+                                                        {{ $lang->title }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
