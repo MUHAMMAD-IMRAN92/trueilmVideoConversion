@@ -46,9 +46,10 @@ class NewsletterVarification extends Mailable
         $email->addDynamicTemplateDatas([]);
 
         // Initialize the SendGrid API key
-        $sendgrid = new \SendGrid('YOUR_SENDGRID_API_KEY');
+        $sendgrid = new \SendGrid(env('MAIL_PASSWORD'));
 
         // Send the email using the send() method
         $response = $sendgrid->send($email);
+        return '1';
     }
 }

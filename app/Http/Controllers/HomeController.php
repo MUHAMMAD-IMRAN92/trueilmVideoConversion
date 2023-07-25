@@ -37,7 +37,7 @@ class HomeController extends Controller
         $email->email = $request->email;
         $email->save();
         // Mail::to($email->email)->send(new NewsletterVarification($email));
-        // Mail::to('imran.skylinxtech@gmail.com')->send(new NewsletterAdmin($email));
+        // Mail::send(new NewsletterAdmin($email));
         return redirect()->back()->with('msg', 'You are subscribed successfully!');
     }
     public function allEmails()
