@@ -884,9 +884,9 @@
                                             @endif
                                             <label for="">Author</label>
                                             <fieldset class="form-group">
-                                                <select class=" select2 form-control" name="author" id="basicSelect1"
+                                                <select class="select2 form-control" name="author" id="basicSelect1"
                                                     required>
-                                                    <option disabled selected>Select Author</option>
+                                                    <option disabled>Select Author</option>
                                                     @foreach ($author as $auth)
                                                         <option value="{{ $auth->_id }}">
                                                             {{ $auth->name }}</option>
@@ -900,9 +900,9 @@
 
                                             <label for="">Languages</label>
                                             <fieldset class="form-group">
-                                                <select class=" select2 form-control" name="lang" id="basicSelect2"
+                                                <select class="select2 form-control" name="lang" id="basicSelect2"
                                                     required>
-                                                    <option disabled selected>Select Author</option>
+                                                    <option disabled>Select Author</option>
                                                     @foreach ($languages as $lang)
                                                         <option value="{{ $lang->_id }}">
                                                             {{ $lang->title }}</option>
