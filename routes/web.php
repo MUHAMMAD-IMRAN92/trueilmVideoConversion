@@ -32,6 +32,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+    //Al-Quran
     Route::get('ayat/create/{id}', [App\Http\Controllers\AlQuranController::class, 'add'])->name('ayat.add');
     Route::post('ayat/store', [App\Http\Controllers\AlQuranController::class, 'store'])->name('ayat.store');
     Route::get('ayat/edit/{surah_id}/{ayat_id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('ayat.edit');
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('juz/edit/{id}', [App\Http\Controllers\JuzController::class, 'edit'])->name('juz.edit');
     Route::post('juz/update', [App\Http\Controllers\JuzController::class, 'update'])->name('juz.update');
 
+    //Surah
     Route::get('al-Quran', [App\Http\Controllers\SurahController::class, 'index'])->name('al-Quran');
     Route::get('all-surah', [App\Http\Controllers\SurahController::class, 'allSurah'])->name('surah');
     Route::get('surah/create', [App\Http\Controllers\SurahController::class, 'add'])->name('surah.add');
@@ -66,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('surah/edit/{id}', [App\Http\Controllers\SurahController::class, 'edit'])->name('surah.edit');
     Route::post('surah/update', [App\Http\Controllers\SurahController::class, 'update'])->name('surah.update');
 
+    //publisher
     Route::get('publisher', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
     Route::get('all-publisher', [App\Http\Controllers\PublisherController::class, 'allPublisher'])->name('publisher.all');
     Route::get('publisher/create', [App\Http\Controllers\PublisherController::class, 'add'])->name('publisher.add');
@@ -73,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
     Route::post('publisher/update', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
 
+    //Hadith
     Route::get('hadith/books', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');
     Route::get('all-hadith-books', [App\Http\Controllers\HadeesController::class, 'allBook'])->name('hadith.books');
     Route::get('hadith/book/create', [App\Http\Controllers\HadeesController::class, 'addBook'])->name('hadith.book.add');
@@ -95,7 +99,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('author/edit/{id}', [App\Http\Controllers\AuthorController::class, 'edit'])->name('author.edit');
     Route::post('author/update', [App\Http\Controllers\AuthorController::class, 'update'])->name('author.update');
 
-
+    //books
     Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
     Route::get('all-book', [App\Http\Controllers\BookController::class, 'allBooks'])->name('book.all');
     Route::get('book/{type}/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');
@@ -112,6 +116,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/approve/{id}', [App\Http\Controllers\BookController::class, 'approveBook'])->name('book.approveBook');
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
 
+    //admin users
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
     Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');
     Route::get('user/create', [App\Http\Controllers\UserController::class, 'add'])->name('user.add');
@@ -124,7 +129,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-app-user', [App\Http\Controllers\UserController::class, 'allAppUser'])->name('all.app.user');
     Route::get('user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
 
-
+    //categories
     Route::get('categories/{type}', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
     Route::get('all-category', [App\Http\Controllers\CategoryController::class, 'allCategory'])->name('category.all');
     Route::get('category/{type}/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.add');
@@ -133,6 +138,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
     Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
 
+    //courses
     Route::get('courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
     Route::get('all-courses', [App\Http\Controllers\CourseController::class, 'allCourses'])->name('courses.all');
     Route::get('course/create', [App\Http\Controllers\CourseController::class, 'add'])->name('course.add');
