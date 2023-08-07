@@ -188,15 +188,15 @@ class HomeController extends Controller
         // return 'imrna';
         for ($i = 0; $i < 115; $i++) {
             echo $i;
-            $response = Http::get('https://quranenc.com/api/v1/translation/sura/english_saheeh/' . $i);
-            $response = json_decode($response->body());
+            $url = Http::get('https://quranenc.com/api/v1/translation/sura/english_saheeh/' . $i);
             $alQuran = new Surah();
             $alQuran->surah = $i;
             $alQuran->description = '';
             $alQuran->type = 1;
             $alQuran->sequence = $i;
-
             $alQuran->save();
+
+            $response = json_decode($url->body());
             foreach ($response->result as $key=> $res) {
                 $alQuran = new AlQuran();
                 $alQuran->surah_id = $i;
