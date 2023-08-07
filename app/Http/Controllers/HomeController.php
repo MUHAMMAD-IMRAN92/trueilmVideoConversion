@@ -204,7 +204,7 @@ class HomeController extends Controller
                 // $surah->save();
             }
 
-            $url = Http::get("https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/$i");
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/malayalam_kunhi/$i");
             $response = json_decode($url->body());
             foreach ($response->result as $key => $res) {
                 // $alQuran = new AlQuran();
@@ -224,7 +224,7 @@ class HomeController extends Controller
                 $alQuranTranslation->translation =  $res->translation;
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = $this->user->id;
-                $alQuranTranslation->author_lang = '64d0c910f40e12257e350f62';
+                $alQuranTranslation->author_lang = '64d0c95e7508c554241cf283';
                 $alQuranTranslation->type = 1;
                 $alQuranTranslation->save();
             }
