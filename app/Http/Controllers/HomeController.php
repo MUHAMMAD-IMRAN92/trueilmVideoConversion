@@ -229,7 +229,7 @@ class HomeController extends Controller
                 $alQuranTranslation->save();
             }
         }
-        // return 'done';
+        return 'done';
     }
 }
 // english_saheeh
