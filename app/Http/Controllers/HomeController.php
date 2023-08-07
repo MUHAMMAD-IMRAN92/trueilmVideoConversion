@@ -200,7 +200,7 @@ class HomeController extends Controller
         //     $response = json_decode($url->body());
         //     foreach ($response->result as $key=> $res) {
         //         $alQuran = new AlQuran();
-        //         $alQuran->surah_id = $i;
+        //         $alQuran->surah_id = $alQuran->_id;
         //         $alQuran->ayat = $res->arabic_text;
         //         $alQuran->para_no = 0;
         //         $alQuran->added_by = $this->user->id;
