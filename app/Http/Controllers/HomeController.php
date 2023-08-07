@@ -186,9 +186,9 @@ class HomeController extends Controller
         // AlQuranTranslation::truncate();
         // return 'ok';
         // return 'imrna';
-        for ($i = 0; $i < 115; $i++) {
+        for ($i = 1; $i < 115; $i++) {
             echo $i;
-            $url = Http::get('https://quranenc.com/api/v1/translation/sura/english_saheeh/' . $i);
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/english_saheeh/$i" );
             $alQuran = new Surah();
             $alQuran->surah = $i;
             $alQuran->description = '';
