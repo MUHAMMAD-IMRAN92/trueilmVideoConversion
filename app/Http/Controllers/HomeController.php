@@ -182,45 +182,53 @@ class HomeController extends Controller
 
     public function renderApi()
     {
-        AlQuran::truncate();
-        AlQuranTranslation::truncate();
-        Surah::truncate();
-        return 'ok';
+        // AlQuran::truncate();
+        // AlQuranTranslation::truncate();
+        // Surah::truncate();
+        // return 'ok';
         // return 'imrna';
-        // for ($i = 1; $i < 115; $i++) {
-        //     echo $i;
-        //     $url = Http::get("https://quranenc.com/api/v1/translation/sura/english_saheeh/$i" );
-        //     $surah = new Surah();
-        //     $surah->surah = $i;
-        //     $surah->description = '';
-        //     $surah->type = 1;
-        //     $surah->sequence = $i;
-        //     $->save();
+        for ($i = 1; $i < 115; $i++) {
+            // echo $i;
+            $surahName = Http::get("http://api.alquran.cloud/v1/surah/$i/en.asad");
+            $surahNameRes = json_decode($surahName->body())->data->name;
 
-        //     $response = json_decode($url->body());
-        //     foreach ($response->result as $key=> $res) {
-        //         $alQuran = new AlQuran();
-        //         $alQuran->surah_id = $surah->id;
-        //         $alQuran->ayat = $res->arabic_text;
-        //         $alQuran->para_no = 0;
-        //         $alQuran->added_by = $this->user->id;
-        //         $alQuran->manzil = 0;
-        //         $alQuran->ruku =0;
-        //         $alQuran->sequence = $key;
-        //         $alQuran->sajda = 0;
-        //         $alQuran->waqf = 0;
-        //         $alQuran->save();
+            $surah  =  Surah::where('surah', $surahNameRes)->first();
+            if ($surah) {
+                $surah = $surah;
+            } else {
+                $surah = new Surah();
+                $surah->surah = $surahNameRes;
+                $surah->description = '';
+                $surah->type = 1;
+                $surah->sequence = $i;
+                $surah->save();
+            }
 
-        //         $alQuranTranslation = new AlQuranTranslation();
-        //         // $alQuranTranslation->lang = $lang;
-        //         $alQuranTranslation->translation =  $res->translation;
-        //         $alQuranTranslation->ayat_id = $alQuran->id;
-        //         $alQuranTranslation->added_by = $this->user->id;
-        //         $alQuranTranslation->author_lang = '64d09cb26649876ff25cb2b5';
-        //         $alQuranTranslation->type = 1;
-        //         $alQuranTranslation->save();
-        //     }
-        // }
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/english_saheeh/$i");
+            $response = json_decode($url->body());
+            foreach ($response->result as $key => $res) {
+                $alQuran = new AlQuran();
+                $alQuran->surah_id = $surah->id;
+                $alQuran->ayat = $res->arabic_text;
+                $alQuran->para_no = 0;
+                $alQuran->added_by = $this->user->id;
+                $alQuran->manzil = 0;
+                $alQuran->ruku = 0;
+                $alQuran->sequence = $key;
+                $alQuran->sajda = 0;
+                $alQuran->waqf = 0;
+                $alQuran->save();
+
+                $alQuranTranslation = new AlQuranTranslation();
+                // $alQuranTranslation->lang = $lang;
+                $alQuranTranslation->translation =  $res->translation;
+                $alQuranTranslation->ayat_id = $alQuran->id;
+                $alQuranTranslation->added_by = $this->user->id;
+                $alQuranTranslation->author_lang = '64d09cb26649876ff25cb2b5';
+                $alQuranTranslation->type = 1;
+                $alQuranTranslation->save();
+            }
+        }
         // return 'done';
     }
 }
