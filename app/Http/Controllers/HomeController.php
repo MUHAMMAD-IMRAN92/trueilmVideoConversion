@@ -182,44 +182,45 @@ class HomeController extends Controller
 
     public function renderApi()
     {
-        AlQuran::truncate();
-        AlQuranTranslation::truncate();
-        return 'ok';
+        // AlQuran::truncate();
+        // AlQuranTranslation::truncate();
+        // return 'ok';
         // return 'imrna';
-        // for ($i = 0; $i < 115; $i++) {
-        //     echo $i;
-        //     $response = Http::get('https://quranenc.com/api/v1/translation/sura/english_saheeh/' . $i);
-        //     $response = json_decode($response->body());
-        //     $alQuran = new Surah();
-        //     $alQuran->surah = $i;
-        //     $alQuran->description = '';
-        //     $alQuran->type = 1;
-        //     $alQuran->sequence = $i;
+        for ($i = 0; $i < 115; $i++) {
+            echo $i;
+            $response = Http::get('https://quranenc.com/api/v1/translation/sura/english_saheeh/' . $i);
+            $response = json_decode($response->body());
+            $alQuran = new Surah();
+            $alQuran->surah = $i;
+            $alQuran->description = '';
+            $alQuran->type = 1;
+            $alQuran->sequence = $i;
 
-        //     $alQuran->save();
-        //     foreach ($response->result as $key=> $res) {
-        //         $alQuran = new AlQuran();
-        //         $alQuran->surah_id = $i;
-        //         $alQuran->ayat = $res->arabic_text;
-        //         $alQuran->para_no = 0;
-        //         $alQuran->added_by = $this->user->id;
-        //         $alQuran->manzil = 0;
-        //         $alQuran->ruku =0;
-        //         $alQuran->sequence = $key;
-        //         $alQuran->sajda = 0;
-        //         $alQuran->waqf = 0;
-        //         $alQuran->save();
+            $alQuran->save();
+            foreach ($response->result as $key=> $res) {
+                $alQuran = new AlQuran();
+                $alQuran->surah_id = $i;
+                $alQuran->ayat = $res->arabic_text;
+                $alQuran->para_no = 0;
+                $alQuran->added_by = $this->user->id;
+                $alQuran->manzil = 0;
+                $alQuran->ruku =0;
+                $alQuran->sequence = $key;
+                $alQuran->sajda = 0;
+                $alQuran->waqf = 0;
+                $alQuran->save();
 
-        //         $alQuranTranslation = new AlQuranTranslation();
-        //         // $alQuranTranslation->lang = $lang;
-        //         $alQuranTranslation->translation =  $res->translation;
-        //         $alQuranTranslation->ayat_id = $alQuran->id;
-        //         $alQuranTranslation->added_by = $this->user->id;
-        //         $alQuranTranslation->author_lang = '64d092c46dd0f156aa051ec5';
-        //         $alQuranTranslation->type = 1;
-        //         $alQuranTranslation->save();
-        //     }
-        // }
+                $alQuranTranslation = new AlQuranTranslation();
+                // $alQuranTranslation->lang = $lang;
+                $alQuranTranslation->translation =  $res->translation;
+                $alQuranTranslation->ayat_id = $alQuran->id;
+                $alQuranTranslation->added_by = $this->user->id;
+                $alQuranTranslation->author_lang = '64d092c46dd0f156aa051ec5';
+                $alQuranTranslation->type = 1;
+                $alQuranTranslation->save();
+            }
+        }
+        return 'done';
     }
 }
 // english_saheeh
