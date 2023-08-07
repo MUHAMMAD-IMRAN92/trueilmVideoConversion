@@ -23,7 +23,6 @@ Route::group(['domain' => 'trueilm.com'], function () {
         return view('static_page');
     });
     Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
-
 });
 
 Route::get('sendEmailToPrevoius',  [App\Http\Controllers\HomeController::class, 'sendEmailToPrevoius']);
@@ -175,4 +174,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('book_for_sale/store', [App\Http\Controllers\BookForSaleController::class, 'store'])->name('book_for_sale.store');
     Route::get('book_for_sale/edit/{id}', [App\Http\Controllers\BookForSaleController::class, 'edit'])->name('book_for_sale.edit');
     Route::post('book_for_sale/update', [App\Http\Controllers\BookForSaleController::class, 'update'])->name('book_for_sale.update');
+
+    //Add Ayat and Translation
+    Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
