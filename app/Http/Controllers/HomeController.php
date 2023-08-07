@@ -196,35 +196,35 @@ class HomeController extends Controller
             if ($surah) {
                 $surah = $surah;
             } else {
-                $surah = new Surah();
-                $surah->surah = $surahNameRes;
-                $surah->description = '';
-                $surah->type = 1;
-                $surah->sequence = $i;
-                $surah->save();
+                // $surah = new Surah();
+                // $surah->surah = $surahNameRes;
+                // $surah->description = '';
+                // $surah->type = 1;
+                // $surah->sequence = $i;
+                // $surah->save();
             }
 
-            $url = Http::get("https://quranenc.com/api/v1/translation/sura/english_saheeh/$i");
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/$i");
             $response = json_decode($url->body());
             foreach ($response->result as $key => $res) {
-                $alQuran = new AlQuran();
-                $alQuran->surah_id = $surah->id;
-                $alQuran->ayat = $res->arabic_text;
-                $alQuran->para_no = 0;
-                $alQuran->added_by = $this->user->id;
-                $alQuran->manzil = 0;
-                $alQuran->ruku = 0;
-                $alQuran->sequence = $key;
-                $alQuran->sajda = 0;
-                $alQuran->waqf = 0;
-                $alQuran->save();
-
+                // $alQuran = new AlQuran();
+                // $alQuran->surah_id = $surah->id;
+                // $alQuran->ayat = $res->arabic_text;
+                // $alQuran->para_no = 0;
+                // $alQuran->added_by = $this->user->id;
+                // $alQuran->manzil = 0;
+                // $alQuran->ruku = 0;
+                // $alQuran->sequence = $key;
+                // $alQuran->sajda = 0;
+                // $alQuran->waqf = 0;
+                // $alQuran->save();
+                $alQuran =  AlQuran::where('ayat', $res->arabic_text)->first();
                 $alQuranTranslation = new AlQuranTranslation();
                 // $alQuranTranslation->lang = $lang;
                 $alQuranTranslation->translation =  $res->translation;
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = $this->user->id;
-                $alQuranTranslation->author_lang = '64d09cb26649876ff25cb2b5';
+                $alQuranTranslation->author_lang = '64d0c910f40e12257e350f62';
                 $alQuranTranslation->type = 1;
                 $alQuranTranslation->save();
             }
