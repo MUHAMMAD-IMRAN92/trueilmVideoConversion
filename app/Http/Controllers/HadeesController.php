@@ -97,7 +97,7 @@ class HadeesController extends Controller
         $hadees->type = $request->type;
         $hadees->book_id = $request->book_id;
         $hadees->added_by = $this->user->id;
-        $hadees->chapter_id = $request->chapter;
+        $hadees->chapter_id = $request->chapter_id;
         $hadees->hadith_number =  $request->hadith_number;
 
         $hadees->save();
@@ -173,7 +173,7 @@ class HadeesController extends Controller
         $hadees->hadees = $request->hadith;
         $hadees->type = $request->type;
         $hadees->added_by = $this->user->id;
-        $hadees->chapter_id = $request->chapter;
+        $hadees->chapter_id = $request->chapter_id;
         $hadees->hadith_number =  $request->hadith_number;
 
         $hadees->save();
@@ -273,5 +273,14 @@ class HadeesController extends Controller
         $data['lang'] = $languages;
 
         return $data;
+    }
+    public function addChapter(Request $request)
+    {
+        $hadithChapter = new HadithChapter();
+        $hadithChapter->book_id = $request->hadith_book;
+        $hadithChapter->title = $request->title;
+        $hadithChapter->save();
+
+        return $hadithChapter;
     }
 }

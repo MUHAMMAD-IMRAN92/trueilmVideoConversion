@@ -698,18 +698,19 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                        var anchor;
-                        if (row.type == 2) {
-                               anchor =  `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
-                           }else{
-                            anchor = `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                           var anchor;
+                           if (row.type == 2) {
+                               anchor =
+                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
+                           } else {
+                               anchor =
+                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
                            return `<td>
                                 <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                                <span class="ml-2"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></span>`+
-                                    anchor
-                                +
-                                `</td>`
+                                <span class="ml-2"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></span>` +
+                               anchor +
+                               `</td>`
                        }
                    },
                ],
@@ -1090,14 +1091,14 @@
                                '</td>'
                        }
                    },
-                //     {
-                //        "mRender": function(data, type, row) {
-                //            return `<td>
+                   //     {
+                   //        "mRender": function(data, type, row) {
+                   //            return `<td>
                 //                 <a  class="ml-2" href="{{ url('user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
                 //                </td>`;
 
-                //        }
-                //    },
+                   //        }
+                   //    },
                ],
                "columnDefs": [{
 
@@ -1856,7 +1857,7 @@
        }
        //Hadith Translations
        function addHadithTranslation(ayatId) {
-        var lang = $('#lang-select-' + key).val();
+           var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
            var ayatId = $('#ayat-id-' + key).val();
            var transId = $('#trans-id-' + key).val();
@@ -2021,8 +2022,8 @@
            });
        }
 
-       function deleteHadithTranslation(transId, authLang,key, type) {
-        $.ajax({
+       function deleteHadithTranslation(transId, authLang, key, type) {
+           $.ajax({
                type: "GET",
                url: "{{ url('hadith/translation/delete') }}",
                data: {
@@ -2041,7 +2042,7 @@
        }
 
        function saveHadithTranslation(authorLang, key) {
-        var lang = $('#lang-select-' + key).val();
+           var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
            var hadith_id = $('#ayat-id-' + key).val();
            var transId = $('#trans-id-' + key).val();
@@ -2106,4 +2107,26 @@
                console.log($('#price').val());
            }
        }
+
+       $('#save_chapter').on('click', function() {
+           var title = $('#modal_title').val();
+           var hadith_book = $('#hadith_book').val();
+
+           $.ajax({
+               type: "POST",
+               url: "{{ url('hadith/add_chapter') }}",
+               data: {
+                   "_token": "{{ csrf_token() }}",
+                   title: title,
+                   hadith_book: hadith_book,
+               },
+               dataType: "json",
+               success: function(response) {
+                   console.log(response)
+                   var option = `<option value="` + response._id + `">` + response.title + `</option>`;
+                   $('#chapter_select').append(option);
+                   $('#author-lang').modal('hide');
+               }
+           });
+       });
    </script>

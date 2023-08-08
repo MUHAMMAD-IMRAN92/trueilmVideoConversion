@@ -88,7 +88,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('hadith/translation/delete', [App\Http\Controllers\HadeesController::class, 'deleteTranslation'])->name('hadith.translaton.delete');
     Route::post('hadith/translation/update', [App\Http\Controllers\HadeesController::class, 'updateTranslation'])->name('hadith.translaton.update');
-    Route::post('hadith/translation/save', [App\Http\Controllers\HadeesController::class, 'saveTranslation'])->name('hadith.translaton.save');
+    Route::post('hadith/add_chapter', [App\Http\Controllers\HadeesController::class, 'addChapter'])->name('hadith.addChapter');
 
     //author
     Route::get('author', [App\Http\Controllers\AuthorController::class, 'index'])->name('author');
