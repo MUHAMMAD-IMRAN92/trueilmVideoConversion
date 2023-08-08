@@ -706,9 +706,9 @@
                                anchor =
                                    `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
-                           return `<td class="d-flex">
+                           return `<td">
                                 <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                                <span class="ml-2"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></span>` +
+                                <a href="#" class="ml-2"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
                                anchor +
                                `</td>`
                        }
