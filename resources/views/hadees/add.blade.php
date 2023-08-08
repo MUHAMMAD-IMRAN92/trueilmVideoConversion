@@ -162,22 +162,7 @@
                                                     <div class="col-12">
                                                         <label for="">Hadith</label>
                                                         <fieldset class="form-group">
-                                                            <textarea   class="form-control" rows="8" name="hadith"></textarea>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-12">
-
-                                                        <label for="">Type</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="type"
-                                                                id="basicSelect">
-                                                                <option value="1">
-                                                                    Hadees-e-Qudsi</option>
-                                                                <option value="2">
-                                                                    Hadees-e-Zaeef</option>
-                                                                <option value="3">
-                                                                    Hadees-e-Sahih</option>
-                                                            </select>
+                                                            <textarea class="form-control" rows="8" name="hadith"></textarea>
                                                         </fieldset>
                                                     </div>
 
@@ -203,11 +188,82 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    <div class="form-group col-md-6">
+
+                                                        <label for="">Hadith Chapter</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="suitble"
+                                                                id="">
+                                                                <option disabled selected>Hadith Chapter</option>
+                                                                @foreach ($chapter as $ch)
+                                                                    <option value="{{ $ch->_id }}">
+                                                                        {{ $ch->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+
+                                                        <label for="" class="mb-1">Type</label>
+
+                                                        {{-- <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="type"
+                                                                id="basicSelect">
+                                                                <option value="1">
+                                                                    Hadees-e-Qudsi</option>
+                                                                <option value="2">
+                                                                    Hadees-e-Zaeef</option>
+                                                                <option value="3">
+                                                                    Hadees-e-Sahih</option>
+                                                            </select>
+                                                        </fieldset> --}}
+                                                        {{-- Hadees-e-Sahih: <input type="radio" name="type" id="" value="1">
+                                                        Hadees-e-Zaeef:  <input type="radio" name="type" id="" value="2"> --}}
+
+
+                                                        <ul class="list-unstyled mb-0">
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input type="radio" class="custom-control-input"
+                                                                            name="type" id="customRadio1" value="1"
+                                                                            checked>
+                                                                        <label class="custom-control-label"
+                                                                            for="customRadio1"> Hadees-e-Sahih</label>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input type="radio" class="custom-control-input"
+                                                                            name="type" id="customRadio2" value="2">
+                                                                        <label class="custom-control-label"
+                                                                            for="customRadio2">Hadees-e-Zaeef:</label>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Hadith Number</label>
+                                                        <div class="position-relative">
+                                                            <input type="number" id="" name="hadith_number"
+                                                                class="form-control" placeholder="" required>
+
+
+                                                        </div>
+
+                                                    </div>
+
                                                 </div>
                                                 <br>
                                                 <div class="col-12" style="text-align: right">
 
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
                                             </div>
@@ -216,25 +272,60 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-3 ayat-data">
+                            {{-- <div class="col-md-3 col-3 ayat-data">
                                 <div class="card card-height">
                                     <div class="card-content">
                                         <div class="card-body">
                                             @foreach ($hadeesBook->hadees as $hadith)
-                                                <ul class="" id="" data-menu="menu-navigation">
-
-                                                    <li class="@if (request()->is($hadeesBook->id . '/' . $hadith->id . '*')) active @endif "><a
-                                                            href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
-                                                            <span class="menu-item"
-                                                                data-i18n="Analytics">{!! $hadith->hadees !!}</span></a>
-                                                    </li>
-                                                </ul>
+                                                <div class="ayat-list">
+                                                    <ul class="" id="" data-menu="menu-navigation">
+                                                        <li
+                                                            class="@if (request()->is('*/' . $hadeesBook->id . '/' . $hadith->id . '*')) active @endif render-ayat ">
+                                                            <a
+                                                                href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
+                                                                <span class="d-flex menu-item new-item-ayat"
+                                                                    data-i18n="Analytics">{!! $hadith->hadees !!}
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             @endforeach
                                             <div class="" id="" style="text-align: center">
                                                 <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
                                                         class="btn btn-primary mr-1 mb-1">Add
                                                         Hadith</span></a>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+                            <div class="col-md-3 col-3 ayat-data">
+                                <div class="card ">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            @foreach ($hadeesBook->hadees as $hadith)
+                                            <div class="ayat-list">
+                                                <ul class="" id="" data-menu="menu-navigation">
+                                                    <li
+                                                        class="@if (request()->is('*/' . $hadeesBook->id . '/' . $hadith->id . '*')) active @endif render-ayat ">
+                                                        <a
+                                                            href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
+                                                            <span class="d-flex menu-item new-item-ayat"
+                                                                data-i18n="Analytics">{!! $hadith->hadees !!}
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endforeach
+                                            <br>
+                                            <div class="" id="" style="text-align: center">
+                                                <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
+                                                        class="btn btn-primary mr-1 mb-1">Add
+                                                        Hadith</span></a>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

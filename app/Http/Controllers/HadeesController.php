@@ -14,6 +14,12 @@ use App\Models\Tag;
 use App\Models\ContentTag;
 use App\Models\ContentGlossary;
 use App\Models\Glossory;
+use App\Models\HadithChapter;
+use App\Models\Author;
+use App\Models\AuthorLanguage;
+use App\Models\Reference;
+use App\Models\Book;
+
 
 class HadeesController extends Controller
 {
@@ -74,13 +80,14 @@ class HadeesController extends Controller
         $hadeesBook = HadeesBooks::where('_id', $id)->first();
         $hadees = Hadees::where('_id', $hadeesBook->id)->get();
         $glossary = Glossory::all();
+        $chapter = HadithChapter::all();
         $tags = Tag::all();
         return view('hadees.add', [
             'hadeesBook' => $hadeesBook,
             'hadees' => $hadees,
             'tags' => $tags,
-            'glossary' => $glossary
-
+            'glossary' => $glossary,
+            'chapter' => $chapter
         ]);
     }
     public function store(HadeesRequest $request)
@@ -90,6 +97,9 @@ class HadeesController extends Controller
         $hadees->type = $request->type;
         $hadees->book_id = $request->book_id;
         $hadees->added_by = $this->user->id;
+        $hadees->chapter_id = $request->chapter;
+        $hadees->hadith_number =  $request->hadith_number;
+
         $hadees->save();
 
         if ($request->translations) {
@@ -123,6 +133,7 @@ class HadeesController extends Controller
     {
         $hadeesBook = HadeesBooks::where('_id', $bookId)->first();
         $hadees = Hadees::where('_id', $hadeesBook->id)->first();
+
         return view('hadees_book.edit', [
             'hadeesBook' => $hadeesBook,
             'hadees' => $hadees
@@ -136,8 +147,12 @@ class HadeesController extends Controller
         $tags = Tag::all();
         $contentTag = ContentTag::where('content_id', $hadeesId)->get();
         $glossary = Glossory::all();
-
+        $chapter = HadithChapter::all();
         $contentGlossary = ContentGlossary::where('content_id', $hadeesId)->get();
+        $author = Author::all();
+        $languages = Languages::all();
+
+        $authorLanguages =  AuthorLanguage::with('author', 'language')->get();
         return view('hadees.edit', [
             'hadeesBook' => $hadeesBook,
             'hadees' => $hadees,
@@ -145,7 +160,10 @@ class HadeesController extends Controller
             'tags' => $tags,
             'contentTags' =>  $contentTag,
             'glossary' => $glossary,
-            'contentGlossary' =>  $contentGlossary
+            'contentGlossary' =>  $contentGlossary,
+            'chapter' => $chapter,
+            'author' => $author,
+            'authorLanguages' => $authorLanguages
         ]);
     }
 
@@ -155,19 +173,38 @@ class HadeesController extends Controller
         $hadees->hadees = $request->hadith;
         $hadees->type = $request->type;
         $hadees->added_by = $this->user->id;
+        $hadees->chapter_id = $request->chapter;
+        $hadees->hadith_number =  $request->hadith_number;
+
         $hadees->save();
 
         HadeesTranslation::where('hadees_id', $request->id)->delete();
 
 
         if ($request->translations) {
-            foreach ($request->langs as $key => $lang) {
-                $hadeesTranslation = new HadeesTranslation();
-                $hadeesTranslation->lang = $lang;
-                $hadeesTranslation->translation = $request->translations[$key];
-                $hadeesTranslation->hadees_id = $hadees->id;
-                $hadeesTranslation->added_by = $this->user->id;
-                $hadeesTranslation->save();
+            foreach ($request->author_langs as $key => $lang) {
+                $alQuranTranslation = new HadeesTranslation();
+                $alQuranTranslation->lang = $lang;
+                $alQuranTranslation->translation = $request->translations[$key];
+                $alQuranTranslation->ayat_id = $hadees->id;
+                $alQuranTranslation->added_by = $this->user->id;
+                $alQuranTranslation->save();
+            }
+        }
+        if ($request->reference_type) {
+            foreach ($request->reference_type as $key => $refType) {
+
+                $reference = new Reference();
+                $reference->type = 2;
+                $reference->referal_id = $hadees->id;
+                $reference->reference_type = $refType;
+                if ($request->file) {
+                    $book = Book::where('_id', $request->file[$key])->first();
+                    $reference->reference = $book->file;
+                    $reference->reference_title = $book->title;
+                }
+                $reference->added_by = $this->user->id;
+                $reference->save();
             }
         }
         if ($request->tags) {
@@ -192,21 +229,33 @@ class HadeesController extends Controller
 
     public function deleteTranslation(Request $request)
     {
+        // return $request->all();
         $hadeesTranslation = HadeesTranslation::where('_id', $request->transId)->delete();
         return sendSuccess('Deleted!', []);
     }
-
     public function updateTranslation(Request $request)
     {
-        $hadeesTranslation = HadeesTranslation::where('_id', $request->transId)->first();
-        $hadeesTranslation->lang = $request->lang;
-        $hadeesTranslation->translation = $request->translation;
-        $hadeesTranslation->hadees_id = $request->hadithId;
-        $hadeesTranslation->added_by = $this->user->id;
-        $hadeesTranslation->save();
+        // return $request->all();
+        $alQuranTranslation = HadeesTranslation::where('_id', $request->transId)->first();
+        if ($alQuranTranslation) {
+            $alQuranTranslation->translation = $request->translation;
+            $alQuranTranslation->hadees_id = $request->hadith_id;
+            $alQuranTranslation->author_lang = $request->author_lang;
+            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->save();
+        } else {
+            $alQuranTranslation = new HadeesTranslation();
+            $alQuranTranslation->translation = $request->translation;
+            $alQuranTranslation->hadees_id = $request->hadith_id;
+            $alQuranTranslation->author_lang = $request->author_lang;
+            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->save();
+        }
 
 
-        return $hadeesTranslation;
+        return $alQuranTranslation;
     }
     public function saveTranslation(Request $request)
     {

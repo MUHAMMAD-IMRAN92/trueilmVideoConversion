@@ -1116,7 +1116,6 @@
 
        // Ayat Translation
        function deleteTranslation(transId, authLang, key, type) {
-
            $.ajax({
                type: "GET",
                url: "{{ url('ayat/translation/delete') }}",
@@ -1857,88 +1856,38 @@
        }
        //Hadith Translations
        function addHadithTranslation(ayatId) {
-           $('#no-translation-div').css('display', 'none');
-           var opt = "";
+        var lang = $('#lang-select-' + key).val();
+           var translation = $('#trans-input-' + key).val();
+           var ayatId = $('#ayat-id-' + key).val();
+           var transId = $('#trans-id-' + key).val();
+           var type = $('#type-' + key).val();
+           console.log(ayatId + '----------------->' + key);
            $.ajax({
-               type: "GET",
-               url: "{{ url('languages') }}",
+               type: "POST",
+               url: "{{ url('hadith/translation/update') }}",
+               data: {
+                   "_token": "{{ csrf_token() }}",
+                   ayatId: ayatId,
+                   transId: transId,
+                   lang: lang,
+                   author_lang: authorLang,
+                   translation: translation,
+                   type: type
+               },
                dataType: "json",
                success: function(response) {
-                   response.forEach(function(e) {
-                       //    opt = response;
-                       opt += `<option value="${e._id}">${e.title}</option>`;
-                   })
-                   var div = $('.lang');
-                   var lang = div.length;
-                   var html;
-                   html = `
+                   $('#translation-saved-span-' + key).css('display', 'block');
+                   setTimeout(() => {
+                       $('#translation-saved-span-' + key).css('display', 'none');
 
-                        <div class="col-12 lang translation-div-${lang}">
-
-                                    <div class="card" >
-                                    <div class="card-body">
-                                        <div class="row">
-                            <div class="col-8 ">
-                                <h4 id="translation-saved-span-${lang }"
-                                    style="display:none"> <span
-                                        class="badge badge-success "><i
-                                            class="fa fa-check">Translation
-                                            Saved</i></span></h4>
-                            </div>
-                            <div class="col-4 d-flex">
-
-                                <h4
-                                    onclick="saveNewHadithTranslation('${ayatId}','${lang }')">
-                                    <span class="badge badge-success ml-1"><i
-                                            class="fa fa-save">&nbspSave</i></span>
-                                </h4>
-                                <h4
-                                    onclick="deleteNewTranslation('${lang }')">
-                                    <span class="badge badge-danger ml-1"><i
-                                            class="fa fa-trash">&nbspDelete</i></span>
-                                </h4>
-                            </div>
-                        </div>
-                            <p>Language</p>
-                            <fieldset class="form-group">
-                                <select class="select2 form-control" name="langs[]" required id="new-lang-select-${lang}">
-                                    <option value="" selected>Please Select Language</option>
-                                    ${opt}
-                                </select>
-                            </fieldset>
-                            </div>
-                            <div class="col-12">
-                                <label for="">Translation</label>
-                                <fieldset class="form-group">
-                                    <textarea class="summernote" required name="translations[]" id="new-description-${lang}"></textarea>
-                                </fieldset>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-                `;
-
-                   $('.hadith-append-inputs').append(html);
-                   $('.summernote').summernote({
-                       height: 150,
-                       codemirror: {
-                           theme: 'default'
-                       },
-                       toolbar: [
-
-                           ['style', ['bold', 'italic', 'underline', 'clear']],
-                           ['font', ['strikethrough', 'superscript', 'subscript']],
-                           ['fontsize', ['fontsize', 'fontname']],
-                           ['color', ['color']],
-                           ['para', ['ul', 'ol', 'paragraph']],
-                           ['height', ['height']]
-                       ]
-                   });
-                   $('#new-lang-select-' + lang).select2({
-                       tags: true
-                   });
-               },
+                   }, 3000);
+                   //    console.log(response);
+                   //    $('#non-edit-lang-select-' + key).html(response.lang_title);
+                   $('#trans-input-' + key).val(response.translation);
+                   $('#non-edit-para-des-' + key).html(response.translation);
+                   $('#editble-' + key).css('display', 'none');
+                   $('#non-editble-translation-' + key).css('display', 'block');
+               }
            });
 
        }
@@ -2072,40 +2021,43 @@
            });
        }
 
-       function deleteHadithTranslation(hadithId, transId, key) {
-           $('.translation-div-' + key).remove();
-
-           $.ajax({
+       function deleteHadithTranslation(transId, authLang,key, type) {
+        $.ajax({
                type: "GET",
                url: "{{ url('hadith/translation/delete') }}",
                data: {
-                   hadithId: hadithId,
+                   authLang: authLang,
                    transId: transId,
+                   type: type
                },
                dataType: "json",
                success: function(response) {
                    console.log(response);
+                   $('#non-edit-para-des-' + key).html('');
+                   $('#trans-input-' + key).html('');
                },
            });
-           var div = $('.lang');
-           if (div.length == 0) {
-               $('#no-translation-div').css('display', 'block');
 
-           }
        }
 
-       function saveHadithTranslation(hadithId, tranId, key) {
-           var lang = $('#lang-select-' + key).val();
+       function saveHadithTranslation(authorLang, key) {
+        var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
+           var hadith_id = $('#ayat-id-' + key).val();
+           var transId = $('#trans-id-' + key).val();
+           var type = $('#type-' + key).val();
+           console.log(hadith_id + '----------------->' + key);
            $.ajax({
                type: "POST",
                url: "{{ url('hadith/translation/update') }}",
                data: {
                    "_token": "{{ csrf_token() }}",
-                   hadithId: hadithId,
-                   transId: tranId,
+                   hadith_id: hadith_id,
+                   transId: transId,
                    lang: lang,
+                   author_lang: authorLang,
                    translation: translation,
+                   type: type
                },
                dataType: "json",
                success: function(response) {
@@ -2115,7 +2067,7 @@
 
                    }, 3000);
                    //    console.log(response);
-                   $('#non-edit-lang-select-' + key).html(response.lang_title);
+                   //    $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
                    $('#non-edit-para-des-' + key).html(response.translation);
                    $('#editble-' + key).css('display', 'none');
