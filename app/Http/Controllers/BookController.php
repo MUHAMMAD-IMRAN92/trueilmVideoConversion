@@ -403,4 +403,11 @@ class BookController extends Controller
         );
         return json_encode($data);
     }
+    public function viewBook($book_id)
+    {
+        return view('eBook.view_book', [
+            'book_id' => $book_id,
+            'user_id' => $this->user->id
+        ]);
+    }
 }

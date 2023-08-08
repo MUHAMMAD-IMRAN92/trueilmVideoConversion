@@ -68,6 +68,7 @@
                                                                                 <tr>
                                                                                     <th>Chapter</th>
                                                                                     <th>Sequence</th>
+                                                                                    <th>Action</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -75,6 +76,7 @@
                                                                                     class="{{ $book_id }}">
                                                                                 @foreach ($content as $key => $c)
                                                                                     <tr>
+
                                                                                         <td>{{ $c->book_name }}</td>
                                                                                         <td> <input type="hidden"
                                                                                                 value="{{ $c->_id }}"
@@ -84,6 +86,9 @@
                                                                                                 class="form-control"
                                                                                                 value="{{ $c->sequence == '' ? $key : $c->sequence }}">
                                                                                         </td>
+                                                                                        <td><audio controls>
+                                                                                            <source src="{{ $c->file }}" type="audio/mp3">
+                                                                                          </audio></td>
                                                                                     </tr>
                                                                                 @endforeach
                                                                             </tbody>
