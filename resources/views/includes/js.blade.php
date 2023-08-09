@@ -367,6 +367,9 @@
                            if (row.type == 3) {
                                type = 'Research Paper';
                            }
+                           if (row.type == 7) {
+                               type = 'Podcast';
+                           }
                            return '<td>' +
                                type +
                                '</td>'
@@ -407,7 +410,7 @@
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';
                            }
-                           if (row.type == 2) {
+                           if (row.type == 2 || row.type == 7) {
                                list =
                                    `<a class="ml-2" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`
                            }
@@ -680,6 +683,9 @@
                            if (row.type == 3) {
                                type = 'Research Paper';
                            }
+                           if (row.type == 7) {
+                               type = 'Podcast';
+                           }
                            return '<td>' +
                                type +
                                '</td>'
@@ -699,7 +705,7 @@
                    {
                        "mRender": function(data, type, row) {
                            var anchor;
-                           if (row.type == 2) {
+                           if (row.type == 2 || row.type == 7) {
                                anchor =
                                    `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
                            } else {
@@ -780,6 +786,9 @@
                            }
                            if (row.type == 3) {
                                type = 'Research Paper';
+                           }
+                           if (row.type == 7) {
+                               type = 'Podcast';
                            }
                            return '<td>' +
                                type +

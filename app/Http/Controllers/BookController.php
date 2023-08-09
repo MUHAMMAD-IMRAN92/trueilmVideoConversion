@@ -95,7 +95,7 @@ class BookController extends Controller
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:epub',
             ]);
-        } elseif ($request->type == 2) {
+        } elseif ($request->type == 2 || $request->type == 7) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:mp3',
@@ -162,7 +162,7 @@ class BookController extends Controller
                 $contentTag = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
-        if ($request->type == 2) {
+        if ($request->type == 2 || $request->type == 7) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
             return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
@@ -199,7 +199,7 @@ class BookController extends Controller
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:epub',
             ]);
-        } elseif ($request->type == 2) {
+        } elseif ($request->type == 2 || $request->type == 7) {
             $validated = $request->validate([
                 'title' => 'required',
                 'file.*' => 'required|file|mimes:mp3',
@@ -279,7 +279,7 @@ class BookController extends Controller
             }
         }
 
-        if ($request->type == 2) {
+        if ($request->type == 2 || $request->type == 7) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
             return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');

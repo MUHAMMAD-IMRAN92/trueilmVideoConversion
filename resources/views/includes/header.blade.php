@@ -442,7 +442,19 @@
                                     </li>
                                 </ul>
                             </li>
-
+                            <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span
+                                        class="menu-title" data-i18n="Ecommerce">Podcast</span></a>
+                                <ul class="menu-content">
+                                    <li class="@if (request()->is('categories/7') || request()->is('category/7*')) active @endif "><a
+                                            href="{{ url('categories/7') }}"><i class="fa fa-list-alt"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Category</span></a>
+                                    </li>
+                                    <li class="@if (request()->is('books/7*') || request()->is('book/7*')) active @endif "><a
+                                            href="{{ url('books/7') }}"><i class="fa fa-list"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                 @endif
