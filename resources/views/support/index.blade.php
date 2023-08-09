@@ -56,7 +56,7 @@
                                                 <tr>
                                                     <th>Title</th>
                                                     <th class="description-td">Submitted By</th>
-                                                    <th class="">Status</th>
+                                                   
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

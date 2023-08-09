@@ -913,13 +913,6 @@
                                name = '--';
                            }
                        }
-                   }, {
-                       "mRender": function(data, type, row) {
-
-                           return '<td>' +
-                               row.status +
-                               '</td>'
-                       }
                    },
                    {
                        "mRender": function(data, type, row) {
