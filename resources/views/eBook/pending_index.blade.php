@@ -86,7 +86,7 @@
                                                     <th class="">Author</th>
                                                     <th class="">Type</th>
                                                     <th class="">Added By</th>
-                                                    <th>Action</th>
+                                                    <th style="width:33px">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
