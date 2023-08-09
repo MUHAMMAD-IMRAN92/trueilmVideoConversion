@@ -701,14 +701,14 @@
                            var anchor;
                            if (row.type == 2) {
                                anchor =
-                                   `<a class="p-0 m-0 target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
+                                   `<a class="p-0 m-0" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
                            } else {
                                anchor =
-                                   `<a  class="p-0 m-0 target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                                   `<a  class="p-0 m-0" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
                            return `<td">
-                                <a  class="p-0 m-0 href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                                <a href="#" class="p-0 m-0><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                                <a  class="p-0 m-0" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                                <a href="#" class="p-0 m-0"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
                                anchor +
                                `</td>`
                        }
