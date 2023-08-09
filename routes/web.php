@@ -154,6 +154,7 @@ Route::middleware(['auth'])->group(function () {
     //support
     Route::get('support', [App\Http\Controllers\SupportController::class, 'index'])->name('support');
     Route::get('all-support', [App\Http\Controllers\SupportController::class, 'allSupport'])->name('support.all');
+    Route::get('support/approve/{id}', [App\Http\Controllers\SupportController::class, 'approveSupport'])->name('support.approve');
 
     //subcription email
     Route::get('subscription_email', [App\Http\Controllers\HomeController::class, 'allEmails'])->name('subscription');

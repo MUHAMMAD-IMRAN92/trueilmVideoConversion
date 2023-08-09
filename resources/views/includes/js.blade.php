@@ -925,7 +925,7 @@
                        "mRender": function(data, type, row) {
 
                            return `<td>
-                                <a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                            <a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
 
                                 </td>`
                        }
