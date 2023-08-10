@@ -297,7 +297,7 @@
                                                                                     value="2"
                                                                                     {{ $hadees->type == 2 ? 'checked' : '' }}>
                                                                                 <label class="custom-control-label"
-                                                                                    for="customRadio2">Hadees-e-Zaeef:</label>
+                                                                                    for="customRadio2">Hadees-e-Zaeef</label>
                                                                             </div>
                                                                         </fieldset>
                                                                     </li>
@@ -525,20 +525,7 @@
                                                             </div>
                                                             <div class="row m-0 p-0" id="editble-{{ $key }}"
                                                                 style="display:none">
-                                                                {{-- <label for="">Language</label> --}}
-                                                                {{-- <fieldset class="form-group">
-                                                                <select class="select2 form-control" name="langs[]"
-                                                                    id="lang-select-{{ $key }}"
-                                                                    id="basicSelect">
-                                                                    @foreach ($languages as $langkey => $lang)
-                                                                        <option value="{{ $lang->_id }}"
-                                                                            {{ $lang->_id == $aya->lang ? 'selected' : '' }}>
-                                                                            {{ $lang->title }}
-                                                                        </option>
-                                                                    @endforeach
 
-                                                                </select>
-                                                            </fieldset> --}}
                                                                 <p>Author - Language :
                                                                     <b id="non-edit-lang-select-{{ $key }}">{{ $authLang->author->name }}
                                                                         - {{ $authLang->language->title }}
@@ -546,11 +533,11 @@
                                                                 </p>
 
                                                                 <div class="col-12 m-0 p-0">
-                                                                    {{-- <label for="">Translation</label> --}}
+
                                                                     <input type="hidden" name="author_langs[]"
                                                                         value="{{ $authlanggId }}">
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="" cols="110" rows="8" id="trans-input-{{ $key }}" name="translations[]">{{ @$translation->translation }}</textarea>
+                                                                        <textarea class="form-control" rows="8" id="trans-input-{{ $key }}" name="translations[]">{{ @$translation->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>

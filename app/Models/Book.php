@@ -50,4 +50,7 @@ class Book extends Eloquent
 
         return @$user->name;
     }
+    public function lastSeenBook(){
+        return $this->hasOne(BookLastSeen::class , 'book_id' , '_id');
+    }
 }

@@ -20,6 +20,7 @@ class PublisherController extends Controller
     }
     public function index()
     {
+
         return view('publisher.index');
     }
     public function allPublisher(Request $request)

@@ -186,6 +186,21 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Publsiher</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="publisher_id"
+                                                                id="">
+                                                                <option disabled selected>Select Publsiher</option>
+                                                                @foreach ($publisher as $p)
+                                                                    <option value="{{ $p->_id }}">
+                                                                        {{ $p->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="form-group col-md-6 ">
                                                         <label for="basicInputFile">Glossary</label>
 
@@ -197,6 +212,7 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+
                                                     <div class="form-group col-md-6 mt-2">
                                                         <li class="d-inline-block mr-2">
                                                             <fieldset>

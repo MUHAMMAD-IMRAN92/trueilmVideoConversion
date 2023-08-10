@@ -115,6 +115,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/approve/{id}', [App\Http\Controllers\BookController::class, 'approveBook'])->name('book.approveBook');
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
     Route::get('book/view/{id}', [App\Http\Controllers\BookController::class, 'viewBook'])->name('book.viewBook');
+    Route::post('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
 
     //admin users
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
@@ -127,7 +128,7 @@ Route::middleware(['auth'])->group(function () {
     //app users
     Route::get('app-users', [App\Http\Controllers\UserController::class, 'appUsers'])->name('app.user');
     Route::get('all-app-user', [App\Http\Controllers\UserController::class, 'allAppUser'])->name('all.app.user');
-    Route::get('user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
+    Route::get('app-user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
 
     //categories
     Route::get('categories/{type}', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');

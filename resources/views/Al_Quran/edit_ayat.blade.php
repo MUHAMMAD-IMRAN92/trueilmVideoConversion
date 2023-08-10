@@ -528,7 +528,7 @@
                                                                     <input type="hidden" name="author_langs[]"
                                                                         value="{{ $authlanggId }}">
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="" cols="110" rows="8" id="trans-input-{{ $key }}" name="translations[]">{{ @$translation->translation }}</textarea>
+                                                                        <textarea  class="form-control" rows="8" id="trans-input-{{ $key }}" name="translations[]">{{ @$translation->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
@@ -682,7 +682,7 @@
                                                                     {{-- <label for="">Translation</label> --}}
 
                                                                     <fieldset class="form-group">
-                                                                        <textarea cols="110" rows="8" id="trans-input-{{ $key }}" name="tafseers[]">{{ @$translation->translation }}</textarea>
+                                                                        <textarea class="form-control" rows="8" id="trans-input-{{ $key }}" name="tafseers[]">{{ @$translation->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>

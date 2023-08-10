@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Models\Glossory;
 use App\Models\ContentGlossary;
+use App\Models\Publisher;
+use Carbon\Carbon;
 
 class BookController extends Controller
 {
@@ -33,7 +35,8 @@ class BookController extends Controller
         Session::put('bookType', $type);
 
         return view('eBook.index', [
-            'type' => $type
+            'type' => $type,
+            'hidden_table' => 0
         ]);
     }
     public function allBooks(Request $request)
@@ -79,12 +82,14 @@ class BookController extends Controller
         $categories = Category::active()->where('type', $type)->get();
         $suitbles = Suitable::all();
         $glossary = Glossory::all();
+        $publisher = Publisher::all();
         return view('eBook.add', [
             'type' => $type,
             'categories' => $categories,
             'tags' => $tags,
             'suitbles' => $suitbles,
-            'glossary' => $glossary
+            'glossary' => $glossary,
+            'publisher' => $publisher
         ]);
     }
     public function store(Request $request)
@@ -127,6 +132,7 @@ class BookController extends Controller
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
         $book->content_suitble = $request->suitble;
+        $book->publisher_id = $request->publisher_id;
         $book->p_type = $request->pRadio;
         if ($request->pRadio == 0) {
             $book->price = 0;
@@ -177,7 +183,7 @@ class BookController extends Controller
         $tags = Tag::all();
         $suitbles = Suitable::all();
         $glossary = Glossory::all();
-
+        $publisher = Publisher::all();
         $contentGlossary = ContentGlossary::where('content_id', $id)->get();
 
         return view('eBook.edit', [
@@ -188,7 +194,8 @@ class BookController extends Controller
             'contentTags' =>  $contentTag,
             'suitbles' => $suitbles,
             'glossary' => $glossary,
-            'contentGlossary' => $contentGlossary
+            'contentGlossary' => $contentGlossary,
+            'publisher' => $publisher
         ]);
     }
 
@@ -233,6 +240,7 @@ class BookController extends Controller
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
         $book->content_suitble = $request->suitble;
+        $book->publisher_id = $request->publisher_id;
         $book->p_type = $request->pRadio;
         if ($request->pRadio == 0) {
             $book->price = 0;
@@ -408,6 +416,28 @@ class BookController extends Controller
         return view('eBook.view_book', [
             'book_id' => $book_id,
             'user_id' => $this->user->id
+        ]);
+    }
+    public function bookDuringPeriod(Request $request)
+    {
+        // return $request->all();
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+        $books = Book::where('type', $request->type)->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($request->e_date, function ($q) use ($request) {
+            $q->whereBetween('created_at', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
+        })->paginate(10);
+        return view('eBook.index', [
+            'type' => $request->type,
+            'hidden_table' => 1,
+            'books' => $books,
+            's_date' => $request->s_date,
+            'e_date' => $request->e_date
         ]);
     }
 }

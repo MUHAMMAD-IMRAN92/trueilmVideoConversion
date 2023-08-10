@@ -162,7 +162,7 @@
                                                     <div class="col-12">
                                                         <label for="">Hadith</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="form-control" rows="8" name="hadith"></textarea>
+                                                            <textarea class="form-control"  name="hadith"></textarea>
                                                         </fieldset>
                                                     </div>
 
@@ -237,7 +237,7 @@
                                                                             name="type" id="customRadio2"
                                                                             value="2">
                                                                         <label class="custom-control-label"
-                                                                            for="customRadio2">Hadees-e-Zaeef:</label>
+                                                                            for="customRadio2">Hadees-e-Zaeef</label>
                                                                     </div>
                                                                 </fieldset>
                                                             </li>

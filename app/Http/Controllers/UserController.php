@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maklad\Permission\Models\Role;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -156,8 +157,17 @@ class UserController extends Controller
         );
         return json_encode($data);
     }
-    public function userBookReadingDetail($id)
+    public function userBookReadingDetail(Request $request, $id)
     {
-        return BookLastSeen::where('user_id', $id)->with('book')->get();
+        // return $request->all();
+        $bookRead =  BookLastSeen::where('user_id', $id)->when($request->e_date, function ($q) use ($request) {
+            $q->whereBetween('created_at', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
+        })->with('book')->get();
+        return view('user.user_book_details', [
+            'book_read' => $bookRead,
+            'user_id' => $id,
+            's_date' => $request->s_date,
+            'e_date' => $request->e_date
+        ]);
     }
 }
