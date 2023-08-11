@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Book;
 use App\Models\BookLastSeen;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -159,10 +160,13 @@ class UserController extends Controller
     }
     public function userBookReadingDetail(Request $request, $id)
     {
-        // return $request->all();
-        $bookRead =  BookLastSeen::where('user_id', $id)->when($request->e_date, function ($q) use ($request) {
-            $q->whereBetween('created_at', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
-        })->with('book')->get();
+        $bookRead = Book::whereHas('lastSeenBook', function ($q) use ($id, $request) {
+            $q->where('user_id', $id)->when($request->e_date, function ($q) use ($request) {
+                $q->whereBetween('createdAt', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
+            });
+        })->with(['lastSeenBook' => function ($q1) {
+            $q1->first();
+        }])->get();
         return view('user.user_book_details', [
             'book_read' => $bookRead,
             'user_id' => $id,

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PublisherRequest;
+use App\Models\Book;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PublisherController extends Controller
 {
@@ -40,6 +42,17 @@ class PublisherController extends Controller
                 $q->where('name', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->count();
+        $brands = $brands->map(function ($p) {
+            $sum = 0;
+            $book = Book::where('publisher_id', $p->_id)->get();
+
+            $book->each(function ($b) use ($p, $sum) {
+                $sum += $b->sum('type');
+            });
+            $p->readPages  = $sum;
+            return $p;
+        });
+
         $data = array(
             'draw' => $draw,
             'recordsTotal' => $totalBrands,
@@ -80,5 +93,25 @@ class PublisherController extends Controller
         $publisher->save();
 
         return redirect()->to('/publisher')->with('msg', 'Publisher Updated Successfully!');;
+    }
+    public function publisherBookReadingDetail(Request $request, $id)
+    {
+        $bookRead = Book::where('publisher_id', $id)->whereHas('lastSeenBook', function ($q) use ($id, $request) {
+            $q->when($request->e_date, function ($q) use ($request) {
+                $q->whereBetween('createdAt', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
+            });
+        })->with(['lastSeenBook' => function ($q1)  use ($id, $request) {
+        }])->get();
+        $bookRead->map(function ($br) use ($id, $request) {
+            $br->sumOfPages = $br->bookPagescount($request);
+            return $br;
+        });
+
+        return view('publisher.publisher_book_details', [
+            'book_read' => $bookRead,
+            'user_id' => $id,
+            's_date' => $request->s_date,
+            'e_date' => $request->e_date
+        ]);
     }
 }

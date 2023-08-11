@@ -58,7 +58,14 @@ class User extends Authenticatable
             return 0;
         }
     }
-
+    public function book()
+    {
+        return $this->hasMany(Book::class, 'user_id', '_id')->orerBy('created_at', 'desc');
+    }
+    public function bookLastSeen()
+    {
+        return $this->hasMany(BookLastSeen::class, 'user_id', '_id')->orerBy('created_at', 'desc');
+    }
     protected $appends = ['status'];
 
     protected $dates = ['deleted_at'];

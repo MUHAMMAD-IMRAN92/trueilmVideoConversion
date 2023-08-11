@@ -13,6 +13,10 @@ class BookLastSeen extends Eloquent
 
     public function book()
     {
-        return $this->hasOne(Book::class, 'book_id', '_id');
+        return $this->hasOne(Book::class, '_id', 'book_id');
+    }
+    public function user()
+    {
+        return $this->hasOne(User::class, '_id', 'user_id');
     }
 }

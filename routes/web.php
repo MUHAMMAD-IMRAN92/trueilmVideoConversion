@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('publisher/store', [App\Http\Controllers\PublisherController::class, 'store'])->name('publisher.store');
     Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
     Route::post('publisher/update', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
+    Route::get('publisher/books_reading_details/{id}', [App\Http\Controllers\PublisherController::class, 'publisherBookReadingDetail'])->name('publisher.bookReadingDetail');
 
     //Hadith
     Route::get('hadith/books', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');

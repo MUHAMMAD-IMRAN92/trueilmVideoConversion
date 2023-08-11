@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
@@ -11,7 +12,10 @@ class Book extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'books';
     protected $guarded = [];
-
+    public function lastSeenBook()
+    {
+        return $this->hasMany(BookLastSeen::class, 'book_id', '_id')->orderBy('createdAt', 'desc');
+    }
     protected $appends = ['user_name'];
     public function scopeActive($query)
     {
@@ -50,7 +54,16 @@ class Book extends Eloquent
 
         return @$user->name;
     }
-    public function lastSeenBook(){
-        return $this->hasOne(BookLastSeen::class , 'book_id' , '_id');
+    public function bookPagescount($request)
+    {
+        $book_id = $this->_id;
+        $bookLastSeen = BookLastSeen::where('book_id', $book_id)->when($request->e_date, function ($q) use ($request) {
+            $q->whereBetween('createdAt', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
+        })->orderBy('createdAt', 'desc')->get();
+
+        $unique = $bookLastSeen->unique('user_id');
+
+        $unique->values()->all();
+        return  $unique->sum('total_pages');
     }
 }

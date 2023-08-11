@@ -14,7 +14,7 @@
                 <div class="content-header-left col-md-7 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">User Books Details</h2>
+                            <h2 class="content-header-title float-left mb-0">Publisher Books Details</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -22,7 +22,7 @@
                     </div>
                 </div><div class="content-header-left col-md-5 col-12 mb-2 d-flex " style="justify-content:end">
                     <div class="row breadcrumbs-top d-flex">
-                        <form action="{{ url('app-user/books_reading_details/'.$user_id ) }}" method='GET' class="d-flex">
+                        <form action="{{ url('publisher/books_reading_details/'.$user_id ) }}" method='GET' class="d-flex">
                             @csrf
                             <input class="form-control" type="date" name="s_date" id=""
                                 value="{{ @$s_date }}">
@@ -81,7 +81,7 @@
                                                 <tr>
                                                     <td>{{$loop->iteration}}</td>
                                                     <td>{{ @$br->title}}</td>
-                                                    <td>{{ @$br->lastSeenBook[0]->total_pages}}</td>
+                                                    <td>{{ @$br->sumOfPages}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
