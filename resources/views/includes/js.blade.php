@@ -403,6 +403,11 @@
                            return '<td>' +
                                user_name + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.numberOfUser + '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {

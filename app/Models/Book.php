@@ -66,4 +66,19 @@ class Book extends Eloquent
         $unique->values()->all();
         return  $unique->sum('total_pages');
     }
+    public function totalUserReadThisBook()
+    {
+        if ($this->type == 2 || $this->type == 7) {
+            $bookLastSeen = BookLastSeenAudios::where('book_id', $this->_id)->orderBy('createdAt', 'desc')->get();
+
+            $unique = $bookLastSeen->unique('user_id');
+        } else {
+            $bookLastSeen = BookLastSeen::where('book_id', $this->_id)->orderBy('createdAt', 'desc')->get();
+
+            $unique = $bookLastSeen->unique('user_id');
+        }
+
+
+        return $unique->values()->count();
+    }
 }

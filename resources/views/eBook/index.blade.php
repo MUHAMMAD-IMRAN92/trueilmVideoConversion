@@ -81,6 +81,8 @@
                                                     <th class="">Type</th>
                                                     <th class="">Status</th>
                                                     <th class="">Added By</th>
+                                                    <th class="">Read By</th>
+
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -107,7 +109,7 @@
 
                                         <!-- Table with outer spacing -->
                                         <div class="table-responsive">
-                                            <table class="table" id="ebook-table">
+                                            <table class="table">
                                                 <thead>
                                                     <tr>
                                                         <th>Cover</th>
@@ -117,6 +119,7 @@
                                                         <th class="">Type</th>
                                                         <th class="">Status</th>
                                                         <th class="">Added By</th>
+                                                        <th class="">Read By</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -160,6 +163,7 @@
                                                             <td>{{ $b->type }}</td>
                                                             <td>{{ $b->approved }}</td>
                                                             <td>{{ @$b->user_name }}</td>
+                                                            <td>{{ $b->numberOfUser }}</td>
                                                             <td>
                                                                 <a class="ml-2"
                                                                     href="{{ url('book/' . $b->type . '/edit/' . $b->_id) }}"><i
@@ -171,7 +175,6 @@
                                                                         <i class="fa fa-list"> </i></a>
                                                                 @endif
                                                             </td>
-
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
