@@ -100,8 +100,7 @@ class PublisherController extends Controller
             $q->when($request->e_date, function ($q) use ($request) {
                 $q->whereBetween('createdAt', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
             });
-        })->with(['lastSeenBook' => function ($q1)  use ($id, $request) {
-        }])->get();
+        })->with('lastSeenBook')->paginate(10);
         $bookRead->map(function ($br) use ($id, $request) {
             $br->sumOfPages = $br->bookPagescount($request);
             return $br;

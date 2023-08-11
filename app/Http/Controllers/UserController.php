@@ -166,7 +166,7 @@ class UserController extends Controller
             });
         })->with(['lastSeenBook' => function ($q1) {
             $q1->first();
-        }])->get();
+        }])->paginate(10);
         return view('user.user_book_details', [
             'book_read' => $bookRead,
             'user_id' => $id,
