@@ -179,6 +179,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book_for_sale/edit/{id}', [App\Http\Controllers\BookForSaleController::class, 'edit'])->name('book_for_sale.edit');
     Route::post('book_for_sale/update', [App\Http\Controllers\BookForSaleController::class, 'update'])->name('book_for_sale.update');
 
+    //Grant
+    Route::get('grant', [App\Http\Controllers\GrantController::class, 'index'])->name('grant');
+    Route::get('all-grants', [App\Http\Controllers\GrantController::class, 'allgrants'])->name('grant.all');
+    Route::get('grant/rejected', [App\Http\Controllers\GrantController::class, 'rejected'])->name('grant.rejected');
+    Route::get('all-grants-rejected', [App\Http\Controllers\GrantController::class, 'allRejectedGrants'])->name('grant.all.rejected');
+    Route::get('grant/approved', [App\Http\Controllers\GrantController::class, 'approved'])->name('grant.approved');
+    Route::get('all-grants-approved', [App\Http\Controllers\GrantController::class, 'allApprovedGrants'])->name('grant.all.approved');
+
+    Route::get('grant/approve/{id}', [App\Http\Controllers\GrantController::class, 'approveGrant'])->name('grant.approve');
+    Route::get('grant/reject/{id}', [App\Http\Controllers\GrantController::class, 'rejectGrant'])->name('grant.reject');
+
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });

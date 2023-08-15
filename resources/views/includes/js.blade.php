@@ -732,6 +732,307 @@
                }],
                "order": false
            });
+           $('#grant-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-grants') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+
+                   {
+                       "mRender": function(data, type, row) {
+                           var type = '';
+                           if (row.file_type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.file_type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.file_type == 3) {
+                               type = 'Research Paper';
+                           }
+                           if (row.file_type == 7) {
+                               type = 'Podcast';
+                           }
+                           return '<td>' +
+                               type +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var anchor;
+                           if (row.file_type == 2 || row.file_type == 7) {
+                               anchor =
+                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.file_type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                           } else {
+                               anchor =
+                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                           }
+                           return `<td">
+                                <a  class="ml-2" href="{{ url('grant/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                                <a href="#" class="ml-2"><i class="fa fa-times" onclick="reasonModalForGrant('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                               anchor +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#rejected-grant-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-grants-rejected') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+
+                   {
+                       "mRender": function(data, type, row) {
+                           var type = '';
+                           if (row.file_type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.file_type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.file_type == 3) {
+                               type = 'Research Paper';
+                           }
+                           if (row.file_type == 7) {
+                               type = 'Podcast';
+                           }
+                           return '<td>' +
+                               type +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var reason = '';
+                           if (row.reason != null) {
+                               reason = row.reason;
+                           } else {
+                               reason = '--'
+                           }
+                           return '<td>' +
+                               reason + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var anchor;
+                           if (row.file_type == 2 || row.file_type == 7) {
+                               anchor =
+                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.file_type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                           } else {
+                               anchor =
+                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                           }
+                           return `<td">
+                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+                               anchor +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#approved-grant-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-grants-approved') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+
+                   {
+                       "mRender": function(data, type, row) {
+                           var type = '';
+                           if (row.file_type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.file_type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.file_type == 3) {
+                               type = 'Research Paper';
+                           }
+                           if (row.file_type == 7) {
+                               type = 'Podcast';
+                           }
+                           return '<td>' +
+                               type +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var reason = '';
+                           if (row.reason != null) {
+                               reason = row.reason;
+                           } else {
+                               reason = '--'
+                           }
+                           return '<td>' +
+                               reason + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var anchor;
+                           if (row.file_type == 2 || row.file_type == 7) {
+                               anchor =
+                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.file_type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                           } else {
+                               anchor =
+                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                           }
+                           return `<td">
+                            ` +
+                               anchor +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#rejected-book-table').DataTable({
                "processing": true,
                "serverSide": true,
@@ -768,19 +1069,7 @@
                                '</td>'
                        }
                    },
-                   {
-                       "mRender": function(data, type, row) {
-                           var author = '';
-                           if (row.author != null) {
-                               author = row.author;
-                           } else {
-                               author = '--'
-                           }
-                           return '<td>' +
-                               author + '</td>'
 
-                       }
-                   },
                    {
                        "mRender": function(data, type, row) {
                            var type = '';
@@ -2101,6 +2390,14 @@
        function reasonModal(key) {
            $('#book_id').val(key);
            var newUrl = "{{ url('book/reject/') }}" + '/' + key;
+           $('#reason_form').attr('action', newUrl);
+
+           $('#reason').modal('show');
+       }
+
+       function reasonModalForGrant(key) {
+           $('#book_id').val(key);
+           var newUrl = "{{ url('grant/reject/') }}" + '/' + key;
            $('#reason_form').attr('action', newUrl);
 
            $('#reason').modal('show');
