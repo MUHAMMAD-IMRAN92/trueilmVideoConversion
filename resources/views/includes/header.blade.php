@@ -397,6 +397,10 @@
                                 class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Support</span></a>
                     </li>
+                    <li class="@if (request()->is('coupon*')) active @endif "><a href="{{ url('/coupon') }}"><i
+                                class="fa fa-percent"></i>
+                            <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
+                    </li>
 
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Grant</span></a>

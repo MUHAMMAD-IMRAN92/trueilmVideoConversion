@@ -1257,6 +1257,55 @@
                }],
                "order": false
            });
+           $('#coupon-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-coupon') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                        var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.percentage + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('coupon/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
+
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#add-lesson').on('click', function() {
                $('#lesson-heading').css('display', 'block')
                var lenght = $('.custom-file-input').length;

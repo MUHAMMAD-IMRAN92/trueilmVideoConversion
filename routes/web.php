@@ -190,6 +190,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('grant/approve/{id}', [App\Http\Controllers\GrantController::class, 'approveGrant'])->name('grant.approve');
     Route::get('grant/reject/{id}', [App\Http\Controllers\GrantController::class, 'rejectGrant'])->name('grant.reject');
 
+    //coupon
+    Route::get('coupon', [App\Http\Controllers\CouponController::class, 'index'])->name('coupon');
+    Route::get('all-coupon', [App\Http\Controllers\CouponController::class, 'allcoupon'])->name('coupon.all');
+    Route::get('coupon/create', [App\Http\Controllers\CouponController::class, 'add'])->name('coupon.add');
+    Route::post('coupon/store', [App\Http\Controllers\CouponController::class, 'store'])->name('coupon.store');
+    Route::get('coupon/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->name('coupon.edit');
+    Route::post('coupon/update', [App\Http\Controllers\CouponController::class, 'update'])->name('coupon.update');
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });

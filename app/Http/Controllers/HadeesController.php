@@ -80,7 +80,7 @@ class HadeesController extends Controller
         $hadeesBook = HadeesBooks::where('_id', $id)->first();
         $hadees = Hadees::where('_id', $hadeesBook->id)->get();
         $glossary = Glossory::all();
-        $chapter = HadithChapter::all();
+        $chapter = HadithChapter::where('book_id', $id)->get();
         $tags = Tag::all();
         return view('hadees.add', [
             'hadeesBook' => $hadeesBook,
@@ -147,7 +147,7 @@ class HadeesController extends Controller
         $tags = Tag::all();
         $contentTag = ContentTag::where('content_id', $hadeesId)->get();
         $glossary = Glossory::all();
-        $chapter = HadithChapter::all();
+        $chapter = HadithChapter::where('book_id', $bookId)->get();
         $contentGlossary = ContentGlossary::where('content_id', $hadeesId)->get();
         $author = Author::all();
         $languages = Languages::all();
