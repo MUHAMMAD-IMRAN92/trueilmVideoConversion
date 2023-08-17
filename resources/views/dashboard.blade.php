@@ -201,13 +201,13 @@
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-success p-50 m-0">
                                             <div class="avatar-content">
-                                                <i class="fa fa-book text-primary font-medium-5"></i>
+                                                <i class="fa fa-user text-primary font-medium-5"></i>
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\User::where('institue_id', auth()->user()->_id)->count() }}
+                                            {{ App\Models\User::where('institute_id', auth()->user()->_id)->count() }}
                                         </h2>
-                                        <p class="mb-0">Research Papers<u style="font-size: 10px">
+                                        <p class="mb-0">Users<u style="font-size: 10px">
 
                                             </u>
 
