@@ -486,7 +486,7 @@
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Institute'))
-                   <li class="@if (request()->is('user*')) active @endif "><a href="{{ url('institute/users') }}"><i
+                   <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a href="{{ url('institute/users') }}"><i
                                 class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Users</span></a>
                     </li>

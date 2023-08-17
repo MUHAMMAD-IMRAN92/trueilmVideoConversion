@@ -200,9 +200,12 @@ Route::middleware(['auth'])->group(function () {
 
     //institue user
     Route::get('institute/users',  [App\Http\Controllers\UserController::class, 'instituteUsers'])->name('institute.users');
-    Route::get('institute/users/create',  [App\Http\Controllers\UserController::class, 'createInstituteUser'])->name('institute.user.add');
     Route::get('all-institute-users', [App\Http\Controllers\UserController::class, 'allInstituteUsers'])->name('institute.users.all');
-
+    Route::get('institute/user/create', [App\Http\Controllers\UserController::class, 'addInstituteUsers'])->name('institute.user.add');
+    Route::post('institute/user/store', [App\Http\Controllers\UserController::class, 'storeInstituteUsers'])->name('institute.user.store');
+    Route::get('institute/user/edit/{id}', [App\Http\Controllers\UserController::class, 'editInstituteUsers'])->name('institute.user.edit');
+    Route::post('institute/user/update', [App\Http\Controllers\UserController::class, 'updateInstituteUsers'])->name('institute.user.update');
+    Route::get('institute/user/delete/{id}', [App\Http\Controllers\UserController::class, 'deleteInstituteUsers'])->name('institute.user.delete');
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });

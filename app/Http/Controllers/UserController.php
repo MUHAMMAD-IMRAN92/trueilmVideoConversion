@@ -184,13 +184,13 @@ class UserController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = User::where('institue_id', $this->user->_id)->whereNull('deleted_at')->whereNotNull('type')->count();
-        $brands = User::where('institue_id', $this->user->_id)->whereNull('deleted_at')->whereNotNull('type')->when($search, function ($q) use ($search) {
+        $totalBrands = User::where('institute_id', $this->user->_id)->whereNull('deleted_at')->count();
+        $brands = User::where('institute_id', $this->user->_id)->whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = User::where('institue_id', $this->user->_id)->whereNull('deleted_at')->whereNotNull('type')->when($search, function ($q) use ($search) {
+        $brandsCount = User::where('institute_id', $this->user->_id)->whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
             });
@@ -202,5 +202,23 @@ class UserController extends Controller
             'data' => $brands,
         );
         return json_encode($data);
+    }
+    public function addInstituteUsers()
+    {
+        return view('institute.add');
+    }
+    public function storeInstituteUsers(UserRequest $request)
+    {
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->password = $request->password;
+        $user->added_by = $this->user->id;
+        $user->institute_id =  $this->user->id;
+        $user->save();
+
+        return redirect()->to('/institute/users')->with('msg', 'User Saved Successfully!');
     }
 }
