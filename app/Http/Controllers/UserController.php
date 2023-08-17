@@ -221,4 +221,11 @@ class UserController extends Controller
 
         return redirect()->to('/institute/users')->with('msg', 'User Saved Successfully!');
     }
+    public function deleteInstituteUsers($id)
+    {
+        $user = User::where('_id', $id)->first();
+        $user->forceDelete();
+        return redirect()->to('/institute/users')->with('msg', 'User Deleted Successfully!');
+
+    }
 }
