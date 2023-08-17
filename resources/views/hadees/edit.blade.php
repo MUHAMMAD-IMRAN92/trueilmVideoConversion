@@ -248,7 +248,7 @@
                                                                     <input type="number" id=""
                                                                         name="hadith_number" class="form-control"
                                                                         value="{{ $hadees->hadith_number }}"
-                                                                        placeholder="" required>
+                                                                        placeholder="" >
 
 
                                                                 </div>
