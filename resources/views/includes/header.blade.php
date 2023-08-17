@@ -485,6 +485,12 @@
                         </ul>
                     </li>
                 @endif
+                @if (auth()->user()->hasRole('Institute'))
+                   <li class="@if (request()->is('user*')) active @endif "><a href="{{ url('institute/users') }}"><i
+                                class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">Users</span></a>
+                    </li>
+                @endif
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"
                     data-i18n="eCommerce">Create Pages</span></a>

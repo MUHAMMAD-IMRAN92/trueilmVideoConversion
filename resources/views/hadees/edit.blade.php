@@ -313,7 +313,7 @@
                                                                         id="chapter_select">
                                                                         <option disabled selected>Hadith Chapter</option>
                                                                         @foreach ($chapter as $ch)
-                                                                            <option value="{{ $ch->_id }}">
+                                                                            <option value="{{ $ch->_id }}"{{ $ch->_id == $hadees->chapter_id ? 'selected' : '' }}>
                                                                                 {{ $ch->title }}</option>
                                                                         @endforeach
 

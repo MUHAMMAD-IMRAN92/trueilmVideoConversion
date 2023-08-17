@@ -174,4 +174,33 @@ class UserController extends Controller
             'e_date' => $request->e_date
         ]);
     }
+    public function instituteUsers()
+    {
+        return view('institute.users');
+    }
+    public function allInstituteUsers(Request $request)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = User::where('institue_id', $this->user->_id)->whereNull('deleted_at')->whereNotNull('type')->count();
+        $brands = User::where('institue_id', $this->user->_id)->whereNull('deleted_at')->whereNotNull('type')->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = User::where('institue_id', $this->user->_id)->whereNull('deleted_at')->whereNotNull('type')->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
 }

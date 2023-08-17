@@ -195,6 +195,28 @@
                                 </div>
                             </div>
                         @endif
+                        @if (auth()->user()->hasRole('Institute'))
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+                                        <div class="avatar bg-rgba-success p-50 m-0">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-book text-primary font-medium-5"></i>
+                                            </div>
+                                        </div>
+                                        <h2 class="text-bold-700 mt-1">
+                                            {{ App\Models\User::where('institue_id', auth()->user()->_id)->count() }}
+                                        </h2>
+                                        <p class="mb-0">Research Papers<u style="font-size: 10px">
+
+                                            </u>
+
+                                        </p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                 </section>

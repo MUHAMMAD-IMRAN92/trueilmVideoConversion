@@ -1452,7 +1452,68 @@
                }],
                "order": false
            });
+           $('#institue-users-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-institute-users') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           name = '--';
+                           if (row.name != undefined) {
+                               name = row.name
+                           }
+                           return '<td>' +
+                               name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
 
+                           return '<td>' +
+                               row.email +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.phone + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var status = '';
+                           if (row.status == 0) {
+                               status = 'Not Subscribed';
+                           } else {
+                               status = 'Subscribed';
+
+                           }
+                           return '<td>' +
+                               status +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return `<td>
+                                <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
+                               </td>`;
+
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
        });
 
        function fileSelect(e, l) {

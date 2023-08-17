@@ -197,6 +197,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('coupon/store', [App\Http\Controllers\CouponController::class, 'store'])->name('coupon.store');
     Route::get('coupon/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->name('coupon.edit');
     Route::post('coupon/update', [App\Http\Controllers\CouponController::class, 'update'])->name('coupon.update');
+
+    //institue user
+    Route::get('institute/users',  [App\Http\Controllers\UserController::class, 'instituteUsers'])->name('institute.users');
+    Route::get('institute/users/create',  [App\Http\Controllers\UserController::class, 'createInstituteUser'])->name('institute.user.add');
+    Route::get('all-institute-users', [App\Http\Controllers\UserController::class, 'allInstituteUsers'])->name('institute.users.all');
+
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
