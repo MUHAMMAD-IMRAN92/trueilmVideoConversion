@@ -236,6 +236,7 @@ class HadeesController extends Controller
     public function updateTranslation(Request $request)
     {
         // return $request->all();
+        $hadees = Hadees::where('_id', $request->hadith_id)->first();
         $alQuranTranslation = HadeesTranslation::where('_id', $request->transId)->first();
         if ($alQuranTranslation) {
             $alQuranTranslation->translation = $request->translation;
@@ -243,6 +244,7 @@ class HadeesController extends Controller
             $alQuranTranslation->author_lang = $request->author_lang;
             $alQuranTranslation->type = $request->type;
             $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->chapter_id = $hadees->chapter_id;
             $alQuranTranslation->save();
         } else {
             $alQuranTranslation = new HadeesTranslation();
@@ -251,6 +253,7 @@ class HadeesController extends Controller
             $alQuranTranslation->author_lang = $request->author_lang;
             $alQuranTranslation->type = $request->type;
             $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->chapter_id = $hadees->chapter_id;
             $alQuranTranslation->save();
         }
 

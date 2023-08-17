@@ -226,6 +226,5 @@ class UserController extends Controller
         $user = User::where('_id', $id)->first();
         $user->forceDelete();
         return redirect()->to('/institute/users')->with('msg', 'User Deleted Successfully!');
-
     }
 }
