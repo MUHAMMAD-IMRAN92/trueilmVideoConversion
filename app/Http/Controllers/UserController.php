@@ -214,7 +214,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->added_by = $this->user->id;
         $user->institute_id =  $this->user->id;
         $user->save();
