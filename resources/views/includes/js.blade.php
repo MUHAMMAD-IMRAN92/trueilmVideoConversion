@@ -1069,7 +1069,14 @@
                                '</td>'
                        }
                    },
+                   {
+                       "mRender": function(data, type, row) {
 
+
+                           return '<td>' +
+                            row.author + '</td>'
+                       }
+                   },
                    {
                        "mRender": function(data, type, row) {
                            var type = '';
