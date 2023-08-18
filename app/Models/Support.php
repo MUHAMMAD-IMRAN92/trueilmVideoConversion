@@ -12,6 +12,6 @@ class Support extends Eloquent
 
     public function user()
     {
-        return $this->hasMany(User::class, '_id', 'user_id');
+        return $this->hasOne(User::class, '_id', 'user_id');
     }
 }
