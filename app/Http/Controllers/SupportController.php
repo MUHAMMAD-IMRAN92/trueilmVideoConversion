@@ -28,13 +28,13 @@ class SupportController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Support::where('status', 1)->count();
-        $brands = Support::where('status', 1)->when($search, function ($q) use ($search) {
+        $totalBrands = Support::where('status', 0)->count();
+        $brands = Support::where('status', 0)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->with('user')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Support::where('status', 1)->when($search, function ($q) use ($search) {
+        $brandsCount = Support::where('status', 0)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -54,6 +54,6 @@ class SupportController extends Controller
             $support->status = 1;
             $support->save();
         }
-        return redirect()->back()->with('msg' , 'Support Marked As Read!');
+        return redirect()->back()->with('msg', 'Support Marked As Read!');
     }
 }
