@@ -116,14 +116,14 @@ class HadeesController extends Controller
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' => 5]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' =>  "5"]);
             }
         }
         if ($request->glossary) {
             foreach ($request->glossary as $key => $g) {
                 // $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $hadees->id, 'content_type' => 5]);
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $hadees->id, 'content_type' => "5"]);
             }
         }
         return redirect()->to("hadith/edit/$request->book_id/$hadees->id")->with('msg', 'Hadith Saved Successfully!');
@@ -212,7 +212,7 @@ class HadeesController extends Controller
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' => 5]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $hadees->id, 'content_type' =>  "5"]);
             }
         }
         if ($request->glossary) {
@@ -221,7 +221,7 @@ class HadeesController extends Controller
             foreach ($request->glossary as $key => $g) {
                 // $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $hadees->id, 'content_type' => 4]);
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $hadees->id, 'content_type' => "5"]);
             }
         }
         return redirect()->to("hadith/edit/$hadees->book_id/$hadees->id")->with('msg', 'Hadith Updated Successfully!');

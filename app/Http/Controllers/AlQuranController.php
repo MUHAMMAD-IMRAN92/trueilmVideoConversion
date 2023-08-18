@@ -102,14 +102,14 @@ class AlQuranController extends Controller
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => 4]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => "4"]);
             }
         }
         if ($request->glossary) {
             foreach ($request->glossary as $key => $g) {
                 // $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $alQuran->id, 'content_type' => 4]);
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $alQuran->id, 'content_type' => "4"]);
             }
         }
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Saved Successfully!');
@@ -220,7 +220,7 @@ class AlQuranController extends Controller
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => 4]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $alQuran->id, 'content_type' => "4"]);
             }
         }
         if ($request->glossary) {
@@ -229,7 +229,7 @@ class AlQuranController extends Controller
             foreach ($request->glossary as $key => $g) {
                 // $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $alQuran->id, 'content_type' => 4]);
+                $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $alQuran->id, 'content_type' => "4"]);
             }
         }
         return redirect()->to('/ayat/edit/' . $request->surah_id . '/' . $alQuran->id)->with('msg', 'Ayat Updated Successfully!');;

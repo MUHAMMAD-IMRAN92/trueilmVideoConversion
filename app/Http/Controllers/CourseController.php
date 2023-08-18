@@ -80,7 +80,7 @@ class CourseController extends Controller
 
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $course->id, 'content_type' => 6]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $course->id, 'content_type' => "6"]);
             }
         }
         if ($request->lessons) {
@@ -140,7 +140,7 @@ class CourseController extends Controller
             foreach ($request->tags as $key => $tag) {
                 $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $course->id, 'content_type' => 6]);
+                $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $course->id, 'content_type' => "6"]);
             }
         }
         if ($request->lessons) {
