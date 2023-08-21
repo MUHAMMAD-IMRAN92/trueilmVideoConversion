@@ -137,7 +137,7 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
-
+                                                    @if ($type != 7 && $type != 2)
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Serial Number</label>
@@ -166,7 +166,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="form-group col-md-6 ">
+                                                    @endif                                                 <div class="form-group col-md-6 ">
                                                         <label for="basicInputFile">Tags</label>
 
                                                         <select class="select2 multiple-select form-control"
