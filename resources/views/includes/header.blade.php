@@ -401,6 +401,10 @@
                                 class="fa fa-percent"></i>
                             <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
                     </li>
+                    {{-- <li class="@if (request()->is('order*')) active @endif "><a href="{{ url('/order') }}"><i
+                                class="fa fa-line-chart"></i>
+                            <span class="menu-item" data-i18n="Analytics">Order</span></a>
+                    </li> --}}
 
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Grant</span></a>
@@ -486,8 +490,8 @@
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Institute'))
-                   <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a href="{{ url('institute/users') }}"><i
-                                class="fa fa-user"></i>
+                    <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a
+                            href="{{ url('institute/users') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Users</span></a>
                     </li>
                 @endif

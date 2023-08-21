@@ -74,7 +74,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book</label>
+                                                            <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
                                                                     id="inputGroupFile01" name="file[]" multiple>

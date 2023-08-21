@@ -70,7 +70,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book</label>
+                                                            <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
                                                                     id="inputGroupFile01" name="file[]" multiple>
@@ -133,33 +133,34 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    @if ($type != 7 && $type != 2)
+                                                        <div class="col-md-6">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInputFile">Serial Number</label>
+                                                                <div class="custom-file">
+                                                                    <div class="position-relative">
+                                                                        <input type="text" id=""
+                                                                            class="form-control" name="sr_no"
+                                                                            placeholder="" required>
 
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Serial Number</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="sr_no"
-                                                                        placeholder="" required>
-
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book Pages</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="number" id=""
-                                                                        class="form-control" name="pages"
-                                                                        placeholder="" required>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInputFile">Book Pages</label>
+                                                                <div class="custom-file">
+                                                                    <div class="position-relative">
+                                                                        <input type="number" id=""
+                                                                            class="form-control" name="pages"
+                                                                            placeholder="" required>
 
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
+                                                            </fieldset>
+                                                        </div>
+                                                    @endif
                                                     <div class="form-group col-md-6 ">
                                                         <label for="basicInputFile">Tags</label>
 
