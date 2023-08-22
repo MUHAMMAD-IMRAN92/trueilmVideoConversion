@@ -10466,8 +10466,7 @@
         "doctrine/dbal": 20,
         "fruitcake/laravel-cors": 20,
         "laravel/cashier": 20,
-        "league/flysystem-aws-s3-v3": 20,
-        "maatwebsite/excel": 20
+        "league/flysystem-aws-s3-v3": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

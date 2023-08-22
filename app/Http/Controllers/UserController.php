@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Imports\UsersImport;
 use App\Models\Book;
 use App\Models\BookLastSeen;
 use App\Models\User;
@@ -11,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maklad\Permission\Models\Role;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -226,5 +230,17 @@ class UserController extends Controller
         $user = User::where('_id', $id)->first();
         $user->forceDelete();
         return redirect()->to('/institute/users')->with('msg', 'User Deleted Successfully!');
+    }
+    public function downloadSample()
+    {
+        $filepath = public_path('/files/sample.xlsx');
+        return Response::download($filepath);
+    }
+    public function importUser(Request $request)
+    {
+        $file = $request->file;
+        Excel::import(new UsersImport, $file);
+
+        return redirect('/institute/users')->with('msg', 'User Imported Successfully!');
     }
 }

@@ -11,7 +11,7 @@
 
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="content-header-left col-md-7 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">User Managemanet</h2>
@@ -21,14 +21,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+                <div class="content-header-right text-md-right col-md-5 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
                             <a href="{{ route('institute.user.add') }}"> <button
                                     class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
                                         class="add-brand-font">Add User</span> <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button></a>
-
+                            <a href="{{ route('institute.download.sample') }}"> <button
+                                    class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
+                                        class="add-brand-font">Download Sample</span> <i class=""
+                                        aria-hidden="true"></i>
+                                </button></a>
+                            <a href="#"> <button data-toggle="modal" data-target="#excel"
+                                    class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
+                                        class="add-brand-font">Import Users</span> <i class="" aria-hidden="true"></i>
+                                </button></a>
                         </div>
                     </div>
                 </div>
@@ -43,6 +51,45 @@
                     </button>
                 </div>
             @endif
+            <div class="modal fade bd-example-modal-lg" id="excel" tabindex="-1" role="dialog"
+                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <form action="{{ route('institute.user.import') }}" method="POST" id="" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Import Users</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-12">
+
+
+                                    <fieldset class="form-group">
+                                        <label for="basicInputFile">Select File</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                                name="file">
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                file</label>
+                                        </div>
+                                    </fieldset>
+
+
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">

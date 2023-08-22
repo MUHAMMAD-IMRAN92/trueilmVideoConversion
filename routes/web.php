@@ -206,7 +206,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('institute/user/edit/{id}', [App\Http\Controllers\UserController::class, 'editInstituteUsers'])->name('institute.user.edit');
     Route::post('institute/user/update', [App\Http\Controllers\UserController::class, 'updateInstituteUsers'])->name('institute.user.update');
     Route::get('institute/user/delete/{id}', [App\Http\Controllers\UserController::class, 'deleteInstituteUsers'])->name('institute.user.delete');
-
+    Route::get('institute/download/sample', [App\Http\Controllers\UserController::class, 'downloadSample'])->name('institute.download.sample');
+    Route::post('institute/import/user', [App\Http\Controllers\UserController::class, 'importUser'])->name('institute.user.import');
     //order
     Route::get('order', [App\Http\Controllers\CouponController::class, 'index'])->name('order');
     Route::get('all-order', [App\Http\Controllers\CouponController::class, 'allorder'])->name('order.all');
