@@ -133,7 +133,7 @@
                                             {{ App\Models\Book::approved()->active()->ebook()->when(
                                                     !auth()->user()->hasRole('Super Admin'),
                                                     function ($query) {
-                                                        $query->where('added_by', auth()->user()->id)->orWhere('approved_by', auth()->user()->id);
+                                                        $query->where('added_by', auth()->user()->id);
                                                     },
                                                 )->count() }}
                                         </h2>
@@ -158,7 +158,7 @@
                                             {{ App\Models\Book::approved()->active()->audio()->when(
                                                     !auth()->user()->hasRole('Super Admin'),
                                                     function ($query) {
-                                                        $query->where('added_by', auth()->user()->id)->orWhere('approved_by', auth()->user()->id);
+                                                        $query->where('added_by', auth()->user()->id);
                                                     },
                                                 )->count() }}
                                         </h2>
@@ -183,7 +183,7 @@
                                             {{ App\Models\Book::approved()->active()->paper()->when(
                                                     !auth()->user()->hasRole('Super Admin'),
                                                     function ($query) {
-                                                        $query->where('added_by', auth()->user()->id)->orWhere('approved_by', auth()->user()->id);
+                                                        $query->where('added_by', auth()->user()->id);
                                                     },
                                                 )->count() }}
                                         </h2>
