@@ -56,12 +56,12 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->active()->when(
-                                                    !auth()->user()->hasRole('Super Admin'),
-                                                    function ($query) {
-                                                        $query->where('added_by', auth()->user()->id);
-                                                    },
-                                                )->count() }}
+                                            {{ App\Models\Book::when(
+                                                !auth()->user()->hasRole('Super Admin'),
+                                                function ($query) {
+                                                    $query->where('added_by', auth()->user()->id);
+                                                },
+                                            )->count() }}
                                         </h2>
                                         <p class="mb-0">Total Books</p>
                                     </div>
@@ -130,7 +130,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->active()->ebook()->when(
+                                            {{ App\Models\Book::approved()->ebook()->when(
                                                     !auth()->user()->hasRole('Super Admin'),
                                                     function ($query) {
                                                         $query->where('added_by', auth()->user()->id);
@@ -155,7 +155,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->active()->audio()->when(
+                                            {{ App\Models\Book::approved()->audio()->when(
                                                     !auth()->user()->hasRole('Super Admin'),
                                                     function ($query) {
                                                         $query->where('added_by', auth()->user()->id);
@@ -180,7 +180,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->active()->paper()->when(
+                                            {{ App\Models\Book::approved()->paper()->when(
                                                     !auth()->user()->hasRole('Super Admin'),
                                                     function ($query) {
                                                         $query->where('added_by', auth()->user()->id);
