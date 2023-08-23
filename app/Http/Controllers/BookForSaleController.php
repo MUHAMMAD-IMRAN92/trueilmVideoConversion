@@ -28,7 +28,7 @@ class BookForSaleController extends Controller
     public function allBookForSale(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Admin')) {
+        if (auth()->user()->hasRole('Super Admin')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;

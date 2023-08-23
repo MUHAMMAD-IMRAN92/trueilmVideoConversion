@@ -405,6 +405,17 @@
                        }
                    }, {
                        "mRender": function(data, type, row) {
+                           var approver_name = '';
+                           if (row.approver_name != null) {
+                               approver_name = row.approver_name;
+                           } else {
+                               approver_name = '--'
+                           }
+                           return '<td>' +
+                               approver_name + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
                            return '<td>' +
                                row.numberOfUser + '</td>'
                        }
@@ -917,7 +928,7 @@
                                    `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
                            return `<td">
-                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+                                <a  class="ml-2" href="{{ url('grant/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
                                anchor +
                                `</td>`
                        }
@@ -1074,7 +1085,7 @@
 
 
                            return '<td>' +
-                            row.author + '</td>'
+                               row.author + '</td>'
                        }
                    },
                    {
@@ -1146,6 +1157,13 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
                            return '<td>' +
                                row.title + '</td>'
                        }
@@ -1162,12 +1180,18 @@
                                des +
                                '</td>'
                        }
-                   }, {
+                   },
+                   {
                        "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                           var user_name = "";
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--';
+                           }
+                           return '<td>' +
+                            user_name +
+                               '</td>'
                        }
                    },
                    {
@@ -1281,7 +1305,7 @@
                        }
                    }, {
                        "mRender": function(data, type, row) {
-                        var des = '';
+                           var des = '';
                            if (row.description != null) {
                                des = row.description.slice(0, 150);
                            } else {

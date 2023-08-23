@@ -28,17 +28,30 @@ class CourseController extends Controller
     }
     public function allCourses(Request $request)
     {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Course::count();
-        $brands = Course::when($search, function ($q) use ($search) {
+        $totalBrands = Course::when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->count();
+        $brands = Course::when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Course::when($search, function ($q) use ($search) {
+        $brandsCount = Course::when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });

@@ -29,13 +29,13 @@ class GrantController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Grant::where('status' , 0)->count();
-        $brands = Grant::where('status' , 0)->when($search, function ($q) use ($search) {
+        $totalBrands = Grant::where('approved', 0)->count();
+        $brands = Grant::where('approved', 0)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Grant::where('status' , 0)->skip((int) $start)->take((int) $length)->count();
+        $brandsCount = Grant::where('approved', 0)->skip((int) $start)->take((int) $length)->count();
 
         $data = array(
             'draw' => $draw,
@@ -47,13 +47,16 @@ class GrantController extends Controller
     }
     public function rejectGrant(Request $request, $id)
     {
-        $book = Grant::where('_id', $id)->first();
+        $grant = Grant::where('_id', $id)->first();
         $approved = 2;
+        if ($grant->approved == 0) {
+            $grant->update([
+                'approved' => $approved,
+                'approved_by' => $this->user->id,
+                'reason' => $request->reason
+            ]);
+        }
 
-        $book->update([
-            'status' => $approved,
-            'reason' => $request->reason
-        ]);
 
         return redirect()->back()->with('msg', 'Grant Reject Successfully!');
     }
@@ -64,17 +67,28 @@ class GrantController extends Controller
 
     public function allRejectedGrants(Request $request)
     {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = Grant::rejected()->count();
-        $brands = Grant::rejected()->when($search, function ($q) use ($search) {
+        $brands = Grant::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('approved_by', $user_id);
+        })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Grant::rejected()->when($search, function ($q) use ($search) {
+        $brandsCount = Grant::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('approved_by', $user_id);
+        })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -88,23 +102,36 @@ class GrantController extends Controller
         return json_encode($data);
     }
     public function approved()
+
     {
         return view('grant.approved');
     }
 
     public function allApprovedGrants(Request $request)
     {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Grant::approved()->count();
-        $brands = Grant::approved()->when($search, function ($q) use ($search) {
+        $totalBrands = Grant::approved()->when($user_id, function ($query) use ($user_id) {
+            $query->where('approved_by', $user_id);
+        })->count();
+        $brands = Grant::approved()->when($user_id, function ($query) use ($user_id) {
+            $query->where('approved_by', $user_id);
+        })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Grant::approved()->when($search, function ($q) use ($search) {
+        $brandsCount = Grant::approved()->when($user_id, function ($query) use ($user_id) {
+            $query->where('approved_by', $user_id);
+        })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -130,11 +157,12 @@ class GrantController extends Controller
         $grant = Grant::where('_id', $id)->first();
         $approved = 1;
 
-        $grant->update([
-            'status' => $approved
-        ]);
-
+        if ($grant->approved = 0 || $grant->approved = 2) {
+            $grant->update([
+                'approved' => $approved,
+                'approved_by' => $this->user->id,
+            ]);
+        }
         return redirect()->back()->with('msg', 'Grant Approved Successfully!');
     }
-
 }

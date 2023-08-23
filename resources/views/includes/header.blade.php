@@ -314,7 +314,7 @@
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
 
-                @if (auth()->user()->hasRole('Admin'))
+                @if (auth()->user()->hasRole('Admin') ||  auth()->user()->hasRole('Super Admin') )
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Al-Quran</span></a>
                         <ul class="menu-content">
@@ -426,6 +426,7 @@
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Admin') ||
+                        auth()->user()->hasRole('Super Admin') ||
                         auth()->user()->hasRole('Publisher'))
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Content Management</span></a>

@@ -16,7 +16,7 @@ class Book extends Eloquent
     {
         return $this->hasMany(BookLastSeen::class, 'book_id', '_id')->orderBy('createdAt', 'desc');
     }
-    protected $appends = ['user_name'];
+    protected $appends = ['user_name', 'approver_name'];
     public function scopeActive($query)
     {
         return $query->where('status', 1);
@@ -51,6 +51,13 @@ class Book extends Eloquent
     {
         // return $this->added_by;
         $user = User::where('_id', $this->added_by)->first();
+
+        return @$user->name;
+    }
+    public function getApproverNameAttribute()
+    {
+        // return $this->added_by;
+        $user = User::where('_id', $this->approved_by)->first();
 
         return @$user->name;
     }

@@ -28,10 +28,10 @@ class Grant extends Eloquent
     }
     public function scopeRejected($query)
     {
-        return $query->where('status', 2);
+        return $query->where('approved', 2);
     }
     public function scopeApproved($query)
     {
-        return $query->where('status', 1);
+        return $query->where('approved', 1);
     }
 }

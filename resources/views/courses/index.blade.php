@@ -58,9 +58,10 @@
                                         <table class="table" id="courses-table">
                                             <thead>
                                                 <tr>
+                                                    <th class="">Image</th>
                                                     <th>Title</th>
                                                     <th class="description-td">Description</th>
-                                                    <th class="">Image</th>
+                                                    <th>Added By</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

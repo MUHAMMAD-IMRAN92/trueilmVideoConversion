@@ -81,6 +81,7 @@
                                                     <th class="">Type</th>
                                                     <th class="">Status</th>
                                                     <th class="">Added By</th>
+                                                    <th class="">Approved By</th>
                                                     <th class="">Read By</th>
 
                                                     <th>Action</th>
@@ -119,6 +120,8 @@
                                                         <th class="">Type</th>
                                                         <th class="">Status</th>
                                                         <th class="">Added By</th>
+                                                        <th class="">Approved By</th>
+
                                                         <th class="">Read By</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -163,6 +166,7 @@
                                                             <td>{{ $b->type }}</td>
                                                             <td>{{ $b->approved }}</td>
                                                             <td>{{ @$b->user_name }}</td>
+                                                            <td>{{ @$b->approver_name }}</td>
                                                             <td>{{ $b->numberOfUser }}</td>
                                                             <td>
                                                                 <a class="ml-2"
