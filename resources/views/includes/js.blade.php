@@ -904,6 +904,17 @@
                            return '<td>' +
                                user_name + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var approver_name = '';
+                           if (row.approver_name != null) {
+                            approver_name = row.approver_name;
+                           } else {
+                            approver_name = '--'
+                           }
+                           return '<td>' +
+                            approver_name + '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
@@ -928,7 +939,7 @@
                                    `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
                            return `<td">
-                                <a  class="ml-2" href="{{ url('grant/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
                                anchor +
                                `</td>`
                        }
@@ -1011,14 +1022,14 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var reason = '';
-                           if (row.reason != null) {
-                               reason = row.reason;
+                           var approver_name = '';
+                           if (row.approver_name != null) {
+                               approver_name = row.approver_name;
                            } else {
-                               reason = '--'
+                               approver_name = '--'
                            }
                            return '<td>' +
-                               reason + '</td>'
+                               approver_name + '</td>'
                        }
                    },
                    {
@@ -1190,7 +1201,7 @@
                                user_name = '--';
                            }
                            return '<td>' +
-                            user_name +
+                               user_name +
                                '</td>'
                        }
                    },

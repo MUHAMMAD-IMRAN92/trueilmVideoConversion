@@ -49,7 +49,7 @@
 
                                                     <th class="">Type</th>
                                                     <th class="">Added By</th>
-                                                    <th class="">Reason</th>
+                                                    <th class="">Approved By</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

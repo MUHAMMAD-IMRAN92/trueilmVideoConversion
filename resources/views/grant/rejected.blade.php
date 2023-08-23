@@ -49,6 +49,8 @@
 
                                                     <th class="">Type</th>
                                                     <th class="">Added By</th>
+                                                    <th class="">Rejected By</th>
+
                                                     <th class="">Reason</th>
                                                     <th>Action</th>
                                                 </tr>
