@@ -314,7 +314,8 @@
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
 
-                @if (auth()->user()->hasRole('Admin') ||  auth()->user()->hasRole('Super Admin') )
+                @if (auth()->user()->hasRole('Admin') ||
+                        auth()->user()->hasRole('Super Admin'))
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Al-Quran</span></a>
                         <ul class="menu-content">
@@ -372,6 +373,10 @@
                             <li class="@if (request()->is('book/rejected*')) active @endif "><a
                                     href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
+                            </li>
+                            <li class="@if (request()->is('book/approved*')) active @endif "><a
+                                    href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Approved</span></a>
                             </li>
 
                         </ul>
@@ -483,10 +488,24 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="@if (request()->is('publisher*')) active @endif "><a
-                                    href="{{ url('publisher') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
-                            </li>
+                            @if (!auth()->user()->hasRole('Publisher'))
+                                <li class="@if (request()->is('publisher*')) active @endif "><a
+                                        href="{{ url('publisher') }}"><i class="fa fa-user"></i>
+                                        <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
+                                </li>
+                            @endif
+                            @if (auth()->user()->hasRole('Publisher'))
+                                <li class="@if (request()->is('book/rejected*')) active @endif "><a
+                                        href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
+                                        <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
+                                </li>
+                                @endif @if (auth()->user()->hasRole('Admin'))
+                                    <li class="@if (request()->is('books/rejected/'.auth()->user()->id)) active @endif "><a
+                                            href="{{ url('books/rejected/' . auth()->user()->id) }}"><i
+                                                class="fa fa-book"></i>
+                                            <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
+                                    </li>
+                                @endif
                         </ul>
                     </li>
                 @endif

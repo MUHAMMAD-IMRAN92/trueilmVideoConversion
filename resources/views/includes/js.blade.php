@@ -908,12 +908,12 @@
                        "mRender": function(data, type, row) {
                            var approver_name = '';
                            if (row.approver_name != null) {
-                            approver_name = row.approver_name;
+                               approver_name = row.approver_name;
                            } else {
-                            approver_name = '--'
+                               approver_name = '--'
                            }
                            return '<td>' +
-                            approver_name + '</td>'
+                               approver_name + '</td>'
                        }
                    },
                    {
@@ -1055,7 +1055,7 @@
                }],
                "order": false
            });
-           $('#rejected-book-table').DataTable({
+           $('#admin-rejected-book-table').DataTable({
                "processing": true,
                "serverSide": true,
                "deferRender": true,
@@ -1063,7 +1063,7 @@
                    "searchPlaceholder": "Search here"
                },
                "ajax": {
-                   url: '<?= url('all-rejected-book') ?>'
+                   url: '<?= url('all-admin-rejected-book') ?>'
                },
                "columns": [{
                        "mRender": function(data, type, row) {
@@ -1093,8 +1093,6 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-
-
                            return '<td>' +
                                row.author + '</td>'
                        }
@@ -1144,14 +1142,216 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var a = '';
+                           if ("{{ auth()->user()->hasRole('Admin') }}") {
+                               a =
+                                   `<a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
+                           }
                            return `<td>
-                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                                    ${a}
                                 </td>`
                        }
                    },
                ],
                "columnDefs": [{
+                   'targets': [0, 1, 2, 3, 4, 5, 6, 7],
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#rejected-book-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-rejected-book') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
 
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.author + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var type = '';
+                           if (row.type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.type == 3) {
+                               type = 'Research Paper';
+                           }
+                           if (row.type == 7) {
+                               type = 'Podcast';
+                           }
+                           return '<td>' +
+                               type +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var reason = '';
+                           if (row.reason != null) {
+                               reason = row.reason;
+                           } else {
+                               reason = '--'
+                           }
+                           return '<td>' +
+                               reason + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var a = '';
+                           if ("{{ auth()->user()->hasRole('Admin') }}") {
+                               a =
+                                   `<a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
+                           }
+                           return `<td>
+                                    ${a}
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+                   'targets': [0, 1, 2, 3, 4, 5, 6, 7],
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#approved-book-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-approved-book') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 150);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.author + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var type = '';
+                           if (row.type == 1) {
+                               type = 'eBook';
+                           }
+                           if (row.type == 2) {
+                               type = 'Audio Book';
+                           }
+                           if (row.type == 3) {
+                               type = 'Research Paper';
+                           }
+                           if (row.type == 7) {
+                               type = 'Podcast';
+                           }
+                           return '<td>' +
+                               type +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var reason = '';
+                           if (row.reason != null) {
+                               reason = row.reason;
+                           } else {
+                               reason = '--'
+                           }
+                           return '<td>' +
+                               reason + '</td>'
+                       }
+                   }
+
+               ],
+               "columnDefs": [{
+                   'targets': [0, 1, 2, 3, 4, 5,6],
                    "orderable": false
                }],
                "order": false

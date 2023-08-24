@@ -50,17 +50,17 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::approved()->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::where('approved', '!=', 2)->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
-        $brands = Book::approved()->where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
+        $brands = Book::where('approved', '!=', 2)->where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::approved()->where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
+        $brandsCount = Book::where('approved', '!=', 2)->where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -357,7 +357,7 @@ class BookController extends Controller
     {
         $book = Book::where('_id', $id)->first();
         $approved = 2;
-        if ($book->approved = 0) {
+        if ($book->approved == 0) {
             $book->update([
                 'approved' => $approved,
                 'approved_by' => $this->user->id,
@@ -408,17 +408,29 @@ class BookController extends Controller
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = Book::rejected()->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id)->orWhere('approved_by', $user_id);;
+            if (auth()->user()->hasRole('Admin')) {
+                $query->where('approved_by', $user_id);
+            } else if (auth()->user()->hasRole('Publisher')) {
+                $query->where('added_by', $user_id);
+            }
         })->count();
         $brands = Book::rejected()->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id)->orWhere('approved_by', $user_id);;
+            if (auth()->user()->hasRole('Admin')) {
+                $query->where('approved_by', $user_id);
+            } else if (auth()->user()->hasRole('Publisher')) {
+                $query->where('added_by', $user_id);
+            }
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::rejected()->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id)->orWhere('approved_by', $user_id);;
+            if (auth()->user()->hasRole('Admin')) {
+                $query->where('approved_by', $user_id);
+            } else if (auth()->user()->hasRole('Publisher')) {
+                $query->where('added_by', $user_id);
+            }
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -464,5 +476,105 @@ class BookController extends Controller
             's_date' => $request->s_date,
             'e_date' => $request->e_date
         ]);
+    }
+    public function approved()
+    {
+        return view('eBook.approved', [
+            'type' => Session::get('type')
+        ]);
+    }
+    public function allApprovedBooks(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Book::approved()->when($user_id, function ($query) use ($user_id) {
+            if (auth()->user()->hasRole('Admin')) {
+                $query->where('approved_by', $user_id);
+            } else if (auth()->user()->hasRole('Publisher')) {
+                $query->where('added_by', $user_id);
+            }
+        })->count();
+        $brands = Book::approved()->when($user_id, function ($query) use ($user_id) {
+            if (auth()->user()->hasRole('Admin')) {
+                $query->where('approved_by', $user_id);
+            } else if (auth()->user()->hasRole('Publisher')) {
+                $query->where('added_by', $user_id);
+            }
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Book::approved()->when($user_id, function ($query) use ($user_id) {
+            if (auth()->user()->hasRole('Admin')) {
+                $query->where('approved_by', $user_id);
+            } else if (auth()->user()->hasRole('Publisher')) {
+                $query->where('added_by', $user_id);
+            }
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
+
+
+    public function adminRejected()
+    {
+        return view('eBook.admin_rejected', [
+            'type' => Session::get('type')
+        ]);
+    }
+    public function allAdminRejectedBooks(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Book::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->count();
+        $brands = Book::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Book::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
     }
 }

@@ -40,7 +40,7 @@
 
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
-                                        <table class="table" id="rejected-book-table">
+                                        <table class="table" id="admin-rejected-book-table">
                                             <thead>
                                                 <tr>
                                                     <th>Cover</th>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Book;
 use App\Models\Languages;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -117,6 +118,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
     Route::get('book/view/{id}', [App\Http\Controllers\BookController::class, 'viewBook'])->name('book.viewBook');
     Route::post('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
+    Route::get('book/approved', [App\Http\Controllers\BookController::class, 'approved'])->name('book.approved');
+    Route::get('all-approved-book', [App\Http\Controllers\BookController::class, 'allApprovedBooks'])->name('book.all-approved');
+    Route::get('books/rejected/{id}', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
+    Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
+
 
     //admin users
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
@@ -213,4 +219,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-order', [App\Http\Controllers\CouponController::class, 'allorder'])->name('order.all');
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
+});
+Route::get('/test', function () {
+    return Book::where('title' , 'test')->orwhere('approved_by' , '644a530f9cb32333ad0f6d93')->get();
 });
