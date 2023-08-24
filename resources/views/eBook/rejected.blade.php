@@ -50,7 +50,7 @@
                                                     <th class="">Type</th>
                                                     <th class="">Added By</th>
                                                     <th class="">Reason</th>
-                                                    @if (auth()->user()->hasRole('Admin'))
+                                                    @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') )
                                                         <th>Action</th>
                                                     @else
                                                     <th></th>

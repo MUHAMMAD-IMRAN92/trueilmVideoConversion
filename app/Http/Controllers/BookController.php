@@ -349,7 +349,7 @@ class BookController extends Controller
                 'approved_by' => $this->user->id,
             ]);
         }
-
+        activity(1, $id, 1);
         return redirect()->back()->with('msg', 'Content Approved Successfully!');
     }
 
@@ -365,7 +365,7 @@ class BookController extends Controller
             ]);
         }
 
-
+        activity(2, $id, 1);
         return redirect()->back()->with('msg', 'Content Reject Successfully!');
     }
 
@@ -577,4 +577,5 @@ class BookController extends Controller
         );
         return json_encode($data);
     }
+
 }

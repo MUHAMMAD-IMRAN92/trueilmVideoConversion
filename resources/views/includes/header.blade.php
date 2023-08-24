@@ -499,14 +499,21 @@
                                         href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                                         <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                                 </li>
-                                @endif @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
-                                    <li class="@if (request()->is('books/rejected/'.auth()->user()->id)) active @endif "><a
+                                @endif @if (auth()->user()->hasRole('Admin') ||
+                                        auth()->user()->hasRole('Super Admin'))
+                                    <li class="@if (request()->is('books/rejected/' . auth()->user()->id)) active @endif "><a
                                             href="{{ url('books/rejected/' . auth()->user()->id) }}"><i
                                                 class="fa fa-book"></i>
                                             <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                                     </li>
                                 @endif
                         </ul>
+                    </li>
+                @endif
+                @if (auth()->user()->hasRole('Super Admin'))
+                    <li class="@if (request()->is('activities*')) active @endif "><a
+                            href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
+                            <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Institute'))

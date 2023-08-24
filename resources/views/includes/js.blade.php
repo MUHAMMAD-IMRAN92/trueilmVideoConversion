@@ -1143,7 +1143,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var a = '';
-                           if ("{{ auth()->user()->hasRole('Admin') }}") {
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
                                    `<a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
                            }
@@ -1247,7 +1248,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var a = '';
-                           if ("{{ auth()->user()->hasRole('Admin') }}") {
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
                                    `<a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
                            }
@@ -1351,7 +1353,7 @@
 
                ],
                "columnDefs": [{
-                   'targets': [0, 1, 2, 3, 4, 5,6],
+                   'targets': [0, 1, 2, 3, 4, 5, 6],
                    "orderable": false
                }],
                "order": false
@@ -1449,6 +1451,9 @@
                            } else {
                                name = '--';
                            }
+                           return '<td>' +
+                               name +
+                               '</td>'
                        }
                    },
                    {
@@ -1456,6 +1461,41 @@
 
                            return `<td>
                             <a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#activity-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-activities') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           var sentence = `${row.user_name} Has ${row.key} (${row.title})`;
+                           return '<td>' +
+                               sentence +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var route = `${row.revert_link}`;
+                           return `<td>
+                             <a  class="ml-2" href="{{ url('${route}` +row.content_id+`/${row._id}') }}"><i class="fa fa-undo"></i></a>
 
                                 </td>`
                        }

@@ -123,7 +123,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('books/rejected/{id}', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
 
-
+    //super admin revet
+    Route::get('activities', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('book.activities');
+    Route::get('all-activities', [App\Http\Controllers\ActivitiesController::class, 'allActivities'])->name('book.all-activities');
+    Route::get('content/revert/{id}/{activity_id}', [App\Http\Controllers\ActivitiesController::class, 'revert'])->name('book.revet');
+    Route::get('book/update-status/{id}/{activity_id}', [App\Http\Controllers\ActivitiesController::class, 'updateStatusActivity'])->name('book.superadmin.statusUpdate');
     //admin users
     Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
     Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');
@@ -221,5 +225,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
 Route::get('/test', function () {
-    return Book::where('title' , 'test')->orwhere('approved_by' , '644a530f9cb32333ad0f6d93')->get();
+    return activity(4, 1);
 });
