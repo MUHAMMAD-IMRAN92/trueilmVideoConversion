@@ -34,7 +34,7 @@ class GrantController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Grant::where('approved', 0)->skip((int) $start)->take((int) $length)->count();
 
         $data = array(

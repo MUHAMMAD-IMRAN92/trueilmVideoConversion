@@ -33,7 +33,7 @@ class CouponController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Coupon::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");

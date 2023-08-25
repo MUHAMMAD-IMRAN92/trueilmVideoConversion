@@ -48,7 +48,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Languages;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -226,5 +227,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
 Route::get('/test', function () {
-    return activity(4, 1, 1);
+   return Category::where('type' , 1)->get();
 });

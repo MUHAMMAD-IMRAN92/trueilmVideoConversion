@@ -59,7 +59,7 @@ class BookController extends Controller
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::where('approved', '!=', 2)->where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -325,7 +325,7 @@ class BookController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::pendingApprove()->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -424,7 +424,7 @@ class BookController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::rejected()->when($user_id, function ($query) use ($user_id) {
             if (auth()->user()->hasRole('Admin')) {
                 $query->where('approved_by', $user_id);
@@ -464,7 +464,7 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->e_date, function ($q) use ($request) {
             $q->whereBetween('created_at', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
-        })->paginate(10);
+        })->orderBy('created_at' , 'desc')->paginate(10);
         $books->map(function ($b) {
             $b->numberOfUser = $b->totalUserReadThisBook();
             return $b;
@@ -512,7 +512,7 @@ class BookController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::approved()->when($user_id, function ($query) use ($user_id) {
             if (auth()->user()->hasRole('Admin')) {
                 $query->where('approved_by', $user_id);
@@ -561,7 +561,7 @@ class BookController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::rejected()->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {

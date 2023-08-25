@@ -13,7 +13,6 @@ class Category extends Eloquent
     protected $table = 'categories';
     protected $guarded = [];
 
-
     public function scopeActive($query)
     {
         return $query->where('status', 1);

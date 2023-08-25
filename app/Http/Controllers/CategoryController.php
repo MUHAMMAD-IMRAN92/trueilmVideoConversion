@@ -43,7 +43,7 @@ class CategoryController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
