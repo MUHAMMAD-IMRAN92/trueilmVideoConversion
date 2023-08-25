@@ -460,7 +460,7 @@ class BookController extends Controller
         } else {
             $user_id = auth()->user()->id;
         }
-        $books = Book::where('type', $request->type)->when($user_id, function ($query) use ($user_id) {
+        $books = Book::where('approved', '!=', 2)->where('type', $request->type)->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($request->e_date, function ($q) use ($request) {
             $q->whereBetween('created_at', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
