@@ -33,9 +33,7 @@ class CategoryController extends Controller
     {
         if (Session::get('type') == 'undefined') {
             Session::put('type', "1");
-            // return 'here';
         }
-        // return Session::get('type');
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
