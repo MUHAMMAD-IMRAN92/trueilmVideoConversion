@@ -252,7 +252,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
                            var oderNo = '';
-                           if (row.oderNo != null) {
+                           if (row.orderNumber != null) {
                                oderNo = row.orderNumber;
                            }
                            return '<td>' +
