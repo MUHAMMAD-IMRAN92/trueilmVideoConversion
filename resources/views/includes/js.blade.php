@@ -264,7 +264,7 @@
                        "mRender": function(data, type, row) {
                            var bookName = '';
                            if (row.book != null) {
-                               bookName = row.book.title;
+                               bookName = row.book_for_sale.title;
                            }
                            return '<td>' +
                                bookName +
