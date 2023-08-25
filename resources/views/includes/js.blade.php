@@ -239,7 +239,89 @@
                }],
                "order": false
            });
+           $('#order-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-order') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           var oderNo = '';
+                           if (row.oderNo != null) {
+                               oderNo = row.oderNo;
+                           }
+                           return '<td>' +
+                               oderNo +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var bookName = '';
+                           if (row.book != null) {
+                               bookName = row.book.title;
+                           }
+                           return '<td>' +
+                               bookName +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var name = '';
+                           if (row.name != null) {
+                               name = row.name;
+                           }
+                           return '<td>' +
+                               name +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var phone = '';
+                           if (row.phone != null) {
+                               phone = row.phone;
+                           }
+                           return '<td>' +
+                               phone +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var city = '';
+                           if (row.city != null) {
+                               city = row.city;
+                           }
+                           return '<td>' +
+                               city +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var total = '';
+                           if (row.total != null) {
+                               total = row.total;
+                           }
+                           return '<td>' +
+                               total +
+                               '</td>'
+                       }
+                   },
+               ],
+               "columnDefs": [{
 
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#book-for-sale-table').DataTable({
                "processing": true,
                "serverSide": true,
@@ -625,7 +707,7 @@
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';
                            }
-                           var a='';
+                           var a = '';
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
@@ -641,7 +723,7 @@
                    },
                ],
                "columnDefs": [{
-                'targets': [0, 1, 2,3],
+                   'targets': [0, 1, 2, 3],
                    "orderable": false
                }],
                "order": false

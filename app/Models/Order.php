@@ -10,4 +10,9 @@ class Order extends Eloquent
     use HasFactory;
     protected $connection = 'mongodb';
     protected $table = 'order_details';
+
+    public function book()
+    {
+        return $this->hasOne(Book::class, '_id', 'book_id');
+    }
 }
