@@ -13,6 +13,6 @@ class Order extends Eloquent
 
     public function book()
     {
-        return $this->hasOne(Book::class, '_id', 'book_id');
+        return $this->hasOne(Book::class, '_id', 'bookId');
     }
 }
