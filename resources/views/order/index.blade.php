@@ -79,7 +79,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Order No</th>
-                                                    <th class="">Book</th>
                                                     <th class="">Order By</th>
                                                     <th class="">User Phone</th>
                                                     <th class="">City</th>

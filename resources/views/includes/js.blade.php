@@ -260,17 +260,7 @@
                                '</td>'
                        }
                    },
-                   {
-                       "mRender": function(data, type, row) {
-                           var bookName = '';
-                           if (row.book != null) {
-                               bookName = row.book.title;
-                           }
-                           return '<td>' +
-                               bookName +
-                               '</td>'
-                       }
-                   },
+
                    {
                        "mRender": function(data, type, row) {
                            var name = '';
