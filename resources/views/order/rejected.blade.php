@@ -11,22 +11,10 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Category</h2>
+                            <h2 class="content-header-title float-left mb-0">Rejected Grant</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                    <div class="form-group breadcrum-right">
-                        <div class="dropdown">
-                            <a href="{{ url("category/$type/create") }}">
-                                <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
-                                    type="button"><span class="add-brand-font">Add Category</span> <i class="fa fa-plus"
-                                        aria-hidden="true"></i>
-                                </button>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -52,18 +40,19 @@
 
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
-                                        <table class="table" id="category-table">
+                                        <table class="table" id="rejected-grant-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th class="description-td">Detail</th>
-                                                    <th class="">Image</th>
-                                                    @if (auth()->user()->hasRole('Admin') ||
-                                                            auth()->user()->hasRole('Super Admin'))
-                                                        <th>Action</th>
-                                                    @else
-                                                        <th></th>
-                                                    @endif
+                                                    <th>Cover</th>
+                                                    <th class="">Title</th>
+                                                    <th class="description-td">Description</th>
+
+                                                    <th class="">Type</th>
+                                                    <th class="">Added By</th>
+                                                    <th class="">Rejected By</th>
+
+                                                    <th class="">Reason</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

@@ -625,16 +625,23 @@
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';
                            }
+                           var a='';
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
+                               a =
+                                   `<a  class="ml-2" href="{{ url('category/`+row.type+`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                   <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
+                                   eye + `"></i></a>`;
+                           }
                            return `<td>
-                                <a  class="ml-2" href="{{ url('category/`+row.type+`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
-                               eye + `"></i></a>
+                                ` + a + `
+
                                 </td>`
                        }
                    },
                ],
                "columnDefs": [{
-
+                'targets': [0, 1, 2,3],
                    "orderable": false
                }],
                "order": false

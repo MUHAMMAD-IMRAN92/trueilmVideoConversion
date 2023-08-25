@@ -219,11 +219,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('institute/download/sample', [App\Http\Controllers\UserController::class, 'downloadSample'])->name('institute.download.sample');
     Route::post('institute/import/user', [App\Http\Controllers\UserController::class, 'importUser'])->name('institute.user.import');
     //order
-    Route::get('order', [App\Http\Controllers\CouponController::class, 'index'])->name('order');
-    Route::get('all-order', [App\Http\Controllers\CouponController::class, 'allorder'])->name('order.all');
+    Route::get('order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
+    Route::get('all-order', [App\Http\Controllers\OrderController::class, 'allOrder'])->name('order.all');
+
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
 Route::get('/test', function () {
-    return activity(4, 1);
+    return activity(4, 1, 1);
 });

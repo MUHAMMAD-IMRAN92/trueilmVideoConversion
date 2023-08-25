@@ -75,10 +75,10 @@ class CouponController extends Controller
             // Connect to your stripe account
 
 
-            return redirect()->to('/coupon')->with('msg', 'Coupon Saved Successfully!');;
+            return redirect()->to('/coupon')->with('msg', 'Coupon Saved Successfully!');
         } catch (\Exception $e) {
-            return $e->getMessage();
-            return redirect()->to('/coupon')->with('dmsg', 'SomeThing Went Wrong!');;
+            // return $e->getMessage();
+            return redirect()->to('/coupon')->with('dmsg', 'SomeThing Went Wrong!');
         }
     }
 
@@ -90,10 +90,10 @@ class CouponController extends Controller
             Stripe::setApiKey(env('STRIPE_SECRET'));
             $stripe->coupons->delete($coupon->coupon, []);
             Coupon::where('_id', $id)->delete();
-            return redirect()->to('/coupon')->with('msg', 'Coupon Deleted Successfully!');;
+            return redirect()->to('/coupon')->with('msg', 'Coupon Deleted Successfully!');
         } catch (\Exception $e) {
 
-            return redirect()->to('/coupon')->with('dmsg', 'Coupon Not Found!');;
+            return redirect()->to('/coupon')->with('dmsg', 'Coupon Not Found!');
         }
     }
 }
