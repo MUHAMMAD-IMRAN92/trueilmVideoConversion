@@ -253,7 +253,7 @@
                        "mRender": function(data, type, row) {
                            var oderNo = '';
                            if (row.oderNo != null) {
-                               oderNo = row.oderNo;
+                               oderNo = row.oderNumber;
                            }
                            return '<td>' +
                                oderNo +
