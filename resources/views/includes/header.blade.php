@@ -406,10 +406,10 @@
                                 class="fa fa-percent"></i>
                             <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
                     </li>
-                    {{-- <li class="@if (request()->is('order*')) active @endif "><a href="{{ url('/order') }}"><i
+                    <li class="@if (request()->is('order*')) active @endif "><a href="{{ url('/order') }}"><i
                                 class="fa fa-line-chart"></i>
                             <span class="menu-item" data-i18n="Analytics">Order</span></a>
-                    </li> --}}
+                    </li>
 
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Grant</span></a>

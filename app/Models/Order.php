@@ -9,7 +9,7 @@ class Order extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $table = 'order_details';
+    protected $table = 'orders';
 
     public function book()
     {
