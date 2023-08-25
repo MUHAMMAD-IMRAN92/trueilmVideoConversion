@@ -28,7 +28,7 @@ class OrderController extends Controller
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = Order::count();
-        $brands = Order::when($search, function ($q) use ($search) {
+        $brands = Order::with('book')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
