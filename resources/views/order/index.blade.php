@@ -84,6 +84,7 @@
                                                     <th class="">User Phone</th>
                                                     <th class="">City</th>
                                                     <th>Total</th>
+                                                    <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
