@@ -24,17 +24,23 @@ class CategoryController extends Controller
     public function index($type)
     {
         Session::put('type', $type);
+
         return view('category.index', [
             'type' => $type
         ]);
     }
     public function allCategory(Request $request)
     {
+        if (Session::get('type') == 'undefined') {
+            Session::put('type', "1");
+            // return 'here';
+        }
+        // return Session::get('type');
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Category::where('type', Session::get('type'))->count();
+        $totalBrands = Category::where('type', $request->type)->count();
         $brands = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
