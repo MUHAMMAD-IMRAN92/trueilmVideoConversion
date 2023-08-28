@@ -58,7 +58,7 @@ class UserController extends Controller
     }
     public function add()
     {
-        if (auth()->user()->hasRole('Admin') == 'Super Admin') {
+        if (auth()->user()->hasRole('Super Admin')) {
             $roles = Role::all();
         } else {
             $roles = Role::whereIn('name', ['Admin', 'Publisher', 'Institute'])->get();
