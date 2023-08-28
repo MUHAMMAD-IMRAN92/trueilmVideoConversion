@@ -14,7 +14,7 @@
                 <div class="content-header-left col-md-7 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">User Managemanet</h2>
+                            <h2 class="content-header-title float-left mb-0">User Management</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -50,83 +50,93 @@
                         <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
                     </button>
                 </div>
-            @endif
-            <div class="modal fade bd-example-modal-lg" id="excel" tabindex="-1" role="dialog"
-                aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <form action="{{ route('institute.user.import') }}" method="POST" id="" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Import Users</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="col-12">
-
-
-                                    <fieldset class="form-group">
-                                        <label for="basicInputFile">Select File</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                                name="file">
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose
-                                                file</label>
-                                        </div>
-                                    </fieldset>
-
-
-
+                @endif @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p class="mb-0">
+                            {{ $error }}
+                        </p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                        </button>
+                    </div>
+                @endforeach
+                <div class="modal fade bd-example-modal-lg" id="excel" tabindex="-1" role="dialog"
+                    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <form action="{{ route('institute.user.import') }}" method="POST" id=""
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Import Users</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
+                                <div class="modal-body">
+                                    <div class="col-12">
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="content-body">
-                <!-- Basic Tables start -->
-                <div class="row" id="basic-table">
-                    <div class="col-12">
-                        <div class="card">
 
-                            <div class="card-content">
-                                <div class="card-body">
+                                        <fieldset class="form-group">
+                                            <label for="basicInputFile">Select File (According To Sample)</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                                    name="file">
+                                                <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                    file</label>
+                                            </div>
+                                        </fieldset>
 
-                                    <!-- Table with outer spacing -->
-                                    <div class="table-responsive">
-                                        <table class="table" id="institue-users-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th class="description-td">Email</th>
-                                                    <th class="">Phone</th>
-                                                    <th class="">Role</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
 
-                                            </tbody>
-                                        </table>
+
                                     </div>
+
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="content-body">
+                    <!-- Basic Tables start -->
+                    <div class="row" id="basic-table">
+                        <div class="col-12">
+                            <div class="card">
 
-                                <!-- Table with no outer spacing -->
+                                <div class="card-content">
+                                    <div class="card-body">
 
+                                        <!-- Table with outer spacing -->
+                                        <div class="table-responsive">
+                                            <table class="table" id="institue-users-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th class="description-td">Email</th>
+                                                        <th class="">Phone</th>
+                                                        <th class="">Role</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Table with no outer spacing -->
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Basic Tables end -->
+                    <!-- Basic Tables end -->
 
-            </div>
+                </div>
         </div>
     </div>
     <!-- END: Content-->

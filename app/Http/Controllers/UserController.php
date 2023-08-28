@@ -75,8 +75,10 @@ class UserController extends Controller
             $type = 1;
         } elseif ($request->role == 'Publisher') {
             $type = 2;
-        } else {
+        } else if ($request->role == 'Institute') {
             $type = 3;
+        } else {
+            $type = 4;
         }
         $user = new User();
         $user->name = $request->name;
@@ -243,6 +245,10 @@ class UserController extends Controller
     }
     public function importUser(Request $request)
     {
+        $validated = $request->validate([
+            'file' => 'required|file|mimes:csv,xlsx',
+        ]);
+
         $file = $request->file;
         Excel::import(new UsersImport, $file);
 
