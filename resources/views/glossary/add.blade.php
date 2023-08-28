@@ -55,7 +55,7 @@
                                                             <label for="">Title</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="title" required placeholder="" required>
+                                                                    name="title"  placeholder="" required>
 
                                                             </div>
                                                         </div>
@@ -65,7 +65,7 @@
                                                             <label for="">Translation</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="translation" required placeholder="" required>
+                                                                    name="translation"  placeholder="" required>
 
                                                             </div>
                                                         </div>
@@ -75,7 +75,7 @@
                                                             <label for="">Literal Meaning</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="meaning" required placeholder="" required>
+                                                                    name="meaning"  placeholder="" required>
                                                             </div>
                                                         </div>
                                                     </div>
