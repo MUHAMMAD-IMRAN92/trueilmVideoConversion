@@ -307,10 +307,8 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var status = '';
-                           if (row.status == 0) {
-                               status = 'Pending';
-                           } else if (row.status == 2) {
+                           var status = 'Pending';
+                           if (row.status == 2) {
                                status = 'Shipped';
                            } else if (row.status == 3) {
                                status = 'Delivered';

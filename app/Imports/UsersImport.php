@@ -17,7 +17,7 @@ class UsersImport implements ToModel ,WithHeadingRow
      */
     public function model(array $row)
     {
-        if (!User::where('email', $row['email'])->first()) {
+        if (!User::where('email', $row['email'])->first()) {                                    
             $user = new User();
             $user->name = $row['name'];
             $user->email = $row['email'];
