@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Support;
+use App\Models\SupportDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,13 +29,13 @@ class SupportController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Support::where('status', 0)->count();
-        $brands = Support::where('status', 0)->when($search, function ($q) use ($search) {
+        $totalBrands = Support::whereIn('status', [0, 1])->count();
+        $brands = Support::whereIn('status', [0, 1])->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->with('user')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Support::where('status', 0)->when($search, function ($q) use ($search) {
+        $brandsCount = Support::whereIn('status', [0, 1])->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -47,11 +48,35 @@ class SupportController extends Controller
         );
         return json_encode($data);
     }
+    public function details($id)
+    { $support = Support::where('_id', $id)->first();
+        $supportDetail = SupportDetails::where('support_id', $id)->get();
+        return view('support.detail', [
+            'supportDetails' => $supportDetail,
+            'support' => $support
+        ]);
+    }
+    public function reply(Request $request)
+    {
+        $supportDetail =  new SupportDetails();
+        $supportDetail->description = $request->description;
+        $supportDetail->support_id = $request->support_id;
+        $supportDetail->user_id = $this->user->_id;
+        $supportDetail->save();
+
+        $support = Support::where('_id', $request->support_id)->first();
+        if ($support) {
+            $support->status = 1;
+            $support->save();
+        }
+
+        return redirect()->back()->with('msg', 'Response Sent!');
+    }
     public function approveSupport($id)
     {
         $support = Support::where('_id', $id)->first();
         if ($support) {
-            $support->status = 1;
+            $support->status = 2;
             $support->save();
         }
         return redirect()->back()->with('msg', 'Support Marked As Read!');

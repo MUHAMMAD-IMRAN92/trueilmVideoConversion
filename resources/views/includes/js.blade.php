@@ -38,7 +38,7 @@
    <!-- BEGIN: Page Vendor JS-->
    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
    <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js') }}"></script>
-
+   <script src="{{ asset('app-assets/js/scripts/pages/app-chat.js') }}"></script>
    <!-- END: Page Vendor JS-->
    <!-- BEGIN: Page JS-->
    <script src="{{ asset('app-assets/js/scripts/ui/data-list-view.js') }}"></script>
@@ -1534,6 +1534,18 @@
                            return '<td>' +
                                row.title + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var des = "";
+                           if (row.description != null) {
+                               des = row.description;
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
@@ -1550,10 +1562,23 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var status = "Waiting";
+                           if (row.status == 1) {
+                               status = "Sent";
+                           } else if (row.status == 2) {
+                               status = 'Closed';
+                           }
+                           return '<td>' +
+                            status +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
 
                            return `<td>
-                            <a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-
+                            <a  class="ml-2" href="{{ url('support/details/`+row._id+`') }}"><i class="fa  fa-info-circle" style="font-size:24px"></i></a>
+                            <a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa  fa-check" style="font-size:24px"></i></a>
                                 </td>`
                        }
                    },
@@ -2922,7 +2947,7 @@
 
        // Wait for the DOM to be fully loaded
        document.addEventListener("DOMContentLoaded", function() {
-        console.log('>>>>>>>>>>>');
+           // console.log('>>>>>>>>>>>');
            // Function to add/remove classes based on viewport width
            function handleViewportChange() {
                var body = document.body;

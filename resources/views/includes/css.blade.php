@@ -283,4 +283,23 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     .ayat-insert,.ayat-data{
         flex-grow: 1 !important;
     } */
+    /*
+    For chat
+    */
+    #chat2 .form-control {
+        border-color: transparent;
+    }
+
+    #chat2 .form-control:focus {
+        border-color: transparent;
+        box-shadow: inset 0px 0px 0px 1px transparent;
+    }
+
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+    }
 </style>
