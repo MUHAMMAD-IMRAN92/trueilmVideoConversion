@@ -688,7 +688,9 @@ body.menu-collapsed .menu-static {
 @media (max-width: 767.98px) {
   .menu-hide .main-menu,
   .menu-open .main-menu {
-    transition: transform .25s, top .35s, height .35s; }
+    transition: transform .25s, top .35s, height .35s;
+    margin-left: 260px;
+}
   .main-menu {
     transform: translate3d(-240px, 0, 0);
     backface-visibility: hidden;

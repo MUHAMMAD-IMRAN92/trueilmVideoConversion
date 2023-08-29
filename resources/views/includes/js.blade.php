@@ -2919,4 +2919,32 @@
                }
            });
        });
+
+       // Wait for the DOM to be fully loaded
+       document.addEventListener("DOMContentLoaded", function() {
+        console.log('>>>>>>>>>>>');
+           // Function to add/remove classes based on viewport width
+           function handleViewportChange() {
+               var body = document.body;
+
+               if (window.innerWidth <= 1199.98) {
+                   // Add the class "vertical-menu-modern" for screens up to 1199.98px wide
+                   body.classList.remove("vertical-menu-modern");
+                   body.classList.add("menu-expanded");
+                   // Remove the class "vertical-overlay-menu" for screens up to 1199.98px wide
+                   body.classList.remove("vertical-overlay-menu");
+               } else {
+                   // If viewport width is greater than 1199.98px, remove "vertical-menu-modern"
+                   // and add "vertical-overlay-menu"
+                   body.classList.remove("vertical-overlay-menu");
+                   body.classList.add("vertical-menu-modern");
+               }
+           }
+
+           // Initial call to handleViewportChange to set classes on page load
+           handleViewportChange();
+
+           // Listen for window resize events to update classes when the viewport width changes
+           window.addEventListener("resize", handleViewportChange);
+       });
    </script>
