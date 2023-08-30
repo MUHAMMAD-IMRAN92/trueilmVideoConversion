@@ -7,7 +7,7 @@
         } */
 
         .rating {
-            margin-top: 40px;
+            /* margin-top: 40px; */
             border: none;
             float: left;
         }
