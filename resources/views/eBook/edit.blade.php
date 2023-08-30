@@ -272,7 +272,18 @@
                                                     </div>
                                                 </div>
 
-
+                                                <div class="col-md-6">
+                                                    <fieldset class="form-group">
+                                                        <label for="basicInputFile">Sample File</label>
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input"
+                                                                id="sample-file" name="sample_file" disabled>
+                                                            <label class="custom-file-label"
+                                                                for="inputGroupFile01">Choose
+                                                                file</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
                                                 {{-- <div class="form-group col col-md-6">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">Tag</label>
