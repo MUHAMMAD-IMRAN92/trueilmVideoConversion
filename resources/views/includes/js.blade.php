@@ -928,6 +928,79 @@
                }],
                "order": false
            });
+           $('#book-mistake-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-mistakes') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description;
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var book = '--';
+                           if (row.book != null) {
+                               book = row.book.title;
+                           }
+                           return '<td>' +
+                               book + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var page = '';
+                           if (row.page_no != null) {
+                               page = row.page_no;
+                           } else {
+                               page = '--'
+                           }
+                           return '<td>' +
+                               page + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           anchor =
+                               `<a  class="ml-2"  href="{{ url('mistake/understood/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
+
+                           return `<td>` +
+                               anchor +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#rejected-grant-table').DataTable({
                "processing": true,
                "serverSide": true,
@@ -1205,9 +1278,9 @@
                        "mRender": function(data, type, row) {
                            var review = '';
                            if (row.review_description != null) {
-                            review = row.review_description;
+                               review = row.review_description;
                            } else {
-                            review = '--'
+                               review = '--'
                            }
                            return '<td>' +
                                review + '</td>'
@@ -1217,12 +1290,12 @@
                        "mRender": function(data, type, row) {
                            var rating = '';
                            if (row.rating != null) {
-                            rating = row.rating;
+                               rating = row.rating;
                            } else {
-                            rating = '--'
+                               rating = '--'
                            }
                            return '<td>' +
-                            rating + '</td>'
+                               rating + '</td>'
                        }
                    },
                    {
@@ -3072,5 +3145,4 @@
            // Listen for window resize events to update classes when the viewport width changes
            window.addEventListener("resize", handleViewportChange);
        });
-
    </script>

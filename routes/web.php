@@ -231,9 +231,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('review/{id}', [App\Http\Controllers\ReviewBookController::class, 'create'])->name('review.create');
     Route::post('review/store', [App\Http\Controllers\ReviewBookController::class, 'store'])->name('review.store');
 
+    //book mistakes
+    Route::get('mistakes', [App\Http\Controllers\BookMistakeController::class, 'index'])->name('mistakes');
+    Route::get('all-mistakes', [App\Http\Controllers\BookMistakeController::class, 'allMistakes'])->name('mistakes.all');
+    Route::get('mistake/understood/{id}', [App\Http\Controllers\BookMistakeController::class, 'understood'])->name('mistakes.understood');
+
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
 Route::get('/test', function () {
-   return Category::where('type' , 1)->get();
+    return Category::where('type', 1)->get();
 });

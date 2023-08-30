@@ -416,6 +416,10 @@
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Review Book</span></a>
                     </li>
+                    <li class="@if (request()->is('mistake*')) active @endif "><a href="{{ url('/mistakes') }}"><i
+                                class="fa fa-exclamation-triangle"></i>
+                            <span class="menu-item" data-i18n="Analytics">Book Mistakes</span></a>
+                    </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Grant</span></a>
                         <ul class="menu-content">
