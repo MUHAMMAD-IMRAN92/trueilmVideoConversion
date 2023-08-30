@@ -225,6 +225,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
     Route::get('all-order', [App\Http\Controllers\OrderController::class, 'allOrder'])->name('order.all');
 
+    //book review
+    Route::get('review', [App\Http\Controllers\ReviewBookController::class, 'index'])->name('review');
+    Route::get('all-review-book', [App\Http\Controllers\ReviewBookController::class, 'allReview'])->name('review.all');
+    Route::get('review/{id}', [App\Http\Controllers\ReviewBookController::class, 'create'])->name('review.create');
+    Route::post('review/store', [App\Http\Controllers\ReviewBookController::class, 'store'])->name('review.store');
+
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });

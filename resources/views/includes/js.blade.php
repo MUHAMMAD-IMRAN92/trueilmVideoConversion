@@ -1147,6 +1147,104 @@
                }],
                "order": false
            });
+           $('#book-review-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-review-book') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description;
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var reviewed_by = '';
+                           if (row.reviewer_name != null) {
+                               reviewed_by = row.reviewer_name;
+                           } else {
+                               reviewed_by = '--'
+                           }
+                           return '<td>' +
+                               reviewed_by + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var review = '';
+                           if (row.review_description != null) {
+                            review = row.review_description;
+                           } else {
+                            review = '--'
+                           }
+                           return '<td>' +
+                               review + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var rating = '';
+                           if (row.rating != null) {
+                            rating = row.rating;
+                           } else {
+                            rating = '--'
+                           }
+                           return '<td>' +
+                            rating + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var anchor;
+
+
+                           anchor =
+                               `<a  class="ml-2" target="_blank" href="{{ url('review/`+row._id+`') }}"><i class="fa fa-comments-o"  style="font-size:24px"></i></a><a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                           return `<td">
+                            ` +
+                               anchor +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#admin-rejected-book-table').DataTable({
                "processing": true,
                "serverSide": true,
@@ -2974,4 +3072,5 @@
            // Listen for window resize events to update classes when the viewport width changes
            window.addEventListener("resize", handleViewportChange);
        });
+
    </script>

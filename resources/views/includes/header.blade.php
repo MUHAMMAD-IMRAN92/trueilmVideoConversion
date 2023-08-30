@@ -65,8 +65,8 @@
         href="{{ asset('app-assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/data-list-view.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
-     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.css') }}">
-     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-chat.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-chat.css') }}">
     <!-- END: Page CSS-->
 
     <!--Text Box Liabraries-->
@@ -412,7 +412,10 @@
                                 class="fa fa-line-chart"></i>
                             <span class="menu-item" data-i18n="Analytics">Order</span></a>
                     </li>
-
+                    <li class="@if (request()->is('review*')) active @endif "><a href="{{ url('/review') }}"><i
+                                class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Review Book</span></a>
+                    </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Grant</span></a>
                         <ul class="menu-content">

@@ -302,4 +302,8 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         height: 1px;
         background: #eee;
     }
-</style>
+
+    /*.rating start*/
+
+
+    </style>
