@@ -190,11 +190,11 @@ class HomeController extends Controller
             $databasesurah = Surah::where('sequence', $surah->number)->first();
             foreach ($surah->ayahs as $key => $aya) {
                 $alQuran =  AlQuran::where('sequence',  $key)->where('surah_id', $databasesurah->_id)->first();
-                if (Juz::where('juz', 'Juz ' . $aya->juz)->first()) {
-                    $juz = Juz::where('juz', 'Juz ' . $aya->juz)->first();
+                if (Juz::where('juz', 'Juz' . $aya->juz)->get()) {
+                    $juz = Juz::where('juz', 'Juz' . $aya->juz)->first();
                 } else {
                     $juz = new Juz();
-                    $juz->juz = 'Juz ' . $aya->juz;
+                    $juz->juz = 'Juz' . $aya->juz;
                     $juz->description = 'Juz ' . $aya->juz;
                     $juz->user_id = $this->user->id;
                     $juz->save();
