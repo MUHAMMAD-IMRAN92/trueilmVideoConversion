@@ -235,7 +235,7 @@ class HomeController extends Controller
     {
 
         $alQuran = AlQuran::get();
-
+        AlQuranTranslation::where('type', 2)->delete();
         foreach ($alQuran as $key => $Quran) {
             $ayat_no = $key + 1;
 
@@ -245,7 +245,7 @@ class HomeController extends Controller
 
             $alQuranTranslation = new AlQuranTranslation();
             // $alQuranTranslation->lang = $lang;
-            $alQuranTranslation->translation =  $response->text;
+            $alQuranTranslation->translation =  @$response->text;
             $alQuranTranslation->ayat_id = $Quran->id;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->author_lang = '64f032b468620e7e8a4f14c2';
