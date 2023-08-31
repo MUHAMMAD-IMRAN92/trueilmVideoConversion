@@ -269,8 +269,10 @@ class HomeController extends Controller
             $alQuran = AlQuran::get();
             AlQuranTranslation::where('type', 2)->delete();
             foreach ($alQuran as $key => $Quran) {
-                $ayat_no = $key + 1;
-
+                $ayat_no = $Quran->sequence;
+                if ($ayat_no == 0) {
+                    $ayat_no = 1;
+                }
                 $surah =    Surah::where('_id', $Quran->surah_id)->first()->sequence;
                 $url = Http::get("http://api.quran-tafseer.com/tafseer/2/$surah/$ayat_no");
                 $response = json_decode($url->body());
@@ -287,6 +289,7 @@ class HomeController extends Controller
                     $collect->push("$surah/$ayat_no");
                 }
             }
+
         } catch (Exception $e) {
             echo $e;
             return $collect;
