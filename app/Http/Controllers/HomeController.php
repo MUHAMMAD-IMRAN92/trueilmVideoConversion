@@ -274,7 +274,7 @@ class HomeController extends Controller
                     $ayat_no = 1;
                 }
                 $surah =    Surah::where('_id', $Quran->surah_id)->first()->sequence;
-                $url = Http::get("http://api.quran-tafseer.com/tafseer/2/$surah/$ayat_no");
+                $url = Http::get("http://api.quran-tafseer.com/tafseer/1/$surah/$ayat_no");
                 $response = json_decode($url->body());
                 if ($response->text != '') {
                     $alQuranTranslation = new AlQuranTranslation();
