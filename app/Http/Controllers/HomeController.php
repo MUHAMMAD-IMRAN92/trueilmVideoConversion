@@ -12,6 +12,7 @@ use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Juz;
 use App\Models\Surah;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -263,31 +264,32 @@ class HomeController extends Controller
     }
     public function renderTafseerApi()
     {
+        try {
+            $collect = collect();
+            $alQuran = AlQuran::get();
+            AlQuranTranslation::where('type', 2)->delete();
+            foreach ($alQuran as $key => $Quran) {
+                $ayat_no = $key + 1;
 
-        $collect = collect();
-        $alQuran = AlQuran::get();
-        AlQuranTranslation::where('type', 2)->delete();
-        foreach ($alQuran as $key => $Quran) {
-            $ayat_no = $key + 1;
-
-            $surah =    Surah::where('_id', $Quran->surah_id)->first()->sequence;
-            $url = Http::get("http://api.quran-tafseer.com/tafseer/1/$surah/$ayat_no");
-            $response = json_decode($url->body());
-            if ($response->text != '') {
-                $alQuranTranslation = new AlQuranTranslation();
-                // $alQuranTranslation->lang = $lang;
-                $alQuranTranslation->translation =  $response->text;
-                $alQuranTranslation->ayat_id = $Quran->id;
-                $alQuranTranslation->added_by = $this->user->id;
-                $alQuranTranslation->author_lang = '64f032b468620e7e8a4f14c2';
-                $alQuranTranslation->type = 2;
-                $alQuranTranslation->save();
-            } else {
-                $collect->push("$surah/$ayat_no");
+                $surah =    Surah::where('_id', $Quran->surah_id)->first()->sequence;
+                $url = Http::get("http://api.quran-tafseer.com/tafseer/2/$surah/$ayat_no");
+                $response = json_decode($url->body());
+                if ($response->text != '') {
+                    $alQuranTranslation = new AlQuranTranslation();
+                    // $alQuranTranslation->lang = $lang;
+                    $alQuranTranslation->translation =  $response->text;
+                    $alQuranTranslation->ayat_id = $Quran->id;
+                    $alQuranTranslation->added_by = $this->user->id;
+                    $alQuranTranslation->author_lang = '64f032b468620e7e8a4f14c2';
+                    $alQuranTranslation->type = 2;
+                    $alQuranTranslation->save();
+                } else {
+                    $collect->push("$surah/$ayat_no");
+                }
             }
+        } catch (Exception $e) {
+            return $collect;
         }
-
-        return 'saved!';
     }
 }
 // english_saheeh
