@@ -10,6 +10,7 @@ use App\Mail\NewsletterVarification;
 use App\Mail\NewsletterAdmin;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
+use App\Models\Juz;
 use App\Models\Surah;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -180,6 +181,33 @@ class HomeController extends Controller
         return 'sent successfully!';
     }
 
+    public function juzAPi()
+    {
+        $url = Http::get("http://api.alquran.cloud/v1/quran/en.asad");
+        $response = json_decode($url->body());
+        Juz::whereNotNull('juz')->delete();
+        foreach ($response->data->surahs as $key => $surah) {
+            $databasesurah = Surah::where('sequence', $surah->number)->first();
+            foreach ($surah->ayahs as $key => $aya) {
+                $alQuran =  AlQuran::where('sequence',  $key)->where('surah_id', $databasesurah->_id)->first();
+                if (Juz::where('juz', 'Juz ' . $aya->juz)->first()) {
+                    $juz = Juz::where('juz', 'Juz ' . $aya->juz)->first();
+                } else {
+                    $juz = new Juz();
+                    $juz->juz = 'Juz ' . $aya->juz;
+                    $juz->description = 'Juz ' . $aya->juz;
+                    $juz->user_id = $this->user->id;
+                    $juz->save();
+                }
+
+                $alQuran->para_no = $juz->_id;
+                $alQuran->ruku = $aya->ruku;
+                $alQuran->sajda = $aya->sajda;
+                $alQuran->save();
+            }
+        }
+        return 'done';
+    }
     public function renderApi()
     {
         // AlQuran::truncate();
