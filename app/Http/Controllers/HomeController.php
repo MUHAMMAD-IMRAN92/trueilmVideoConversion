@@ -277,7 +277,7 @@ class HomeController extends Controller
                 if ($response->text != '') {
                     $alQuranTranslation = new AlQuranTranslation();
                     // $alQuranTranslation->lang = $lang;
-                    $alQuranTranslation->translation =  $response['text'];
+                    $alQuranTranslation->translation =  $response->text;
                     $alQuranTranslation->ayat_id = $Quran->id;
                     $alQuranTranslation->added_by = $this->user->id;
                     $alQuranTranslation->author_lang = '64f032b468620e7e8a4f14c2';
