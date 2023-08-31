@@ -186,28 +186,28 @@ class HomeController extends Controller
         $url = Http::get("http://api.alquran.cloud/v1/quran/en.asad");
         $response = json_decode($url->body());
         Juz::whereNotNull('juz')->delete();
-        foreach ($response->data->surahs as $key => $surah) {
-            $databasesurah = Surah::where('sequence', $surah->number)->first();
-            foreach ($surah->ayahs as $key => $aya) {
-                $alQuran =  AlQuran::where('sequence',  $key)->where('surah_id', $databasesurah->_id)->first();
-                $juzApi =  'Para' .  $aya->juz;
-                $dbJuz = Juz::where('juz', $juzApi)->first();
-                if ($dbJuz && $dbJuz->juz == $juzApi) {
-                    $juz = $dbJuz;
-                } else {
-                    $juz = new Juz();
-                    $juz->juz = 'Para' . $aya->juz;
-                    $juz->description = 'Juz ' . $aya->juz;
-                    $juz->user_id = $this->user->id;
-                    $juz->save();
-                }
+        // foreach ($response->data->surahs as $key => $surah) {
+        //     $databasesurah = Surah::where('sequence', $surah->number)->first();
+        //     foreach ($surah->ayahs as $key => $aya) {
+        //         $alQuran =  AlQuran::where('sequence',  $key)->where('surah_id', $databasesurah->_id)->first();
+        //         $juzApi =  'Para' .  $aya->juz;
+        //         $dbJuz = Juz::where('juz', $juzApi)->first();
+        //         if ($dbJuz && $dbJuz->juz == $juzApi) {
+        //             $juz = $dbJuz;
+        //         } else {
+        //             $juz = new Juz();
+        //             $juz->juz = 'Para' . $aya->juz;
+        //             $juz->description = 'Juz ' . $aya->juz;
+        //             $juz->user_id = $this->user->id;
+        //             $juz->save();
+        //         }
 
-                $alQuran->para_no = $juz->_id;
-                $alQuran->ruku = $aya->ruku;
-                $alQuran->sajda = $aya->sajda;
-                $alQuran->save();
-            }
-        }
+        //         $alQuran->para_no = $juz->_id;
+        //         $alQuran->ruku = $aya->ruku;
+        //         $alQuran->sajda = $aya->sajda;
+        //         $alQuran->save();
+        //     }
+        // }
         return 'done';
     }
     public function renderApi()
