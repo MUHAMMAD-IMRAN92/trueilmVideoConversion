@@ -288,6 +288,7 @@ class HomeController extends Controller
                 }
             }
         } catch (Exception $e) {
+            echo $e;
             return $collect;
         }
     }
