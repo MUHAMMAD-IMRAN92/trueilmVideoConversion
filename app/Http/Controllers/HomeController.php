@@ -231,6 +231,30 @@ class HomeController extends Controller
         }
         return 'done';
     }
+    public function renderTafseerApi()
+    {
+
+        $alQuran = AlQuran::get();
+
+        foreach ($alQuran as $key => $Quran) {
+            $ayat_no = $key + 1;
+
+            $surah =    Surah::where('_id', $Quran->surah_id)->first()->sequence;
+            $url = Http::get("http://api.quran-tafseer.com/tafseer/1/$surah/$ayat_no");
+            $response = json_decode($url->body());
+
+            $alQuranTranslation = new AlQuranTranslation();
+            // $alQuranTranslation->lang = $lang;
+            $alQuranTranslation->translation =  $response->text;
+            $alQuranTranslation->ayat_id = $Quran->id;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->author_lang = '64f032b468620e7e8a4f14c2';
+            $alQuranTranslation->type = 2;
+            $alQuranTranslation->save();
+        }
+
+        return 'saved!';
+    }
 }
 // english_saheeh
 // urdu_junagarhi

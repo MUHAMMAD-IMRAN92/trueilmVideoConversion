@@ -238,6 +238,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
+    Route::get('api_rendering_renderTafseerApi', [App\Http\Controllers\HomeController::class, 'renderTafseerApi']);
 });
 Route::get('/test', function () {
     return Category::where('type', 1)->get();
