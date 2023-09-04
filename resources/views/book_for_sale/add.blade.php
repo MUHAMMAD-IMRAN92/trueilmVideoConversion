@@ -139,13 +139,13 @@
 
 
                                                     </div>
-                                                    <div class="col-6">
+                                                    {{-- <div class="col-6">
 
                                                         <label for="">Countries</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="countries[]"
                                                                 id="countries" multiple>
-                                                                {{-- <option disabled selected>Select Category</option> --}}
+
                                                                 @foreach ($countries as $country)
                                                                     <option value="{{ $country }}">
                                                                         {{ $country }}</option>
@@ -160,15 +160,11 @@
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="cities[]"
                                                                 id="cities" multiple>
-                                                                {{-- <option disabled selected>Select Category</option> --}}
-                                                                {{-- @foreach ($countries as $country)
-                                                                    <option value="{{ $country }}">
-                                                                        {{ $country }}</option>
-                                                                @endforeach --}}
+
 
                                                             </select>
                                                         </fieldset>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-12">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>

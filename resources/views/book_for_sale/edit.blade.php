@@ -147,29 +147,14 @@
 
 
                                                     </div>
-                                                    {{-- <div class="col-md-6">
 
-                                                        <fieldset class="form-group">
-                                                            <label for="">Category</label>
-                                                            <select class="select2 form-control" name="category"
-                                                                id="">
-                                                                <option disabled selected>Select Category</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->_id }}"
-                                                                        {{ $book->category_id == $category->_id ? 'selected' : '' }}>
-                                                                        {{ $category->title }}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </fieldset>
-                                                    </div> --}}
-                                                    <div class="col-6">
+                                                    {{-- <div class="col-6">
 
                                                         <label for="">Countries</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="countries[]"
                                                                 id="countries" multiple>
-                                                                {{-- <option disabled selected>Select Category</option> --}}
+
                                                                 @foreach ($countries as $country)
                                                                     <option
                                                                         @if ($oldCountries) {{ in_array($country, $oldCountries) ? 'selected' : '' }} @endif
@@ -186,7 +171,7 @@
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="cities[]"
                                                                 id="cities" multiple>
-                                                                {{-- <option disabled selected>Select Category</option> --}}
+
                                                                 @foreach ($oldCities as $city)
                                                                     <option selected value="{{ $city }}">
                                                                         {{ $city }}</option>
@@ -194,7 +179,7 @@
 
                                                             </select>
                                                         </fieldset>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-12">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
