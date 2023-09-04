@@ -187,7 +187,7 @@
                                                     <div class="col-6">
 
                                                         @foreach ($oldCities as $city)
-                                                            <span class="badge badge-secondary">{{ $city }}</span>
+                                                           <h4> <span class="badge badge-secondary">{{ $city }}</span></h4>
                                                         @endforeach
                                                     </div>
                                                     <div class="col-12">
