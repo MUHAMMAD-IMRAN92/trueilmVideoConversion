@@ -6,6 +6,7 @@ use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Response;
 use App\Models\Book;
 use App\Models\Grant;
+use Illuminate\Support\Facades\Storage;
 
 function sendSuccess($msg, $data = null)
 {
@@ -53,4 +54,22 @@ function activity($key, $id, $model)
 
     $acvtivity->save();
     return 1;
+}
+function countiesCities($countries)
+{
+    ini_set('memory_limit', '-1');
+    $arr = [];
+    if ($countries) {
+        foreach ($countries as $country) {
+            $content = Storage::disk('public')->get('cities.json');
+            $collect =  collect(json_decode($content));
+            $filtered =   $collect->filter(function ($value, $key) use ($country) {
+                return $value->country_name ==  $country;
+            });
+            $names = $filtered->values()->pluck('name')->toArray();
+            $arr =  array_merge($arr, $names);
+        }
+    }
+
+    return $arr;
 }

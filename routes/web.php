@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use MongoDB\Client;
 
 /*
@@ -192,6 +193,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book_for_sale/edit/{id}', [App\Http\Controllers\BookForSaleController::class, 'edit'])->name('book_for_sale.edit');
     Route::post('book_for_sale/update', [App\Http\Controllers\BookForSaleController::class, 'update'])->name('book_for_sale.update');
 
+    Route::get('/cities', [App\Http\Controllers\BookForSaleController::class, 'cities'])->name('cities');
     //Grant
     Route::get('grant', [App\Http\Controllers\GrantController::class, 'index'])->name('grant');
     Route::get('all-grants', [App\Http\Controllers\GrantController::class, 'allgrants'])->name('grant.all');
@@ -243,4 +245,10 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('/test', function () {
     return Category::where('type', 1)->get();
+});
+Route::get('/file_read', function () {
+
+    ini_set('memory_limit', '-1');
+
+    return countiesCities(['Pakistan', 'Afghanistan']);
 });

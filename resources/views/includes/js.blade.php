@@ -3117,7 +3117,36 @@
                }
            });
        });
+       $('#countries').on('change', function() {
 
+           var countries = $('#countries').val();
+           $.ajax({
+               url: "{{ url('/cities') }}",
+               method: "GET",
+               data: {
+                   'countries': countries
+               },
+               success: function(result) {
+                   console.log(result.length);
+                   var html = '';
+                   if (result.length > 0) {
+
+                       result.forEach(element => {
+                           html += `<option value="${element}">${element} </option>`;
+                       });
+                       $('#cities').append(html);
+                   } else {
+                       $('#cities').html(html);
+                   }
+
+               }
+           });
+       });
+       $("document").ready(function() {
+           setTimeout(function() {
+               $("#countries").trigger('change');
+           }, 10);
+       });
        // Wait for the DOM to be fully loaded
        document.addEventListener("DOMContentLoaded", function() {
            // console.log('>>>>>>>>>>>');

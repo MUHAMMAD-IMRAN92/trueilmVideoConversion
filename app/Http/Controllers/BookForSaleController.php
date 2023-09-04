@@ -46,7 +46,7 @@ class BookForSaleController extends Controller
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
-        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = BookForSale::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -64,9 +64,13 @@ class BookForSaleController extends Controller
     }
     public function add()
     {
+        ini_set('memory_limit', '-1');
+        $content = Storage::disk('public')->get('countries.json');
+        $collect =  collect(json_decode($content));
+        $countries = $collect->pluck('name');
         $categories = Category::active()->get();
         return view('book_for_sale.add', [
-
+            'countries' => $countries,
             'categories' => $categories,
         ]);
     }
@@ -95,13 +99,27 @@ class BookForSaleController extends Controller
         $book->author = $request->author;
         $book->serial_no = $request->sr_no;
         $book->price = $request->price;
+        if ($request->countries) {
+            $book->countries = implode(',', $request->countries);
+        } else {
+            $book->countries = '';
+        }
+
+        if ($request->cities) {
+
+            $book->cities =  implode(',', $request->cities);
+        } else {
+            $book->cities = '';
+        }
         $book->save();
 
-        $bookForSale =new BookForSaleInventory();
+        $bookForSale = new BookForSaleInventory();
         $bookForSale->book_id   =    $book->_id;
         $bookForSale->quantity   =    $request->quantity;
         $bookForSale->added_by = $this->user->id;
         $bookForSale->status = 1;
+
+
         $bookForSale->save();
 
         return redirect()->to('books_for_sale/' . $request->type)->with('msg', 'Book Saved Successfully!');
@@ -111,12 +129,25 @@ class BookForSaleController extends Controller
     {
         $categories = Category::active()->get();
         $book = BookForSale::where('_id', $id)->with('inventory')->first();
+        $content = Storage::disk('public')->get('countries.json');
+        $collect =  collect(json_decode($content));
+        $countries = $collect->pluck('name');
+        $oldCountries = [];
+        $oldCities = [];
+        if ($book->countries) {
 
+            $oldCountries = explode(',', $book->countries);
+        }
+        if ($book->cities) {
 
+            $oldCities = explode(',', $book->cities);
+        }
         return view('book_for_sale.edit', [
             'book' => $book,
             'categories' => $categories,
-
+            'countries' => $countries,
+            'oldCountries' => $oldCountries,
+            'oldCities' => $oldCities,
         ]);
     }
 
@@ -139,19 +170,38 @@ class BookForSaleController extends Controller
         $book->author = $request->author;
         $book->serial_no = $request->sr_no;
         $book->price = $request->price;
+        if ($request->countries) {
+            $book->countries = implode(',', $request->countries);
+        } else {
+            $book->countries = '';
+        }
+
+        if ($request->cities) {
+
+            $book->cities =  implode(',', $request->cities);
+        } else {
+            $book->cities = '';
+        }
+
 
         $book->save();
-        $updateStatus=  BookForSaleInventory::where('book_id' , $book->_id)->where('status' , 1)->update([
-            'status'=>0
+        $updateStatus =  BookForSaleInventory::where('book_id', $book->_id)->where('status', 1)->update([
+            'status' => 0
         ]);
-        $bookForSale =new BookForSaleInventory();
+        $bookForSale = new BookForSaleInventory();
         $bookForSale->book_id   =    $book->_id;
         $bookForSale->quantity   =    $request->quantity;
         $bookForSale->added_by = $this->user->id;
         $bookForSale->status = 1;
+
         $bookForSale->save();
 
 
         return redirect()->to('books_for_sale/' . $request->type)->with('msg', 'Book Updated Successfully!');
+    }
+
+    public function cities(Request $request)
+    {
+        return countiesCities($request->countries);
     }
 }

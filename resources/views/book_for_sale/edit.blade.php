@@ -128,19 +128,20 @@
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="text" id="" class="form-control"
-                                                                name="price" placeholder="" value="{{ $book->price }}"
-                                                                required>
+                                                                name="price" placeholder=""
+                                                                value="{{ $book->price }}" required>
 
                                                         </div>
 
 
                                                     </div>
-                                                     <div class="col-md-6">
+                                                    <div class="col-md-6">
 
                                                         <div class="form-group">
                                                             <label for="">Quantity</label>
                                                             <input type="number" id="" class="form-control"
-                                                                name="quantity" placeholder="" value="{{@$book->inventory->quantity}}" required>
+                                                                name="quantity" placeholder=""
+                                                                value="{{ @$book->inventory->quantity }}" required>
 
                                                         </div>
 
@@ -162,7 +163,38 @@
                                                             </select>
                                                         </fieldset>
                                                     </div> --}}
+                                                    <div class="col-6">
 
+                                                        <label for="">Countries</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="countries[]"
+                                                                id="countries" multiple>
+                                                                {{-- <option disabled selected>Select Category</option> --}}
+                                                                @foreach ($countries as $country)
+                                                                    <option
+                                                                        @if ($oldCountries) {{ in_array($country, $oldCountries) ? 'selected' : '' }} @endif
+                                                                        value="{{ $country }}">
+                                                                        {{ $country }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Cities</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="cities[]"
+                                                                id="cities" multiple>
+                                                                {{-- <option disabled selected>Select Category</option> --}}
+                                                                @foreach ($oldCities as $city)
+                                                                    <option selected value="{{ $city }}">
+                                                                        {{ $city }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="col-12">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
