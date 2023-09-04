@@ -62,6 +62,7 @@ class SupportController extends Controller
         $supportDetail->description = $request->description;
         $supportDetail->support_id = $request->support_id;
         $supportDetail->user_id = $this->user->_id;
+        $supportDetail->author = $this->user->name;
         $supportDetail->save();
 
         $support = Support::where('_id', $request->support_id)->first();
