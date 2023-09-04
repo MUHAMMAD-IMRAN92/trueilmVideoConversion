@@ -3120,25 +3120,34 @@
        $('#countries').on('change', function() {
 
            var countries = $('#countries').val();
+           var book_id = $('#book_for_sale_id').val();
            $.ajax({
                url: "{{ url('/cities') }}",
                method: "GET",
                data: {
-                   'countries': countries
+                   'countries': countries,
+                   'book_id': book_id
                },
                success: function(result) {
-                   console.log(result.length);
+                   console.log(result);
                    var html = '';
-                   if (result.length > 0) {
 
-                       result.forEach(element => {
+                   if (result.cities.length > 0) {
+
+                       result.cities.forEach(element => {
                            html += `<option value="${element}">${element} </option>`;
                        });
                        $('#cities').html(html);
                    } else {
                        $('#cities').html(html);
                    }
+                   if (result.oldCities.length > 0) {
 
+                       result.oldCities.forEach(element => {
+                           html += `<option selected value="${element}">${element} </option>`;
+                       });
+                       $('#cities').append(html);
+                   }
                }
            });
        });

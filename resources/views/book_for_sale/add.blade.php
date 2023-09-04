@@ -53,7 +53,8 @@
                                                         <div class="form-group">
                                                             <label for="">Title</label>
                                                             <div class="position-relative">
-
+                                                                <input type="hidden" id="" class="form-control"
+                                                                    name="book_id" value="0" placeholder="">
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder="" required>
 

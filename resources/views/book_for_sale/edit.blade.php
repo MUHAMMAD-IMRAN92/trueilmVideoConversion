@@ -54,7 +54,7 @@
                                                             <label for="">Name</label>
                                                             <div class="position-relative">
 
-                                                                <input type="hidden" id="" class="form-control"
+                                                                <input type="hidden" id="book_for_sale_id" class="form-control"
                                                                     name="id" placeholder=""
                                                                     value="{{ $book->_id }}" required>
                                                                 <input type="text" id="" class="form-control"

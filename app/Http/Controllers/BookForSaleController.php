@@ -202,6 +202,6 @@ class BookForSaleController extends Controller
 
     public function cities(Request $request)
     {
-        return countiesCities($request->countries);
+        return countiesCities($request->countries, $request->book_id);
     }
 }

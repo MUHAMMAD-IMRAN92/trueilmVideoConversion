@@ -5,6 +5,7 @@ use App\Models\GlossoryAttribute;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Response;
 use App\Models\Book;
+use App\Models\BookForSale;
 use App\Models\Grant;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,9 +56,11 @@ function activity($key, $id, $model)
     $acvtivity->save();
     return 1;
 }
-function countiesCities($countries)
+function countiesCities($countries, $book_id)
 {
     ini_set('memory_limit', '-1');
+
+    $book = BookForSale::where('_id', $book_id)->first();
     $arr = [];
     if ($countries) {
         foreach ($countries as $country) {
@@ -70,6 +73,11 @@ function countiesCities($countries)
             $arr =  array_merge($arr, $names);
         }
     }
-
-    return $arr;
+    $data['cities'] = $arr;
+    if ($book && $book->cities) {
+        $data['oldCities'] = explode(',', $book->cities);
+    } else {
+        $data['oldCities'] = [];
+    }
+    return $data;
 }
