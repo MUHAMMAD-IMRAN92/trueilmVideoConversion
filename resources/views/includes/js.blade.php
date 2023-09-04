@@ -3148,6 +3148,9 @@
                        });
                        $('#cities').append(html);
                    }
+                   if (result.cities.length == 0) {
+                       $('#cities').html('');
+                   }
                }
            });
        });
