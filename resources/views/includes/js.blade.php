@@ -3134,7 +3134,7 @@
                        result.forEach(element => {
                            html += `<option value="${element}">${element} </option>`;
                        });
-                       $('#cities').append(html);
+                       $('#cities').html(html);
                    } else {
                        $('#cities').html(html);
                    }
