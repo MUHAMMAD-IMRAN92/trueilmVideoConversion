@@ -148,7 +148,7 @@
 
                                                     </div>
 
-                                                    {{-- <div class="col-6">
+                                                    <div class="col-6">
 
                                                         <label for="">Countries</label>
                                                         <fieldset class="form-group">
@@ -179,7 +179,7 @@
 
                                                             </select>
                                                         </fieldset>
-                                                    </div> --}}
+                                                    </div>
                                                     <div class="col-12">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
