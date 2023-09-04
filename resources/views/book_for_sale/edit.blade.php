@@ -184,10 +184,13 @@
 
 
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 d-flex">
 
+                                                        Selected Cities:
                                                         @foreach ($oldCities as $city)
-                                                           <h4> <span class="badge badge-secondary">{{ $city }}</span></h4>
+                                                            <h4 class="ml-1"> <span
+                                                                    class="badge badge-secondary">{{ $city }}</span>
+                                                            </h4>
                                                         @endforeach
                                                     </div>
                                                     <div class="col-12">
