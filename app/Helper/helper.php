@@ -64,8 +64,8 @@ function countiesCities($countries, $book_id)
     $arr = [];
     if ($countries) {
         foreach ($countries as $country) {
-         return    $content = Storage::disk('public')->get('cities.json');
-            $collect =  collect(json_decode($content));
+            $content = Storage::disk('public')->get('cities.json');
+            return $collect =  collect(json_decode($content));
             $filtered =   $collect->filter(function ($value, $key) use ($country) {
                 return $value->country_name ==  $country;
             });
