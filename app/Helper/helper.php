@@ -74,10 +74,10 @@ function countiesCities($countries, $book_id)
         }
     }
     $data['cities'] = $arr;
-    if ($book && $book->cities) {
-        $data['oldCities'] = explode(',', $book->cities);
-    } else {
+    // if ($book && $book->cities) {
+    //     $data['oldCities'] = explode(',', $book->cities);
+    // } else {
         $data['oldCities'] = [];
-    }
+    // }
     return $data;
 }

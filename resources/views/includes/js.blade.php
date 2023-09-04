@@ -3154,11 +3154,11 @@
                }
            });
        });
-       $("document").ready(function() {
-           setTimeout(function() {
-               $("#countries").trigger('change');
-           }, 10);
-       });
+    //    $("document").ready(function() {
+    //        setTimeout(function() {
+    //            $("#countries").trigger('change');
+    //        }, 10);
+    //    });
        // Wait for the DOM to be fully loaded
        document.addEventListener("DOMContentLoaded", function() {
            // console.log('>>>>>>>>>>>');

@@ -54,8 +54,8 @@
                                                             <label for="">Name</label>
                                                             <div class="position-relative">
 
-                                                                <input type="hidden" id="book_for_sale_id" class="form-control"
-                                                                    name="id" placeholder=""
+                                                                <input type="hidden" id="book_for_sale_id"
+                                                                    class="form-control" name="id" placeholder=""
                                                                     value="{{ $book->_id }}" required>
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder=""
@@ -179,6 +179,16 @@
 
                                                             </select>
                                                         </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
+
+
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        @foreach ($oldCities as $city)
+                                                            <span class="badge badge-secondary">{{ $city }}</span>
+                                                        @endforeach
                                                     </div>
                                                     <div class="col-12">
                                                         <button type="submit"
