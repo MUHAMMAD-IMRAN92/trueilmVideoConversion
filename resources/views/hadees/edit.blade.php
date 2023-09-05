@@ -275,7 +275,7 @@
                                                                 </fieldset>
                                                             </div>
                                                             <div class="form-group col-md-3">
-                                                                <span data-toggle="modal" data-target="#author-lang"
+                                                                <span data-toggle="modal" data-target="#add-chapter"
                                                                     class="btn btn-primary mt-2">Add Chapter</span>
                                                             </div>
                                                         </div>
@@ -554,7 +554,7 @@
                         </form>
 
                     </div>
-                    <div class="modal fade bd-example-modal-lg" id="author-lang" tabindex="-1" role="dialog"
+                    <div class="modal fade bd-example-modal-lg" id="add-chapter" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <form method="POST">
