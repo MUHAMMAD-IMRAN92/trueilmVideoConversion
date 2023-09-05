@@ -182,51 +182,27 @@ class HomeController extends Controller
         return 'sent successfully!';
     }
 
-    public function juzAPi()
-    {
-        $url = Http::get("http://api.alquran.cloud/v1/quran/en.asad");
-        $response = json_decode($url->body());
-        // Juz::whereNotNull('juz')->delete();
-        foreach ($response->data->surahs as $key => $surah) {
-            $databasesurah = Surah::where('sequence', $surah->number)->first();
-            foreach ($surah->ayahs as $key => $aya) {
-                $alQuran =  AlQuran::where('sequence',  $key)->where('surah_id', $databasesurah->_id)->first();
-                $juzApi =  'Para' .  $aya->juz;
-                $juz = Juz::where('juz', $juzApi)->first();
-                // if ($dbJuz && $dbJuz->juz == $juzApi) {
-                //     $juz = $dbJuz;
-                // } else {
-                //     $juz = new Juz();
-                //     $juz->juz = 'Para' . $aya->juz;
-                //     $juz->description = 'Juz ' . $aya->juz;
-                //     $juz->user_id = $this->user->id;
-                //     $juz->save();
-                // }
-
-                $alQuran->para_no = $juz->_id;
-                $alQuran->ruku = $aya->ruku;
-                $alQuran->sajda = $aya->sajda;
-                $alQuran->save();
-            }
-        }
-        return 'done';
-    }
     public function renderApi()
     {
         ini_set('max_execution_time', '0');
+
         AlQuran::truncate();
         AlQuranTranslation::truncate();
-        // Surah::truncate();
-        // return 'ok';
-        // return 'imrna';
+
         for ($i = 1; $i < 115; $i++) {
+
             $surah  =  Surah::where('sequence', $i)->first();
+
             $url = Http::get("https://api.quran.com/api/v4/verses/by_chapter/$i?per_page=500");
             $response = json_decode($url->body());
+
             foreach ($response->verses as $key => $verse) {
+
                 $url = Http::get("https://api.quran.com/api/v4/quran/verses/uthmani?verse_key=$verse->verse_key");
                 $ayat = json_decode($url->body());
+
                 $juz = Juz::where('juz', "LIKE", '%' . $verse->juz_number . '%')->first();
+
                 $alQuran = new AlQuran();
                 $alQuran->surah_id = $surah->id;
                 $alQuran->ayat = $ayat->verses[0]->text_uthmani;
@@ -274,7 +250,15 @@ class HomeController extends Controller
             return $collect;
         }
     }
+
+    public function juzSequence()
+    {
+        $juz = Juz::get();
+        foreach ($juz as $j) {
+            $seq =   str_replace('Para', '', $j->juz);
+            $j->sequence = (int)$seq;
+            $j->save();
+        }
+        return 'done';
+    }
 }
-// english_saheeh
-// urdu_junagarhi
-// malayalam_kunhi
