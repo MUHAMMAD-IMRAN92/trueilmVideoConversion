@@ -133,10 +133,13 @@ class HadeesController extends Controller
     {
         $hadeesBook = HadeesBooks::where('_id', $bookId)->first();
         $hadees = Hadees::where('_id', $hadeesBook->id)->first();
-
+        $author = Author::all();
+        $languages = Languages::all();
         return view('hadees_book.edit', [
             'hadeesBook' => $hadeesBook,
-            'hadees' => $hadees
+            'hadees' => $hadees,
+            'author' => $author,
+            'languages' => $languages,
         ]);
     }
     public function edit($bookId, $hadeesId)

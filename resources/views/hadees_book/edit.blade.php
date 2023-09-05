@@ -1,87 +1,88 @@
 @extends('layouts.default_layout')
 
 @section('content')
-<style>
-    .ayat-data .active {
+    <style>
+        .ayat-data .active {
 
-        border-radius: 10px;
-        border: 3px solid black;
-    }
+            border-radius: 10px;
+            border: 3px solid black;
+        }
 
-    .ayat-list .active a {
-        color: black;
-    }
+        .ayat-list .active a {
+            color: black;
+        }
 
-    .ayat-list ul li {
-        list-style: none;
-        margin: 5px auto;
-    }
+        .ayat-list ul li {
+            list-style: none;
+            margin: 5px auto;
+        }
 
-    .ayat-list a span {
-        flex-direction: row-reverse;
-    }
+        .ayat-list a span {
+            flex-direction: row-reverse;
+        }
 
-    .ayat-list .active a {
-        float: right;
-        display: flex;
+        .ayat-list .active a {
+            float: right;
+            display: flex;
 
 
-        font-weight: 400;
-        font-size: 1.1rem;
-        border-radius: 4px;
-        padding: 10px 15px 10px 15px;
-        line-height: 1.45;
-        transition: padding 0.35s ease 0s !important;
-        font-size: 1.2rem !important;
-    }
+            font-weight: 400;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            line-height: 1.45;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
 
-    .ayat-list a {
-        float: right;
-        display: flex;
-        animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
-        color: #565656;
-        line-height: 1.45;
-        font-weight: 400;
-        border-radius: 4px;
-        padding: 10px 15px 10px 15px;
-        transition: padding 0.35s ease 0s !important;
-        font-size: 1.2rem !important;
-    }
+        .ayat-list a {
+            float: right;
+            display: flex;
+            animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+            color: #565656;
+            line-height: 1.45;
+            font-weight: 400;
+            border-radius: 4px;
+            padding: 10px 15px 10px 15px;
+            transition: padding 0.35s ease 0s !important;
+            font-size: 1.2rem !important;
+        }
 
-    .ayat-list ul {
-        padding: 0 !important;
-        margin: 0 !important;
-    }
+        .ayat-list ul {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
 
-    .ayat-list ul li i {
-        margin-right: 1rem;
-        float: left;
-        font-size: 1.2rem;
-    }
+        .ayat-list ul li i {
+            margin-right: 1rem;
+            float: left;
+            font-size: 1.2rem;
+        }
 
-    .ayat-list ul li p {
-        margin: 0 !important;
-    }
+        .ayat-list ul li p {
+            margin: 0 !important;
+        }
 
-    .card-body ul {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
+        .card-body ul {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
 
-    .render-ayat {
-        white-space: nowrap;
-        overflow: hidden;
-        background-image: linear-gradient(to left, #00000030, #ffff);
-        border-radius: 10px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: inherit;
-    }
-    .select2.select2-container.select2-container--default{
-        width: 100% !important;
-    }
-</style>
+        .render-ayat {
+            white-space: nowrap;
+            overflow: hidden;
+            background-image: linear-gradient(to left, #00000030, #ffff);
+            border-radius: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: inherit;
+        }
+
+        .select2.select2-container.select2-container--default {
+            width: 100% !important;
+        }
+    </style>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -136,13 +137,78 @@
                                 <div class="card-content">
                                     <div class="card-body">
 
-                                        @if (!isset($hadees))
-                                            <div id="no-ayat-added-div">
-                                                Please Select Hadith!</div>
-                                        @else
-                                            <div id="no-ayat-added-div">
-                                                No Hadees Added In This Book Yet!</div>
-                                        @endif
+                                        <form class="form form-vertical" action="{{ route('book.store') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="vs-radio-con vs-radio-primary">
+                                                                        <input type="radio" name="translation"
+                                                                            value="1" checked>
+                                                                        <span class="vs-radio">
+                                                                            <span class="vs-radio--border"></span>
+                                                                            <span class="vs-radio--circle"></span>
+                                                                        </span>
+                                                                        <span class="">Translation</span>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+
+
+                                                        <label for="">Language</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="lang"
+                                                                id="">
+                                                                @foreach ($languages as $lang)
+                                                                    <option value="{{ $lang->_id }}">
+                                                                        {{ $lang->title }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Author</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="author"
+                                                                id="">
+
+                                                                @foreach ($author as $auth)
+                                                                    <option value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Book</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="file[]" multiple>
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
+
+                                                </div>
+                                            </div>
+                                        </form>
 
                                     </div>
                                 </div>
