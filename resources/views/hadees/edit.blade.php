@@ -597,7 +597,7 @@
                     <div class="modal fade bd-example-modal-lg" id="author-lang" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
-                            {{-- <form action="{{ url('/author_lang') }}" method="POST">
+                            <form action="{{ url('/author_lang') }}" method="POST">
                                 <div class="form-body">
                                     @csrf
                                     <div class="modal-content">
@@ -649,7 +649,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form> --}}
+                            </form>
                         </div>
                     </div>
                 </section>

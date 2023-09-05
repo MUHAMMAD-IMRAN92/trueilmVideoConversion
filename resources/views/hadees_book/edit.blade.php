@@ -136,7 +136,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-
+{{--
                                         <form class="form form-vertical" action="{{ route('book.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
@@ -208,7 +208,7 @@
 
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form> --}}
 
                                     </div>
                                 </div>
