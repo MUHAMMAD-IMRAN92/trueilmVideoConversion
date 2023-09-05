@@ -213,6 +213,7 @@ class HomeController extends Controller
     }
     public function renderApi()
     {
+        ini_set('max_execution_time', '0');
         AlQuran::truncate();
         AlQuranTranslation::truncate();
         // Surah::truncate();
