@@ -207,6 +207,7 @@ class HomeController extends Controller
                 $alQuran->surah_id = $surah->id;
                 $alQuran->ayat = $ayat->verses[0]->text_uthmani;
                 $alQuran->verse_number = $verse->verse_number;
+                $alQuran->sequence = $verse->verse_number;
                 $alQuran->juz_no = $verse->juz_number;
                 $alQuran->para_no = $juz->_id;
                 $alQuran->added_by = $this->user->id;
