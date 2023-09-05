@@ -220,45 +220,5 @@ class HomeController extends Controller
         }
         return 'done';
     }
-    public function renderTafseerApi()
-    {
-        try {
-            $collect = collect();
-            $alQuran = AlQuran::get();
-            AlQuranTranslation::where('type', 2)->delete();
-            foreach ($alQuran as $key => $Quran) {
-                $ayat_no = $Quran->sequence + 1;
 
-                $surah =    Surah::where('_id', $Quran->surah_id)->first()->sequence;
-                $url = Http::get("http://api.quran-tafseer.com/tafseer/1/$surah/$ayat_no");
-                $response = json_decode($url->body());
-                if ($response->text != '') {
-                    $alQuranTranslation = new AlQuranTranslation();
-                    // $alQuranTranslation->lang = $lang;
-                    $alQuranTranslation->translation =  $response->text;
-                    $alQuranTranslation->ayat_id = $Quran->id;
-                    $alQuranTranslation->added_by = $this->user->id;
-                    $alQuranTranslation->author_lang = '64f032b468620e7e8a4f14c2';
-                    $alQuranTranslation->type = 2;
-                    $alQuranTranslation->save();
-                } else {
-                    $collect->push("$surah/$ayat_no");
-                }
-            }
-        } catch (Exception $e) {
-            echo $e;
-            return $collect;
-        }
-    }
-
-    public function juzSequence()
-    {
-        $juz = Juz::get();
-        foreach ($juz as $j) {
-            $seq =   str_replace('Para', '', $j->juz);
-            $j->sequence = (int)$seq;
-            $j->save();
-        }
-        return 'done';
-    }
 }

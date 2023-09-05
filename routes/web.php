@@ -240,6 +240,4 @@ Route::middleware(['auth'])->group(function () {
 
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
-    Route::get('juzSequence', [App\Http\Controllers\HomeController::class, 'juzSequence']);
-    Route::get('api_rendering_renderTafseerApi', [App\Http\Controllers\HomeController::class, 'renderTafseerApi']);
 });
