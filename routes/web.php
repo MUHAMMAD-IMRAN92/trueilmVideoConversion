@@ -243,12 +243,3 @@ Route::middleware(['auth'])->group(function () {
     Route::get('juzAPi', [App\Http\Controllers\HomeController::class, 'juzAPi']);
     Route::get('api_rendering_renderTafseerApi', [App\Http\Controllers\HomeController::class, 'renderTafseerApi']);
 });
-Route::get('/test', function () {
-    return Category::where('type', 1)->get();
-});
-Route::get('/file_read', function () {
-
-    ini_set('memory_limit', '-1');
-
-    return countiesCities(['Pakistan', 'Afghanistan']);
-});

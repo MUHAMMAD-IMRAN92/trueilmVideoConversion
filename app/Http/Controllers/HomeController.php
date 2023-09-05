@@ -213,51 +213,31 @@ class HomeController extends Controller
     }
     public function renderApi()
     {
-        // AlQuran::truncate();
-        // AlQuranTranslation::truncate();
+        AlQuran::truncate();
+        AlQuranTranslation::truncate();
         // Surah::truncate();
         // return 'ok';
         // return 'imrna';
         for ($i = 1; $i < 115; $i++) {
-            // echo $i;
-            $surahName = Http::get("http://api.alquran.cloud/v1/surah/$i/en.asad");
-            $surahNameRes = json_decode($surahName->body())->data->name;
-
-            $surah  =  Surah::where('surah', $surahNameRes)->first();
-            if ($surah) {
-                $surah = $surah;
-            } else {
-                // $surah = new Surah();
-                // $surah->surah = $surahNameRes;
-                // $surah->description = '';
-                // $surah->type = 1;
-                // $surah->sequence = $i;
-                // $surah->save();
-            }
-
-            $url = Http::get("https://quranenc.com/api/v1/translation/sura/malayalam_kunhi/$i");
+            $surah  =  Surah::where('sequence', $i)->first();
+            $url = Http::get("https://api.quran.com/api/v4/verses/by_chapter/$i?per_page=500");
             $response = json_decode($url->body());
-            foreach ($response->result as $key => $res) {
-                // $alQuran = new AlQuran();
-                // $alQuran->surah_id = $surah->id;
-                // $alQuran->ayat = $res->arabic_text;
-                // $alQuran->para_no = 0;
-                // $alQuran->added_by = $this->user->id;
-                // $alQuran->manzil = 0;
-                // $alQuran->ruku = 0;
-                // $alQuran->sequence = $key;
-                // $alQuran->sajda = 0;
-                // $alQuran->waqf = 0;
-                // $alQuran->save();
-                $alQuran =  AlQuran::where('ayat', $res->arabic_text)->first();
-                $alQuranTranslation = new AlQuranTranslation();
-                // $alQuranTranslation->lang = $lang;
-                $alQuranTranslation->translation =  $res->translation;
-                $alQuranTranslation->ayat_id = $alQuran->id;
-                $alQuranTranslation->added_by = $this->user->id;
-                $alQuranTranslation->author_lang = '64d0c95e7508c554241cf283';
-                $alQuranTranslation->type = 1;
-                $alQuranTranslation->save();
+            foreach ($response->verses as $key => $verse) {
+                $url = Http::get("https://api.quran.com/api/v4/quran/verses/uthmani?verse_key=$verse->verse_key");
+                $ayat = json_decode($url->body());
+
+                $alQuran = new AlQuran();
+                $alQuran->surah_id = $surah->id;
+                $alQuran->ayat = $ayat->verses[0]->text_uthmani;
+                $alQuran->para_no = $verse->juz_number;
+                $alQuran->added_by = $this->user->id;
+                $alQuran->manzil = $verse->juz_number;
+                $alQuran->ruku = $verse->juz_number;
+                $alQuran->sequence = $verse->verse_number;
+                $alQuran->sajda = $verse->sajdah_number;
+                $alQuran->verse_key = $verse->verse_key;
+                $alQuran->waqf = 0;
+                $alQuran->save();
             }
         }
         return 'done';
