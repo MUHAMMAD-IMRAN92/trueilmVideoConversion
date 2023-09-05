@@ -225,14 +225,15 @@ class HomeController extends Controller
             foreach ($response->verses as $key => $verse) {
                 $url = Http::get("https://api.quran.com/api/v4/quran/verses/uthmani?verse_key=$verse->verse_key");
                 $ayat = json_decode($url->body());
-
+                $juz = Juz::where('juz', "LIKE", '%' . $verse->juz_number . '%')->first();
                 $alQuran = new AlQuran();
                 $alQuran->surah_id = $surah->id;
                 $alQuran->ayat = $ayat->verses[0]->text_uthmani;
-                $alQuran->para_no = $verse->juz_number;
+                $alQuran->juz_no = $verse->juz_number;
+                $alQuran->para_no = $juz->_id;
                 $alQuran->added_by = $this->user->id;
-                $alQuran->manzil = $verse->juz_number;
-                $alQuran->ruku = $verse->juz_number;
+                $alQuran->manzil = $verse->manzil_number;
+                $alQuran->ruku = $verse->ruku_number;
                 $alQuran->sequence = $verse->verse_number;
                 $alQuran->sajda = $verse->sajdah_number;
                 $alQuran->verse_key = $verse->verse_key;
