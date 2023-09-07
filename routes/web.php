@@ -238,6 +238,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-mistakes', [App\Http\Controllers\BookMistakeController::class, 'allMistakes'])->name('mistakes.all');
     Route::get('mistake/understood/{id}', [App\Http\Controllers\BookMistakeController::class, 'understood'])->name('mistakes.understood');
 
+    //Save Translation Through Files
+    Route::post('translation/file/store', [App\Http\Controllers\HomeController::class, 'translationFileStore'])->name('translation.file.store');
+
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
+});
+Route::get('test_pdf' , function(){
+    return view('test');
 });

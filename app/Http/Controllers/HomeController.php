@@ -6,6 +6,9 @@ use App\Models\SubcriptionEmail;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EmailExport;
+use App\Imports\AlQUranTranslationImport;
+use App\Imports\HadeesImport;
+use App\Imports\HadeesTranslationImport;
 use App\Mail\NewsletterVarification;
 use App\Mail\NewsletterAdmin;
 use App\Models\AlQuran;
@@ -181,7 +184,26 @@ class HomeController extends Controller
         }
         return 'sent successfully!';
     }
+    public function translationFileStore(Request $request)
+    {
+        return $request->all();
 
+        if ($request->content_type == 1) {
+            //here will translation of AlQuran
+            if ($request->file_type == 1) {
+                Excel::import(new AlQUranTranslationImport(1), $request->file);
+            } elseif ($request->file_type == 2) {
+                Excel::import(new AlQUranTranslationImport(2), $request->file);
+            }
+        } else {
+            //here will translation of Al-Hadith
+            if ($request->file_type == 3) {
+                Excel::import(new HadeesImport($request->book_id), $request->file);
+            } elseif ($request->file_type == 4) {
+                Excel::import(new HadeesTranslationImport, $request->file);
+            }
+        }
+    }
     public function renderApi()
     {
         ini_set('max_execution_time', '0');

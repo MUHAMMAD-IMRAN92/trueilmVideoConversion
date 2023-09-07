@@ -136,10 +136,10 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-{{--
-                                        <form class="form form-vertical" action="{{ route('book.store') }}" method="POST"
+                                        {{-- <form class="form form-vertical" action="{{ route('translation.file.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
+
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
@@ -147,8 +147,25 @@
                                                             <li class="d-inline-block mr-2">
                                                                 <fieldset>
                                                                     <div class="vs-radio-con vs-radio-primary">
-                                                                        <input type="radio" name="translation"
-                                                                            value="1" checked>
+                                                                        <input type="hidden" name="book_id" value="{{ $hadeesBook->_id}}"
+                                                                        id="">
+                                                                            <input type="hidden" name="content_type" value="2"
+                                                                                id="">
+                                                                        <input type="radio" class="file_type"
+                                                                            name="file_type" value="3" checked>
+                                                                        <span class="vs-radio">
+                                                                            <span class="vs-radio--border"></span>
+                                                                            <span class="vs-radio--circle"></span>
+                                                                        </span>
+                                                                        <span class="">Hadees</span>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="vs-radio-con vs-radio-primary">
+                                                                        <input type="radio" class="file_type"
+                                                                            name="file_type" value="4">
                                                                         <span class="vs-radio">
                                                                             <span class="vs-radio--border"></span>
                                                                             <span class="vs-radio--circle"></span>
@@ -159,9 +176,9 @@
                                                             </li>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6">
-
-
+                                                    <div class="col-6 translation-lang-author" style="display:none">
+                                                        <input type="hidden" name="author-lang-type" value="3"
+                                                            id="">
                                                         <label for="">Language</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="lang"
@@ -173,7 +190,7 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-6 translation-lang-author" style="display:none">
 
                                                         <label for="">Author</label>
                                                         <fieldset class="form-group">

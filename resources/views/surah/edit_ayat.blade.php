@@ -138,15 +138,97 @@
                                 <div class="card-content">
                                     <div class="card-body">
 
-                                        @if (isset($ayat))
-                                            <div id="no-ayat-added-div">
-                                                <center> Please Select Ayat!</center>
-                                            </div>
-                                        @else
-                                            <div id="no-ayat-added-div">
-                                                No Ayat Added In This Surah Yet!</div>
-                                        @endif
+                                        {{-- <form class="form form-vertical" action="{{ route('translation.file.store') }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
 
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="vs-radio-con vs-radio-primary">
+                                                                        <input type="radio" class="file_type"
+                                                                            name="file_type" value="1" checked>
+                                                                        <span class="vs-radio">
+                                                                            <span class="vs-radio--border"></span>
+                                                                            <span class="vs-radio--circle"></span>
+                                                                        </span>
+                                                                        <span class="">Translation</span>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="vs-radio-con vs-radio-primary">
+
+                                                                        <input type="hidden" name="content_type"
+                                                                            value="1" id="">
+                                                                        <input type="radio" class="file_type"
+                                                                            name="file_type" value="2">
+                                                                        <span class="vs-radio">
+                                                                            <span class="vs-radio--border"></span>
+                                                                            <span class="vs-radio--circle"></span>
+                                                                        </span>
+                                                                        <span class="">Tafseer</span>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 translation-lang-author">
+                                                        <input type="hidden" name="author-lang-type" value="1"
+                                                            id="">
+                                                        <label for="">Language</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="lang"
+                                                                id="">
+                                                                @foreach ($languages as $lang)
+                                                                    <option value="{{ $lang->_id }}">
+                                                                        {{ $lang->title }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6 translation-lang-author">
+
+                                                        <label for="">Author</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="author"
+                                                                id="">
+
+                                                                @foreach ($author as $auth)
+                                                                    <option value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Book</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="file[]" multiple>
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit"
+                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
+
+                                                </div>
+                                            </div>
+                                        </form> --}}
                                     </div>
                                 </div>
                             </div>

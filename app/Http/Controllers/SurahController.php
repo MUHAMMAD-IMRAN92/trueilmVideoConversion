@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AlQuran;
+use App\Models\Author;
+use App\Models\Languages;
 use App\Models\Surah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,9 +71,13 @@ class SurahController extends Controller
     {
         $surah = Surah::where('_id', $surahId)->with('ayats')->first();
         $ayat = AlQuran::where('surah_id', $surahId)->where('id', $ayatId)->with('translations')->first();
+        $author = Author::all();
+        $languages = Languages::all();
         return view('surah.edit_ayat', [
             'surah' => $surah,
-            'ayat' => $ayat
+            'ayat' => $ayat,
+            'author' => $author,
+            'languages' => $languages,
         ]);
     }
 

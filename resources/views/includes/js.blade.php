@@ -3142,7 +3142,6 @@
                        $('#cities').html(html);
                    }
                    if (result.oldCities.length > 0) {
-
                        result.oldCities.forEach(element => {
                            html += `<option selected value="${element}">${element} </option>`;
                        });
@@ -3154,11 +3153,23 @@
                }
            });
        });
-    //    $("document").ready(function() {
-    //        setTimeout(function() {
-    //            $("#countries").trigger('change');
-    //        }, 10);
-    //    });
+       $('.file_type').on('click', function() {
+           var type = $('.file_type:checked').val();
+           if (type == 3) {
+               $('.translation-lang-author').css('display', 'none');
+           } else if (type == 2) {
+            $('.translation-lang-author').css('display', 'block');
+           } else if (type == 3) {
+            $('.translation-lang-author').css('display', 'block');
+           } else if (type == 4) {
+            $('.translation-lang-author').css('display', 'block');
+           }
+       });
+       //    $("document").ready(function() {
+       //        setTimeout(function() {
+       //            $("#countries").trigger('change');
+       //        }, 10);
+       //    });
        // Wait for the DOM to be fully loaded
        document.addEventListener("DOMContentLoaded", function() {
            // console.log('>>>>>>>>>>>');
