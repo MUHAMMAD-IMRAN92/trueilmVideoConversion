@@ -204,6 +204,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('grant/approve/{id}', [App\Http\Controllers\GrantController::class, 'approveGrant'])->name('grant.approve');
     Route::get('grant/reject/{id}', [App\Http\Controllers\GrantController::class, 'rejectGrant'])->name('grant.reject');
+    Route::get('grant/book/view/{id}', [App\Http\Controllers\GrantController::class, 'viewBook'])->name('grant.book.view');
 
     //coupon
     Route::get('coupon', [App\Http\Controllers\CouponController::class, 'index'])->name('coupon');
@@ -244,6 +245,6 @@ Route::middleware(['auth'])->group(function () {
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
-Route::get('test_pdf' , function(){
+Route::get('test_pdf', function () {
     return view('test');
 });

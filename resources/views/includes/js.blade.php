@@ -847,13 +847,6 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
-                       }
-                   }, {
-                       "mRender": function(data, type, row) {
                            return '<td>' +
                                row.title + '</td>'
                        }
@@ -908,11 +901,11 @@
                        "mRender": function(data, type, row) {
                            var anchor;
                            if (row.file_type == 2 || row.file_type == 7) {
-                               anchor =
-                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.file_type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                            anchor =
+                                   `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
                                anchor =
-                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                                   `<a  class="ml-2" target="_blank" href="{{ url('grant/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
                            return `<td">
                                 <a  class="ml-2" href="{{ url('grant/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
@@ -1013,13 +1006,6 @@
                },
                "columns": [{
                        "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
-                       }
-                   }, {
-                       "mRender": function(data, type, row) {
                            return '<td>' +
                                row.title + '</td>'
                        }
@@ -1097,11 +1083,12 @@
                        "mRender": function(data, type, row) {
                            var anchor;
                            if (row.file_type == 2 || row.file_type == 7) {
+
                                anchor =
-                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.file_type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                                   `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
                                anchor =
-                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                                   `<a  class="ml-2" target="_blank" href="{{ url('grant/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
                            return `<td">
                                 <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
@@ -1127,13 +1114,6 @@
                    url: '<?= url('all-grants-approved') ?>'
                },
                "columns": [{
-                       "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
-                       }
-                   }, {
                        "mRender": function(data, type, row) {
                            return '<td>' +
                                row.title + '</td>'
@@ -1201,11 +1181,11 @@
                        "mRender": function(data, type, row) {
                            var anchor;
                            if (row.file_type == 2 || row.file_type == 7) {
-                               anchor =
-                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.file_type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                            anchor =
+                                   `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
                                anchor =
-                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                                   `<a  class="ml-2" target="_blank" href="{{ url('grant/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
                            return `<td">
                             ` +
@@ -3158,11 +3138,11 @@
            if (type == 3) {
                $('.translation-lang-author').css('display', 'none');
            } else if (type == 2) {
-            $('.translation-lang-author').css('display', 'block');
+               $('.translation-lang-author').css('display', 'block');
            } else if (type == 3) {
-            $('.translation-lang-author').css('display', 'block');
+               $('.translation-lang-author').css('display', 'block');
            } else if (type == 4) {
-            $('.translation-lang-author').css('display', 'block');
+               $('.translation-lang-author').css('display', 'block');
            }
        });
        //    $("document").ready(function() {

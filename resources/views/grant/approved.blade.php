@@ -43,7 +43,7 @@
                                         <table class="table" id="approved-grant-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Cover</th>
+                                              
                                                     <th class="">Title</th>
                                                     <th class="description-td">Description</th>
 

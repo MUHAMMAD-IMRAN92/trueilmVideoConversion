@@ -34,7 +34,7 @@ class GrantController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Grant::where('approved', 0)->skip((int) $start)->take((int) $length)->count();
 
         $data = array(
@@ -145,10 +145,11 @@ class GrantController extends Controller
         return json_encode($data);
     }
 
-    public function viewBook($book_id)
+    public function viewBook($id)
     {
+        $grant = Grant::where('_id', $id)->first();
         return view('grant.view_book', [
-            'book_id' => $book_id,
+            'file' => $grant->file,
             'user_id' => $this->user->id
         ]);
     }

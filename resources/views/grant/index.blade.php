@@ -112,7 +112,7 @@
                                         <table class="table" id="grant-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Cover</th>
+
                                                     <th class="">Title</th>
                                                     <th class="description-td">Description</th>
                                                     <th class="">Type</th>
