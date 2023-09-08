@@ -132,7 +132,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 mt-2">
+                                                <div class="col-12 mt-2"  style="text-align: right">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>

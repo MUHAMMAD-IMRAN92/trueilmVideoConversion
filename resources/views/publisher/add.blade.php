@@ -62,12 +62,12 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="summernote" name="description"></textarea>
+                                                            <textarea style="width:100%" rows="8" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12"  style="text-align: right">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>

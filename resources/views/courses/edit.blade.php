@@ -120,14 +120,13 @@
                                                     @endforeach
                                                 </div>
                                                 <br>
-                                                <div class="col-12" id="add-lesson" style="text-align: right">
-                                                    <span class="btn btn-primary mr-1 mb-1">Add
-                                                        Lesson</span>
-                                                </div>
-                                                <div class="col-12">
-                                                    <button type="submit" id="submit-btn"
-                                                        class="btn btn-primary mr-1 mb-1">Submit</button>
-
+                                                <div class="col-12" style="text-align: right">
+                                                    {{-- <div class=""> --}}
+                                                        <span class="btn btn-primary mr-1 mb-1"  id="add-lesson">Add
+                                                            Lesson</span>
+                                                    {{-- </div> --}}
+                                                    <button type="submit" class="btn btn-primary mr-1 mb-1"
+                                                        id="submit-btn">Submit</button>
                                                 </div>
                                             </div>
                                         </form>

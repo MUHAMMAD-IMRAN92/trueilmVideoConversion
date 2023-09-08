@@ -18,7 +18,7 @@
                 </div>
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
-                    
+
 
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-12" style="text-align: right">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
                                                     </div>

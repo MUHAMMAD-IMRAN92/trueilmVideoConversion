@@ -64,7 +64,7 @@
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <div class="col-12">
+                                                <div class="col-12" style="text-align: right">
                                                     {{-- <span type="" id="add-reference"
                                                         class="btn btn-primary mr-1 mb-1">Add
                                                         Reference</span>

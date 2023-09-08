@@ -85,7 +85,7 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="usage"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-12"  style="text-align: right">
                                                         <button type="submit" class="btn btn-primary mr-1 mb-1"
                                                             id="submit-btn">Submit</button>
 
