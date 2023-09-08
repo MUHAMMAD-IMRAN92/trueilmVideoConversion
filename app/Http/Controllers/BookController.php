@@ -97,7 +97,7 @@ class BookController extends Controller
         ]);
     }
     public function store(Request $request)
-    {
+    {  ini_set('max_execution_time', '0');
         // return $request->all();
         if ($request->type == 1) {
             $validated = $request->validate([
