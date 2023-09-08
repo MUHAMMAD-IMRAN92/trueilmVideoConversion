@@ -275,6 +275,11 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         margin-right: 20px
     }
 
+    .span-text-size {
+        font-size: 14px !important;
+        margin: 2px 2px 2px 2px;
+    }
+
     /* .match-height{
       display: flex;
       flex-direction: row;
@@ -304,6 +309,4 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     }
 
     /*.rating start*/
-
-
-    </style>
+</style>

@@ -104,6 +104,7 @@
                         </button>
                     </div>
                 @endif
+
                 <section id="basic-vertical-layouts">
 
                     <!-- Modal -->
@@ -137,7 +138,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="row col-md-3">
+                                <div class="row">
+                                    {{-- <div class="col-9">
+
+                                    </div> --}}
+                                    <div class="col-12">
+                                         <span class="badge badge-success span-text-size">Total Hadith :
+                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->count() }} </span></h5>
+                                         <span class="badge badge-success span-text-size">Hadees-e-Sahih :
+                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "1")->count() }} </span>
+                                        </h5>
+                                         <span class="badge badge-success span-text-size">Hadees-e-Zaeef :
+                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "2")->count() }} </span>
+                                        </h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

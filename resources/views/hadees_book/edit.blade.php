@@ -122,11 +122,26 @@
                     </button>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-9">
+                    <h1 class="">{{ $hadeesBook->title }}</h1>
+                    <h6 class="">{!! $hadeesBook->description !!}</h6>
+                </div>
+                <div class="col-3">
+                     <span class="badge badge-success span-text-size">Total Hadith :
+                            {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->count() }} </span></h5>
+                     <span class="badge badge-success span-text-size">Hadees-e-Sahih :
+                            {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "1")->count() }} </span>
+                    </h5>
+                     <span class="badge badge-success span-text-size">Hadees-e-Zaeef :
+                            {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "2")->count() }} </span>
+                    </h5>
+                </div>
+            </div>
 
             <div class="content-body">
-
-                <h1 class="">{{ $hadeesBook->title }}</h1>
-                <h6 class="">{!! $hadeesBook->description !!}</h6>
+                {{-- <div class="col-md-9 col-9 "> <div>
+                <div class="col-md-3 col-3 "> <div> --}}
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
@@ -136,6 +151,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
+                                        <center>Please Select Or Add Hadith</center>
                                         {{-- <form class="form form-vertical" action="{{ route('translation.file.store') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf

@@ -758,7 +758,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description;
                            } else {
                                des = '--';
                            }
@@ -1014,7 +1014,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description;
                            } else {
                                des = '--';
                            }
@@ -1123,7 +1123,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description;
                            } else {
                                des = '--';
                            }
@@ -1325,7 +1325,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description;
                            } else {
                                des = '--';
                            }
@@ -1535,7 +1535,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description;
                            } else {
                                des = '--';
                            }
@@ -1826,7 +1826,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description;
                            } else {
                                des = '--';
                            }

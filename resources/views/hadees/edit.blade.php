@@ -121,10 +121,11 @@
             <div class="content-body">
                 <section id="basic-vertical-layouts">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-9">
                             <h1 class="">{{ $hadeesBook->title }}</h1>
                             <h6 class="">{{ $hadeesBook->description }}</h6>
                         </div>
+
                     </div>
                     <div class="content-body">
                         <!-- Basic Vertical form layout section start -->
@@ -153,7 +154,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row col-3">
+                                <div class="row">
+                                    {{-- <div class="col-9">
 
+                                    </div> --}}
+                                    <div class="col-12">
+                                         <span class="badge badge-success span-text-size">Total Hadith :
+                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->count() }} </span></h5>
+                                         <span class="badge badge-success span-text-size">Hadees-e-Sahih :
+                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "1")->count() }} </span>
+                                        </h5>
+                                         <span class="badge badge-success span-text-size">Hadees-e-Zaeef :
+                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "2")->count() }} </span>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <form class="form form-vertical" action="{{ route('hadith.update') }}" method="POST"
                             enctype="multipart/form-data">
