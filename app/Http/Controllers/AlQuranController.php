@@ -68,6 +68,7 @@ class AlQuranController extends Controller
                 $alQuranTranslation->lang = $lang;
                 $alQuranTranslation->translation = $request->translations[$key];
                 $alQuranTranslation->ayat_id = $alQuran->id;
+                $alQuranTranslation->surah_id =    $alQuran->surah_id;
                 $alQuranTranslation->added_by = $this->user->id;
                 $alQuranTranslation->save();
             }
@@ -182,6 +183,7 @@ class AlQuranController extends Controller
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = $this->user->id;
                 $alQuranTranslation->author_lang = $lang;
+                $alQuranTranslation->surah_id =    $alQuran->surah_id;
                 $alQuranTranslation->type = 1;
                 $alQuranTranslation->save();
             }

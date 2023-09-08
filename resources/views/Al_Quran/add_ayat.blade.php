@@ -69,14 +69,10 @@
         }
 
         .render-ayat {
-            white-space: nowrap;
             overflow: hidden;
-            background-image: linear-gradient(to left, #00000030, #ffff);
             border-radius: 10px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: inherit;
+            border: 1px solid;
+            text-align: right;
         }
     </style>
 
@@ -108,10 +104,13 @@
             <!-- Modal -->
             <div class="row">
 
-                <div class="col-12">
+
+
+                <div class="col-9">
                     <h1 class="">{{ $surah->surah }}</h1>
                     <h6 class="">{!! $surah->description !!}</h6>
                 </div>
+
 
             </div>
 
@@ -138,6 +137,16 @@
                             </div>
                         </div>
                         <div class="col-md-3">
+
+                            <span class="badge badge-success span-text-size">Total Ayats :
+                                {{ App\Models\AlQuran::where('surah_id', $surah->_id)->count() }} </span>
+                            <span class="badge badge-success span-text-size">Total Tafseers :
+                                {{ App\Models\AlQuranTranslation::where('surah_id', $surah->_id)->where('type', 2)->count() }}
+                            </span>
+
+                            <span class="badge badge-success span-text-size">Total Translations :
+                                {{ App\Models\AlQuranTranslation::where('surah_id', $surah->_id)->where('type', 1)->count() }}
+                            </span>
                         </div>
                     </div>
                     <div class="row">
@@ -162,7 +171,7 @@
                                                         <div class="col-12">
                                                             <label for="">Ayat</label>
                                                             <fieldset class="form-group">
-                                                                <textarea style="text-align: right;width:100%"  class="form-control" rows="8" name="ayat"></textarea>
+                                                                <textarea style="text-align: right;width:100%" class="form-control" rows="8" name="ayat"></textarea>
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-6">

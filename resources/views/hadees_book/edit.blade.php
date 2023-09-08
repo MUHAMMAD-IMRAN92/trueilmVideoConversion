@@ -68,15 +68,12 @@
             padding-bottom: 0 !important;
         }
 
+
         .render-ayat {
-            white-space: nowrap;
             overflow: hidden;
-            background-image: linear-gradient(to left, #00000030, #ffff);
             border-radius: 10px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: inherit;
+            border: 1px solid;
+            text-align: right;
         }
 
         .select2.select2-container.select2-container--default {

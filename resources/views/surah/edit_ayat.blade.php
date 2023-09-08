@@ -70,15 +70,12 @@
             padding-bottom: 0 !important;
         }
 
+
         .render-ayat {
-            white-space: nowrap;
             overflow: hidden;
-            background-image: linear-gradient(to left, #00000030, #ffff);
             border-radius: 10px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: inherit;
+            border: 1px solid;
+            text-align: right;
         }
     </style>
 
@@ -123,11 +120,31 @@
                     </button>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-9">
+                    <h1 class="">{{ $surah->surah }}</h1>
+                    <h6 class="">{!! $surah->description !!}</h6>
+                </div>
+                <div class="col-3">
 
+
+                    <span class="badge badge-success span-text-size">Total Ayats :
+                        {{ App\Models\AlQuran::where('surah_id', $surah->_id)->count() }} </span> <span
+                        class="badge badge-success span-text-size">Total Tafseers :
+                        {{ App\Models\AlQuranTranslation::where('surah_id', $surah->_id)->where('type', 2)->count() }}
+                    </span>
+                    <span class="badge badge-success span-text-size">Total Translations :
+                        {{ App\Models\AlQuranTranslation::where('surah_id', $surah->_id)->where('type', 1)->count() }}
+                    </span>
+
+
+
+                </div>
+            </div>
             <div class="content-body">
 
-                <h1 class="">{{ $surah->surah }}</h1>
-                <h6 class="">{!! $surah->description !!}</h6>
+                {{-- <h1 class="">{{ $surah->surah }}</h1>
+                <h6 class="">{!! $surah->description !!}</h6> --}}
                 <!-- Basic Vertical form layout section start -->
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
