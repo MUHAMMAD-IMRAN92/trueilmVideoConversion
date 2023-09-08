@@ -133,7 +133,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            }
                            return '<td>' +
                                des + '</td>'
@@ -352,7 +352,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            } else {
                                des = '--';
                            }
@@ -420,7 +420,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            } else {
                                des = '--';
                            }
@@ -553,7 +553,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            } else {
                                des = '--';
                            }
@@ -689,7 +689,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            }
                            return '<td>' +
                                des +
@@ -855,7 +855,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            } else {
                                des = '--';
                            }
@@ -1430,7 +1430,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            } else {
                                des = '--';
                            }
@@ -1628,7 +1628,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 150);
+                               des = row.description.slice(0, 50);
                            } else {
                                des = '--';
                            }
