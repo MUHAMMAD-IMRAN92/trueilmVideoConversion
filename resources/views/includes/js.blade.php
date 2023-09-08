@@ -900,7 +900,7 @@
                    {
                        "mRender": function(data, type, row) {
                            var anchor;
-                           if (row.file_type == 2 || row.file_type == 7) {
+                           if (row.fileType == 2 || row.fileType == 7) {
                             anchor =
                                    `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
@@ -1082,7 +1082,7 @@
                    {
                        "mRender": function(data, type, row) {
                            var anchor;
-                           if (row.file_type == 2 || row.file_type == 7) {
+                           if (row.fileType == 2 || row.fileType == 7) {
 
                                anchor =
                                    `<audio controls><source src="` + row.file + `"></audio>`;
@@ -1180,7 +1180,7 @@
                    {
                        "mRender": function(data, type, row) {
                            var anchor;
-                           if (row.file_type == 2 || row.file_type == 7) {
+                           if (row.fileType == 2 || row.fileType == 7) {
                             anchor =
                                    `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
@@ -1281,7 +1281,7 @@
                    {
                        "mRender": function(data, type, row) {
                            var anchor;
-                           if (row.file_type == 2 || row.file_type == 7) {
+                           if (row.fileType == 2 || row.fileType == 7) {
                             anchor =
                                    `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
