@@ -246,11 +246,4 @@ Route::middleware(['auth'])->group(function () {
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
-Route::get('update_surah_type', function () {
-    $arr = [2, 8, 3, 33, 60, 4, 99, 57, 47, 13, 55, 76, 65, 98, 59, 24, 22, 63, 58, 49, 66, 64, 61, 62, 48, 5, 9, 110];
-    foreach ($arr as $seq) {
-        Surah::where('sequence', $seq)->update([
-            'type' => 2,
-        ]);
-    }
-});
+
