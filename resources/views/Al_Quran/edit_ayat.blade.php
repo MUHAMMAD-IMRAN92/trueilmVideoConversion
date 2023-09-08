@@ -328,8 +328,7 @@
                                                 <div class="col-12" style="text-align: right">
 
 
-                                                    <button type="submit"
-                                                        class="btn btn-primary mr-1 ">Submit</button>
+                                                    <button type="submit" class="btn btn-primary mr-1 ">Submit</button>
 
                                                 </div>
                                             </div>
@@ -506,11 +505,12 @@
                                                                     </b>
                                                                 </p> --}}
 
-                                                                <div class="col-12">
+                                                                <div class="col-12"
+                                                                    style="@if ($authLang->language->title == 'Urdu' || $authLang->language->title == 'Arabic') text-align:right; @endif">
 
                                                                     <span class=""
                                                                         id="non-edit-para-des-{{ $key }}"
-                                                                        style="margin-left:10px!important">
+                                                                        style="margin-left:10px!important; ">
                                                                         {{ @$translation->translation }}</span>
                                                                     <input type="hidden"
                                                                         id="ayat-id-{{ $key }}"
@@ -550,7 +550,8 @@
                                                                     <input type="hidden" name="author_langs[]"
                                                                         value="{{ $authlanggId }}">
                                                                     <fieldset class="form-group">
-                                                                        <textarea class="form-control" rows="8" id="trans-input-{{ $key }}" name="translations[]">{{ @$translation->translation }}</textarea>
+                                                                        <textarea class="form-control" rows="8" style="@if ($authLang->language->title == 'Urdu' || $authLang->language->title == 'Arabic') text-align:right; @endif"
+                                                                            id="trans-input-{{ $key }}" name="translations[]">{{ @$translation->translation }}</textarea>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
