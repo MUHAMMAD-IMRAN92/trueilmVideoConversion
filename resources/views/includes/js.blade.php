@@ -313,9 +313,11 @@
                            } else if (row.status == 3) {
                                status = 'Delivered';
                            }
-                           return '<td>' +
-                               status +
-                               '</td>'
+                           return `<td><select>
+                            <option>`+status+`</option>
+                            <option>`+status+`</option>
+                            <option>`+status+`</option>
+                               </select></td>`
                        }
                    },
                ],

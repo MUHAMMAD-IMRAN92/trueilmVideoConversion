@@ -70,4 +70,12 @@ class ReviewBookController extends Controller
 
         return redirect()->to('/review')->with('msg', 'Review Saved!');
     }
+    public function viewBook($id)
+    {
+        $grant = ReviewBook::where('_id', $id)->first();
+        return view('grant.view_book', [
+            'file' => $grant->file,
+            'user_id' => $this->user->id
+        ]);
+    }
 }
