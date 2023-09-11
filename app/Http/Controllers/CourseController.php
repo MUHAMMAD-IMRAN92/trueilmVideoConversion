@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseLesson;
 use App\Models\LessonVideo;
@@ -48,7 +49,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
@@ -67,8 +68,10 @@ class CourseController extends Controller
     public function add()
     {
         $tags = Tag::all();
+        $categories = Category::active()->where('type', "4")->get();
         return view('courses.add', [
-            'tags' => $tags
+            'tags' => $tags,
+            'categories' => $categories,
         ]);
     }
     public function store(Request $request)
@@ -78,6 +81,8 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->added_by = $this->user->id;
         $course->status = 1;
+        $course->age = $request->age;
+        $course->category_id = $request->category_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
@@ -123,11 +128,13 @@ class CourseController extends Controller
     {
         $course = Course::where('_id', $id)->with('lessons')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
+        $categories = Category::active()->where('type', "4")->get();
         $tags = Tag::all();
         return view('courses.edit', [
             'course' => $course,
             'tags' => $tags,
             'contentTags' =>  $contentTag,
+            'categories' => $categories,
         ]);
     }
 
@@ -138,6 +145,8 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->added_by = $this->user->id;
         $course->status = 1;
+        $course->age = $request->age;
+        $course->category_id = $request->category_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');

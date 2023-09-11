@@ -120,53 +120,52 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-6">
 
-                                                        <label for="">Category</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="category"
-                                                                id="basicSelect">
-                                                                <option disabled selected>Select Category</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option
-                                                                        {{ $book->category_id == $category->_id ? 'selected' : '' }}
-                                                                        value="{{ $category->_id }}">
-                                                                        {{ $category->title }}</option>
-                                                                @endforeach
+                                                    <div class="col-6  text-md-left">
+                                                        <label for="">
+                                                            Category</label>
+                                                        <div class="form-label-group">
+                                                            <select class="select2 form-control" name="category_id"
+                                                                id="create-product-category-attribute">
+                                                                <option selected disabled>Select
+                                                                    Category
+                                                                </option>
+                                                                {!! getCategorydropdown(0, 0, 0, $type) !!}
 
                                                             </select>
-                                                        </fieldset>
+                                                        </div>
                                                     </div>
                                                     @if ($type != 7 && $type != 2)
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Serial Number</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="sr_no"
-                                                                        placeholder="" value="{{ $book->serial_no }}"
-                                                                        required>
+                                                        <div class="col-md-6">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInputFile">Serial Number</label>
+                                                                <div class="custom-file">
+                                                                    <div class="position-relative">
+                                                                        <input type="text" id=""
+                                                                            class="form-control" name="sr_no"
+                                                                            placeholder="" value="{{ $book->serial_no }}"
+                                                                            required>
 
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Book Pages</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="number" id=""
-                                                                        class="form-control" name="pages"
-                                                                        placeholder="" value="{{ $book->book_pages }}"
-                                                                        required>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInputFile">Book Pages</label>
+                                                                <div class="custom-file">
+                                                                    <div class="position-relative">
+                                                                        <input type="number" id=""
+                                                                            class="form-control" name="pages"
+                                                                            placeholder="" value="{{ $book->book_pages }}"
+                                                                            required>
 
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    @endif                                                 <div class="form-group col-md-6 ">
+                                                            </fieldset>
+                                                        </div>
+                                                    @endif
+                                                    <div class="form-group col-md-6 ">
                                                         <label for="basicInputFile">Tags</label>
 
                                                         <select class="select2 multiple-select form-control"
@@ -226,6 +225,17 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="">Max Age</label>
+                                                            <div class="position-relative">
+                                                                <input type="number" id="" class="form-control"
+                                                                    name="age" placeholder=""
+                                                                    value="{{ $book->age }}">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group col-md-6 mt-2">
                                                         <li class="d-inline-block mr-2">
                                                             <fieldset>
@@ -270,20 +280,21 @@
 
 
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Sample File</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="sample-file" name="sample_file" disabled>
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-md-6">
-                                                    <fieldset class="form-group">
-                                                        <label for="basicInputFile">Sample File</label>
-                                                        <div class="custom-file">
-                                                            <input type="file" class="custom-file-input"
-                                                                id="sample-file" name="sample_file" disabled>
-                                                            <label class="custom-file-label"
-                                                                for="inputGroupFile01">Choose
-                                                                file</label>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
+
                                                 {{-- <div class="form-group col col-md-6">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">Tag</label>
@@ -298,7 +309,7 @@
                                                     </fieldset>
                                                 </div> --}}
 
-                                                <div class="col-12"  style="text-align: right">
+                                                <div class="col-12" style="text-align: right">
                                                     <button type="submit"
                                                         class="btn btn-primary mr-1 mb-1">Submit</button>
 

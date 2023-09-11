@@ -383,10 +383,21 @@
 
                         </ul>
                     </li>
-                    <li class="@if (request()->is('course*')) active @endif "><a href="{{ url('/courses') }}"><i
-                                class="fa fa-list"></i>
-                            <span class="menu-item" data-i18n="Analytics">Course Management</span></a>
+                    <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                                data-i18n="Ecommerce">Course Management</span></a>
+                        <ul class="menu-content">
+                            <li class="@if (request()->is('course*')) active @endif "><a
+                                    href="{{ url('/courses') }}"><i class="fa fa-list"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Courses</span></a>
+                            </li>
+                            <li class="@if (request()->is('categories/4') || request()->is('category/4*')) active @endif "><a
+                                    href="{{ url('categories/4') }}"><i class="fa fa-list-alt"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Category</span></a>
+                            </li>
+
+                        </ul>
                     </li>
+
                     <li class="@if (request()->is('*for_sale*')) active @endif "><a
                             href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>
@@ -416,8 +427,8 @@
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Review Book</span></a>
                     </li>
-                    <li class="@if (request()->is('mistake*')) active @endif "><a href="{{ url('/mistakes') }}"><i
-                                class="fa fa-exclamation-triangle"></i>
+                    <li class="@if (request()->is('mistake*')) active @endif "><a
+                            href="{{ url('/mistakes') }}"><i class="fa fa-exclamation-triangle"></i>
                             <span class="menu-item" data-i18n="Analytics">Book Mistakes</span></a>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"

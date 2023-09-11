@@ -69,7 +69,24 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea  class="form-control" id="basicTextarea" rows="3" placeholder=""  name="description">{{ $category->description }}</textarea>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $category->description }}</textarea>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-12">
+
+                                                        <label for="">Parent Category</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="parent_id"
+                                                                id="basicSelect">
+                                                                <option selected value="0">No Parent</option>
+                                                                @foreach ($pcategories as $cat)
+                                                                    <option
+                                                                        {{ $cat->_id == $category->parent_id ? 'selected' : '' }}
+                                                                        value="{{ $cat->_id }}">
+                                                                        {{ $cat->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">
@@ -86,7 +103,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12"  style="text-align: right">
+                                                <div class="col-12" style="text-align: right">
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>

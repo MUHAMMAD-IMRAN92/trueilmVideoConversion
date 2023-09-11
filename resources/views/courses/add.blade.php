@@ -78,7 +78,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="form-group col-md-12">
+                                                    <div class="form-group col-6">
                                                         <label for="basicInputFile">Tags</label>
 
                                                         <select class="select2 multiple-select form-control"
@@ -89,6 +89,45 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    {{-- <div class="col-6">
+
+                                                        <label for="">Category</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="category"
+                                                                id="basicSelect">
+                                                                <option disabled selected>Select Category</option>
+                                                                @foreach ($categories as $category)
+                                                                    <option value="{{ $category->_id }}">
+                                                                        {{ $category->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div> --}}
+                                                    <div class="col-6  text-md-left">
+                                                        <label for="">Product
+                                                            Category</label>
+                                                        <div class="form-label-group">
+                                                            <select class="select2 form-control" name="category_id"
+                                                                id="create-product-category-attribute">
+                                                                <option selected disabled>Select
+                                                                    Category
+                                                                </option>
+                                                                {!! getCategorydropdown(0, 0, 0, 4) !!}
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="">Max Age</label>
+                                                            <div class="position-relative">
+                                                                <input type="number" id="" class="form-control"
+                                                                    name="age" placeholder="">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12 " id="lesson-heading" style="display:none">
                                                         <h2>Lessons:</h2>
                                                     </div>
@@ -96,8 +135,8 @@
 
                                                 <div class="col-12" style="text-align: right">
                                                     {{-- <div class=""> --}}
-                                                        <span class="btn btn-primary mr-1 mb-1"  id="add-lesson">Add
-                                                            Lesson</span>
+                                                    <span class="btn btn-primary mr-1 mb-1" id="add-lesson">Add
+                                                        Lesson</span>
                                                     {{-- </div> --}}
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1"
                                                         id="submit-btn">Submit</button>

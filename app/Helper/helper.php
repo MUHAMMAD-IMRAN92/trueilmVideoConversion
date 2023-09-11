@@ -6,6 +6,7 @@ use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Response;
 use App\Models\Book;
 use App\Models\BookForSale;
+use App\Models\Category;
 use App\Models\Grant;
 use Illuminate\Support\Facades\Storage;
 
@@ -65,7 +66,7 @@ function countiesCities($countries, $book_id)
     if ($countries) {
         foreach ($countries as $country) {
             $content = Storage::disk('public')->get('cities.json');
-             $collect =  collect(json_decode($content));
+            $collect =  collect(json_decode($content));
             $filtered =   $collect->filter(function ($value, $key) use ($country) {
                 return $value->country_name ==  $country;
             });
@@ -77,7 +78,32 @@ function countiesCities($countries, $book_id)
     // if ($book && $book->cities) {
     //     $data['oldCities'] = explode(',', $book->cities);
     // } else {
-        $data['oldCities'] = [];
+    $data['oldCities'] = [];
     // }
     return $data;
+}
+function getCategorydropdown($parent_id = 0, $level = 0, $product_cat = 0, $type = 0)
+{
+    $html = "";
+    $seperator = "";
+    for ($loop = 0; $loop < $level; $loop++) {
+        $seperator .= "-";
+    }
+    $level_categories = Category::where('parent_id', (string)$parent_id)->where('type', (string)$type)->get();
+    foreach ($level_categories as $key => $category) {
+        $count =  Category::where('parent_id', $category->_id)->where('type',  (string)$type)->count();
+        if ($count > 0) {
+            $html .= '<optgroup  label="' . $seperator . $category->title . '">';
+            $level++;
+            $html .= getCategorydropdown($category->_id, $level, $product_cat, $type);
+            $html .= '</optgroup>';
+        } else {
+            $selected = "";
+            if ($product_cat ==  $category->_id) {
+                $selected = "selected";
+            }
+            $html .= '<option ' . $selected . ' value="' . $category->id . '">' . $category->title . '</option>';
+        }
+    }
+    return $html;
 }

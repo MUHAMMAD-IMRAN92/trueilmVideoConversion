@@ -117,21 +117,19 @@
                                                             </div>
                                                         </div>
                                                     </div> --}}
-
-                                                    <div class="col-6">
-
-                                                        <label for="basicSelect">Category</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="category"
-                                                                id="">
-                                                                <option disabled selected>Select Category</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->_id }}">
-                                                                        {{ $category->title }}</option>
-                                                                @endforeach
+                                                    <div class="col-6  text-md-left">
+                                                        <label for="">
+                                                            Category</label>
+                                                        <div class="form-label-group">
+                                                            <select class="select2 form-control" name="category_id"
+                                                                id="create-product-category-attribute">
+                                                                <option selected disabled>Select
+                                                                    Category
+                                                                </option>
+                                                                {!! getCategorydropdown(0, 0, 0, $type) !!}
 
                                                             </select>
-                                                        </fieldset>
+                                                        </div>
                                                     </div>
                                                     @if ($type != 7 && $type != 2)
                                                         <div class="col-md-6">
@@ -213,7 +211,16 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="">Max Age</label>
+                                                            <div class="position-relative">
+                                                                <input type="number" id="" class="form-control"
+                                                                    name="age" placeholder="">
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group col-md-6 mt-2">
                                                         <li class="d-inline-block mr-2">
                                                             <fieldset>
@@ -268,7 +275,7 @@
                                                         </fieldset>
                                                     </div>
                                                 </div>
-                                                <div class="col-12"  style="text-align: right">
+                                                <div class="col-12" style="text-align: right">
                                                     <button type="submit"
                                                         class="btn btn-primary mr-1 mb-1">Submit</button>
 

@@ -141,6 +141,7 @@ class BookController extends Controller
         $book->content_suitble = $request->suitble;
         $book->publisher_id = $request->publisher_id;
         $book->p_type = $request->pRadio;
+        $book->age = $request->age;
         if ($request->pRadio == 0) {
             $book->price = 0;
         } else {
@@ -258,6 +259,8 @@ class BookController extends Controller
         $book->content_suitble = $request->suitble;
         $book->publisher_id = $request->publisher_id;
         $book->p_type = $request->pRadio;
+                $book->age = $request->age;
+
         if ($request->pRadio == 0) {
             $book->price = 0;
         } else {

@@ -43,7 +43,7 @@ class CategoryController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             });
-        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
@@ -59,8 +59,10 @@ class CategoryController extends Controller
     }
     public function create($type)
     {
+        $pcategories = Category::where('parent_id', "0")->where('type', $type)->get();
         return view('category.add', [
-            'type' => $type
+            'type' => $type,
+            'pcategories' => $pcategories
         ]);
     }
     public function store(CategoryRequest $request)
@@ -71,6 +73,7 @@ class CategoryController extends Controller
         $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->status = 1;
+        $category->parent_id = $request->parent_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
@@ -86,10 +89,12 @@ class CategoryController extends Controller
 
     public function edit($type, $id)
     {
+        $pcategories = Category::where('parent_id', "0")->where('type', $type)->get();
         $category = Category::where('_id', $id)->first();
         return view('category.edit', [
             'category' => $category,
-            'type' =>  $type
+            'type' =>  $type,
+            'pcategories' => $pcategories
         ]);
     }
 
@@ -101,6 +106,7 @@ class CategoryController extends Controller
         $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->status = $category->status;
+        $category->parent_id = $request->parent_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');

@@ -247,3 +247,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
 
+Route::get('/update_category', function () {
+    Category::each(function ($q) {
+        $q->update([
+            'parent_id' => '0',
+        ]);
+    });
+});

@@ -17,4 +17,8 @@ class Category extends Eloquent
     {
         return $query->where('status', 1);
     }
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id', '_id');
+    }
 }
