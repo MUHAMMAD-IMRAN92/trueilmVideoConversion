@@ -228,6 +228,7 @@ Route::middleware(['auth'])->group(function () {
     //order
     Route::get('order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
     Route::get('all-order', [App\Http\Controllers\OrderController::class, 'allOrder'])->name('order.all');
+    Route::get('order/change_status', [App\Http\Controllers\OrderController::class, 'changeStatus'])->name('order.change_status');
 
     //book review
     Route::get('review', [App\Http\Controllers\ReviewBookController::class, 'index'])->name('review');

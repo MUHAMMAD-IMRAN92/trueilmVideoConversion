@@ -46,4 +46,12 @@ class OrderController extends Controller
         );
         return json_encode($data);
     }
+    public function changeStatus(Request $request)
+    {
+          Order::where('orderNumber', $request->orderNo)->update([
+            'status' => $request->status
+        ]);
+
+        return response()->json(['code' => 200]);
+    }
 }

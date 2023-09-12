@@ -307,13 +307,26 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var status = 'Pending';
-                           if (row.status == 2) {
-                               status = 'Shipped';
+                           var opt1 = '';
+                           var opt2 = '';
+                           var opt3 = '';
+                           if (row.status == 1) {
+                               opt1 = 'selected';
+                           } else if (row.status == 2) {
+                               opt2 = 'selected';
                            } else if (row.status == 3) {
-                               status = 'Delivered';
+                               opt3 = 'selected';
                            }
-                           return `<td>`+status+`</td>`
+                           return `<td>
+                                    <div class="form-group">
+                                        <select class="form-control" id="` + row.orderNumber +
+                               `" onchange="orderOnChange(` + row.orderNumber + `)">
+                                            <option ` + opt1 + ` value="1">Pending</option>
+                                            <option ` + opt2 + ` value="2">Shipped</option>
+                                            <option ` + opt3 + ` value="3">Completed</option>
+                                        </select>
+                                    </div>
+                                   </td>`;
                        }
                    },
                ],
@@ -358,8 +371,7 @@
                                des +
                                '</td>'
                        }
-                   },
-                   {
+                   }, +{
                        "mRender": function(data, type, row) {
                            return '<td>' +
                                row.price + '</td>'
@@ -899,7 +911,7 @@
                        "mRender": function(data, type, row) {
                            var anchor;
                            if (row.fileType == 2 || row.fileType == 7) {
-                            anchor =
+                               anchor =
                                    `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
                                anchor =
@@ -1179,7 +1191,7 @@
                        "mRender": function(data, type, row) {
                            var anchor;
                            if (row.fileType == 2 || row.fileType == 7) {
-                            anchor =
+                               anchor =
                                    `<audio controls><source src="` + row.file + `"></audio>`;
                            } else {
                                anchor =
@@ -1280,8 +1292,9 @@
                        "mRender": function(data, type, row) {
                            var anchor;
                            if (row.fileType == 2 || row.fileType == 7) {
-                            anchor =
-                                   `<a  class="ml-2"  href="{{ url('review/`+row._id+`') }}"><i class="fa fa-comments-o"  style="font-size:24px"></i></a><audio controls><source src="` + row.file + `"></audio>`;
+                               anchor =
+                                   `<a  class="ml-2"  href="{{ url('review/`+row._id+`') }}"><i class="fa fa-comments-o"  style="font-size:24px"></i></a><audio controls><source src="` +
+                                   row.file + `"></audio>`;
                            } else {
                                anchor =
                                    `<a  class="ml-2"  href="{{ url('review/`+row._id+`') }}"><i class="fa fa-comments-o"  style="font-size:24px"></i></a><a  class="ml-2" target="_blank" href="{{ url('review/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
@@ -2141,22 +2154,22 @@
            });
        }
 
-    //    function addTranslation(ayatId) {
-    //        $('#no-translation-div').css('display', 'none');
-    //        var opt = null;
-    //        $.ajax({
-    //            type: "GET",
-    //            url: "{{ url('languages') }}",
-    //            dataType: "json",
-    //            success: function(response) {
-    //                response.forEach(function(e) {
-    //                    //    opt = response;
-    //                    opt += `<option value="${e._id}">${e.title}</option>`;
-    //                })
-    //                var div = $('.lang');
-    //                var lang = div.length;
-    //                var html;
-    //                html = `
+       //    function addTranslation(ayatId) {
+       //        $('#no-translation-div').css('display', 'none');
+       //        var opt = null;
+       //        $.ajax({
+       //            type: "GET",
+       //            url: "{{ url('languages') }}",
+       //            dataType: "json",
+       //            success: function(response) {
+       //                response.forEach(function(e) {
+       //                    //    opt = response;
+       //                    opt += `<option value="${e._id}">${e.title}</option>`;
+       //                })
+       //                var div = $('.lang');
+       //                var lang = div.length;
+       //                var html;
+       //                html = `
 
     //                     <div class="col-12 lang translation-div-${lang}">
 
@@ -2204,30 +2217,30 @@
     //             </div>
     //             `;
 
-    //                $('.append-inputs').append(html);
-    //                $('.summernote').summernote({
-    //                    height: 150,
-    //                    codemirror: {
-    //                        theme: 'default'
-    //                    },
-    //                    toolbar: [
-    //                        // [groupName, [list of button]]
-    //                        ['style', ['bold', 'italic', 'underline', 'clear']],
-    //                        ['font', ['strikethrough', 'superscript', 'subscript']],
-    //                        ['fontsize', ['fontsize', 'fontname']],
-    //                        ['color', ['color']],
-    //                        ['para', ['ul', 'ol', 'paragraph']],
-    //                        ['height', ['height']]
-    //                    ]
-    //                });
-    //                $('#new-lang-select-' + lang).select2({
-    //                    tags: true
-    //                });
-    //            },
-    //        });
-    //        console.log(opt);
+       //                $('.append-inputs').append(html);
+       //                $('.summernote').summernote({
+       //                    height: 150,
+       //                    codemirror: {
+       //                        theme: 'default'
+       //                    },
+       //                    toolbar: [
+       //                        // [groupName, [list of button]]
+       //                        ['style', ['bold', 'italic', 'underline', 'clear']],
+       //                        ['font', ['strikethrough', 'superscript', 'subscript']],
+       //                        ['fontsize', ['fontsize', 'fontname']],
+       //                        ['color', ['color']],
+       //                        ['para', ['ul', 'ol', 'paragraph']],
+       //                        ['height', ['height']]
+       //                    ]
+       //                });
+       //                $('#new-lang-select-' + lang).select2({
+       //                    tags: true
+       //                });
+       //            },
+       //        });
+       //        console.log(opt);
 
-    //    }
+       //    }
 
        function deleteNewTranslation(key) {
            $('.translation-div-' + key).remove();
@@ -3146,6 +3159,29 @@
                $('.translation-lang-author').css('display', 'block');
            }
        });
+
+       function orderOnChange(orderNo) {
+           var status = $('#' + orderNo).val();
+           console.log();
+           $.ajax({
+               type: "GET",
+               url: "{{ url('order/change_status') }}",
+               data: {
+                   orderNo: orderNo,
+                   status: status,
+               },
+               dataType: "json",
+               success: function(response) {
+                   //    console.log(response);
+                   //    location.reload();
+                   $('#order_status_changed').css('display', 'block');
+                   setTimeout(() => {
+                       $('#order_status_changed').css('display', 'none');
+
+                   }, 4000);
+               }
+           });
+       }
        //    $("document").ready(function() {
        //        setTimeout(function() {
        //            $("#countries").trigger('change');
