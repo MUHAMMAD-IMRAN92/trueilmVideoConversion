@@ -321,7 +321,7 @@
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Al-Quran</span></a>
                         <ul class="menu-content">
-                            <li class="@if (request()->is('al-Quran*') || request()->is('surah*') || request()->is('ayat*')) active @endif "><a
+                            <li class="@if (request()->is('al-Quran*') || request()->is('surah/edit*') || request()->is('ayat*')) active @endif "><a
                                     href="{{ url('al-Quran') }}"><i class="fa fa-book" aria-hidden="true"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surahs</span></a>
                             </li>
@@ -334,6 +334,9 @@
                                     href="{{ url('author') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
+                            <li class="@if (request()->is('all_surah*') || request()->is('surah_translation*') || request()->is('surah/translations/*')) active @endif "><a
+                                href="{{ url('all_surah_translations') }}"><i class="fa fa-list"></i>
+                                <span class="menu-item" data-i18n="Analytics">Surah Translations</span></a>
                         </ul>
                     </li>
 

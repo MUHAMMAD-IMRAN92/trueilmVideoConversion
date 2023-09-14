@@ -19,4 +19,9 @@ class AlQuranTranslation extends Eloquent
 
         return @$lang->title;
     }
+    public function ayats()
+    {
+        return $this->belongsTo(AlQuran::class, 'ayat_id', '_id');
+    }
+
 }

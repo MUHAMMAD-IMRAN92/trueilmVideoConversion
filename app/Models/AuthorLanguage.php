@@ -18,4 +18,8 @@ class AuthorLanguage extends Eloquent
     {
         return $this->hasOne(Languages::class, '_id', 'lang_id');
     }
+    public function translations()
+    {
+        return $this->hasMany(AlQuranTranslation::class, 'author_lang', '_id');
+    }
 }

@@ -244,8 +244,7 @@ class AlQuranController extends Controller
 
     public function updateTranslation(Request $request)
     {
-        // return $request->all();
-        $alQuranTranslation = AlQuranTranslation::where('_id', $request->transId)->first();
+        $alQuranTranslation = AlQuranTranslation::where('ayat_id', $request->ayatId)->where('author_lang', $request->author_lang)->where('type', $request->type)->first();
         if ($alQuranTranslation) {
             $alQuranTranslation->translation = $request->translation;
             $alQuranTranslation->ayat_id = $request->ayatId;
@@ -320,8 +319,68 @@ class AlQuranController extends Controller
         return $data;
     }
 
-    function getFiles(Request $request)
+    public function getFiles(Request $request)
     {
         return Book::where('type', $request->type)->get();
+    }
+    public  function newAllSurah(Request $request)
+    {
+        $surah =   Surah::when($request->surah, function ($q) use ($request) {
+            $q->where('_id', $request->surah);
+        })->paginate(10);
+        $surahDropDown =   Surah::get(['_id', 'surah', 'sequence']);
+
+        $combinationCount =  AuthorLanguage::count();
+
+        return view('Al_Quran.newAlQuran', [
+            'surahs' => $surah,
+            'combinationCount' => $combinationCount,
+            'surahDropDown' => $surahDropDown
+        ]);
+    }
+    public function surah(Request $request, $id)
+    {
+        $surah =   Surah::where('_id', $id)->first();
+        $languages = Languages::all();
+        $author = Author::all();
+        $combination =  AuthorLanguage::when($request->lang, function ($l) use ($request) {
+            $l->where('lang_id', $request->lang);
+        })->when($request->author, function ($a) use ($request) {
+            $a->where('author_id', $request->author);
+        })->with(['translations' => function ($q) use ($surah) {
+            $q->whereHas('ayats', function ($e) use ($surah) {
+                $e->where('surah_id', $surah->_id);
+            })->with('ayats');
+        }])->paginate(10);
+        return view('Al_Quran.new_surah_page', [
+            'surah' => $surah,
+            'combinations' => $combination,
+            'languages' => $languages,
+            'author' => $author
+        ]);
+    }
+    public function surahAyats(Request $request, $surah_id, $combination_id)
+    {
+        $surah =   Surah::where('_id', $surah_id)->with('ayats')->first();
+        $ayats = AlQuran::when($request->ayat_id, function ($q) use ($request) {
+            $q->where('_id', $request->ayat_id);
+        })->where('surah_id', $surah_id)->with(['translations' => function ($q) use ($combination_id) {
+            $q->where('type', '1')->where('author_lang', $combination_id);
+        }])->paginate(10);
+        $languages = Languages::all();
+        $author = Author::all();
+        $currentCombination =  AuthorLanguage::where('_id', $combination_id)->with(['translations' => function ($q) use ($surah) {
+            $q->whereHas('ayats', function ($e) use ($surah) {
+                $e->where('surah_id', $surah->_id);
+            })->with('ayats');
+        }])->first();
+
+        return view('Al_Quran.new_ayat_page', [
+            'surah' => $surah,
+            'ayats' => $ayats,
+            'languages' => $languages,
+            'author' => $author,
+            'currentCombination' => $currentCombination
+        ]);
     }
 }

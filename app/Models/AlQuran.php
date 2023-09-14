@@ -34,6 +34,11 @@ class AlQuran extends Eloquent
 
         return @$juz->juz;
     }
+    public function surah()
+    {
+        return $this->belongsTo(Surah::class, 'surah_id', '_id');
+    }
+
 
 
 }

@@ -247,12 +247,10 @@ Route::middleware(['auth'])->group(function () {
 
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
-});
 
-Route::get('/update_category', function () {
-    Category::each(function ($q) {
-        $q->update([
-            'parent_id' => '0',
-        ]);
-    });
+
+    //New AL-Quran Module
+    Route::get('all_surah_translations', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
+    Route::get('surah_translations/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
+    Route::get('surah/translations/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
 });
