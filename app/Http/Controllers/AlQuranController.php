@@ -327,7 +327,7 @@ class AlQuranController extends Controller
     {
         $surahs =   Surah::when($request->surah, function ($q) use ($request) {
             $q->where('_id', $request->surah);
-        })->paginate(10);
+        })->paginate(6);
 
         $surahDropDown =   Surah::get(['_id', 'surah', 'sequence']);
 
