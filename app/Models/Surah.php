@@ -25,7 +25,7 @@ class Surah extends Eloquent
         foreach ($authorLang as $authLang) {
             $authLangCount =  AlQuranTranslation::whereHas('ayats', function ($q) {
                 $q->where('surah_id', $this->_id);
-            })->translation()->where('author_lang', $authLang->_id)->whereNotNull('translation')->count();
+            })->where('author_lang', $authLang->_id)->translation()->whereNotNull('translation')->count();
 
             if ($ayats != 0 && $ayats == $authLangCount) {
                 $count += 1;
