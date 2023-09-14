@@ -328,40 +328,7 @@ class AlQuranController extends Controller
         $surahs =   Surah::when($request->surah, function ($q) use ($request) {
             $q->where('_id', $request->surah);
         })->paginate(10);
-        // $surahs = $surahs->map(function ($surah, $key) {
-        //     $count = 0;
-        //     $ayats = AlQuran::where('surah_id', $surah->_id)->count();
-        //     $authorLang =   AuthorLanguage::get();
-        //     foreach ($authorLang as $authLang) {
-        //         $authLangCount =  AlQuranTranslation::whereHas('ayats', function ($q) use ($surah) {
-        //             $q->where('surah_id', $surah->_id);
-        //         })->where('author_lang', $authLang->_id)->translation()->whereNotNull('translation')->count();
 
-        //         if ($ayats != 0 && $ayats == $authLangCount) {
-        //             $count += 1;
-        //         }
-        //     }
-
-        //      $surah->count =   $count;
-        //      return $surah;
-        // });
-        $surahs->getCollection()->transform(function ($surah) {
-            $count = 0;
-            $ayats = AlQuran::where('surah_id', $surah->_id)->count();
-            $authorLang =   AuthorLanguage::get();
-            foreach ($authorLang as $authLang) {
-                $authLangCount =  AlQuranTranslation::whereHas('ayats', function ($q) use ($surah) {
-                    $q->where('surah_id', $surah->_id);
-                })->where('author_lang', $authLang->_id)->translation()->whereNotNull('translation')->count();
-
-                if ($ayats != 0 && $ayats == $authLangCount) {
-                    $count += 1;
-                }
-            }
-
-            $surah->count =   $count;
-            return $surah;
-        });
         $surahDropDown =   Surah::get(['_id', 'surah', 'sequence']);
 
         $combinationCount =  AuthorLanguage::count();

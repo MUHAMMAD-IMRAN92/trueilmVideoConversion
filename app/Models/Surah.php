@@ -16,9 +16,21 @@ class Surah extends Eloquent
     {
         return $this->hasMany(AlQuran::class, 'surah_id', 'id');
     }
-    // public  function getCombinationTranslationsAttribute()
-    // {
+    public  function getCombinationTranslationsAttribute()
+    {
+        $count = 0;
+        $ayats = AlQuran::where('surah_id', $this->_id)->count();
 
-    //     return $count;
-    // }
+        $authorLang =   AuthorLanguage::get();
+        foreach ($authorLang as $authLang) {
+            $authLangCount =  AlQuranTranslation::whereHas('ayats', function ($q) {
+                $q->where('surah_id', $this->_id);
+            })->where('author_lang', $authLang->_id)->translation()->whereNotNull('translation')->count();
+
+            if ($ayats != 0 && $ayats == $authLangCount) {
+                $count += 1;
+            }
+        }
+        return $count;
+    }
 }
