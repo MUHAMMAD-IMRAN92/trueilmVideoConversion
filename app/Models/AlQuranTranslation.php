@@ -25,10 +25,10 @@ class AlQuranTranslation extends Eloquent
     }
     public function scopeTranslation($query)
     {
-        return $query->where('type', '1')->whereNotNull('translation');
+        return $query->where('type', '1');
     }
     public function scopeTafseer($query)
     {
-        return $query->where('type', '2')->whereNotNull('translation');
+        return $query->where('type', '2');
     }
 }
