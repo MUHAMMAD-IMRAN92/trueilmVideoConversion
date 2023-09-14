@@ -73,7 +73,7 @@
                                             </div>
                                         </td>
                                         <td class="product-price">
-                                            {{ $surah->combination_translations . '/' . $combinationCount }}</td>
+                                            {{ $surah->count . '/' . $combinationCount }}</td>
                                         <td class="product-action">
                                             <span class="action-edit"><a
                                                     href="{{ url('surah_translations/' . $surah->_id) }}"><i
