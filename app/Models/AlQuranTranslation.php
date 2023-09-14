@@ -23,5 +23,12 @@ class AlQuranTranslation extends Eloquent
     {
         return $this->belongsTo(AlQuran::class, 'ayat_id', '_id');
     }
-
+    public function scopeTranslation($query)
+    {
+        return $query->where('type', '1')->whereNotNull('translation');
+    }
+    public function scopeTafseer($query)
+    {
+        return $query->where('type', '2')->whereNotNull('translation');
+    }
 }
