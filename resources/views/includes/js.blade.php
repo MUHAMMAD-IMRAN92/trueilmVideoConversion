@@ -2125,10 +2125,6 @@
            var transId = $('#trans-id-' + key).val();
            var type = $('#type-' + key).val();
            console.log(ayatId + '----------------->' + key);
-           $('#translation-saved-span-' + key).css('display', 'block');
-               $('#non-edit-para-des-' + key).css('display', 'block');
-               $('#editble-' + key).css('display', 'none');
-               $('#non-editble-translation-' + key).css('display', 'block');
            $.ajax({
                type: "POST",
                url: "{{ url('ayat/translation/update') }}",
@@ -2142,9 +2138,8 @@
                    type: type
                },
                dataType: "json",
-
                success: function(response) {
-
+                   $('#translation-saved-span-' + key).css('display', 'block');
                    setTimeout(() => {
                        $('#translation-saved-span-' + key).css('display', 'none');
 
@@ -2154,7 +2149,9 @@
                    //    $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
                    $('#non-edit-para-des-' + key).html(response.translation);
-
+                   $('#non-edit-para-des-' + key).css('display', 'block');
+                   $('#editble-' + key).css('display', 'none');
+                   $('#non-editble-translation-' + key).css('display', 'block');
                }
            });
        }
