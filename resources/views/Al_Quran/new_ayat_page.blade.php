@@ -205,7 +205,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="row"
+                                                <div class="row ml-1"
                                                     style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:6%; @endif">
 
                                                     <span class="" id="non-edit-para-des-{{ $key }}"
