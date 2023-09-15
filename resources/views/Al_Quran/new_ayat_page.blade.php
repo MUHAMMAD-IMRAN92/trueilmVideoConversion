@@ -160,18 +160,19 @@
 
                                                     <div class="col-3 d-flex">
                                                         <h4 onclick="editable('{{ $key }}')">
-                                                            <span class="badge badge-info ml-1"><i
-                                                                    class="fa fa-pencil" style="cursor: pointer;">&nbspEdit</i></span>
+                                                            <span class="badge badge-info ml-1"><i class="fa fa-pencil"
+                                                                    style="cursor: pointer;">&nbspEdit</i></span>
                                                         </h4>
                                                         <h4
                                                             onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}')">
-                                                            <span class="badge badge-success ml-1"><i
-                                                                    class="fa fa-save" style="cursor: pointer;">&nbspSave</i></span>
+                                                            <span class="badge badge-success ml-1"><i class="fa fa-save"
+                                                                    style="cursor: pointer;">&nbspSave</i></span>
                                                         </h4>
 
                                                         <h4
                                                             onclick="deleteTranslation('{{ @$aya->translations[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' , 1)">
-                                                            <span class="badge badge-danger ml-1" style="cursor: pointer;"><i
+                                                            <span class="badge badge-danger ml-1"
+                                                                style="cursor: pointer;"><i
                                                                     class="fa fa-trash">&nbspDelete</i></span>
                                                         </h4>
                                                     </div>
@@ -229,7 +230,7 @@
 
 
                                                     <div class="row">
-                                                        <div class="col-12">
+                                                        <div class="col-12" id="textarea-div-{{ $key }}">
                                                             {{-- <label for="">Translation</label> --}}
                                                             <input type="hidden" name="author_langs[]"
                                                                 value="{{ $currentCombination->_id }}">
@@ -238,6 +239,12 @@
                                                                     id="trans-input-{{ $key }}" name="translations[]">{{ @$aya->translations[0]->translation }}</textarea>
                                                             </fieldset>
                                                         </div>
+
+                                                        <div class="spinner-grow text-dark"
+                                                            style="margin-left:50% !important;display:none"
+                                                            id="spinner-grow-{{ $key }}"></div>
+
+
                                                     </div>
                                                 </div>
                                             </div>

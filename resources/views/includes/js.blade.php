@@ -2118,7 +2118,8 @@
        }
 
        function saveTranslation(authorLang, key) {
-
+           $('#textarea-div-' + key).css('display', 'none');
+           $('#spinner-grow-' + key).css('display', 'block');
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
            var ayatId = $('#ayat-id-' + key).val();
@@ -2144,6 +2145,8 @@
                        $('#translation-saved-span-' + key).css('display', 'none');
 
                    }, 3000);
+                   $('#spinner-grow-' + key).css('display', 'none');
+                   $('#textarea-div-' + key).css('display', 'block');
                    $('#non-edit-para-des-' + key).css('display', 'none');
                    //    console.log(response);
                    //    $('#non-edit-lang-select-' + key).html(response.lang_title);
