@@ -32,19 +32,18 @@ class Surah extends Eloquent
         //             ->whereNotNull('aq.translation');
         //     })->groupBy('author_languages._id', 'author_languages.name')
         //     ->get();
+        // $counts = DB::table('author_languages')
+        //     ->select('author_languages._id', 'author_languages.name')
+        //     ->selectRaw('COUNT(CASE WHEN aq.surah_id = ? AND aq.translation IS NOT NULL THEN 1 END) as count_matched', [$this->_id])
+        //     ->leftJoin('alquran_translations as aq', function ($join) {
+        //         $join->on('author_languages._id', '=', 'aq.author_lang');
+        //         $join->where('aq.surah_id', '=', $this->_id);
+        //     })
+        //     ->groupBy('author_languages._id', 'author_languages.name')
+        //     ->havingRaw('count_matched = (SELECT COUNT(*) FROM alquran WHERE surah_id = ?)', [$this->_id])
+        //     ->get();
 
-        $count = 0;
-        $ayats = AlQuran::where('surah_id', $this->_id)->count();
-
-        $authorLang = AuthorLanguage::pluck('_id')->all();
-        foreach ($authorLang as $authLang) {
-            $authLangCount =  AlQuranTranslation::where('surah_id', $this->_id)->where('author_lang', $authLang)->translation()->whereNotNull('translation')->count();
-
-            if ($ayats != 0 && $ayats == $authLangCount) {
-                $count += 1;
-            }
-        }
-        return $count;
+        // return $counts;
     }
     // public  function getCombinationTranslationsAttribute()
     // {

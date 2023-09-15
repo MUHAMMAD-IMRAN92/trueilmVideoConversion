@@ -15,7 +15,7 @@
                         <div class="col-4 d-flex flex-row-reverse">
                             <form action="{{ url('/all_surah_translations') }}" method="GET">
                                 <div class="form-label-group">
-                                    <select class="select2 form-control" name="surah" id="" >
+                                    <select class="select2 form-control" name="surah" id="">
                                         <option selected disabled>Select
                                             Surah
                                         </option>
@@ -53,7 +53,7 @@
                                 @foreach ($surahs as $surah)
                                     <tr>
                                         <td>{{ $surah->sequence }}.</td>
-                                        <td class="product-name" style="font-size: 20px">{{ $surah->surah }}</td>
+                                        <td class="product-name" style="font-size: 20px">{{ $surah->title }}</td>
 
                                         <td>
                                             @php
@@ -73,10 +73,10 @@
                                             </div>
                                         </td>
                                         <td class="product-price">
-                                            {{ $surah->combination_translations . '/' . $combinationCount }}</td>
+                                            {{ $surah->translation_count . '/' . $combinationCount }}</td>
                                         <td class="product-action">
                                             <span class="action-edit"><a
-                                                    href="{{ url('surah_translations/' . $surah->_id) }}"><i
+                                                    href="{{ url('surah_translations/' . $surah->surah_id) }}"><i
                                                         class="fa fa-external-link"></i></a></span>
 
                                         </td>

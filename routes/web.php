@@ -4,6 +4,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Languages;
 use App\Models\Surah;
+use App\Models\SurahCombinations;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -253,4 +254,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all_surah_translations', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
     Route::get('surah_translations/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
     Route::get('surah/translations/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
+});
+Route::get('importSurahCombinations', function () {
+    $surah = Surah::get();
+    SurahCombinations::truncate();
+    foreach ($surah as $s) {
+        $new = new SurahCombinations();
+        $new->surah_id  = $s->_id;
+        $new->sequence  = $s->sequence;
+        $new->title = $s->surah;
+        $new->type = $s->type;
+        $new->translation_count = 0;
+        $new->tafseer_count = 0;
+        $new->save();
+    }
+
+    return 'done';
 });
