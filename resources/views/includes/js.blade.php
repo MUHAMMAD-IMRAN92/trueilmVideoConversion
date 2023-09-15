@@ -2125,6 +2125,10 @@
            var transId = $('#trans-id-' + key).val();
            var type = $('#type-' + key).val();
            console.log(ayatId + '----------------->' + key);
+           $('#translation-saved-span-' + key).css('display', 'block');
+               $('#non-edit-para-des-' + key).css('display', 'block');
+               $('#editble-' + key).css('display', 'none');
+               $('#non-editble-translation-' + key).css('display', 'block');
            $.ajax({
                type: "POST",
                url: "{{ url('ayat/translation/update') }}",
@@ -2138,10 +2142,7 @@
                    type: type
                },
                dataType: "json",
-               $('#translation-saved-span-' + key).css('display', 'block');
-               $('#non-edit-para-des-' + key).css('display', 'block');
-               $('#editble-' + key).css('display', 'none');
-               $('#non-editble-translation-' + key).css('display', 'block');
+
                success: function(response) {
 
                    setTimeout(() => {
