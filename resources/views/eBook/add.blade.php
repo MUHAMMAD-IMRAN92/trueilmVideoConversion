@@ -68,12 +68,24 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
+
+
+                                                    @php
+                                                        $validation = 'accept=.epub';
+                                                        if ($type == 2 || $type == 7) {
+                                                            $validation = 'accept=.mp3';
+                                                        } elseif ($type == 3) {
+                                                            $validation = 'accept=.pdf, .docx, .epub';
+                                                        }
+
+                                                    @endphp
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file[]" multiple>
+                                                                    id="inputGroupFile01" name="file[]" {{ $validation }}
+                                                                    multiple>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
