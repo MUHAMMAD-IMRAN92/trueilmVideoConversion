@@ -240,8 +240,9 @@ class AlQuranController extends Controller
     }
     public function deleteTranslation(Request $request)
     {
+        $alQuranTranslationSurah = AlQuranTranslation::where('_id', $request->transId)->first();
         $alQuranTranslation = AlQuranTranslation::where('_id', $request->transId)->delete();
-        SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+        SurahCombinationJob::dispatch($alQuranTranslationSurah->surah_id);
         return sendSuccess('Deleted!', []);
     }
 
