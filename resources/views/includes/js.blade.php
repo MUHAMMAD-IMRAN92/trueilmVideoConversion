@@ -2138,8 +2138,12 @@
                    type: type
                },
                dataType: "json",
+               $('#translation-saved-span-' + key).css('display', 'block');
+               $('#non-edit-para-des-' + key).css('display', 'block');
+               $('#editble-' + key).css('display', 'none');
+               $('#non-editble-translation-' + key).css('display', 'block');
                success: function(response) {
-                   $('#translation-saved-span-' + key).css('display', 'block');
+
                    setTimeout(() => {
                        $('#translation-saved-span-' + key).css('display', 'none');
 
@@ -2149,9 +2153,7 @@
                    //    $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
                    $('#non-edit-para-des-' + key).html(response.translation);
-                   $('#non-edit-para-des-' + key).css('display', 'block');
-                   $('#editble-' + key).css('display', 'none');
-                   $('#non-editble-translation-' + key).css('display', 'block');
+
                }
            });
        }
