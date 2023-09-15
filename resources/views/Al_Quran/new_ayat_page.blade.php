@@ -173,7 +173,7 @@
                                                                     class="fa fa-trash">&nbspDelete</i></span>
                                                         </h4>
                                                     </div>
-                                                    <div class="col-10 checkclass"
+                                                    <div class="col-9 checkclass"
                                                         id="non-editble-translation-{{ $key }}">
                                                         <div class="row d-flex flex-row-reverse">
 

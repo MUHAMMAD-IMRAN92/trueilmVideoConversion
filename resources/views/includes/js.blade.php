@@ -2102,11 +2102,11 @@
                    console.log(response);
                    $('#non-edit-para-des-' + key).html('');
                    $('#trans-input-' + key).html('');
-
                },
            });
-
+           location.reload();
            $('#translation-delete-span-' + key).css('display', 'block');
+
            setTimeout(() => {
                $('#translation-delete-span-' + key).css('display', 'none');
 
@@ -2115,7 +2115,7 @@
 
        function editable(key) {
            $('#non-editble-translation-' + key).css('display', 'none');
-           $('#non-edit-para-des-'+key).css('display', 'none');
+           $('#non-edit-para-des-' + key).css('display', 'none');
            $('#editble-' + key).css('display', 'block');
        }
 
@@ -2146,7 +2146,7 @@
                        $('#translation-saved-span-' + key).css('display', 'none');
 
                    }, 3000);
-                   $('#non-edit-para-des-'+key).css('display', 'none');
+                   $('#non-edit-para-des-' + key).css('display', 'none');
                    //    console.log(response);
                    //    $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
