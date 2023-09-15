@@ -97,24 +97,28 @@ class BookController extends Controller
         ]);
     }
     public function store(Request $request)
-    {  ini_set('max_execution_time', '0');
+    {
+        ini_set('max_execution_time', '0');
         // return $request->all();
         if ($request->type == 1) {
             $validated = $request->validate([
                 'title' => 'required',
-                'file.*' => 'required|file|mimes:epub',
+                'file' => 'required',
+                'file.*' => 'mimes:epub',
                 'sample_file' => 'file|mimes:epub'
             ]);
         } elseif ($request->type == 2 || $request->type == 7) {
             $validated = $request->validate([
                 'title' => 'required',
-                'file.*' => 'required|file|mimes:mp3',
+                'file' => 'required',
+                'file.*' => 'mimes:mp3',
                 'sample_file' => 'file|mimes:mp3'
             ]);
         } elseif ($request->type == 3) {
             $validated = $request->validate([
                 'title' => 'required',
-                'file.*' => 'required|file|mimes:epub,pdf',
+                'file' => 'required',
+                'file.*' => 'mimes:epub,pdf',
                 'sample_file' => 'file|mimes:epub,pdf'
             ]);
         }
@@ -259,7 +263,7 @@ class BookController extends Controller
         $book->content_suitble = $request->suitble;
         $book->publisher_id = $request->publisher_id;
         $book->p_type = $request->pRadio;
-                $book->age = $request->age;
+        $book->age = $request->age;
 
         if ($request->pRadio == 0) {
             $book->price = 0;
