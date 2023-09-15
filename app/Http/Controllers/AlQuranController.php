@@ -248,14 +248,17 @@ class AlQuranController extends Controller
         if ($alQuranTranslation) {
             $alQuranTranslation->translation = $request->translation;
             $alQuranTranslation->ayat_id = $request->ayatId;
+            $alQuranTranslation->surah_id = $alQuranTranslation->surah_id;
             $alQuranTranslation->author_lang = $request->author_lang;
             $alQuranTranslation->type = $request->type;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
         } else {
+            $alQuran = AlQuran::where('_id', $request->ayatId)->first();
             $alQuranTranslation = new AlQuranTranslation();
             $alQuranTranslation->translation = $request->translation;
             $alQuranTranslation->ayat_id = $request->ayatId;
+            $alQuranTranslation->surah_id = $alQuran->surah_id;
             $alQuranTranslation->author_lang = $request->author_lang;
             $alQuranTranslation->type = $request->type;
             $alQuranTranslation->added_by = $this->user->id;
@@ -325,9 +328,9 @@ class AlQuranController extends Controller
     }
     public  function newAllSurah(Request $request)
     {
-        $surahs =   Surah::when($request->surah, function ($q) use ($request) {
+        return    $surahs =   Surah::when($request->surah, function ($q) use ($request) {
             $q->where('_id', $request->surah);
-        })->paginate(6);
+        })->paginate(10);
 
         $surahDropDown =   Surah::get(['_id', 'surah', 'sequence']);
 
