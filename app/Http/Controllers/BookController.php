@@ -100,28 +100,7 @@ class BookController extends Controller
     {
         ini_set('max_execution_time', '0');
         // return $request->all();
-        if ($request->type == 1) {
-            $validated = $request->validate([
-                'title' => 'required',
-                'file' => 'required',
-                'file.*' => 'mimes:epub',
-                'sample_file' => 'file|mimes:epub'
-            ]);
-        } elseif ($request->type == 2 || $request->type == 7) {
-            $validated = $request->validate([
-                'title' => 'required',
-                'file' => 'required',
-                'file.*' => 'mimes:mp3',
-                'sample_file' => 'file|mimes:mp3'
-            ]);
-        } elseif ($request->type == 3) {
-            $validated = $request->validate([
-                'title' => 'required',
-                'file' => 'required',
-                'file.*' => 'mimes:epub,pdf',
-                'sample_file' => 'file|mimes:epub,pdf'
-            ]);
-        }
+
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
