@@ -241,6 +241,7 @@ class AlQuranController extends Controller
     public function deleteTranslation(Request $request)
     {
         $alQuranTranslation = AlQuranTranslation::where('_id', $request->transId)->delete();
+        SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
         return sendSuccess('Deleted!', []);
     }
 
@@ -296,6 +297,7 @@ class AlQuranController extends Controller
     public function deleteTafseer(Request $request)
     {
         $alQuranTafseer = Tafseer::where('_id', $request->tafseerId)->delete();
+
         return sendSuccess('Deleted!', []);
     }
 
