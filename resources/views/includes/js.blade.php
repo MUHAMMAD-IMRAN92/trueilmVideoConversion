@@ -2085,8 +2085,6 @@
            console.log(e.target.files[0].name);
            $('#label-' + l).text(e.target.files[0].name);
        }
-
-
        // Ayat Translation
        function deleteTranslation(transId, authLang, key, type) {
            $.ajax({

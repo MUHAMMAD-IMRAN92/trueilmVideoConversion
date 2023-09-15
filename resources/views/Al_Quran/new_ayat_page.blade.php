@@ -36,11 +36,13 @@
                         </div>
                     </div>
 
-                    <div class="row ml-2">
+                    <div class="row">
                         {{-- <canvas id="myChart" height="100px"></canvas> --}}
 
                         <div class="col-7 d-flex">
-                          <p class="mt-1 mr-2">  {{  count($currentCombination->translations ) .'/'. count($surah->ayats)}}</p>
+                            <p class="mt-1 mr-2">
+                                {{ count($currentCombination->translations) . '/' . count($surah->ayats) }}
+                            </p>
                             <form action="{{ url('surah_translations/' . $surah->_id) }}" method="GET">
                                 <div class="form-label-group">
                                     <select class="select2 form-control" name="lang" id="">
@@ -83,7 +85,7 @@
                             <form action="{{ url('/surah/translations/' . $surah->_id . '/' . $currentCombination->_id) }}"
                                 method="GET">
                                 <div class="form-label-group">
-                                    <select class="select2 form-control" name="ayat_id" id="" style="width: 320px" >
+                                    <select class="select2 form-control" name="ayat_id" id="" style="width: 320px">
                                         <option selected disabled>Select
                                             Surah
                                         </option>
@@ -156,20 +158,20 @@
                                                 </div>
                                                 <div class="row">
 
-                                                    <div class="col-2 d-flex">
+                                                    <div class="col-3 d-flex">
                                                         <h4 onclick="editable('{{ $key }}')">
                                                             <span class="badge badge-info ml-1"><i
-                                                                    class="fa fa-pencil">&nbspEdit</i></span>
+                                                                    class="fa fa-pencil" style="cursor: pointer;">&nbspEdit</i></span>
                                                         </h4>
                                                         <h4
                                                             onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}')">
                                                             <span class="badge badge-success ml-1"><i
-                                                                    class="fa fa-save">&nbspSave</i></span>
+                                                                    class="fa fa-save" style="cursor: pointer;">&nbspSave</i></span>
                                                         </h4>
 
                                                         <h4
                                                             onclick="deleteTranslation('{{ @$aya->translations[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' , 1)">
-                                                            <span class="badge badge-danger ml-1"><i
+                                                            <span class="badge badge-danger ml-1" style="cursor: pointer;"><i
                                                                     class="fa fa-trash">&nbspDelete</i></span>
                                                         </h4>
                                                     </div>
@@ -180,7 +182,8 @@
                                                             <div class="col-1" style="text-align: right;">:
                                                                 {{ $aya->sequence }} </div>
 
-                                                            <p id="non-edit-lang-select-{{ $key }}" class="mt-1" style="text-align: right;">
+                                                            <p id="non-edit-lang-select-{{ $key }}" class="mt-1"
+                                                                style="text-align: right;">
                                                                 {{ $aya->ayat }}
 
                                                             </p>
