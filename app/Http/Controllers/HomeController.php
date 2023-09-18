@@ -244,4 +244,12 @@ class HomeController extends Controller
         }
         return 'done';
     }
+    public function AlQuranTranslations()
+    {
+
+        $url = Http::get("https://api.quran.com/api/v4/quran/translations/131");
+        $response = json_decode($url->body());
+
+        return $response;
+    }
 }

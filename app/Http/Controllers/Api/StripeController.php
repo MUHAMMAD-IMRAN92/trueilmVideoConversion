@@ -17,24 +17,20 @@ class StripeController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET'));
         // Create a new customer with a source (i.e. a Stripe token)
         $user = User::where('_id', $request->user_id)->first();
-        if ($user->customer == null) {
-            $customer = $stripe->customers->create([
-                'name' => $user->name,
-                'email' => $user->email,
-                'payment_method' => $request->paymentMethod,
-                'invoice_settings' => [
-                    'default_payment_method' => $request->paymentMethod,
-                ],
-            ]);
-            $user->customer =  $customer->id;
-            $user->save();
+        if ($user) {
+            if ($user->customer == null) {
+                $customer = $stripe->customers->create([
+                    'name' => $user->name,
+                    'email' => $user->email,
 
-            $customerCard = new CustomerCard();
-            $customerCard->customer_id = $user->customer;
-            $customerCard->card_id = $request->paymentMethod;
-            $customerCard->save();
+                ]);
+                $user->customer =  $customer->id;
+                $user->save();
+            } else {
+                $customer = $user->customer;
+            }
         } else {
-            $customer = $user->customer;
+            return response()->json(['status' => '400', 'message' => 'User Not Found!', 'data' => $request->user_id]);
         }
         return response()->json(['status' => '200', 'message' => 'customer saved!', 'data' => $user]);
     }
