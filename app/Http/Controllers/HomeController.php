@@ -19,6 +19,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\SurahCombination as SurahCombinationJob;
 
 class HomeController extends Controller
 {
@@ -261,6 +262,8 @@ class HomeController extends Controller
             $alQuranTranslation->type = 1;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
+
+            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
         }
         return 'save!';
     }
