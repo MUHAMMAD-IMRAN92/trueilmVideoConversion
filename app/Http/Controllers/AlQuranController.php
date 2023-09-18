@@ -379,7 +379,7 @@ class AlQuranController extends Controller
         $ayats = AlQuran::when($request->ayat_id, function ($q) use ($request) {
             $q->where('_id', $request->ayat_id);
         })->where('surah_id', $surah_id)->with(['translations' => function ($q) use ($combination_id) {
-            $q->where('type', '1')->where('author_lang', $combination_id);
+            $q->where('type', 1)->where('author_lang', $combination_id);
         }])->paginate(10);
         $languages = Languages::all();
         $author = Author::all();
