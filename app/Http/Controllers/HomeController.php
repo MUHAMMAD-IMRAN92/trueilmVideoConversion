@@ -256,7 +256,7 @@ class HomeController extends Controller
 
             $alQuranTranslation = new AlQuranTranslation();
 
-            $alQuranTranslation->translation = $response->translations[0]->text;
+            $alQuranTranslation->translation = strip_tags($response->translations[0]->text);
             $alQuranTranslation->ayat_id = $verse->_id;
             $alQuranTranslation->surah_id = $verse->surah_id;
             $alQuranTranslation->author_lang = '65083cbbbd2b486c002572b3';

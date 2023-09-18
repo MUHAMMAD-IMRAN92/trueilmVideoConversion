@@ -249,14 +249,14 @@ class AlQuranController extends Controller
 
     public function updateTranslation(Request $request)
     {
-        $alQuranTranslation = AlQuranTranslation::where('ayat_id', $request->ayatId)->where('author_lang', $request->author_lang)->where('type', $request->type)->first();
+        $alQuranTranslation = AlQuranTranslation::where('ayat_id', $request->ayatId)->where('author_lang', $request->author_lang)->where('type', (int)$request->type)->first();
         if ($alQuranTranslation) {
 
             $alQuranTranslation->translation = $request->translation;
             $alQuranTranslation->ayat_id = $request->ayatId;
             $alQuranTranslation->surah_id = $alQuranTranslation->surah_id;
             $alQuranTranslation->author_lang = $request->author_lang;
-            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->type = (int)$request->type;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
         } else {
@@ -267,7 +267,7 @@ class AlQuranController extends Controller
             $alQuranTranslation->ayat_id = $request->ayatId;
             $alQuranTranslation->surah_id = $alQuran->surah_id;
             $alQuranTranslation->author_lang = $request->author_lang;
-            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->type = (int)$request->type;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
         }
