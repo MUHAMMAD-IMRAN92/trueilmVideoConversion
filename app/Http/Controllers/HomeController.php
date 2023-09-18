@@ -250,6 +250,18 @@ class HomeController extends Controller
         $url = Http::get("https://api.quran.com/api/v4/quran/translations/131");
         $response = json_decode($url->body());
 
-        return $response;
+        foreach ($response->translations as $key => $res) {
+            $alQuran = AlQuran::where('sequence', $key + 1)->first();
+            $alQuranTranslation = new AlQuranTranslation();
+
+            $alQuranTranslation->translation = $res->text;
+            $alQuranTranslation->ayat_id = $alQuran->ayatId;
+            $alQuranTranslation->surah_id = $alQuran->surah_id;
+            $alQuranTranslation->author_lang = '65083cbbbd2b486c002572b3';
+            $alQuranTranslation->type = 1;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->save();
+        }
+        return 'save!';
     }
 }
