@@ -249,7 +249,7 @@ class HomeController extends Controller
 
         $url = Http::get("https://api.quran.com/api/v4/quran/translations/131");
         $response = json_decode($url->body());
-
+        AlQuranTranslation::truncate();
         foreach ($response->translations as $key => $res) {
             $alQuran = AlQuran::where('sequence', $key + 1)->first();
             $alQuranTranslation = new AlQuranTranslation();
