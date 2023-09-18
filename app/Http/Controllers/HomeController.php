@@ -247,6 +247,7 @@ class HomeController extends Controller
     }
     public function AlQuranTranslations()
     {
+        ini_set('max_execution_time', '0');
 
         AlQuranTranslation::truncate();
         $alQuran = AlQuran::get();
