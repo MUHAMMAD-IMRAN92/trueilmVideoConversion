@@ -227,8 +227,6 @@
                                                         </div>
                                                     </div>
 
-
-
                                                     <div class="row">
                                                         <div class="col-12" id="textarea-div-{{ $key }}">
                                                             {{-- <label for="">Translation</label> --}}
