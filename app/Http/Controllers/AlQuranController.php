@@ -335,8 +335,9 @@ class AlQuranController extends Controller
     {
         return Book::where('type', $request->type)->get();
     }
-    public  function newAllSurah(Request $request)
+    public  function newAllSurah(Request $request, $type)
     {
+
 
         $surahs =   SurahCombinations::when($request->surah, function ($q) use ($request) {
             $q->where('surah_id', $request->surah);
@@ -349,7 +350,8 @@ class AlQuranController extends Controller
         return view('Al_Quran.newAlQuran', [
             'surahs' => $surahs,
             'combinationCount' => $combinationCount,
-            'surahDropDown' => $surahDropDown
+            'surahDropDown' => $surahDropDown,
+            'type' => $type
         ]);
     }
     public function surah(Request $request, $id)

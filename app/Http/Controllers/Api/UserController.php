@@ -16,16 +16,15 @@ class UserController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id' => 'required'
+            'email' => 'required'
         ]);
         if ($validator->fails()) {
             return sendError('Validation Failed!', $validator->errors());
         }
 
-        $user = User::find($request->id);
+        $user = User::where('email', $request->email)->first();
         if ($user) {
             $userEmail = $user->email;
-            // $email = 'imran@gmail.com';
             Mail::to($userEmail)->send(new UserVarification($user));
             return sendSuccess('Mail Has Been Sent!', []);
         } else {
@@ -34,18 +33,17 @@ class UserController extends Controller
     }
     public function resetPassword(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'id' => 'required'
-        ]);
 
+        $validator = Validator::make($request->all(), [
+            'email' => 'required'
+        ]);
         if ($validator->fails()) {
             return sendError('Validation Failed!', $validator->errors());
         }
 
-        $user = User::find($request->id);
+        $user = User::where('email', $request->email)->first();
         if ($user) {
             $userEmail = $user->email;
-            // $email = 'imran@gmail.com';
             Mail::to($userEmail)->send(new ResetPassword($user));
             return sendSuccess('Mail Has Been Sent!', []);
         } else {

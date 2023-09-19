@@ -73,7 +73,15 @@
                                             </div>
                                         </td>
                                         <td class="product-price">
-                                            {{ $surah->translation_count . '/' . $combinationCount }}</td>
+                                            @php
+                                                $count = 0;
+                                                if ($type == 1) {
+                                                    $count = $surah->translation_count;
+                                                } else {
+                                                    $count = $surah->tafseer_count;
+                                                }
+                                            @endphp
+                                            {{ $count . '/' . $combinationCount }}</td>
                                         <td class="product-action">
                                             <span class="action-edit"><a
                                                     href="{{ url('surah_translations/' . $surah->surah_id) }}"><i
