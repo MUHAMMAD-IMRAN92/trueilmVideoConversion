@@ -337,7 +337,6 @@ class AlQuranController extends Controller
     }
     public  function newAllSurah(Request $request, $type)
     {
-        return $type;
 
         $surahs =   SurahCombinations::when($request->surah, function ($q) use ($request) {
             $q->where('surah_id', $request->surah);
