@@ -13,7 +13,7 @@
                             <h2 class="content-header-title float-left mb-0">Surah</h2>
                         </div>
                         <div class="col-4 d-flex flex-row-reverse">
-                            <form action="{{ url('all_surah_translations/'.$content_type) }}" method="GET">
+                            <form action="{{ url('all_surah_translations/' . $content_type) }}" method="GET">
                                 <div class="form-label-group">
                                     <select class="select2 form-control" name="surah" id="">
                                         <option selected disabled>Select
@@ -51,7 +51,8 @@
 
                             <tbody>
                                 @foreach ($surahs as $surah)
-                                    <tr>
+                                    <tr
+                                        onclick="document.location ='{{ url('surah_translations/' . $content_type . '/' . $surah->surah_id) }}';">
                                         <td>{{ $surah->sequence }}.</td>
                                         <td class="product-name" style="font-size: 20px">{{ $surah->title }}</td>
 
@@ -83,9 +84,7 @@
                                             @endphp
                                             {{ $count . '/' . $combinationCount }}</td>
                                         <td class="product-action">
-                                            <span class="action-edit"><a
-                                                    href="{{ url('surah_translations/'.$content_type.'/' . $surah->surah_id) }}"><i
-                                                        class="fa fa-external-link"></i></a></span>
+                                            <span class="action-edit"><i class="fa fa-external-link"></i></span>
 
                                         </td>
                                     </tr>

@@ -37,12 +37,10 @@
                     </div>
 
                     <div class="row">
-                        {{-- <canvas id="myChart" height="100px"></canvas> --}}
 
-                        <div class="col-7 d-flex">
-                            <p class="mt-1 mr-2">
-                                {{ count($currentCombination->translations) . '/' . count($surah->ayats) }}
-                            </p>
+
+                        <div class="col-6 d-flex">
+
                             <form action="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" method="GET">
                                 <div class="form-label-group">
                                     <select class="select2 form-control" name="lang" id="">
@@ -80,7 +78,13 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-5 d-flex">
+                        <div class="col-1 d-flex background">
+                            <p class="mt-1 mr-2">
+                                <span id="translation-count">{{ count($currentCombination->translations) }}</span>
+                                {{ '/ ' . count($surah->ayats) }}
+                            </p>
+                        </div>
+                        <div class="col-5 d-flex flex-row-reverse">
 
                             <form
                                 action="{{ url('/surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
@@ -122,30 +126,10 @@
 
                             <tbody>
                                 @foreach ($ayats as $key => $aya)
-                                    {{-- <tr>
-
-
-                                        <td class="product-name " style=" text-align:right">
-                                            <p class="checkclass" style="font-size: 30px;"> {{ $aya->ayat }} </p>
-
-                                            <p class="mt-2"> {{ $aya->translations[0]->translation }}</p>o
-                                        </td> --}}
-                                    {{-- <td class="product-name" style="font-size: 20px">{{ $combination->language->title }}
-                                        </td> --}}
-
-                                    {{-- <td class="product-price">
-                                            {{ count($combination->translations) . '/' . count($surah->ayats) }}</td>
-                                        <td class="product-action">
-                                            <span class="action-edit"><a
-                                                    href="{{ url('surah/ayats/' . $surah->_id . '/' . $combination->_id) }}"><i
-                                                        class="fa fa-external-link"></i></a></span>
-
-                                        </td> --}}
-                                    {{-- </tr> --}}
                                     <div class="col-12 lang translation-div-{{ $key }}">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="col-2">
+                                                <div class="row">
                                                     <input type="hidden" id="ayat-id-{{ $key }}"
                                                         value="{{ $aya->_id }}">
                                                     <h4 id="translation-saved-span-{{ $key }}"
@@ -157,27 +141,26 @@
                                                                 class="fa fa-check">Translation
                                                                 Deleted</i></span></h4>
                                                 </div>
+
+                                                <div class="row d-flex">
+                                                    <h4 onclick="editable('{{ $key }}')">
+                                                        <span class="badge badge-info ml-1"><i class="fa fa-pencil"
+                                                                style="cursor: pointer;">&nbspEdit</i></span>
+                                                    </h4>
+                                                    <h4
+                                                        onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', {{ $type }})">
+                                                        <span class="badge badge-success ml-1"><i class="fa fa-save"
+                                                                style="cursor: pointer;">&nbspSave</i></span>
+                                                    </h4>
+
+                                                    <h4
+                                                        onclick="deleteTranslation('{{ @$aya->translations[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' ,{{ $type }})">
+                                                        <span class="badge badge-danger ml-1" style="cursor: pointer;"><i
+                                                                class="fa fa-trash">&nbspDelete</i></span>
+                                                    </h4>
+                                                </div>
                                                 <div class="row">
-
-                                                    <div class="col-3 d-flex">
-                                                        <h4 onclick="editable('{{ $key }}')">
-                                                            <span class="badge badge-info ml-1"><i class="fa fa-pencil"
-                                                                    style="cursor: pointer;">&nbspEdit</i></span>
-                                                        </h4>
-                                                        <h4
-                                                            onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', {{ $type }})">
-                                                            <span class="badge badge-success ml-1"><i class="fa fa-save"
-                                                                    style="cursor: pointer;">&nbspSave</i></span>
-                                                        </h4>
-
-                                                        <h4
-                                                            onclick="deleteTranslation('{{ @$aya->translations[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' ,{{ $type }})">
-                                                            <span class="badge badge-danger ml-1"
-                                                                style="cursor: pointer;"><i
-                                                                    class="fa fa-trash">&nbspDelete</i></span>
-                                                        </h4>
-                                                    </div>
-                                                    <div class="col-9 checkclass"
+                                                    <div class="col-12 checkclass"
                                                         id="non-editble-translation-{{ $key }}">
                                                         <div class="row d-flex flex-row-reverse">
 
@@ -185,7 +168,7 @@
                                                                 {{ $aya->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}" class="mt-1"
-                                                                style="text-align: right;">
+                                                                style="text-al  ign: right;">
                                                                 {{ $aya->ayat }}
 
                                                             </p>

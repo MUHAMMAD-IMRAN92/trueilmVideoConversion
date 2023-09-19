@@ -37,7 +37,8 @@
                                         @endforeach
                                     </select>
                                     <button class="btn btn-dark" type="submit"> <i class="fa fa-search"></i></button>
-                                    <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" class="btn btn-dark">
+                                    <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
+                                        class="btn btn-dark">
                                         <i class="fa fa-close"></i></a>
 
 
@@ -61,12 +62,28 @@
                         <table class="table data-list-view">
 
                             <tbody>
+                                <tr class="m-0 p-0"
+                                    style="background-color: transparent !important; box-shadow:none !important;">
+                                    <td class="product-name" style="font-size: 15px">
+                                        Language
+                                    </td>
+                                    <td class="product-name" style="font-size: 15px">
+                                        Author
+                                    </td>
+                                    <td class="product-name"></td>
+                                    <td class="product-name"></td>
+
+                                </tr>
                                 @foreach ($combinations as $combination)
-                                    <tr>
+                                    <tr
+                                        onclick="document.location ='{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $combination->_id) }}';">
 
 
                                         <td class="product-name" style="font-size: 15px">
-                                            {{ $combination->language->title . ' - ' . $combination->author->name }}
+                                            {{ $combination->language->title }}
+                                        </td>
+                                        <td class="product-name" style="font-size: 15px">
+                                            {{ $combination->author->name }}
                                         </td>
                                         {{-- <td class="product-name" style="font-size: 20px">{{ $combination->language->title }}
                                         </td> --}}
@@ -74,9 +91,7 @@
                                         <td class="product-price">
                                             {{ count($combination->translations) . '/' . count($surah->ayats) }}</td>
                                         <td class="product-action">
-                                            <span class="action-edit"><a
-                                                    href="{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $combination->_id) }}"><i
-                                                        class="fa fa-external-link"></i></a></span>
+                                            <span class="action-edit"><i class="fa fa-external-link"></i></span>
 
                                         </td>
                                     </tr>
