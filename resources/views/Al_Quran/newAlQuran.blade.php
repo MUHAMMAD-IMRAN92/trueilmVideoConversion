@@ -78,7 +78,7 @@
                                                 if ($type == 1) {
                                                     echo $count = $surah->translation_count;
                                                 } else {
-                                                    echo $count = $surah->tafseer_count;
+                                                     $count = $surah->tafseer_count;
                                                 }
                                             @endphp
                                             {{ $count . '/' . $combinationCount }}</td>
