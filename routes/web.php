@@ -253,6 +253,6 @@ Route::middleware(['auth'])->group(function () {
 
     //New AL-Quran Module
     Route::get('all_surah_translations/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
-    Route::get('surah_translations/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
-    Route::get('surah/translations/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
+    Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
+    Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
 });

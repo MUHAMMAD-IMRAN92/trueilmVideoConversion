@@ -1,8 +1,6 @@
 @extends('layouts.default_layout')
 
 @section('content')
-
-
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -13,7 +11,7 @@
                     <div class="row  d-flex">
 
                         <div class="col-10 d-flex ">
-                            <form action="{{ url('surah_translations/' . $surah->_id) }}" method="GET">
+                            <form action="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" method="GET">
                                 <div class="form-label-group">
                                     <select class="select2 form-control" name="lang" id="">
                                         <option selected disabled>Select
@@ -39,8 +37,8 @@
                                         @endforeach
                                     </select>
                                     <button class="btn btn-dark" type="submit"> <i class="fa fa-search"></i></button>
-                                    <a href="{{ url('surah_translations/' . $surah->_id) }}" class="btn btn-dark"> <i
-                                            class="fa fa-close"></i></a>
+                                    <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" class="btn btn-dark">
+                                        <i class="fa fa-close"></i></a>
 
 
                                 </div>
@@ -77,7 +75,7 @@
                                             {{ count($combination->translations) . '/' . count($surah->ayats) }}</td>
                                         <td class="product-action">
                                             <span class="action-edit"><a
-                                                    href="{{ url('surah/translations/' . $surah->_id . '/' . $combination->_id) }}"><i
+                                                    href="{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $combination->_id) }}"><i
                                                         class="fa fa-external-link"></i></a></span>
 
                                         </td>

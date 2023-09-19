@@ -353,7 +353,7 @@ class AlQuranController extends Controller
             'content_type' => $type
         ]);
     }
-    public function surah(Request $request, $id)
+    public function surah(Request $request, $type,  $id)
     {
         $surah =   Surah::where('_id', $id)->first();
         $languages = Languages::all();
@@ -362,8 +362,8 @@ class AlQuranController extends Controller
             $l->where('lang_id', $request->lang);
         })->when($request->author, function ($a) use ($request) {
             $a->where('author_id', $request->author);
-        })->with(['translations' => function ($q) use ($surah) {
-            $q->whereHas('ayats', function ($e) use ($surah) {
+        })->with(['translations' => function ($q) use ($surah, $type) {
+            $q->where('type', $type)->whereHas('ayats', function ($e) use ($surah) {
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');
         }])->paginate(10);
@@ -371,21 +371,22 @@ class AlQuranController extends Controller
             'surah' => $surah,
             'combinations' => $combination,
             'languages' => $languages,
-            'author' => $author
+            'author' => $author,
+            'type' => $type
         ]);
     }
-    public function surahAyats(Request $request, $surah_id, $combination_id)
+    public function surahAyats(Request $request, $type, $surah_id, $combination_id)
     {
         $surah =   Surah::where('_id', $surah_id)->with('ayats')->first();
         $ayats = AlQuran::when($request->ayat_id, function ($q) use ($request) {
             $q->where('_id', $request->ayat_id);
-        })->where('surah_id', $surah_id)->with(['translations' => function ($q) use ($combination_id) {
-            $q->where('type', 1)->where('author_lang', $combination_id);
+        })->where('surah_id', $surah_id)->with(['translations' => function ($q) use ($combination_id, $type) {
+            $q->where('type', (int) $type)->where('author_lang', $combination_id);
         }])->paginate(10);
         $languages = Languages::all();
         $author = Author::all();
-        $currentCombination =  AuthorLanguage::where('_id', $combination_id)->with(['translations' => function ($q) use ($surah) {
-            $q->whereHas('ayats', function ($e) use ($surah) {
+        $currentCombination =  AuthorLanguage::where('_id', $combination_id)->with(['translations' => function ($q) use ($surah, $type) {
+            $q->where('type', $type)->whereHas('ayats', function ($e) use ($surah) {
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');
         }])->first();
@@ -395,7 +396,8 @@ class AlQuranController extends Controller
             'ayats' => $ayats,
             'languages' => $languages,
             'author' => $author,
-            'currentCombination' => $currentCombination
+            'currentCombination' => $currentCombination,
+            'type' => $type
         ]);
     }
 }

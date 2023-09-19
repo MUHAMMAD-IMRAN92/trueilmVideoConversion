@@ -43,7 +43,7 @@
                             <p class="mt-1 mr-2">
                                 {{ count($currentCombination->translations) . '/' . count($surah->ayats) }}
                             </p>
-                            <form action="{{ url('surah_translations/' . $surah->_id) }}" method="GET">
+                            <form action="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" method="GET">
                                 <div class="form-label-group">
                                     <select class="select2 form-control" name="lang" id="">
                                         <option selected disabled>Select
@@ -73,8 +73,8 @@
 
                                     </select>
                                     <button class="btn btn-dark" type="submit"> <i class="fa fa-search"></i></button>
-                                    <a href="{{ url('surah_translations/' . $surah->_id) }}" class="btn btn-dark"> <i
-                                            class="fa fa-close"></i></a>
+                                    <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
+                                        class="btn btn-dark"> <i class="fa fa-close"></i></a>
 
 
                                 </div>
@@ -82,7 +82,8 @@
                         </div>
                         <div class="col-5 d-flex">
 
-                            <form action="{{ url('/surah/translations/' . $surah->_id . '/' . $currentCombination->_id) }}"
+                            <form
+                                action="{{ url('/surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
                                 method="GET">
                                 <div class="form-label-group">
                                     <select class="select2 form-control" name="ayat_id" id="" style="width: 320px">
@@ -99,7 +100,7 @@
 
                                     </select>
                                     <button class="btn btn-dark" type="submit"> <i class="fa fa-search"></i></button>
-                                    <a href="{{ url('surah/translations/' . $surah->_id . '/' . $currentCombination->_id) }}"
+                                    <a href="{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
                                         class="btn btn-dark"> <i class="fa fa-close"></i></a>
 
 
@@ -164,13 +165,13 @@
                                                                     style="cursor: pointer;">&nbspEdit</i></span>
                                                         </h4>
                                                         <h4
-                                                            onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}')">
+                                                            onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', {{ $type }})">
                                                             <span class="badge badge-success ml-1"><i class="fa fa-save"
                                                                     style="cursor: pointer;">&nbspSave</i></span>
                                                         </h4>
 
                                                         <h4
-                                                            onclick="deleteTranslation('{{ @$aya->translations[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' , 1)">
+                                                            onclick="deleteTranslation('{{ @$aya->translations[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' ,{{ $type }})">
                                                             <span class="badge badge-danger ml-1"
                                                                 style="cursor: pointer;"><i
                                                                     class="fa fa-trash">&nbspDelete</i></span>
@@ -200,7 +201,7 @@
                                                             <input type="hidden" id="trans-id-{{ $key }}"
                                                                 value="{{ @$aya->translations[0]->translation }}">
                                                             <input type="hidden" id="type-{{ $key }}"
-                                                                value="1">
+                                                                value="{{ $type }}">
                                                         </div>
 
                                                     </div>

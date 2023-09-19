@@ -2117,14 +2117,14 @@
            $('#editble-' + key).css('display', 'block');
        }
 
-       function saveTranslation(authorLang, key) {
+       function saveTranslation(authorLang, key, type) {
            $('#textarea-div-' + key).css('display', 'none');
            $('#spinner-grow-' + key).css('display', 'block');
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
            var ayatId = $('#ayat-id-' + key).val();
            var transId = $('#trans-id-' + key).val();
-           var type = $('#type-' + key).val();
+           //    var type = $('#type-' + key).val();
            console.log(ayatId + '----------------->' + key);
            $.ajax({
                type: "POST",
@@ -2145,7 +2145,6 @@
                        $('#translation-saved-span-' + key).css('display', 'none');
 
                    }, 3000);
-                   $('#spinner-grow-' + key).css('display', 'none');
                    $('#textarea-div-' + key).css('display', 'block');
                    $('#non-edit-para-des-' + key).css('display', 'none');
                    //    console.log(response);
@@ -2154,6 +2153,7 @@
                    $('#non-edit-para-des-' + key).html(response.translation);
                    $('#non-edit-para-des-' + key).css('display', 'block');
                    $('#editble-' + key).css('display', 'none');
+                   $('#spinner-grow-' + key).css('display', 'none');
                    $('#non-editble-translation-' + key).css('display', 'block');
                }
            });
