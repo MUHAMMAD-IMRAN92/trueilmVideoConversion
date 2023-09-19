@@ -350,7 +350,7 @@ class AlQuranController extends Controller
             'surahs' => $surahs,
             'combinationCount' => $combinationCount,
             'surahDropDown' => $surahDropDown,
-            'type' => $type
+            'content_type' => $type
         ]);
     }
     public function surah(Request $request, $id)
