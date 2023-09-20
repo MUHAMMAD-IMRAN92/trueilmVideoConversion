@@ -122,7 +122,7 @@
                                 var chartId = new Chart(chrt, {
                                     type: 'pie',
                                     data: {
-                                        labels: ["Translation", "Total Ayats"],
+                                        labels: [ "Total Ayats","Translation"],
                                         datasets: [{
                                             label: "online tutorial subjects",
                                             data: [second,
