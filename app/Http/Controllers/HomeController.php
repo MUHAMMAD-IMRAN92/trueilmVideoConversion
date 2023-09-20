@@ -249,10 +249,10 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', '0');
 
-        AlQuranTranslation::truncate();
+        // AlQuranTranslation::truncate();
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
-            $url = Http::get("https://api.quran.com/api/v4/quran/translations/131?verse_key=$verse->verse_key");
+            $url = Http::get("https://api.quran.com/api/v4/quran/translations/234?verse_key=$verse->verse_key");
             $response = json_decode($url->body());
 
             $alQuranTranslation = new AlQuranTranslation();
@@ -260,7 +260,7 @@ class HomeController extends Controller
             $alQuranTranslation->translation = strip_tags($response->translations[0]->text);
             $alQuranTranslation->ayat_id = $verse->_id;
             $alQuranTranslation->surah_id = $verse->surah_id;
-            $alQuranTranslation->author_lang = '65083cbbbd2b486c002572b3';
+            $alQuranTranslation->author_lang = '650afac28704f705eb010142';
             $alQuranTranslation->type = 1;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
