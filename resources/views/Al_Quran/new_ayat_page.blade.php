@@ -113,7 +113,7 @@
                             <script>
                                 var chrt = document.getElementById("chartId").getContext("2d");
                                 var chartId = new Chart(chrt, {
-                                    type: 'doughnut',
+                                    type: 'pie',
                                     data: {
                                         // labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
                                         datasets: [{
