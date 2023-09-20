@@ -193,7 +193,7 @@
                                         <option value="">All
                                         </option>
                                         @foreach ($surah->ayats as $aya)
-                                            <option style="height: fit-content;width:inherit" value="{{ $aya->_id }}"
+                                            <option style="height: fit-content;width:inherit" class="checkclass" value="{{ $aya->_id }}"
                                                 {{ request()->aya == $aya->_id ? 'selected' : '' }}>
                                                 {{ $aya->sequence . ' : ' . $aya->ayat }}
                                             </option>
@@ -279,7 +279,7 @@
                                                         </div>
 
                                                         <div class="col-12 mt-2"
-                                                            style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:8%; @endif">
+                                                            style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end; @endif">
 
 
                                                             <input type="hidden" id="ayat-id-{{ $key }}"
@@ -293,7 +293,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row ml-1"
-                                                    style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:8%; @endif">
+                                                    style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end; @endif">
 
                                                     <span class="" id="non-edit-para-des-{{ $key }}"
                                                         style="margin-left:10px!important; ">

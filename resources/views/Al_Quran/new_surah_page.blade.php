@@ -5,7 +5,28 @@
         #author-lang .select2.select2-container.select2-container--default {
             width: 100% !important;
         }
+
+        @font-face {
+            font-family: 'arabicfontfirst';
+            src: url('../../../../app-assets/fonts/UTHMANICHAFS1VER18.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'arabicfontsecond';
+            src: url('../../../../app-assets/fonts/ZEENASKHDARUSALAM.woff') format('woff');
+        }
+
+
+        .checkclass {
+            font-family: 'arabicfontfirst' !important;
+            font-size: 26px;
+        }
+
+        .checkclasssecond {
+            font-family: 'arabicfontsecond' !important;
+        }
     </style>
+
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>

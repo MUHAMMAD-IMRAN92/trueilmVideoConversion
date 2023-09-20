@@ -1,6 +1,27 @@
 @extends('layouts.default_layout')
 
 @section('content')
+    <style>
+        @font-face {
+            font-family: 'arabicfontfirst';
+            src: url('../../../../app-assets/fonts/UTHMANICHAFS1VER18.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'arabicfontsecond';
+            src: url('../../../../app-assets/fonts/ZEENASKHDARUSALAM.woff') format('woff');
+        }
+
+
+        .checkclass {
+            font-family: 'arabicfontfirst' !important;
+            font-size: 26px;
+        }
+
+        .checkclasssecond {
+            font-family: 'arabicfontsecond' !important;
+        }
+    </style>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -23,7 +44,7 @@
                                         <option value="">All
                                         </option>
                                         @foreach ($surahDropDown as $surah)
-                                            <option value="{{ $surah->_id }}"
+                                            <option value="{{ $surah->_id }}" class="checkclass"
                                                 {{ request()->surah == $surah->_id ? 'selected' : '' }}>
                                                 {{ $surah->surah . ' : ' . $surah->sequence }}
                                             </option>
@@ -57,7 +78,7 @@
                                     <tr
                                         onclick="document.location ='{{ url('surah_translations/' . $content_type . '/' . $surah->surah_id) }}';">
                                         <td>{{ $surah->sequence }}.</td>
-                                        <td class="product-name" style="font-size: 20px">{{ $surah->title }}</td>
+                                        <td class="product-name checkclass"  style="font-size: 20px">{{ $surah->title }}</td>
 
                                         <td>
                                             @php
