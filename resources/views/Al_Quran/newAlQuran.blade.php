@@ -20,6 +20,8 @@
                                         <option selected disabled>Select
                                             Surah
                                         </option>
+                                        <option value="">All
+                                        </option>
                                         @foreach ($surahDropDown as $surah)
                                             <option value="{{ $surah->_id }}"
                                                 {{ request()->surah == $surah->_id ? 'selected' : '' }}>
@@ -31,7 +33,8 @@
                                     </select>
                                 </div>
                                 <button class="btn btn-dark" type="submit"> Search</button>
-                                <a href="{{ url('all_surah_translations/' . $content_type) }}" class="btn btn-dark"> Clear</a>
+                                <a href="{{ url('all_surah_translations/' . $content_type) }}" class="btn btn-dark">
+                                    Clear</a>
 
 
                             </form>

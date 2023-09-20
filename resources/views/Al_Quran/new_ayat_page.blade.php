@@ -69,6 +69,8 @@
                                         <option selected disabled>Select
                                             Language
                                         </option>
+                                        <option value="">All
+                                        </option>
                                         @foreach ($languages as $lang)
                                             <option value="{{ $lang->_id }}"
                                                 {{ request()->lang == $lang->_id ? 'selected' : '' }}
@@ -81,6 +83,8 @@
                                     <select class="select2 form-control" name="author" id="">
                                         <option selected disabled>Select
                                             Author
+                                        </option>
+                                        <option value="">All
                                         </option>
                                         @foreach ($author as $auth)
                                             <option value="{{ $auth->_id }}"
@@ -185,6 +189,8 @@
                                     <select class="select2 form-control" name="ayat_id" id="" style="width: 320px">
                                         <option selected disabled>Select
                                             Surah
+                                        </option>
+                                        <option value="">All
                                         </option>
                                         @foreach ($surah->ayats as $aya)
                                             <option style="height: fit-content;width:inherit" value="{{ $aya->_id }}"

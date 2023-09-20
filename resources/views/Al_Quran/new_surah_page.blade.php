@@ -42,6 +42,8 @@
                                     <option selected disabled>Select
                                         Language
                                     </option>
+                                    <option value="">All
+                                    </option>
                                     @foreach ($languages as $lang)
                                         <option value="{{ $lang->_id }}"
                                             {{ request()->lang == $lang->_id ? 'selected' : '' }}>
@@ -54,6 +56,8 @@
                                 <select class="select2 form-control " name="author" id="">
                                     <option selected disabled>Select
                                         Author
+                                    </option>
+                                    <option value="">All
                                     </option>
                                     @foreach ($author as $auth)
                                         <option value="{{ $auth->_id }}"
@@ -110,7 +114,7 @@
                                     <td class="product-name"></td>
 
                                 </tr>
-                                @foreach ($combinations as $combination)
+                                @forelse  ($combinations as $combination)
                                     <tr
                                         onclick="document.location ='{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $combination->_id) }}';">
 
@@ -131,7 +135,22 @@
 
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+
+
+                                        <td class="product-name" style="font-size: 15px">
+
+                                        </td>
+                                        <td class="product-name" style="font-size: 15px">
+                                            <b>No Data Found!</b>
+                                        </td>
+
+
+                                        <td class="product-price"></td>
+
+                                    </tr>
+                                @endforelse
 
 
 
