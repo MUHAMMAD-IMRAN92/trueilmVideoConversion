@@ -334,10 +334,10 @@
                                     href="{{ url('author') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
-                            <li class="@if (request()->is('all_surah_translations/1')) active @endif "><a
+                            <li class="@if (request()->is('all_surah_translations/1') || request()->is('surah_translations/1*')) active @endif "><a
                                     href="{{ url('all_surah_translations/1') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surah Translations</span></a> </li>
-                            <li class="@if (request()->is('all_surah_translations/2')) active @endif "><a
+                            <li class="@if (request()->is('all_surah_translations/2') || request()->is('surah_translations/2*')) active @endif "><a
                                     href="{{ url('all_surah_translations/2') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surah Tafseer</span></a> </li>
                         </ul>
