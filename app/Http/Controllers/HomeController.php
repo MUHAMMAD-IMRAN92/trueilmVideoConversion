@@ -277,7 +277,7 @@ class HomeController extends Controller
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
             $url = Http::get("https://api.quran.com/api/v4/quran/translations/78?verse_key=$verse->verse_key");
-           return $response = json_decode($url->body());
+            $response = json_decode($url->body());
 
             $alQuranTranslation = new AlQuranTranslation();
 
