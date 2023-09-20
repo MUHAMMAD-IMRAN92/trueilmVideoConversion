@@ -118,7 +118,7 @@
                                         // labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
                                         datasets: [{
                                             label: "online tutorial subjects",
-                                            data: ['{{ count($currentCombination->translations) }}',
+                                            data: ['{{count($surah->ayats) - count($currentCombination->translations) }}',
                                                 '{{ count($surah->ayats) }}'
                                             ],
                                             backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
