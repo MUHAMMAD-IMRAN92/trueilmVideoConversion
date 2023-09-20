@@ -119,13 +119,31 @@ class AlQuranController extends Controller
     }
     public function authorLanguage(Request $request)
     {
-        $authLang =  AuthorLanguage::where('author_id', $request->author)->where('lang_id', $request->lang)->first();
+        // return $request->all();
+        $author = Author::where('_id', $request->author)->first();
+        if (!$author) {
+            $author = new Author();
+            $author->name = $request->author;
+            $author->added_by = $this->user->id;
+            $author->save();
+            $author = $author;
+        }
+        $language = Languages::where('_id', $request->lang)->first();
+        if (!$language) {
+            $language = new Languages();
+            $language->title = $request->lang;
+            $language->added_by = $this->user->id;
+            $language->save();
+
+            $language = $language;
+        }
+        $authLang =  AuthorLanguage::where('author_id', $author->_id)->where('lang_id', $language->_id)->first();
         if ($authLang) {
             return redirect()->back()->with('dmsg', 'Author Language Already Exits!');
         } else {
             $authorLanguage = AuthorLanguage::create([
-                'author_id' => $request->author,
-                'lang_id' => $request->lang,
+                'author_id' => $author->_id,
+                'lang_id' =>  $language->_id,
                 'type' => (int) $request->combination_type
             ]);
             return redirect()->back()->with('msg', 'Author Language Saved Successfully!');
@@ -386,7 +404,7 @@ class AlQuranController extends Controller
         }])->paginate(10);
         $languages = Languages::all();
         $author = Author::all();
-         $currentCombination =  AuthorLanguage::where('type', (int)$type)->where('_id', $combination_id)->with(['translations' => function ($q) use ($surah, $type) {
+        $currentCombination =  AuthorLanguage::where('type', (int)$type)->where('_id', $combination_id)->with(['translations' => function ($q) use ($surah, $type) {
             $q->where('type', (int) $type)->whereHas('ayats', function ($e) use ($surah) {
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');

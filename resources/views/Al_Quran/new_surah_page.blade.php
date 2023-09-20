@@ -107,7 +107,7 @@
                         </form>
 
                         <div class="col-2 ">
-                            <h2 class="content-header-title float-left mb-0 mt-1">{{ $surah->surah }}</h2>
+                            <h2 class="content-header-title float-left mb-0 mt-1 checkclass">{{ $surah->surah }}</h2>
                         </div>
                     </div>
                 </div>

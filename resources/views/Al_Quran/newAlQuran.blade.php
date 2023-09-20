@@ -31,20 +31,20 @@
                 <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row  d-flex">
                         <div class="col-6">
-                            <h2 class="content-header-title float-left mb-0">Surah</h2>
+                            <h2 class="content-header-title float-left mb-0 ml-1">Surah</h2>
                         </div>
-                        <div class="col-6 d-flex flex-row-reverse">
+                        <div class="col-5 d-flex flex-row-reverse"style="margin-left: 7.5%; ">
                             <form action="{{ url('all_surah_translations/' . $content_type) }}" method="GET"
-                                class="w-100">
+                                class="">
                                 <div class="form-label-group">
-                                    <select class="select2 form-control" name="surah" id="">
+                                    <select class="select2 form-control checkclass" name="surah" id="">
                                         <option selected disabled>Select
                                             Surah
                                         </option>
                                         <option value="">All
                                         </option>
                                         @foreach ($surahDropDown as $surah)
-                                            <option value="{{ $surah->_id }}" class="checkclass"
+                                            <option value="{{ $surah->_id }}"
                                                 {{ request()->surah == $surah->_id ? 'selected' : '' }}>
                                                 {{ $surah->surah . ' : ' . $surah->sequence }}
                                             </option>
@@ -52,10 +52,11 @@
 
 
                                     </select>
+                                    <button class="btn btn-dark" type="submit"> Search</button>
+                                    <a href="{{ url('all_surah_translations/' . $content_type) }}" class="btn btn-dark">
+                                        Clear</a>
+
                                 </div>
-                                <button class="btn btn-dark" type="submit"> Search</button>
-                                <a href="{{ url('all_surah_translations/' . $content_type) }}" class="btn btn-dark">
-                                    Clear</a>
 
 
                             </form>
@@ -78,7 +79,7 @@
                                     <tr
                                         onclick="document.location ='{{ url('surah_translations/' . $content_type . '/' . $surah->surah_id) }}';">
                                         <td>{{ $surah->sequence }}.</td>
-                                        <td class="product-name checkclass"  style="font-size: 20px">{{ $surah->title }}</td>
+                                        <td class="product-name checkclass" style="font-size: 20px">{{ $surah->title }}</td>
 
                                         <td>
                                             @php
