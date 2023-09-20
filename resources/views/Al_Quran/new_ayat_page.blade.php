@@ -107,18 +107,25 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-2 d-flex pl-3">
-                            <canvas id="chartId" aria-label="chart" width="100px"></canvas>
+                        <div class="col-3 d-flex ">
+                            <canvas id="chartId" aria-label="chart" width="106px"></canvas>
 
                             <script>
-                                var chrt = document.getElementById("chartId").getContext("2d");
+                                var second;
+                                if ('{{ count($surah->ayats) == count($currentCombination->translations) }}' ||
+                                    '{{ count($currentCombination->translations) }}' == 0) {
+                                    second = 0
+                                } else{
+                                    second = '{{ count($surah->ayats) - count($currentCombination->translations) }}'
+                                }
+                                    var chrt = document.getElementById("chartId").getContext("2d");
                                 var chartId = new Chart(chrt, {
                                     type: 'pie',
                                     data: {
-                                        // labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
+                                        labels: ["Translation", "Total Ayats"],
                                         datasets: [{
                                             label: "online tutorial subjects",
-                                            data: ['{{count($surah->ayats) - count($currentCombination->translations) }}',
+                                            data: [second,
                                                 '{{ count($surah->ayats) }}'
                                             ],
                                             backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
@@ -180,7 +187,7 @@
 
                             </div>
                         </div> --}}
-                        <div class="col-5 d-flex flex-row-reverse">
+                        <div class="col-4 d-flex flex-row-reverse">
 
                             <form
                                 action="{{ url('/surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
