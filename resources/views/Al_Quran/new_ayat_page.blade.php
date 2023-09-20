@@ -280,7 +280,7 @@
                                                         </div>
 
                                                         <div class="col-12 mt-2"
-                                                            style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:5%; @endif">
+                                                            style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
 
                                                             <input type="hidden" id="ayat-id-{{ $key }}"
@@ -294,7 +294,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row ml-1"
-                                                    style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:5%; @endif">
+                                                    style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
                                                     <span class="" id="non-edit-para-des-{{ $key }}"
                                                         style="margin-left:10px!important; ">
