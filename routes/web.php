@@ -251,7 +251,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
     Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
     Route::get('deleteTranslation', function () {
-        $alQuranTranslation = AlQuranTranslation::where('650afac28704f705eb010142', '650afac28704f705eb010142')->delete();
+        $alQuranTranslation = AlQuranTranslation::count();
 
         return 'done';
     });
