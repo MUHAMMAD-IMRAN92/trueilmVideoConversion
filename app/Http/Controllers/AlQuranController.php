@@ -364,7 +364,7 @@ class AlQuranController extends Controller
         })->when($request->author, function ($a) use ($request) {
             $a->where('author_id', $request->author);
         })->with(['translations' => function ($q) use ($surah, $type) {
-            $q->where('type', $type)->whereHas('ayats', function ($e) use ($surah) {
+            $q->where('type', (int)$type)->whereHas('ayats', function ($e) use ($surah) {
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');
         }])->paginate(10);
