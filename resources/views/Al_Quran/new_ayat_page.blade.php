@@ -20,6 +20,8 @@
         font-family: 'arabicfontsecond' !important;
     }
 </style>
+
+
 @section('content')
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -56,10 +58,10 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="padding: 0px 16px">
 
 
-                        <div class="col-6 d-flex">
+                        <div class="col-5 d-flex">
 
                             <form action="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" method="GET">
                                 <div class="form-label-group">
@@ -90,20 +92,90 @@
 
 
                                     </select>
-                                    <button class="btn btn-dark" type="submit"> <i class="fa fa-search"></i></button>
-                                    <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
-                                        class="btn btn-dark"> <i class="fa fa-close"></i></a>
+                                    <div class="mt-2">
+                                        <button class="btn btn-dark" type="submit"> Search</button>
+                                        <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
+                                            class="btn btn-dark"> Clear</a>
+                                    </div>
+
 
 
                                 </div>
                             </form>
                         </div>
-                        <div class="col-1 d-flex background">
-                            <p class="mt-1 mr-2">
-                                <span id="translation-count">{{ count($currentCombination->translations) }}</span>
-                                {{ '/ ' . count($surah->ayats) }}
-                            </p>
+                        <div class="col-2 d-flex pl-3">
+                            <canvas id="chartId" aria-label="chart" width="100px"></canvas>
+
+                            <script>
+                                var chrt = document.getElementById("chartId").getContext("2d");
+                                var chartId = new Chart(chrt, {
+                                    type: 'doughnut',
+                                    data: {
+                                        // labels: ["HTML", "CSS", "JAVASCRIPT", "CHART.JS", "JQUERY", "BOOTSTRP"],
+                                        datasets: [{
+                                            label: "online tutorial subjects",
+                                            data: ['{{ count($currentCombination->translations) }}',
+                                                '{{ count($surah->ayats) }}'
+                                            ],
+                                            backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+                                            hoverOffset: 5
+                                        }],
+                                    },
+                                    options: {
+                                        responsive: false,
+                                    },
+                                });
+                            </script>
                         </div>
+                        {{-- <div class="col-2 d-flex background pl-3">
+
+                            <div class="mb-0"
+                                style="
+                                        background: rgb(4, 4, 4);
+                                        color: white;
+                                        height:75px;
+                                        width:75px;
+                                        padding: -3px;
+                                        border-radius: 40px;
+                                        position: relative;
+                                        transform:scale(0.8)
+                                    ">
+                                                                <div
+                                                                    style="
+
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                            ">
+                                                                    <span style="font-size: 18px">{{ count($surah->ayats) }}</span>
+                                                                </div>
+                                                                <div class="mb-0"
+                                                                    style="
+                                                            background: rgb(13, 116, 13);
+                                                                color: white;
+                                                                height: 30opx;
+                                                                width: 30opx;
+                                                                padding: -3px;
+                                                                position: absolute;
+                                                                border-radius: 27px;
+                                                                left: 28%;
+                                                                top: 32%;
+                                                        ">
+                                                                    <div
+                                                                        style="
+
+                                                        display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;
+                                                    ">
+                                        <span style="font-size: 18px"
+                                            id="translation-count">{{ count($currentCombination->translations) }}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div> --}}
                         <div class="col-5 d-flex flex-row-reverse">
 
                             <form
@@ -123,9 +195,12 @@
 
 
                                     </select>
-                                    <button class="btn btn-dark" type="submit"> <i class="fa fa-search"></i></button>
-                                    <a href="{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
-                                        class="btn btn-dark"> <i class="fa fa-close"></i></a>
+                                    <div class="mt-2">
+                                        <button class="btn btn-dark" type="submit"> Search</button>
+                                        <a href="{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
+                                            class="btn btn-dark">Clear</i></a>
+                                    </div>
+
 
 
                                 </div>
@@ -182,13 +257,15 @@
                                                 <div class="row">
                                                     <div class="col-12 checkclass"
                                                         id="non-editble-translation-{{ $key }}">
-                                                        <div class="row d-flex flex-row-reverse">
+                                                        <div class="row d-flex flex-row-reverse pr-2"
+                                                            style="align-items:center;gap:12px;">
 
-                                                            <div class="col-1" style="text-align: right;">:
+                                                            <div class="" style="text-align: right;">:
                                                                 {{ $aya->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
-                                                                class="mt-1" style="text-al  ign: right;">
+                                                                class="mt-1"
+                                                                style="text-align: right; line-height:50px">
                                                                 {{ $aya->ayat }}
 
                                                             </p>
@@ -273,3 +350,4 @@
     </div>
     <!-- END: Content-->
 @endsection
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>

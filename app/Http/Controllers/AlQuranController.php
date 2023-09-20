@@ -386,8 +386,8 @@ class AlQuranController extends Controller
         }])->paginate(10);
         $languages = Languages::all();
         $author = Author::all();
-        $currentCombination =  AuthorLanguage::where('type', (int)$type)->where('_id', $combination_id)->with(['translations' => function ($q) use ($surah, $type) {
-            $q->where('type', $type)->whereHas('ayats', function ($e) use ($surah) {
+         $currentCombination =  AuthorLanguage::where('type', (int)$type)->where('_id', $combination_id)->with(['translations' => function ($q) use ($surah, $type) {
+            $q->where('type', (int) $type)->whereHas('ayats', function ($e) use ($surah) {
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');
         }])->first();

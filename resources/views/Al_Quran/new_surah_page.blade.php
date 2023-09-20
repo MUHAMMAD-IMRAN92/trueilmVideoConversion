@@ -35,7 +35,7 @@
                 <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row  d-flex">
 
-                        <div class="col-10 d-flex ">
+                        <div class="col-10 d-flex  " style="padding: 0px 35px">
                             <form action="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" method="GET">
 
                                 <select class="select2 form-control " name="lang" id="">
@@ -63,14 +63,20 @@
                                     @endforeach
                                 </select>
                                 <br>
-                                <span>
-                                    <button class="btn btn-dark" type="submit">Search</button>
-                                    <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
-                                        class="btn btn-dark">
-                                        Clear</a> <span class="btn btn-dark " data-toggle="modal"
-                                        data-target="#author-lang"> Add
-                                        New</span>
-                                </span>
+                                <div class="mt-2">
+                                    <div style="width: 201px">
+                                        <button class="btn btn-dark" type="submit">Search</button>
+                                        <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
+                                            class="btn btn-dark">
+                                            Clear</a>
+                                    </div>
+                                    <div style="width: 201px" class="mt-1">
+                                        <span style="width: 201px" class="btn btn-dark " data-toggle="modal"
+                                            data-target="#author-lang"> Add
+                                            New</span>
+                                    </div>
+
+                                </div>
 
                         </div>
                         </form>

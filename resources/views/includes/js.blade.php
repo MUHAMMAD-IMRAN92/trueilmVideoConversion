@@ -2155,7 +2155,9 @@
                    $('#editble-' + key).css('display', 'none');
                    $('#spinner-grow-' + key).css('display', 'none');
                    $('#non-editble-translation-' + key).css('display', 'block');
+                   window.location.reload();
                }
+
            });
        }
 
