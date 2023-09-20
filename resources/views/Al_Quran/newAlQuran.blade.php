@@ -9,11 +9,12 @@
             <div class="content-header row">
                 <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row  d-flex">
-                        <div class="col-8">
+                        <div class="col-6">
                             <h2 class="content-header-title float-left mb-0">Surah</h2>
                         </div>
-                        <div class="col-4 d-flex flex-row-reverse">
-                            <form action="{{ url('all_surah_translations/' . $content_type) }}" method="GET">
+                        <div class="col-6 d-flex flex-row-reverse">
+                            <form action="{{ url('all_surah_translations/' . $content_type) }}" method="GET"
+                                class="w-100">
                                 <div class="form-label-group">
                                     <select class="select2 form-control" name="surah" id="">
                                         <option selected disabled>Select
@@ -28,12 +29,11 @@
 
 
                                     </select>
-                                    <button class="btn btn-dark" type="submit"> <i class="fa fa-search"></i></button>
-                                    <a href="{{ url('/all_surah_translations') }}" class="btn btn-dark"> <i
-                                            class="fa fa-close"></i></a>
-
-
                                 </div>
+                                <button class="btn btn-dark" type="submit"> Search</button>
+                                <a href="{{ url('all_surah_translations/' . $content_type) }}" class="btn btn-dark"> Clear</a>
+
+
                             </form>
                         </div>
                     </div>

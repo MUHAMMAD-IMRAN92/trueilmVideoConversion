@@ -125,7 +125,8 @@ class AlQuranController extends Controller
         } else {
             $authorLanguage = AuthorLanguage::create([
                 'author_id' => $request->author,
-                'lang_id' => $request->lang
+                'lang_id' => $request->lang,
+                'type' => (int) $request->combination_type
             ]);
             return redirect()->back()->with('msg', 'Author Language Saved Successfully!');
         }
@@ -344,7 +345,7 @@ class AlQuranController extends Controller
 
         $surahDropDown =   Surah::get(['_id', 'surah', 'sequence']);
 
-        $combinationCount =  AuthorLanguage::count();
+        $combinationCount =  AuthorLanguage::where('type', (int)$type)->count();
 
         return view('Al_Quran.newAlQuran', [
             'surahs' => $surahs,
@@ -358,7 +359,7 @@ class AlQuranController extends Controller
         $surah =   Surah::where('_id', $id)->first();
         $languages = Languages::all();
         $author = Author::all();
-        $combination =  AuthorLanguage::when($request->lang, function ($l) use ($request) {
+        $combination =  AuthorLanguage::where('type', (int)$type)->when($request->lang, function ($l) use ($request) {
             $l->where('lang_id', $request->lang);
         })->when($request->author, function ($a) use ($request) {
             $a->where('author_id', $request->author);
@@ -385,7 +386,7 @@ class AlQuranController extends Controller
         }])->paginate(10);
         $languages = Languages::all();
         $author = Author::all();
-        $currentCombination =  AuthorLanguage::where('_id', $combination_id)->with(['translations' => function ($q) use ($surah, $type) {
+        $currentCombination =  AuthorLanguage::where('type', (int)$type)->where('_id', $combination_id)->with(['translations' => function ($q) use ($surah, $type) {
             $q->where('type', $type)->whereHas('ayats', function ($e) use ($surah) {
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');

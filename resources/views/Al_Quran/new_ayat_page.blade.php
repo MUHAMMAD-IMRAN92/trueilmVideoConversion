@@ -26,6 +26,26 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
+            @if (\Session::has('msg'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ \Session::get('msg') }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endif
+            @if (\Session::has('dmsg'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ \Session::get('dmsg') }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endif
             <div class="content-header row">
                 <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row d-flex justify-content-center   mb-2">
@@ -167,8 +187,8 @@
                                                             <div class="col-1" style="text-align: right;">:
                                                                 {{ $aya->sequence }} </div>
 
-                                                            <p id="non-edit-lang-select-{{ $key }}" class="mt-1"
-                                                                style="text-al  ign: right;">
+                                                            <p id="non-edit-lang-select-{{ $key }}"
+                                                                class="mt-1" style="text-al  ign: right;">
                                                                 {{ $aya->ayat }}
 
                                                             </p>
