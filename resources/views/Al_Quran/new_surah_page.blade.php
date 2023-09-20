@@ -234,7 +234,8 @@
                                             </select>
                                         </fieldset>
                                     </div>
-
+                                    <span class="ml-1 mr-1"> <b> Note : </b>
+                                        To add a new author and language, please enter their respective names or titles into the search bars of both dropdown menus. After entering the required information, you can create a combination by clicking the "Save" button.</span>
                                 </div>
                             </div>
                             <div class="modal-footer">
