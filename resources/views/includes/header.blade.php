@@ -433,6 +433,10 @@
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Review Book</span></a>
                     </li>
+                    <li class="@if (request()->is('comment*')) active @endif "><a
+                            href="{{ url('/comments') }}"><i class="fa fa-comment-o"></i>
+                            <span class="menu-item" data-i18n="Analytics">Comments</span></a>
+                    </li>
                     <li class="@if (request()->is('mistake*')) active @endif "><a
                             href="{{ url('/mistakes') }}"><i class="fa fa-exclamation-triangle"></i>
                             <span class="menu-item" data-i18n="Analytics">Book Mistakes</span></a>

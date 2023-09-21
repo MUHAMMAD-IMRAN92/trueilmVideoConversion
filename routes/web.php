@@ -247,10 +247,18 @@ Route::middleware(['auth'])->group(function () {
     //Save Translation Through Files
     Route::post('translation/file/store', [App\Http\Controllers\HomeController::class, 'translationFileStore'])->name('translation.file.store');
 
+    //comments
+      //book mistakes
+      Route::get('comments', [App\Http\Controllers\CommentsController::class, 'index'])->name('commetns');
+      Route::get('all-comments', [App\Http\Controllers\CommentsController::class, 'allComments'])->name('comments.all');
+      Route::get('comment/approved/{id}', [App\Http\Controllers\CommentsController::class, 'approved'])->name('mistakes.approved');
+      Route::get('comment/reject/{id}', [App\Http\Controllers\CommentsController::class, 'reject'])->name('mistakes.reject');
+
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
     Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
- 
+
+
 
     //New AL-Quran Module
     Route::get('all_surah_translations/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
