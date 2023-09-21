@@ -269,28 +269,5 @@ class HomeController extends Controller
         }
         return 'save!';
     }
-    public function AlQuranTranslationsAnother()
-    {
-        ini_set('max_execution_time', '0');
 
-        // AlQuranTranslation::truncate();
-        $alQuran = AlQuran::get();
-        foreach ($alQuran as $key => $verse) {
-            $url = Http::get("https://api.quran.com/api/v4/quran/translations/78?verse_key=$verse->verse_key");
-            $response = json_decode($url->body());
-
-            $alQuranTranslation = new AlQuranTranslation();
-
-            $alQuranTranslation->translation = strip_tags($response->translations[0]->text);
-            $alQuranTranslation->ayat_id = $verse->_id;
-            $alQuranTranslation->surah_id = $verse->surah_id;
-            $alQuranTranslation->author_lang = '650b14802ece62476479e1b4';
-            $alQuranTranslation->type = 1;
-            $alQuranTranslation->added_by = $this->user->id;
-            $alQuranTranslation->save();
-
-            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
-        }
-        return 'save!';
-    }
 }

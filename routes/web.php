@@ -250,11 +250,7 @@ Route::middleware(['auth'])->group(function () {
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
     Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
-    Route::get('another_translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslationsAnother']);
-    Route::get('deleteTranslation', function () {
-    return     $alQuranTranslation = AlQuranTranslation::count();
-    });
-
+ 
 
     //New AL-Quran Module
     Route::get('all_surah_translations/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
