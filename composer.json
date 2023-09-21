@@ -16,6 +16,7 @@
         "laravel/cashier": "13.x-dev",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
+        "laravel/scout": "9.x-dev",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "league/flysystem-aws-s3-v3": "^1.0@dev",

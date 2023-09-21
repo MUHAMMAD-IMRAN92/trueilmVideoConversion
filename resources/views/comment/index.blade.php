@@ -113,7 +113,7 @@
                                             <thead>
                                                 <tr>
 
-                                                    <th class="">Book</th>
+                                                    {{-- <th class="">Book</th> --}}
                                                     <th class="description-td">Comment</th>
                                                     <th class="">Rating</th>
                                                     <th class="">Submitted By</th>

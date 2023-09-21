@@ -1014,16 +1014,7 @@
                "ajax": {
                    url: '<?= url('all-comments') ?>'
                },
-               "columns": [{
-                       "mRender": function(data, type, row) {
-                           var book = '--';
-                           if (row.book != null) {
-                               book = row.book.title;
-                           }
-                           return '<td>' +
-                               book + '</td>'
-                       }
-                   }, {
+               "columns": [ {
                        "mRender": function(data, type, row) {
                            var comment = '--';
                            if (row.comment != null) {
