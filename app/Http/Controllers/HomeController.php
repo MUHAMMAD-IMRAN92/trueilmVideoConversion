@@ -278,10 +278,10 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
-        $book = Book::get()->toArray();
+        // $book = Book::get()->toArray();
         // $alQuranTranslation = AlQuranTranslation::get()->toArray();
         // $HadeesTranslation = HadeesTranslation::get()->toArray();
-        $booksclient =  $client->index('books')->addDocuments($book, '_id');
+        // $booksclient =  $client->index('books')->addDocuments($book, '_id');
         // dd($booksclient);
         // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($alQuranTranslation, '_id');
         // $alHadeestranslationsclient =  $client->index('alHadeestranslations')->addDocuments($HadeesTranslation, '_id');
