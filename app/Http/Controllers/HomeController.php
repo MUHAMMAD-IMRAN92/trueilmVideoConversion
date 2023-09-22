@@ -279,12 +279,12 @@ class HomeController extends Controller
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         $book = Book::get()->toArray();
-        // $alQuranTranslation = AlQuranTranslation::get()->toArray();
-        // $HadeesTranslation = HadeesTranslation::get()->toArray();
-        // $booksclient =  $client->index('books')->addDocuments($book, '_id');
+        $alQuranTranslation = AlQuranTranslation::get()->toArray();
+        $HadeesTranslation = HadeesTranslation::get()->toArray();
+        $booksclient =  $client->index('books')->addDocuments($book, '_id');
         // dd($booksclient);
-        // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($alQuranTranslation, '_id');
-        // $alHadeestranslationsclient =  $client->index('alHadeestranslations')->addDocuments($HadeesTranslation, '_id');
+        $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($alQuranTranslation, '_id');
+        $alHadeestranslationsclient =  $client->index('alHadeestranslations')->addDocuments($HadeesTranslation, '_id');
         // // $book = json_decode($book);
 
         // // $movies_json = Storage::disk('public')->get('countries.json');
@@ -296,16 +296,15 @@ class HomeController extends Controller
             (new SearchQuery())
                 ->setIndexUid('books')
                 ->setQuery($request->search)
-                ->setLimit(20)
+                ->setLimit(20),
+            (new SearchQuery())
+                ->setIndexUid('alQurantranslations')
+                ->setQuery($request->search)
+                ->setLimit(5),
+            (new SearchQuery())
+                ->setIndexUid('alHadeestranslations')
+                ->setQuery($request->search)
         ]);
         return response()->json($res);
     }
 }
-// ,
-//             (new SearchQuery())
-//                 ->setIndexUid('alQurantranslations')
-//                 ->setQuery($request->search)
-//                 ->setLimit(5),
-//             (new SearchQuery())
-//                 ->setIndexUid('alHadeestranslations')
-//                 ->setQuery($request->search)
