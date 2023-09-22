@@ -277,6 +277,7 @@ class HomeController extends Controller
     {
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        dd($client);
         $book = Book::get()->toArray();
         // $alQuranTranslation = AlQuranTranslation::get()->toArray();
         // $HadeesTranslation = HadeesTranslation::get()->toArray();
@@ -294,7 +295,8 @@ class HomeController extends Controller
             (new SearchQuery())
                 ->setIndexUid('books')
                 ->setQuery($request->search)
-                ->setLimit(20)]);
+                ->setLimit(20)
+        ]);
         return response()->json($res);
     }
 }
