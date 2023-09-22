@@ -306,7 +306,7 @@ class HomeController extends Controller
 
         $data['book'] = Book::where('title', 'LIKE', "%$request->search%")->orWhere('description', 'LIKE', "%$request->search%")->get();
         $data['AlQuran'] = AlQuranTranslation::where('translation', 'LIKE', "%$request->search%")->get();
-        $data['Hadith'] = AlQuranTranslation::where('translation', 'LIKE', "%$request->search%")->get();
+        $data['Hadith'] = HadeesTranslation::where('translation', 'LIKE', "%$request->search%")->get();
 
         return response()->json($data);
     }
