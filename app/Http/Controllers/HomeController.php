@@ -279,7 +279,7 @@ class HomeController extends Controller
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         // $book = Book::get()->toArray();
-        $alQuranTranslation = AlQuranTranslation::get()->toArray();
+        $alQuranTranslation = AlQuranTranslation::get()->take(10)->toArray();
         // $HadeesTranslation = HadeesTranslation::get()->toArray();
         // $booksclient =  $client->index('books')->addDocuments($book, '_id');
         // dd($booksclient);
