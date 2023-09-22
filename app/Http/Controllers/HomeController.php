@@ -291,7 +291,7 @@ class HomeController extends Controller
         // // $movies = json_decode($book);
         // $client->createIndex('book', ['primaryKey' => '_id']);
 
-        return $client->getTask(0);
+        // return $client->getTask(0);
         $res = $client->multiSearch([
             (new SearchQuery())
                 ->setIndexUid('books')
