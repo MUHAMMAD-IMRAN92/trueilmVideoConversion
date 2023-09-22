@@ -28,4 +28,5 @@ Route::post('stripe/add-card-customer', [App\Http\Controllers\Api\StripeControll
 Route::post('stripe/subscribe-plan', [App\Http\Controllers\Api\StripeController::class, 'subscribe']);
 
 
-Route::post('search' ,  [App\Http\Controllers\HomeController::class, 'search']);
+Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
+Route::post('search/quries',  [App\Http\Controllers\HomeController::class, 'searchQueries']);
