@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Jobs\SurahCombination as SurahCombinationJob;
 use App\Models\Book;
 use App\Models\HadeesTranslation;
-use Meilisearch\Client;
+// use Client;
 use Meilisearch\Contracts\SearchQuery;
 
 class HomeController extends Controller
@@ -276,7 +276,7 @@ class HomeController extends Controller
     function search(Request $request)
     {
         ini_set("memory_limit", "-1");
-        $client = new Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        $client = new \Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $book = Book::get()->toArray();
         $alQuranTranslation = AlQuranTranslation::get()->toArray();
         $HadeesTranslation = HadeesTranslation::get()->toArray();
