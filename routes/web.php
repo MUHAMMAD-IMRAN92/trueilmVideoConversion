@@ -265,3 +265,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
     Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
 });
+Route::get('search' ,  [App\Http\Controllers\HomeController::class, 'search']);
