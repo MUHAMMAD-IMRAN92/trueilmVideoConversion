@@ -281,8 +281,8 @@ class HomeController extends Controller
         $book = Book::get()->toArray();
         // $alQuranTranslation = AlQuranTranslation::get()->toArray();
         // $HadeesTranslation = HadeesTranslation::get()->toArray();
-        $booksclient =  $client->index('books')->addDocuments($book, '_id');
-        dd($booksclient);
+        // $booksclient =  $client->index('books')->addDocuments($book, '_id');
+        // dd($booksclient);
         // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($alQuranTranslation, '_id');
         // $alHadeestranslationsclient =  $client->index('alHadeestranslations')->addDocuments($HadeesTranslation, '_id');
         // // $book = json_decode($book);
@@ -291,7 +291,7 @@ class HomeController extends Controller
         // // $movies = json_decode($book);
         // $client->createIndex('book', ['primaryKey' => '_id']);
 
-        // return $client->getTask(60);
+        return $client->getTask(0);
         $res = $client->multiSearch([
             (new SearchQuery())
                 ->setIndexUid('books')
