@@ -296,7 +296,14 @@ class HomeController extends Controller
             (new SearchQuery())
                 ->setIndexUid('books')
                 ->setQuery($request->search)
-                ->setLimit(20)
+                ->setLimit(20),
+            (new SearchQuery())
+                ->setIndexUid('alQurantranslations')
+                ->setQuery($request->search)
+                ->setLimit(5),
+            (new SearchQuery())
+                ->setIndexUid('alHadeestranslations')
+                ->setQuery($request->search)
         ]);
         return response()->json($res);
     }
