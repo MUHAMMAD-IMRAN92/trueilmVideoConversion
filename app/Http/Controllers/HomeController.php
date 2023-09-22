@@ -283,8 +283,8 @@ class HomeController extends Controller
         $HadeesTranslation = HadeesTranslation::get()->toArray();
         // $booksclient =  $client->index('books')->addDocuments($book, '_id');
         // dd($booksclient);
-        $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($alQuranTranslation, '_id');
-        $alHadeestranslationsclient =  $client->index('alHadeestranslations')->addDocuments($HadeesTranslation, '_id');
+        // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($alQuranTranslation, '_id');
+        // $alHadeestranslationsclient =  $client->index('alHadeestranslations')->addDocuments($HadeesTranslation, '_id');
         // // $book = json_decode($book);
 
         // // $movies_json = Storage::disk('public')->get('countries.json');
