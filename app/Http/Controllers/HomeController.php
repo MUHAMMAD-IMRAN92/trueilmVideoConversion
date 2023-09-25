@@ -330,13 +330,13 @@ class HomeController extends Controller
         //         ->setQuery($request->search)
         // ]);
     }
-    function searchQueries(Request $request)
+    function indexTranslation(Request $request)
     {
         ini_set("memory_limit", "-1");
 
-        $data['book'] = Book::where('title', 'LIKE', "%$request->search%")->orWhere('description', 'LIKE', "%$request->search%")->get();
-        $data['AlQuran'] = AlQuranTranslation::where('translation', 'LIKE', "%$request->search%")->get();
-        $data['Hadith'] = HadeesTranslation::where('translation', 'LIKE', "%$request->search%")->get();
+
+        $data['AlQuran'] = AlQuranTranslation::get()->take(500);
+
 
         return response()->json($data);
     }
@@ -344,4 +344,3 @@ class HomeController extends Controller
 
 
 //./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"
-
