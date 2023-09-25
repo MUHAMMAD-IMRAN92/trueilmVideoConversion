@@ -143,7 +143,6 @@ class BookController extends Controller
         $book->save();
 
         $bookIndex = $client->index('books')->addDocuments(array($book), '_id');
-        dd($bookIndex);
         foreach ($request->file as $key => $file) {
             $bookContent = new BookContent();
             $file_name = time() . '.' . $file->getClientOriginalExtension();

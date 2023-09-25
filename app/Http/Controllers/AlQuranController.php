@@ -293,9 +293,9 @@ class AlQuranController extends Controller
         }
         SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
 
-        // ini_set("memory_limit", "-1");
-        // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-        // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments(array($alQuranTranslation), '_id');
+        ini_set("memory_limit", "-1");
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments(array($alQuranTranslation), '_id');
         return $alQuranTranslation;
     }
     public function saveTranslation(Request $request)
