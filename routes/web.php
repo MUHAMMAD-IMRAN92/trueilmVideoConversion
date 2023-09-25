@@ -265,15 +265,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
     Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
 });
-Route::get('search', function () {
-    ini_set("memory_limit", "-1");
-    $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $data = AlQuranTranslation::get()->toArray();
-    foreach ($data as $d) {
-        $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
 
-        echo ($alQurantranslationsclient['taskUid'] . '</br>');
-        echo ($client->getTask($alQurantranslationsclient['taskUid']) . '</br>');
-    }
-    return response()->json($alQurantranslationsclient);
-});

@@ -340,9 +340,6 @@ class HomeController extends Controller
         }
         return $client->getTask(13);
 
-
-
-
         return response()->json($alQurantranslationsclient);
     }
 }

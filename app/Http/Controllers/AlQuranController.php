@@ -21,6 +21,7 @@ use App\Models\ContentTag;
 use App\Models\Glossory;
 use App\Jobs\SurahCombination as SurahCombinationJob;
 use App\Models\SurahCombinations;
+use Meilisearch\Client;
 
 class AlQuranController extends Controller
 {
@@ -290,9 +291,11 @@ class AlQuranController extends Controller
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
         }
-
         SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
 
+        // ini_set("memory_limit", "-1");
+        // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments(array($alQuranTranslation), '_id');
         return $alQuranTranslation;
     }
     public function saveTranslation(Request $request)

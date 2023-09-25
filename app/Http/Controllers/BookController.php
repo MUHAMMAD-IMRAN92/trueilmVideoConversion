@@ -17,6 +17,7 @@ use App\Models\Glossory;
 use App\Models\ContentGlossary;
 use App\Models\Publisher;
 use Carbon\Carbon;
+use Meilisearch\Client;
 
 class BookController extends Controller
 {
@@ -99,6 +100,9 @@ class BookController extends Controller
     public function store(Request $request)
     {
         ini_set('max_execution_time', '0');
+        ini_set("memory_limit", "-1");
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+
         // return $request->all();
 
         $book = new Book();
@@ -137,6 +141,9 @@ class BookController extends Controller
             }
         }
         $book->save();
+
+        $bookIndex = $client->index('books')->addDocuments(array($book), '_id');
+        dd($bookIndex);
         foreach ($request->file as $key => $file) {
             $bookContent = new BookContent();
             $file_name = time() . '.' . $file->getClientOriginalExtension();
