@@ -272,8 +272,8 @@ Route::get('search', function () {
     foreach ($data as $d) {
         $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
 
-        echo ($alQurantranslationsclient->taskUid . '</br>');
-        echo ($client->getTask(5) . '</br>');
+        echo ($alQurantranslationsclient['taskUid'] . '</br>');
+        echo ($client->getTask($alQurantranslationsclient['taskUid']) . '</br>');
     }
     return response()->json($alQurantranslationsclient);
 });
