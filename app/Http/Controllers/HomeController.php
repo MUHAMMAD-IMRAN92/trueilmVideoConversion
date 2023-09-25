@@ -334,8 +334,9 @@ class HomeController extends Controller
     {
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-        $data = AlQuranTranslation::take(200)->get()->toArray();
-        $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
+        // $data = AlQuranTranslation::take(200)->get()->toArray();
+        // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
+        return $client->getTask(13);
 
 
 
