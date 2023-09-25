@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
-use MongoDB\Client;
+use Meilisearch\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -248,11 +248,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('translation/file/store', [App\Http\Controllers\HomeController::class, 'translationFileStore'])->name('translation.file.store');
 
     //comments
-      //book mistakes
-      Route::get('comments', [App\Http\Controllers\CommentsController::class, 'index'])->name('commetns');
-      Route::get('all-comments', [App\Http\Controllers\CommentsController::class, 'allComments'])->name('comments.all');
-      Route::get('comment/approved/{id}', [App\Http\Controllers\CommentsController::class, 'approved'])->name('mistakes.approved');
-      Route::get('comment/reject/{id}', [App\Http\Controllers\CommentsController::class, 'reject'])->name('mistakes.reject');
+    //book mistakes
+    Route::get('comments', [App\Http\Controllers\CommentsController::class, 'index'])->name('commetns');
+    Route::get('all-comments', [App\Http\Controllers\CommentsController::class, 'allComments'])->name('comments.all');
+    Route::get('comment/approved/{id}', [App\Http\Controllers\CommentsController::class, 'approved'])->name('mistakes.approved');
+    Route::get('comment/reject/{id}', [App\Http\Controllers\CommentsController::class, 'reject'])->name('mistakes.reject');
 
     //Add Ayat and Translation
     Route::get('api_rendering', [App\Http\Controllers\HomeController::class, 'renderApi']);
@@ -265,4 +265,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
     Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
 });
-Route::get('search' ,  [App\Http\Controllers\HomeController::class, 'search']);
+Route::get('search', function () {
+    ini_set("memory_limit", "-1");
+    $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+    $data = AlQuranTranslation::get()->toArray();
+    foreach ($data as $d) {
+        $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
+
+        echo ($alQurantranslationsclient->taskUid . '</br>');
+        echo ($client->getTask(5) . '</br>');
+    }
+    return response()->json($alQurantranslationsclient);
+});
