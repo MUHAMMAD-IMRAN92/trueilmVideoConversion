@@ -333,9 +333,11 @@ class HomeController extends Controller
     function indexTranslation(Request $request)
     {
         ini_set("memory_limit", "-1");
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        return $data = AlQuranTranslation::take(200);
+        $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
 
 
-       return $data = AlQuranTranslation::paginate(200);
 
 
         return response()->json($data);
