@@ -336,7 +336,7 @@ class HomeController extends Controller
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $data = AlQuranTranslation::get()->toArray();
         foreach ($data as $d) {
-            $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
+            $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($d, '_id');
         }
         return $client->getTask(13);
 
