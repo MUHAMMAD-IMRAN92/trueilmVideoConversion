@@ -335,7 +335,7 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
 
 
-        $data['AlQuran'] = AlQuranTranslation::get()->take(500);
+        $data['AlQuran'] = AlQuranTranslation::pagiante(500);
 
 
         return response()->json($data);
