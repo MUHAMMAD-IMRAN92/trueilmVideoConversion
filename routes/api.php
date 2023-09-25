@@ -35,7 +35,7 @@ Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexT
 Route::get('searching', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-  return  $data = AlQuranTranslation::take(10)->get()->toArray();
+    $data = AlQuranTranslation::take(10)->get()->toArray();
     foreach ($data as $d) {
         $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
 
