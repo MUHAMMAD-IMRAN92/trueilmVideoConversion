@@ -39,8 +39,8 @@ Route::get('searching', function () {
     foreach ($data as $d) {
         $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($data, '_id');
 
-        echo ($alQurantranslationsclient['taskUid'] . '</br>');
-        echo ($client->getTask($alQurantranslationsclient['taskUid']) . '</br>');
+        // echo ($alQurantranslationsclient['taskUid'] . '</br>');
+        // echo ($client->getTask($alQurantranslationsclient['taskUid']) . '</br>');
     }
     return response()->json($alQurantranslationsclient);
 });
