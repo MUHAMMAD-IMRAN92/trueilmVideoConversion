@@ -3357,19 +3357,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Host</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="host[]" placeholder=""
-                                                                        required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
                                                     `;
            $('.episode-append-inputs').append(html);
            $('.summernote').summernote();
