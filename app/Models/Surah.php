@@ -22,6 +22,10 @@ class Surah extends Eloquent
     {
         return $this->hasMany(AlQuranTranslation::class, 'surah_id', '_id');
     }
+    public function introduction()
+    {
+        return $this->hasOne(AlQuranTranslation::class, 'surah_id', 'id');
+    }
     public  function getCombinationTranslationsAttribute()
     {
         // $count = \DB::table('author_languages')

@@ -295,8 +295,7 @@
                                                                 value="{{ request()->ayat_id }}">
                                                             <input type="hidden" id="trans-id--1"
                                                                 value="{{ @$aya->translations[0]->translation }}">
-                                                            <input type="hidden" id="type--1"
-                                                                value="{{ $type }}">
+                                                            <input type="hidden" id="type--1" value="-1">
                                                         </div>
 
                                                     </div>
@@ -306,7 +305,7 @@
 
                                                     <span class="" id="non-edit-para-des--1"
                                                         style="margin-left:10px!important; ">
-                                                        {{ @$aya->translations[0]->translation }}</span>
+                                                        {{ @$surah->introduction->translation }}</span>
                                                 </div>
 
                                                 <div id="editble--1" style="display:none">
@@ -329,7 +328,7 @@
                                                                 value="{{ $currentCombination->_id }}">
                                                             <fieldset class="form-group">
                                                                 <textarea class="form-control" rows="8" style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') text-align:right; @endif"
-                                                                    id="trans-input--1" name="translations[]">{{ @$aya->translations[0]->translation }}</textarea>
+                                                                    id="trans-input--1" name="translations[]"> {{ @$surah->introduction->translation }}</textarea>
                                                             </fieldset>
                                                         </div>
 
