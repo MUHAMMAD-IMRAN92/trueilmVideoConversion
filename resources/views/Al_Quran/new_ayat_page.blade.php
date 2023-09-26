@@ -115,14 +115,14 @@
                                 if ('{{ count($surah->ayats) == count($currentCombination->translations) }}' ||
                                     '{{ count($currentCombination->translations) }}' == 0) {
                                     second = 0
-                                } else{
+                                } else {
                                     second = '{{ count($surah->ayats) - count($currentCombination->translations) }}'
                                 }
-                                    var chrt = document.getElementById("chartId").getContext("2d");
+                                var chrt = document.getElementById("chartId").getContext("2d");
                                 var chartId = new Chart(chrt, {
                                     type: 'pie',
                                     data: {
-                                        labels: [ "Total Ayats","Translation"],
+                                        labels: ["Translation", "Total Ayats"],
                                         datasets: [{
                                             label: "online tutorial subjects",
                                             data: [second,
@@ -234,6 +234,116 @@
                         <table class="table data-list-view">
 
                             <tbody>
+                                @if ($type == 2)
+                                    <div class="col-12 lang translation-div--1">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <input type="hidden" id="ayat-id--1" value="{{ $aya->_id }}">
+                                                    <h4 id="translation-saved-span--1" style="display:none">
+                                                        <span class="badge badge-success "><i
+                                                                class="fa fa-check">Translation
+                                                                Saved</i></span>
+                                                    </h4>
+                                                    <h4 id="translation-delete-span--1" style="display:none">
+                                                        <span class="badge badge-success "><i
+                                                                class="fa fa-check">Translation
+                                                                Deleted</i></span>
+                                                    </h4>
+                                                </div>
+
+                                                <div class="row d-flex">
+                                                    <h4 id="edit-button--1" onclick="editable('-1')">
+                                                        <span class="badge badge-info ml-1"><i class="fa fa-pencil"
+                                                                style="cursor: pointer;">&nbspEdit</i></span>
+                                                    </h4>
+
+                                                    <h4
+                                                        onclick="saveTranslation('{{ $currentCombination->_id }}','-1', '0')">
+                                                        <span class="badge badge-success ml-1" id="save-button--1"
+                                                            style="cursor: pointer; display:none"><i
+                                                                class="fa fa-save">&nbspSave</i></span>
+                                                    </h4>
+
+                                                    <h4
+                                                        onclick="deleteTranslation('{{ @$aya->revelation[0]->_id }}','{{ $currentCombination->_id }}','-1', '0')">
+                                                        <span class="badge badge-danger ml-1" id="delete-button--1"
+                                                            style="cursor: pointer; display:none"><i
+                                                                class="fa fa-trash">&nbspDelete</i></span>
+                                                    </h4>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 checkclass" id="non-editble-translation--1">
+                                                        <div class="row d-flex flex-row-reverse pr-2"
+                                                            style="align-items:center;gap:12px;">
+
+
+                                                            <p id="non-edit-lang-select--1" class="mt-1"
+                                                                style="text-align: right; line-height:50px">
+                                                                <b>Introduction</b>
+
+                                                            </p>
+
+                                                        </div>
+
+                                                        <div class="col-12 mt-2"
+                                                            style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
+
+
+                                                            <input type="hidden" id="ayat-id--1"
+                                                                value="{{ request()->ayat_id }}">
+                                                            <input type="hidden" id="trans-id--1"
+                                                                value="{{ @$aya->translations[0]->translation }}">
+                                                            <input type="hidden" id="type--1"
+                                                                value="{{ $type }}">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row ml-1"
+                                                    style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
+
+                                                    <span class="" id="non-edit-para-des--1"
+                                                        style="margin-left:10px!important; ">
+                                                        {{ @$aya->translations[0]->translation }}</span>
+                                                </div>
+
+                                                <div id="editble--1" style="display:none">
+                                                    <div class="row checkclass" style=" text-align:right"
+                                                        id="editble--1">
+
+                                                        <div class="col-12">
+
+                                                            <p id="non-edit-lang-select--1">
+                                                                <b>Introduction</b>
+
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12" id="textarea-div--1">
+                                                            {{-- <label for="">Translation</label> --}}
+                                                            <input type="hidden" name="author_langs[]"
+                                                                value="{{ $currentCombination->_id }}">
+                                                            <fieldset class="form-group">
+                                                                <textarea class="form-control" rows="8" style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') text-align:right; @endif"
+                                                                    id="trans-input--1" name="translations[]">{{ @$aya->translations[0]->translation }}</textarea>
+                                                            </fieldset>
+                                                        </div>
+
+                                                        <div class="spinner-grow text-dark"
+                                                            style="margin-left:50% !important;display:none"
+                                                            id="spinner-grow--1"></div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 @foreach ($ayats as $key => $aya)
                                     <div class="col-12 lang translation-div-{{ $key }}">
                                         <div class="card">
@@ -252,21 +362,74 @@
                                                 </div>
 
                                                 <div class="row d-flex">
-                                                    <h4 onclick="editable('{{ $key }}')">
+                                                    <h4 id="edit-button-{{ $key }}"
+                                                        onclick="editable('{{ $key }}')">
                                                         <span class="badge badge-info ml-1"><i class="fa fa-pencil"
-                                                                style="cursor: pointer;">&nbspEdit</i></span>
+                                                                style="cursor: pointer;">&nbspEdit Translation</i></span>
                                                     </h4>
+                                                    @if ($type == 2)
+                                                        <h4 id="revelation-edit-button-{{ $key }}"
+                                                            onclick="editableRevelation('{{ $key }}')">
+                                                            <span class="badge badge-info ml-1"><i class="fa fa-pencil"
+                                                                    style="cursor: pointer;">&nbspEdit
+                                                                    Revelation</i></span>
+                                                        </h4>
+                                                        <h4
+                                                            onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', '4')">
+                                                            <span class="badge badge-success ml-1"
+                                                                id="revelation-save-button-{{ $key }}"
+                                                                style="cursor: pointer; display:none"><i
+                                                                    class="fa fa-save">&nbspSave</i></span>
+                                                        </h4>
+
+                                                        <h4
+                                                            onclick="deleteTranslation('{{ @$aya->revelation[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' ,{{ $type }})">
+                                                            <span class="badge badge-danger ml-1"
+                                                                id="revelation-delete-button-{{ $key }}"
+                                                                style="cursor: pointer; display:none"><i
+                                                                    class="fa fa-trash">&nbspDelete</i></span>
+                                                        </h4>
+                                                    @endif
+                                                    @if ($type == 1)
+                                                        <h4 id="notes-edit-button-{{ $key }}"
+                                                            onclick="editableNotes('{{ $key }}')">
+                                                            <span class="badge badge-info ml-1"><i class="fa fa-pencil"
+                                                                    style="cursor: pointer;">&nbspEdit
+                                                                    Notes</i></span>
+                                                        </h4>
+                                                        <h4
+                                                            onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', '3')">
+                                                            <span class="badge badge-success ml-1"
+                                                                id="notes-save-button-{{ $key }}"
+                                                                style="cursor: pointer; display:none"><i
+                                                                    class="fa fa-save">&nbspSave</i></span>
+                                                        </h4>
+
+                                                        <h4
+                                                            onclick="deleteTranslation('{{ @$aya->notes[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' ,{{ $type }})">
+                                                            <span class="badge badge-danger ml-1"
+                                                                id="notes-delete-button-{{ $key }}"
+                                                                style="cursor: pointer; display:none"><i
+                                                                    class="fa fa-trash">&nbspDelete</i></span>
+                                                        </h4>
+                                                    @endif
                                                     <h4
                                                         onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', {{ $type }})">
-                                                        <span class="badge badge-success ml-1"><i class="fa fa-save"
-                                                                style="cursor: pointer;">&nbspSave</i></span>
+                                                        <span class="badge badge-success ml-1"
+                                                            id="save-button-{{ $key }}"
+                                                            style="cursor: pointer; display:none"><i
+                                                                class="fa fa-save">&nbspSave</i></span>
                                                     </h4>
 
                                                     <h4
                                                         onclick="deleteTranslation('{{ @$aya->translations[0]->_id }}','{{ $currentCombination->_id }}','{{ $key }}' ,{{ $type }})">
-                                                        <span class="badge badge-danger ml-1" style="cursor: pointer;"><i
+                                                        <span class="badge badge-danger ml-1"
+                                                            id="delete-button-{{ $key }}"
+                                                            style="cursor: pointer; display:none"><i
                                                                 class="fa fa-trash">&nbspDelete</i></span>
                                                     </h4>
+
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 checkclass"
@@ -292,8 +455,7 @@
 
                                                             <input type="hidden" id="ayat-id-{{ $key }}"
                                                                 value="{{ request()->ayat_id }}">
-                                                            <input type="hidden" id="trans-id-{{ $key }}"
-                                                                value="{{ @$aya->translations[0]->translation }}">
+
                                                             <input type="hidden" id="type-{{ $key }}"
                                                                 value="{{ $type }}">
                                                         </div>
@@ -305,9 +467,40 @@
 
                                                     <span class="" id="non-edit-para-des-{{ $key }}"
                                                         style="margin-left:10px!important; ">
-                                                        {{ @$aya->translations[0]->translation }}</span>
+                                                        @php
+                                                            if ($type == 1) {
+                                                                $title = '~ Translation ~';
+                                                            } else {
+                                                                $title = '~ Tafseer ~';
+                                                            }
+                                                        @endphp
+                                                        <b class="mr-1"> {{ $title }}</b>
+                                                        <br>
+                                                        {{ @$aya->translations[0]->translation }}
+                                                    </span>
                                                 </div>
+                                                @if ($type == 2)
+                                                    <div class="row ml-1 mt-2"
+                                                        style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
+                                                        <span class="" id="bold-revelation-{{ $key }}"
+                                                            style="margin-left:10px!important; ">
+                                                            <b class="mr-1"> ~ Revelation ~</b>
+                                                            <br>
+                                                            {{ @$aya->revelation[0]->translation }}</span>
+                                                    </div>
+                                                @endif
+                                                @if ($type == 1)
+                                                    <div class="row ml-1 mt-2"
+                                                        style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
+
+                                                        <span class="" id="bold-notes-{{ $key }}"
+                                                            style="margin-left:10px!important; ">
+                                                            <b class="mr-1">~ Notes ~</b>
+                                                            <br>
+                                                            {{ @$aya->notes[0]->translation }}</span>
+                                                    </div>
+                                                @endif
                                                 <div id="editble-{{ $key }}" style="display:none">
                                                     <div class="row checkclass" style=" text-align:right"
                                                         id="editble-{{ $key }}">
@@ -321,7 +514,8 @@
 
                                                         </div>
                                                     </div>
-
+                                                    <input type="hidden" id="trans-id-{{ $key }}"
+                                                        value="{{ @$aya->translations[0]->translation }}">
                                                     <div class="row">
                                                         <div class="col-12" id="textarea-div-{{ $key }}">
                                                             {{-- <label for="">Translation</label> --}}
@@ -330,6 +524,72 @@
                                                             <fieldset class="form-group">
                                                                 <textarea class="form-control" rows="8" style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') text-align:right; @endif"
                                                                     id="trans-input-{{ $key }}" name="translations[]">{{ @$aya->translations[0]->translation }}</textarea>
+                                                            </fieldset>
+                                                        </div>
+
+                                                        <div class="spinner-grow text-dark"
+                                                            style="margin-left:50% !important;display:none"
+                                                            id="spinner-grow-{{ $key }}"></div>
+
+
+                                                    </div>
+                                                </div>
+                                                <div id="revelation-editble-{{ $key }}" style="display:none">
+                                                    <div class="row checkclass" style=" text-align:right"
+                                                        id="editble-{{ $key }}">
+
+                                                        <div class="col-12">
+
+                                                            <p id="non-edit-lang-select-{{ $key }}">
+                                                                {{ $aya->ayat }}
+
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" id="revelation-trans-id-{{ $key }}"
+                                                        value="{{ @$aya->translations[0]->translation }}">
+                                                    <div class="row">
+                                                        <div class="col-12" id="textarea-div-{{ $key }}">
+                                                            {{-- <label for="">Translation</label> --}}
+                                                            <input type="hidden" name="author_langs[]"
+                                                                value="{{ $currentCombination->_id }}">
+                                                            <fieldset class="form-group">
+                                                                <textarea class="form-control" rows="8" style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') text-align:right; @endif"
+                                                                    id="revelation-trans-input-{{ $key }}" name="translations[]">{{ @$aya->revelation[0]->translation }}</textarea>
+                                                            </fieldset>
+                                                        </div>
+
+                                                        <div class="spinner-grow text-dark"
+                                                            style="margin-left:50% !important;display:none"
+                                                            id="spinner-grow-{{ $key }}"></div>
+
+
+                                                    </div>
+                                                </div>
+                                                <div id="notes-editble-{{ $key }}" style="display:none">
+                                                    <div class="row checkclass" style=" text-align:right"
+                                                        id="editble-{{ $key }}">
+
+                                                        <div class="col-12">
+
+                                                            <p id="non-edit-lang-select-{{ $key }}">
+                                                                {{ $aya->ayat }}
+
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" id="notes-trans-id-{{ $key }}"
+                                                        value="{{ @$aya->translations[0]->translation }}">
+                                                    <div class="row">
+                                                        <div class="col-12" id="textarea-div-{{ $key }}">
+                                                            {{-- <label for="">Translation</label> --}}
+                                                            <input type="hidden" name="author_langs[]"
+                                                                value="{{ $currentCombination->_id }}">
+                                                            <fieldset class="form-group">
+                                                                <textarea class="form-control" rows="8" style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') text-align:right; @endif"
+                                                                    id="notes-trans-input-{{ $key }}" name="translations[]">{{ @$aya->notes[0]->translation }}</textarea>
                                                             </fieldset>
                                                         </div>
 

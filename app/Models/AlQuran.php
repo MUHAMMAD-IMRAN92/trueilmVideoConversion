@@ -19,6 +19,14 @@ class AlQuran extends Eloquent
     {
         return $this->hasMany(AlQuranTranslation::class, 'ayat_id', 'id');
     }
+    public function revelation()
+    {
+        return $this->hasMany(AlQuranTranslation::class, 'ayat_id', 'id');
+    }
+    public function notes()
+    {
+        return $this->hasMany(AlQuranTranslation::class, 'ayat_id', 'id');
+    }
     public function references()
     {
         return $this->hasMany(Reference::class, 'referal_id', 'id');
@@ -38,7 +46,4 @@ class AlQuran extends Eloquent
     {
         return $this->belongsTo(Surah::class, 'surah_id', '_id');
     }
-
-
-
 }

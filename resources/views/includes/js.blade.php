@@ -1014,7 +1014,7 @@
                "ajax": {
                    url: '<?= url('all-comments') ?>'
                },
-               "columns": [ {
+               "columns": [{
                        "mRender": function(data, type, row) {
                            var comment = '--';
                            if (row.comment != null) {
@@ -2172,9 +2172,55 @@
        }
 
        function editable(key) {
+           $('#edit-button-' + key).css('display', 'none');
+           $('#save-button-' + key).css('display', 'block');
+           $('#revelation-save-button-' + key).css('display', 'none');
+           $('#revelation-edit-button-' + key).css('display', 'block');
+
+           $('#revelation-delete-button-' + key).css('display', 'none');
+           $('#delete-button-' + key).css('display', 'block');
            $('#non-editble-translation-' + key).css('display', 'none');
            $('#non-edit-para-des-' + key).css('display', 'none');
            $('#editble-' + key).css('display', 'block');
+           $('#bold-revelation-' + key).css('display', 'none');
+           $('#revelation-editble-' + key).css('display', 'none');
+           $('#notes-save-button-' + key).css('display', 'none');
+           $('#notes-delete-button-' + key).css('display', 'none');
+           $('#notes-edit-button-' + key).css('display', 'block');
+           $('#bold-notes-' + key).css('display', 'none');
+       }
+
+
+       function editableRevelation(key) {
+           $('#revelation-edit-button-' + key).css('display', 'none');
+           $('#edit-button-' + key).css('display', 'block');
+           $('#save-button-' + key).css('display', 'none');
+           $('#delete-button-' + key).css('display', 'none');
+           $('#revelation-save-button-' + key).css('display', 'block');
+           $('#revelation-delete-button-' + key).css('display', 'block');
+           $('#non-editble-translation-' + key).css('display', 'none');
+           $('#non-edit-para-des-' + key).css('display', 'none');
+           $('#editble-' + key).css('display', 'block');
+           $('#bold-revelation-' + key).css('display', 'none');
+           $('#editble-' + key).css('display', 'none');
+           $('#revelation-editble-' + key).css('display', 'block');
+
+       }
+
+       function editableNotes(key) {
+           $('#notes-edit-button-' + key).css('display', 'none');
+           $('#edit-button-' + key).css('display', 'block');
+           $('#save-button-' + key).css('display', 'none');
+           $('#delete-button-' + key).css('display', 'none');
+           $('#notes-save-button-' + key).css('display', 'block');
+           $('#notes-delete-button-' + key).css('display', 'block');
+           $('#non-editble-translation-' + key).css('display', 'none');
+           $('#non-edit-para-des-' + key).css('display', 'none');
+           $('#editble-' + key).css('display', 'block');
+           $('#bold-notes-' + key).css('display', 'none');
+           $('#editble-' + key).css('display', 'none');
+           $('#notes-editble-' + key).css('display', 'block');
+
        }
 
        function saveTranslation(authorLang, key, type) {
@@ -2182,8 +2228,15 @@
            $('#spinner-grow-' + key).css('display', 'block');
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
-           var ayatId = $('#ayat-id-' + key).val();
            var transId = $('#trans-id-' + key).val();
+           if (type == 3) {
+               translation = $('#notes-trans-input-' + key).val();
+               transId = $('#notes-trans-id-' + key).val();
+           } else if (type == 4) {
+               translation = $('#revelation-trans-input-' + key).val();
+               transId = $('#revelation-trans-id-' + key).val();
+           }
+           var ayatId = $('#ayat-id-' + key).val();
            //    var type = $('#type-' + key).val();
            console.log(ayatId + '----------------->' + key);
            $.ajax({
