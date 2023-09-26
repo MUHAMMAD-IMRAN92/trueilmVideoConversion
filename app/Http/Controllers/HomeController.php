@@ -300,7 +300,16 @@ class HomeController extends Controller
                     ->setLimit(20),
                 (new SearchQuery())
                     ->setIndexUid('alHadeestranslations')
-                    ->setQuery($request->search)
+                    ->setQuery($request->search),
+                (new SearchQuery())
+                    ->setIndexUid('course')
+                    ->setQuery($request->search),
+                (new SearchQuery())
+                    ->setIndexUid('bookForSale')
+                    ->setQuery($request->search),
+                (new SearchQuery())
+                    ->setIndexUid('glossary')
+                    ->setQuery($request->search),
             ]);
         }
 
