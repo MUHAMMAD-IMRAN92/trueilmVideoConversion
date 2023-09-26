@@ -88,4 +88,9 @@ class Book extends Eloquent
 
         return $unique->values()->count();
     }
+
+    public function content()
+    {
+        return $this->hasMany(BookContent::class, 'book_id', 'id');
+    }
 }

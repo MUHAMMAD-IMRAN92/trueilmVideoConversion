@@ -282,12 +282,51 @@ class HomeController extends Controller
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         if ($request->type == 1) {
-            $res = $client->index('books')->search($request->search);
+            $res = $client->multiSearch([
+                (new SearchQuery())
+                    ->setIndexUid('books')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+            ]);
         } else if ($request->type == 2) {
+            $res = $client->multiSearch([
 
-            $res  = $client->index('alQurantranslations')->search($request->search);
+                (new SearchQuery())
+                    ->setIndexUid('alQurantranslations')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+            ]);
         } else if ($request->type == 3) {
-            $res   = $client->index('alHadeestranslations')->search($request->search);
+            $res = $client->multiSearch([
+
+                (new SearchQuery())
+                    ->setIndexUid('alHadeestranslations')
+                    ->setQuery($request->search),
+
+            ]);
+        } else if ($request->type == 4) {
+            $res = $client->multiSearch([
+
+                (new SearchQuery())
+                    ->setIndexUid('course')
+                    ->setQuery($request->search),
+
+            ]);
+        } else if ($request->type == 5) {
+            $res = $client->multiSearch([
+
+                (new SearchQuery())
+                    ->setIndexUid('bookForSale')
+                    ->setQuery($request->search),
+
+            ]);
+        } else if ($request->type == 6) {
+            $res = $client->multiSearch([
+
+                (new SearchQuery())
+                    ->setIndexUid('glossary')
+                    ->setQuery($request->search),
+            ]);
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
@@ -354,7 +393,6 @@ class HomeController extends Controller
 
         return response()->json($alQurantranslationsclient);
     }
-
 }
 
 

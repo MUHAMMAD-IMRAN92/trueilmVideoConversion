@@ -293,7 +293,48 @@
                                                         </fieldset>
                                                     </div>
                                                 </div>
+                                                <h2 id="episodes-heading" style="display:none">
+                                                    Episodes:</h2>
+                                                <div class="row episode-append-inputs">
 
+                                                </div>
+                                                @if ($type == 7)
+                                                    <h2 class="">
+                                                        Previous Episodes:</h2>
+                                                    <div class="row">
+
+
+                                                        @foreach ($book->content as $con)
+                                                            <div class="col-md-4">
+                                                                @if ($con->type == 1)
+                                                                    <audio src="{{ $con->file }}"
+                                                                        style="width:300px ; height:172px"
+                                                                        controls></audio>
+                                                                @else
+                                                                    <video style="width:300px ; height:172px"
+                                                                        src="{{ $con->file }}" controls></video>
+                                                                @endif
+                                                                <br>
+                                                                <div class="d-flex ml-2"><b>Title:</b>
+
+                                                                    <p class="ml-1">{{ $con->title }}</p>
+                                                                </div>
+                                                                <div class="d-flex ml-2">
+                                                                    <b>Host:</b>
+                                                                    <p class="ml-1">{{ $con->host }}</p>
+
+                                                                    <b class="ml-2">Guest:</b>
+                                                                    <p class="ml-1">{{ $con->guest }}</p>
+                                                                </div>
+
+                                                                {{--  <a
+                                                                    href="{{ url('lesson/delete/' . $lesson->id) }}"
+                                                                    class="btn btn-danger">Delete</a> --}}
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <br>
+                                                @endif
 
                                                 {{-- <div class="form-group col col-md-6">
                                                     <fieldset class="form-group">
@@ -310,6 +351,11 @@
                                                 </div> --}}
 
                                                 <div class="col-12" style="text-align: right">
+                                                    @if ($type == 7)
+                                                        <span id="add-podcast-episode"
+                                                            class="btn btn-primary mr-1 mb-1">Add
+                                                            Episode</span>
+                                                    @endif
                                                     <button type="submit"
                                                         class="btn btn-primary mr-1 mb-1">Submit</button>
 

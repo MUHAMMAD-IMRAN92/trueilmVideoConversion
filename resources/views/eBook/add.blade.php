@@ -48,7 +48,7 @@
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
-                                                <div class="row append-inputs">
+                                                <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="">Title</label>
@@ -79,19 +79,21 @@
                                                         }
 
                                                     @endphp
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Content</label>
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file[]" {{ $validation }}
-                                                                    multiple>
-                                                                <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
-                                                                    file</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
+                                                    @if ($type != 7)
+                                                        <div class="col-md-6">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInputFile">Content</label>
+                                                                <div class="custom-file">
+                                                                    <input type="file" class="custom-file-input"
+                                                                        id="inputGroupFile01" name="file[]"
+                                                                        {{ $validation }} multiple>
+                                                                    <label class="custom-file-label"
+                                                                        for="inputGroupFile01">Choose
+                                                                        file</label>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                    @endif
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Cover Image</label>
@@ -286,8 +288,20 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+
+                                                </div>
+                                                <h2 class="" id="episodes-heading" style="display:none">
+                                                    Episodes:</h2>
+                                                <div class="row episode-append-inputs">
+
                                                 </div>
                                                 <div class="col-12" style="text-align: right">
+                                                    @if ($type == 7)
+                                                        <span id="add-podcast-episode"
+                                                            class="btn btn-primary mr-1 mb-1">Add
+                                                            Episode</span>
+                                                    @endif
+
                                                     <button type="submit"
                                                         class="btn btn-primary mr-1 mb-1">Submit</button>
 

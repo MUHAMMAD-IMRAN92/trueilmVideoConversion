@@ -100,8 +100,8 @@ class BookController extends Controller
     public function store(Request $request)
     {
         ini_set('max_execution_time', '0');
-        ini_set("memory_limit", "-1");
-        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        // ini_set("memory_limit", "-1");
+        // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         // return $request->all();
 
@@ -142,18 +142,20 @@ class BookController extends Controller
         }
         $book->save();
 
-        $bookIndex = $client->index('books')->addDocuments(array($book), '_id');
-        foreach ($request->file as $key => $file) {
-            $bookContent = new BookContent();
-            $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path =   $file->storeAs('files', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $bookContent->file = $base_path . $path;
-            $bookContent->book_id = $book->id;
-            $bookContent->book_name = $file->getClientOriginalName();
-            $bookContent->sequence = $key;
-            $book->type = $request->type;
-            $bookContent->save();
+        // $bookIndex = $client->index('books')->addDocuments(array($book), '_id');
+        if ($request->file) {
+            foreach ($request->file as $key => $file) {
+                $bookContent = new BookContent();
+                $file_name = time() . '.' . $file->getClientOriginalExtension();
+                $path =   $file->storeAs('files', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $bookContent->file = $base_path . $path;
+                $bookContent->book_id = $book->id;
+                $bookContent->book_name = $file->getClientOriginalName();
+                $bookContent->sequence = $key;
+                $book->type = $request->type;
+                $bookContent->save();
+            }
         }
         if ($request->tags) {
             foreach ($request->tags as $key => $tag) {
@@ -171,7 +173,30 @@ class BookController extends Controller
                 $contentTag = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
-        if ($request->type == 2 || $request->type == 7) {
+
+        if ($request->type == 7) {
+            foreach ($request->host as $key => $host) {
+                $bookContent = new BookContent();
+
+                $file_name = time() . '.' . $request->podcast_file[$key]->getClientOriginalExtension();
+                $path =   $request->podcast_file[$key]->storeAs('files', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $bookContent->file = $base_path . $path;
+                $bookContent->book_id = $book->id;
+                $bookContent->book_name = $request->podcast_file[$key]->getClientOriginalName();
+                $bookContent->sequence = $key;
+                $bookContent->host = $host;
+                $bookContent->guest = @$request->guest[$key];
+                if ($request->podcast_file[$key]->getClientOriginalExtension() == 'mp3') {
+                    $bookContent->type = 1;
+                } else {
+                    $bookContent->type = 2;
+                }
+                $bookContent->save();
+            }
+        }
+
+        if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
             return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
@@ -181,7 +206,7 @@ class BookController extends Controller
     public function edit($type, $id)
     {
         $categories = Category::active()->where('type', $type)->get();
-        $book = Book::where('_id', $id)->first();
+        $book = Book::where('_id', $id)->with('content')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $tags = Tag::all();
         $suitbles = Suitable::all();
@@ -300,8 +325,29 @@ class BookController extends Controller
                 $contentGlossary = ContentGlossary::create(['glossary_id' => $g, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
+        if ($request->type == 7) {
+            foreach ($request->host as $key => $host) {
+                $bookContent = new BookContent();
 
-        if ($request->type == 2 || $request->type == 7) {
+                $file_name = time() . '.' . $request->podcast_file[$key]->getClientOriginalExtension();
+                $path =   $request->podcast_file[$key]->storeAs('files', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $bookContent->file = $base_path . $path;
+                $bookContent->title = $request->episode_title[$key];
+                $bookContent->book_id = $book->id;
+                $bookContent->book_name = $request->podcast_file[$key]->getClientOriginalName();
+                $bookContent->sequence = $key;
+                $bookContent->host = $host;
+                $bookContent->guest = @$request->guest[$key];
+                if ($request->podcast_file[$key]->getClientOriginalExtension() == 'mp3') {
+                    $bookContent->type = 1;
+                } else {
+                    $bookContent->type = 2;
+                }
+                $bookContent->save();
+            }
+        }
+        if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
         } else {
             return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');

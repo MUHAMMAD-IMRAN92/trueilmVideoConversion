@@ -522,7 +522,7 @@
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';
                            }
-                           if (row.type == 2 || row.type == 7) {
+                           if (row.type == 2) {
                                list =
                                    `<a class="ml-2" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`
                            }
@@ -824,7 +824,7 @@
                    {
                        "mRender": function(data, type, row) {
                            var anchor;
-                           if (row.type == 2 || row.type == 7) {
+                           if (row.type == 2) {
                                anchor =
                                    `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
                            } else {
@@ -3302,12 +3302,82 @@
                }
            });
        }
-       //    $("document").ready(function() {
-       //        setTimeout(function() {
-       //            $("#countries").trigger('change');
-       //        }, 10);
-       //    });
-       // Wait for the DOM to be fully loaded
+       $('#add-podcast-episode').on('click', function() {
+           $('#episodes-heading').css('display', 'block')
+           var lenght = $('.custom-file-input').length;
+           var html;
+           html =
+               ` <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Title</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="episode_title[]" placeholder=""
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>  <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Host</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="host[]" placeholder=""
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>  <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Guest</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="guest[]" placeholder=""
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Content</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="podcast_file[]" required
+                                                                    multiple>
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Host</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="host[]" placeholder=""
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    `;
+           $('.episode-append-inputs').append(html);
+           $('.summernote').summernote();
+       });
+
+       function example() {
+           alert('success');
+       }
        document.addEventListener("DOMContentLoaded", function() {
            // console.log('>>>>>>>>>>>');
            // Function to add/remove classes based on viewport width
