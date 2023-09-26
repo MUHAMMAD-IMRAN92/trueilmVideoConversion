@@ -354,20 +354,7 @@ class HomeController extends Controller
 
         return response()->json($alQurantranslationsclient);
     }
-    function other_index(Request $request)
-    {
-        ini_set("memory_limit", "-1");
-        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-        $data = Course::get()->toArray();
-        $book = BookForSale::get()->toArray();
-        $glossary = Glossory::get()->toArray();
 
-        $index =  $client->index('course')->addDocuments($data, '_id');
-        $index1 =  $client->index('bookForSale')->addDocuments($book, '_id');
-        $index2 =  $client->index('glossary')->addDocuments($glossary, '_id');
-
-        return 'ok';
-    }
 }
 
 

@@ -32,4 +32,3 @@ Route::post('stripe/subscribe-plan', [App\Http\Controllers\Api\StripeController:
 
 Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
-Route::get('search/other_index',  [App\Http\Controllers\HomeController::class, 'other_index']);
