@@ -32,3 +32,11 @@ Route::post('stripe/subscribe-plan', [App\Http\Controllers\Api\StripeController:
 
 Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
+Route::get('/delete/index', function () {
+    ini_set("memory_limit", "-1");
+    $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+    $client->deleteIndex('movies');
+    $client->deleteIndex('books');
+    $client->deleteIndex('book');
+    return 'ok';
+});
