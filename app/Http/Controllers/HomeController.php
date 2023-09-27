@@ -346,7 +346,7 @@ class HomeController extends Controller
     function searchTest(Request $request)
     {
         ini_set("memory_limit", "-1");
-        $validator = \validator::make($request->all(), [
+        $validator = \Validator::make($request->all(), [
             'type' => 'array',
         ]);
         if ($validator->fails()) {
