@@ -431,35 +431,77 @@ class HomeController extends Controller
     {
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-
-         $arr =  explode(',', $request->types);
+        $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
+        $arr =  explode(',', $request->types);
         $queries = [];
-
-        if (in_array(1, $arr)) {
-            $queries[] = (new SearchQuery())
-                ->setIndexUid('ebooks')
-                ->setQuery($request->search)
-                ->setLimit(20);
+        if (count($arr) > 0) {
+            foreach ($arr as $ar) {
+                $queries[] = (new SearchQuery())
+                    ->setIndexUid($arrIndex[$ar])
+                    ->setQuery($request->search)
+                    ->setLimit(20);
+            }
+            $res = $client->multiSearch($queries);
+        } else {
         }
-
-        if (in_array(2, $arr)) {
-            $queries[] = (new SearchQuery())
-                ->setIndexUid('audio')
-                ->setQuery($request->search)
-                ->setLimit(20);
-        }
-
-        if (in_array(3, $arr)) {
-            $queries[] = (new SearchQuery())
-                ->setIndexUid('papers')
-                ->setQuery($request->search)
-                ->setLimit(20);
-        }
-
+        return $res;
+        // if (in_array(1, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('ebooks')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(2, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('audio')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(3, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('papers')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(4, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('alQurantranslations')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(5, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('alHadeestranslations')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(6, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('course')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(7, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('podcast')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(8, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('bookForSale')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
+        // if (in_array(9, $arr)) {
+        //     $queries[] = (new SearchQuery())
+        //         ->setIndexUid('glossary')
+        //         ->setQuery($request->search)
+        //         ->setLimit(20);
+        // }
         // Add more if statements for other types as needed
 
         if (!empty($queries)) {
-            $res = $client->multiSearch($queries);
         } else {
             // Handle the case when no valid types are provided in the request
             $res = [];
