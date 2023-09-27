@@ -280,73 +280,18 @@ class HomeController extends Controller
     {
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
 
-        if ($request->type == 1) {
-            $res = $client->multiSearch([
-                (new SearchQuery())
-                    ->setIndexUid('ebooks')
+        $queries = [];
+        if ($request->type != "") {
+            $arr = explode(',', $request->type);
+            foreach ($arr as $ar) {
+                $queries[] = (new SearchQuery())
+                    ->setIndexUid($arrIndex[$ar])
                     ->setQuery($request->search)
-                    ->setLimit(20),
-            ]);
-        } else if ($request->type == 2) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('audio')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-            ]);
-        } else if ($request->type == 3) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('papers')
-                    ->setQuery($request->search),
-
-            ]);
-        } else if ($request->type == 4) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('alQurantranslations')
-                    ->setQuery($request->search),
-
-            ]);
-        } else if ($request->type == 5) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('alHadeestranslations')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 6) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('course')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 7) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('podcast')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 8) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('bookForSale')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 9) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('glossary')
-                    ->setQuery($request->search),
-            ]);
+                    ->setLimit(20);
+            }
+            $res = $client->multiSearch($queries);
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
@@ -383,35 +328,7 @@ class HomeController extends Controller
                     ->setQuery($request->search),
             ]);
         }
-
         return response()->json($res);
-        // $book = Book::get()->toArray();
-        // $alQuranTranslation = AlQuranTranslation::get()->toArray();
-        // $HadeesTranslation = HadeesTranslation::get()->toArray();
-        // $booksclient =  $client->index('books')->addDocuments($book, '_id');
-        // dd($booksclient);
-        // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments($alQuranTranslation, '_id');
-        // return  $alHadeestranslationsclient =  $client->index('alHadeestranslations')->addDocuments($HadeesTranslation, '_id');
-        // // $book = json_decode($book);
-
-        // // $movies_json = Storage::disk('public')->get('countries.json');
-        // // $movies = json_decode($book);
-        // $client->createIndex('book', ['primaryKey' => '_id']);
-
-        // return $client->getTask(5);
-        // $res = $client->multiSearch([
-        //     (new SearchQuery())
-        //         ->setIndexUid('books')
-        //         ->setQuery($request->search)
-        //         ->setLimit(20),
-        //     (new SearchQuery())
-        //         ->setIndexUid('alQurantranslations')
-        //         ->setQuery($request->search)
-        //         ->setLimit(5),
-        //     (new SearchQuery())
-        //         ->setIndexUid('alHadeestranslations')
-        //         ->setQuery($request->search)
-        // ]);
     }
     function indexTranslation(Request $request)
     {
@@ -433,10 +350,9 @@ class HomeController extends Controller
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
 
-        $arr = explode(',', $request->type);
-        return count($arr);
         $queries = [];
-        if (count($arr) > 0) {
+        if ($request->type != "") {
+            $arr = explode(',', $request->type);
             foreach ($arr as $ar) {
                 $queries[] = (new SearchQuery())
                     ->setIndexUid($arrIndex[$ar])
