@@ -187,6 +187,7 @@ class BookController extends Controller
                 $bookContent->sequence = $key;
                 $bookContent->host = $host;
                 $bookContent->guest = @$request->guest[$key];
+                $bookContent->file_duration = @$request->duration[$key];
                 if ($request->podcast_file[$key]->getClientOriginalExtension() == 'mp3') {
                     $bookContent->type = 1;
                 } else {
@@ -339,6 +340,7 @@ class BookController extends Controller
                 $bookContent->sequence = $key;
                 $bookContent->host = $host;
                 $bookContent->guest = @$request->guest[$key];
+                $bookContent->file_duration = @$request->duration[$key];
                 if ($request->podcast_file[$key]->getClientOriginalExtension() == 'mp3') {
                     $bookContent->type = 1;
                 } else {

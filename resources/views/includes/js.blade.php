@@ -3304,7 +3304,8 @@
        }
        $('#add-podcast-episode').on('click', function() {
            $('#episodes-heading').css('display', 'block')
-           var lenght = $('.custom-file-input').length;
+           var length = $('.episode-custom-file-input').length;
+           console.log(length);
            var html;
            html =
                ` <div class="col-md-6">
@@ -3348,9 +3349,14 @@
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="podcast_file[]" required
+                                                                <input type="file"  class="custom-file-input  episode-custom-file-input" id="fileinput` +
+               length + `" onchange="duration(` + length +
+               `)"
+                                                                    onchange="" name="podcast_file[]" required
                                                                     multiple>
+                                                                    <input type="hidden" name="duration[]" id="input-duration-` +
+               length + `" />
+                                                                    <span id="duration-info-` + length + `"></span>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
@@ -3363,8 +3369,9 @@
            $('.summernote').summernote();
        });
 
-       function example() {
-           alert('success');
+       function example(lenght) {
+           let vid = document.getElementById("episode-custom-file-input" + lenght);
+           console.log(vid);
        }
        document.addEventListener("DOMContentLoaded", function() {
            // console.log('>>>>>>>>>>>');
@@ -3392,4 +3399,22 @@
            // Listen for window resize events to update classes when the viewport width changes
            window.addEventListener("resize", handleViewportChange);
        });
+
+       function duration(length) {
+           var fileInput = $('#fileinput' + length)[0];
+           var audio = new Audio();
+           audio.addEventListener('loadedmetadata', function() {
+               var audioDuration = audio.duration;
+               var minutes = Math.floor(audioDuration / 60);
+               var seconds = Math.floor(audioDuration % 60);
+               $('#duration-info-' + length).html(minutes + ' minutes ' + seconds + ' seconds');
+               $('#input-duration-' + length).val(minutes + ':' + seconds);
+               //    console.log('Audio duration:', minutes + ' minutes ' + seconds + ' seconds');
+           });
+           audio.src = URL.createObjectURL(fileInput.files[0]);
+
+           audio.load();
+
+
+       }
    </script>
