@@ -432,24 +432,24 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
-       return $types =  explode(',', $request->tpyes);
+        return $arr =  explode(',', $request->tpyes);
         $queries = [];
 
-        if (in_array(1, $types)) {
+        if (in_array(1, $arr)) {
             $queries[] = (new SearchQuery())
                 ->setIndexUid('ebooks')
                 ->setQuery($request->search)
                 ->setLimit(20);
         }
 
-        if (in_array(2, $types)) {
+        if (in_array(2, $arr)) {
             $queries[] = (new SearchQuery())
                 ->setIndexUid('audio')
                 ->setQuery($request->search)
                 ->setLimit(20);
         }
 
-        if (in_array(3, $types)) {
+        if (in_array(3, $arr)) {
             $queries[] = (new SearchQuery())
                 ->setIndexUid('papers')
                 ->setQuery($request->search)
