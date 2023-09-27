@@ -281,11 +281,10 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
-
         $queries = [];
         if ($request->type != "") {
-            $arr = explode(',', $request->type);
-            foreach ($arr as $ar) {
+            // $arr = explode(',', $request->type);
+            foreach ($request->type as $ar) {
                 $queries[] = (new SearchQuery())
                     ->setIndexUid($arrIndex[$ar])
                     ->setQuery($request->search)
@@ -341,6 +340,61 @@ class HomeController extends Controller
         return $client->getTask(13);
 
         return response()->json($alQurantranslationsclient);
+    }
+
+
+    function searchTest(Request $request)
+    {
+        ini_set("memory_limit", "-1");
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
+        $queries = [];
+        if ($request->type != "") {
+            // $arr = explode(',', $request->type);
+            foreach ($request->type as $ar) {
+                $queries[] = (new SearchQuery())
+                    ->setIndexUid($arrIndex[$ar])
+                    ->setQuery($request->search)
+                    ->setLimit(20);
+            }
+            $res = $client->multiSearch($queries);
+        } else {
+            $res = $client->multiSearch([
+                (new SearchQuery())
+                    ->setIndexUid('ebooks')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('audio')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('papers')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('podcast')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('alQurantranslations')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('alHadeestranslations')
+                    ->setQuery($request->search),
+                (new SearchQuery())
+                    ->setIndexUid('course')
+                    ->setQuery($request->search),
+                (new SearchQuery())
+                    ->setIndexUid('bookForSale')
+                    ->setQuery($request->search),
+                (new SearchQuery())
+                    ->setIndexUid('glossary')
+                    ->setQuery($request->search),
+            ]);
+        }
+        return response()->json($res);
     }
 }
 
