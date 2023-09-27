@@ -284,7 +284,7 @@ class HomeController extends Controller
         if ($request->type == 1) {
             $res = $client->multiSearch([
                 (new SearchQuery())
-                    ->setIndexUid('books')
+                    ->setIndexUid('ebooks')
                     ->setQuery($request->search)
                     ->setLimit(20),
             ]);
@@ -292,7 +292,7 @@ class HomeController extends Controller
             $res = $client->multiSearch([
 
                 (new SearchQuery())
-                    ->setIndexUid('alQurantranslations')
+                    ->setIndexUid('audio')
                     ->setQuery($request->search)
                     ->setLimit(20),
             ]);
@@ -300,7 +300,7 @@ class HomeController extends Controller
             $res = $client->multiSearch([
 
                 (new SearchQuery())
-                    ->setIndexUid('alHadeestranslations')
+                    ->setIndexUid('papers')
                     ->setQuery($request->search),
 
             ]);
@@ -308,7 +308,7 @@ class HomeController extends Controller
             $res = $client->multiSearch([
 
                 (new SearchQuery())
-                    ->setIndexUid('course')
+                    ->setIndexUid('alQurantranslations')
                     ->setQuery($request->search),
 
             ]);
@@ -316,11 +316,31 @@ class HomeController extends Controller
             $res = $client->multiSearch([
 
                 (new SearchQuery())
-                    ->setIndexUid('bookForSale')
+                    ->setIndexUid('alHadeestranslations')
                     ->setQuery($request->search),
-
             ]);
         } else if ($request->type == 6) {
+            $res = $client->multiSearch([
+
+                (new SearchQuery())
+                    ->setIndexUid('course')
+                    ->setQuery($request->search),
+            ]);
+        } else if ($request->type == 7) {
+            $res = $client->multiSearch([
+
+                (new SearchQuery())
+                    ->setIndexUid('podcast')
+                    ->setQuery($request->search),
+            ]);
+        } else if ($request->type == 8) {
+            $res = $client->multiSearch([
+
+                (new SearchQuery())
+                    ->setIndexUid('bookForSale')
+                    ->setQuery($request->search),
+            ]);
+        } else if ($request->type == 9) {
             $res = $client->multiSearch([
 
                 (new SearchQuery())
@@ -330,7 +350,19 @@ class HomeController extends Controller
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
-                    ->setIndexUid('books')
+                    ->setIndexUid('ebooks')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('audio')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('papers')
+                    ->setQuery($request->search)
+                    ->setLimit(20),
+                (new SearchQuery())
+                    ->setIndexUid('podcast')
                     ->setQuery($request->search)
                     ->setLimit(20),
                 (new SearchQuery())
