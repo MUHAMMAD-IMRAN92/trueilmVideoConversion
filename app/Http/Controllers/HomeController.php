@@ -25,6 +25,7 @@ use App\Models\BookForSale;
 use App\Models\Course;
 use App\Models\Glossory;
 use App\Models\HadeesTranslation;
+use Illuminate\Support\Facades\Validator;
 use Meilisearch\Client;
 use Meilisearch\Contracts\SearchQuery;
 
@@ -346,7 +347,7 @@ class HomeController extends Controller
     function searchTest(Request $request)
     {
         ini_set("memory_limit", "-1");
-        $validator = \Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'type' => 'array',
         ]);
         if ($validator->fails()) {
