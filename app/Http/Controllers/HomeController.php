@@ -432,108 +432,144 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
-        if ($request->type == 1) {
-            $res = $client->multiSearch([
-                (new SearchQuery())
-                    ->setIndexUid('ebooks')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-            ]);
-        } else if ($request->type == 2) {
-            $res = $client->multiSearch([
 
-                (new SearchQuery())
-                    ->setIndexUid('audio')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-            ]);
-        } else if ($request->type == 3) {
-            $res = $client->multiSearch([
+        $queries = [];
 
-                (new SearchQuery())
-                    ->setIndexUid('papers')
-                    ->setQuery($request->search),
-
-            ]);
-        } else if ($request->type == 4) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('alQurantranslations')
-                    ->setQuery($request->search),
-
-            ]);
-        } else if ($request->type == 5) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('alHadeestranslations')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 6) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('course')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 7) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('podcast')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 8) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('bookForSale')
-                    ->setQuery($request->search),
-            ]);
-        } else if ($request->type == 9) {
-            $res = $client->multiSearch([
-
-                (new SearchQuery())
-                    ->setIndexUid('glossary')
-                    ->setQuery($request->search),
-            ]);
-        } else {
-            $res = $client->multiSearch([
-                (new SearchQuery())
-                    ->setIndexUid('ebooks')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('audio')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('papers')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('podcast')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('alQurantranslations')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('alHadeestranslations')
-                    ->setQuery($request->search),
-                (new SearchQuery())
-                    ->setIndexUid('course')
-                    ->setQuery($request->search),
-                (new SearchQuery())
-                    ->setIndexUid('bookForSale')
-                    ->setQuery($request->search),
-                (new SearchQuery())
-                    ->setIndexUid('glossary')
-                    ->setQuery($request->search),
-            ]);
+        if (in_array(1, $request->types)) {
+            $queries[] = (new SearchQuery())
+                ->setIndexUid('ebooks')
+                ->setQuery($request->search)
+                ->setLimit(20);
         }
+
+        if (in_array(2, $request->types)) {
+            $queries[] = (new SearchQuery())
+                ->setIndexUid('audio')
+                ->setQuery($request->search)
+                ->setLimit(20);
+        }
+
+        if (in_array(3, $request->types)) {
+            $queries[] = (new SearchQuery())
+                ->setIndexUid('papers')
+                ->setQuery($request->search)
+                ->setLimit(20);
+        }
+
+        // Add more if statements for other types as needed
+
+        if (!empty($queries)) {
+            $res = $client->multiSearch($queries);
+        } else {
+            // Handle the case when no valid types are provided in the request
+            $res = [];
+        }
+
+
+
+
+        // if ($request->type == 1) {
+        //     $res = $client->multiSearch([
+        //         (new SearchQuery())
+        //             ->setIndexUid('ebooks')
+        //             ->setQuery($request->search)
+        //             ->setLimit(20),
+        //     ]);
+        // } else if ($request->type == 2) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('audio')
+        //             ->setQuery($request->search)
+        //             ->setLimit(20),
+        //     ]);
+        // } else if ($request->type == 3) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('papers')
+        //             ->setQuery($request->search),
+
+        //     ]);
+        // } else if ($request->type == 4) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('alQurantranslations')
+        //             ->setQuery($request->search),
+
+        //     ]);
+        // } else if ($request->type == 5) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('alHadeestranslations')
+        //             ->setQuery($request->search),
+        //     ]);
+        // } else if ($request->type == 6) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('course')
+        //             ->setQuery($request->search),
+        //     ]);
+        // } else if ($request->type == 7) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('podcast')
+        //             ->setQuery($request->search),
+        //     ]);
+        // } else if ($request->type == 8) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('bookForSale')
+        //             ->setQuery($request->search),
+        //     ]);
+        // } else if ($request->type == 9) {
+        //     $res = $client->multiSearch([
+
+        //         (new SearchQuery())
+        //             ->setIndexUid('glossary')
+        //             ->setQuery($request->search),
+        //     ]);
+        // } else {
+        //     $res = $client->multiSearch([
+        //         (new SearchQuery())
+        //             ->setIndexUid('ebooks')
+        //             ->setQuery($request->search)
+        //             ->setLimit(20),
+        //         (new SearchQuery())
+        //             ->setIndexUid('audio')
+        //             ->setQuery($request->search)
+        //             ->setLimit(20),
+        //         (new SearchQuery())
+        //             ->setIndexUid('papers')
+        //             ->setQuery($request->search)
+        //             ->setLimit(20),
+        //         (new SearchQuery())
+        //             ->setIndexUid('podcast')
+        //             ->setQuery($request->search)
+        //             ->setLimit(20),
+        //         (new SearchQuery())
+        //             ->setIndexUid('alQurantranslations')
+        //             ->setQuery($request->search)
+        //             ->setLimit(20),
+        //         (new SearchQuery())
+        //             ->setIndexUid('alHadeestranslations')
+        //             ->setQuery($request->search),
+        //         (new SearchQuery())
+        //             ->setIndexUid('course')
+        //             ->setQuery($request->search),
+        //         (new SearchQuery())
+        //             ->setIndexUid('bookForSale')
+        //             ->setQuery($request->search),
+        //         (new SearchQuery())
+        //             ->setIndexUid('glossary')
+        //             ->setQuery($request->search),
+        //     ]);
+        // }
 
         return response()->json($res);
         // $book = Book::get()->toArray();
