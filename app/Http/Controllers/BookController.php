@@ -185,6 +185,7 @@ class BookController extends Controller
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $request->podcast_file[$key]->getClientOriginalName();
                 $bookContent->sequence = $key;
+                $bookContent->title = $request->episode_title[$key];
                 $bookContent->host = $host;
                 $bookContent->guest = @$request->guest[$key];
                 $bookContent->file_duration = @$request->duration[$key];
