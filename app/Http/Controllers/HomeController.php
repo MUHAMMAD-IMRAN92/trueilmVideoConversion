@@ -346,6 +346,12 @@ class HomeController extends Controller
     function searchTest(Request $request)
     {
         ini_set("memory_limit", "-1");
+        $validator = \validator::make($request->all(), [
+            'type' => 'array',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
         $queries = [];
