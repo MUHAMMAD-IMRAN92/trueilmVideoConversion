@@ -290,7 +290,7 @@
                                                     </div>
 
                                                 </div>
-                                                <span id="imran">imran :</span>
+
                                                 <h2 class="" id="episodes-heading" style="display:none">
                                                     Episodes:</h2>
                                                 <div class="row episode-append-inputs">
