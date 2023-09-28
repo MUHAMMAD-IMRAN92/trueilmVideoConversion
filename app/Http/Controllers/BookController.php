@@ -100,8 +100,8 @@ class BookController extends Controller
     public function store(Request $request)
     {
         ini_set('max_execution_time', '0');
-        // ini_set("memory_limit", "-1");
-        // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        ini_set("memory_limit", "-1");
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         // return $request->all();
 
@@ -142,7 +142,15 @@ class BookController extends Controller
         }
         $book->save();
 
-        // $bookIndex = $client->index('books')->addDocuments(array($book), '_id');
+        if ($request->type == "1") {
+            $bookIndex = $client->index('ebooks')->addDocuments(array($book), '_id');
+        } else  if ($request->type == "2") {
+            $bookIndex = $client->index('audio')->addDocuments(array($book), '_id');
+        } else  if ($request->type == "3") {
+            $bookIndex = $client->index('papers')->addDocuments(array($book), '_id');
+        } else  if ($request->type == "4") {
+            $bookIndex = $client->index('podcast')->addDocuments(array($book), '_id');
+        }
         if ($request->file) {
             foreach ($request->file as $key => $file) {
                 $bookContent = new BookContent();
@@ -231,6 +239,9 @@ class BookController extends Controller
 
     public function update(Request $request)
     {
+        ini_set('max_execution_time', '0');
+        ini_set("memory_limit", "-1");
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         if ($request->type == 1) {
             $validated = $request->validate([
                 'title' => 'required',
@@ -289,6 +300,15 @@ class BookController extends Controller
             }
         }
         $book->save();
+        if ($request->type == "1") {
+            $bookIndex = $client->index('ebooks')->addDocuments(array($book), '_id');
+        } else  if ($request->type == "2") {
+            $bookIndex = $client->index('audio')->addDocuments(array($book), '_id');
+        } else  if ($request->type == "3") {
+            $bookIndex = $client->index('papers')->addDocuments(array($book), '_id');
+        } else  if ($request->type == "4") {
+            $bookIndex = $client->index('podcast')->addDocuments(array($book), '_id');
+        }
         if ($request->file) {
             foreach ($request->file as $key => $file) {
                 $count = BookContent::where('book_id', $book->_id)->count();
