@@ -526,6 +526,10 @@
                                list =
                                    `<a class="ml-2" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`
                            }
+                           if (row.type == 7) {
+                               list =
+                                   `<a class="ml-2" href="{{ url('podcast/edit/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`
+                           }
                            return `<td>
                             <div class="d-flex">
                                 <a  class="ml-2" href="{{ url('book/`+ row.type +`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>` +
