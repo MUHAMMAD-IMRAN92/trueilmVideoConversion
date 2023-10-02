@@ -281,7 +281,7 @@
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="sample-file custom-file-input"
-                                                                    id="sample-file" name="sample_file" disabled>
+                                                                    id="" name="sample_file" disabled>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
