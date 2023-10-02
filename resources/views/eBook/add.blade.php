@@ -297,11 +297,6 @@
 
                                                 </div>
                                                 <div class="col-12" style="text-align: right">
-                                                    @if ($type == 7)
-                                                        <span id="add-podcast-episode"
-                                                            class="btn btn-primary mr-1 mb-1">Add
-                                                            Episode</span>
-                                                    @endif
 
                                                     <button type="submit"
                                                         class="btn btn-primary mr-1 mb-1">Submit</button>
