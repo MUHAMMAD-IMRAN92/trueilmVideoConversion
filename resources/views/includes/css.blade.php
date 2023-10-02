@@ -307,6 +307,8 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         height: 1px;
         background: #eee;
     }
-
+    .pointer{
+        cursor: pointer;
+    }
     /*.rating start*/
 </style>

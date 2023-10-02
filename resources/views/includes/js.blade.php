@@ -3200,12 +3200,12 @@
 
        function priceRadioFunction(val) {
            if (val == 1) {
-               $('#price').prop("disabled", false);
-               $('#sample-file').prop("disabled", false);
+               $('.price').prop("disabled", false);
+               $('.sample-file').prop("disabled", false);
                console.log($('#price').val());
            } else {
-               $('#price').prop("disabled", true);
-               $('#sample-file').prop("disabled", true);
+               $('.price').prop("disabled", true);
+               $('.sample-file').prop("disabled", true);
                console.log($('#price').val());
            }
        }
@@ -3400,21 +3400,38 @@
            window.addEventListener("resize", handleViewportChange);
        });
 
-       function duration(length) {
-           var fileInput = $('#fileinput' + length)[0];
+       function duration(key) {
+
+           var fileInput = $('#fileinput-' + key)[0];
            var audio = new Audio();
            audio.addEventListener('loadedmetadata', function() {
                var audioDuration = audio.duration;
                var minutes = Math.floor(audioDuration / 60);
                var seconds = Math.floor(audioDuration % 60);
-               $('#duration-info-' + length).html(minutes + ' minutes ' + seconds + ' seconds');
-               $('#input-duration-' + length).val(minutes + ':' + seconds);
-               //    console.log('Audio duration:', minutes + ' minutes ' + seconds + ' seconds');
+               $('#duration-info-' + key).html(minutes + ' minutes ' + seconds + ' seconds');
+               $('#input-duration-' + key).val(minutes + ':' + seconds);
+               console.log('Audio duration:', minutes + ' minutes ' + seconds + ' seconds');
            });
            audio.src = URL.createObjectURL(fileInput.files[0]);
 
            audio.load();
+       }
 
+       function editEpisodeModal(key) {
+           var title = $('#title' + key).html();
+           var host = $('#host' + key).html();
+           var guest = $('#guest' + key).html();
+           var epi_id = $('#episode_id' + key).val();
+           $('#modal-episode-guest').val(guest);
+           $('#modal-episode-host').val(host);
+           $('#modal-episode-title').val(title);
+           $('#modal-episode-id').val(epi_id);
+           $('#edit-episode').modal('show');
 
        }
+       $('form').on('submit', function() {
+           if ($('input:focus').length) {
+               return false;
+           }
+       });
    </script>

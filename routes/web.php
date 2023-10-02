@@ -128,6 +128,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('books/rejected/{id}', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
 
+    Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
+    Route::post('podcast/episode', [App\Http\Controllers\BookController::class, 'podcastEpisode'])->name('podcast.episode');
+
     //super admin revet
     Route::get('activities', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('book.activities');
     Route::get('all-activities', [App\Http\Controllers\ActivitiesController::class, 'allActivities'])->name('book.all-activities');
@@ -265,4 +268,3 @@ Route::middleware(['auth'])->group(function () {
     Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
     Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
 });
-

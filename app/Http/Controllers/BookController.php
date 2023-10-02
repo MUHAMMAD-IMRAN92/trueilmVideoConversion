@@ -182,32 +182,12 @@ class BookController extends Controller
             }
         }
 
-        if ($request->type == 7) {
-            foreach ($request->host as $key => $host) {
-                $bookContent = new BookContent();
 
-                $file_name = time() . '.' . $request->podcast_file[$key]->getClientOriginalExtension();
-                $path =   $request->podcast_file[$key]->storeAs('files', $file_name, 's3');
-                Storage::disk('s3')->setVisibility($path, 'public');
-                $bookContent->file = $base_path . $path;
-                $bookContent->book_id = $book->id;
-                $bookContent->book_name = $request->podcast_file[$key]->getClientOriginalName();
-                $bookContent->sequence = $key;
-                $bookContent->title = $request->episode_title[$key];
-                $bookContent->host = $host;
-                $bookContent->guest = @$request->guest[$key];
-                $bookContent->file_duration = @$request->duration[$key];
-                if ($request->podcast_file[$key]->getClientOriginalExtension() == 'mp3') {
-                    $bookContent->type = 1;
-                } else {
-                    $bookContent->type = 2;
-                }
-                $bookContent->save();
-            }
-        }
 
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
+        } elseif ($request->type == 7) {
+            return redirect()->to('podcast/edit/' . $book->_id);
         } else {
             return redirect()->to('books/' . $request->type)->with('msg', 'Content Saved Successfully!');
         }
@@ -267,7 +247,7 @@ class BookController extends Controller
         $book->description = $request->description;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
 
-        if ($request->has('cover')) {
+        if ($request->cover) {
             $file = $request->file('cover');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $path =   $request->file('cover')->storeAs('files_covers', $file_name, 's3');
@@ -347,7 +327,7 @@ class BookController extends Controller
                 $contentGlossary = ContentGlossary::create(['glossary_id' => $g, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
-        if ($request->type == 7) {
+        if ($request->type == 7 && $request->host) {
             foreach ($request->host as $key => $host) {
                 $bookContent = new BookContent();
 
@@ -369,6 +349,9 @@ class BookController extends Controller
                 }
                 $bookContent->save();
             }
+        }
+        if ($request->type == 7) {
+            return redirect()->back();
         }
         if ($request->type == 2) {
             return redirect()->to('book/' . $request->type . '/list/' . $book->_id)->with('msg', 'Content Saved Successfully!');
@@ -655,5 +638,64 @@ class BookController extends Controller
             'data' => $brands,
         );
         return json_encode($data);
+    }
+
+    public function podcastEdit($id)
+    {
+        $book = Book::where('_id', $id)->with('content')->first();
+        $categories = Category::active()->where('type', $book->type)->get();
+        $contentTag = ContentTag::where('content_id', $id)->get();
+        $tags = Tag::all();
+        $suitbles = Suitable::all();
+        $glossary = Glossory::all();
+        $publisher = Publisher::all();
+        $contentGlossary = ContentGlossary::where('content_id', $id)->get();
+
+        return view('eBook.podcast_edit', [
+            'book' => $book,
+            'type' => $book->type,
+            'categories' => $categories,
+            'tags' => $tags,
+            'contentTags' =>  $contentTag,
+            'suitbles' => $suitbles,
+            'glossary' => $glossary,
+            'contentGlossary' => $contentGlossary,
+            'publisher' => $publisher
+        ]);
+    }
+    public function podcastEpisode(Request $request)
+    {
+        // return $request->all();
+        $book = Book::where('_id', $request->podcast_id)->first();
+
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+        if ($request->episode_id) {
+            $bookContent = BookContent::where('_id', $request->episode_id)->first();
+        } else {
+
+            $bookContent = new BookContent();
+        }
+        if ($request->podcast_file) {
+            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+            $path =   $request->podcast_file->storeAs('files', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $bookContent->file = $base_path . $path;
+            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+                $bookContent->type = 1;
+            } else {
+                $bookContent->type = 2;
+            }
+            $bookContent->book_name = $request->podcast_file->getClientOriginalName();
+        }
+
+        $bookContent->book_id = $book->_id;
+        $bookContent->title = $request->episode_title;
+        $bookContent->host = $request->host;
+        $bookContent->guest = $request->guest;
+        $bookContent->file_duration = @$request->duration[0];
+
+        $bookContent->save();
+
+        return redirect()->back()->with('msg', 'Episode Saved !');
     }
 }
