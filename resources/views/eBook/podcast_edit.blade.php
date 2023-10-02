@@ -669,9 +669,9 @@
                                                             <div class="form-group">
                                                                 <label for="">Price</label>
                                                                 <input type="number" class="form-control price"
-                                                                    name="price" placeholder="" disabled required
+                                                                    name="price" placeholder=""  required
                                                                     value="{{ $book->price }}"
-                                                                    {{ $book->p_type == 0 ? '' : '' }}>
+                                                                    {{ $book->p_type == 0 ? 'disabled' : '' }}>
 
                                                             </div>
 
@@ -683,7 +683,7 @@
                                                                 <div class="custom-file">
                                                                     <input type="file"
                                                                         class="custom-file-input sample-file"
-                                                                        id="" name="sample_file" disabled>
+                                                                        id="" name="sample_file"   {{ $book->p_type == 0 ? 'disabled' : '' }} >
                                                                     <label class="custom-file-label"
                                                                         for="inputGroupFile01">Choose
                                                                         file</label>

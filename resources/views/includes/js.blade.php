@@ -537,7 +537,7 @@
                            }
                            return `<td>
                             <div class="d-flex">
-                               `+edit +
+                               ` + edit +
                                list +
                                `<a  class="ml-2" href="{{ url('book/update-status/`+row._id+`') }}"><i class="` +
                                eye +
@@ -3437,6 +3437,20 @@
            $('#edit-episode').modal('show');
 
        }
+
+       function editLessonModal(key) {
+           var title = $('#title' + key).html();
+           var description = $('#description' + key).html();
+           var epi_id = $('#episode_id' + key).val();
+           var les_id = $('#les_id' + key).val();
+           $('#modal_lesson_description').html(description);
+           $('#modal-lesson-title').val(title);
+           $('#course_id').val(epi_id);
+           $('#les_id').val(les_id);
+           $('#edit-episode').modal('show');
+
+       }
+
        $('form').on('submit', function() {
            if ($('input:focus').length) {
                return false;

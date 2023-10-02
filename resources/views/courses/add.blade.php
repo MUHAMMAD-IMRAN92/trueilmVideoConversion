@@ -128,15 +128,54 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12 " id="lesson-heading" style="display:none">
-                                                        <h2>Lessons:</h2>
+                                                    <div class="form-group col-md-6 mt-2">
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(0)" checked
+                                                                        value="0">
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Freemium</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(1)" value="1">
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Premium</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
                                                     </div>
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+                                                            <label for="">Price</label>
+                                                            <input type="number" class=" price form-control"
+                                                                name="price" placeholder="" id=""
+                                                                value="" required disabled>
+
+                                                        </div>
+
+
+                                                    </div>
+
                                                 </div>
 
                                                 <div class="col-12" style="text-align: right">
                                                     {{-- <div class=""> --}}
-                                                    <span class="btn btn-primary mr-1 mb-1" id="add-lesson">Add
-                                                        Lesson</span>
+                                                    {{-- <span class="btn btn-primary mr-1 mb-1" id="add-lesson">Add
+                                                        Lesson</span> --}}
                                                     {{-- </div> --}}
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1"
                                                         id="submit-btn">Submit</button>

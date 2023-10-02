@@ -82,6 +82,8 @@ class CourseController extends Controller
         $course->added_by = $this->user->id;
         $course->status = 1;
         $course->age = $request->age;
+        $course->p_type = $request->pRadio;
+        $course->price = $request->price;
         $course->category_id = $request->category_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
@@ -121,7 +123,8 @@ class CourseController extends Controller
                 $courseLesson->save();
             }
         }
-        return redirect()->to('/courses')->with('msg', 'Course Saved Successfully!');;
+
+        return redirect()->to('/courses/edit/' . $course->_id)->with('msg', 'Course Saved Successfully!');;
     }
 
     public function edit($id)
@@ -147,6 +150,8 @@ class CourseController extends Controller
         $course->status = 1;
         $course->age = $request->age;
         $course->category_id = $request->category_id;
+        $course->p_type = $request->pRadio;
+        $course->price = $request->price;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
@@ -186,7 +191,7 @@ class CourseController extends Controller
                 $courseLesson->save();
             }
         }
-        return redirect()->to('/courses')->with('msg', 'Course Saved Successfully!');;
+        return redirect()->back()->with('msg', 'Course Saved Successfully!');;
     }
     public function updateStatus($id)
     {
@@ -198,5 +203,34 @@ class CourseController extends Controller
         ]);
 
         return redirect()->back();
+    }
+    public function courseLessons(Request $request)
+    {
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+        if ($request->les_id) {
+            $courseLesson = CourseLesson::where('_id', $request->les_id)->first();
+        } else {
+            $courseLesson = new CourseLesson();
+        }
+
+        $courseLesson->title = $request->lesson_title;
+        $courseLesson->description = $request->description;
+        $courseLesson->course_id = $request->course_id;
+        $courseLesson->added_by = $this->user->id;
+        $courseLesson->file_duration = @$request->duration[0];
+        if ($request->podcast_file) {
+            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+            $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $courseLesson->file = $base_path . $path;
+            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+                $courseLesson->type = 1;
+            } else {
+                $courseLesson->type = 2;
+            }
+            $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+        }
+        $courseLesson->save();
+        return redirect()->back()->with('msg', 'Episode Saved !');
     }
 }

@@ -285,7 +285,7 @@
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="sample-file" name="sample_file" disabled>
+                                                                    id="sample-file" name="sample_file"   {{ $book->p_type == 0 ? 'disabled' : '' }}>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
