@@ -347,9 +347,7 @@
                                     <div class="col-12 lang translation-div-{{ $key }}">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="spinner-grow text-dark"
-                                                    style="margin-left:50% !important;display:none"
-                                                    id="spinner-grow-{{ $key }}"></div>
+
                                                 <div class="row">
                                                     <input type="hidden" id="ayat-id-{{ $key }}"
                                                         value="{{ $aya->_id }}">
@@ -565,6 +563,9 @@
 
                                                     </div>
                                                 </div>
+                                                <div class="spinner-grow text-dark"
+                                                    style="margin-left:50% !important;display:none"
+                                                    id="spinner-grow-{{ $key }}"></div>
                                                 <div id="notes-editble-{{ $key }}" style="display:none">
                                                     <div class="row checkclass" style=" text-align:right"
                                                         id="editble-{{ $key }}">

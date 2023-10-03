@@ -2235,7 +2235,7 @@
        function saveTranslation(authorLang, key, type) {
            window.location.reload();
 
-           $('.spinner-grow-' + key).css('display', 'block');
+           $('#spinner-grow-' + key).css('display', 'block');
            $('#textarea-div-' + key).css('display', 'none');
            //    alert('ok');
            var lang = $('#lang-select-' + key).val();
@@ -2276,12 +2276,12 @@
                    $('#non-edit-lang-select-' + key).html(response.lang_title);
                    $('#trans-input-' + key).val(response.translation);
                    $('#non-edit-para-des-' + key).html(response.translation);
-                   //    $('#non-edit-para-des-' + key).css('display', 'block');
+                   $('#non-edit-para-des-' + key).css('display', 'block');
                    $('#editble-' + key).css('display', 'none');
                    $('#spinner-grow-' + key).css('display', 'none');
-                   $('#notes-editble' + key).css('display', 'none');
+                   $('#notes-editble-' + key).css('display', 'none');
 
-                   //    $('#non-editble-translation-' + key).css('display', 'block');
+                //    $('#non-editble-translation-' + key).css('display', 'block');
                }
 
            });
