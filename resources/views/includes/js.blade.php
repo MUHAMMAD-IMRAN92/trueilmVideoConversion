@@ -2279,8 +2279,7 @@
                    $('#non-edit-para-des-' + key).css('display', 'block');
                    $('#editble-' + key).css('display', 'none');
                    $('#spinner-grow-' + key).css('display', 'none');
-                   $('#notes-editble-' + key).css('display', 'none');
-
+                   $('#revelation-editble-' + key).css('display', 'none');
                 //    $('#non-editble-translation-' + key).css('display', 'block');
                }
 
