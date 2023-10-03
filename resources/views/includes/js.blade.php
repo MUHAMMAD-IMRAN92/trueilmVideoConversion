@@ -2237,6 +2237,8 @@
 
            $('#spinner-grow-' + key).css('display', 'block');
            $('#textarea-div-' + key).css('display', 'none');
+           $('#revelation-editble-' + key).css('display', 'none');
+           $('#notes-editble-' + key).css('display', 'none');
            //    alert('ok');
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
@@ -2280,7 +2282,7 @@
                    $('#editble-' + key).css('display', 'none');
                    $('#spinner-grow-' + key).css('display', 'none');
                    $('#revelation-editble-' + key).css('display', 'none');
-                //    $('#non-editble-translation-' + key).css('display', 'block');
+                   //    $('#non-editble-translation-' + key).css('display', 'block');
                }
 
            });
