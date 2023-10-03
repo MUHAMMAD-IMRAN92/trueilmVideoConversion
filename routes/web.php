@@ -170,7 +170,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
 
     //lesson quiz
-    Route::get('lesson/quiz/add/{id}', [App\Http\Controllers\CourseController::class, 'addQuiz'])->name('quiz.add');
+    Route::get('lesson/quiz/add/{course_id}/{id}', [App\Http\Controllers\CourseController::class, 'addQuiz'])->name('quiz.add');
+    Route::post('lesson/quiz/post', [App\Http\Controllers\CourseController::class, 'postQuiz'])->name('quiz.post');
+    Route::get('lesson/quiz/edit/{course_id}/{id}', [App\Http\Controllers\CourseController::class, 'manageQuiz'])->name('quiz.add');
+    Route::post('lesson/quiz/update', [App\Http\Controllers\CourseController::class, 'updateQuiz'])->name('quiz.update');
 
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');

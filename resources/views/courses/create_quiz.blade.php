@@ -1,0 +1,181 @@
+@extends('layouts.default_layout')
+
+@section('content')
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-left mb-0">Create Quiz </h2>
+                            <div class="breadcrumb-wrapper col-12">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+                    <div class="form-group breadcrum-right">
+
+                    </div>
+                </div>
+            </div>
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p class="mb-0">
+                        {{ $error }}
+                    </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                    </button>
+                </div>
+            @endforeach
+            <div class="content-body">
+
+                <!-- Basic Vertical form layout section start -->
+                <section id="basic-vertical-layouts">
+                    <div class="row match-height">
+
+                        <div class="col-md-12 col-12">
+
+
+                            <form class="form form-vertical" id="disable-btn-submit" method="POST"
+                                action="{{ route('quiz.post') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="input_append">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <div class="form-body">
+                                                    <div class="row append-inputs">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <h6>Question</h6>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id="question"
+                                                                        class="form-control" name="question[]" required
+                                                                        placeholder="" required>
+                                                                </div>
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <h6>Correct</h6>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <h6>Incorrect</h6>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row col-12 ">
+                                                                    <div class="col-6 d-flex">
+
+                                                                        <div class="col-6">
+                                                                            <input type="hidden" id=""
+                                                                                class="form-control" name="lesson_id"
+                                                                                required placeholder=""
+                                                                                value="{{ $lesson_id }}">
+                                                                            <input type="hidden" id=""
+                                                                                class="form-control" name="course_id"
+                                                                                required placeholder=""
+                                                                                value="{{ $course->_id }}">
+                                                                            <input type="text"
+                                                                                class="question form-control"
+                                                                                name="correct-0[]" required placeholder=""
+                                                                                required>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <input type="text" id="question"
+                                                                                class="form-control" name="correct-0[]"
+                                                                                required placeholder="" required>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-6 ">
+
+                                                                        <div class="col-12  d-flex">
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control"
+                                                                                    name="incorrect-0[]" required
+                                                                                    placeholder="" required>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control"
+                                                                                    name="incorrect-0[]" required
+                                                                                    placeholder="" required>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="col-12  d-flex">
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control"
+                                                                                    name="incorrect-0[]" required
+                                                                                    placeholder="" required>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control"
+                                                                                    name="incorrect-0[]" required
+                                                                                    placeholder="" required>
+                                                                            </div>
+
+
+                                                                        </div> <br>
+
+                                                                        <div class="col-12  d-flex">
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control"
+                                                                                    name="incorrect-0[]" required
+                                                                                    placeholder="" required>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control"
+                                                                                    name="incorrect-0[]" required
+                                                                                    placeholder="" required>
+                                                                            </div>
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12" style="text-align: right">
+                                    <span type="" onclick="addQuestion()" class="btn btn-primary mr-1 mb-1"
+                                        id="submit-btn">Add
+                                        Question</span>
+                                    <button type="submit" class="btn btn-primary mr-1 mb-1"
+                                        id="submit-btn">Submit</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </section>
+                <!-- // Basic Vertical form layout section end -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+@endsection

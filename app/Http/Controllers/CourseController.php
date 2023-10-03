@@ -8,6 +8,8 @@ use App\Models\CourseLesson;
 use App\Models\LessonVideo;
 use Illuminate\Http\Request;
 use App\Models\ContentTag;
+use App\Models\Questionaire;
+use App\Models\QuestionaireOptions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Tag;
@@ -230,12 +232,134 @@ class CourseController extends Controller
             }
             $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
         }
+        if ($request->module_overview) {
+            $file_name = time() . '.' . $request->module_overview->getClientOriginalExtension();
+            $path =   $request->module_overview->storeAs('courses_videos', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $courseLesson->module_overview = $base_path . $path;
+
+            $courseLesson->module_overview_name = $request->module_overview->getClientOriginalName();
+        }
+
+        if ($request->kwl_worksheet) {
+            $file_name = time() . '.' . $request->kwl_worksheet->getClientOriginalExtension();
+            $path =   $request->kwl_worksheet->storeAs('courses_videos', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $courseLesson->kwl_worksheet = $base_path . $path;
+
+            $courseLesson->kwl_worksheet_name = $request->kwl_worksheet->getClientOriginalName();
+        }
+        if ($request->lesson_notes) {
+            $file_name = time() . '.' . $request->lesson_notes->getClientOriginalExtension();
+            $path =   $request->lesson_notes->storeAs('courses_videos', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $courseLesson->lesson_notes = $base_path . $path;
+
+            $courseLesson->lesson_notes_name = $request->lesson_notes->getClientOriginalName();
+        }
         $courseLesson->save();
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
 
-    public function addQuiz($id)
+    public function addQuiz($course_id, $id)
     {
-        return $id;
+        $course =    Course::where('_id', $course_id)->first();
+        return view('courses.create_quiz', [
+            'lesson_id' => $id,
+            'course' => $course
+        ]);
+    }
+    public function postQuiz(Request $request)
+    {
+        if ($request->question) {
+            foreach ($request->question as $key => $q) {
+                $question = new Questionaire();
+                $question->question = $q;
+                $question->lesson_id = $request->lesson_id;
+                $question->sequence = $key;
+                $question->added_by = $this->user->_id;
+                $question->save();
+
+                $correct = 'correct-' . $key;
+                $incorrect = 'incorrect-' . $key;
+
+                foreach ($request->$correct as $key1 => $corr) {
+                    $questionOpt = new QuestionaireOptions();
+                    $questionOpt->question_id =  $question->_id;
+                    $questionOpt->option =  $corr;
+                    $questionOpt->type =  1;
+                    $questionOpt->added_by = $this->user->_id;
+                    $questionOpt->save();
+                }
+                foreach ($request->$incorrect as $key2 => $incorr) {
+                    $questionOpt = new QuestionaireOptions();
+                    $questionOpt->question_id =  $question->_id;
+                    $questionOpt->option =  $incorr;
+                    $questionOpt->type =  0;
+                    $questionOpt->added_by = $this->user->_id;
+                    $questionOpt->save();
+                }
+            }
+
+            $course =    CourseLesson::where('_id', $request->lesson_id)->update([
+                'quiz' => 1
+            ]);
+        }
+        return redirect()->to('/course/edit/' . $request->course_id);
+    }
+    public function manageQuiz($course_id, $id)
+    {
+        $course =    Course::where('_id', $course_id)->first();
+        $question  = Questionaire::where('lesson_id', $id)->with(['options' => function ($q) {
+            $q->orderBy('type', 'desc');
+        }])->get();
+        return view('courses.edit_quiz', [
+            'lesson_id' => $id,
+            'course' => $course,
+            'question' => $question
+        ]);
+    }
+    public function updateQuiz(Request $request)
+    {
+        // return $request->all();
+        $questiondel =  Questionaire::where('lesson_id', $request->lesson_id)->pluck('_id');
+        QuestionaireOptions::whereIn('question_id', $questiondel)->delete();
+        Questionaire::where('lesson_id', $request->lesson_id)->delete();
+
+        if ($request->question) {
+            foreach ($request->question as $key => $q) {
+                $question = new Questionaire();
+                $question->question = $q;
+                $question->lesson_id = $request->lesson_id;
+                $question->sequence = $key;
+                $question->added_by = $this->user->_id;
+                $question->save();
+
+                $correct = 'correct-' . $key;
+                $incorrect = 'incorrect-' . $key;
+
+                foreach ($request->$correct as $key1 => $corr) {
+                    $questionOpt = new QuestionaireOptions();
+                    $questionOpt->question_id =  $question->_id;
+                    $questionOpt->option =  $corr;
+                    $questionOpt->type =  1;
+                    $questionOpt->added_by = $this->user->_id;
+                    $questionOpt->save();
+                }
+                foreach ($request->$incorrect as $key2 => $incorr) {
+                    $questionOpt = new QuestionaireOptions();
+                    $questionOpt->question_id =  $question->_id;
+                    $questionOpt->option =  $incorr;
+                    $questionOpt->type =  0;
+                    $questionOpt->added_by = $this->user->_id;
+                    $questionOpt->save();
+                }
+            }
+
+            $course =    CourseLesson::where('_id', $request->lesson_id)->update([
+                'quiz' => 1
+            ]);
+        }
+        return redirect()->to('/course/edit/' . $request->course_id);
     }
 }

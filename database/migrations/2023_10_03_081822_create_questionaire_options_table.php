@@ -15,7 +15,6 @@ class CreateQuestionaireOptionsTable extends Migration
     {
         Schema::create('questionaire_options', function (Blueprint $table) {
             $table->id();
-            $table->id();
             $table->unsignedBigInteger('question_id');
             $table->string('option');
             $table->integer('type');

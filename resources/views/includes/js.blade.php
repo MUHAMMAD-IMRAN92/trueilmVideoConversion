@@ -2176,8 +2176,8 @@
            setTimeout(() => {
                $('#translation-delete-span-' + key).css('display', 'none');
 
-            }, 3000);
-            window.location.reload();
+           }, 3000);
+           window.location.reload();
        }
 
        function editable(key) {
@@ -3454,6 +3454,98 @@
            $('#les_id').val(les_id);
            $('#edit-episode').modal('show');
 
+       }
+
+       function addQuestion() {
+           var html;
+           var count = $('.question').length
+           html = `<div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <div class="form-body">
+                                                    <div class="row append-inputs">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <label for="">Title</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id="question"
+                                                                        class="form-control" name="question[]" required
+                                                                        placeholder="" required>
+                                                                </div>
+                                                                <br>
+                                                                <div class="row col-12 ">
+                                                                    <div class="col-6 d-flex">
+                                                                        <div class="col-6">
+                                                                            <input type="text" id="question"
+                                                                                class="form-control" name="correct-`+count+`[]"
+                                                                                required placeholder="" required>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <input type="text"
+                                                                                class="question form-control" name="correct-`+count+`[]"
+                                                                                required placeholder="" required>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-6 ">
+                                                                        <div class="col-12  d-flex">
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    required placeholder="" required>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    required placeholder="" required>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="col-12  d-flex">
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    required placeholder="" required>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    required placeholder="" required>
+                                                                            </div>
+
+
+                                                                        </div> <br>
+
+                                                                        <div class="col-12  d-flex">
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    required placeholder="" required>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <input type="text" id="question"
+                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    required placeholder="" required>
+                                                                            </div>
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>`;
+
+           $('.input_append').append(html);
        }
 
        $('form').on('submit', function() {

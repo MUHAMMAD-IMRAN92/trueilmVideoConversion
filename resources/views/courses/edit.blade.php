@@ -227,7 +227,9 @@
                                                     <tr>
                                                         <th class="">Title</th>
                                                         <th class="description-td">Description</th>
-
+                                                        <th>Module Overview</th>
+                                                        <th>KWL Worksheet</th>
+                                                        <th>Lesson Notes</th>
                                                         <th>Content</th>
                                                         <th>Quiz</th>
                                                         <th>Action</th>
@@ -245,6 +247,15 @@
                                                             <td id="description{{ $key }}">
                                                                 {{ $les->description }}</td>
 
+
+
+                                                            <td> <a target="blank" href="{{ $les->module_overview }}">
+                                                                    <i class="fa fa-eye" style="font-size:20px !important"></i>
+                                                                </a></td>
+                                                            <td> <a target="blank" href="{{ $les->kwl_worksheet }}">
+                                                                    <i class="fa fa-eye" style="font-size:20px !important"></i></a></td>
+                                                            <td> <a target="blank" href="{{ $les->lesson_notes }}">
+                                                                    <i class="fa fa-eye" style="font-size:20px !important" ></i></a></td>
                                                             <td>
                                                                 @if ($les->type == 1)
                                                                     <audio src="{{ $les->file }}" style=""
@@ -256,10 +267,12 @@
                                                             </td>
                                                             @if ($les->quiz == 0)
                                                                 <td> <a class="btn btn-primary"
-                                                                        href="{{ url('lesson/quiz/add/' . $les->_id) }}">Add
+                                                                        href="{{ url('lesson/quiz/add/' . $course->_id . '/' . $les->_id) }}">Add
                                                                         Quiz</a> </td>
                                                             @else
-                                                                <td> <a class="btn btn-primary" href=""> Manage
+                                                                <td> <a class="btn btn-primary"
+                                                                        href="{{ url('lesson/quiz/edit/' . $course->_id . '/' . $les->_id) }}">
+                                                                        Edit
                                                                         Quiz</a> </td>
                                                             @endif
                                                             <td> <i class="fa fa-pencil pointer"
@@ -518,71 +531,46 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="modal fade bd-example-modal-lg" id="edit-episode" tabindex="-1" role="dialog"
-                                aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <form action="{{ url('course/lessons') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        <div class="form-body">
-                                            @csrf
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Lesson
-                                                    </h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
                                                     <div class="col-md-12">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Title</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="hidden" id="course_id"
-                                                                        class="form-control" name="course_id"
-                                                                        placeholder="" value="{{ $course->_id }}">
-                                                                    <input type="hidden" id="les_id"
-                                                                        class="form-control" name="les_id"
-                                                                        placeholder="">
-                                                                    <input type="text" class="form-control"
-                                                                        id="modal-lesson-title" name="lesson_title"
-                                                                        placeholder="" required>
-
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <label for="">Description</label>
-                                                        <fieldset class="form-group">
-                                                            <textarea class="form-control" id="modal_lesson_description" rows="3" placeholder="" name="description"></textarea>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Content</label>
+                                                            <label for="basicInputFile">Module Overview
+                                                            </label>
                                                             <div class="custom-file">
                                                                 <input type="file"
                                                                     class="custom-file-input  episode-custom-file-input"
-                                                                    id="fileinput-0" onchange="duration(0)"
-                                                                    name="podcast_file">
-                                                                <input type="hidden" name="duration[]"
-                                                                    id="input-duration-0" />
-                                                                <span id="duration-info-0"></span>
+                                                                    id="fileinput" name="module_overview" required>
+
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">KWL Worksheet
+
+                                                            </label>
+                                                            <div class="custom-file">
+                                                                <input type="file"
+                                                                    class="custom-file-input  episode-custom-file-input"
+                                                                    id="fileinput" name="kwl_worksheet" required>
+
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Lesson notes
+                                                            </label>
+                                                            <div class="custom-file">
+                                                                <input type="file"
+                                                                    class="custom-file-input  episode-custom-file-input"
+                                                                    id="fileinput" name="lesson_notes" required>
+
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
@@ -597,17 +585,129 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
                                 </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal fade bd-example-modal-lg" id="edit-episode" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <form action="{{ url('course/lessons') }}" method="POST" enctype="multipart/form-data">
+                                    <div class="form-body">
+                                        @csrf
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Lesson
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col-md-12">
+                                                    <fieldset class="form-group">
+                                                        <label for="basicInputFile">Title</label>
+                                                        <div class="custom-file">
+                                                            <div class="position-relative">
+                                                                <input type="hidden" id="course_id" class="form-control"
+                                                                    name="course_id" placeholder=""
+                                                                    value="{{ $course->_id }}">
+                                                                <input type="hidden" id="les_id" class="form-control"
+                                                                    name="les_id" placeholder="">
+                                                                <input type="text" class="form-control"
+                                                                    id="modal-lesson-title" name="lesson_title"
+                                                                    placeholder="" required>
+
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="">Description</label>
+                                                    <fieldset class="form-group">
+                                                        <textarea class="form-control" id="modal_lesson_description" rows="3" placeholder="" name="description"></textarea>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <fieldset class="form-group">
+                                                        <label for="basicInputFile">Content</label>
+                                                        <div class="custom-file">
+                                                            <input type="file"
+                                                                class="custom-file-input  episode-custom-file-input"
+                                                                id="fileinput-0" onchange="duration(0)"
+                                                                name="podcast_file">
+                                                            <input type="hidden" name="duration[]"
+                                                                id="input-duration-0" />
+                                                            <span id="duration-info-0"></span>
+                                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                                file</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <fieldset class="form-group">
+                                                        <label for="basicInputFile">Module Overview
+                                                        </label>
+                                                        <div class="custom-file">
+                                                            <input type="file"
+                                                                class="custom-file-input  episode-custom-file-input"
+                                                                id="fileinput" name="module_overview">
+
+                                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                                file</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <fieldset class="form-group">
+                                                        <label for="basicInputFile">KWL Worksheet
+
+                                                        </label>
+                                                        <div class="custom-file">
+                                                            <input type="file"
+                                                                class="custom-file-input  episode-custom-file-input"
+                                                                id="fileinput" name="kwl_worksheet">
+
+                                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                                file</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <fieldset class="form-group">
+                                                        <label for="basicInputFile">Lesson notes
+                                                        </label>
+                                                        <div class="custom-file">
+                                                            <input type="file"
+                                                                class="custom-file-input  episode-custom-file-input"
+                                                                id="fileinput" name="lesson_notes">
+
+                                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                                file</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-                </section>
-                <!-- // Basic Vertical form layout section end -->
-
             </div>
+
+            </section>
+            <!-- // Basic Vertical form layout section end -->
+
         </div>
+    </div>
     </div>
 
     <!-- END: Content-->
