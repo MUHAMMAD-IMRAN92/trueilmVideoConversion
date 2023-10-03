@@ -229,6 +229,7 @@
                                                         <th class="description-td">Description</th>
 
                                                         <th>Content</th>
+                                                        <th>Quiz</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -253,7 +254,14 @@
                                                                         controls></video>
                                                                 @endif
                                                             </td>
-
+                                                            @if ($les->quiz == 0)
+                                                                <td> <a class="btn btn-primary"
+                                                                        href="{{ url('lesson/quiz/add/' . $les->_id) }}">Add
+                                                                        Quiz</a> </td>
+                                                            @else
+                                                                <td> <a class="btn btn-primary" href=""> Manage
+                                                                        Quiz</a> </td>
+                                                            @endif
                                                             <td> <i class="fa fa-pencil pointer"
                                                                     onclick="editLessonModal({{ $key }})"></i>
                                                             </td>
@@ -281,8 +289,7 @@
                                             @csrf
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Author -
-                                                        Language
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Content
                                                     </h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
@@ -438,20 +445,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <h2>Lessons:</h2>
-                                                        <div class="row">
-                                                            @foreach ($course->lessons as $lesson)
-                                                                <div class="col-md-4">
-                                                                    <video style="width:300px ; height:300px"
-                                                                        src="{{ $lesson->video }}" controls></video>
-                                                                    <h4>{{ $lesson->title }}</h4>
-                                                                    <p>{!! $lesson->description !!}</p>
-                                                                    {{--  <a
-                                                                            href="{{ url('lesson/delete/' . $lesson->id) }}"
-                                                                            class="btn btn-danger">Delete</a> --}}
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
+
 
 
                                                     </div>
@@ -476,7 +470,7 @@
                                             @csrf
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Episode
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Lesson
                                                     </h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
@@ -544,7 +538,7 @@
                                             @csrf
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Episode
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Lesson
                                                     </h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">

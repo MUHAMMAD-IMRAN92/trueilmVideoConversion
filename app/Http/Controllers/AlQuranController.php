@@ -270,7 +270,7 @@ class AlQuranController extends Controller
     public function updateTranslation(Request $request)
     {
         ini_set("memory_limit", "-1");
-        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         // return $request->all();
         $alQuranTranslation = AlQuranTranslation::where('ayat_id', $request->ayatId)->where('author_lang', $request->author_lang)->where('type', (int)$request->type)->first();
         if ($alQuranTranslation) {
@@ -281,8 +281,7 @@ class AlQuranController extends Controller
             $alQuranTranslation->type = (int)$request->type;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
-            $alQurantranslationsclient =  $client->index('alQurantranslations')->updateDocuments(array($alQuranTranslation), '_id');
-
+            // $alQurantranslationsclient =  $client->index('alQurantranslations')->updateDocuments(array($alQuranTranslation), '_id');
         } else {
 
             $alQuran = AlQuran::where('_id', $request->ayatId)->first();
@@ -294,7 +293,7 @@ class AlQuranController extends Controller
             $alQuranTranslation->type = (int)$request->type;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
-            $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments(array($alQuranTranslation), '_id');
+            // $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments(array($alQuranTranslation), '_id');
         }
         SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
 

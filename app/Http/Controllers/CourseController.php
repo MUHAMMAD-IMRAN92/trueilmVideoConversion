@@ -233,4 +233,9 @@ class CourseController extends Controller
         $courseLesson->save();
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
+
+    public function addQuiz($id)
+    {
+        return $id;
+    }
 }

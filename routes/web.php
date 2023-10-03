@@ -169,6 +169,10 @@ Route::middleware(['auth'])->group(function () {
     //course lessons
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
 
+    //lesson quiz
+    Route::get('lesson/quiz/add/{id}', [App\Http\Controllers\CourseController::class, 'addQuiz'])->name('quiz.add');
+
+
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
     Route::get('/fileupload', [App\Http\Controllers\UserController::class, 'fileupload']);
