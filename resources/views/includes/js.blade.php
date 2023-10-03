@@ -2171,13 +2171,13 @@
                    $('#trans-input-' + key).html('');
                },
            });
-           location.reload();
            $('#translation-delete-span-' + key).css('display', 'block');
 
            setTimeout(() => {
                $('#translation-delete-span-' + key).css('display', 'none');
 
-           }, 3000);
+            }, 3000);
+            window.location.reload();
        }
 
        function editable(key) {
