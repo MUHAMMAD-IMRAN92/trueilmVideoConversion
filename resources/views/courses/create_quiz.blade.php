@@ -64,7 +64,7 @@
                                                                     <div class="col-6">
                                                                         <h6>Correct Options:</h6>
                                                                     </div>
-                                                                    <div class="col-6">
+                                                                    <div class="col-5 ml-2">
                                                                         <h6>Incorrect Options:</h6>
                                                                     </div>
 
