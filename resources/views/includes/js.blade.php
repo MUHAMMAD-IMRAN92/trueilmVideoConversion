@@ -3466,7 +3466,7 @@
                                                     <div class="row append-inputs">
                                                         <div class="col-12">
                                                             <div class="form-group">
-                                                                <h6>Question</h6>
+                                                                <h6>Question :</h6>
                                                                 <div class="position-relative">
                                                                     <input type="text" id="question"
                                                                         class="form-control" name="question[]" required
@@ -3475,10 +3475,10 @@
                                                                 <br>
                                                                 <div class="row">
                                                                     <div class="col-6">
-                                                                        <h6>Correct</h6>
+                                                                        <h6>Correct Options:</h6>
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <h6>Incorrect</h6>
+                                                                        <h6>Incorrect Options:</h6>
                                                                     </div>
 
                                                                 </div>
