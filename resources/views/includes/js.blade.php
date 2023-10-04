@@ -3466,16 +3466,25 @@
                                                     <div class="row append-inputs">
                                                         <div class="col-12">
                                                             <div class="form-group">
-                                                                <label for="">Title</label>
+                                                                <h6>Question</h6>
                                                                 <div class="position-relative">
                                                                     <input type="text" id="question"
                                                                         class="form-control" name="question[]" required
                                                                         placeholder="" required>
                                                                 </div>
                                                                 <br>
-                                                                <div class="row col-12 ">
-                                                                    <div class="col-6 d-flex">
-                                                                        <div class="col-6">
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <h6>Correct</h6>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <h6>Incorrect</h6>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="row col-12 m-0 p-0">
+                                                                    <div class="col-6 d-flex m-0 p-0">
+                                                                        <div class="col- m-0 p-0">
                                                                             <input type="text" id="question"
                                                                                 class="form-control" name="correct-`+count+`[]"
                                                                                 required placeholder="" required>
@@ -3487,9 +3496,9 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-6 ">
-                                                                        <div class="col-12  d-flex">
-                                                                            <div class="col-6">
+                                                                    <div class="col-6 m-0 p-0">
+                                                                        <div class="col-12  d-flex m-0 p-0">
+                                                                            <div class="col-6 ">
                                                                                 <input type="text" id="question"
                                                                                     class="form-control" name="incorrect-`+count+`[]"
                                                                                     required placeholder="" required>
@@ -3503,8 +3512,8 @@
 
                                                                         </div>
                                                                         <br>
-                                                                        <div class="col-12  d-flex">
-                                                                            <div class="col-6">
+                                                                        <div class="col-12  d-flex m-0 p-0">
+                                                                            <div class="col-6 ">
                                                                                 <input type="text" id="question"
                                                                                     class="form-control" name="incorrect-`+count+`[]"
                                                                                     required placeholder="" required>
@@ -3518,7 +3527,7 @@
 
                                                                         </div> <br>
 
-                                                                        <div class="col-12  d-flex">
+                                                                        <div class="col-12  d-flex m-0 p-0">
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
                                                                                     class="form-control" name="incorrect-`+count+`[]"
