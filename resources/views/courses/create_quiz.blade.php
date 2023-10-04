@@ -70,10 +70,10 @@
 
                                                                 </div>
 
-                                                                <div class="row col-12 ">
-                                                                    <div class="col-6 d-flex">
+                                                                <div class="row col-12 m-0 p-0">
+                                                                    <div class="col-6 d-flex m-0 p-0">
 
-                                                                        <div class="col-6">
+                                                                        <div class="col-6 m-0 p-0">
                                                                             <input type="hidden" id=""
                                                                                 class="form-control" name="lesson_id"
                                                                                 required placeholder=""

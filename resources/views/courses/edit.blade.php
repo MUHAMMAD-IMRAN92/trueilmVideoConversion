@@ -249,13 +249,35 @@
 
 
 
-                                                            <td> <a target="blank" href="{{ $les->module_overview }}">
-                                                                    <i class="fa fa-eye" style="font-size:20px !important"></i>
-                                                                </a></td>
-                                                            <td> <a target="blank" href="{{ $les->kwl_worksheet }}">
-                                                                    <i class="fa fa-eye" style="font-size:20px !important"></i></a></td>
-                                                            <td> <a target="blank" href="{{ $les->lesson_notes }}">
-                                                                    <i class="fa fa-eye" style="font-size:20px !important" ></i></a></td>
+                                                            <td>
+                                                                @if ($les->module_overview)
+                                                                    <a target="blank" href="{{ $les->module_overview }}">
+                                                                        <i class="fa fa-eye"
+                                                                            style="font-size:20px !important"></i>
+                                                                    </a>
+                                                                @else
+                                                                    <span>NA</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+
+                                                                @if ($les->kwl_worksheet)
+                                                                    <a target="blank" href="{{ $les->kwl_worksheet }}">
+                                                                        <i class="fa fa-eye"
+                                                                            style="font-size:20px !important"></i></a>
+                                                                @else
+                                                                    <span>NA</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                @if ($les->lesson_notes)
+                                                                    <a target="blank" href="{{ $les->lesson_notes }}">
+                                                                        <i class="fa fa-eye"
+                                                                            style="font-size:20px !important"></i></a>
+                                                                @else
+                                                                    <span>NA</span>
+                                                                @endif
+                                                            </td>
                                                             <td>
                                                                 @if ($les->type == 1)
                                                                     <audio src="{{ $les->file }}" style=""
