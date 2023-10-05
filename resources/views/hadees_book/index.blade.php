@@ -125,9 +125,9 @@
                                         </td>
                                         @php
                                             $count = 0;
-                                            if ($type == 3) {
+                                            if ($content_type == 3) {
                                                 $count = $combination->translation_count;
-                                            } elseif ($type == 4) {
+                                            } elseif ($content_type == 4) {
                                                 $count = $combination->tafseer_count;
                                             }
                                         @endphp
