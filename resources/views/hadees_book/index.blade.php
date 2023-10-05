@@ -11,9 +11,9 @@
 
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="content-header-left col-md-10 col-12 mb-2">
                     <div class="row breadcrumbs-top">
-                        <div class="col-4">
+                        <div class="col-5">
                             <h2 class="content-header-title float-left mb-0">Hadith Books</h2>
                             <div class="breadcrumb-wrapper col-12">
 
@@ -22,15 +22,15 @@
                         <div class="col-6 d-flex flex-row-reverse"style="margin-left: 7.5%; ">
                             <form action="{{ url('hadith/books/' . $content_type) }}" method="GET" class="">
                                 <div class="form-label-group">
-                                    <select class="select2 form-control checkclass" name="surah" id="">
+                                    <select class="select2 form-control checkclass" name="book_id" id="">
                                         <option selected disabled>Select
-                                            Surah
+                                            Book
                                         </option>
                                         <option value="">All
                                         </option>
                                         @foreach ($hadithDropDown as $hadith)
                                             <option value="{{ $hadith->_id }}"
-                                                {{ request()->surah == $hadith->_id ? 'selected' : '' }}>
+                                                {{ request()->book_id == $hadith->_id ? 'selected' : '' }}>
                                                 {{ $hadith->title }}
                                             </option>
                                         @endforeach
@@ -48,12 +48,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                    <div class="form-group breadcrum-right">
+                <div class="content-header-right text-md-right col-md-2 col-2 d-md-block d-none">
+                    <div class="form-group breadcrum-right mr-1">
 
                         <div class="dropdown">
                             <a href="{{ url('hadith/book/create/' . $content_type) }}"> <button
-                                    class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
+                                    class="btn-icon btn btn-primary  btn-sm dropdown-toggle" type="button"><span
                                         class="add-brand-font">Add Hadith Book</span> <i class="fa fa-plus"
                                         aria-hidden="true"></i>
                                 </button></a>

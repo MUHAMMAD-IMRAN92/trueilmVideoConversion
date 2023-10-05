@@ -36,7 +36,6 @@ class HadeesController extends Controller
     }
     public function index(Request $request, $type)
     {
-
         $hadeesBookCombination = HadeesBookCombination::when($request->book_id, function ($q) use ($request) {
             $q->where('book_id', $request->book_id);
         })->paginate(10);
