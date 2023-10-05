@@ -462,42 +462,44 @@
 
                                                     </div>
                                                 </div>
+                                                @php
+                                                    if ($type == 1) {
+                                                        $title = '~ Translation ~';
+                                                    } else {
+                                                        $title = '~ Tafseer ~';
+                                                    }
+                                                @endphp
+                                                <b class="mr-1"> {{ $title }}</b>
                                                 <div class="row ml-1"
                                                     style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
                                                     <span class="" id="non-edit-para-des-{{ $key }}"
                                                         style="margin-left:10px!important; ">
-                                                        @php
-                                                            if ($type == 1) {
-                                                                $title = '~ Translation ~';
-                                                            } else {
-                                                                $title = '~ Tafseer ~';
-                                                            }
-                                                        @endphp
-                                                        <b class="mr-1"> {{ $title }}</b>
-                                                        <br>
+
+
                                                         {{ @$aya->translations[0]->translation }}
                                                     </span>
                                                 </div>
                                                 @if ($type == 2)
-                                                    <div class="row ml-1 mt-2"
+                                                    <div class="row ml-1 "
                                                         style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
+                                                        <b class="mr-1"> ~ Revelation ~</b>
 
                                                         <span class="" id="bold-revelation-{{ $key }}"
                                                             style="margin-left:10px!important; ">
-                                                            <b class="mr-1"> ~ Revelation ~</b>
-                                                            <br>
+
                                                             {{ @$aya->revelation[0]->translation }}</span>
                                                     </div>
                                                 @endif
                                                 @if ($type == 1)
-                                                    <div class="row ml-1 mt-2"
+                                                    <b class="mr-1">~ Notes ~</b>
+
+                                                    <div class="row ml-1 "
                                                         style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
                                                         <span class="" id="bold-notes-{{ $key }}"
                                                             style="margin-left:10px!important; ">
-                                                            <b class="mr-1">~ Notes ~</b>
-                                                            <br>
+
                                                             {{ @$aya->notes[0]->translation }}</span>
                                                     </div>
                                                 @endif

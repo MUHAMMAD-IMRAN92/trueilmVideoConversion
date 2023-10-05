@@ -449,7 +449,7 @@
                                                         <div class="row d-flex flex-row-reverse pr-2"
                                                             style="align-items:center;gap:12px;">
 
-                                                            <div class="" style="text-align: right;">:
+                                                            <div class="" style="text-align: right;">
                                                                 {{ $hadith->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
@@ -473,43 +473,44 @@
                                                         </div>
 
                                                     </div>
-                                                </div>
+                                                </div> @php
+                                                    if ($type == 3) {
+                                                        $title = '~ Translation ~';
+                                                    } else {
+                                                        $title = '~ Tafseer ~';
+                                                    }
+                                                @endphp
+
+                                                <b class="mr-1"> {{ $title }}</b>
                                                 <div class="row ml-1"
                                                     style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
                                                     <span class="" id="non-edit-para-des-{{ $key }}"
                                                         style="margin-left:10px!important; ">
-                                                        @php
-                                                            if ($type == 3) {
-                                                                $title = '~ Translation ~';
-                                                            } else {
-                                                                $title = '~ Tafseer ~';
-                                                            }
-                                                        @endphp
-                                                        <b class="mr-1"> {{ $title }}</b>
-                                                        <br>
+
                                                         {{ @$hadith->translations[0]->translation }}
                                                     </span>
                                                 </div>
                                                 @if ($type == 4)
+                                                    <b class="mr-1"> ~ Revelation ~</b>
                                                     <div class="row ml-1 mt-2"
                                                         style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
                                                         <span class="" id="bold-revelation-{{ $key }}"
                                                             style="margin-left:10px!important; ">
-                                                            <b class="mr-1"> ~ Revelation ~</b>
                                                             <br>
                                                             {{ @$hadith->revelation[0]->translation }}</span>
                                                     </div>
                                                 @endif
                                                 @if ($type == 3)
+                                                    <b class="mr-1">~ Notes ~</b>
+
                                                     <div class="row ml-1 mt-2"
                                                         style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
 
                                                         <span class="" id="bold-notes-{{ $key }}"
                                                             style="margin-left:10px!important; ">
-                                                            <b class="mr-1">~ Notes ~</b>
-                                                            <br>
+
                                                             {{ @$hadith->notes[0]->translation }}</span>
                                                     </div>
                                                 @endif
