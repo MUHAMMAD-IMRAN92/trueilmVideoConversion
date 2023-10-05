@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\HadeesRequest;
+use App\Jobs\HadeeesBookCombination;
 use App\Models\Hadees;
 use App\Models\HadeesBooks;
 use App\Models\HadeesReference;
@@ -19,6 +20,7 @@ use App\Models\Author;
 use App\Models\AuthorLanguage;
 use App\Models\Reference;
 use App\Models\Book;
+use App\Models\HadeesBookCombination;
 use Meilisearch\Client;
 
 class HadeesController extends Controller
@@ -32,9 +34,23 @@ class HadeesController extends Controller
             return $next($request);
         });
     }
-    public function index()
+    public function index(Request $request, $type)
     {
-        return view('hadees_book.index');
+
+        $hadeesBookCombination = HadeesBookCombination::when($request->book_id, function ($q) use ($request) {
+            $q->where('book_id', $request->book_id);
+        })->paginate(10);
+
+        $hadithDropDown =   HadeesBooks::get(['_id', 'title']);
+
+        $combinationCount =  AuthorLanguage::where('type', (int)$type)->count();
+
+        return view('hadees_book.index', [
+            'hadeesBookCombination' => $hadeesBookCombination,
+            'combinationCount' => $combinationCount,
+            'hadithDropDown' => $hadithDropDown,
+            'content_type' => $type
+        ]);
     }
     public function allBook(Request $request)
     {
@@ -61,21 +77,25 @@ class HadeesController extends Controller
         );
         return json_encode($data);
     }
-    public function addBook()
+    public function addBook($type)
     {
-        return view('hadees_book.add');
+        return view('hadees_book.add', [
+            'type' => $type
+        ]);
     }
     public function storeBook(Request $request)
     {
+
         $book = new HadeesBooks();
 
         $book->title = $request->title;
         $book->description = $request->description;
         $book->save();
+        HadeeesBookCombination::dispatch($book->_id, 0);
 
-        return redirect()->to('/hadith/books')->with('msg', 'Hadith Book Saved Successfully!');
+        return redirect()->to('hadith/books/' . $request->type)->with('msg', 'Hadith Book Saved Successfully!');
     }
-    public function add($id)
+    public function add($type,  $id, $combination_id)
     {
         $hadeesBook = HadeesBooks::where('_id', $id)->first();
         $hadees = Hadees::where('_id', $hadeesBook->id)->get();
@@ -87,7 +107,9 @@ class HadeesController extends Controller
             'hadees' => $hadees,
             'tags' => $tags,
             'glossary' => $glossary,
-            'chapter' => $chapter
+            'chapter' => $chapter,
+            'type' => $type,
+            'combination_id' => $combination_id
         ]);
     }
     public function store(HadeesRequest $request)
@@ -126,7 +148,7 @@ class HadeesController extends Controller
                 $contentGlossary = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $hadees->id, 'content_type' => "5"]);
             }
         }
-        return redirect()->to("hadith/edit/$request->book_id/$hadees->id")->with('msg', 'Hadith Saved Successfully!');
+        return redirect()->to("hadith/books/combination/$request->content_type/$request->book_id/$request->combination_id")->with('msg', 'Hadith Saved Successfully!');
     }
 
     public function editBook($bookId)
@@ -233,7 +255,10 @@ class HadeesController extends Controller
     public function deleteTranslation(Request $request)
     {
         // return $request->all();
+        $hadeesTranslation = HadeesTranslation::where('_id', $request->transId)->first();
+        HadeeesBookCombination::dispatch($hadeesTranslation->book_id);
         $hadeesTranslation = HadeesTranslation::where('_id', $request->transId)->delete();
+
         return sendSuccess('Deleted!', []);
     }
     public function updateTranslation(Request $request)
@@ -241,12 +266,12 @@ class HadeesController extends Controller
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $hadees = Hadees::where('_id', $request->hadith_id)->first();
-        $alQuranTranslation = HadeesTranslation::where('_id', $request->transId)->first();
+        $alQuranTranslation = HadeesTranslation::where('hadees_id', $request->hadith_id)->where('author_lang', $request->author_lang)->where('type', (int) $request->type)->first();
         if ($alQuranTranslation) {
             $alQuranTranslation->translation = $request->translation;
             $alQuranTranslation->hadees_id = $request->hadith_id;
             $alQuranTranslation->author_lang = $request->author_lang;
-            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->type = (int)$request->type;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->book_id = $hadees->book_id;
             $alQuranTranslation->chapter_id = $hadees->chapter_id;
@@ -257,13 +282,14 @@ class HadeesController extends Controller
             $alQuranTranslation->translation = $request->translation;
             $alQuranTranslation->hadees_id = $request->hadith_id;
             $alQuranTranslation->author_lang = $request->author_lang;
-            $alQuranTranslation->type = $request->type;
+            $alQuranTranslation->type = (int)$request->type;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->book_id = $hadees->book_id;
             $alQuranTranslation->chapter_id = $hadees->chapter_id;
             $alQuranTranslation->save();
             $alQurantranslationsclient =  $client->index('alHadeestranslations')->addDocuments(array($alQuranTranslation), '_id');
         }
+        HadeeesBookCombination::dispatch($alQuranTranslation->book_id, (int)$request->type);
 
 
         return $alQuranTranslation;
@@ -293,5 +319,67 @@ class HadeesController extends Controller
         $hadithChapter->save();
 
         return $hadithChapter;
+    }
+
+    public function hadithCombination(Request $request, $type, $id)
+    {
+        if ($type == 3) {
+            $tranlation_type = 5;
+        } else {
+            $tranlation_type = 6;
+        }
+        // return $request->all();
+        $languages = Languages::all();
+        $author = Author::all();
+        $combinationCount =  AuthorLanguage::where('type', (int)$type)->count();
+        $book = HadeesBooks::where('_id', $id)->first();
+        $combination =  AuthorLanguage::when($request->lang, function ($l) use ($request) {
+            $l->where('lang_id', $request->lang);
+        })->when($request->author, function ($a) use ($request) {
+            $a->where('author_id', $request->author);
+        })->where('type', (int)$type)->with(['HadithTranslations' => function ($q) use ($book, $tranlation_type) {
+            $q->where('type', (int)$tranlation_type)->where('book_id', $book->_id);
+        }])->paginate(10);
+        return view('hadees_book.combination', [
+            'book' => $book,
+            'combinations' => $combination,
+            'languages' => $languages,
+            'author' => $author,
+            'type' => $type
+        ]);
+    }
+    // 651d74c5904d3d1f6703f01d
+    public function Hadiths(Request $request, $type, $book_id, $combination_id)
+    {
+        if ($type == 3) {
+            $tranlation_type = 5;
+        } else {
+            $tranlation_type = 6;
+        }
+        $book =   HadeesBooks::where('_id', $book_id)->with('hadees')->with(['introduction' => function ($q) use ($combination_id, $type) {
+            $q->where('type', 0)->where('author_lang', $combination_id);
+        }])->first();
+        $hadiths = Hadees::when($book_id, function ($q) use ($request, $book_id) {
+            $q->where('book_id', $book_id);
+        })->where('book_id', $book_id)->with(['translations' => function ($q) use ($combination_id, $tranlation_type) {
+            $q->where('type', (int)$tranlation_type)->where('author_lang', $combination_id);
+        }])->with(['revelation' => function ($q) use ($combination_id, $type) {
+            $q->where('type', 4)->where('author_lang', $combination_id);
+        }])->with(['notes' => function ($q) use ($combination_id, $type) {
+            $q->where('type', 3)->where('author_lang', $combination_id);
+        }])->paginate(10);
+        $languages = Languages::all();
+        $author = Author::all();
+        $currentCombination =  AuthorLanguage::where('type', (int)$type)->where('_id', $combination_id)->with(['HadithTranslations' => function ($q) use ($book_id, $type) {
+            $q->where('type', 1);
+        }])->first();
+        return view('hadees_book.new_Hadees', [
+            'book' => $book,
+            'hadiths' => $hadiths,
+            'languages' => $languages,
+            'author' => $author,
+            'currentCombination' => $currentCombination,
+            'type' => $type
+        ]);
     }
 }

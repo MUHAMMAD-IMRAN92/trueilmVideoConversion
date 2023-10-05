@@ -23,9 +23,11 @@ class SurahCombination implements ShouldQueue
      * @return void
      */
     public $surah_id;
-    public function __construct($surah)
+    public $type;
+    public function __construct($surah, $type)
     {
         $this->surah_id = $surah;
+        $this->type = $type;
     }
 
     /**
@@ -40,7 +42,7 @@ class SurahCombination implements ShouldQueue
 
         $authorLang = AuthorLanguage::pluck('_id')->all();
         foreach ($authorLang as $authLang) {
-            $authLangCount =  AlQuranTranslation::where('surah_id', $this->surah_id)->where('author_lang', $authLang)->translation()->whereNotNull('translation')->count();
+            $authLangCount =  AlQuranTranslation::where('surah_id', $this->surah_id)->where('author_lang', $authLang)->where('type', $this->type)->whereNotNull('translation')->count();
 
             if ($ayats != 0 && $ayats == $authLangCount) {
                 $count += 1;
@@ -48,7 +50,11 @@ class SurahCombination implements ShouldQueue
         }
 
         $surahCombination =  SurahCombinations::where('surah_id', $this->surah_id)->first();
-        $surahCombination->translation_count = $count;
+        if ($this->type == 1) {
+            $surahCombination->translation_count = $count;
+        } else if ($this->type == 2) {
+            $surahCombination->tafseer_count = $count;
+        }
         $surahCombination->save();
         return 1;
     }

@@ -19,4 +19,12 @@ class HadeesTranslation extends Eloquent
 
         return @$lang->title;
     }
+    public function scopeTranslation($query)
+    {
+        return $query->where('type', 1);
+    }
+    public function Hadith()
+    {
+        return $this->belongsTo(Hadees::class, '_id', 'hadees_id');
+    }
 }

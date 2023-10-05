@@ -2233,7 +2233,7 @@
        }
 
        function saveTranslation(authorLang, key, type) {
-           window.location.reload();
+        //    window.location.reload();
 
            $('#spinner-grow-' + key).css('display', 'block');
            $('#textarea-div-' + key).css('display', 'none');
@@ -3129,6 +3129,8 @@
        }
 
        function deleteHadithTranslation(transId, authLang, key, type) {
+           //    window.location.reload();
+
            $.ajax({
                type: "GET",
                url: "{{ url('hadith/translation/delete') }}",
@@ -3147,12 +3149,30 @@
 
        }
 
-       function saveHadithTranslation(authorLang, key) {
+       function saveHadithTranslation(authorLang, key, type) {
+           window.location.reload();
+           $('#spinner-grow-' + key).css('display', 'block');
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
            var hadith_id = $('#ayat-id-' + key).val();
+           //    var transId = $('#trans-id-' + key).val();
+
+           $('#textarea-div-' + key).css('display', 'none');
+           $('#revelation-editble-' + key).css('display', 'none');
+           $('#notes-editble-' + key).css('display', 'none');
+           //    alert('ok');
+           var lang = $('#lang-select-' + key).val();
+           //    var translation = $('#trans-input-' + key).val();
            var transId = $('#trans-id-' + key).val();
-           var type = $('#type-' + key).val();
+           if (type == 3) {
+               translation = $('#notes-trans-input-' + key).val();
+               transId = $('#notes-trans-id-' + key).val();
+           } else if (type == 4) {
+               translation = $('#revelation-trans-input-' + key).val();
+               transId = $('#revelation-trans-id-' + key).val();
+           }
+
+
            console.log(hadith_id + '----------------->' + key);
            $.ajax({
                type: "POST",
@@ -3486,12 +3506,16 @@
                                                                     <div class="col-6 d-flex m-0 p-0">
                                                                         <div class="col- m-0 p-0">
                                                                             <input type="text" id="question"
-                                                                                class="form-control" name="correct-`+count+`[]"
+                                                                                class="form-control" name="correct-` +
+               count +
+               `[]"
                                                                                 required placeholder="" required>
                                                                         </div>
                                                                         <div class="col-6">
                                                                             <input type="text"
-                                                                                class="question form-control" name="correct-`+count+`[]"
+                                                                                class="question form-control" name="correct-` +
+               count +
+               `[]"
                                                                                 required placeholder="" required>
                                                                         </div>
                                                                     </div>
@@ -3500,12 +3524,16 @@
                                                                         <div class="col-12  d-flex m-0 p-0">
                                                                             <div class="col-6 ">
                                                                                 <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    class="form-control" name="incorrect-` +
+               count +
+               `[]"
                                                                                     required placeholder="" required>
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    class="form-control" name="incorrect-` +
+               count +
+               `[]"
                                                                                     required placeholder="" required>
                                                                             </div>
 
@@ -3515,12 +3543,16 @@
                                                                         <div class="col-12  d-flex m-0 p-0">
                                                                             <div class="col-6 ">
                                                                                 <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    class="form-control" name="incorrect-` +
+               count +
+               `[]"
                                                                                     required placeholder="" required>
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    class="form-control" name="incorrect-` +
+               count +
+               `[]"
                                                                                     required placeholder="" required>
                                                                             </div>
 
@@ -3530,12 +3562,15 @@
                                                                         <div class="col-12  d-flex m-0 p-0">
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    class="form-control" name="incorrect-` +
+               count +
+               `[]"
                                                                                     required placeholder="" required>
                                                                             </div>
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-`+count+`[]"
+                                                                                    class="form-control" name="incorrect-` +
+               count + `[]"
                                                                                     required placeholder="" required>
                                                                             </div>
 

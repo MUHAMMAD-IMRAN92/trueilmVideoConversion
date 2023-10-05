@@ -11,6 +11,10 @@ class HadeesBooks extends Eloquent
     protected $connection = 'mongodb';
     public function hadees()
     {
-        return $this->hasMany(Hadees::class , 'book_id' , 'id');
+        return $this->hasMany(Hadees::class, 'book_id', '_id');
+    }
+    public function introduction()
+    {
+        return $this->hasOne(HadeesTranslation::class, 'book_id', 'id');
     }
 }

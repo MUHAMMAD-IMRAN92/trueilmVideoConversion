@@ -138,7 +138,7 @@ class AlQuranController extends Controller
 
             $language = $language;
         }
-        $authLang =  AuthorLanguage::where('author_id', $author->_id)->where('lang_id', $language->_id)->first();
+        $authLang =  AuthorLanguage::where('author_id', $author->_id)->where('lang_id', $language->_id)->where('type', (int) $request->combination_type)->first();
         if ($authLang) {
             return redirect()->back()->with('dmsg', 'Author Language Already Exits!');
         } else {
@@ -295,7 +295,7 @@ class AlQuranController extends Controller
             $alQuranTranslation->save();
             $alQurantranslationsclient =  $client->index('alQurantranslations')->addDocuments(array($alQuranTranslation), '_id');
         }
-        SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+        SurahCombinationJob::dispatch($alQuranTranslation->surah_id, (int)$request->type);
 
 
 

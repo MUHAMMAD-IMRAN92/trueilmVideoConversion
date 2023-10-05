@@ -18,4 +18,12 @@ class Hadees extends Eloquent
     {
         return $this->hasMany(Reference::class, 'referal_id', 'id');
     }
+    public function revelation()
+    {
+        return $this->hasMany(HadeesTranslation::class, 'hadees_id', 'id');
+    }
+    public function notes()
+    {
+        return $this->hasMany(HadeesTranslation::class, 'hadees_id', 'id');
+    }
 }

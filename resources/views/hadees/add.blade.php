@@ -104,11 +104,11 @@
                 <section id="basic-vertical-layouts">
 
                     <!-- Modal -->
-                    <div class="row">
+                    <div class="row mb-2">
 
-                        <div class="col-12">
+                        <div class="col-6">
                             <h1 class="">{{ $hadeesBook->title }}</h1>
-                            <h6 class="">{!! $hadeesBook->description !!}</h6>
+                            {{-- <h6 class="">{!! $hadeesBook->description !!}</h6> --}}
                         </div>
 
                     </div>
@@ -117,7 +117,7 @@
 
                         <!-- Basic Vertical form layout section start -->
                         <div class="row">
-                            <div class="col-md-9 ">
+                            <div class="col-md-12 ">
 
                                 <div class="card">
 
@@ -134,27 +134,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row col-md-3">
-                                <div class="row">
-                                    {{-- <div class="col-9">
 
-                                    </div> --}}
-                                    <div class="col-12">
-                                         <span class="badge badge-success span-text-size">Total Hadith :
-                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->count() }} </span></h5>
-                                         <span class="badge badge-success span-text-size">Hadees-e-Sahih :
-                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "1")->count() }} </span>
-                                        </h5>
-                                         <span class="badge badge-success span-text-size">Hadees-e-Zaeef :
-                                                {{ App\Models\Hadees::where('book_id', $hadeesBook->_id)->where('type', "2")->count() }} </span>
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <form class="form form-vertical" action="{{ route('hadith.store') }}" method="POST"
@@ -165,6 +149,10 @@
 
                                                     <input type="hidden" name="book_id" id=""
                                                         value="{{ $hadeesBook->id }}">
+                                                    <input type="hidden" name="content_type" id=""
+                                                        value="{{ $type }}">
+                                                    <input type="hidden" name="combination_id" id=""
+                                                        value="{{ $combination_id }}">
                                                     {{-- <div class="col-12">
                                                         <label for="">Hadith</label>
                                                         <fieldset class="form-group">
@@ -174,7 +162,7 @@
                                                     <div class="col-12">
                                                         <label for="">Hadith</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="form-control"  name="hadith"></textarea>
+                                                            <textarea class="form-control" name="hadith"></textarea>
                                                         </fieldset>
                                                     </div>
 
@@ -204,8 +192,7 @@
                                                         <label for="">Hadith Number</label>
                                                         <div class="position-relative">
                                                             <input type="number" id="" name="hadith_number"
-                                                                class="form-control" placeholder=""
-                                                                value="" required>
+                                                                class="form-control" placeholder="" value="" required>
 
 
                                                         </div>
@@ -242,6 +229,7 @@
                                                                     </div>
                                                                 </fieldset>
                                                             </li>
+
                                                             <li class="d-inline-block mr-2">
                                                                 <fieldset>
                                                                     <div class="custom-control custom-radio">
@@ -253,7 +241,17 @@
                                                                     </div>
                                                                 </fieldset>
                                                             </li>
-
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="custom-control custom-radio">
+                                                                        <input type="radio" class="custom-control-input"
+                                                                            name="type" id="customRadio3"
+                                                                            value="3">
+                                                                        <label class="custom-control-label"
+                                                                            for="customRadio3">Hadith Hasan</label>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
                                                         </ul>
                                                     </div>
 
@@ -318,40 +316,11 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div class="col-md-3 col-3 ayat-data">
-                                <div class="card ">
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            @foreach ($hadeesBook->hadees as $hadith)
-                                                <div class="ayat-list">
-                                                    <ul class="" id="" data-menu="menu-navigation">
-                                                        <li
-                                                            class="@if (request()->is('*/' . $hadeesBook->id . '/' . $hadith->id . '*')) active @endif render-ayat ">
-                                                            <a
-                                                                href="{{ url('/hadith/edit/' . $hadeesBook->id . '/' . $hadith->id) }}">
-                                                                <span class="d-flex menu-item new-item-ayat"
-                                                                    data-i18n="Analytics">{!! $hadith->hadees !!}
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            @endforeach
-                                            <br>
-                                            <div class="" id="" style="text-align: center">
-                                                <a href="{{ url('hadith/create/' . $hadeesBook->id) }}"> <span
-                                                        class="btn btn-primary mr-1 mb-1">Add
-                                                        Hadith</span></a>
-                                            </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="modal fade bd-example-modal-lg" id="author-lang" tabindex="-1" role="dialog"
                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <form  method="POST">
+                                    <form method="POST">
                                         <div class="form-body">
                                             @csrf
                                             <div class="modal-content">
@@ -381,7 +350,8 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <span type="" id="save_chapter" class="btn btn-primary">Save</span>
+                                                    <span type="" id="save_chapter"
+                                                        class="btn btn-primary">Save</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -394,4 +364,3 @@
 
     </section>
 @endsection
-

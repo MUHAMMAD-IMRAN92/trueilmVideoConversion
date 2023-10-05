@@ -49,7 +49,8 @@
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
-
+                                                    <input type="hidden" value="{{ $type }}" name="type"
+                                                        id="">
                                                     <div class="col-12">
                                                         <label for="">Title</label>
                                                         <input type="text" id="" class="form-control"

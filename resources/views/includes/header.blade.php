@@ -349,9 +349,12 @@
 
                     <i class="far fa-typewriter"></i>
 
-                    <li class="@if (request()->is('hadith*')) active @endif "><a
-                            href="{{ url('hadith/books') }}"><i class="fa fa-book"></i>
+                    <li class="@if (request()->is('hadith/4*')) active @endif "><a
+                            href="{{ url('hadith/books/3') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
+                    <li class="@if (request()->is('hadith/4*')) active @endif "><a
+                            href="{{ url('hadith/books/4') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Hadith Tafseer</span></a>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">User Management</span></a>
                         <ul class="menu-content">

@@ -83,11 +83,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('publisher/books_reading_details/{id}', [App\Http\Controllers\PublisherController::class, 'publisherBookReadingDetail'])->name('publisher.bookReadingDetail');
 
     //Hadith
-    Route::get('hadith/books', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');
+    Route::get('hadith/books/{type}', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');
     Route::get('all-hadith-books', [App\Http\Controllers\HadeesController::class, 'allBook'])->name('hadith.books');
-    Route::get('hadith/book/create', [App\Http\Controllers\HadeesController::class, 'addBook'])->name('hadith.book.add');
+    Route::get('hadith/book/create/{type}', [App\Http\Controllers\HadeesController::class, 'addBook'])->name('hadith.book.add');
     Route::post('hadith/book/create', [App\Http\Controllers\HadeesController::class, 'storeBook'])->name('hadith.book.store');
-    Route::get('hadith/create/{id}', [App\Http\Controllers\HadeesController::class, 'add'])->name('hadith.add');
+    Route::get('hadith/create/{type}/{id}/{combination}', [App\Http\Controllers\HadeesController::class, 'add'])->name('hadith.add');
     Route::post('hadith/store', [App\Http\Controllers\HadeesController::class, 'store'])->name('hadith.store');
     Route::get('hadith/edit/{bookId}/{hadeesId}', [App\Http\Controllers\HadeesController::class, 'edit'])->name('hadith.edit');
     Route::post('hadith/update', [App\Http\Controllers\HadeesController::class, 'update'])->name('hadith.update');
@@ -276,4 +276,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all_surah_translations/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
     Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
     Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
+
+    //New Hadith
+    Route::get('all_hadith_books/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllBooks']);
+    Route::get('hadith/books/combination/{type}/{id}', [App\Http\Controllers\HadeesController::class, 'hadithCombination']);
+    Route::get('/hadith/books/combination/{type}/{book_id}/{combination}', [App\Http\Controllers\HadeesController::class, 'Hadiths']);
 });
