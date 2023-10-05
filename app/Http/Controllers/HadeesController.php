@@ -265,7 +265,7 @@ class HadeesController extends Controller
     {
 
         ini_set("memory_limit", "-1");
-        // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $hadees = Hadees::where('_id', $request->hadith_id)->first();
         $alQuranTranslation = HadeesTranslation::where('hadees_id', $request->hadith_id)->where('author_lang', $request->author_lang)->where('type', (int) $request->type)->first();
         if ($alQuranTranslation) {
@@ -277,7 +277,7 @@ class HadeesController extends Controller
             $alQuranTranslation->book_id = $hadees->book_id;
             $alQuranTranslation->chapter_id = $hadees->chapter_id;
             $alQuranTranslation->save();
-            // $alQurantranslationsclient =  $client->index('alHadeestranslations')->updateDocuments(array($alQuranTranslation), '_id');
+            $alQurantranslationsclient =  $client->index('alHadeestranslations')->updateDocuments(array($alQuranTranslation), '_id');
         } else {
             $alQuranTranslation = new HadeesTranslation();
             $alQuranTranslation->translation = $request->translation;
@@ -290,7 +290,7 @@ class HadeesController extends Controller
                 $alQuranTranslation->chapter_id = $hadees->chapter_id;
             }
             $alQuranTranslation->save();
-            // $alQurantranslationsclient =  $client->index('alHadeestranslations')->addDocuments(array($alQuranTranslation), '_id');
+            $alQurantranslationsclient =  $client->index('alHadeestranslations')->addDocuments(array($alQuranTranslation), '_id');
         }
         HadeeesBookCombination::dispatch($alQuranTranslation->book_id, (int)$request->type);
 

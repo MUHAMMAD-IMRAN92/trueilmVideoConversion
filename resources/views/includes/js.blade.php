@@ -3150,7 +3150,7 @@
        }
 
        function saveHadithTranslation(authorLang, key, type) {
-           //    window.location.reload();
+              window.location.reload();
            $('#spinner-grow-' + key).css('display', 'block');
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
