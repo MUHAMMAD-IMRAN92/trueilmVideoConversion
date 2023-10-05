@@ -235,6 +235,7 @@
                     <!-- DataTable starts -->
                     <div class="table-responsive">
                         <table class="table data-list-view">
+                            <input type="hidden" id="book_id" value="{{ $book->_id }}">
 
                             <tbody>
                                 @if ($type == 4)
@@ -242,7 +243,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <input type="hidden" id="ayat-id--1" value="{{ $hadith->_id }}">
+                                                    <input type="hidden" id="ayat-id--1" value="{{ $book->_id }}">
                                                     <h4 id="translation-saved-span--1" style="display:none">
                                                         <span class="badge badge-success "><i
                                                                 class="fa fa-check">Translation

@@ -349,12 +349,21 @@
 
                     <i class="far fa-typewriter"></i>
 
-                    <li class="@if (request()->is('hadith/4*')) active @endif "><a
-                            href="{{ url('hadith/books/3') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Hadith</span></a>
-                    <li class="@if (request()->is('hadith/4*')) active @endif "><a
-                            href="{{ url('hadith/books/4') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Hadith Tafseer</span></a>
+                    <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                                data-i18n="Ecommerce">Hadith</span></a>
+                        <ul class="menu-content">
+
+                            <li class="@if (request()->is('hadith/books/3*') ||
+                                    request()->is('hadith/books/3') ||
+                                    request()->is('hadith/books/combination/3*')) active @endif "><a
+                                    href="{{ url('hadith/books/3') }}"><i class="fa fa-book"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Hadith Translations</span></a>
+                            <li class="@if (request()->is('hadith/4*') || request()->is('hadith/books/4') || request()->is('hadith/books/combination/4*')) active @endif "><a
+                                    href="{{ url('hadith/books/4') }}"><i class="fa fa-book"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Hadith Tafseer</span></a>
+                        </ul>
+                    </li>
+
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">User Management</span></a>
                         <ul class="menu-content">

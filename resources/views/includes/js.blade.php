@@ -2233,7 +2233,7 @@
        }
 
        function saveTranslation(authorLang, key, type) {
-        //    window.location.reload();
+           window.location.reload();
 
            $('#spinner-grow-' + key).css('display', 'block');
            $('#textarea-div-' + key).css('display', 'none');
@@ -3150,15 +3150,17 @@
        }
 
        function saveHadithTranslation(authorLang, key, type) {
-           window.location.reload();
+           //    window.location.reload();
            $('#spinner-grow-' + key).css('display', 'block');
            var lang = $('#lang-select-' + key).val();
            var translation = $('#trans-input-' + key).val();
            var hadith_id = $('#ayat-id-' + key).val();
+           var book_id = $('#book_id').val();
            //    var transId = $('#trans-id-' + key).val();
 
            $('#textarea-div-' + key).css('display', 'none');
-           $('#revelation-editble-' + key).css('display', 'none');
+           $('#revelation-editble-' + key).css('display',
+               'none');
            $('#notes-editble-' + key).css('display', 'none');
            //    alert('ok');
            var lang = $('#lang-select-' + key).val();
@@ -3184,7 +3186,8 @@
                    lang: lang,
                    author_lang: authorLang,
                    translation: translation,
-                   type: type
+                   type: type,
+                   book_id: book_id
                },
                dataType: "json",
                success: function(response) {
@@ -3258,7 +3261,8 @@
                dataType: "json",
                success: function(response) {
                    console.log(response)
-                   var option = `<option value="` + response._id + `">` + response.title + `</option>`;
+                   var option = `<option value="` + response._id + `">` + response.title +
+                       `</option>`;
                    $('#chapter_select').append(option);
                    $('#author-lang').modal('hide');
                }
@@ -3290,7 +3294,8 @@
                    }
                    if (result.oldCities.length > 0) {
                        result.oldCities.forEach(element => {
-                           html += `<option selected value="${element}">${element} </option>`;
+                           html +=
+                               `<option selected value="${element}">${element} </option>`;
                        });
                        $('#cities').append(html);
                    }
