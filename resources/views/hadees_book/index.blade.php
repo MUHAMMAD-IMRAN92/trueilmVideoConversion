@@ -123,7 +123,15 @@
                                         <td>{{ $combination->title }}</td>
                                         <td class="">{{ $combination->description }}
                                         </td>
-                                        <td class="">{{ $combination->translation_count . '/' . $combinationCount }}
+                                        @php
+                                            $count = 0;
+                                            if ($type == 3) {
+                                                $count = $combination->translation_count;
+                                            } elseif ($type == 4) {
+                                                $count = $combination->tafseer_count;
+                                            }
+                                        @endphp
+                                        <td class="">{{ $count . '/' . $combinationCount }}
                                         </td>
                                         <td class="product-action">
                                             <span class="action-edit"><i class="fa fa-external-link"></i></span>
