@@ -353,9 +353,7 @@
                                 data-i18n="Ecommerce">Hadith</span></a>
                         <ul class="menu-content">
 
-                            <li class="@if (request()->is('hadith/books/3*') ||
-                                    request()->is('hadith/books/3') ||
-                                    request()->is('hadith/books/combination/3*')) active @endif "><a
+                            <li class="@if (request()->is('hadith/books/3*') || request()->is('hadith/books/3') || request()->is('hadith/books/combination/3*')) active @endif "><a
                                     href="{{ url('hadith/books/3') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Hadith Translations</span></a>
                             <li class="@if (request()->is('hadith/4*') || request()->is('hadith/books/4') || request()->is('hadith/books/combination/4*')) active @endif "><a
@@ -363,7 +361,10 @@
                                     <span class="menu-item" data-i18n="Analytics">Hadith Tafseer</span></a>
                         </ul>
                     </li>
-
+                    <li class="@if (request()->is('language*')) active @endif "><a href="{{ url('/language') }}"><i
+                                class="fa fa-language"></i>
+                            <span class="menu-item" data-i18n="Analytics">Language</span></a>
+                    </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                 data-i18n="Ecommerce">User Management</span></a>
                         <ul class="menu-content">

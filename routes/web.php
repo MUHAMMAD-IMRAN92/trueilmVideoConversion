@@ -281,4 +281,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all_hadith_books/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllBooks']);
     Route::get('hadith/books/combination/{type}/{id}', [App\Http\Controllers\HadeesController::class, 'hadithCombination']);
     Route::get('/hadith/books/combination/{type}/{book_id}/{combination}', [App\Http\Controllers\HadeesController::class, 'Hadiths']);
+
+    //languages
+    Route::get('language', [App\Http\Controllers\LanguageController::class, 'index']);
+    Route::get('language/create', [App\Http\Controllers\LanguageController::class, 'create'])->name('language.create');
+    Route::post('language', [App\Http\Controllers\LanguageController::class, 'store'])->name('language.store');
+    Route::get('language/edit/{id}', [App\Http\Controllers\LanguageController::class, 'edit'])->name('language.edit');
 });

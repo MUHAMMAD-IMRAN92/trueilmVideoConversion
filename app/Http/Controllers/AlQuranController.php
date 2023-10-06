@@ -134,6 +134,7 @@ class AlQuranController extends Controller
             $language = new Languages();
             $language->title = $request->lang;
             $language->added_by = $this->user->id;
+            $language->direction = $request->direction ?? 'ltr';
             $language->save();
 
             $language = $language;
