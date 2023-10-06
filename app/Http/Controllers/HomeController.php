@@ -408,7 +408,7 @@ class HomeController extends Controller
         return response()->json($res);
     }
     public function generateQr(Request $request){
-        $data =  QrCode::size(300) ->format('png')->merge('/public/app-assets/images/logo/true_ilm_logo1.png')->errorCorrection('M')->generate(
+        $data =  QrCode::size(300) ->format('png')->generate(
             $request->value,
         );
 
