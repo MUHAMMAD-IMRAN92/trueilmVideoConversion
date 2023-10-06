@@ -413,7 +413,9 @@ class HomeController extends Controller
             $request->value,
         );
 
-        return response($data);
+        return response($data)->json([
+            'QR' => $data
+        ]);
     }
 }
 
