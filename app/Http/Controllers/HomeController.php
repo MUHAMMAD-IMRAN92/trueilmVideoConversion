@@ -408,7 +408,7 @@ class HomeController extends Controller
         return response()->json($res);
     }
     public function generateQr(Request $request){
-        $data =  QrCode::size(300)->margin(1)->generate(
+        $data =  QrCode::size(300)->color(27, 35, 83)->margin(1)->generate(
             $request->value,
         );
 
