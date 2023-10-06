@@ -413,7 +413,7 @@ class HomeController extends Controller
         $data =  QrCode::size(300)->color(27, 35, 83)->margin(1)->generate(
             $request->value,
         );
-        $data = base64_encode($data);
+        // $data = base64_encode($data);
         return response($data)->withHeaders([
             // 'Content-Type' => 'image/base64'
         ]);
