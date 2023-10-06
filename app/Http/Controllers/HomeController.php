@@ -409,11 +409,12 @@ class HomeController extends Controller
     }
     public function generateQr(Request $request)
     {
+        // return $request->all();
         $data =  QrCode::size(300)->color(27, 35, 83)->margin(1)->generate(
             $request->value,
         );
-        $result['QR'] = base64_encode($data);
-        return response($result);
+        // $result['QR'] = base64_encode($data);
+        return response(base64_encode($data));
     }
 }
 

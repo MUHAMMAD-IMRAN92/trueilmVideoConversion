@@ -47,4 +47,4 @@ Route::get('/delete/index', function () {
     // return 'ok';
 });
 
-Route::post('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
+Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
