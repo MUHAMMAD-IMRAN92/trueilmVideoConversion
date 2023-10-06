@@ -415,7 +415,7 @@ class HomeController extends Controller
         );
         $data = base64_encode($data);
         return response($data)->withHeaders([
-            'Content-Type' => 'image'
+            'Content-Type' => 'image/base64'
         ]);
     }
 }
