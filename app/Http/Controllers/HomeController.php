@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Meilisearch\Client;
 use Meilisearch\Contracts\SearchQuery;
+use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
 {
@@ -410,14 +411,10 @@ class HomeController extends Controller
     public function generateQr(Request $request)
     {
         // return $request->all();
-        $data =  QrCode::size(300)->color(27, 35, 83)->margin(1)->generate(
-            $request->value,
-        );
+        $svgContent = QrCode::size(300)->color(27, 35, 83)->margin(1)->generate($request->value);
 
-        $data = base64_encode($data);
-        return response($data)->withHeaders([
-            'Content-Type' => 'image/base64'
-        ]);
+        // Set Content-Type header to indicate that you're returning an SVG image
+        return response($svgContent)->header('Content-Type', 'image/svg+xml');
     }
 }
 
