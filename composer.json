@@ -21,6 +21,7 @@
         "laravel/ui": "^3.4",
         "league/flysystem-aws-s3-v3": "^1.0@dev",
         "maatwebsite/excel": "4.0.x-dev",
+        "meilisearch/meilisearch-php": "dev-main",
         "mll-lab/laravel-graphiql": "^1.2",
         "mongodb/mongodb": "*",
         "mostafamaklad/laravel-permission-mongodb": "^3.1",
@@ -75,7 +76,10 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "disable-tls": true,
-        "secure-http": false
+        "secure-http": false,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": false
