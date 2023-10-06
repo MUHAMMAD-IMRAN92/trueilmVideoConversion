@@ -412,11 +412,14 @@ class HomeController extends Controller
     {
         // return $request->all();
         $svgContent = QrCode::size(300)->color(27, 35, 83)->margin(1)->generate($request->value);
-        // $svgBase64 = base64_encode($svgContent);
 
-        // Set Content-Type header to indicate that you're returning XML data
+        // Encode SVG content to base64
+        $base64SVG = base64_encode($svgContent);
 
-        return response()->json($svgContent)->header('Content-Type', 'image/svg');
+        // Set Content-Type and return base64-encoded SVG image as response
+        return response(base64_decode($base64SVG))
+            ->header('Content-Type', 'image/svg+xml') // Set Content-Type to indicate SVG image
+            ->header('Content-Disposition', 'inline');
     }
 }
 
