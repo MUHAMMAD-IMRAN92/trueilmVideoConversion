@@ -416,7 +416,7 @@ class HomeController extends Controller
 
         // Set Content-Type header to indicate that you're returning XML data
 
-        return response()->json($svgContent)->header('Content-Type', 'image/xml');
+        return response()->json($svgContent)->header('Content-Type', 'image/svg');
     }
 }
 
