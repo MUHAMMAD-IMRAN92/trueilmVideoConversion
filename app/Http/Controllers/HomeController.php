@@ -414,7 +414,7 @@ class HomeController extends Controller
             $request->value,
         );
         // $result['QR'] = base64_encode($data);
-        return response(base64_encode($data));
+        return response($data);
     }
 }
 
