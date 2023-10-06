@@ -415,7 +415,7 @@ class HomeController extends Controller
         );
         // $result['QR'] = base64_encode($data);
         return response(base64_encode($data))->withHeaders([
-            'Content-Type' => 'image/base64'
+            'Content-Type' => 'image/png'
         ]);
     }
 }
