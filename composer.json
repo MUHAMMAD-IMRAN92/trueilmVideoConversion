@@ -24,7 +24,8 @@
         "mll-lab/laravel-graphiql": "^1.2",
         "mongodb/mongodb": "*",
         "mostafamaklad/laravel-permission-mongodb": "^3.1",
-        "nuwave/lighthouse": "^5.71"
+        "nuwave/lighthouse": "^5.71",
+        "simplesoftwareio/simple-qrcode": "~4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

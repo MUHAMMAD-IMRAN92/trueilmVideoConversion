@@ -6,6 +6,7 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Meilisearch\Client;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,5 @@ Route::get('/delete/index', function () {
     $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
     return 'ok';
 });
+
+Route::post('qr' ,  [App\Http\Controllers\HomeController::class, 'generateQr']);

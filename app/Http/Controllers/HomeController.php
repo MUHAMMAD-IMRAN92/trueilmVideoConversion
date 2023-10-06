@@ -28,6 +28,7 @@ use App\Models\HadeesTranslation;
 use Illuminate\Support\Facades\Validator;
 use Meilisearch\Client;
 use Meilisearch\Contracts\SearchQuery;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class HomeController extends Controller
 {
@@ -406,6 +407,14 @@ class HomeController extends Controller
         }
         return response()->json($res);
     }
+    public function generateQr(Request $request){
+        $data =  QrCode::size(300) ->format('png')->merge('/public/app-assets/images/logo/true_ilm_logo1.png')->errorCorrection('M')->generate(
+            $request->value,
+        );
+
+        return response($data);
+    }
+    
 }
 
 
