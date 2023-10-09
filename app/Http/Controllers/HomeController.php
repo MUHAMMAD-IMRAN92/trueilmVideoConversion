@@ -430,7 +430,7 @@ class HomeController extends Controller
     {
         OneSignal::sendNotificationToExternalUser(
             "Some Message",
-            $this->user->_id,
+            '6447918217e6501d607f4943',
             $url = null,
             $data = null,
             $buttons = null,
