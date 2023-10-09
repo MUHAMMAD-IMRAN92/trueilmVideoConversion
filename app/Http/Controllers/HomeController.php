@@ -410,16 +410,20 @@ class HomeController extends Controller
     }
     public function generateQr(Request $request)
     {
-        // return $request->all();
-        $svgContent = QrCode::size(300)->color(27, 35, 83)->margin(1)->generate($request->value);
+        // return redirect()->to('/');
+        // $svgContent = QrCode::size(300)->color(27, 35, 83)->margin(1)->generate($request->value);
 
         // Encode SVG content to base64
-        $base64SVG = base64_encode($svgContent);
+        // $base64SVG = base64_encode($svgContent);
+        $meta = [
+            'title' => 'Page Title',
+            'description' => 'Page Description',
+        ];
 
-        // Set Content-Type and return base64-encoded SVG image as response
-        return response(base64_decode($base64SVG))
-            ->header('Content-Type', 'image/svg+xml') // Set Content-Type to indicate SVG image
-            ->header('Content-Disposition', 'inline');
+        return response()->json([
+            'data' => 'imran',
+            'meta' => $meta,
+        ]);
     }
 }
 

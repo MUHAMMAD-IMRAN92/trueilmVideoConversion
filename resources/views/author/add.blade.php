@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            @foreach ($errors->all() as $error)
+            {{-- @foreach ($errors->all() as $error)
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p class="mb-0">
                         {{ $error }}
@@ -32,7 +32,7 @@
                         <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
                     </button>
                 </div>
-            @endforeach
+            @endforeach --}}
             <div class="content-body">
 
                 <!-- Basic Vertical form layout section start -->
