@@ -428,7 +428,7 @@ class HomeController extends Controller
     }
     public function notification()
     {
-        return  OneSignal::sendNotificationToAll(
+        OneSignal::sendNotificationToAll(
             "Some Message",
             $url = null,
             $data = null,
@@ -436,6 +436,7 @@ class HomeController extends Controller
             $schedule = null
         );
 
+        return 'sent!';
     }
 }
 
