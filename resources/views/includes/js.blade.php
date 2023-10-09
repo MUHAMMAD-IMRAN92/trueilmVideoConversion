@@ -3608,11 +3608,12 @@
        window.OneSignalDeferred = window.OneSignalDeferred || [];
        OneSignalDeferred.push(function(OneSignal) {
            OneSignal.init({
-               appId: "ecc4d9fa-c42f-4e68-8c62-024c4530a5d4",
+
                notifyButton: {
                    enable: true,
-               }
+               },
+               autoRegister: true,
+               allowLocalhostAsSecureOrigin: true
            });
-
        });
    </script>
