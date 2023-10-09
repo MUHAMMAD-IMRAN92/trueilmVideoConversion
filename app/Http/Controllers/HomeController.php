@@ -428,8 +428,9 @@ class HomeController extends Controller
     }
     public function notification()
     {
-        OneSignal::sendNotificationToAll(
+        OneSignal::sendNotificationToExternalUser(
             "Some Message",
+            $this->user->_id,
             $url = null,
             $data = null,
             $buttons = null,
