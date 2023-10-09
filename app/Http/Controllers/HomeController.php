@@ -428,15 +428,14 @@ class HomeController extends Controller
     }
     public function notification()
     {
-        OneSignal::sendNotificationToExternalUser(
+        \OneSignal::sendNotificationToUser(
             "Some Message",
-            '6447918217e6501d607f4943',
+            '644a530f9cb32333ad0f6d93',
             $url = null,
             $data = null,
             $buttons = null,
             $schedule = null
         );
-
         return 'sent!';
     }
 }
