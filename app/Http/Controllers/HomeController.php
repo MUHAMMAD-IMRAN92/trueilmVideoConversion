@@ -30,6 +30,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Meilisearch\Client;
 use Meilisearch\Contracts\SearchQuery;
 use Illuminate\Support\Facades\File;
+use OneSignal;
 
 class HomeController extends Controller
 {
@@ -424,6 +425,18 @@ class HomeController extends Controller
             'data' => 'imran',
             'meta' => $meta,
         ]);
+    }
+    public function notification()
+    {
+        OneSignal::sendNotificationToAll(
+            "Some Message",
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+
+        return 'sent';
     }
 }
 

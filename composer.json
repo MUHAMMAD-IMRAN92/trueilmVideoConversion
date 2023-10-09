@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "berkayk/onesignal-laravel": "dev-master",
         "doctrine/dbal": "3.7.x-dev",
         "fruitcake/laravel-cors": "^3.0@dev",
         "guzzlehttp/guzzle": "^7.5",
