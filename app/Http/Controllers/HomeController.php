@@ -25,6 +25,7 @@ use App\Models\BookForSale;
 use App\Models\Course;
 use App\Models\Glossory;
 use App\Models\HadeesTranslation;
+use Berkayk\OneSignal\OneSignalFacade;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Meilisearch\Client;
@@ -421,15 +422,11 @@ class HomeController extends Controller
     }
     public function notification()
     {
-        \OneSignal::sendNotificationToUser(
-            "Some Message",
-            '644a530f9cb32333ad0f6d93',
-            $url = null,
-            $data = null,
-            $buttons = null,
-            $schedule = null
-        );
+        \OneSignal::sendNotificationToUser("Some Message", "23dd802e-bc08-418a-b0c6-0763bb8f784b", $url = null, $data = null);
+
         return 'sent!';
     }
 }
+
+// 23dd802e-bc08-418a-b0c6-0763bb8f784b
 //./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"
