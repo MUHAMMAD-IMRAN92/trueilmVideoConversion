@@ -4,6 +4,8 @@
 @include('includes.css')
 
 <head>
+
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -68,9 +70,24 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-chat.css') }}">
     <!-- END: Page CSS-->
+    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
 
     <!--Text Box Liabraries-->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(function(OneSignal) {
+            OneSignal.init({
+                appId: "ecc4d9fa-c42f-4e68-8c62-024c4530a5d4",
+                notifyButton: {
+                    enable: true,
+                },
+                autoRegister: true,
+                allowLocalhostAsSecureOrigin: true
+            });
 
+        });
+    </script>
 
 </head>
 <style>

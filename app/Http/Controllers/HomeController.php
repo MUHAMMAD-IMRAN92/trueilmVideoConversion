@@ -412,19 +412,12 @@ class HomeController extends Controller
     public function generateQr(Request $request)
     {
         // return redirect()->to('/');
-        // $svgContent = QrCode::size(300)->color(27, 35, 83)->margin(1)->generate($request->value);
+        $svgContent = QrCode::size(300)->color(27, 35, 83)->margin(1)->generate($request->value);
+        $base64SVG = base64_encode($svgContent);
 
-        // Encode SVG content to base64
-        // $base64SVG = base64_encode($svgContent);
-        $meta = [
-            'title' => 'Page Title',
-            'description' => 'Page Description',
-        ];
-
-        return response()->json([
-            'data' => 'imran',
-            'meta' => $meta,
-        ]);
+        return response()->json(
+            $base64SVG,
+        );
     }
     public function notification()
     {
@@ -440,4 +433,3 @@ class HomeController extends Controller
     }
 }
 //./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"
-
