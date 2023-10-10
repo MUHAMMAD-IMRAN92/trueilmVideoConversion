@@ -422,7 +422,7 @@ class HomeController extends Controller
     }
     public function notification()
     {
-        \OneSignal::sendNotificationToUser("Some Message", "23dd802e-bc08-418a-b0c6-0763bb8f784b", $url = null, $data = null);
+        \OneSignal::sendNotificationToUser("Some Message", "e78a86c4-405f-448c-a4f3-900a395bb598", $url = null, $data = null);
 
         return 'sent!';
     }
