@@ -3484,14 +3484,24 @@
        function addQuestion() {
            var html;
            var count = $('.question').length
-           html = `<div class="card">
+           html = `<div class="card lessonAddQuestionDiv-` + count +
+               `">
                                         <div class="card-content">
                                             <div class="card-body">
                                                 <div class="form-body">
                                                     <div class="row append-inputs">
                                                         <div class="col-12">
                                                             <div class="form-group">
-                                                                <h6>Question :</h6>
+                                                                <div class="row">
+                                                                <div class="col-12">
+
+
+                                                                            <span> <h6> Question :<i class="fa fa-trash" onclick="removelessondiv(` + count + `)"></i></h6></span>
+
+
+                                                                </div>
+                                                                </div>
+
                                                                 <div class="position-relative">
                                                                     <input type="text" id="question"
                                                                         class="form-control" name="question[]" required
@@ -3602,5 +3612,8 @@
                return false;
            }
        });
-   </script>
 
+       function removelessondiv(key) {
+           $(".lessonAddQuestionDiv-" + key).remove();
+       }
+   </script>

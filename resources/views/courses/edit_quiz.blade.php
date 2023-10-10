@@ -46,6 +46,33 @@
                                 action="{{ route('quiz.update') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="input_append">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                    <h4>Select Lesson</h4>
+
+                                                    <div class="form-label-group">
+                                                        <select class="select2 form-control"name="lesson_id"
+                                                            id="create-product-category-attribute">
+                                                            {{-- <option selected disabled>Select
+                                                                Lesson
+                                                            </option> --}}
+                                                            @foreach ($courseLesson as $clesson)
+                                                                <option {{ $lesson_id == $clesson->_id ? 'selected' : '' }}
+                                                                    value=" {{ $clesson->_id }}">
+                                                                    {{ $clesson->title }}
+                                                                </option>
+                                                            @endforeach
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @foreach ($question as $key => $q)
                                         <div class="card">
                                             <div class="card-content">

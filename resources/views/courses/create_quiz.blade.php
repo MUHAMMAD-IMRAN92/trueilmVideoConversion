@@ -46,11 +46,40 @@
                                 action="{{ route('quiz.post') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="input_append">
+
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+
+                                                    <h4>Select Lesson</h4>
+
+                                                    <div class="form-label-group">
+                                                        <select class="select2 form-control"name="lesson_id"
+                                                            id="create-product-category-attribute">
+                                                            {{-- <option selected disabled>Select
+                                                                Lesson
+                                                            </option> --}}
+                                                            @foreach ($courseLesson as $clesson)
+                                                                <option value=" {{ $clesson->_id }}">
+                                                                    {{ $clesson->title }}
+                                                                </option>
+                                                            @endforeach
+
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="card">
                                         <div class="card-content">
                                             <div class="card-body">
                                                 <div class="form-body">
+
                                                     <div class="row append-inputs">
+
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <h6>Question :</h6>
@@ -74,10 +103,10 @@
                                                                     <div class="col-6 d-flex m-0 p-0">
 
                                                                         <div class="col-6 m-0 p-0">
-                                                                            <input type="hidden" id=""
+                                                                            {{-- <input type="hidden" id=""
                                                                                 class="form-control" name="lesson_id"
                                                                                 required placeholder=""
-                                                                                value="{{ $lesson_id }}">
+                                                                                value="{{ $lesson_id }}"> --}}
                                                                             <input type="hidden" id=""
                                                                                 class="form-control" name="course_id"
                                                                                 required placeholder=""
@@ -94,16 +123,16 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-6 ">
+                                                                    <div class="col-6   m-0 p-0">
 
-                                                                        <div class="col-12  d-flex">
+                                                                        <div class="col-12  d-flex m-0 p-0">
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
-                                                                                    class="form-control"
+                                                                                    class="form-control "
                                                                                     name="incorrect-0[]" required
                                                                                     placeholder="" required>
                                                                             </div>
-                                                                            <div class="col-6">
+                                                                            <div class="col-6 ">
                                                                                 <input type="text" id="question"
                                                                                     class="form-control"
                                                                                     name="incorrect-0[]" required
@@ -113,7 +142,7 @@
 
                                                                         </div>
                                                                         <br>
-                                                                        <div class="col-12  d-flex">
+                                                                        <div class="col-12  d-flex m-0 p-0">
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
                                                                                     class="form-control"
@@ -130,7 +159,7 @@
 
                                                                         </div> <br>
 
-                                                                        <div class="col-12  d-flex">
+                                                                        <div class="col-12  d-flex m-0 p-0">
                                                                             <div class="col-6">
                                                                                 <input type="text" id="question"
                                                                                     class="form-control"

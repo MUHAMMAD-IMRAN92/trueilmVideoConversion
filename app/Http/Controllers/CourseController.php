@@ -261,12 +261,14 @@ class CourseController extends Controller
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
 
-    public function addQuiz($course_id, $id)
+    public function addQuiz($course_id)
     {
         $course =    Course::where('_id', $course_id)->first();
+        $courseLesson = CourseLesson::where('course_id', $course_id)->get(['id', 'title']);
+
         return view('courses.create_quiz', [
-            'lesson_id' => $id,
-            'course' => $course
+            'course' => $course,
+            'courseLesson' => $courseLesson
         ]);
     }
     public function postQuiz(Request $request)
@@ -309,6 +311,8 @@ class CourseController extends Controller
     }
     public function manageQuiz($course_id, $id)
     {
+        $courseLesson = CourseLesson::where('course_id', $course_id)->get(['id', 'title']);
+
         $course =    Course::where('_id', $course_id)->first();
         $question  = Questionaire::where('lesson_id', $id)->with(['options' => function ($q) {
             $q->orderBy('type', 'desc');
@@ -316,7 +320,8 @@ class CourseController extends Controller
         return view('courses.edit_quiz', [
             'lesson_id' => $id,
             'course' => $course,
-            'question' => $question
+            'question' => $question,
+            'courseLesson' => $courseLesson
         ]);
     }
     public function updateQuiz(Request $request)

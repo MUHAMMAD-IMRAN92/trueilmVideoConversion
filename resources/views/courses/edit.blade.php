@@ -203,91 +203,125 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <h2 class="">
-                                                Lessons:</h2>
-                                        </div>
-                                        <div class="col-2">
-                                            <span class="btn btn-primary" data-toggle="modal"
-                                                data-target="#add-episode">Add Lesson</span>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="card">
+
+                                        <div class="card-content">
+                                            <div class="card-body">
+
+                                                <ul class="nav nav-pills nav-fill">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="home-tab-fill" data-toggle="pill"
+                                                            href="#home-fill" aria-expanded="true">Lessons</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="quiz-tab-fill" data-toggle="pill"
+                                                            href="#quiz-fill" aria-expanded="true">Quiz</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row d-flex justify-content-center">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="home-fill"
+                                    aria-labelledby="home-tab-fill" aria-expanded="true">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <h2 class="">
+                                                        Lessons:</h2>
+                                                </div>
+                                                <div class="col-2">
+                                                    <span class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#add-episode">Add Lesson</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
 
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="">Title</th>
-                                                        <th class="description-td">Description</th>
-                                                        <th>Module Overview</th>
-                                                        <th>KWL Worksheet</th>
-                                                        <th>Lesson Notes</th>
-                                                        <th>Content</th>
-                                                        <th>Quiz</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @forelse ($course->lessons as $key=> $les)
-                                                        <tr> <input type="hidden" name=""
-                                                                id="episode_id{{ $key }}"
-                                                                value="{{ $course->_id }}">
-                                                            <input type="hidden" name=""
-                                                                id="les_id{{ $key }}"
-                                                                value="{{ $les->_id }}">
-                                                            <td id="title{{ $key }}">{{ $les->title }}</td>
-                                                            <td id="description{{ $key }}">
-                                                                {{ $les->description }}</td>
+                                            <div class="row d-flex justify-content-center">
+
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="">Title</th>
+                                                                <th class="description-td">Description</th>
+                                                                <th>Module Overview</th>
+                                                                {{-- <th>KWL Worksheet</th> --}}
+                                                                <th>Lesson Notes</th>
+                                                                <th>Content</th>
+                                                                {{-- <th>Quiz</th> --}}
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse ($course->lessons as $key=> $les)
+                                                                <tr> <input type="hidden" name=""
+                                                                        id="episode_id{{ $key }}"
+                                                                        value="{{ $course->_id }}">
+                                                                    <input type="hidden" name=""
+                                                                        id="les_id{{ $key }}"
+                                                                        value="{{ $les->_id }}">
+                                                                    <td id="title{{ $key }}">{{ $les->title }}
+                                                                    </td>
+                                                                    <td id="description{{ $key }}">
+                                                                        {{ $les->description }}</td>
 
 
 
-                                                            <td>
-                                                                @if ($les->module_overview)
-                                                                    <a target="blank" href="{{ $les->module_overview }}">
-                                                                        <i class="fa fa-eye"
-                                                                            style="font-size:20px !important"></i>
-                                                                    </a>
-                                                                @else
-                                                                    <span>NA</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
+                                                                    <td>
+                                                                        @if ($les->module_overview)
+                                                                            <a target="blank"
+                                                                                href="{{ $les->module_overview }}">
+                                                                                <i class="fa fa-eye"
+                                                                                    style="font-size:20px !important"></i>
+                                                                            </a>
+                                                                        @else
+                                                                            <span>NA</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    {{-- <td>
 
-                                                                @if ($les->kwl_worksheet)
-                                                                    <a target="blank" href="{{ $les->kwl_worksheet }}">
-                                                                        <i class="fa fa-eye"
-                                                                            style="font-size:20px !important"></i></a>
-                                                                @else
-                                                                    <span>NA</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if ($les->lesson_notes)
-                                                                    <a target="blank" href="{{ $les->lesson_notes }}">
-                                                                        <i class="fa fa-eye"
-                                                                            style="font-size:20px !important"></i></a>
-                                                                @else
-                                                                    <span>NA</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if ($les->type == 1)
-                                                                    <audio src="{{ $les->file }}" style=""
-                                                                        controls></audio>
-                                                                @else
-                                                                    <video style="width:300px;" src="{{ $les->file }}"
-                                                                        controls></video>
-                                                                @endif
-                                                            </td>
-                                                            @if ($les->quiz == 0)
+                                                                        @if ($les->kwl_worksheet)
+                                                                            <a target="blank"
+                                                                                href="{{ $les->kwl_worksheet }}">
+                                                                                <i class="fa fa-eye"
+                                                                                    style="font-size:20px !important"></i></a>
+                                                                        @else
+                                                                            <span>NA</span>
+                                                                        @endif
+                                                                    </td> --}}
+                                                                    <td>
+                                                                        @if ($les->lesson_notes)
+                                                                            <a target="blank"
+                                                                                href="{{ $les->lesson_notes }}">
+                                                                                <i class="fa fa-eye"
+                                                                                    style="font-size:20px !important"></i></a>
+                                                                        @else
+                                                                            <span>NA</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if ($les->type == 1)
+                                                                            <audio src="{{ $les->file }}"
+                                                                                style="" controls></audio>
+                                                                        @else
+                                                                            <video style="width:300px;"
+                                                                                src="{{ $les->file }}"
+                                                                                controls></video>
+                                                                        @endif
+                                                                    </td>
+                                                                    {{-- @if ($les->quiz == 0)
                                                                 <td> <a class="btn btn-primary"
                                                                         href="{{ url('lesson/quiz/add/' . $course->_id . '/' . $les->_id) }}">Add
                                                                         Quiz</a> </td>
@@ -296,22 +330,98 @@
                                                                         href="{{ url('lesson/quiz/edit/' . $course->_id . '/' . $les->_id) }}">
                                                                         Edit
                                                                         Quiz</a> </td>
-                                                            @endif
-                                                            <td> <i class="fa fa-pencil pointer"
-                                                                    onclick="editLessonModal({{ $key }})"></i>
-                                                            </td>
+                                                            @endif --}}
+                                                                    <td> <i class="fa fa-pencil pointer"
+                                                                            onclick="editLessonModal({{ $key }})"></i>
+                                                                    </td>
 
-                                                        </tr>
+                                                                </tr>
 
-                                                    @empty
-                                                        <tr>
-                                                            <center><b>No Episode Added Yet !</b></center>
-                                                        </tr>
-                                                    @endforelse
-                                                </tbody>
-                                            </table>
+                                                            @empty
+                                                                <tr>
+                                                                    <center><b>No Episode Added Yet !</b></center>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane " id="quiz-fill" aria-labelledby="quiz-tab-fill"
+                                    aria-expanded="true">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <h2 class="">
+                                                        Quiz:</h2>
+                                                </div>
+                                                <div class="col-2">
+                                                    <a class="btn btn-primary"
+                                                        href=" {{ url('lesson/quiz/add/' . $course->_id) }}">Add
+                                                        Quiz</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row d-flex justify-content-center">
 
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="">Title</th>
+                                                                <th class="description-td">Description</th>
+
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse ($course->lessons->where('quiz' , 1) as $key=> $les)
+                                                                <tr> <input type="hidden" name=""
+                                                                        id="episode_id{{ $key }}"
+                                                                        value="{{ $course->_id }}">
+                                                                    <input type="hidden" name=""
+                                                                        id="les_id{{ $key }}"
+                                                                        value="{{ $les->_id }}">
+                                                                    <td id="title{{ $key }}">{{ $les->title }}
+                                                                    </td>
+                                                                    <td id="description{{ $key }}">
+                                                                        {{ $les->description }}</td>
+
+
+
+
+                                                                    @if ($les->quiz == 0)
+                                                                        <td> <a class="btn btn-primary"
+                                                                                href="{{ url('lesson/quiz/add/' . $course->_id . '/' . $les->_id) }}">Add
+                                                                                Quiz</a> </td>
+                                                                    @else
+                                                                        <td> <a class="btn btn-primary"
+                                                                                href="{{ url('lesson/quiz/edit/' . $course->_id . '/' . $les->_id) }}">
+                                                                                Edit
+                                                                                Quiz</a> </td>
+                                                                    @endif
+
+
+                                                                </tr>
+
+                                                            @empty
+                                                                <tr>
+                                                                    <center><b>No Episode Added Yet !</b></center>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -568,7 +678,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">KWL Worksheet
 
@@ -583,7 +693,7 @@
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Lesson notes
@@ -682,7 +792,7 @@
                                                         </div>
                                                     </fieldset>
                                                 </div>
-                                                <div class="col-md-12">
+                                                {{-- <div class="col-md-12">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">KWL Worksheet
 
@@ -696,7 +806,7 @@
                                                                 file</label>
                                                         </div>
                                                     </fieldset>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-md-12">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">Lesson notes
