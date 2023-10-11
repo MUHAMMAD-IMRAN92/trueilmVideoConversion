@@ -43,8 +43,10 @@ class SendNotifications implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->type == 0 && $this->playerId != '') {
-            \OneSignal::sendNotificationToUser($this->message,  $this->playerId, $url = null, $data = null);
+        if ($this->type) {
+            if ($this->playerId != '') {
+                \OneSignal::sendNotificationToUser($this->message,  $this->playerId, $url = null, $data = null);
+            }
         } else {
             \OneSignal::sendNotificationToAll(
                 $this->message,
