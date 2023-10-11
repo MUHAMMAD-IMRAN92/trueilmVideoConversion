@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
+use App\Jobs\SendNotifications;
 use App\Models\Book;
 use App\Models\BookContent;
 use App\Models\Category;
@@ -367,7 +368,9 @@ class BookController extends Controller
         $book->update([
             'status' => $status
         ]);
-
+        if ($book->status == 1) {
+            SendNotifications::dispatch($book->added_by, 'A new book has benn uploaded to TrueILM.', 1);
+        }
         return redirect()->back();
     }
     public function pendingForApprove()

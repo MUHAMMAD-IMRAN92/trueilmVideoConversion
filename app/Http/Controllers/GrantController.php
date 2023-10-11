@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Grant;
@@ -163,6 +164,7 @@ class GrantController extends Controller
                 'approved' => $approved,
                 'approved_by' => $this->user->id,
             ]);
+            SendNotifications::dispatch($grant->user_id, 'Your Grant has been approved', 0);
         }
         return redirect()->back()->with('msg', 'Grant Approved Successfully!');
     }

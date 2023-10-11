@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNotifications;
 use App\Models\Support;
 use App\Models\SupportDetails;
 use Illuminate\Http\Request;
@@ -49,7 +50,8 @@ class SupportController extends Controller
         return json_encode($data);
     }
     public function details($id)
-    { $support = Support::where('_id', $id)->first();
+    {
+        $support = Support::where('_id', $id)->first();
         $supportDetail = SupportDetails::where('support_id', $id)->get();
         return view('support.detail', [
             'supportDetails' => $supportDetail,
@@ -70,6 +72,7 @@ class SupportController extends Controller
             $support->status = 1;
             $support->save();
         }
+        SendNotifications::dispatch($support->support, 'Your have a message in support', 0);
 
         return redirect()->back()->with('msg', 'Response Sent!');
     }

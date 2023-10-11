@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNotifications;
 use App\Models\ReviewBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +68,7 @@ class ReviewBookController extends Controller
         $reviewBook->status = 1;
 
         $reviewBook->save();
+        SendNotifications::dispatch($reviewBook->user_id, 'Your Book has been reviewed', 0);
 
         return redirect()->to('/review')->with('msg', 'Review Saved!');
     }
