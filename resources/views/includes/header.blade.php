@@ -394,7 +394,14 @@
                                     href="{{ url('app-users') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">App Users</span></a>
                             </li>
-
+                            <li class="@if (request()->is('affiliate*')) active @endif "><a
+                                    href="{{ url('/affiliate ') }}"><i class="fa fa-id-card"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Affiliate </span></a>
+                            </li>
+                            <li class="@if (request()->is('family*')) active @endif "><a
+                                    href="{{ url('/family ') }}"><i class="fa fa-users"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Family </span></a>
+                            </li>
                         </ul>
                     </li>
                     {{-- <li class="@if (request()->is('user*')) active @endif "><a
@@ -459,6 +466,7 @@
                                 class="fa fa-percent"></i>
                             <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
                     </li>
+
                     <li class="@if (request()->is('order*')) active @endif "><a href="{{ url('/order') }}"><i
                                 class="fa fa-line-chart"></i>
                             <span class="menu-item" data-i18n="Analytics">Order</span></a>

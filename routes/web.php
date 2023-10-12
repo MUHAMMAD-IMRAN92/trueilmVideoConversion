@@ -288,4 +288,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('language/create', [App\Http\Controllers\LanguageController::class, 'create'])->name('language.create');
     Route::post('language', [App\Http\Controllers\LanguageController::class, 'store'])->name('language.store');
     Route::get('language/edit/{id}', [App\Http\Controllers\LanguageController::class, 'edit'])->name('language.edit');
+
+    //affiliate
+    Route::get('affiliate', [App\Http\Controllers\UserController::class, 'affiliate'])->name('affiliate');
+    Route::get('affiliate/reffered/{id}', [App\Http\Controllers\UserController::class, 'reffered'])->name('affiliate.reffered');
+
+
+
+    //family
+    Route::get('family', [App\Http\Controllers\UserController::class, 'family'])->name('affiliate');
+    Route::get('family/members/{id}', [App\Http\Controllers\UserController::class, 'members'])->name('family.members');
 });

@@ -11,43 +11,27 @@
 
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-7 col-12 mb-2">
+                <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">User Books Details</h2>
+                            <h2 class="content-header-title float-left mb-0">Affiliate Users</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="content-header-left col-md-5 col-12 mb-2 d-flex " style="justify-content:end">
-                    <div class="row breadcrumbs-top d-flex">
-                        <form action="{{ url('app-user/books_reading_details/' . $user_id) }}" method='GET'
-                            class="d-flex">
-                            @csrf
-                            <input class="form-control" type="date" name="s_date" id=""
-                                value="{{ @$s_date }}">
-                            <input class="form-control" type="date" name="e_date" id=""
-                                value="{{ @$e_date }}">
-                            <input type="hidden" name="user_id" value="{{ $user_id }}" id="">
-                            <button class="btn-icon btn btn-primary btn-round  dropdown-toggle" type="submit"><span
-                                    class="add-brand-font"></span> <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                {{-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <a href="{{ route('user.add') }}"> <button
                                     class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
                                         class="add-brand-font">Add User</span> <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button></a>
 
-                        </div>
+                        </div> --}}
                     </div>
-                </div> --}}
+                </div>
             </div>
             @if (\Session::has('msg'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -73,22 +57,33 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Sr#</th>
-                                                    <th class="description-td">Book Title</th>
-                                                    <th class="">Pages Read</th>
+                                                    <th>Name</th>
+                                                    <th class="description-td">Email</th>
+                                                    <th class="">Phone</th>
+
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse ($book_read as $key => $br)
+                                                @forelse ($users as $user)
                                                     <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ @$br->title }}</td>
-                                                        <td>{{ @$br->lastSeenBook[0]->total_pages }}</td>
+                                                        <td>{{ $user->name }}</td>
+                                                        <td>{{ $user->email }}</td>
+                                                        <td>{{ $user->phone }}</td>
+
+                                                        <td> <a
+                                                                href="{{ url('app-user/books_reading_details/' . $user->id) }}"><i
+                                                                    class="fa fa-info-circle"
+                                                                    style="font-size:24px"></i></a> </td>
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <center> <b> No Book Read Yet !</b></center>
-                                                        <br>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td class="mr-5">
+                                                            <b>No Person Reffered!</b>
+                                                        </td>
+
                                                     </tr>
                                                 @endforelse
                                             </tbody>

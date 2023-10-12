@@ -69,4 +69,13 @@ class User extends Authenticatable
     protected $appends = ['status'];
 
     protected $dates = ['deleted_at'];
+
+    public function refferer()
+    {
+        return $this->hasMany(User::class, 'reffer_id', '_id');
+    }
+    public function family()
+    {
+        return $this->hasMany(User::class, 'parent_id', '_id');
+    }
 }

@@ -254,4 +254,36 @@ class UserController extends Controller
 
         return redirect('/institute/users')->with('msg', 'User Imported Successfully!');
     }
+    public function affiliate()
+    {
+        $users =   User::whereHas('refferer')->with('refferer')->paginate(10);
+
+        return view('affliate_users.index', [
+            'users' => $users
+        ]);
+    }
+    public function reffered($id)
+    {
+        $users =   User::where('reffer_id', $id)->paginate(10);
+
+        return view('affliate_users.reffered', [
+            'users' => $users
+        ]);
+    }
+    public function family()
+    {
+        $users =   User::whereHas('family')->with('family')->paginate(10);
+
+        return view('family_users.index', [
+            'users' => $users
+        ]);
+    }
+    public function members($id)
+    {
+        $users =   User::where('parent_id', $id)->paginate(10);
+
+        return view('family_users.reffered', [
+            'users' => $users
+        ]);
+    }
 }
