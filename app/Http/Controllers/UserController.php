@@ -280,7 +280,7 @@ class UserController extends Controller
     }
     public function members($id)
     {
-        $users =   User::where('parent_id', $id)->paginate(10);
+        $users =   User::where('parentId', $id)->paginate(10);
 
         return view('family_users.reffered', [
             'users' => $users
