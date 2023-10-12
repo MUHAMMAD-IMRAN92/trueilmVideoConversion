@@ -50,4 +50,3 @@ Route::get('/delete/index', function () {
 Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
 
 
-Route::get('test_notification' ,  [App\Http\Controllers\HomeController::class, 'notification']);

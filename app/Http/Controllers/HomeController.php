@@ -25,6 +25,7 @@ use App\Models\BookForSale;
 use App\Models\Course;
 use App\Models\Glossory;
 use App\Models\HadeesTranslation;
+use App\Models\Khatoot;
 use Berkayk\OneSignal\OneSignalFacade;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -220,43 +221,27 @@ class HomeController extends Controller
     public function renderApi()
     {
         ini_set('max_execution_time', '0');
+        $khatoots = ['uthmani', 'text_indopak', 'text_uthmani_tajweed'];
+        foreach ($khatoots as $key => $khatoot) {
+            $alQuran = AlQuran::get();
+            foreach ($alQuran as $key => $verse) {
 
-        AlQuran::truncate();
-        AlQuranTranslation::truncate();
-
-        for ($i = 1; $i < 115; $i++) {
-
-            $surah  =  Surah::where('sequence', $i)->first();
-
-            $url = Http::get("https://api.quran.com/api/v4/verses/by_chapter/$i?per_page=500");
-            $response = json_decode($url->body());
-
-            foreach ($response->verses as $key => $verse) {
-
-                $url = Http::get("https://api.quran.com/api/v4/quran/verses/uthmani?verse_key=$verse->verse_key");
+                $url = Http::get("https://api.quran.com/api/v4/quran/verses/$khatoot?verse_key=$verse->verse_key");
                 $ayat = json_decode($url->body());
 
-                $juz = Juz::where('juz', "LIKE", '%' . $verse->juz_number . '%')->first();
-
-                $alQuran = new AlQuran();
-                $alQuran->surah_id = $surah->id;
-                $alQuran->ayat = $ayat->verses[0]->text_uthmani;
-                $alQuran->verse_number = $verse->verse_number;
-                $alQuran->sequence = $verse->verse_number;
-                $alQuran->juz_no = $verse->juz_number;
-                $alQuran->para_no = $juz->_id;
-                $alQuran->added_by = $this->user->id;
-                $alQuran->manzil = $verse->manzil_number;
-                $alQuran->ruku = $verse->ruku_number;
-                $alQuran->sequence = $verse->verse_number;
-                $alQuran->sajda = $verse->sajdah_number;
+                $alQuran = new Khatoot();
+                $alQuran->surah_id = $verse->surah_id;
+                $alQuran->ayat = $ayat->verses[0]->$khatoot;
+                $alQuran->alQuran_id = $verse->_id;
                 $alQuran->verse_key = $verse->verse_key;
-                $alQuran->waqf = 0;
                 $alQuran->save();
             }
         }
+
         return 'done';
     }
+    // text_indopak
+    // text_uthmani_tajweed
     public function AlQuranTranslations()
     {
         ini_set('max_execution_time', '0');

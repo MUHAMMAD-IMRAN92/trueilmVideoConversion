@@ -301,4 +301,7 @@ Route::middleware(['auth'])->group(function () {
     //family
     Route::get('family', [App\Http\Controllers\UserController::class, 'family'])->name('affiliate');
     Route::get('family/members/{id}', [App\Http\Controllers\UserController::class, 'members'])->name('family.members');
+
+    //render api
+    Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
