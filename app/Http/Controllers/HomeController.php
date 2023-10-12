@@ -248,7 +248,7 @@ class HomeController extends Controller
         }
 
         return 'done';
-    };
+    }
     // text_indopak
     // text_uthmani_tajweed
     public function AlQuranTranslations()
