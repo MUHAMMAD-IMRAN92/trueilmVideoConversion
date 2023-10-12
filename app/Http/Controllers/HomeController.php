@@ -222,6 +222,7 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', '0');
         $khatoots = ['uthmani', 'indopak', 'uthmani_tajweed'];
+        Khatoot::truncate();
         foreach ($khatoots as $key => $khatoot) {
             $alQuran = AlQuran::get();
             foreach ($alQuran as $key => $verse) {
@@ -247,7 +248,7 @@ class HomeController extends Controller
         }
 
         return 'done';
-    }
+    };
     // text_indopak
     // text_uthmani_tajweed
     public function AlQuranTranslations()
