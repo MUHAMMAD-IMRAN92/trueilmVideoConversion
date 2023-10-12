@@ -71,7 +71,7 @@
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ $user->phone }}</td>
                                                         <td>{{ count($user->family) }}</td>
-                                                        <td> <a href="{{ url('affiliate/reffered/' . $user->id) }}"><i
+                                                        <td> <a href="{{ url('family/members/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
                                                                     style="font-size:24px"></i></a> </td>
                                                     </tr>
