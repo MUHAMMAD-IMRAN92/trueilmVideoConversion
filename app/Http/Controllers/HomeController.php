@@ -231,7 +231,7 @@ class HomeController extends Controller
 
                 $alQuran = new Khatoot();
                 $alQuran->surah_id = $verse->surah_id;
-                $alQuran->ayat = $ayat->verses[0]->$khatoot;
+                $alQuran->ayat = $ayat->verses[0][$khatoot];
                 $alQuran->alQuran_id = $verse->_id;
                 $alQuran->verse_key = $verse->verse_key;
                 $alQuran->save();
