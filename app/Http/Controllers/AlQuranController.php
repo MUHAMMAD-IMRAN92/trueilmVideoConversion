@@ -146,7 +146,8 @@ class AlQuranController extends Controller
             $authorLanguage = AuthorLanguage::create([
                 'author_id' => $author->_id,
                 'lang_id' =>  $language->_id,
-                'type' => (int) $request->combination_type
+                'type' => (int) $request->combination_type,
+                'status' => 1
             ]);
             return redirect()->back()->with('msg', 'Author Language Saved Successfully!');
         }
@@ -431,5 +432,18 @@ class AlQuranController extends Controller
             'currentCombination' => $currentCombination,
             'type' => $type
         ]);
+    }
+    public function disableCombination($id)
+    {
+        $combination = AuthorLanguage::where('_id', $id)->first();
+        if ($combination->status == 1) {
+            $combination->status = 0;
+            $combination->save();
+        } else {
+            $combination->status = 1;
+            $combination->save();
+        }
+
+        return redirect()->back()->with('msg', 'Combination Updated !');
     }
 }

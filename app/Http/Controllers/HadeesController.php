@@ -384,4 +384,5 @@ class HadeesController extends Controller
             'type' => $type
         ]);
     }
+
 }

@@ -155,6 +155,17 @@
                                             <span class="action-edit"><i class="fa fa-external-link"></i></span>
 
                                         </td>
+                                        <td class="product-action">
+                                            <span class="action-edit"><a class="btn btn-dark"
+                                                    href="{{ url('disable/author_lang/' . $combination->_id) }}">
+                                                    @if ($combination->status == 1)
+                                                        Disable
+                                                    @else
+                                                        Enable
+                                                    @endif
+
+                                                </a></span>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ayat/edit/{surah_id}/{ayat_id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('ayat.edit');
     Route::post('ayat/update', [App\Http\Controllers\AlQuranController::class, 'update'])->name('ayat.update');
     Route::post('author_lang', [App\Http\Controllers\AlQuranController::class, 'authorLanguage'])->name('ayat.author_language');
+    Route::get('disable/author_lang/{id}', [App\Http\Controllers\AlQuranController::class, 'disableCombination']);
+
     //Ayat Translations
     Route::get('ayat/translation/delete', [App\Http\Controllers\AlQuranController::class, 'deleteTranslation'])->name('ayat.translaton.delete');
     Route::post('ayat/translation/update', [App\Http\Controllers\AlQuranController::class, 'updateTranslation'])->name('ayat.translaton.update');
@@ -282,6 +284,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all_hadith_books/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllBooks']);
     Route::get('hadith/books/combination/{type}/{id}', [App\Http\Controllers\HadeesController::class, 'hadithCombination']);
     Route::get('/hadith/books/combination/{type}/{book_id}/{combination}', [App\Http\Controllers\HadeesController::class, 'Hadiths']);
+
 
     //languages
     Route::get('language', [App\Http\Controllers\LanguageController::class, 'index']);
