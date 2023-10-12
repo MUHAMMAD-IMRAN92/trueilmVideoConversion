@@ -272,7 +272,7 @@ class UserController extends Controller
     }
     public function family()
     {
-      return  $users =   User::whereHas('family')->with('family')->paginate(10);
+        $users =   User::whereHas('family')->with('family')->paginate(10);
 
         return view('family_users.index', [
             'users' => $users
