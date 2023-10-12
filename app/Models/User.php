@@ -76,6 +76,6 @@ class User extends Authenticatable
     }
     public function family()
     {
-        return $this->hasMany(User::class, 'parent_id', '_id');
+        return $this->hasMany(User::class, 'parentId', '_id');
     }
 }
