@@ -29,7 +29,7 @@ Route::post('reset-password-email',  [App\Http\Controllers\Api\UserController::c
 
 //stripe
 Route::post('stripe/add-card-customer', [App\Http\Controllers\Api\StripeController::class, 'createCusCard']);
-Route::post('stripe/subscribe-plan', [App\Http\Controllers\Api\StripeController::class, 'subscribe']);
+Route::post('stripe/subscribe-plan', [App\Http\notification\Api\StripeController::class, 'subscribe']);
 
 
 Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
@@ -48,5 +48,4 @@ Route::get('/delete/index', function () {
 });
 
 Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
-
-
+Route::get('notification',  [App\Http\Controllers\HomeController::class, 'notification']);
