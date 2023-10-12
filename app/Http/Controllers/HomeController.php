@@ -232,10 +232,13 @@ class HomeController extends Controller
                 $alQuran->surah_id = $verse->surah_id;
                 if ($khatoot == 'uthmani') {
                     $alQuran->ayat = $ayat->verses[0]->text_uthmani;
+                    $alQuran->type = 1;
                 } elseif ($khatoot == 'indopak') {
                     $alQuran->ayat = $ayat->verses[0]->text_indopak;
+                    $alQuran->type = 2;
                 } else {
                     $alQuran->ayat = $ayat->verses[0]->text_uthmani_tajweed;
+                    $alQuran->type = 3;
                 }
                 $alQuran->alQuran_id = $verse->_id;
                 $alQuran->verse_key = $verse->verse_key;
