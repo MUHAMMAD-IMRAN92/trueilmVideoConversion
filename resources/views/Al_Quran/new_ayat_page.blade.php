@@ -187,37 +187,58 @@
 
                             </div>
                         </div> --}}
-                        <div class="col-4 d-flex flex-row-reverse">
+                        <div class="col-4 d-flex ">
 
                             <form
                                 action="{{ url('/surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
                                 method="GET">
-                                <div class="form-label-group">
-                                    <select class="select2 form-control" name="ayat_id" id="" style="width: 320px">
-                                        <option selected disabled>Select
-                                            Surah
-                                        </option>
-                                        <option value="">All
-                                        </option>
-                                        @foreach ($surah->ayats as $aya)
-                                            <option style="height: fit-content;width:inherit" class="checkclass"
-                                                value="{{ $aya->_id }}"
-                                                {{ request()->aya == $aya->_id ? 'selected' : '' }}>
-                                                {{ $aya->sequence . ' : ' . $aya->ayat }}
+                                <div class="d-flex">
+
+                                    <div class="col-6 form-label-group p-0 m-0">
+                                        <select class="select2 form-control" name="ayat_id" id="">
+                                            <option selected disabled>Select
+                                                Surah
                                             </option>
-                                        @endforeach
+                                            <option value="">All
+                                            </option>
+                                            @foreach ($surah->ayats as $aya)
+                                                <option style="height: fit-content;width:inherit" class="checkclass"
+                                                    value="{{ $aya->_id }}"
+                                                    {{ request()->aya == $aya->_id ? 'selected' : '' }}>
+                                                    {{ $aya->sequence . ' : ' . $aya->ayat }}
+                                                </option>
+                                            @endforeach
 
 
-                                    </select>
-                                    <div class="mt-2">
-                                        <button class="btn btn-dark" type="submit"> Search</button>
-                                        <a href="{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
-                                            class="btn btn-dark">Clear</i></a>
+                                        </select>
                                     </div>
+                                    <div class=" col-6 form-label-group" style="margin-left: 1px">
 
+                                        <select class="select2 form-control" name="khatoot" id="">
 
+                                            <option class="checkclass" value="1"
+                                                {{ request()->khatoot == 1 ? 'selected' : '' }}>
+                                                Uthmani
+                                            </option>
+                                            <option class="checkclass" value="2"
+                                                {{ request()->khatoot == 2 ? 'selected' : '' }}>
+                                                Indopak
+                                            </option>
+                                            <option class="checkclass" value="3"
+                                                {{ request()->khatoot == 3 ? 'selected' : '' }}>
+                                                Uthmani Tajweed
+                                            </option>
 
+                                        </select>
+                                    </div>
                                 </div>
+
+                                <div>
+                                    <button class="btn btn-dark" type="submit"> Search</button>
+                                    <a href="{{ url('surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
+                                        class="btn btn-dark">Clear</i></a>
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -226,7 +247,7 @@
             </div>
             <div class="content-body">
                 <!-- Data list view starts -->
-                <section id="data-list-view" class="data-list-view-header">
+                <section id="data-list-view" class="data-list-view-g">
 
 
                     <!-- DataTable starts -->
@@ -443,7 +464,7 @@
                                                             <p id="non-edit-lang-select-{{ $key }}"
                                                                 class="mt-1"
                                                                 style="text-align: right; line-height:50px">
-                                                                {{ $aya->ayat }}
+                                                                {!! $aya->khatoot[0]->ayat !!}
 
                                                             </p>
 

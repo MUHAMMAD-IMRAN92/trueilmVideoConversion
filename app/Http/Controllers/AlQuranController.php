@@ -407,7 +407,11 @@ class AlQuranController extends Controller
         $surah =   Surah::where('_id', $surah_id)->with('ayats')->with(['introduction' => function ($q) use ($combination_id, $type) {
             $q->where('type', 0)->where('author_lang', $combination_id);
         }])->first();
-        $ayats = AlQuran::when($request->ayat_id, function ($q) use ($request) {
+        $ayats = AlQuran::with(['khatoot' => function ($q) use ($request) {
+            $q->when($request->khatoot, function ($k) use ($request) {
+                $k->where('type', (int)$request->khatoot);
+            });
+        }])->when($request->ayat_id, function ($q) use ($request) {
             $q->where('_id', $request->ayat_id);
         })->where('surah_id', $surah_id)->with(['translations' => function ($q) use ($combination_id, $type) {
             $q->where('type', (int) $type)->where('author_lang', $combination_id);

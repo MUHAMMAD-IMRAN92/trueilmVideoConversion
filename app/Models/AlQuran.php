@@ -46,4 +46,8 @@ class AlQuran extends Eloquent
     {
         return $this->belongsTo(Surah::class, 'surah_id', '_id');
     }
+    public function khatoot()
+    {
+        return $this->hasMany(Khatoot::class, 'alQuran_id', '_id');
+    }
 }
