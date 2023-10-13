@@ -2181,6 +2181,7 @@
        }
 
        function editable(key) {
+
            $('#edit-button-' + key).css('display', 'none');
            $('#save-button-' + key).css('display', 'block');
            $('#revelation-save-button-' + key).css('display', 'none');
@@ -2197,6 +2198,8 @@
            $('#notes-delete-button-' + key).css('display', 'none');
            $('#notes-edit-button-' + key).css('display', 'block');
            $('#bold-notes-' + key).css('display', 'none');
+           $('#notes-editble-' + key).css('display', 'none');
+
        }
 
 
@@ -3496,7 +3499,8 @@
                                                                 <div class="col-12">
 
 
-                                                                            <span> <h6> Question :<i class="fa fa-trash" onclick="removelessondiv(` + count + `)"></i></h6></span>
+                                                                            <span> <h6> Question :<i class="fa fa-trash" onclick="removelessondiv(` +
+               count + `)"></i></h6></span>
 
 
                                                                 </div>
