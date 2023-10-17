@@ -60,6 +60,7 @@ class QuizController extends Controller
             $attemptResult->lesson_id = $request->lesson_id;
             $attemptResult->answer = $request->answer;
             $attemptResult->attempt = $attempt->_id;
+            $attemptResult->type = $lesson->type;
             $attemptResult->save();
         } else {
             return response()->json([
@@ -79,5 +80,25 @@ class QuizController extends Controller
             'response' => $response
 
         ]);
+    }
+    public function attemptResult(Request $request)
+    {
+        $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('attempt', $request->attempt)->first();
+        $response = 0;
+        if (!$attempt) {
+            return response()->json([
+                'response' => 'No Result Found !',
+            ]);
+        } else {
+            $attemptResult =    AttemptResult::where('attempt', $request->attempt)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('type', 1)->count();
+            if ($attemptResult) {
+                $response =  $attemptResult;
+            }
+
+            return response()->json([
+                'response' => $response
+
+            ]);
+        }
     }
 }
