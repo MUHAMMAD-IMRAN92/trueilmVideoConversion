@@ -34,6 +34,11 @@ Route::post('stripe/subscribe-plan', [App\Http\notification\Api\StripeController
 
 Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
 Route::post('searchTest',  [App\Http\Controllers\HomeController::class, 'searchTest']);
+
+//quiz
+Route::get('quiz/{lession_id}',  [App\Http\Controllers\Api\QuizController::class, 'quiz']);
+
+
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
 Route::get('/delete/index', function () {
     ini_set("memory_limit", "-1");

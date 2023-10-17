@@ -326,7 +326,6 @@ class CourseController extends Controller
     }
     public function updateQuiz(Request $request)
     {
-        // return $request->all();
         $questiondel =  Questionaire::where('lesson_id', $request->lesson_id)->pluck('_id');
         QuestionaireOptions::whereIn('question_id', $questiondel)->delete();
         Questionaire::where('lesson_id', $request->lesson_id)->delete();

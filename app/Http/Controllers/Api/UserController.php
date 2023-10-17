@@ -50,4 +50,6 @@ class UserController extends Controller
             return sendError('User Not Found!', []);
         }
     }
+
+    
 }

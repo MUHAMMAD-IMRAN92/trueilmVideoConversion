@@ -12,4 +12,13 @@ class Questionaire extends Eloquent
     {
         return $this->hasMany(QuestionaireOptions::class, 'question_id', '_id');
     }
+    public function correctOption()
+    {
+        return $this->hasOne(QuestionaireOptions::class, 'question_id', '_id')->where('type', 1);
+    }
+
+    public function incorrectOptions()
+    {
+        return $this->hasMany(QuestionaireOptions::class, 'question_id', '_id')->where('type', 0);
+    }
 }

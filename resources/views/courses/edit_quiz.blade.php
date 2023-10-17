@@ -45,6 +45,7 @@
                             <form class="form form-vertical" id="disable-btn-submit" method="POST"
                                 action="{{ route('quiz.update') }}" enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="course_id" value="{{ $course->_id }}" id="">
                                 <div class="input_append">
                                     <div class="card">
                                         <div class="card-body">
