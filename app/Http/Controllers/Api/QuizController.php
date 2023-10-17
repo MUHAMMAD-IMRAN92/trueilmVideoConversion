@@ -90,7 +90,7 @@ class QuizController extends Controller
                 'response' => 'No Result Found !',
             ]);
         } else {
-            $attemptResult =    AttemptResult::where('attempt', $request->attempt)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('type', 1)->count();
+            $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('type', 1)->count();
             if ($attemptResult) {
                 $response =  $attemptResult;
             }
