@@ -37,6 +37,7 @@ Route::post('searchTest',  [App\Http\Controllers\HomeController::class, 'searchT
 
 //quiz
 Route::get('quiz/{lession_id}',  [App\Http\Controllers\Api\QuizController::class, 'quiz']);
+Route::post('check_answer',  [App\Http\Controllers\Api\QuizController::class, 'checkAnswer']);
 
 
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AttemptResult;
 use App\Models\CourseLesson;
 use Illuminate\Http\Request;
 use App\Models\Questionaire;
+use App\Models\QuestionaireOptions;
+use App\Models\QuizAttempts;
 
 class QuizController extends Controller
 {
@@ -31,6 +34,49 @@ class QuizController extends Controller
 
         return response()->json([
             'quiz' => $shuffled->all()
+
+        ]);
+    }
+    public function checkAnswer(Request $request)
+    {
+
+        $lesson = QuestionaireOptions::where('question_id', $request->question_id)->where('option',  $request->answer)->first();
+
+        $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('attempt', $request->attempt)->first();
+        if (!$attempt) {
+            $attempt = new QuizAttempts();
+            $attempt->user_id =  $request->user_id;
+            $attempt->lesson_id = $request->lesson_id;
+            $attempt->attempt = $request->attempt;
+            $attempt->save();
+        }
+
+        $attemptResult =    AttemptResult::where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->where('answer', $request->answer)->first();
+
+        if (!$attemptResult) {
+            $attemptResult = new AttemptResult();
+            $attemptResult->user_id =  $request->user_id;
+            $attemptResult->question_id =  $request->question_id;
+            $attemptResult->lesson_id = $request->lesson_id;
+            $attemptResult->answer = $request->answer;
+            $attemptResult->attempt = $attempt->_id;
+            $attemptResult->save();
+        } else {
+            return response()->json([
+                'response' => 'Response Already Submitted For This Question !',
+            ]);
+        }
+        $response = '';
+        if ($lesson) {
+            if ($lesson->type == 1) {
+                $response = 'True';
+            } else {
+                $response = 'False';
+            }
+        }
+
+        return response()->json([
+            'response' => $response
 
         ]);
     }
