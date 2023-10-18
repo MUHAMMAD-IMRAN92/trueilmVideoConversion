@@ -701,4 +701,5 @@ class BookController extends Controller
 
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
+    
 }

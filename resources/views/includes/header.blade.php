@@ -475,6 +475,10 @@
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Review Book</span></a>
                     </li>
+                    <li class="@if (request()->is('addition_review')) active @endif "><a
+                            href="{{ url('/addition_review') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Book Addition Review</span></a>
+                    </li>
                     <li class="@if (request()->is('comment*')) active @endif "><a
                             href="{{ url('/comments') }}"><i class="fa fa-comment-o"></i>
                             <span class="menu-item" data-i18n="Analytics">Comments</span></a>

@@ -254,6 +254,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('review/store', [App\Http\Controllers\ReviewBookController::class, 'store'])->name('review.store');
     Route::get('review/book/view/{id}', [App\Http\Controllers\ReviewBookController::class, 'viewBook'])->name('grant.book.view');
 
+    //addition review
+    Route::get('addition_review', [App\Http\Controllers\ReviewBookController::class, 'allAddtionaReview'])->name('review.addition');
+    Route::get('all-addition-review-book', [App\Http\Controllers\ReviewBookController::class, 'allBookAddtionaReview'])->name('review.addition.all');
+    Route::get('addition_review_approve/{id}', [App\Http\Controllers\ReviewBookController::class, 'additionApprove'])->name('review.addition.approve');
+    Route::get('addition_review_reject/{id}', [App\Http\Controllers\ReviewBookController::class, 'additionReject'])->name('review.addition.reject');
     //book mistakes
     Route::get('mistakes', [App\Http\Controllers\BookMistakeController::class, 'index'])->name('mistakes');
     Route::get('all-mistakes', [App\Http\Controllers\BookMistakeController::class, 'allMistakes'])->name('mistakes.all');

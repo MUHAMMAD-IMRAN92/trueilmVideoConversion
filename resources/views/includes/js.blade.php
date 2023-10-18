@@ -1381,6 +1381,100 @@
                }],
                "order": false
            });
+
+           //epub additional review
+           $('#book-addition-review-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-addition-review-book') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           var title = '';
+                           if (row.book != null) {
+                               title = row.book.title;
+                           } else {
+                               title = '--';
+                           }
+                           return '<td>' +
+                               title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description;
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.user_name != null) {
+                               user_name = row.user_name;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var association = '';
+                           if (row.association != null) {
+                               association = row.association;
+                           } else {
+                               association = '--'
+                           }
+                           return '<td>' +
+                               association + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var status = '';
+
+                           if (row.status == 1) {
+                               status = 'Appoved';
+                           } else if (row.status == 2) {
+                               status = 'Rejected'
+                           } else {
+                               status = 'Pending'
+                           }
+                           return '<td>' +
+                               status + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           anchor =
+                               `<a  class="ml-2"  href="{{ url('addition_review_approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                               <a  class="ml-2"  href="{{ url('addition_review_reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
+
+                           return `<td>` +
+                               anchor +
+                               `</td>`
+                       }
+                   },
+
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#admin-rejected-book-table').DataTable({
                "processing": true,
                "serverSide": true,

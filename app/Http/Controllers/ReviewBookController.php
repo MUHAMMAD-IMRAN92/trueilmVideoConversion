@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendNotifications;
+use App\Models\AdditionalReview;
 use App\Models\ReviewBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,5 +80,60 @@ class ReviewBookController extends Controller
             'file' => $grant->file,
             'user_id' => $this->user->id
         ]);
+    }
+    public function allAddtionaReview()
+    {
+        return view('review_book.addition_review');
+    }
+    public function allBookAddtionaReview(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = AdditionalReview::count();
+        $brands = AdditionalReview::when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('bookTitle', 'like', "%$search%");
+            });
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = AdditionalReview::when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('bookTitle', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
+    public function  additionApprove($id)
+    {
+        $addition = AdditionalReview::where('_id', $id)->first();
+
+        if ($addition) {
+            $addition->status = 1;
+            $addition->save();
+        }
+        return redirect()->back()->with('msg', 'Review Approved !');
+    }
+    public function  additionReject($id)
+    {
+        $addition = AdditionalReview::where('_id', $id)->first();
+
+        if ($addition) {
+            $addition->status = 2;
+            $addition->save();
+        }
+        return redirect()->back()->with('msg', 'Review Rejected !');
     }
 }
