@@ -362,15 +362,13 @@ class BookController extends Controller
     }
     public function updateStatus($id)
     {
-        $book = Book::where('_id', $id)->first();
+        return $book = Book::where('_id', $id)->first();
         $status = $book->status == 1 ? 0 : 1;
 
         $book->update([
             'status' => $status
         ]);
-        if ($book->status == 1) {
-            SendNotifications::dispatch($book->added_by, 'A new book has benn uploaded to TrueILM.', 1);
-        }
+
         return redirect()->back();
     }
     public function pendingForApprove()
@@ -413,6 +411,9 @@ class BookController extends Controller
                 'approved' => $approved,
                 'approved_by' => $this->user->id,
             ]);
+
+            SendNotifications::dispatch($book->added_by, 'A new book has been uploaded to TrueILM.', 0);
+            SendNotifications::dispatch($book->added_by, 'Your Book Has Been Published Approved.', 1);
         }
         activity(1, $id, 1);
         return redirect()->back()->with('msg', 'Content Approved Successfully!');
@@ -428,6 +429,8 @@ class BookController extends Controller
                 'approved_by' => $this->user->id,
                 'reason' => $request->reason
             ]);
+
+            SendNotifications::dispatch($book->added_by, 'Your Book Has Rejected.', 1);
         }
 
         activity(2, $id, 1);
@@ -701,5 +704,4 @@ class BookController extends Controller
 
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
-    
 }

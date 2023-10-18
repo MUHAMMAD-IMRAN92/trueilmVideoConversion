@@ -2,7 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\Notification;
 use App\Models\User;
+use App\Models\UserDevices;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,16 +23,17 @@ class SendNotifications implements ShouldQueue
      * @return void
      */
     public $user;
-    public $playerId = '';
+    public $playerId;
     public $type;
     public $message;
-    // type 1 :  send to all
-    // type 0 :  send to specific user
+    // type 0 :  send to all
+    // type 1 :  send to specific user
     public function __construct($user, $message, $type)
     {
         $this->user = User::where('_id', $user)->first();
         if ($this->user) {
-            $this->playerId = $this->user->player_id ?? '';
+            $devices = UserDevices::where('user_id')->pluck('player_id');
+            $this->playerId = $devices;
         }
         $this->type = $type;
         $this->message = $message;
@@ -43,9 +46,19 @@ class SendNotifications implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->type) {
-            if ($this->playerId != '') {
-                \OneSignal::sendNotificationToUser($this->message,  $this->playerId, $url = null, $data = null);
+        if ($this->type == 1) {
+            if (count($this->playerId) > 0) {
+
+                foreach ($this->playerId as $player) {
+                    \OneSignal::sendNotificationToUser($this->message,  $player, $url = null, $data = null);
+
+                    $notification = new Notification();
+                    $notification->user_id = $this->user->_id;
+                    $notification->notification = $this->message;
+                    $notification->is_read = 0;
+                    $notification->send_to = 1;
+                    $notification->save();
+                }
             }
         } else {
             \OneSignal::sendNotificationToAll(
@@ -55,6 +68,12 @@ class SendNotifications implements ShouldQueue
                 $buttons = null,
                 $schedule = null
             );
+            $notification = new Notification();
+            $notification->user_id = 0;
+            $notification->notification = $this->message;
+            $notification->is_read = 0;
+            $notification->send_to = 0;
+            $notification->save();
         }
     }
 }

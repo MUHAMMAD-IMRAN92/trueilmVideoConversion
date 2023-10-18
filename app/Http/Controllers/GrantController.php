@@ -56,6 +56,7 @@ class GrantController extends Controller
                 'approved_by' => $this->user->id,
                 'reason' => $request->reason
             ]);
+            SendNotifications::dispatch($grant->user_id, 'Your Grant has Rejected', 1);
         }
 
 
@@ -164,7 +165,7 @@ class GrantController extends Controller
                 'approved' => $approved,
                 'approved_by' => $this->user->id,
             ]);
-            SendNotifications::dispatch($grant->user_id, 'Your Grant has been approved', 0);
+            SendNotifications::dispatch($grant->user_id, 'Your Grant has been approved', 1);
         }
         return redirect()->back()->with('msg', 'Grant Approved Successfully!');
     }
