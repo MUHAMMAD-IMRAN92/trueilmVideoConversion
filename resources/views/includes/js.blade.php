@@ -1396,8 +1396,8 @@
                "columns": [{
                        "mRender": function(data, type, row) {
                            var title = '';
-                           if (row.book != null) {
-                               title = row.book.title;
+                           if (row.bookTitle != null) {
+                               title = row.bookTitle;
                            } else {
                                title = '--';
                            }
