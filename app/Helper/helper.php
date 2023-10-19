@@ -31,7 +31,7 @@ function glossaryAttribute($glossoryId, $type)
 }
 function activity($key, $id, $model)
 {
-    $arr = [1 => 'Approved Content', 2 => 'Rejected Content', 3 => 'Disabled Content', 4 => 'Enabled Content'];
+    $arr = [1 => 'Approved Content', 2 => 'Rejected Content', 3 => 'Disabled Content', 4 => 'Enabled Content', 5 => ' Approved A Grant', 6 => ' Rejected A Grant'];
     if ($model == 1) {
         $content = Book::where('_id', $id)->first();
     } else {
@@ -46,6 +46,12 @@ function activity($key, $id, $model)
         $link = 'book/update-status/';
     }
     if ($key == 1 || $key == 2) {
+        $link = 'content/revert/';
+    }
+    if ($key == 5) {
+        $link = 'content/revert/';
+    }
+    if ($key == 6) {
         $link = 'content/revert/';
     }
     $acvtivity->revert_link  = $link;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activities;
 use App\Models\Book;
+use App\Models\Grant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,11 +59,18 @@ class ActivitiesController extends Controller
     }
     public function revert($id, $activity_id)
     {
+
         $book = Book::where('_id', $id)->first();
         $approved = 0;
         if ($book) {
             $book->update([
                 'approved' => $approved,
+                'approved_by' => '',
+            ]);
+        } else {
+            $grant = Grant::where('_id', $id)->first();
+            $grant->update([
+                'approved' => 0,
                 'approved_by' => '',
             ]);
         }
