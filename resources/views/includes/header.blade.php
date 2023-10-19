@@ -402,6 +402,10 @@
                                     href="{{ url('/family ') }}"><i class="fa fa-users"></i>
                                     <span class="menu-item" data-i18n="Analytics">Family </span></a>
                             </li>
+                            <li class="@if (request()->is('cancel_subscriptions')) active @endif "><a
+                                    href="{{ url('cancel_subscriptions') }}"><i class="fa fa-times"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Cancel Subscription</span></a>
+                            </li>
                         </ul>
                     </li>
                     {{-- <li class="@if (request()->is('user*')) active @endif "><a

@@ -142,6 +142,7 @@ class UserController extends Controller
 
     public function appUsers()
     {
+        $brands = User::whereNull('deleted_at')->whereNull('type')->get();
         return view('user.app_users');
     }
     public function allAppUser(Request $request)
@@ -285,5 +286,38 @@ class UserController extends Controller
         return view('family_users.reffered', [
             'users' => $users
         ]);
+    }
+    public function cancelSubscription()
+    {
+        $brands = User::whereNull('deleted_at')->whereNull('type')->get();
+        $table = 'cancel-subsciption';
+        return view('user.app_users', [
+            'table' => $table
+        ]);
+    }
+    public function allCancelSubscription(Request $request)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = User::whereHas('cancelSubscription')->whereNull('deleted_at')->whereNull('type')->count();
+        $brands = User::whereHas('cancelSubscription')->whereNull('deleted_at')->whereNull('type')->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = User::whereHas('cancelSubscription')->whereNull('deleted_at')->whereNull('type')->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
     }
 }

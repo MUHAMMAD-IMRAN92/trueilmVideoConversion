@@ -55,7 +55,7 @@
 
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
-                                        <table class="table" id="app-user-table">
+                                        <table class="table" id="{{ @$table ?? 'app-user-table' }}">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>

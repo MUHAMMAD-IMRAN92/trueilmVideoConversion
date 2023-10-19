@@ -50,10 +50,32 @@ class User extends Authenticatable
 
     public function getStatusAttribute()
     {
-        $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
-        if ($this->customer) {
-            $dataActive = $stripe->subscriptions->all(['customer' => $this->customer]);
-            return count($dataActive->data);
+        // $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
+        // if ($this->customer) {
+        //     $dataActive = $stripe->subscriptions->all(['customer' => $this->customer]);
+        //     return count($dataActive->data);
+        // } else {
+        //     return 0;
+        // }
+        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('status', 'paid')->get();
+        if ($userSubscription) {
+            return count($userSubscription);
+        } else {
+            return 0;
+        }
+    }
+    public function getCancelSubcriptionAttribute()
+    {
+        // $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
+        // if ($this->customer) {
+        //     $dataActive = $stripe->subscriptions->all(['customer' => $this->customer]);
+        //     return count($dataActive->data);
+        // } else {
+        //     return 0;
+        // }
+        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('status', 'cancelled')->get();
+        if ($userSubscription) {
+            return count($userSubscription);
         } else {
             return 0;
         }
@@ -77,5 +99,9 @@ class User extends Authenticatable
     public function family()
     {
         return $this->hasMany(User::class, 'parentId', '_id');
+    }
+    public function cancelSubscription()
+    {
+        return $this->hasMany(UserSubscription::class, 'user_id', '_id')->where('status', 'cancelled');
     }
 }
