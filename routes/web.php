@@ -287,6 +287,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all_surah_translations/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
     Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
     Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
+    //Al-Quran Recitations
+    Route::get('all_surah_recitations', [App\Http\Controllers\AlQuranController::class, 'surahRecitation']);
 
     //New Hadith
     Route::get('all_hadith_books/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllBooks']);

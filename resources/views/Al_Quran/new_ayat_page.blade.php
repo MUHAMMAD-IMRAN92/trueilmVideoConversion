@@ -464,7 +464,7 @@
                                                             <p id="non-edit-lang-select-{{ $key }}"
                                                                 class="mt-1"
                                                                 style="text-align: right; line-height:50px">
-                                                                {!! $aya->khatoot[0]->ayat !!}
+                                                                {!! @$aya->khatoot[0]->ayat !!}
 
                                                             </p>
 

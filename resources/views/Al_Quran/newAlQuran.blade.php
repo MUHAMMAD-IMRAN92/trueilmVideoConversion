@@ -102,9 +102,11 @@
                                             @php
                                                 $count = 0;
                                                 if ($content_type == 1) {
-                                                    $count = $surah->translation_count;
+                                                    $count = $surah->translation_count ?? 0;
+                                                } elseif ($content_type == 2) {
+                                                    $count = $surah->tafseer_count ?? 0;
                                                 } else {
-                                                    $count = $surah->tafseer_count;
+                                                    $count = $surah->audio_count ?? 0;
                                                 }
                                             @endphp
                                             {{ $count . '/' . $combinationCount }}</td>

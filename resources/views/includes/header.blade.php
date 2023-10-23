@@ -360,7 +360,15 @@
                                     request()->is('surah_translations/2*') ||
                                     request()->is('surah/translations/2*')) active @endif "><a
                                     href="{{ url('all_surah_translations/2') }}"><i class="fa fa-list"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Surah Tafseer</span></a> </li>
+                                    <span class="menu-item" data-i18n="Analytics">Surah Tafseers</span></a> </li>
+                            <li class="@if (request()->is('all_surah_translations/6') ||
+                                    request()->is('surah_translations/6*') ||
+                                    request()->is('surah/translations/6*')) active @endif "><a
+                                    href="{{ url('all_surah_translations/6') }}"><i class="fa fa-list"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Surah Recitations</span></a> </li>
+                            {{-- <li class="@if (request()->is('all_surah_recitations') || request()->is('all_surah_recitations*') || request()->is('surah/all_surah_recitations*')) active @endif "><a
+                                    href="{{ url('all_surah_recitations') }}"><i class="fa fa-list"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Surah Recitations</span></a> </li> --}}
                         </ul>
                     </li>
 

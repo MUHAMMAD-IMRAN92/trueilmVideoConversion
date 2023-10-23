@@ -20,6 +20,7 @@ use App\Models\Tag;
 use App\Models\ContentTag;
 use App\Models\Glossory;
 use App\Jobs\SurahCombination as SurahCombinationJob;
+use App\Models\RecitationCombination;
 use App\Models\SurahCombinations;
 use Meilisearch\Client;
 
@@ -370,8 +371,12 @@ class AlQuranController extends Controller
         })->paginate(10);
 
         $surahDropDown =   Surah::get(['_id', 'surah', 'sequence']);
+        if ((int)$type == 3) {
+            $combinationCount =  RecitationCombination::count();
+        } else {
 
-        $combinationCount =  AuthorLanguage::where('type', (int)$type)->count();
+            $combinationCount =  AuthorLanguage::where('type', (int)$type)->count();
+        }
 
         return view('Al_Quran.newAlQuran', [
             'surahs' => $surahs,
@@ -385,6 +390,7 @@ class AlQuranController extends Controller
         $surah =   Surah::where('_id', $id)->first();
         $languages = Languages::all();
         $author = Author::all();
+
         $combination =  AuthorLanguage::where('type', (int)$type)->when($request->lang, function ($l) use ($request) {
             $l->where('lang_id', $request->lang);
         })->when($request->author, function ($a) use ($request) {
@@ -394,6 +400,8 @@ class AlQuranController extends Controller
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');
         }])->paginate(10);
+
+
         return view('Al_Quran.new_surah_page', [
             'surah' => $surah,
             'combinations' => $combination,
@@ -449,5 +457,9 @@ class AlQuranController extends Controller
         }
 
         return redirect()->back()->with('msg', 'Combination Updated !');
+    }
+    public function surahRecitation()
+    {
+        $recitations = Author::where('name', 'like', '%' . request()->input('query') . '%')->get();
     }
 }
