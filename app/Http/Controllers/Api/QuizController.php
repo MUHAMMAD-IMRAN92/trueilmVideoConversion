@@ -16,20 +16,20 @@ class QuizController extends Controller
     {
         $question = collect();
         $lesson = CourseLesson::where('_id', $lesson_id)->first();
+        $shuffled = collect();
         if ($lesson && $lesson->quiz == 1) {
-            $shuffled =  Questionaire::where('lesson_id', $lesson->_id)->with(['correctOption' => function ($q) {
-                $q->where('type', 1)->first()->pluck('_id', 'option'); // Get one right option
-            }])
-                ->with(['incorrectOptions' => function ($q) {
-                    $q->where('type', 0)->take(2);
-                }])->get()->take(10)->map(function ($shuffled) {
-                    $options = collect([$shuffled->correctOption]);
-                    $optionsWrong = $shuffled->incorrectOptions->toBase();
-                    $mergedOptions = $options->merge($optionsWrong);
-                    $shuffled->makeHidden('incorrectOptions', 'correctOption');
-                    $shuffled->options = $mergedOptions->pluck('option', '_id');
-                    return $shuffled;
-                })->shuffle();
+            $shuffled =  Questionaire::where('lesson_id', $lesson->_id)->with(['incorrectOptions' => function ($q) {
+                // $q->take(3);
+            }])->with(['correctOption' => function ($c) {
+                // $q->take(3);
+            }])->get()->take(10)->map(function ($shuffled) {
+                $options = collect([$shuffled->correctOption]);
+                $optionsWrong = $shuffled->incorrectOptions->take(3)->toBase();
+                $mergedOptions = $options->merge($optionsWrong);
+                $shuffled->makeHidden('incorrectOptions', 'correctOption');
+                $shuffled->options = $mergedOptions->pluck('option', '_id');
+                return $shuffled;
+            })->shuffle();
         }
 
         return response()->json([
