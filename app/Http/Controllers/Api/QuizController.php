@@ -12,8 +12,18 @@ use App\Models\QuizAttempts;
 
 class QuizController extends Controller
 {
-    public function quiz($lesson_id)
+    public function quiz(Request $request, $lesson_id)
     {
+        $validator = \Validator::make($request->all(), [
+            'lesson_id' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Lesson Id is required !',
+            ]);
+        }
         $question = collect();
         $lesson = CourseLesson::where('_id', $lesson_id)->first();
         $shuffled = collect();
@@ -39,7 +49,17 @@ class QuizController extends Controller
     }
     public function checkAnswer(Request $request)
     {
+        $validator = \Validator::make($request->all(), [
+            'lesson_id' => 'required',
+            'user_id' => 'required',
+            'attempt_id' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors(),
+            ]);
+        }
         $lesson = QuestionaireOptions::where('question_id', $request->question_id)->where('option',  $request->answer)->first();
 
         $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('attempt', $request->attempt)->first();
@@ -50,36 +70,42 @@ class QuizController extends Controller
             $attempt->attempt = $request->attempt;
             $attempt->save();
         }
+        if ($lesson) {
+            $attemptResult =    AttemptResult::where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->where('answer', $request->answer)->first();
 
-        $attemptResult =    AttemptResult::where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->where('answer', $request->answer)->first();
+            if (!$attemptResult) {
+                $attemptResult = new AttemptResult();
+                $attemptResult->user_id =  $request->user_id;
+                $attemptResult->question_id =  $request->question_id;
+                $attemptResult->lesson_id = $request->lesson_id;
+                $attemptResult->answer = $request->answer;
+                $attemptResult->attempt = $attempt->_id;
+                $attemptResult->type = $lesson->type;
+                $attemptResult->save();
+            } else {
+                return response()->json([
+                    'response' => 'Response Already Submitted For This Question !',
+                ]);
+            }
+            $response = '';
+            if ($lesson) {
+                if ($lesson->type == 1) {
+                    $response = 'True';
+                } else {
+                    $response = 'False';
+                }
+            }
 
-        if (!$attemptResult) {
-            $attemptResult = new AttemptResult();
-            $attemptResult->user_id =  $request->user_id;
-            $attemptResult->question_id =  $request->question_id;
-            $attemptResult->lesson_id = $request->lesson_id;
-            $attemptResult->answer = $request->answer;
-            $attemptResult->attempt = $attempt->_id;
-            $attemptResult->type = $lesson->type;
-            $attemptResult->save();
+            return response()->json([
+                'response' => $response
+
+            ]);
         } else {
             return response()->json([
-                'response' => 'Response Already Submitted For This Question !',
+                'response' => 'Some Thing Went Wrong !'
+
             ]);
         }
-        $response = '';
-        if ($lesson) {
-            if ($lesson->type == 1) {
-                $response = 'True';
-            } else {
-                $response = 'False';
-            }
-        }
-
-        return response()->json([
-            'response' => $response
-
-        ]);
     }
     public function attemptResult(Request $request)
     {
