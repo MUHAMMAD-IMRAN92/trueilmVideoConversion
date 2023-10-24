@@ -95,6 +95,29 @@
                                                         <img src="{{ $course->image }}" alt="course image"
                                                             style="width:150px; height:120px">
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="">Introduction Video</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="" name="intro_video" accept="video/*"
+                                                                    disabled>
+                                                                <label class="custom-file-label" for="">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="">Module Overview</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="" name="module_overview" disabled>
+                                                                <label class="custom-file-label" for="">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="form-group col-6 ">
                                                         <label for="basicInputFile">Tags</label>
 
@@ -256,7 +279,7 @@
                                                             <tr>
                                                                 <th class="">Title</th>
                                                                 <th class="description-td">Description</th>
-                                                                <th>Module Overview</th>
+                                                                {{-- <th>Module Overview</th> --}}
                                                                 {{-- <th>KWL Worksheet</th> --}}
                                                                 <th>Lesson Notes</th>
                                                                 <th>Content</th>
@@ -279,7 +302,7 @@
 
 
 
-                                                                    <td>
+                                                                    {{-- <td>
                                                                         @if ($les->module_overview)
                                                                             <a target="blank"
                                                                                 href="{{ $les->module_overview }}">
@@ -289,7 +312,7 @@
                                                                         @else
                                                                             <span>NA</span>
                                                                         @endif
-                                                                    </td>
+                                                                    </td> --}}
                                                                     {{-- <td>
 
                                                                         @if ($les->kwl_worksheet)
@@ -313,11 +336,11 @@
                                                                     </td>
                                                                     <td>
                                                                         @if ($les->type == 1)
-                                                                            <audio src="{{ $les->file }}"
+                                                                            <audio src="{{ $les->video }}"
                                                                                 style="" controls></audio>
                                                                         @else
                                                                             <video style="width:300px;"
-                                                                                src="{{ $les->file }}"
+                                                                                src="{{ $les->video }}"
                                                                                 controls></video>
                                                                         @endif
                                                                     </td>
@@ -467,7 +490,7 @@
                                                                 </fieldset>
                                                             </div>
 
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <fieldset class="form-group">
                                                                     <label for="basicInputFile">Image</label>
                                                                     <div class="custom-file">
@@ -480,7 +503,31 @@
                                                                     </div>
                                                                 </fieldset>
                                                             </div>
-
+                                                            <div class="col-md-6">
+                                                                <fieldset class="form-group">
+                                                                    <label for="">Introduction Video</label>
+                                                                    <div class="custom-file">
+                                                                        <input type="file" class="custom-file-input"
+                                                                            id="" name="intro_video"
+                                                                            accept="video/*">
+                                                                        <label class="custom-file-label"
+                                                                            for="">Choose
+                                                                            file</label>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <fieldset class="form-group">
+                                                                    <label for="">Module Overview</label>
+                                                                    <div class="custom-file">
+                                                                        <input type="file" class="custom-file-input"
+                                                                            id="" name="module_overview">
+                                                                        <label class="custom-file-label"
+                                                                            for="">Choose
+                                                                            file</label>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
                                                             <div class="form-group col-6 ">
                                                                 <label for="basicInputFile">Tags</label>
 
@@ -663,7 +710,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Module Overview
                                                             </label>
@@ -677,7 +724,7 @@
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
-                                                    </div>
+                                                    </div> --}}
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">KWL Worksheet
@@ -778,7 +825,7 @@
                                                         </div>
                                                     </fieldset>
                                                 </div>
-                                                <div class="col-md-12">
+                                                {{-- <div class="col-md-12">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">Module Overview
                                                         </label>
@@ -791,7 +838,7 @@
                                                                 file</label>
                                                         </div>
                                                     </fieldset>
-                                                </div>
+                                                </div> --}}
                                                 {{-- <div class="col-md-12">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">KWL Worksheet

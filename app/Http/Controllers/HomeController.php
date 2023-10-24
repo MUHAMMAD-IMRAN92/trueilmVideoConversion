@@ -27,11 +27,13 @@ use App\Models\Glossory;
 use App\Models\HadeesTranslation;
 use App\Models\Khatoot;
 use Berkayk\OneSignal\OneSignalFacade;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Meilisearch\Client;
 use Meilisearch\Contracts\SearchQuery;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use OneSignal;
 
 class HomeController extends Controller
@@ -419,6 +421,27 @@ class HomeController extends Controller
         \OneSignal::sendNotificationToUser("Test Message", "b0263e5f-3da2-43eb-bce5-2effdc500dd5", $url = null, $data = null);
 
         return 'sent!';
+    }
+    public function audios()
+    {
+        ini_set('max_execution_time', 0);
+        $alQuran  = AlQuran::get();
+        foreach ($alQuran as $key => $verse) {
+
+            $url = Http::get("https://api.quran.com/api/v4/recitations/2/by_ayah/$verse->verse_key");
+            $ayat = json_decode($url->body());;
+
+            $url = 'https://verses.quran.com/' . $ayat->audio_files[0]->url;
+            $client = new GuzzleHttpClient();
+            $response = $client->get($url);
+
+            $modifiedFileName = 'audios/1/1653686c4468e05bace11873d/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
+
+            Storage::disk('s3')->put($modifiedFileName, $response->getBody());
+        }
+
+        return 'done';
+        // return Storage::disk('s3')->get('653686c4468e05bace11873d/1_1.mp3');
     }
 }
 

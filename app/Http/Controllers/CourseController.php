@@ -95,6 +95,20 @@ class CourseController extends Controller
             Storage::disk('s3')->setVisibility($path, 'public');
             $course->image  = $base_path . $path;
         }
+        if ($request->has('intro_video')) {
+            $file = $request->file('intro_video');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $request->file('intro_video')->storeAs('courses_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $course->introduction_video  = $base_path . $path;
+        }
+        if ($request->has('module_overview')) {
+            $file = $request->file('module_overview');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $request->file('module_overview')->storeAs('courses_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $course->module_overview  = $base_path . $path;
+        }
 
         $course->save();
         if ($request->tags) {
@@ -161,6 +175,20 @@ class CourseController extends Controller
             $path =   $request->file('image')->storeAs('courses_images', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
             $course->image  = $base_path . $path;
+        }
+        if ($request->has('intro_video')) {
+            $file = $request->file('intro_video');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $request->file('intro_video')->storeAs('courses_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $course->introduction_video  = $base_path . $path;
+        }
+        if ($request->has('module_overview')) {
+            $file = $request->file('module_overview');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $path =   $request->file('module_overview')->storeAs('courses_images', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $course->module_overview  = $base_path . $path;
         }
         $course->save();
         if ($request->tags) {
@@ -232,23 +260,7 @@ class CourseController extends Controller
             }
             $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
         }
-        if ($request->module_overview) {
-            $file_name = time() . '.' . $request->module_overview->getClientOriginalExtension();
-            $path =   $request->module_overview->storeAs('courses_videos', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $courseLesson->module_overview = $base_path . $path;
 
-            $courseLesson->module_overview_name = $request->module_overview->getClientOriginalName();
-        }
-
-        if ($request->kwl_worksheet) {
-            $file_name = time() . '.' . $request->kwl_worksheet->getClientOriginalExtension();
-            $path =   $request->kwl_worksheet->storeAs('courses_videos', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $courseLesson->kwl_worksheet = $base_path . $path;
-
-            $courseLesson->kwl_worksheet_name = $request->kwl_worksheet->getClientOriginalName();
-        }
         if ($request->lesson_notes) {
             $file_name = time() . '.' . $request->lesson_notes->getClientOriginalExtension();
             $path =   $request->lesson_notes->storeAs('courses_videos', $file_name, 's3');

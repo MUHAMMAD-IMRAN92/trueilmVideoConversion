@@ -31,3 +31,5 @@ class CreateRecitationCombinationsTable extends Migration
         Schema::dropIfExists('recitation_combinations');
     }
 }
+
+

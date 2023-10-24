@@ -67,12 +67,34 @@
                                                         </fieldset>
                                                     </div>
 
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="">Image</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
                                                                     id="" name="image" accept="image/*">
+                                                                <label class="custom-file-label" for="">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="">Introduction Video</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="" name="intro_video" accept="video/*">
+                                                                <label class="custom-file-label" for="">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="">Module Overview</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="" name="module_overview">
                                                                 <label class="custom-file-label" for="">Choose
                                                                     file</label>
                                                             </div>
