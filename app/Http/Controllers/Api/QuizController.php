@@ -148,7 +148,7 @@ class QuizController extends Controller
                 ]);
             } else {
                 return response()->json([
-                    'response' => 'Continued',
+                    'response' => 'Continue',
                     'status' => 1
                 ]);
             }
@@ -156,6 +156,7 @@ class QuizController extends Controller
             $attempt = new QuizAttempts();
             $attempt->user_id =  $request->user_id;
             $attempt->lesson_id = $request->lesson_id;
+            $attempt->start_date = $request->start_date;
             $attempt->save();
             return response()->json([
                 'response' => $attempt,
