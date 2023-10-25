@@ -79,6 +79,11 @@ class QuizController extends Controller
                 $attemptResult->attempt_id = $request->attempt_id;
                 $attemptResult->type = $lesson->type;
                 $attemptResult->save();
+                if ($request->is_ended == 1) {
+                    $attempt =   QuizAttempts::where('_id',  $request->attempt_id)->where('is_ended', 0)->first();
+                    $attempt->is_ended =  1;
+                    $attempt->save();
+                }
             } else {
                 return response()->json([
                     'response' => 'Response Already Submitted For This Question !',
