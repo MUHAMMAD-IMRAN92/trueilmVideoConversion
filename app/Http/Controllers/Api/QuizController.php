@@ -80,9 +80,9 @@ class QuizController extends Controller
                 $attemptResult->type = $lesson->type;
                 $attemptResult->save();
                 if ($request->is_ended == 1) {
-                    $attempt =   QuizAttempts::where('_id',  $request->attempt_id)->where('is_ended', 0)->first();
-                    $attempt->is_ended =  1;
-                    $attempt->save();
+                    $quizAttempts =   QuizAttempts::where('_id',  $request->attempt_id)->where('is_ended', 0)->first();
+                    $quizAttempts->is_ended =  1;
+                    $quizAttempts->save();
                 }
             } else {
                 return response()->json([
