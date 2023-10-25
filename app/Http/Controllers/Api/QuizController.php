@@ -165,7 +165,7 @@ class QuizController extends Controller
 
                 return response()->json([
                     'attempt_id' => @$attemptResult->_id,
-                    'start_date' => @$attemptResult->_id,
+                    'start_date' => @$attempt->start_date,
                     'status' => 1
                 ]);
             }
