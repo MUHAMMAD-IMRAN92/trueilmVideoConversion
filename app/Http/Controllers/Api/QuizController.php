@@ -13,7 +13,7 @@ use Carbon\Carbon;
 
 class QuizController extends Controller
 {
-    public function quiz(Request $request, $lesson_id)
+    public function quiz(Request $request)
     {
         $validator = \Validator::make($request->all(), [
             'lesson_id' => 'required',
@@ -26,7 +26,7 @@ class QuizController extends Controller
             ]);
         }
         $question = collect();
-        $lesson = CourseLesson::where('_id', $lesson_id)->first();
+        $lesson = CourseLesson::where('_id', $request->lesson_id)->first();
         $shuffled = collect();
         if ($lesson && $lesson->quiz == 1) {
             $shuffled =  Questionaire::where('lesson_id', $lesson->_id)->with(['incorrectOptions' => function ($q) {
