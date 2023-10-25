@@ -156,7 +156,7 @@ class QuizController extends Controller
             $oDate = $attempt->start_date;
             $diff =  $nDate->diffInMinutes($oDate);
             if ($diff > 90) {
-                $attempt->is_ended = 0;
+                $attempt->is_ended = 1;
                 $attempt->save();
 
 
