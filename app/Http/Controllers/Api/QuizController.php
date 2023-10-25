@@ -68,7 +68,7 @@ class QuizController extends Controller
 
 
         if ($lesson) {
-            $attemptResult =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->where('answer', $request->answer_id)->first();
+            $attemptResult =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->first();
 
             if (!$attemptResult) {
                 $attemptResult = new AttemptResult();
