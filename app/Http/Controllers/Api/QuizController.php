@@ -161,7 +161,7 @@ class QuizController extends Controller
                     'status' => 0
                 ]);
             } else {
-                $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->orderByRaw("FIELD(name) DESC")->first();
+                $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->orderBy('created_at', 'DESC')->first();
 
                 return response()->json([
                     'attempt_id' => @$attemptResult->_id,
