@@ -76,7 +76,7 @@ class QuizController extends Controller
                 $attemptResult->question_id =  $request->question_id;
                 $attemptResult->lesson_id = $request->lesson_id;
                 $attemptResult->answer_id = $request->answer_id;
-                $attemptResult->attempt = $request->attempt_id;
+                $attemptResult->attempt_id = $request->attempt_id;
                 $attemptResult->type = $lesson->type;
                 $attemptResult->save();
             } else {
