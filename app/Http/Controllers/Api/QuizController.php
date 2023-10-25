@@ -158,8 +158,15 @@ class QuizController extends Controller
             if ($diff > 90) {
                 $attempt->is_ended = 0;
                 $attempt->save();
+
+                $attempt = new QuizAttempts();
+                $attempt->user_id =  $request->user_id;
+                $attempt->lesson_id = $request->lesson_id;
+                $attempt->start_date = $request->start_date;
+                $attempt->is_ended = 0;
+                $attempt->save();
                 return response()->json([
-                    'response' => 'Your Attemp Expired',
+                    'response' => $attempt,
                     'status' => 0
                 ]);
             } else {
