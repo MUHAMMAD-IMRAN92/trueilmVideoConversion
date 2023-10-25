@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Questionaire;
 use App\Models\QuestionaireOptions;
 use App\Models\QuizAttempts;
+use Carbon\Carbon;
 
 class QuizController extends Controller
 {
@@ -21,7 +22,7 @@ class QuizController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Lesson Id is required !',
+                'response' => 'Lesson Id is required !',
             ]);
         }
         $question = collect();
@@ -57,21 +58,14 @@ class QuizController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => $validator->errors(),
+                'response' => $validator->errors(),
             ]);
         }
         $lesson = QuestionaireOptions::where('question_id', $request->question_id)->where('option',  $request->answer)->first();
 
-        $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('attempt', $request->attempt)->first();
-        if (!$attempt) {
-            $attempt = new QuizAttempts();
-            $attempt->user_id =  $request->user_id;
-            $attempt->lesson_id = $request->lesson_id;
-            $attempt->attempt = $request->attempt;
-            $attempt->save();
-        }
+
         if ($lesson) {
-            $attemptResult =    AttemptResult::where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->where('answer', $request->answer)->first();
+            $attemptResult =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->where('answer', $request->answer)->first();
 
             if (!$attemptResult) {
                 $attemptResult = new AttemptResult();
@@ -79,7 +73,7 @@ class QuizController extends Controller
                 $attemptResult->question_id =  $request->question_id;
                 $attemptResult->lesson_id = $request->lesson_id;
                 $attemptResult->answer = $request->answer;
-                $attemptResult->attempt = $attempt->_id;
+                $attemptResult->attempt = $request->attempt_id;
                 $attemptResult->type = $lesson->type;
                 $attemptResult->save();
             } else {
@@ -88,12 +82,11 @@ class QuizController extends Controller
                 ]);
             }
             $response = '';
-            if ($lesson) {
-                if ($lesson->type == 1) {
-                    $response = 'True';
-                } else {
-                    $response = 'False';
-                }
+
+            if ($lesson->type == 1) {
+                $response = 'True';
+            } else {
+                $response = 'False';
             }
 
             return response()->json([
@@ -124,6 +117,48 @@ class QuizController extends Controller
             return response()->json([
                 'response' => $response
 
+            ]);
+        }
+    }
+
+    public function checkExpiry(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'lesson_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'response' => $validator->errors(),
+            ]);
+        }
+
+        $nDate = Carbon::createFromFormat('Y-m-d H:s:i', now());
+
+        $attempt =   QuizAttempts::where('_id', $request->attempt_id)->where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->first();
+        if ($attempt) {
+
+            $oDate = $attempt->start_date;
+            $diff =  $nDate->diffInMinutes($oDate);
+            if ($diff > 90) {
+                return response()->json([
+                    'response' => 'Your Attemp Expired',
+                    'status' => 0
+                ]);
+            } else {
+                return response()->json([
+                    'response' => 'Continued',
+                    'status' => 1
+                ]);
+            }
+        } else {
+            $attempt = new QuizAttempts();
+            $attempt->user_id =  $request->user_id;
+            $attempt->lesson_id = $request->lesson_id;
+            $attempt->save();
+            return response()->json([
+                'response' => $attempt,
             ]);
         }
     }

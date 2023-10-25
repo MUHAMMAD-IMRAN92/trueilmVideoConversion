@@ -39,6 +39,7 @@ Route::post('searchTest',  [App\Http\Controllers\HomeController::class, 'searchT
 Route::get('quiz/{lession_id}',  [App\Http\Controllers\Api\QuizController::class, 'quiz']);
 Route::post('check_answer',  [App\Http\Controllers\Api\QuizController::class, 'checkAnswer']);
 Route::post('attempt_result',  [App\Http\Controllers\Api\QuizController::class, 'attemptResult']);
+Route::get('check_expiry',  [App\Http\Controllers\Api\QuizController::class, 'checkExpiry']);
 
 
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
