@@ -161,8 +161,10 @@ class QuizController extends Controller
                     'status' => 0
                 ]);
             } else {
+                $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->order_by('created_at', 'desc')->first();
+
                 return response()->json([
-                    'response' => 'Continue',
+                    'response' => @$attemptResult->_id,
                     'status' => 1
                 ]);
             }
