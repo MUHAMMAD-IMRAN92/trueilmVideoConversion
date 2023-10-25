@@ -164,8 +164,9 @@ class QuizController extends Controller
                 $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->orderBy('created_at', 'DESC')->first();
 
                 return response()->json([
-                    'attempt_id' => @$attempt->_id,
                     'start_date' => @$attempt->start_date,
+                    'attempt_id' => @$attempt->_id,
+                    'question_id' => @$attemptResult->_id ?? 0,
                     'status' => 1
                 ]);
             }
