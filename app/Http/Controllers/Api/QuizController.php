@@ -150,7 +150,7 @@ class QuizController extends Controller
 
         $nDate = Carbon::createFromFormat('Y-m-d H:s:i', now());
 
-        $attempt =   QuizAttempts::where('_id', $request->attempt_id)->where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->first();
+        $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->first();
         if ($attempt) {
 
             $oDate = $attempt->start_date;
