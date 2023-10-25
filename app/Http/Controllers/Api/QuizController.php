@@ -54,6 +54,7 @@ class QuizController extends Controller
             'lesson_id' => 'required',
             'user_id' => 'required',
             'attempt_id' => 'required',
+            'answer_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -61,7 +62,7 @@ class QuizController extends Controller
                 'response' => $validator->errors(),
             ]);
         }
-        $lesson = QuestionaireOptions::where('question_id', $request->question_id)->where('option',  $request->answer)->first();
+        $lesson = QuestionaireOptions::where('question_id', $request->question_id)->where('_id',  $request->answer_id)->first();
 
 
         if ($lesson) {
