@@ -102,7 +102,18 @@ class QuizController extends Controller
     }
     public function attemptResult(Request $request)
     {
-        $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('attempt', $request->attempt)->first();
+        $validator = \Validator::make($request->all(), [
+            'lesson_id' => 'required',
+            'user_id' => 'required',
+            'attempt_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'response' => $validator->errors(),
+            ]);
+        }
+        $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('_id', $request->attempt_id)->first();
         $response = 0;
         if (!$attempt) {
             return response()->json([

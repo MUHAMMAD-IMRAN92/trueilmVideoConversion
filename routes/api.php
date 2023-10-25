@@ -36,7 +36,7 @@ Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
 Route::post('searchTest',  [App\Http\Controllers\HomeController::class, 'searchTest']);
 
 //quiz
-Route::get('quiz/{lession_id}',  [App\Http\Controllers\Api\QuizController::class, 'quiz']);
+Route::post('quiz',  [App\Http\Controllers\Api\QuizController::class, 'quiz']);
 Route::post('check_answer',  [App\Http\Controllers\Api\QuizController::class, 'checkAnswer']);
 Route::post('attempt_result',  [App\Http\Controllers\Api\QuizController::class, 'attemptResult']);
 Route::post('check_expiry',  [App\Http\Controllers\Api\QuizController::class, 'checkExpiry']);
