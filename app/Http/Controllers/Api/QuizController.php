@@ -30,15 +30,17 @@ class QuizController extends Controller
         $shuffled = collect();
         if ($lesson && $lesson->quiz == 1) {
             $shuffled =  Questionaire::where('lesson_id', $lesson->_id)->with(['incorrectOptions' => function ($q) {
-                // $q->take(3);
+                // $q->get('option');
             }])->with(['correctOption' => function ($c) {
-                // $q->take(3);
+                // $c->get('option');
             }])->get()->take(10)->map(function ($shuffled) {
+                $shuffled->correctOption->makeHidden(['type']);
+                $shuffled->incorrectOptions->makeHidden(['type']);
                 $options = collect([$shuffled->correctOption]);
                 $optionsWrong = $shuffled->incorrectOptions->take(3)->toBase();
                 $mergedOptions = $options->merge($optionsWrong);
                 $shuffled->makeHidden('incorrectOptions', 'correctOption');
-                $shuffled->options = $mergedOptions->pluck('option', '_id');
+                $shuffled->options = $mergedOptions;
                 return $shuffled;
             })->shuffle();
         }
