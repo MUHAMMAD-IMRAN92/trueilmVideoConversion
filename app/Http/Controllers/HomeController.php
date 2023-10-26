@@ -464,7 +464,7 @@ class HomeController extends Controller
             $alQuranTranslation->added_by = '6447918217e6501d607f4943';
             $alQuranTranslation->save();
 
-            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+            SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
 
 
             $alQuranTranslation = new AlQuranTranslation();
@@ -477,7 +477,7 @@ class HomeController extends Controller
             $alQuranTranslation->added_by = '6447918217e6501d607f4943';
             $alQuranTranslation->save();
 
-            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+            SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
         }
         return 'save!';
     }
