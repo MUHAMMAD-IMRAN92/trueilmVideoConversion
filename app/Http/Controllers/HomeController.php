@@ -443,6 +443,44 @@ class HomeController extends Controller
         return 'done';
         // return Storage::disk('s3')->get('653686c4468e05bace11873d/1_1.mp3');
     }
+
+    public function AlQuranTafseer()
+    {
+        ini_set('max_execution_time', '0');
+
+        // AlQuranTranslation::truncate();
+        $alQuran = AlQuran::get();
+        foreach ($alQuran as $key => $verse) {
+            $url = Http::get("https://api.quran.com/api/v4/quran/tafsirs/164?verse_key=$verse->verse_key");
+            $response = json_decode($url->body());
+
+            $alQuranTranslation = new AlQuranTranslation();
+
+            $alQuranTranslation->translation = strip_tags($response->tafsirs[1]->text);
+            $alQuranTranslation->author_lang = '653a49b6468e05bace1187b5';
+            $alQuranTranslation->ayat_id = $verse->_id;
+            $alQuranTranslation->surah_id = $verse->surah_id;
+            $alQuranTranslation->type = 2;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->save();
+
+            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+
+
+            $alQuranTranslation = new AlQuranTranslation();
+
+            $alQuranTranslation->translation = strip_tags($response->tafsirs[2]->text);
+            $alQuranTranslation->author_lang = '653a4a7f468e05bace1187b9';
+            $alQuranTranslation->ayat_id = $verse->_id;
+            $alQuranTranslation->surah_id = $verse->surah_id;
+            $alQuranTranslation->type = 2;
+            $alQuranTranslation->added_by = $this->user->id;
+            $alQuranTranslation->save();
+
+            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+        }
+        return 'save!';
+    }
 }
 
 // 23dd802e-bc08-418a-b0c6-0763bb8f784b
