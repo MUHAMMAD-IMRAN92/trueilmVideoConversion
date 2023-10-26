@@ -456,7 +456,7 @@ class HomeController extends Controller
             $response = json_decode($url->body());
 
             foreach ($response->tafsirs as $tafser) {
-                return $tafser->resource_id;
+                // return $tafser->resource_id;
                 if ($tafser->resource_id == 160) {
                     $alQuranTranslation = new AlQuranTranslation();
 
