@@ -446,40 +446,45 @@ class HomeController extends Controller
 
     public function AlQuranTafseer()
     {
-        ini_set('max_execution_time', '0');
+        // ini_set('max_execution_time', '0');
 
-        AlQuranTranslation::where('author_lang' , '653a49b6468e05bace1187b5')->delete();
-        AlQuranTranslation::where('author_lang' , '653a4a7f468e05bace1187b9')->delete();
-        // $alQuran = AlQuran::get();
-        // foreach ($alQuran as $key => $verse) {
-        //     $url = Http::get("https://api.quran.com/api/v4/quran/tafsirs/164?verse_key=$verse->verse_key");
-        //     $response = json_decode($url->body());
+        // AlQuranTranslation::where('author_lang' , '653a49b6468e05bace1187b5')->delete();
+        // AlQuranTranslation::where('author_lang' , '653a4a7f468e05bace1187b9')->delete();
+        $alQuran = AlQuran::get();
+        foreach ($alQuran as $key => $verse) {
+            $url = Http::get("https://api.quran.com/api/v4/quran/tafsirs/160?verse_key=$verse->verse_key");
+            $response = json_decode($url->body());
 
-        //     $alQuranTranslation = new AlQuranTranslation();
+            foreach ($response->tafsirs as $tafser) {
+                return $tafser->resource_id;
+                if ($tafser->resource_id == 160) {
+                    $alQuranTranslation = new AlQuranTranslation();
 
-        //     $alQuranTranslation->translation = strip_tags($response->tafsirs[1]->text);
-        //     $alQuranTranslation->author_lang = '653a49b6468e05bace1187b5';
-        //     $alQuranTranslation->ayat_id = $verse->_id;
-        //     $alQuranTranslation->surah_id = $verse->surah_id;
-        //     $alQuranTranslation->type = 2;
-        //     $alQuranTranslation->added_by = '6447918217e6501d607f4943';
-        //     $alQuranTranslation->save();
+                    $alQuranTranslation->translation = strip_tags($tafser->text);
+                    $alQuranTranslation->author_lang = '653a49b6468e05bace1187b5';
+                    $alQuranTranslation->ayat_id = $verse->_id;
+                    $alQuranTranslation->surah_id = $verse->surah_id;
+                    $alQuranTranslation->type = 2;
+                    $alQuranTranslation->added_by = '6447918217e6501d607f4943';
+                    $alQuranTranslation->save();
 
-        //     SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
+                    SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
+                }
+                if ($tafser->resource_id == 169) {
+                    $alQuranTranslation = new AlQuranTranslation();
 
+                    $alQuranTranslation->translation = strip_tags($tafser->text);
+                    $alQuranTranslation->author_lang = '653a4a7f468e05bace1187b9';
+                    $alQuranTranslation->ayat_id = $verse->_id;
+                    $alQuranTranslation->surah_id = $verse->surah_id;
+                    $alQuranTranslation->type = 2;
+                    $alQuranTranslation->added_by = '6447918217e6501d607f4943';
+                    $alQuranTranslation->save();
 
-        //     $alQuranTranslation = new AlQuranTranslation();
-
-        //     $alQuranTranslation->translation = strip_tags($response->tafsirs[2]->text);
-        //     $alQuranTranslation->author_lang = '653a4a7f468e05bace1187b9';
-        //     $alQuranTranslation->ayat_id = $verse->_id;
-        //     $alQuranTranslation->surah_id = $verse->surah_id;
-        //     $alQuranTranslation->type = 2;
-        //     $alQuranTranslation->added_by = '6447918217e6501d607f4943';
-        //     $alQuranTranslation->save();
-
-        //     SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
-        // }
+                    SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
+                }
+            }
+        }
         return 'save!';
     }
 }
