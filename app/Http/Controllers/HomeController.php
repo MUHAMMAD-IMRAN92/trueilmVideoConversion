@@ -448,9 +448,9 @@ class HomeController extends Controller
     {
         // ini_set('max_execution_time', '0');
 
-        AlQuranTranslation::where('author_lang' , '653a49b6468e05bace1187b5')->delete();
-        AlQuranTranslation::where('author_lang' , '653a4a7f468e05bace1187b9')->delete();
-        return '1';
+        // AlQuranTranslation::where('author_lang' , '653a49b6468e05bace1187b5')->delete();
+        // AlQuranTranslation::where('author_lang' , '653a4a7f468e05bace1187b9')->delete();
+        // return '1';
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
             $url = Http::get("https://api.quran.com/api/v4/quran/tafsirs/160?verse_key=$verse->verse_key");
