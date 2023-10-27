@@ -446,7 +446,7 @@ class HomeController extends Controller
 
     public function AlQuranTafseer()
     {
-        // ini_set('max_execution_time', '0');
+        ini_set('max_execution_time', '0');
 
         // AlQuranTranslation::where('author_lang' , '653a49b6468e05bace1187b5')->delete();
         // AlQuranTranslation::where('author_lang' , '653a4a7f468e05bace1187b9')->delete();
