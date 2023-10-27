@@ -75,15 +75,30 @@
                                                 <tr>
                                                     <th>Sr#</th>
                                                     <th class="description-td">Book Title</th>
+                                                    <th class="">Content Type</th>
                                                     <th class="">Pages Read</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @forelse ($book_read as $key => $br)
+                                                    @php
+
+                                                        if ($br->type == 1) {
+                                                            $vType = 'Ebook';
+                                                        } elseif ($br->type == 2) {
+                                                            $vType = 'Audio';
+                                                        } elseif ($br->type == 3) {
+                                                            $vType = 'Research Paper';
+                                                        } else {
+                                                            $vType = 'Podcast';
+                                                        }
+                                                    @endphp
+
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ @$br->title }}</td>
-                                                        <td>{{ @$br->lastSeenBook[0]->total_pages }}</td>
+                                                        <td>{{ $vType }}</td>
+                                                        <td>{{ @$br->bookTraking->total_pages }}</td>
                                                     </tr>
                                                 @empty
                                                     <tr>
@@ -95,7 +110,7 @@
                                         </table>
                                     </div>
                                 </div>
-
+                                {{ $book_read->links() }}
                                 <!-- Table with no outer spacing -->
 
                             </div>

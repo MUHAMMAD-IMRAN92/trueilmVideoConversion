@@ -12,11 +12,11 @@ class Book extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'books';
     protected $guarded = [];
-    public function lastSeenBook()
-    {
-        return $this->hasMany(BookLastSeen::class, 'book_id', '_id')->orderBy('createdAt', 'desc');
-    }
     protected $appends = ['user_name', 'approver_name'];
+    public function bookTraking()
+    {
+        return $this->hasOne(BookTranking::class, 'book_id', '_id')->orderBy('createdAt', 'desc');
+    }
     public function scopeActive($query)
     {
         return $query->where('status', 1);

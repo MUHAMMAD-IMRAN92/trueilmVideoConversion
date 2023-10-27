@@ -20,15 +20,17 @@
                             </div>
                         </div>
                     </div>
-                </div><div class="content-header-left col-md-5 col-12 mb-2 d-flex " style="justify-content:end">
+                </div>
+                <div class="content-header-left col-md-5 col-12 mb-2 d-flex " style="justify-content:end">
                     <div class="row breadcrumbs-top d-flex">
-                        <form action="{{ url('publisher/books_reading_details/'.$user_id ) }}" method='GET' class="d-flex">
+                        <form action="{{ url('publisher/books_reading_details/' . $user_id) }}" method='GET'
+                            class="d-flex">
                             @csrf
                             <input class="form-control" type="date" name="s_date" id=""
                                 value="{{ @$s_date }}">
                             <input class="form-control" type="date" name="e_date" id=""
                                 value="{{ @$e_date }}">
-                            <input type="hidden" name="user_id" value="{{$user_id}}" id="">
+                            <input type="hidden" name="user_id" value="{{ $user_id }}" id="">
                             <button class="btn-icon btn btn-primary btn-round  dropdown-toggle" type="submit"><span
                                     class="add-brand-font"></span> <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
@@ -73,22 +75,38 @@
                                                 <tr>
                                                     <th>Sr#</th>
                                                     <th class="description-td">Book Title</th>
+                                                    <th class="">Content Type</th>
+
                                                     <th class="">Pages Read</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($book_read as $key => $br)
-                                                <tr>
-                                                    <td>{{$loop->iteration}}</td>
-                                                    <td>{{ @$br->title}}</td>
-                                                    <td>{{ @$br->sumOfPages}}</td>
-                                                </tr>
+                                                    @php
+
+                                                        if ($br->type == 1) {
+                                                            $vType = 'Ebook';
+                                                        } elseif ($br->type == 2) {
+                                                            $vType = 'Audio';
+                                                        } elseif ($br->type == 3) {
+                                                            $vType = 'Research Paper';
+                                                        } else {
+                                                            $vType = 'Podcast';
+                                                        }
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ @$br->title }}</td>
+                                                        <td>{{ $vType }}</td>
+
+                                                        <td>{{ @$br->bookTraking->total_pages }}</td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-
+                                {{ $book_read->links() }}
                                 <!-- Table with no outer spacing -->
 
                             </div>

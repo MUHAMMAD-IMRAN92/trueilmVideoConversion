@@ -36,7 +36,7 @@ class PublisherController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             });
-        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Publisher::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
@@ -96,15 +96,11 @@ class PublisherController extends Controller
     }
     public function publisherBookReadingDetail(Request $request, $id)
     {
-        $bookRead = Book::where('publisher_id', $id)->whereHas('lastSeenBook', function ($q) use ($id, $request) {
+        $bookRead = Book::where('publisher_id', $id)->whereHas('bookTraking', function ($q) use ($id, $request) {
             $q->when($request->e_date, function ($q) use ($request) {
                 $q->whereBetween('createdAt', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
             });
-        })->with('lastSeenBook')->paginate(10);
-        $bookRead->map(function ($br) use ($id, $request) {
-            $br->sumOfPages = $br->bookPagescount($request);
-            return $br;
-        });
+        })->with('bookTraking')->paginate(10);
 
         return view('publisher.publisher_book_details', [
             'book_read' => $bookRead,

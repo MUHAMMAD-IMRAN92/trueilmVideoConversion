@@ -172,11 +172,11 @@ class UserController extends Controller
     }
     public function userBookReadingDetail(Request $request, $id)
     {
-        $bookRead = Book::whereHas('lastSeenBook', function ($q) use ($id, $request) {
+        $bookRead = Book::whereHas('bookTraking', function ($q) use ($id, $request) {
             $q->where('user_id', $id)->when($request->e_date, function ($q) use ($request) {
                 $q->whereBetween('createdAt', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
             });
-        })->with(['lastSeenBook' => function ($q1) {
+        })->with(['bookTraking' => function ($q1) {
             $q1->first();
         }])->paginate(10);
         return view('user.user_book_details', [
