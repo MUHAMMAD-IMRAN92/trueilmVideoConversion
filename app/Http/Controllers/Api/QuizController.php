@@ -17,8 +17,8 @@ class QuizController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'lesson_id' => 'required',
-            'user_id' => 'required',
-            'attempt_id' => 'required',
+            // 'user_id' => 'required',
+            // 'attempt_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -37,14 +37,14 @@ class QuizController extends Controller
                 }])->with(['correctOption' => function ($c) {
                     // $c->get('option');
                 }])->get()->take(10)->map(function ($shuffled) use ($request) {
-                    $options = collect([$shuffled->correctOption]);
+                    $coptions = collect([$shuffled->correctOption]);
                     $optionsWrong = $shuffled->incorrectOptions->take(3)->toBase();
-                    $mergedOptions = $options->merge($optionsWrong);
+                    $mergedOptions = $coptions->merge($optionsWrong);
                     $shuffled->options = $mergedOptions;
-
                     $attemptResult =   new AttemptResult();
                     $attemptResult->user_id =  $request->user_id;
-                    $attemptResult->question_id =  $request->question_id;
+                    $attemptResult->question_id =  $shuffled->_id;
+                    $attemptResult->question =  $shuffled->question;
                     $attemptResult->lesson_id = $request->lesson_id;
                     $attemptResult->attempt_id = $request->attempt_id;
                     $attemptResult->options =  $shuffled->options;
@@ -53,9 +53,11 @@ class QuizController extends Controller
                     $attemptResult->status = 0;
                     $attemptResult->save();
 
-                    $shuffled->makeHidden('incorrectOptions', 'correctOption');
                     $shuffled->correctOption->makeHidden(['type']);
                     $shuffled->incorrectOptions->makeHidden(['type']);
+
+                    $shuffled->makeHidden('incorrectOptions', 'correctOption');
+
 
 
 
