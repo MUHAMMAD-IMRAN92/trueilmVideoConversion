@@ -23,7 +23,7 @@ class QuizController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'response' => 'Lesson Id is required !',
+                'response' => $validator->errors(),
             ]);
         }
         $question = collect();
