@@ -40,15 +40,15 @@ class QuizController extends Controller
                     $coptions = collect([$shuffled->correctOption]);
                     $optionsWrong = $shuffled->incorrectOptions->take(3)->toBase();
                     $mergedOptions = $coptions->merge($optionsWrong);
-                    // $shuffled->options = $mergedOptions;
-                    // dd(count($mergedOptions));
+                    $shuffled->allOptions = $mergedOptions;
+                    // dd(count($shuffled->allOptions ));
                     $attemptResult =   new AttemptResult();
                     $attemptResult->user_id =  $request->user_id;
                     $attemptResult->question_id =  $shuffled->_id;
                     $attemptResult->question =  $shuffled->question;
                     $attemptResult->lesson_id = $request->lesson_id;
                     $attemptResult->attempt_id = $request->attempt_id;
-                    $attemptResult->options =  $mergedOptions->makeHidden(['type'])->toArray();
+                    $attemptResult->options =  $shuffled->allOptions->makeHidden(['type'])->toArray();
                     $attemptResult->correct_option = $shuffled->correctOption['option'];
                     $attemptResult->user_selected = '';
                     $attemptResult->status = 0;
