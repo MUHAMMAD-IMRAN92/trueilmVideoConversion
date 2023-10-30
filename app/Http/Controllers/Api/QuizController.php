@@ -17,7 +17,9 @@ class QuizController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'lesson_id' => 'required',
-
+            // 'user_id' => 'required',
+            // 'attempt_id' => 'required',
+            // 'answer_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -33,21 +35,35 @@ class QuizController extends Controller
                 // $q->get('option');
             }])->with(['correctOption' => function ($c) {
                 // $c->get('option');
-            }])->get()->take(10)->map(function ($shuffled) {
-                $shuffled->correctOption->makeHidden(['type']);
-                $shuffled->incorrectOptions->makeHidden(['type']);
+            }])->get()->take(10)->map(function ($shuffled) use ($request) {
                 $options = collect([$shuffled->correctOption]);
                 $optionsWrong = $shuffled->incorrectOptions->take(3)->toBase();
                 $mergedOptions = $options->merge($optionsWrong);
-                $shuffled->makeHidden('incorrectOptions', 'correctOption');
                 $shuffled->options = $mergedOptions;
+
+                $attemptResult =   new AttemptResult();
+                $attemptResult->user_id =  $request->user_id;
+                $attemptResult->question_id =  $request->question_id;
+                $attemptResult->lesson_id = $request->lesson_id;
+                $attemptResult->attempt_id = $request->attempt_id;
+                $attemptResult->options = $mergedOptions;
+                $attemptResult->correct_option = $shuffled->correctOption['option'];
+                $attemptResult->user_selected = '';
+                $attemptResult->status = 0;
+                $attemptResult->save();
+
+                $shuffled->makeHidden('incorrectOptions', 'correctOption');
+                $shuffled->correctOption->makeHidden(['type']);
+                $shuffled->incorrectOptions->makeHidden(['type']);
+
+
+
                 return $shuffled;
             })->shuffle();
         }
-
+        $attemptResult =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->get();
         return response()->json([
-            'quiz' => $shuffled->all()
-
+            'quiz' => $attemptResult
         ]);
     }
     public function checkAnswer(Request $request)
@@ -68,16 +84,16 @@ class QuizController extends Controller
 
 
         if ($lesson) {
-            $attemptResult =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('question_id', $request->question_id)->first();
+            $attemptResult = AttemptResult::where('_id', $request->attemp_result_id)->first();
 
-            if (!$attemptResult) {
+            if (!$attemptResult->status == 0) {
                 $attemptResult = new AttemptResult();
                 $attemptResult->user_id =  $request->user_id;
                 $attemptResult->question_id =  $request->question_id;
                 $attemptResult->lesson_id = $request->lesson_id;
-                $attemptResult->answer_id = $request->answer_id;
-                $attemptResult->attempt_id = $request->attempt_id;
+                $attemptResult->user_selected = $lesson->option;
                 $attemptResult->type = $lesson->type;
+                $attemptResult->status = 1;
                 $attemptResult->save();
                 if ($request->is_ended == 1) {
                     $quizAttempts =   QuizAttempts::where('_id',  $request->attempt_id)->where('is_ended', 0)->first();
