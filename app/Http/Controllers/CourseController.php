@@ -275,7 +275,7 @@ class CourseController extends Controller
             Storage::disk('s3')->setVisibility($path, 'public');
             $courseLesson->thumbnail = $base_path . $path;
 
-            $courseLesson->thumbnail = $request->thumbnail->getClientOriginalName();
+            // $courseLesson->thumbnail = $request->thumbnail->getClientOriginalName();
         }
         $courseLesson->save();
         return redirect()->back()->with('msg', 'Episode Saved !');
