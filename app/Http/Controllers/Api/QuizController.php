@@ -47,7 +47,7 @@ class QuizController extends Controller
                     $attemptResult->question_id =  $request->question_id;
                     $attemptResult->lesson_id = $request->lesson_id;
                     $attemptResult->attempt_id = $request->attempt_id;
-                    $attemptResult->options = $mergedOptions;
+                    $attemptResult->options =  $shuffled->options;
                     $attemptResult->correct_option = $shuffled->correctOption['option'];
                     $attemptResult->user_selected = '';
                     $attemptResult->status = 0;
