@@ -53,10 +53,6 @@ class QuizController extends Controller
                     $attemptResult->status = 0;
                     $attemptResult->save();
 
-                    $shuffled->correctOption->makeHidden(['type']);
-                    $shuffled->incorrectOptions->makeHidden(['type']);
-
-                    $shuffled->makeHidden('incorrectOptions', 'correctOption');
                     return $shuffled;
                 })->shuffle();
             }
