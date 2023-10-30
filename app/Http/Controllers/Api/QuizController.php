@@ -66,7 +66,7 @@ class QuizController extends Controller
         }
 
         return response()->json([
-            'quiz' => $attemptResults
+            'response' => $attemptResults
         ]);
     }
     public function checkAnswer(Request $request)
