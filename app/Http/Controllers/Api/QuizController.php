@@ -17,8 +17,8 @@ class QuizController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'lesson_id' => 'required',
-            // 'user_id' => 'required',
-            // 'attempt_id' => 'required',
+            'user_id' => 'required',
+            'attempt_id' => 'required',
         ]);
 
         if ($validator->fails()) {
