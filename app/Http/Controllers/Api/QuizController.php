@@ -47,7 +47,7 @@ class QuizController extends Controller
                     $attemptResult->question =  $shuffled->question;
                     $attemptResult->lesson_id = $request->lesson_id;
                     $attemptResult->attempt_id = $request->attempt_id;
-                    $attemptResult->options =  $shuffled->options;
+                    $attemptResult->options =  $shuffled->options->makeHidden(['type'])->toArray();
                     $attemptResult->correct_option = $shuffled->correctOption['option'];
                     $attemptResult->user_selected = '';
                     $attemptResult->status = 0;
@@ -57,10 +57,6 @@ class QuizController extends Controller
                     $shuffled->incorrectOptions->makeHidden(['type']);
 
                     $shuffled->makeHidden('incorrectOptions', 'correctOption');
-
-
-
-
                     return $shuffled;
                 })->shuffle();
             }
@@ -68,7 +64,7 @@ class QuizController extends Controller
         }
 
         return response()->json([
-            'response' => $attemptResults
+            'response' => $attemptResults->makeHidden(['correct_option', 'user_selected'])
         ]);
     }
     public function checkAnswer(Request $request)
