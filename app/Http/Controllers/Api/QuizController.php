@@ -83,8 +83,7 @@ class QuizController extends Controller
         if ($lesson) {
             $attemptResult = AttemptResult::where('_id', $request->attemp_result_id)->first();
 
-            if (!$attemptResult->status == 0) {
-                $attemptResult = new AttemptResult();
+            if ($attemptResult && $attemptResult->status == 0) {
                 $attemptResult->user_id =  $request->user_id;
                 $attemptResult->question_id =  $request->question_id;
                 $attemptResult->lesson_id = $request->lesson_id;
