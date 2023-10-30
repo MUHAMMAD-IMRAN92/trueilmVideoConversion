@@ -19,7 +19,6 @@ class QuizController extends Controller
             'lesson_id' => 'required',
             'user_id' => 'required',
             'attempt_id' => 'required',
-            'answer_id' => 'required',
         ]);
 
         if ($validator->fails()) {
