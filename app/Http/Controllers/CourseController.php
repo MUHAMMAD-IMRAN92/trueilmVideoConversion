@@ -269,6 +269,14 @@ class CourseController extends Controller
 
             $courseLesson->lesson_notes_name = $request->lesson_notes->getClientOriginalName();
         }
+        if ($request->thumbnail) {
+            $file_name = time() . '.' . $request->thumbnail->getClientOriginalExtension();
+            $path =   $request->thumbnail->storeAs('courses_videos', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $courseLesson->thumbnail = $base_path . $path;
+
+            $courseLesson->thumbnail = $request->thumbnail->getClientOriginalName();
+        }
         $courseLesson->save();
         return redirect()->back()->with('msg', 'Episode Saved !');
     }

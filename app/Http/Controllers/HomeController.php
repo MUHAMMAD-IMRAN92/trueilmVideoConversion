@@ -435,7 +435,7 @@ class HomeController extends Controller
             $client = new GuzzleHttpClient();
             $response = $client->get($url);
 
-            $modifiedFileName = 'audios/1/1653686c4468e05bace11873d/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
+            $modifiedFileName = 'audios/1/653686c4468e05bace11873d/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
 
             Storage::disk('s3')->put($modifiedFileName, $response->getBody());
         }
