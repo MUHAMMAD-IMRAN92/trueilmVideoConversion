@@ -38,7 +38,7 @@ class QuizController extends Controller
                     // $c->get('option');
                 }])->get()->take(10)->map(function ($shuffled) use ($request) {
                     $coptions = collect([$shuffled->correctOption]);
-                    dd($coptions);
+                    // dd($coptions);
                     $optionsWrong = $shuffled->incorrectOptions->take(3)->toBase();
                     $mergedOptions = $coptions->merge($optionsWrong);
                     $shuffled->options = $mergedOptions;
