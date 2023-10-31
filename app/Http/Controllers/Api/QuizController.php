@@ -87,6 +87,7 @@ class QuizController extends Controller
                 $attemptResult->question_id =  $request->question_id;
                 $attemptResult->lesson_id = $request->lesson_id;
                 $attemptResult->user_selected = $lesson->option;
+                $attemptResult->description = $lesson->description;
                 $attemptResult->type = $lesson->type;
                 $attemptResult->status = 1;
                 $attemptResult->save();
