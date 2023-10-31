@@ -428,7 +428,11 @@
                                                                         <td> <a class="btn btn-primary"
                                                                                 href="{{ url('lesson/quiz/edit/' . $course->_id . '/' . $les->_id) }}">
                                                                                 Edit
-                                                                                Quiz</a> </td>
+                                                                                Quiz</a>
+                                                                            <a class="btn btn-primary"
+                                                                                href="{{ url('lesson/quiz/results/' . $course->_id . '/' . $les->_id) }}">
+                                                                               Results</a>
+                                                                        </td>
                                                                     @endif
 
 

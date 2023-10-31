@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\ContentTag;
 use App\Models\Questionaire;
 use App\Models\QuestionaireOptions;
+use App\Models\QuizAttempts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Tag;
@@ -385,5 +386,14 @@ class CourseController extends Controller
             ]);
         }
         return redirect()->to('/course/edit/' . $request->course_id);
+    }
+
+    public function quizResults($course_id, $lesson_id)
+    {
+        $attemptResults =  QuizAttempts::where('lesson_id', $lesson_id)->where('is_ended', 1)->get();
+
+        return view('courses.result', [
+            'result' =>  $attemptResults
+        ]);
     }
 }
