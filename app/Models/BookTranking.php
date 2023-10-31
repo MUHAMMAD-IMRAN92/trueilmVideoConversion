@@ -25,7 +25,8 @@ class BookTranking extends Eloquent
         $count = $pageCount->values()->all();
 
         foreach ($count as $c) {
-            $sumDetail =  BookTrankingDetails::where('track_id', $this->_id)->where($type, $c)->sum('total_diff');
+
+            $sumDetail =  BookTrankingDetails::where('track_id', $this->_id)->where($type, $c)->get()->sum('total_diff');
             if ($sumDetail >= 7) {
                 $total_count++;
             }
