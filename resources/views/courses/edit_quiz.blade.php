@@ -115,7 +115,7 @@
                                                                                     class="question form-control"
                                                                                     name="correct-{{ $key }}[]"
                                                                                     placeholder=""
-                                                                                    value="{{ @$q->options[0]->option }}"
+                                                                                    value="{{ @$q->allOptions[0]->option }}"
                                                                                     required>
                                                                             </div>
                                                                             <div class="col-6">
@@ -123,7 +123,7 @@
                                                                                     class="form-control"
                                                                                     name="correct-{{ $key }}[]"
                                                                                     required placeholder=""
-                                                                                    value="{{ @$q->options[1]->option }}">
+                                                                                    value="{{ @$q->allOptions[1]->option }}">
                                                                             </div>
                                                                         </div>
 
@@ -135,14 +135,14 @@
                                                                                         class="form-control"
                                                                                         name="incorrect-{{ $key }}[]"
                                                                                         required placeholder=""
-                                                                                        value="{{ @$q->options[2]->option }}">
+                                                                                        value="{{ @$q->allOptions[2]->option }}">
                                                                                 </div>
                                                                                 <div class="col-6">
                                                                                     <input type="text" id="question"
                                                                                         class="form-control"
                                                                                         name="incorrect-{{ $key }}[]"
                                                                                         required placeholder=""
-                                                                                        value="{{ @$q->options[3]->option }}">
+                                                                                        value="{{ @$q->allOptions[3]->option }}">
                                                                                 </div>
 
 
@@ -154,14 +154,14 @@
                                                                                         class="form-control"
                                                                                         name="incorrect-{{ $key }}[]"
                                                                                         required placeholder=""
-                                                                                        value="{{ @$q->options[4]->option }}">
+                                                                                        value="{{ @$q->allOptions[4]->option }}">
                                                                                 </div>
                                                                                 <div class="col-6 ">
                                                                                     <input type="text" id="question"
                                                                                         class="form-control"
                                                                                         name="incorrect-{{ $key }}[]"
                                                                                         required placeholder=""
-                                                                                        value="{{ @$q->options[5]->option }}">
+                                                                                        value="{{ @$q->allOptions[5]->option }}">
                                                                                 </div>
 
 
@@ -173,14 +173,14 @@
                                                                                         class="form-control"
                                                                                         name="incorrect-{{ $key }}[]"
                                                                                         required placeholder=""
-                                                                                        value="{{ @$q->options[6]->option }}">
+                                                                                        value="{{ @$q->allOptions[6]->option }}">
                                                                                 </div>
                                                                                 <div class="col-6 ">
                                                                                     <input type="text" id="question"
                                                                                         class="form-control"
                                                                                         name="incorrect-{{ $key }}[]"
                                                                                         required placeholder=""
-                                                                                        value="{{ @$q->options[7]->option }}">
+                                                                                        value="{{ @$q->allOptions[7]->option }}">
                                                                                 </div>
 
 

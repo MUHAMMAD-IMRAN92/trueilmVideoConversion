@@ -334,7 +334,7 @@ class CourseController extends Controller
         $courseLesson = CourseLesson::where('course_id', $course_id)->get(['id', 'title']);
 
         $course =    Course::where('_id', $course_id)->first();
-        $question  = Questionaire::where('lesson_id', $id)->with(['options' => function ($q) {
+        $question  = Questionaire::where('lesson_id', $id)->with(['allOptions' => function ($q) {
             $q->orderBy('type', 'desc');
         }])->get();
         return view('courses.edit_quiz', [
