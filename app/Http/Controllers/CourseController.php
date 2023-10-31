@@ -390,10 +390,12 @@ class CourseController extends Controller
 
     public function quizResults($course_id, $lesson_id)
     {
-        $attemptResults =  QuizAttempts::where('lesson_id', $lesson_id)->where('is_ended', 1)->get();
+        $attemptResults =  QuizAttempts::where('lesson_id', $lesson_id)->where('is_ended', 1)->get()->groupBy('user');
+        $attemptResults2 =  QuizAttempts::where('lesson_id', $lesson_id)->where('is_ended', 1)->get();
 
         return view('courses.result', [
-            'result' =>  $attemptResults
+            'result' =>  $attemptResults,
+            'attemptResults2' => $attemptResults2
         ]);
     }
 }

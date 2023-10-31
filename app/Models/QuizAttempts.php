@@ -9,15 +9,15 @@ class QuizAttempts extends Eloquent
 {
     use HasFactory;
 
-    protected $appends = ['attemped', 'unattemped', 'correct', 'incorrect', 'user'];
+    protected $appends = ['attempted', 'unattempted', 'correct', 'incorrect', 'user'];
 
-    public function getAttempedAttribute()
+    public function getAttemptedAttribute()
     {
         $result = AttemptResult::where('attempt_id', $this->_id)->where('status', 1)->count();
 
         return @$result;
     }
-    public function getUnattempedAttribute()
+    public function getUnattemptedAttribute()
     {
         $result = AttemptResult::where('attempt_id', $this->_id)->where('status', 0)->count();
 
