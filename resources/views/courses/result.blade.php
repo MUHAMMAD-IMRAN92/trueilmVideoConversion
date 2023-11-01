@@ -155,6 +155,11 @@
                                                         </script>
 
                                                     </div>
+                                                    <div class="d-flex flex-row-reverse  align-items-end">
+                                                        <a href="{{ url('/lesson/quiz/results/' . $res[0]->user_id) }}"
+                                                            style="color: blue;">view
+                                                            details</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

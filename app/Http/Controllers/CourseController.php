@@ -370,7 +370,6 @@ class CourseController extends Controller
                     $questionOpt->type =  1;
                     $questionOpt->added_by = $this->user->_id;
                     $questionOpt->save();
-
                 }
                 foreach ($request->$incorrect as $key2 => $incorr) {
                     $questionOpt = new QuestionaireOptions();
@@ -393,10 +392,16 @@ class CourseController extends Controller
     {
         $attemptResults =  QuizAttempts::where('lesson_id', $lesson_id)->where('is_ended', 1)->get()->groupBy('user');
         $attemptResults2 =  QuizAttempts::where('lesson_id', $lesson_id)->where('is_ended', 1)->get();
-
         return view('courses.result', [
             'result' =>  $attemptResults,
             'attemptResults2' => $attemptResults2
+        ]);
+    }
+    public function userAttemptsResults($user_id)
+    {
+        $attemptResults =  QuizAttempts::where('user_id', $user_id)->where('is_ended', 1)->get();
+        return view('courses.user_result', [
+            'result' =>  $attemptResults,
         ]);
     }
 }
