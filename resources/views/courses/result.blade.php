@@ -112,60 +112,60 @@
                                 </div>
                             </div>
                         </div>
-                        @forelse ($result as $key=> $res)
-                            <div class="col-4">
-                                <div class="card">
+                        <div class="row col-12">
+                            @forelse ($result as $key=> $res)
+                                <div class="col-4">
+                                    <div class="card">
 
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <h3>{{ ucfirst($key) }}</h3>
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <h3>{{ ucfirst($key) }}</h3>
 
-                                            <div class="row d-flex justify-content-center">
+                                                <div class="row d-flex justify-content-center">
 
-                                                <canvas id="pie-chart-{{ $key }}" width=""
-                                                    height="200"></canvas>
+                                                    <canvas id="pie-chart-{{ $key }}" width=""
+                                                        height="200"></canvas>
 
-                                                <script>
-                                                    new Chart(document.getElementById("pie-chart-{{ $key }}"), {
-                                                        type: 'doughnut',
-                                                        data: {
-                                                            labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
-                                                            datasets: [{
-                                                                label: "Population (millions)",
+                                                    <script>
+                                                        new Chart(document.getElementById("pie-chart-{{ $key }}"), {
+                                                            type: 'doughnut',
+                                                            data: {
                                                                 labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
-                                                                backgroundColor: ["#1E90FF", "#C0C0C0", "#90EE90", "#FF0000"],
-                                                                data: ["{{ $res->sum('attempted') }}", "{{ $res->sum('unattempted') }}",
-                                                                    "{{ $res->sum('correct') }}", "{{ $res->sum('incorrect') }}"
-                                                                ]
-                                                            }]
-                                                        },
-                                                        options: {
-                                                            title: {
-                                                                display: true,
-                                                                // text: 'Predicted world population (millions) in 2050'
+                                                                datasets: [{
+                                                                    label: "Population (millions)",
+                                                                    labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
+                                                                    backgroundColor: ["#1E90FF", "#C0C0C0", "#90EE90", "#FF0000"],
+                                                                    data: ["{{ $res->sum('attempted') }}", "{{ $res->sum('unattempted') }}",
+                                                                        "{{ $res->sum('correct') }}", "{{ $res->sum('incorrect') }}"
+                                                                    ]
+                                                                }]
+                                                            },
+                                                            options: {
+                                                                title: {
+                                                                    display: true,
+                                                                    // text: 'Predicted world population (millions) in 2050'
+                                                                }
                                                             }
-                                                        }
-                                                    });
-                                                </script>
+                                                        });
+                                                    </script>
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
-
-                            </div>
+                            @empty
+                                <center><b>No User Attemped This Quiz Yet !</b></center>
+                            @endforelse
+                        </div>
                     </div>
-                @empty
 
-                    <center><b>No User Attemped This Quiz Yet !</b></center>
-                    @endforelse
+                </section>
+                <!-- // Basic Vertical form layout section end -->
+
             </div>
-
-            </section>
-            <!-- // Basic Vertical form layout section end -->
-
         </div>
-    </div>
     </div>
 
     <!-- END: Content-->

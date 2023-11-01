@@ -11,7 +11,7 @@ class QuizAttempts extends Eloquent
 
     protected $appends = ['attempted', 'unattempted', 'correct', 'incorrect', 'user'];
 
-   
+
     public function getAttemptedAttribute()
     {
         $result = AttemptResult::where('attempt_id', $this->_id)->where('status', 1)->count();
@@ -38,11 +38,9 @@ class QuizAttempts extends Eloquent
     }
     public function getUserAttribute()
     {
-        $result = AttemptResult::where('attempt_id', $this->_id)->first();
-        if ($result) {
 
-            $user = User::where('_id', $result->user_id)->first();
-        }
+        $user = User::where('_id', $this->user_id)->first();
+
 
         return @$user->name;
     }
