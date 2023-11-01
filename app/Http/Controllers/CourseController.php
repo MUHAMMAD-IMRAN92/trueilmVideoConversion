@@ -370,6 +370,7 @@ class CourseController extends Controller
                     $questionOpt->type =  1;
                     $questionOpt->added_by = $this->user->_id;
                     $questionOpt->save();
+
                 }
                 foreach ($request->$incorrect as $key2 => $incorr) {
                     $questionOpt = new QuestionaireOptions();

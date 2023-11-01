@@ -65,100 +65,104 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
+                                        @if (count($result) > 0)
+                                            <div class="col-12">
+                                                <canvas id="quiz-pie-chart" width="700" height="150"></canvas>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
 
-                                        <div class="col-12">
-                                            <canvas id="quiz-pie-chart" width="700" height="150"></canvas>
-                                        </div>
-                                        <div class="row d-flex justify-content-center">
-
-                                            <script>
-                                                new Chart(document.getElementById("quiz-pie-chart"), {
-                                                    type: 'doughnut',
-                                                    data: {
-                                                        labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
-                                                        datasets: [{
-                                                            label: "Population (millions)",
-                                                            backgroundColor: ["#1E90FF", "#C0C0C0", "#90EE90", "#FF0000"],
-                                                            data: ["{{ $attemptResults2->sum('attempted') }}",
-                                                                "{{ $attemptResults2->sum('unattempted') }}",
-                                                                "{{ $attemptResults2->sum('correct') }}",
-                                                                "{{ $attemptResults2->sum('incorrect') }}"
-                                                            ]
-                                                        }]
-                                                    },
-                                                    options: {
-                                                        title: {
-                                                            display: true,
-                                                            // text: 'Predicted world population (millions) in 2050'
-                                                        }
-                                                    }
-                                                });
-                                            </script>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="card">
-
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="col-12">
-                                            <h4>Quiz Statics By Users :</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-12">
-                            @forelse ($result as $key=> $res)
-                                <div class="col-4">
-                                    <div class="card">
-
-                                        <div class="card-content">
-                                            <div class="card-body">
-                                                <h3>{{ ucfirst($key) }}</h3>
-
-                                                <div class="row d-flex justify-content-center">
-
-                                                    <canvas id="pie-chart-{{ $key }}" width=""
-                                                        height="200"></canvas>
-
-                                                    <script>
-                                                        new Chart(document.getElementById("pie-chart-{{ $key }}"), {
-                                                            type: 'doughnut',
-                                                            data: {
-                                                                labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
-                                                                datasets: [{
-                                                                    label: "Population (millions)",
-                                                                    labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
-                                                                    backgroundColor: ["#1E90FF", "#C0C0C0", "#90EE90", "#FF0000"],
-                                                                    data: ["{{ $res->sum('attempted') }}", "{{ $res->sum('unattempted') }}",
-                                                                        "{{ $res->sum('correct') }}", "{{ $res->sum('incorrect') }}"
-                                                                    ]
-                                                                }]
-                                                            },
-                                                            options: {
-                                                                title: {
-                                                                    display: true,
-                                                                    // text: 'Predicted world population (millions) in 2050'
-                                                                }
+                                                <script>
+                                                    new Chart(document.getElementById("quiz-pie-chart"), {
+                                                        type: 'doughnut',
+                                                        data: {
+                                                            labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
+                                                            datasets: [{
+                                                                label: "Population (millions)",
+                                                                backgroundColor: ["#1E90FF", "#C0C0C0", "#90EE90", "#FF0000"],
+                                                                data: ["{{ $attemptResults2->sum('attempted') }}",
+                                                                    "{{ $attemptResults2->sum('unattempted') }}",
+                                                                    "{{ $attemptResults2->sum('correct') }}",
+                                                                    "{{ $attemptResults2->sum('incorrect') }}"
+                                                                ]
+                                                            }]
+                                                        },
+                                                        options: {
+                                                            title: {
+                                                                display: true,
+                                                                // text: 'Predicted world population (millions) in 2050'
                                                             }
-                                                        });
-                                                    </script>
+                                                        }
+                                                    });
+                                                </script>
 
+                                            </div>
+                                        @else
+                                            <center><b>No User Attempted This Quiz Yet !</b></center>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (count($result) > 0)
+                            <div class="col-12">
+                                <div class="card">
+
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <div class="col-12">
+                                                <h4>Quiz Statics By Users :</h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-12">
+                                @foreach ($result as $key => $res)
+                                    <div class="col-4">
+                                        <div class="card">
+
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <h3>{{ ucfirst($key) }}</h3>
+
+                                                    <div class="row d-flex justify-content-center">
+
+                                                        <canvas id="pie-chart-{{ $key }}" width=""
+                                                            height="200"></canvas>
+
+                                                        <script>
+                                                            new Chart(document.getElementById("pie-chart-{{ $key }}"), {
+                                                                type: 'doughnut',
+                                                                data: {
+                                                                    labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
+                                                                    datasets: [{
+                                                                        label: "Population (millions)",
+                                                                        labels: ["Attempted", "UnAttempted", "Correct", "InCorrect"],
+                                                                        backgroundColor: ["#1E90FF", "#C0C0C0", "#90EE90", "#FF0000"],
+                                                                        data: ["{{ $res->sum('attempted') }}", "{{ $res->sum('unattempted') }}",
+                                                                            "{{ $res->sum('correct') }}", "{{ $res->sum('incorrect') }}"
+                                                                        ]
+                                                                    }]
+                                                                },
+                                                                options: {
+                                                                    title: {
+                                                                        display: true,
+                                                                        // text: 'Predicted world population (millions) in 2050'
+                                                                    }
+                                                                }
+                                                            });
+                                                        </script>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                </div>
-                            @empty
-                                <center><b>No User Attemped This Quiz Yet !</b></center>
-                            @endforelse
-                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
 
                 </section>
