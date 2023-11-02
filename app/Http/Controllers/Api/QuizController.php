@@ -129,7 +129,7 @@ class QuizController extends Controller
         if ($attempt) {
 
             $oDate = $attempt->start_date;
-            return $diff =  $nDate->diffInMinutes($oDate);
+             $diff =  $nDate->diffInMinutes($oDate);
 
             if ($diff > 15) {
                 $attempt->is_ended = 1;
