@@ -41,12 +41,12 @@ class CategoryController extends Controller
         $totalBrands = Category::where('type', $request->type)->count();
         $brands = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
+                $q->where('title', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
+                $q->where('title', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(

@@ -363,7 +363,7 @@
                        "mRender": function(data, type, row) {
                            var des = '';
                            if (row.description != null) {
-                               des = row.description.slice(0, 50);
+                               des = row.description;
                            } else {
                                des = '--';
                            }
@@ -371,7 +371,7 @@
                                des +
                                '</td>'
                        }
-                   }, +{
+                   }, {
                        "mRender": function(data, type, row) {
                            return '<td>' +
                                row.price + '</td>'
@@ -399,7 +399,9 @@
                ],
                "columnDefs": [{
 
-                   "orderable": false
+                   "orderable": false,
+                   "defaultContent": "-",
+                   "targets": "_all"
                }],
                "order": false
            });

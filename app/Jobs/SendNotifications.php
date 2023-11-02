@@ -34,6 +34,8 @@ class SendNotifications implements ShouldQueue
         if ($this->user) {
             $devices = UserDevices::where('user_id')->pluck('player_id');
             $this->playerId = $devices;
+        } else {
+            $this->playerId = [];
         }
         $this->type = $type;
         $this->message = $message;
@@ -61,6 +63,7 @@ class SendNotifications implements ShouldQueue
                 }
             }
         } else {
+
             \OneSignal::sendNotificationToAll(
                 $this->message,
                 $url = null,

@@ -488,6 +488,32 @@ class HomeController extends Controller
         }
         return 'save!';
     }
+
+    public function QuranEncTranslation()
+    {
+        return 'ok';
+        for ($i = 1; $i < 115; $i++) {
+
+            $surah = Surah::where('sequence', $i)->first();
+            if ($surah) {
+                $surah = $surah;
+            }
+
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/$i");
+            $response = json_decode($url->body());
+            foreach ($response->result as $key => $res) {
+                $alQuran = AlQuran::where('verse_key', "$sura:$a")->first();
+                $alQuranTranslation = new AlQuranTranslation();
+                // $alQuranTranslation->lang = $lang;
+                $alQuranTranslation->translation = $res->translation;
+                $alQuranTranslation->ayat_id = $alQuran->id;
+                $alQuranTranslation->added_by = $this->user->id;
+                $alQuranTranslation->author_lang = '64d0c910f40e12257e350f62';
+                $alQuranTranslation->type = 1;
+                $alQuranTranslation->save();
+            }
+        }
+    }
 }
 
 // 23dd802e-bc08-418a-b0c6-0763bb8f784b

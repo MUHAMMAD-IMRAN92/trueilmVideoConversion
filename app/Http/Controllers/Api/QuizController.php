@@ -178,7 +178,7 @@ class QuizController extends Controller
 
 
                 return response()->json([
-                    'response' => 'Your Attemp Expired',
+                    'response' => 'Your Attempt Expired',
                     'status' => 0
                 ]);
             } else {
