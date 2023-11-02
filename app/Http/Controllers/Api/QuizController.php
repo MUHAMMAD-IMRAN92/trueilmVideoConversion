@@ -123,13 +123,13 @@ class QuizController extends Controller
             return  sendSuccess('Validation Error.', $validator->errors());
         }
 
-        $nDate = Carbon::now('UTC')->toIso8601String();
+        $nDate = Carbon::now('UTC');
 
         $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('is_ended', 0)->first();
         if ($attempt) {
 
             $oDate = $attempt->start_date;
-            $diff =  $nDate->diffInMinutes($oDate);
+            return $diff =  $nDate->diffInMinutes($oDate);
 
             if ($diff > 15) {
                 $attempt->is_ended = 1;
@@ -145,7 +145,7 @@ class QuizController extends Controller
             $attempt = new QuizAttempts();
             $attempt->user_id =  $request->user_id;
             $attempt->lesson_id = $request->lesson_id;
-            $attempt->start_date = Carbon::now('UTC')->toIso8601String();
+            $attempt->start_date = Carbon::now('UTC')->format('Y-m-d H:i:s');
             $attempt->is_ended = 0;
             $attempt->save();
 
