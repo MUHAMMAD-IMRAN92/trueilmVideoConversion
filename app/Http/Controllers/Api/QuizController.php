@@ -58,7 +58,7 @@ class QuizController extends Controller
         }
 
         return response()->json([
-            'response' => $attemptResults->makeHidden(['correct_option', 'user_selected'])
+            'response' => $attemptResults->makeHidden(['correct_option'])
         ]);
     }
     public function checkAnswer(Request $request)
