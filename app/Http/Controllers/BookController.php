@@ -52,17 +52,21 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::where('approved', '!=', 2)->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
-        $brands = Book::where('approved', '!=', 2)->where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
+        $brands = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::where('approved', '!=', 2)->where('type', Session::get('bookType'))->when($search, function ($q) use ($search) {
+        $brandsCount = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });

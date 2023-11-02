@@ -68,7 +68,7 @@
 
                             <div class="card-content">
                                 <div class="card-body">
-
+                                    <input type="hidden" name="type" value="{{ $type }}" id="ajax-table-type">
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
                                         <table class="table" id="ebook-table">

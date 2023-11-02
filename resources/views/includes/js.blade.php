@@ -413,7 +413,10 @@
                    "searchPlaceholder": "Search here"
                },
                "ajax": {
-                   url: '<?= url('all-book') ?>'
+                   url: '<?= url('all-book') ?>',
+                   data: {
+                       'type': $('#ajax-table-type').val(),
+                   },
                },
                "columns": [{
                        "mRender": function(data, type, row) {
