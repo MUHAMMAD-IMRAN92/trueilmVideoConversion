@@ -113,7 +113,6 @@ class QuizController extends Controller
 
     public function checkExpiry(Request $request)
     {
-        return Carbon::now();
         $validator = \Validator::make($request->all(), [
             'lesson_id' => 'required',
             'user_id' => 'required',
