@@ -491,7 +491,7 @@ class HomeController extends Controller
 
     public function QuranEncTranslation()
     {
-        return 'ok';
+        // return 'ok';
         for ($i = 1; $i < 115; $i++) {
 
             $surah = Surah::where('sequence', $i)->first();

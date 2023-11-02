@@ -93,7 +93,7 @@ class QuizController extends Controller
                     $quizAttempts->save();
                 }
             } else {
-                return  sendSuccess('Response Already Submitted For This Question !', []);
+                return  sendSuccess('Response Already Submitted For This Question', []);
             }
             $response = '';
 
@@ -106,7 +106,7 @@ class QuizController extends Controller
             return  sendSuccess('Your Result Is.', $response);
         } else {
 
-            return  sendSuccess('Some Thing Went Wrong !', []);
+            return  sendSuccess('Some Thing Went Wrong', []);
         }
     }
 
@@ -137,7 +137,7 @@ class QuizController extends Controller
             } else {
                 $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->orderBy('created_at', 'DESC')->first();
 
-                return  sendSuccess('Your Last Attempt !', $attempt);
+                return  sendSuccess('Your Last Attempt', $attempt);
             }
         } else {
             $attempt = new QuizAttempts();
@@ -147,7 +147,7 @@ class QuizController extends Controller
             $attempt->is_ended = 0;
             $attempt->save();
 
-            return  sendSuccess('Your New Attempt !', $attempt);
+            return  sendSuccess('Your New Attempt', $attempt);
         }
     }
 }
