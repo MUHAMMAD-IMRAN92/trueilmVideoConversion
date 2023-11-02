@@ -94,7 +94,6 @@
                     </form>
                 </div>
             </div>
-            <img src="https://admin.trueilm.com/api/qr/generate?value=test" alt="test">
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row">

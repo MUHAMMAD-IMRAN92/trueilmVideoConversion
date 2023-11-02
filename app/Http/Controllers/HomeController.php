@@ -491,7 +491,7 @@ class HomeController extends Controller
 
     public function QuranEncTranslation()
     {
-        // return 'ok';
+        return 'ok';
         for ($i = 1; $i < 115; $i++) {
 
             $surah = Surah::where('sequence', $i)->first();
@@ -501,13 +501,15 @@ class HomeController extends Controller
 
             $url = Http::get("https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/$i");
             $response = json_decode($url->body());
+
             foreach ($response->result as $key => $res) {
-                return  $alQuran = AlQuran::where('verse_key', "$response->sura:$response->aya")->first();
+                $alQuran = AlQuran::where('verse_key', "$res->sura:$res->aya")->first();
                 $alQuranTranslation = new AlQuranTranslation();
                 // $alQuranTranslation->lang = $lang;
                 $alQuranTranslation->translation = $res->translation;
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = $this->user->id;
+                $alQuranTranslation->surah_id = $alQuran->surah_id;
                 $alQuranTranslation->author_lang = '64d0c910f40e12257e350f62';
                 $alQuranTranslation->type = 1;
                 $alQuranTranslation->save();
