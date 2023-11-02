@@ -129,10 +129,10 @@ class QuizController extends Controller
 
             $oDate = $attempt->start_date;
             $diff =  $nDate->diffInMinutes($oDate);
-            return $diff;
+
             if ($diff > 15) {
-                // $attempt->is_ended = 1;
-                // $attempt->save();
+                $attempt->is_ended = 1;
+                $attempt->save();
 
                 return  sendSuccess('Your Attempt Expired', $attempt);
             } else {
@@ -144,7 +144,7 @@ class QuizController extends Controller
             $attempt = new QuizAttempts();
             $attempt->user_id =  $request->user_id;
             $attempt->lesson_id = $request->lesson_id;
-            $attempt->start_date = $request->start_date;
+            $attempt->start_date = $nDate = Carbon::createFromFormat('Y-m-d H:s:i', now());
             $attempt->is_ended = 0;
             $attempt->save();
 
