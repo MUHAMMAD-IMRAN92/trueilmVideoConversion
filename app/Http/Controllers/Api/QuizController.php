@@ -129,9 +129,10 @@ class QuizController extends Controller
 
             $oDate = $attempt->start_date;
             $diff =  $nDate->diffInMinutes($oDate);
+            return $diff;
             if ($diff > 15) {
                 // $attempt->is_ended = 1;
-                $attempt->save();
+                // $attempt->save();
 
                 return  sendSuccess('Your Attempt Expired', $attempt);
             } else {
