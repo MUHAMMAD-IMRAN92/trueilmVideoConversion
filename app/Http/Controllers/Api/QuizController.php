@@ -144,7 +144,7 @@ class QuizController extends Controller
             $attempt = new QuizAttempts();
             $attempt->user_id =  $request->user_id;
             $attempt->lesson_id = $request->lesson_id;
-            $attempt->start_date = Carbon::now('UTC')->toDateTimeString();
+            $attempt->start_date = Carbon::now()->format('Y-m-d H:s:i');
             $attempt->is_ended = 0;
             $attempt->save();
 
