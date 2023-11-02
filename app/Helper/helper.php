@@ -88,6 +88,7 @@ function countiesCities($countries, $book_id)
     // }
     return $data;
 }
+
 function getCategorydropdown($parent_id = 0, $level = 0, $product_cat = 0, $type = 0)
 {
     $html = "";

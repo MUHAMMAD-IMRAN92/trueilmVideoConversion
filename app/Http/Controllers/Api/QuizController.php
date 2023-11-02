@@ -22,9 +22,7 @@ class QuizController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'response' => $validator->errors(),
-            ]);
+            return  sendSuccess('Validation Error.', $validator->errors());
         }
         $question = collect();
         $attemptResults =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->get();
@@ -57,9 +55,8 @@ class QuizController extends Controller
             $attemptResults =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->get();
         }
 
-        return response()->json([
-            'response' => $attemptResults->makeHidden(['correct_option'])
-        ]);
+
+        return  sendSuccess('Your Quiz Is .', $attemptResults->makeHidden(['correct_option']));
     }
     public function checkAnswer(Request $request)
     {
@@ -72,9 +69,8 @@ class QuizController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'response' => $validator->errors(),
-            ]);
+
+            return  sendSuccess('Validation Error.', $validator->errors());
         }
         $lesson = QuestionaireOptions::where('question_id', $request->question_id)->where('_id',  $request->answer_id)->first();
 
@@ -97,9 +93,7 @@ class QuizController extends Controller
                     $quizAttempts->save();
                 }
             } else {
-                return response()->json([
-                    'response' => 'Response Already Submitted For This Question !',
-                ]);
+                return  sendSuccess('Response Already Submitted For This Question !', []);
             }
             $response = '';
 
@@ -109,48 +103,13 @@ class QuizController extends Controller
                 $response = 'False';
             }
 
-            return response()->json([
-                'response' => $response
-
-            ]);
+            return  sendSuccess('Your Result Is.', $response);
         } else {
-            return response()->json([
-                'response' => 'Some Thing Went Wrong !'
 
-            ]);
+            return  sendSuccess('Some Thing Went Wrong !', []);
         }
     }
-    public function attemptResult(Request $request)
-    {
-        $validator = \Validator::make($request->all(), [
-            'lesson_id' => 'required',
-            'user_id' => 'required',
-            'attempt_id' => 'required',
-        ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'response' => $validator->errors(),
-            ]);
-        }
-        $attempt =   QuizAttempts::where('user_id', $request->user_id)->where('lesson_id', $request->lesson_id)->where('_id', $request->attempt_id)->first();
-        $response = 0;
-        if (!$attempt) {
-            return response()->json([
-                'response' => 'No Result Found !',
-            ]);
-        } else {
-            $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->where('type', 1)->count();
-            if ($attemptResult) {
-                $response =  $attemptResult;
-            }
-
-            return response()->json([
-                'response' => $response
-
-            ]);
-        }
-    }
 
     public function checkExpiry(Request $request)
     {
@@ -160,9 +119,7 @@ class QuizController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'response' => $validator->errors(),
-            ]);
+            return  sendSuccess('Validation Error.', $validator->errors());
         }
 
         $nDate = Carbon::createFromFormat('Y-m-d H:s:i', now());
@@ -176,18 +133,11 @@ class QuizController extends Controller
                 $attempt->is_ended = 1;
                 $attempt->save();
 
-
-                return response()->json([
-                    'response' => 'Your Attempt Expired',
-                    'status' => 0
-                ]);
+                return  sendSuccess('Your Attempt Expired', $attempt);
             } else {
                 $attemptResult =    AttemptResult::where('attempt', $attempt->_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->orderBy('created_at', 'DESC')->first();
 
-                return response()->json([
-                    'response' => $attempt,
-                    'status' => 1
-                ]);
+                return  sendSuccess('Your Last Attempt !', $attempt);
             }
         } else {
             $attempt = new QuizAttempts();
@@ -196,9 +146,8 @@ class QuizController extends Controller
             $attempt->start_date = $request->start_date;
             $attempt->is_ended = 0;
             $attempt->save();
-            return response()->json([
-                'response' => $attempt,
-            ]);
+
+            return  sendSuccess('Your New Attempt !', $attempt);
         }
     }
 }
