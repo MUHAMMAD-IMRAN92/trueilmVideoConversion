@@ -72,7 +72,7 @@
                                                         <td>{{ $user->phone }}</td>
 
                                                         <td> <a
-                                                                href="{{ url('affliate/app-user/books_reading_details/' . $user->id) }}"><i
+                                                                href="{{ url('affiliate/app-user/books_reading_details/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
                                                                     style="font-size:24px"></i></a> </td>
                                                     </tr>
