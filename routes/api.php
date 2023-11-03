@@ -62,4 +62,7 @@ Route::get('notification',  [App\Http\Controllers\HomeController::class, 'notifi
 Route::get('recetation_audios',  [App\Http\Controllers\HomeController::class, 'audios']);
 Route::get('AlQuranTafseer',  [App\Http\Controllers\HomeController::class, 'AlQuranTafseer']);
 Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
-Route::get('QuranEncTranslation',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);
+
+
+Route::get('translations_api_rendering/{translation_id}/{combination_id}', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
+Route::get('QuranEncTranslation/{key}/{combination_id}',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);

@@ -338,10 +338,10 @@
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Al-Quran</span></a>
                         <ul class="menu-content">
-                            <li class="@if (request()->is('al-Quran*') || request()->is('surah/edit*') || request()->is('ayat*')) active @endif "><a
+                            {{-- <li class="@if (request()->is('al-Quran*') || request()->is('surah/edit*') || request()->is('ayat*')) active @endif "><a
                                     href="{{ url('al-Quran') }}"><i class="fa fa-book" aria-hidden="true"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surahs</span></a>
-                            </li>
+                            </li> --}}
 
                             <li class="@if (request()->is('juz*') || request()->is('juz*') || request()->is('juz*')) active @endif "><a
                                     href="{{ url('juz') }}"><i class="fa fa-list"></i>

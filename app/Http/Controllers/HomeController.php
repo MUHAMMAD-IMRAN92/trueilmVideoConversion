@@ -253,14 +253,15 @@ class HomeController extends Controller
     }
     // text_indopak
     // text_uthmani_tajweed
-    public function AlQuranTranslations()
+    public function AlQuranTranslations($translation_id, $combination_id)
     {
+        return $translation_id;
         ini_set('max_execution_time', '0');
 
         // AlQuranTranslation::truncate();
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
-            $url = Http::get("https://api.quran.com/api/v4/quran/translations/234?verse_key=$verse->verse_key");
+            $url = Http::get("https://api.quran.com/api/v4/quran/translations/$translation_id?verse_key=$verse->verse_key");
             $response = json_decode($url->body());
 
             $alQuranTranslation = new AlQuranTranslation();
@@ -268,7 +269,7 @@ class HomeController extends Controller
             $alQuranTranslation->translation = strip_tags($response->translations[0]->text);
             $alQuranTranslation->ayat_id = $verse->_id;
             $alQuranTranslation->surah_id = $verse->surah_id;
-            $alQuranTranslation->author_lang = '650afac28704f705eb010142';
+            $alQuranTranslation->author_lang = $combination_id;
             $alQuranTranslation->type = 1;
             $alQuranTranslation->added_by = $this->user->id;
             $alQuranTranslation->save();
@@ -489,9 +490,9 @@ class HomeController extends Controller
         return 'save!';
     }
 
-    public function QuranEncTranslation()
+    public function QuranEncTranslation($key, $combination_id)
     {
-        return 'ok';
+        return $key;
         for ($i = 1; $i < 115; $i++) {
 
             $surah = Surah::where('sequence', $i)->first();
@@ -510,7 +511,7 @@ class HomeController extends Controller
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = $this->user->id;
                 $alQuranTranslation->surah_id = $alQuran->surah_id;
-                $alQuranTranslation->author_lang = '64d0c910f40e12257e350f62';
+                $alQuranTranslation->author_lang = $combination_id;
                 $alQuranTranslation->type = 1;
                 $alQuranTranslation->save();
             }
