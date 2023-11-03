@@ -495,12 +495,12 @@ class HomeController extends Controller
         return $key;
         for ($i = 1; $i < 115; $i++) {
 
-            $surah = Surah::where('sequence', $i)->first();
+              $surah = Surah::where('sequence', $i)->first();
             if ($surah) {
                 $surah = $surah;
             }
 
-            $url = Http::get("https://quranenc.com/api/v1/translation/sura/urdu_junagarhi/$i");
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/$key/$i");
             $response = json_decode($url->body());
 
             foreach ($response->result as $key => $res) {
