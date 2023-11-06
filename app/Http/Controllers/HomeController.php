@@ -500,7 +500,7 @@ class HomeController extends Controller
                 $surah = $surah;
             }
 
-            $url = Http::get("https://quranenc.com/api/v1/translation/sura/$key/2");
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/$key/$i");
             $response = json_decode($url->body());
 
             foreach ($response->result as $key => $res) {
