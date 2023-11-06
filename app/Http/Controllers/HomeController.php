@@ -255,10 +255,10 @@ class HomeController extends Controller
     // text_uthmani_tajweed
     public function AlQuranTranslations($translation_id, $combination_id)
     {
-        // return $translation_id;
         ini_set('max_execution_time', '0');
 
-        // AlQuranTranslation::truncate();
+        AlQuranTranslation::where('author_lang', $combination_id)->delete();
+
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
             $url = Http::get("https://api.quran.com/api/v4/quran/translations/$translation_id?verse_key=$verse->verse_key");
