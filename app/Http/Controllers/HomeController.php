@@ -502,8 +502,8 @@ class HomeController extends Controller
 
             $url = Http::get("https://quranenc.com/api/v1/translation/sura/$key/$i");
             $response = json_decode($url->body());
-
-            foreach ($response->result as $key => $res) {
+//
+            foreach ($response->result as  $res) {
                 $ayaNo = $res->sura . ':' . $res->aya;
                 $alQuran = AlQuran::where('verse_key',  $ayaNo)->first();
 
