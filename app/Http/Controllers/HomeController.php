@@ -492,10 +492,9 @@ class HomeController extends Controller
 
     public function QuranEncTranslation($key, $combination_id)
     {
-        return $combination_id;
         for ($i = 1; $i < 115; $i++) {
 
-              $surah = Surah::where('sequence', $i)->first();
+            $surah = Surah::where('sequence', $i)->first();
             if ($surah) {
                 $surah = $surah;
             }
@@ -518,6 +517,11 @@ class HomeController extends Controller
         }
     }
 }
+
+//lang
+
+
+//auth
 
 // 23dd802e-bc08-418a-b0c6-0763bb8f784b
 //./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"
