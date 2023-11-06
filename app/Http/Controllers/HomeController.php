@@ -272,10 +272,9 @@ class HomeController extends Controller
             $alQuranTranslation->author_lang = $combination_id;
             $alQuranTranslation->type = 1;
             $alQuranTranslation->added_by = '6447918217e6501d607f4943';
-            return  $alQuranTranslation;
-            // $alQuranTranslation->save();
+            $alQuranTranslation->save();
 
-            // SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
         }
         return 'save!';
     }
@@ -517,9 +516,8 @@ class HomeController extends Controller
                 $alQuranTranslation->author_lang = $combination_id;
                 $alQuranTranslation->type = 1;
 
-
-                // return  $alQuranTranslation;
                 $alQuranTranslation->save();
+                SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
             }
         }
 
