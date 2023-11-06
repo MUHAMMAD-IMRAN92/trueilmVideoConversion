@@ -518,6 +518,9 @@ class HomeController extends Controller
                 $alQuranTranslation->save();
             }
         }
+
+
+        return 'done';
     }
 }
 
