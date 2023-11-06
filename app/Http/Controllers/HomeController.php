@@ -508,8 +508,11 @@ class HomeController extends Controller
                 $alQuran = AlQuran::where('verse_key',  $ayaNo)->first();
 
                 $alQuranTranslation = new AlQuranTranslation();
-                // $alQuranTranslation->lang = $lang;
-                $alQuranTranslation->translation = preg_replace('/\[[^\]]*\]/', '', $res->translation);
+                // $alQuranTranslation->lang = $lang;`
+
+                // [1] preg_replace('/\[[^\]]*\]/', '', $res->translation)
+                // 1. \Str::after($res->translation, '.');
+                $alQuranTranslation->translation = \Str::after($res->translation, '.');
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                 $alQuranTranslation->surah_id = $alQuran->surah_id;
@@ -527,11 +530,11 @@ class HomeController extends Controller
 }
 
 //lang
-// 646db548a4707e6f4d3e61a3
+// 6548d27080681501aab8029d
 
 //auth
 
-// 6548c59c80681501aab8029b
+// 6548d41380681501aab802a0
 
 // 23dd802e-bc08-418a-b0c6-0763bb8f784b
 //./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"
