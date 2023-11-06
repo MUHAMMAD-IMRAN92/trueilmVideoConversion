@@ -512,7 +512,9 @@ class HomeController extends Controller
                 $alQuranTranslation->surah_id = $alQuran->surah_id;
                 $alQuranTranslation->author_lang = $combination_id;
                 $alQuranTranslation->type = 1;
-                $alQuranTranslation->save();
+
+                return  $alQuranTranslation;
+                // $alQuranTranslation->save();
             }
         }
     }
