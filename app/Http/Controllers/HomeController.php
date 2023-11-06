@@ -255,7 +255,7 @@ class HomeController extends Controller
     // text_uthmani_tajweed
     public function AlQuranTranslations($translation_id, $combination_id)
     {
-        return $translation_id;
+        // return $translation_id;
         ini_set('max_execution_time', '0');
 
         // AlQuranTranslation::truncate();
@@ -271,10 +271,11 @@ class HomeController extends Controller
             $alQuranTranslation->surah_id = $verse->surah_id;
             $alQuranTranslation->author_lang = $combination_id;
             $alQuranTranslation->type = 1;
-            $alQuranTranslation->added_by = $this->user->id;
-            $alQuranTranslation->save();
+            $alQuranTranslation->added_by = '6447918217e6501d607f4943';
+            return  $alQuranTranslation;
+            // $alQuranTranslation->save();
 
-            SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
+            // SurahCombinationJob::dispatch($alQuranTranslation->surah_id);
         }
         return 'save!';
     }
@@ -502,7 +503,7 @@ class HomeController extends Controller
 
             $url = Http::get("https://quranenc.com/api/v1/translation/sura/$key/$i");
             $response = json_decode($url->body());
-//
+            //
             foreach ($response->result as  $res) {
                 $ayaNo = $res->sura . ':' . $res->aya;
                 $alQuran = AlQuran::where('verse_key',  $ayaNo)->first();
@@ -516,6 +517,7 @@ class HomeController extends Controller
                 $alQuranTranslation->author_lang = $combination_id;
                 $alQuranTranslation->type = 1;
 
+
                 // return  $alQuranTranslation;
                 $alQuranTranslation->save();
             }
@@ -527,9 +529,11 @@ class HomeController extends Controller
 }
 
 //lang
-
+// 6548a18080681501aab80286
 
 //auth
+
+// 6548a12980681501aab80283
 
 // 23dd802e-bc08-418a-b0c6-0763bb8f784b
 //./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"
