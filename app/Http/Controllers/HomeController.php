@@ -499,22 +499,23 @@ class HomeController extends Controller
                 $surah = $surah;
             }
 
-            $url = Http::get("https://quranenc.com/api/v1/translation/sura/$key/$i");
+            $url = Http::get("https://quranenc.com/api/v1/translation/sura/$key/2");
             $response = json_decode($url->body());
 
             foreach ($response->result as $key => $res) {
                 $alQuran = AlQuran::where('verse_key', "$res->sura:$res->aya")->first();
+
                 $alQuranTranslation = new AlQuranTranslation();
                 // $alQuranTranslation->lang = $lang;
-                $alQuranTranslation->translation = $res->translation;
+                $alQuranTranslation->translation = \Str::after($res->translation, '.');
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                 $alQuranTranslation->surah_id = $alQuran->surah_id;
                 $alQuranTranslation->author_lang = $combination_id;
                 $alQuranTranslation->type = 1;
 
-                return  $alQuranTranslation;
-                // $alQuranTranslation->save();
+                // return  $alQuranTranslation;
+                $alQuranTranslation->save();
             }
         }
     }
