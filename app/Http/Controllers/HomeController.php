@@ -255,6 +255,8 @@ class HomeController extends Controller
     // text_uthmani_tajweed
     public function AlQuranTranslations($translation_id, $combination_id)
     {
+        AlQuranTranslation::where('author_lang', $combination_id)->delete();
+
         // return $translation_id;
         ini_set('max_execution_time', '0');
 
@@ -509,7 +511,7 @@ class HomeController extends Controller
 
                 $alQuranTranslation = new AlQuranTranslation();
                 // $alQuranTranslation->lang = $lang;
-                $alQuranTranslation->translation = \Str::after($res->translation, '.');
+                $alQuranTranslation->translation = $res->translation;
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                 $alQuranTranslation->surah_id = $alQuran->surah_id;
@@ -527,11 +529,11 @@ class HomeController extends Controller
 }
 
 //lang
-// 6548a18080681501aab80286
+// 646db548a4707e6f4d3e61a3
 
 //auth
 
-// 6548a12980681501aab80283
+// 6548c59c80681501aab8029b
 
 // 23dd802e-bc08-418a-b0c6-0763bb8f784b
 //./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"
