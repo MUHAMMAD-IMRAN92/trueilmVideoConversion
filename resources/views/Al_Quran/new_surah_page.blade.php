@@ -141,10 +141,10 @@
 
 
                                         <td class="product-name" style="font-size: 15px">
-                                            {{ $combination->language->title }}
+                                            {{ @$combination->language->title }}
                                         </td>
                                         <td class="product-name" style="font-size: 15px">
-                                            {{ $combination->author->name }}
+                                            {{ @$combination->author->name }}
                                         </td>
                                         {{-- <td class="product-name" style="font-size: 20px">{{ $combination->language->title }}
                                         </td> --}}
