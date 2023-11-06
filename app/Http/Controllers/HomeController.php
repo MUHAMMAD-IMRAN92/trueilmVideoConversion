@@ -255,8 +255,6 @@ class HomeController extends Controller
     // text_uthmani_tajweed
     public function AlQuranTranslations($translation_id, $combination_id)
     {
-        AlQuranTranslation::where('author_lang', $combination_id)->delete();
-
         // return $translation_id;
         ini_set('max_execution_time', '0');
 
@@ -511,7 +509,7 @@ class HomeController extends Controller
 
                 $alQuranTranslation = new AlQuranTranslation();
                 // $alQuranTranslation->lang = $lang;
-                $alQuranTranslation->translation = $res->translation;
+                $alQuranTranslation->translation = \Str::after($res->translation, '.');
                 $alQuranTranslation->ayat_id = $alQuran->id;
                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                 $alQuranTranslation->surah_id = $alQuran->surah_id;
