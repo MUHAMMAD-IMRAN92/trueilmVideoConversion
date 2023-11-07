@@ -31,7 +31,7 @@ Route::post('reset-password-email',  [App\Http\Controllers\Api\UserController::c
 Route::post('stripe/add-card-customer', [App\Http\Controllers\Api\StripeController::class, 'createCusCard']);
 Route::post('stripe/subscribe-plan', [App\Http\Controllers\Api\StripeController::class, 'subscribe']);
 
-Route::get('stripe/session_url', [App\Http\Controllers\Api\StripeController::class, 'sessionUrl']);
+Route::post('stripe/session_url', [App\Http\Controllers\Api\StripeController::class, 'sessionUrl']);
 Route::post('stripe/webhook', [App\Http\Controllers\Api\StripeController::class, 'webhook']);
 
 Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
