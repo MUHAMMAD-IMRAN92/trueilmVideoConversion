@@ -164,7 +164,6 @@ class StripeController extends Controller
                         $userSubscription->canceled_at = Carbon::parse($subscription->canceled_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->save();
                     } else {
-                        $userSubscription->cancel_at_period_end = '';
                         $userSubscription->status = 'paid';
                         $userSubscription->canceled_at = '';
                         $userSubscription->save();
