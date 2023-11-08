@@ -347,7 +347,7 @@
                                     href="{{ url('juz') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                             </li>
-                            <li class="@if (request()->is('authors')) active @endif "><a
+                            <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a
                                     href="{{ url('authors') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
@@ -579,7 +579,7 @@
                                         href="{{ url('publisher') }}"><i class="fa fa-user"></i>
                                         <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                                 </li>
-                                <li class="@if (request()->is('authors/*')) active @endif "><a
+                                <li class="@if (request()->input('type') == 1) active @endif "><a
                                         href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
                                         <span class="menu-item" data-i18n="Analytics">Author</span></a>
                                 </li>
