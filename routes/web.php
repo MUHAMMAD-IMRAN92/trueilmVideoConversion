@@ -275,7 +275,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('translation/file/store', [App\Http\Controllers\HomeController::class, 'translationFileStore'])->name('translation.file.store');
 
     //comments
-    //book mistakes
     Route::get('reflections', [App\Http\Controllers\CommentsController::class, 'index'])->name('commetns');
     Route::get('all-comments', [App\Http\Controllers\CommentsController::class, 'allComments'])->name('comments.all');
     Route::get('all-reflections', [App\Http\Controllers\CommentsController::class, 'allReflection'])->name('reflection.all');
