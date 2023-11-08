@@ -1505,7 +1505,7 @@
                            var status = '';
 
                            if (row.status == 1) {
-                               status = 'Appoved';
+                               status = 'Approved';
                            } else if (row.status == 2) {
                                status = 'Rejected'
                            } else {
