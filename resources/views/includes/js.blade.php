@@ -1082,6 +1082,57 @@
                }],
                "order": false
            });
+           $('#reflection-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-reflections') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           var comment = '--';
+                           if (row.comment != null) {
+                               comment = row.comment;
+                           }
+                           return '<td>' +
+                               comment + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = '';
+                           if (row.author != null) {
+                               user_name = row.author;
+                           } else {
+                               user_name = '--'
+                           }
+                           return '<td>' +
+                               user_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+
+                           anchor =
+                               `<a  class="ml-2"  href="{{ url('comment/approved/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                               <a  class="ml-2"  href="{{ url('comment/reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
+
+                           return `<td>` +
+                               anchor +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#rejected-grant-table').DataTable({
                "processing": true,
                "serverSide": true,

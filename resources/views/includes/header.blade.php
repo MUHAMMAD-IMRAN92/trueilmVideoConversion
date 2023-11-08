@@ -489,9 +489,9 @@
                             href="{{ url('/addition_review') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Book Addition Review</span></a>
                     </li>
-                    <li class="@if (request()->is('comment*')) active @endif "><a
-                            href="{{ url('/comments') }}"><i class="fa fa-comment-o"></i>
-                            <span class="menu-item" data-i18n="Analytics">Comments</span></a>
+                    <li class="@if (request()->is('reflections*')) active @endif "><a
+                            href="{{ url('/reflections') }}"><i class="fa fa-comment-o"></i>
+                            <span class="menu-item" data-i18n="Analytics">Reflections</span></a>
                     </li>
                     <li class="@if (request()->is('mistake*')) active @endif "><a
                             href="{{ url('/mistakes') }}"><i class="fa fa-exclamation-triangle"></i>

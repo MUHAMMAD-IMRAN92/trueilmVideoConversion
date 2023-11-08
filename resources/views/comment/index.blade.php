@@ -14,7 +14,7 @@
                 <div class="content-header-left col-md-5  mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Comments</h2>
+                            <h2 class="content-header-title float-left mb-0"> Reflections & Reviews</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -102,28 +102,86 @@
                 <!-- Basic Tables start -->
                 <div class="row">
                     <div class="col-12">
+
                         <div class="card">
 
                             <div class="card-content">
                                 <div class="card-body">
 
-                                    <!-- Table with outer spacing -->
-                                    <div class="table-responsive">
-                                        <table class="table" id="comments-table">
-                                            <thead>
-                                                <tr>
+                                    <ul class="nav nav-pills nav-fill">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab-fill" data-toggle="pill"
+                                                href="#home-fill" aria-expanded="true">Reflections</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="rating-tab-fill" data-toggle="pill" href="#rating-fill"
+                                                aria-expanded="true">Reviews</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home-fill" aria-labelledby="home-tab-fill"
+                                aria-expanded="true">
+                                <div class="card">
 
-                                                    {{-- <th class="">Book</th> --}}
-                                                    <th class="description-td">Comment</th>
-                                                    <th class="">Rating</th>
-                                                    <th class="">Submitted By</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    <div class="card-content">
+                                        <div class="card-body">
 
-                                            </tbody>
-                                        </table>
+                                            <!-- Table with outer spacing -->
+                                            <div class="table-responsive">
+                                                <table class="table" id="reflection-table">
+                                                    <thead>
+                                                        <tr>
+
+                                                            {{-- <th class="">Book</th> --}}
+                                                            <th class="">Comment</th>
+
+                                                            <th class="">Submitted By</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Table with no outer spacing -->
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="rating-fill" aria-labelledby="rating-tab-fill"
+                                aria-expanded="true">
+                                <div class="card">
+
+                                    <div class="card-content">
+                                        <div class="card-body">
+
+                                            <!-- Table with outer spacing -->
+                                            <div class="table-responsive">
+                                                <table class="table" id="comments-table" style="width:100%;">
+                                                    <thead>
+                                                        <tr>
+
+                                                            {{-- <th class="">Book</th> --}}
+                                                            <th class="description-td">Comment</th>
+                                                            <th class="">Rating</th>
+                                                            <th class="">Submitted By</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

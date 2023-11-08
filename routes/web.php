@@ -276,8 +276,9 @@ Route::middleware(['auth'])->group(function () {
 
     //comments
     //book mistakes
-    Route::get('comments', [App\Http\Controllers\CommentsController::class, 'index'])->name('commetns');
+    Route::get('reflections', [App\Http\Controllers\CommentsController::class, 'index'])->name('commetns');
     Route::get('all-comments', [App\Http\Controllers\CommentsController::class, 'allComments'])->name('comments.all');
+    Route::get('all-reflections', [App\Http\Controllers\CommentsController::class, 'allReflection'])->name('reflection.all');
     Route::get('comment/approved/{id}', [App\Http\Controllers\CommentsController::class, 'approved'])->name('mistakes.approved');
     Route::get('comment/reject/{id}', [App\Http\Controllers\CommentsController::class, 'reject'])->name('mistakes.reject');
 
