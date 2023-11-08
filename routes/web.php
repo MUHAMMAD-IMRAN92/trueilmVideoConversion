@@ -101,9 +101,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('hadith/add_chapter', [App\Http\Controllers\HadeesController::class, 'addChapter'])->name('hadith.addChapter');
 
     //author
-    Route::get('author', [App\Http\Controllers\AuthorController::class, 'index'])->name('author');
+    Route::get('authors/{type?}', [App\Http\Controllers\AuthorController::class, 'index'])->name('author');
     Route::get('all-author', [App\Http\Controllers\AuthorController::class, 'allauthor'])->name('author.all');
-    Route::get('author/create', [App\Http\Controllers\AuthorController::class, 'add'])->name('author.add');
+    Route::get('author/create/{type?}', [App\Http\Controllers\AuthorController::class, 'add'])->name('author.add');
     Route::post('author/store', [App\Http\Controllers\AuthorController::class, 'store'])->name('author.store');
     Route::get('author/edit/{id}', [App\Http\Controllers\AuthorController::class, 'edit'])->name('author.edit');
     Route::post('author/update', [App\Http\Controllers\AuthorController::class, 'update'])->name('author.update');

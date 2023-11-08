@@ -53,6 +53,8 @@
                                                         <div class="form-group">
                                                             <label for="">Name</label>
                                                             <div class="position-relative">
+                                                                <input type="hidden" name="type"
+                                                                    value="{{ $type }}">
                                                                 <input type="text" id="" class="form-control"
                                                                     name="name" placeholder="" required>
 
@@ -62,7 +64,7 @@
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
-                                                            <textarea  class="form-control" id="basicTextarea" rows="3" placeholder=""  name="description"></textarea>
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">

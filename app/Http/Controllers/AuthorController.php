@@ -19,9 +19,12 @@ class AuthorController extends Controller
             return $next($request);
         });
     }
-    public function index()
+    public function index(Request $request)
     {
-        return view('author.index');
+        $type =  $request->input('type');
+        return view('author.index', [
+            'type' => $type
+        ]);
     }
     public function allAuthor(Request $request)
     {
@@ -34,11 +37,17 @@ class AuthorController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             });
+        })->when($request->type, function ($q) use ($request) {
+            $q->where('type', $request->type);
+        })->when($request->type, function ($q) use ($request) {
+            $q->where('type', $request->type);
         })->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Author::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%");
             });
+        })->when($request->type, function ($q) use ($request) {
+            $q->where('type', $request->type);
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
             'draw' => $draw,
@@ -48,9 +57,12 @@ class AuthorController extends Controller
         );
         return json_encode($data);
     }
-    public function add()
+    public function add(Request $request)
     {
-        return view('author.add');
+        $type =  $request->input('type');
+        return view('author.add', [
+            'type' => $type
+        ]);
     }
     public function store(AuthorRequest $request)
     {
@@ -58,6 +70,7 @@ class AuthorController extends Controller
         $author->name = $request->name;
         $author->description = $request->description;
         $author->added_by = $this->user->id;
+        $author->type = $request->type;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
@@ -68,7 +81,7 @@ class AuthorController extends Controller
         }
         $author->save();
 
-        return redirect()->to('/author')->with('msg', 'Author Saved Successfully!');
+        return redirect()->to('/authors?type=' . $request->type)->with('msg', 'Author Saved Successfully!');
     }
 
     public function edit($id)

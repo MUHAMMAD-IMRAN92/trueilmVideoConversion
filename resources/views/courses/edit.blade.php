@@ -130,6 +130,23 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Author</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="author_id"
+                                                                id="" disabled>
+                                                                <option disabled selected>Select Author</option>
+                                                                @foreach ($author as $auth)
+                                                                    <option
+                                                                        {{ $course->author_id == $auth->_id ? 'selected' : '' }}
+                                                                        value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                     {{-- <div class="col-6">
 
                                                         <label for="">Category</label>
@@ -431,7 +448,7 @@
                                                                                 Quiz</a>
                                                                             <a class="btn btn-primary"
                                                                                 href="{{ url('lesson/quiz/results/' . $course->_id . '/' . $les->_id) }}">
-                                                                               Results</a>
+                                                                                Results</a>
                                                                         </td>
                                                                     @endif
 
@@ -543,6 +560,23 @@
                                                                             {{ $tag->title }}</option>
                                                                     @endforeach
                                                                 </select>
+                                                            </div>
+                                                            <div class="col-6">
+
+                                                                <label for="">Author</label>
+                                                                <fieldset class="form-group">
+                                                                    <select class="select2 form-control" name="author_id"
+                                                                        id="">
+                                                                        <option disabled selected>Select Author</option>
+                                                                        @foreach ($author as $auth)
+                                                                            <option
+                                                                                {{ $course->author_id == $auth->_id ? 'selected' : '' }}
+                                                                                value="{{ $auth->_id }}">
+                                                                                {{ $auth->name }}</option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </fieldset>
                                                             </div>
                                                             {{-- <div class="col-6">
 

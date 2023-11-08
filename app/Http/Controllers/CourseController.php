@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\CourseLesson;
@@ -72,13 +73,18 @@ class CourseController extends Controller
     {
         $tags = Tag::all();
         $categories = Category::active()->where('type', "4")->get();
+        $author = Author::where('type', '1')->get();
+
         return view('courses.add', [
             'tags' => $tags,
             'categories' => $categories,
+            'author' => $author
         ]);
     }
     public function store(Request $request)
     {
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+
         $course = new Course();
         $course->title = $request->title;
         $course->description = $request->description;
@@ -88,6 +94,7 @@ class CourseController extends Controller
         $course->p_type = $request->pRadio;
         $course->price = $request->price;
         $course->category_id = $request->category_id;
+        $course->author_id = $request->author_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');
@@ -140,8 +147,8 @@ class CourseController extends Controller
                 $courseLesson->save();
             }
         }
-
-        return redirect()->to('/courses/edit/' . $course->_id)->with('msg', 'Course Saved Successfully!');;
+        $courseIndex = $client->index('course')->addDocuments(array($course), '_id');
+        return redirect()->to('/course/edit/' . $course->_id)->with('msg', 'Course Saved Successfully!');;
     }
 
     public function edit($id)
@@ -150,11 +157,14 @@ class CourseController extends Controller
         $contentTag = ContentTag::where('content_id', $id)->get();
         $categories = Category::active()->where('type', "4")->get();
         $tags = Tag::all();
+        $author = Author::where('type', '1')->get();
+
         return view('courses.edit', [
             'course' => $course,
             'tags' => $tags,
             'contentTags' =>  $contentTag,
             'categories' => $categories,
+            'author' => $author
         ]);
     }
 
@@ -169,6 +179,7 @@ class CourseController extends Controller
         $course->category_id = $request->category_id;
         $course->p_type = $request->pRadio;
         $course->price = $request->price;
+        $course->author_id = $request->author_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');

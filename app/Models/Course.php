@@ -23,4 +23,8 @@ class Course extends Eloquent
 
         return @$user->name;
     }
+    public function author()
+    {
+        return $this->hasOne(Author::class, '_id', 'author_id');
+    }
 }

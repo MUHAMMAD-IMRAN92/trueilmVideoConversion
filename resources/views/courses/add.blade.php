@@ -111,6 +111,21 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Author</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="author_id"
+                                                                id="">
+                                                                <option disabled selected>Select Author</option>
+                                                                @foreach ($author as $auth)
+                                                                    <option value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                     {{-- <div class="col-6">
 
                                                         <label for="">Category</label>

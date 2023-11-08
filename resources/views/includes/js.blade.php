@@ -197,6 +197,7 @@
                }],
                "order": false
            });
+
            $('#author-table').DataTable({
                "processing": true,
                "serverSide": true,
@@ -205,7 +206,10 @@
                    "searchPlaceholder": "Search here"
                },
                "ajax": {
-                   url: '<?= url('all-author') ?>'
+                   url: '<?= url('all-author') ?>',
+                   data: {
+                       type: $('#author-type').val()
+                   }
                },
                "columns": [{
                        "mRender": function(data, type, row) {
@@ -448,7 +452,7 @@
                        "mRender": function(data, type, row) {
                            var author = '';
                            if (row.author != null) {
-                               author = row.author;
+                               author = row.author.name;
                            } else {
                                author = '--'
                            }

@@ -19,6 +19,7 @@ use App\Models\ContentGlossary;
 use App\Models\Publisher;
 use Carbon\Carbon;
 use Meilisearch\Client;
+use App\Models\Author;
 
 class BookController extends Controller
 {
@@ -65,7 +66,7 @@ class BookController extends Controller
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
-        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->with('author')->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -93,13 +94,15 @@ class BookController extends Controller
         $suitbles = Suitable::all();
         $glossary = Glossory::all();
         $publisher = Publisher::all();
+        $author = Author::where('type', '1')->get();
         return view('eBook.add', [
             'type' => $type,
             'categories' => $categories,
             'tags' => $tags,
             'suitbles' => $suitbles,
             'glossary' => $glossary,
-            'publisher' => $publisher
+            'publisher' => $publisher,
+            'author' => $author
         ]);
     }
     public function store(Request $request)
@@ -127,11 +130,11 @@ class BookController extends Controller
         $book->type = $request->type;
         $book->status = 1;
         $book->approved = 0;
-        $book->author = $request->author;
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
         $book->content_suitble = $request->suitble;
         $book->publisher_id = $request->publisher_id;
+        $book->author_id = $request->author_id;
         $book->p_type = $request->pRadio;
         $book->age = $request->age;
         if ($request->pRadio == 0) {
@@ -201,14 +204,14 @@ class BookController extends Controller
     public function edit($type, $id)
     {
         $categories = Category::active()->where('type', $type)->get();
-        $book = Book::where('_id', $id)->with('content')->first();
+        $book = Book::where('_id', $id)->with('content', 'author')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $tags = Tag::all();
         $suitbles = Suitable::all();
         $glossary = Glossory::all();
         $publisher = Publisher::all();
         $contentGlossary = ContentGlossary::where('content_id', $id)->get();
-
+        $author = Author::where('type', '1')->get();
         return view('eBook.edit', [
             'book' => $book,
             'type' => $type,
@@ -218,7 +221,8 @@ class BookController extends Controller
             'suitbles' => $suitbles,
             'glossary' => $glossary,
             'contentGlossary' => $contentGlossary,
-            'publisher' => $publisher
+            'publisher' => $publisher,
+            'author' => $author
         ]);
     }
 
@@ -265,7 +269,7 @@ class BookController extends Controller
         $book->type = $request->type;
         $book->status =  $book->status;
         $book->approved =  $book->approved;
-        $book->author = $request->author;
+        $book->author_id = $request->author_id;
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
         $book->content_suitble = $request->suitble;

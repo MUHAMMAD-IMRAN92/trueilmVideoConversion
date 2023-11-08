@@ -347,8 +347,8 @@
                                     href="{{ url('juz') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                             </li>
-                            <li class="@if (request()->is('author*') || request()->is('author*') || request()->is('author*')) active @endif "><a
-                                    href="{{ url('author') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('authors')) active @endif "><a
+                                    href="{{ url('authors') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
                             <li class="@if (request()->is('all_surah_translations/1') ||
@@ -578,6 +578,10 @@
                                 <li class="@if (request()->is('publisher*')) active @endif "><a
                                         href="{{ url('publisher') }}"><i class="fa fa-user"></i>
                                         <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
+                                </li>
+                                <li class="@if (request()->is('authors/*')) active @endif "><a
+                                        href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
+                                        <span class="menu-item" data-i18n="Analytics">Author</span></a>
                                 </li>
                             @endif
                             @if (auth()->user()->hasRole('Publisher'))

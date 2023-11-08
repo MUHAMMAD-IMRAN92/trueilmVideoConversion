@@ -106,7 +106,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    {{-- <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Author</label>
                                                             <div class="custom-file">
@@ -118,7 +118,7 @@
                                                                 </div>
                                                             </div>
                                                         </fieldset>
-                                                    </div>
+                                                    </div> --}}
 
                                                     {{-- <div class="col-12">
                                                         <div class="form-group">
@@ -214,6 +214,21 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Author</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="author_id"
+                                                                id="">
+                                                                <option disabled selected>Select Author</option>
+                                                                @foreach ($author as $auth)
+                                                                    <option value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="form-group col-md-6 ">
                                                         <label for="basicInputFile">Glossary</label>
 
@@ -280,8 +295,9 @@
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
-                                                                <input type="file" class="sample-file custom-file-input"
-                                                                    id="" name="sample_file" disabled>
+                                                                <input type="file"
+                                                                    class="sample-file custom-file-input" id=""
+                                                                    name="sample_file" disabled>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>

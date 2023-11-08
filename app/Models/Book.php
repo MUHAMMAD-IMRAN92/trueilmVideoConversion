@@ -93,4 +93,8 @@ class Book extends Eloquent
     {
         return $this->hasMany(BookContent::class, 'book_id', 'id');
     }
+    public function author()
+    {
+        return $this->hasOne(Author::class, '_id', 'author_id');
+    }
 }

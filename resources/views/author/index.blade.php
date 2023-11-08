@@ -24,7 +24,7 @@
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
-                            <a href="{{ route('author.add') }}"> <button
+                            <a href="{{ url('author/create?type=' . $type) }}"> <button
                                     class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
                                         class="add-brand-font">Add Author</span> <i class="fa fa-plus"
                                         aria-hidden="true"></i>
@@ -56,6 +56,7 @@
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
                                         <table class="table" id="author-table">
+                                            <input type="hidden" id="author-type" value="{{ $type }}">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
