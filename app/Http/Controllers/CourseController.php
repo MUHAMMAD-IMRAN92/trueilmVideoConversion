@@ -15,6 +15,7 @@ use App\Models\QuizAttempts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Tag;
+use Meilisearch\Client;
 
 class CourseController extends Controller
 {
