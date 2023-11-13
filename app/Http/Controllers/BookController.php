@@ -191,7 +191,7 @@ class BookController extends Controller
 
 
 
-        if ($request->reference_type) {
+        if ($request->reference_file) {
             $reference = new Reference();
             $reference->type = $book->type;
             $reference->referal_id = $book->id;
@@ -374,7 +374,7 @@ class BookController extends Controller
             }
         }
 
-        if ($request->reference_type) {
+        if ($request->reference_file) {
             $reference = new Reference();
             $reference->type = $book->type;
             $reference->referal_id = $book->id;
