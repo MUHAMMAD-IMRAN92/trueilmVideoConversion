@@ -443,13 +443,13 @@
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Course Management</span></a>
                         <ul class="menu-content">
-                            <li class="@if (request()->is('course*') || request()->is('lesson/quiz*')) active @endif "><a
-                                    href="{{ url('/courses') }}"><i class="fa fa-list"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Courses</span></a>
-                            </li>
                             <li class="@if (request()->is('categories/4') || request()->is('category/4*')) active @endif "><a
                                     href="{{ url('categories/4') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
+                            </li>
+                            <li class="@if (request()->is('course*') || request()->is('lesson/quiz*')) active @endif "><a
+                                    href="{{ url('/courses') }}"><i class="fa fa-list"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                             </li>
 
                         </ul>
