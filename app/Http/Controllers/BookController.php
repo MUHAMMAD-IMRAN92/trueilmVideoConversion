@@ -20,6 +20,7 @@ use App\Models\Publisher;
 use Carbon\Carbon;
 use Meilisearch\Client;
 use App\Models\Author;
+use App\Models\Reference;
 
 class BookController extends Controller
 {
@@ -111,8 +112,6 @@ class BookController extends Controller
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
-        // return $request->all();
-
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
@@ -190,6 +189,21 @@ class BookController extends Controller
             }
         }
 
+
+
+        if ($request->reference_type) {
+            $reference = new Reference();
+            $reference->type = $book->type;
+            $reference->referal_id = $book->id;
+            $reference->reference_type = $request->reference_type;
+            if ($request->reference_file) {
+                $book = Book::where('_id', $request->reference_file)->first();
+                $reference->reference = $book->_id;
+                $reference->reference_title = $book->title;
+            }
+            $reference->added_by = $this->user->id;
+            $reference->save();
+        }
 
 
         if ($request->type == 2) {
@@ -359,6 +373,21 @@ class BookController extends Controller
                 $bookContent->save();
             }
         }
+
+        if ($request->reference_type) {
+            $reference = new Reference();
+            $reference->type = $book->type;
+            $reference->referal_id = $book->id;
+            $reference->reference_type = $request->reference_type;
+            if ($request->reference_file) {
+                $book = Book::where('_id', $request->reference_file)->first();
+                $reference->reference = $book->_id;
+                $reference->reference_title = $book->title;
+            }
+            $reference->added_by = $this->user->id;
+            $reference->save();
+        }
+
         if ($request->type == 7) {
             return redirect()->back();
         }

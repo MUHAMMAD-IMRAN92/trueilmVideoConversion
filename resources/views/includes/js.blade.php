@@ -3067,7 +3067,7 @@
                                     <select class="selct2 form-control " name="file[]" id="file-new-lang-select-${lang}" required>
                                     <option value="" selected>Please Select File</option>
 
-                                </select>
+                                    </select>
                             </fieldset>
                         </div>
                     </div>

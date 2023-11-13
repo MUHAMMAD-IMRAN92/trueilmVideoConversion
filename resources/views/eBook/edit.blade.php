@@ -311,6 +311,40 @@
                                                         </fieldset>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h2>
+                                                            Reference
+                                                        </h2>
+                                                    </div>
+                                                    <div class="col-6"><label for="">Select Book Type</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="selct2 form-control reference-select"
+                                                                onchange="getFilesAjax('0')" name="reference_type"
+                                                                id="reference-new-lang-select-0" required>
+                                                                <option value="" selected>Please Select Reference
+                                                                </option>
+                                                                <option value="1">eBook</option>
+                                                                <option value="2">Audio</option>
+                                                                <option value="3">Paper</option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <label for="">Select Book</label>
+                                                        <div class="form-label-group">
+                                                            <fieldset class="form-group">
+                                                                <select class="selct2 form-control" name="reference_file"
+                                                                    id="file-new-lang-select-0" required>
+                                                                    <option value="" selected>Please Select File
+                                                                    </option>
+
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <h2 id="episodes-heading" style="display:none">
                                                     Episodes:</h2>
                                                 <div class="row episode-append-inputs">
