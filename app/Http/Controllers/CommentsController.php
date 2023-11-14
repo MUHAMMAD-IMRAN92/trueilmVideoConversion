@@ -29,14 +29,14 @@ class CommentsController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Comments::with('book')->where('approved', 0)->count();
+        $totalBrands = Comments::where('type', "1")->with('book')->where('approved', 0)->count();
 
-        $brands = Comments::with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
+        $brands = Comments::where('type', "1")->with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('comment', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Comments::with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
+        $brandsCount = Comments::where('type', "1")->with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('comment', 'like', "%$search%");
             });
@@ -57,14 +57,14 @@ class CommentsController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Comments::where('type', 1)->with('book')->where('approved', 0)->count();
+        $totalBrands = Comments::where('type', "2")->with('book')->where('approved', 0)->count();
 
-        $brands = Comments::where('type', 1)->with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
+        $brands = Comments::where('type',  "2")->with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('comment', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Comments::where('type', 1)->with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
+        $brandsCount = Comments::where('type', "2")->with('book')->where('approved', 0)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('comment', 'like', "%$search%");
             });
