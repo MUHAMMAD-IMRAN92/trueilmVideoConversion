@@ -321,7 +321,7 @@
                                                         <fieldset class="form-group">
                                                             <select class="selct2 form-control reference-select"
                                                                 onchange="getFilesAjax('0')" name="reference_type"
-                                                                id="reference-new-lang-select-0" required>
+                                                                id="reference-new-lang-select-0" >
                                                                 <option value="" selected>Please Select Reference
                                                                 </option>
                                                                 <option value="1">eBook</option>
@@ -336,7 +336,7 @@
                                                         <div class="form-label-group">
                                                             <fieldset class="form-group">
                                                                 <select class="selct2 form-control" name="reference_file"
-                                                                    id="file-new-lang-select-0" required>
+                                                                    id="file-new-lang-select-0" >
                                                                     <option value="" selected>Please Select File
                                                                     </option>
 
