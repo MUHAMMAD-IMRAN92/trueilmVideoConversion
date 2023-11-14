@@ -447,6 +447,7 @@ class BookController extends Controller
             $book->update([
                 'approved' => $approved,
                 'approved_by' => $this->user->id,
+                'published_at' => Carbon::now('UTC')->format('Y-m-d\TH:i:s.uP')
             ]);
 
             SendNotifications::dispatch($book->added_by, 'A new book has been uploaded to TrueILM.', 0);
