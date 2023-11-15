@@ -301,14 +301,13 @@ class HomeController extends Controller
             foreach ($res['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
-                        $h['ijaz']='ijaz';
-                        $myarray[]=$h;
                         // return $h;
-                        // $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
-                        // if ($Hadith) {
-                        //     $h['Hadith'] = $Hadith;
-                        //     // return $h;
-                        // }
+                        $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
+                        if ($Hadith) {
+                            $h['Hadith'] = $Hadith;
+
+                        }
+                        $myarray[]=$h;
                     }
                 }
                 echo '<pre>';
