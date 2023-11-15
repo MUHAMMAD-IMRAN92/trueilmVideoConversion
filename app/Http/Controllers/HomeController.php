@@ -297,10 +297,12 @@ class HomeController extends Controller
             }
 
             $res = $client->multiSearch($queries);
+            $myarray=[];
             foreach ($res['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
                         $h['ijaz']='ijaz';
+                        $myarray[]=$h;
                         // return $h;
                         // $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
                         // if ($Hadith) {
@@ -310,7 +312,7 @@ class HomeController extends Controller
                     }
                 }
                 echo '<pre>';
-                print_r($h);exit;
+                print_r($myarray);exit;
             }
         } else {
             $res = $client->multiSearch([
