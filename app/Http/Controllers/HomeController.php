@@ -302,9 +302,7 @@ class HomeController extends Controller
                     foreach ($r['hits'] as $h) {
                         // $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
                         // array_push($h, $h['Hadith']);
-
-                        \Arr::add($h, 'price', 100);
-                        return $h;
+                        $h['Hadith'] = 'test';
                     }
                 }
             }
