@@ -295,6 +295,14 @@ class HomeController extends Controller
                     ->setLimit(20);
             }
             $res = $client->multiSearch($queries);
+
+            foreach ($res->results as $r) {
+                if ($r->indexUid == 'alHadeestranslations') {
+                    foreach ($r->hits as $h) {
+                        $h = $h->with('Hadith');
+                    }
+                }
+            }
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
@@ -319,16 +327,20 @@ class HomeController extends Controller
                     ->setLimit(20),
                 (new SearchQuery())
                     ->setIndexUid('alHadeestranslations')
-                    ->setQuery($request->search),
+                    ->setQuery($request->search)
+                    ->setLimit(20),
                 (new SearchQuery())
                     ->setIndexUid('course')
-                    ->setQuery($request->search),
+                    ->setQuery($request->search)
+                    ->setLimit(20),
                 (new SearchQuery())
                     ->setIndexUid('bookForSale')
-                    ->setQuery($request->search),
+                    ->setQuery($request->search)
+                    ->setLimit(20),
                 (new SearchQuery())
                     ->setIndexUid('glossary')
-                    ->setQuery($request->search),
+                    ->setQuery($request->search)
+                    ->setLimit(20),
             ]);
         }
         return response()->json($res);
