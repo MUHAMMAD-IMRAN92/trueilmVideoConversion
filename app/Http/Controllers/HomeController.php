@@ -296,7 +296,7 @@ class HomeController extends Controller
                     ->setLimit(20);
             }
             $res = $client->multiSearch($queries);
-
+            $res['imran'] = 'test';
             foreach ($res['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
