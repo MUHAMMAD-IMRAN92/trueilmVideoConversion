@@ -313,7 +313,7 @@ class HomeController extends Controller
                     foreach ($r['hits'] as $h) {
                         // return $h;
                         $AlQuran = AlQuran::where('_id',  $h['ayat_id'])->with('khatoot')->first();
-                        if ($Hadith) {
+                        if ($AlQuran) {
                             $h['AlQuran'] = $AlQuran;
                         }
                         $myarray[] = $h;
