@@ -310,8 +310,8 @@ class HomeController extends Controller
                         $myarray[]=$h;
                     }
                 }
-                echo '<pre>';
-                print_r($myarray);exit;
+                // echo '<pre>';
+                // print_r($myarray);exit;
             }
         } else {
             $res = $client->multiSearch([
