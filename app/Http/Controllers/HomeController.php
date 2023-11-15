@@ -310,6 +310,8 @@ class HomeController extends Controller
                         }
                         $myarray[]=$h;
                     }
+                }else{
+                    $myarray[]=$r['hits'];
                 }
                 $res['results'][$i]['hits']=$myarray;$i++;
 
