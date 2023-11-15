@@ -302,7 +302,7 @@ class HomeController extends Controller
                     foreach ($r['hits'] as $h) {
                         $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
                         if ($Hadith) {
-                            $h['Hadith'] = $Hadith;
+                            $h['Hadith'] += $Hadith;
                             // return $h;
                         }
                     }
