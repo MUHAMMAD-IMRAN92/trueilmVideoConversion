@@ -399,7 +399,7 @@ class AlQuranController extends Controller
             $q->where('type', (int)$type)->whereHas('ayats', function ($e) use ($surah) {
                 $e->where('surah_id', $surah->_id);
             })->with('ayats');
-        }])->paginate(10);
+        }])->paginate(5);
 
 
         return view('Al_Quran.new_surah_page', [
