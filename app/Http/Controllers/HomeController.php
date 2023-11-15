@@ -303,10 +303,6 @@ class HomeController extends Controller
                         $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
 
                         $h['Hadith'] = $Hadith;
-                        // $collect = collect($h);
-                        // $collect->push([
-                        //     'Hadith' => $Hadith
-                        // ]);
                     }
                 }
             }
