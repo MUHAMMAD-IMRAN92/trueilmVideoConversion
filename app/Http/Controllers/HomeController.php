@@ -449,8 +449,9 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', '0');
 
-        // AlQuranTranslation::where('author_lang' , '653a49b6468e05bace1187b5')->delete();
-        // AlQuranTranslation::where('author_lang' , '653a4a7f468e05bace1187b9')->delete();
+        AlQuranTranslation::where('author_lang' , '65546dd181f11c8450d5cec8')->delete();
+        AlQuranTranslation::where('author_lang' , '65546f0381f11c8450d5cecd')->delete();
+        AlQuranTranslation::where('author_lang' , '655470dd81f11c8450d5cece')->delete();
         // return '1';
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
