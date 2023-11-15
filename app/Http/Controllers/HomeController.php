@@ -24,6 +24,7 @@ use App\Models\Book;
 use App\Models\BookForSale;
 use App\Models\Course;
 use App\Models\Glossory;
+use App\Models\Hadees;
 use App\Models\HadeesTranslation;
 use App\Models\Khatoot;
 use Berkayk\OneSignal\OneSignalFacade;
@@ -299,7 +300,8 @@ class HomeController extends Controller
             foreach ($res['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
-                        return $h['hadees_id'];
+
+                        $h->hadith = Hadees::where('_id',  $h['hadees_id'])->first();
                     }
                 }
             }
