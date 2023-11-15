@@ -303,7 +303,7 @@ class HomeController extends Controller
                         $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
                         if ($Hadith) {
                             $h['Hadith'] = $Hadith;
-
+                            return $h;
                         }
                     }
                 }
