@@ -366,6 +366,37 @@ class HomeController extends Controller
                     ->setQuery($request->search)
                     ->setLimit(20),
             ]);
+
+            $i = 0;
+            foreach ($res['results'] as $r) {
+                $myarray = [];
+                if ($r['indexUid'] == 'alHadeestranslations') {
+                    foreach ($r['hits'] as $h) {
+                        // return $h;
+                        $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
+                        if ($Hadith) {
+                            $h['Hadith'] = $Hadith;
+                        }
+                        $myarray[] = $h;
+                    }
+                } elseif ($r['indexUid'] == 'alQurantranslations') {
+                    foreach ($r['hits'] as $h) {
+                        // return $h;
+                        $Hadith = AlQuran::where('_id',  $h['ayat_id'])->first();
+                        if ($Hadith) {
+                            $h['Hadith'] = $Hadith;
+                        }
+                        $myarray[] = $h;
+                    }
+                } else {
+                    $myarray = $r['hits'];
+                }
+                $res['results'][$i]['hits'] = $myarray;
+                $i++;
+
+                // echo '<pre>';
+                // print_r($myarray);exit;
+            }
         }
         return response()->json($res);
     }
