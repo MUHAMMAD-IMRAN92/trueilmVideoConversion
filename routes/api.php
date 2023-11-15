@@ -61,7 +61,6 @@ Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generat
 Route::get('notification',  [App\Http\Controllers\HomeController::class, 'notification']);
 
 
-Route::get('recetation_audios',  [App\Http\Controllers\HomeController::class, 'audios']);
 Route::get('AlQuranTafseer',  [App\Http\Controllers\HomeController::class, 'AlQuranTafseer']);
 Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 
