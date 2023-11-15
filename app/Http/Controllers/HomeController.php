@@ -429,14 +429,14 @@ class HomeController extends Controller
         $alQuran  = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
 
-            $url = Http::get("https://api.quran.com/api/v4/recitations/2/by_ayah/$verse->verse_key");
+            $url = Http::get("https://api.quran.com/api/v4/recitations/3/by_ayah/$verse->verse_key");
             $ayat = json_decode($url->body());;
 
             $url = 'https://verses.quran.com/' . $ayat->audio_files[0]->url;
             $client = new GuzzleHttpClient();
             $response = $client->get($url);
 
-            $modifiedFileName = 'audios/1/653686c4468e05bace11873d/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
+            $modifiedFileName = 'audios/1/6554a22481f11c8450d5cedc/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
 
             Storage::disk('s3')->put($modifiedFileName, $response->getBody());
         }
@@ -449,9 +449,9 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', '0');
 
-        AlQuranTranslation::where('author_lang' , '65546dd181f11c8450d5cec8')->delete();
-        AlQuranTranslation::where('author_lang' , '65546f0381f11c8450d5cecd')->delete();
-        AlQuranTranslation::where('author_lang' , '655470dd81f11c8450d5cece')->delete();
+        AlQuranTranslation::where('author_lang', '65546dd181f11c8450d5cec8')->delete();
+        AlQuranTranslation::where('author_lang', '65546f0381f11c8450d5cecd')->delete();
+        AlQuranTranslation::where('author_lang', '655470dd81f11c8450d5cece')->delete();
         // return '1';
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
