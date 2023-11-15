@@ -299,7 +299,7 @@ class HomeController extends Controller
             foreach ($res['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
-                        return $h;
+                        return $h->Hadith();
                     }
                 }
             }
