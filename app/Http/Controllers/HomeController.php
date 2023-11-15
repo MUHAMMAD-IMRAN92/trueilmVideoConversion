@@ -296,18 +296,16 @@ class HomeController extends Controller
                     ->setLimit(20);
             }
 
-            $response = $client->multiSearch($queries);
-            foreach ($response['results'] as $r) {
+            $res = $client->multiSearch($queries);
+            foreach ($res['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
-                        $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
+                        // $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
 
-                        $h['Hadith'] = 'test';
+                        $h = [];
                     }
                 }
             }
-
-            $res = $response['results'];
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
