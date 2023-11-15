@@ -298,9 +298,9 @@ class HomeController extends Controller
 
             $res = $client->multiSearch($queries);
             foreach ($res['results'] as $r) {
-                return $r;
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
+                        return $h;
                         $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
                         if ($Hadith) {
                             $h['Hadith'] = $Hadith;
