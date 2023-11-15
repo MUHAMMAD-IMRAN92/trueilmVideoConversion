@@ -296,9 +296,9 @@ class HomeController extends Controller
             }
             $res = $client->multiSearch($queries);
 
-            foreach ($res->results as $r) {
-                if ($r->indexUid == 'alHadeestranslations') {
-                    foreach ($r->hits as $h) {
+            foreach ($res['results'] as $r) {
+                if ($r['indexUid'] == 'alHadeestranslations') {
+                    foreach ($r['hits'] as $h) {
                         $h = $h->with('Hadith');
                     }
                 }
