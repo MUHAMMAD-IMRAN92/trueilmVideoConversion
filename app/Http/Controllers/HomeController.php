@@ -300,8 +300,8 @@ class HomeController extends Controller
             foreach ($res['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
-
-                        $h['hadith ']= Hadees::where('_id',  $h['hadees_id'])->first();
+                        $h->Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
+                        array_push($h ,  $h->Hadith);
                     }
                 }
             }
