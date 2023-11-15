@@ -307,9 +307,10 @@ class HomeController extends Controller
                             $h['Hadith'] = $Hadith;
 
                         }
-                        $h=$h;
+                        $myarray[]=$h;
                     }
                 }
+                $r['ijaz']='ijaz';
                 // echo '<pre>';
                 // print_r($myarray);exit;
             }
