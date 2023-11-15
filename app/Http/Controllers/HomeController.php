@@ -309,7 +309,8 @@ class HomeController extends Controller
                         // }
                     }
                 }
-                return $r;
+                echo '<pre>';
+                print_r($r);exit;
             }
         } else {
             $res = $client->multiSearch([
