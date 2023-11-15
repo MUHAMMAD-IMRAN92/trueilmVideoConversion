@@ -295,9 +295,9 @@ class HomeController extends Controller
                     ->setQuery($request->search)
                     ->setLimit(20);
             }
-            $res = $client->multiSearch($queries);
 
-            foreach ($res['results'] as $r) {
+            $response = $client->multiSearch($queries);
+            foreach ($response['results'] as $r) {
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
                         $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
@@ -306,6 +306,8 @@ class HomeController extends Controller
                     }
                 }
             }
+
+            $res = $response['results'];
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
