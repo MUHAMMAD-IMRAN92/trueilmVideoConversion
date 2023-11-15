@@ -310,7 +310,7 @@ class HomeController extends Controller
                     }
                 }
                 echo '<pre>';
-                print_r($r);exit;
+                print_r($h);exit;
             }
         } else {
             $res = $client->multiSearch([
