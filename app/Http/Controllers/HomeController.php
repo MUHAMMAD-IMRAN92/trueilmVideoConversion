@@ -297,8 +297,9 @@ class HomeController extends Controller
             }
 
             $res = $client->multiSearch($queries);
-            $myarray=[];
+            $i=0;
             foreach ($res['results'] as $r) {
+                $myarray=[];
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
                         // return $h;
@@ -310,7 +311,8 @@ class HomeController extends Controller
                         $myarray[]=$h;
                     }
                 }
-                $res['results'][0]['hits']='ijaz';
+                $res['results'][$i]['hits']=$myarray;$i++;
+
                 // echo '<pre>';
                 // print_r($myarray);exit;
             }
