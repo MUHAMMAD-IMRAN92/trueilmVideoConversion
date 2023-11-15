@@ -297,23 +297,32 @@ class HomeController extends Controller
             }
 
             $res = $client->multiSearch($queries);
-            $i=0;
+            $i = 0;
             foreach ($res['results'] as $r) {
-                $myarray=[];
+                $myarray = [];
                 if ($r['indexUid'] == 'alHadeestranslations') {
                     foreach ($r['hits'] as $h) {
                         // return $h;
                         $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
                         if ($Hadith) {
                             $h['Hadith'] = $Hadith;
-
                         }
-                        $myarray[]=$h;
+                        $myarray[] = $h;
                     }
-                }else{
-                    $myarray=$r['hits'];
+                } elseif ($r['indexUid'] == 'alQurantranslations') {
+                    foreach ($r['hits'] as $h) {
+                        // return $h;
+                        $Hadith = AlQuran::where('_id',  $h['ayat_id'])->first();
+                        if ($Hadith) {
+                            $h['Hadith'] = $Hadith;
+                        }
+                        $myarray[] = $h;
+                    }
+                } else {
+                    $myarray = $r['hits'];
                 }
-                $res['results'][$i]['hits']=$myarray;$i++;
+                $res['results'][$i]['hits'] = $myarray;
+                $i++;
 
                 // echo '<pre>';
                 // print_r($myarray);exit;
