@@ -38,7 +38,7 @@ class AlQuran extends Eloquent
     public function getParaTitleAttribute()
     {
         // return $this->added_by;
-        $juz = juz::where('_id', $this->para_no)->first();
+        $juz = Juz::where('_id', $this->para_no)->first();
 
         return @$juz->juz;
     }
