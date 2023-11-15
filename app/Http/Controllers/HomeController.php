@@ -296,13 +296,13 @@ class HomeController extends Controller
             }
             $res = $client->multiSearch($queries);
 
-            // foreach ($res['results'] as $r) {
-            //     if ($r['indexUid'] == 'alHadeestranslations') {
-            //         foreach ($r['hits'] as $h) {
-            //             return getType($h);
-            //         }
-            //     }
-            // }
+            foreach ($res['results'] as $r) {
+                if ($r['indexUid'] == 'alHadeestranslations') {
+                    foreach ($r['hits'] as $h) {
+                        return getType($h);
+                    }
+                }
+            }
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
