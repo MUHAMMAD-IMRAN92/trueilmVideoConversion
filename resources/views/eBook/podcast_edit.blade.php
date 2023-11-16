@@ -388,8 +388,9 @@
                                                             <input type="hidden" name=""
                                                                 id="episode_id{{ $key }}"
                                                                 value="{{ $con->_id }}">
-                                                            <td id="description{{ $key }}">{{ $con->description }}</td>
                                                             <td id="title{{ $key }}">{{ $con->title }}</td>
+                                                            <td id="description{{ $key }}">
+                                                                {{ $con->description ?? '--' }}</td>
                                                             <td id="host{{ $key }}">{{ $con->host }}</td>
                                                             <td id="guest{{ $key }}">{{ $con->guest }}</td>
                                                             <td>
