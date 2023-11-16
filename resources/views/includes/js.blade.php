@@ -3677,11 +3677,13 @@
        function editEpisodeModal(key) {
            var title = $('#title' + key).html();
            var host = $('#host' + key).html();
+           var description = $('#description' + key).html();
            var guest = $('#guest' + key).html();
            var epi_id = $('#episode_id' + key).val();
            $('#modal-episode-guest').val(guest);
            $('#modal-episode-host').val(host);
            $('#modal-episode-title').val(title);
+           $('#modal-episode-description').val(description);
            $('#modal-episode-id').val(epi_id);
            $('#edit-episode').modal('show');
 

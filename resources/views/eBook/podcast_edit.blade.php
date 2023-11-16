@@ -1,6 +1,6 @@
 @extends('layouts.default_layout')
 <style>
-    .select2.select2-container.select2-container--default{
+    .select2.select2-container.select2-container--default {
         width: 100% !important;
     }
 </style>
@@ -375,6 +375,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="">Title</th>
+                                                        <th class="">Description</th>
                                                         <th>Host</th>
                                                         <th>Guest</th>
                                                         <th class="description-td">Content</th>
@@ -387,6 +388,7 @@
                                                             <input type="hidden" name=""
                                                                 id="episode_id{{ $key }}"
                                                                 value="{{ $con->_id }}">
+                                                            <td id="description{{ $key }}">{{ $con->description }}</td>
                                                             <td id="title{{ $key }}">{{ $con->title }}</td>
                                                             <td id="host{{ $key }}">{{ $con->host }}</td>
                                                             <td id="guest{{ $key }}">{{ $con->guest }}</td>
@@ -669,7 +671,7 @@
                                                             <div class="form-group">
                                                                 <label for="">Price</label>
                                                                 <input type="number" class="form-control price"
-                                                                    name="price" placeholder=""  required
+                                                                    name="price" placeholder="" required
                                                                     value="{{ $book->price }}"
                                                                     {{ $book->p_type == 0 ? 'disabled' : '' }}>
 
@@ -683,7 +685,8 @@
                                                                 <div class="custom-file">
                                                                     <input type="file"
                                                                         class="custom-file-input sample-file"
-                                                                        id="" name="sample_file"   {{ $book->p_type == 0 ? 'disabled' : '' }} >
+                                                                        id="" name="sample_file"
+                                                                        {{ $book->p_type == 0 ? 'disabled' : '' }}>
                                                                     <label class="custom-file-label"
                                                                         for="inputGroupFile01">Choose
                                                                         file</label>
@@ -736,6 +739,12 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <label for="">Description</label>
+                                                        <fieldset class="form-group">
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="episode_description"></textarea>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Host</label>
@@ -771,7 +780,7 @@
                                                                     id="fileinput-0" onchange="duration(0)"
                                                                     name="podcast_file" required>
                                                                 <input type="hidden" name="duration[]"
-                                                                    id="input-duration-0" required/>
+                                                                    id="input-duration-0" required />
                                                                 <span id="duration-info-0"></span>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
@@ -824,6 +833,13 @@
 
                                                                 </div>
                                                             </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="">Description</label>
+                                                        <fieldset class="form-group">
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" id="modal-episode-description"
+                                                                name="episode_description"></textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">

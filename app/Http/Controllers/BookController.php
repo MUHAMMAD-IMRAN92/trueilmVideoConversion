@@ -735,6 +735,7 @@ class BookController extends Controller
         $bookContent->book_id = $book->_id;
         $bookContent->title = $request->episode_title;
         $bookContent->host = $request->host;
+        $bookContent->description = $request->episode_description;
         $bookContent->guest = $request->guest;
         $bookContent->file_duration = @$request->duration[0];
 
