@@ -53,7 +53,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" id="disable-btn-submit">
+                                        <form class="form form-vertical" id="disable-btn-submit" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
