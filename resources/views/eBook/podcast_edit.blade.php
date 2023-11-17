@@ -426,7 +426,7 @@
                             <div class="modal fade bd-example-modal-lg" id="author-lang" tabindex="-1" role="dialog"
                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <form action="{{ route('book.update') }}" method="POST">
+                                    <form action="{{ route('book.update') }}" method="POST"  enctype="multipart/form-data">
                                         <div class="form-body">
                                             @csrf
                                             <div class="modal-content">
