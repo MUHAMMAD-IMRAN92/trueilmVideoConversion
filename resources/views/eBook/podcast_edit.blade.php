@@ -127,21 +127,23 @@
                                                             </div>
                                                         </div>
                                                     </div> --}}
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Author</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="author"
-                                                                        value="{{ $book->author }}" disabled
-                                                                        placeholder="" required>
+                                                    <div class="col-6">
 
-                                                                </div>
-                                                            </div>
+                                                        <label for="">Author</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="author_id"
+                                                                id="">
+                                                                <option disabled selected>Select Author</option>
+                                                                @foreach ($author as $auth)
+                                                                    <option
+                                                                        {{ $book->author_id == $auth->_id ? 'selected' : '' }}
+                                                                        value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </fieldset>
                                                     </div>
-
                                                     <div class="col-6  text-md-left">
                                                         <label for="">
                                                             Category</label>
@@ -501,18 +503,21 @@
                                                                 </div>
                                                             </div>
                                                         </div> --}}
-                                                        <div class="col-md-6">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInputFile">Author</label>
-                                                                <div class="custom-file">
-                                                                    <div class="position-relative">
-                                                                        <input type="text" id=""
-                                                                            class="form-control" name="author"
-                                                                            value="{{ $book->author }}" placeholder=""
-                                                                            required>
+                                                        <div class="col-6">
 
-                                                                    </div>
-                                                                </div>
+                                                            <label for="">Author</label>
+                                                            <fieldset class="form-group">
+                                                                <select class="select2 form-control" name="author_id"
+                                                                    id="">
+                                                                    <option disabled selected>Select Author</option>
+                                                                    @foreach ($author as $auth)
+                                                                        <option
+                                                                            {{ $book->author_id == $auth->_id ? 'selected' : '' }}
+                                                                            value="{{ $auth->_id }}">
+                                                                            {{ $auth->name }}</option>
+                                                                    @endforeach
+
+                                                                </select>
                                                             </fieldset>
                                                         </div>
 

@@ -694,7 +694,7 @@ class BookController extends Controller
         $glossary = Glossory::all();
         $publisher = Publisher::all();
         $contentGlossary = ContentGlossary::where('content_id', $id)->get();
-
+        $author = Author::where('type', '1')->get();
         return view('eBook.podcast_edit', [
             'book' => $book,
             'type' => $book->type,
@@ -704,7 +704,8 @@ class BookController extends Controller
             'suitbles' => $suitbles,
             'glossary' => $glossary,
             'contentGlossary' => $contentGlossary,
-            'publisher' => $publisher
+            'publisher' => $publisher,
+            'author' => $author
         ]);
     }
     public function podcastEpisode(Request $request)
