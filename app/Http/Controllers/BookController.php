@@ -67,7 +67,7 @@ class BookController extends Controller
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
-        })->with('author')->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -218,7 +218,7 @@ class BookController extends Controller
     public function edit($type, $id)
     {
         $categories = Category::active()->where('type', $type)->get();
-        $book = Book::where('_id', $id)->with('content', 'author')->first();
+        $book = Book::where('_id', $id)->with('content')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $tags = Tag::all();
         $suitbles = Suitable::all();
