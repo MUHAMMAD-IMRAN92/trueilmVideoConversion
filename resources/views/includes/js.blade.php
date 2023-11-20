@@ -452,7 +452,7 @@
                        "mRender": function(data, type, row) {
                            var author = '';
                            if (row.author != null) {
-                               author = row.author.name;
+                               author = row.author;
                            } else {
                                author = '--'
                            }

@@ -12,7 +12,7 @@ class Book extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'books';
     protected $guarded = [];
-    protected $appends = ['user_name', 'approver_name'];
+    protected $appends = ['user_name', 'approver_name', 'author'];
     public function bookTraking()
     {
         return $this->hasOne(BookTranking::class, 'book_id', '_id')->orderBy('createdAt', 'desc');
@@ -51,6 +51,13 @@ class Book extends Eloquent
     {
         // return $this->added_by;
         $user = User::where('_id', $this->added_by)->first();
+
+        return @$user->name;
+    }
+    public function getAuthorAttribute()
+    {
+        // return $this->added_by;
+        $user = Author::where('_id', $this->author_id)->first();
 
         return @$user->name;
     }
@@ -93,8 +100,8 @@ class Book extends Eloquent
     {
         return $this->hasMany(BookContent::class, 'book_id', 'id');
     }
-    public function author()
-    {
-        return $this->hasOne(Author::class, '_id', 'author_id');
-    }
+    // public function author()
+    // {
+    //     return $this->hasOne(Author::class, '_id', 'author_id');
+    // }
 }
