@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Juz;
 use App\Models\Languages;
 use App\Models\Surah;
 use App\Models\SurahCombinations;
