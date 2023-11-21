@@ -502,9 +502,9 @@
                                                     </span>
                                                 </div>
                                                 @if ($type == 2)
+                                                    <b class="mr-1"> ~ Revelation ~</b>
                                                     <div class="row ml-1 "
-                                                        style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;align-content: end;margin-right:3%; @endif">
-                                                        <b class="mr-1"> ~ Revelation ~</b>
+                                                        style="@if ($currentCombination->language->title == 'Urdu' || $currentCombination->language->title == 'Arabic') display: flex;flex-direction: column;margin-right:3%; @endif">
 
                                                         <span class="" id="bold-revelation-{{ $key }}"
                                                             style="margin-left:10px!important; ">
