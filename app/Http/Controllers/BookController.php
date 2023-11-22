@@ -125,7 +125,7 @@ class BookController extends Controller
             $book->image = $base_path . $path;
         }
         $book->added_by = $this->user->id;
-        $book->category_id = $request->category;
+        $book->category_id = $request->category_id;
         $book->type = $request->type;
         $book->status = 1;
         $book->approved = 0;
@@ -279,7 +279,7 @@ class BookController extends Controller
         }
 
         $book->added_by = $this->user->id;
-        $book->category_id = $request->category;
+        $book->category_id = $request->category_id;
         $book->type = $request->type;
         $book->status =  $book->status;
         $book->approved =  $book->approved;
