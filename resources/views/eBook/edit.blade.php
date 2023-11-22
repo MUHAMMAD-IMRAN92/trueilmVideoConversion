@@ -126,7 +126,8 @@
                                                             Category</label>
                                                         <div class="form-label-group">
                                                             <select class="select2 form-control" name="category_id"
-                                                                id="create-product-category-attribute">
+                                                                id="create-product-category-attribute"
+                                                                value="{{ $book->category_id }}">
                                                                 <option selected disabled>Select
                                                                     Category
                                                                 </option>
@@ -321,7 +322,7 @@
                                                         <fieldset class="form-group">
                                                             <select class="selct2 form-control reference-select"
                                                                 onchange="getFilesAjax('0')" name="reference_type"
-                                                                id="reference-new-lang-select-0" >
+                                                                id="reference-new-lang-select-0">
                                                                 <option value="" selected>Please Select Reference
                                                                 </option>
                                                                 <option value="1">eBook</option>
@@ -336,7 +337,7 @@
                                                         <div class="form-label-group">
                                                             <fieldset class="form-group">
                                                                 <select class="selct2 form-control" name="reference_file"
-                                                                    id="file-new-lang-select-0" >
+                                                                    id="file-new-lang-select-0">
                                                                     <option value="" selected>Please Select File
                                                                     </option>
 
