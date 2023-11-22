@@ -3,6 +3,7 @@
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Book;
+use App\Models\BookContent;
 use App\Models\Category;
 use App\Models\Juz;
 use App\Models\Languages;
@@ -321,3 +322,6 @@ Route::middleware(['auth'])->group(function () {
     //render api
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
+Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
+Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
+

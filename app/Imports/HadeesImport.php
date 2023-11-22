@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Hadees;
+use App\\Models\Hadees;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class HadeesImport implements ToModel

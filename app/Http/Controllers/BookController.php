@@ -399,7 +399,7 @@ class BookController extends Controller
     }
     public function updateStatus($id)
     {
-        return $book = Book::where('_id', $id)->first();
+        $book = Book::where('_id', $id)->first();
         $status = $book->status == 1 ? 0 : 1;
 
         $book->update([
