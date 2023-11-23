@@ -397,12 +397,12 @@
                                     href="{{ url('categories/1') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher*')) active @endif ml-2"><a
-                                    href="{{ url('publisher') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('publisher/1*')) active @endif ml-2"><a
+                                    href="{{ url('publisher/1') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                             </li>
-                            <li class="@if (request()->input('type') == 1) active @endif ml-2"><a
-                                    href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('authors/1*')) active @endif ml-2"><a
+                                    href="{{ url('authors/1?type=1') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
                             <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
@@ -422,12 +422,12 @@
                                     href="{{ url('categories/2') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher*')) active @endif ml-2"><a
-                                    href="{{ url('publisher') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('publisher/2*')) active @endif ml-2"><a
+                                    href="{{ url('publisher/2') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                             </li>
-                            <li class="@if (request()->input('type') == 1) active @endif ml-2"><a
-                                    href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('authors/2*')) active @endif ml-2"><a
+                                    href="{{ url('authors/2?type=1') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
                             <li class="@if (request()->is('books/2') || request()->is('book/2*') || request()->is('book/during_period/2*')) active @endif ml-2"><a
@@ -447,12 +447,12 @@
                                     href="{{ url('categories/3') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher*')) active @endif ml-2"><a
-                                    href="{{ url('publisher') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('publisher/3*')) active @endif ml-2"><a
+                                    href="{{ url('publisher/3') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                             </li>
-                            <li class="@if (request()->input('type') == 1) active @endif ml-2"><a
-                                    href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('authors/3*')) active @endif ml-2"><a
+                                    href="{{ url('authors/3?type=1') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
                             <li class="@if (request()->is('books/3*') || request()->is('book/3*') || request()->is('book/during_period/3*')) active @endif ml-2"><a
@@ -472,12 +472,12 @@
                                     href="{{ url('categories/7') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher*')) active @endif ml-2"><a
-                                    href="{{ url('publisher') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('publisher/7*')) active @endif ml-2"><a
+                                    href="{{ url('publisher/7') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                             </li>
-                            <li class="@if (request()->input('type') == 1) active @endif ml-2"><a
-                                    href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('authors/7*')) active @endif ml-2"><a
+                                    href="{{ url('authors/7?type=1') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
                             <li class="@if (request()->is('books/7*') || request()->is('book/7*') || request()->is('book/during_period/7*')) active @endif ml-2"><a
@@ -497,8 +497,8 @@
                                     href="{{ url('categories/4') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->input('type') == 1) active @endif ml-2"><a
-                                    href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
+                            <li class="@if (request()->is('authors/4*')) active @endif ml-2"><a
+                                    href="{{ url('authors/4?type=1') }}"><i class="fa fa-user"></i>
                                     <span class="menu-item" data-i18n="Analytics">Author</span></a>
                             </li>
                             <li class="@if (request()->is('course*') || request()->is('lesson/quiz*')) active @endif ml-2 "><a

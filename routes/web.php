@@ -80,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('surah/update', [App\Http\Controllers\SurahController::class, 'update'])->name('surah.update');
 
     //publisher
-    Route::get('publisher', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
+    Route::get('publisher/{type}', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
     Route::get('all-publisher', [App\Http\Controllers\PublisherController::class, 'allPublisher'])->name('publisher.all');
     Route::get('publisher/create', [App\Http\Controllers\PublisherController::class, 'add'])->name('publisher.add');
     Route::post('publisher/store', [App\Http\Controllers\PublisherController::class, 'store'])->name('publisher.store');
@@ -104,7 +104,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('hadith/add_chapter', [App\Http\Controllers\HadeesController::class, 'addChapter'])->name('hadith.addChapter');
 
     //author
-    Route::get('authors/{type?}', [App\Http\Controllers\AuthorController::class, 'index'])->name('author');
+    Route::get('authors/{id}/{type?}', [App\Http\Controllers\AuthorController::class, 'index'])->name('author');
     Route::get('all-author', [App\Http\Controllers\AuthorController::class, 'allauthor'])->name('author.all');
     Route::get('author/create/{type?}', [App\Http\Controllers\AuthorController::class, 'add'])->name('author.add');
     Route::post('author/store', [App\Http\Controllers\AuthorController::class, 'store'])->name('author.store');
@@ -324,4 +324,3 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
-

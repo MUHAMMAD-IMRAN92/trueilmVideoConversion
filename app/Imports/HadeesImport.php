@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\HadeeesBookCombination;
 use App\Models\Hadees;
 use App\Models\HadeesBooks;
 use App\Models\HadeesTranslation;
@@ -20,7 +21,7 @@ class HadeesImport implements ToModel
     {
         if ($row[5] != '' && $row[5] != 'Hadith No.') {
             // dd($row);
-            $book =  HadeesBooks::where('_id', '655ddd6dc72b09ebea48c789')->first();
+            $book =  HadeesBooks::where('_id', '655f47441c3df94998007a1a')->first();
             // dd($book);
             $mainchapter = HadithChapter::where('title', $row[1])->first();
             if (!$mainchapter) {
@@ -63,6 +64,9 @@ class HadeesImport implements ToModel
             $alQuranTranslation->book_id = $book->_id;
             $alQuranTranslation->chapter_id = $subchapter->_id;
             $alQuranTranslation->save();
+
+            HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 6);
+
             // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
             // $alQurantranslationsclient =  $client->index('alHadeestranslations')->addDocuments(array($alQuranTranslation), '_id');
