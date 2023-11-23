@@ -726,14 +726,6 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-
-                           return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
-                       }
-                   },
-                   {
-                       "mRender": function(data, type, row) {
                            var eye = 'feather icon-eye';
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';
@@ -754,7 +746,7 @@
                    },
                ],
                "columnDefs": [{
-                   'targets': [0, 1, 2, 3],
+                   'targets': [0, 1, 2],
                    "orderable": false
                }],
                "order": false

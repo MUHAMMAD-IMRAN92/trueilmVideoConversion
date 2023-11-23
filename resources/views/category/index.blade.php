@@ -57,7 +57,7 @@
                                                 <tr>
                                                     <th>Name</th>
                                                     <th class="description-td">Detail</th>
-                                                    <th class="">Image</th>
+
                                                     @if (auth()->user()->hasRole('Admin') ||
                                                             auth()->user()->hasRole('Super Admin'))
                                                         <th>Action</th>
