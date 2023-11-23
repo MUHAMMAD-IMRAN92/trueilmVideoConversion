@@ -82,7 +82,7 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Image</label>
                                                             <div class="custom-file">
@@ -93,7 +93,7 @@
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
 
                                                 <div class="col-12" style="text-align: right">
