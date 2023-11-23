@@ -73,7 +73,7 @@ class PublisherController extends Controller
         $publisher->added_by = $this->user->id;
         $publisher->save();
 
-        return redirect()->to('/publisher')->with('msg', 'Publisher Saved Successfully!');;
+        return redirect()->to('/publisher')->with('msg', 'Publisher Saved Successfully!');
     }
 
     public function edit($id)

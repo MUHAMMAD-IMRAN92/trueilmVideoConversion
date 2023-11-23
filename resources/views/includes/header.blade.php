@@ -397,22 +397,13 @@
                                     href="{{ url('categories/1') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher/1*')) active @endif ml-2"><a
-                                    href="{{ url('publisher/1') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
-                            </li>
-                            <li class="@if (request()->is('authors/1*')) active @endif ml-2"><a
-                                    href="{{ url('authors/1?type=1') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Author</span></a>
-                            </li>
+
+
                             <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
                                     href="{{ url('books/1') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">eBooks</span></a>
                             </li>
-                            <li class="@if (request()->is('book/rejected*')) active @endif ml-2 "><a
-                                    href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
-                            </li>
+
                         </ul>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-play"></i><span class="menu-title"
@@ -422,22 +413,13 @@
                                     href="{{ url('categories/2') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher/2*')) active @endif ml-2"><a
-                                    href="{{ url('publisher/2') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
-                            </li>
-                            <li class="@if (request()->is('authors/2*')) active @endif ml-2"><a
-                                    href="{{ url('authors/2?type=1') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Author</span></a>
-                            </li>
+
+
                             <li class="@if (request()->is('books/2') || request()->is('book/2*') || request()->is('book/during_period/2*')) active @endif ml-2"><a
                                     href="{{ url('books/2') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Audio Books</span></a>
                             </li>
-                            <li class="@if (request()->is('book/rejected*')) active @endif ml-2"><a
-                                    href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
-                            </li>
+
                         </ul>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-file"></i><span class="menu-title"
@@ -447,22 +429,12 @@
                                     href="{{ url('categories/3') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher/3*')) active @endif ml-2"><a
-                                    href="{{ url('publisher/3') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
-                            </li>
-                            <li class="@if (request()->is('authors/3*')) active @endif ml-2"><a
-                                    href="{{ url('authors/3?type=1') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Author</span></a>
-                            </li>
+
                             <li class="@if (request()->is('books/3*') || request()->is('book/3*') || request()->is('book/during_period/3*')) active @endif ml-2"><a
                                     href="{{ url('books/3') }}"><i class="fa fa-file"></i>
                                     <span class="menu-item" data-i18n="Analytics">Papers</span></a>
                             </li>
-                            <li class="@if (request()->is('book/rejected*')) active @endif ml-2"><a
-                                    href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
-                            </li>
+
                         </ul>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
@@ -472,22 +444,12 @@
                                     href="{{ url('categories/7') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('publisher/7*')) active @endif ml-2"><a
-                                    href="{{ url('publisher/7') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
-                            </li>
-                            <li class="@if (request()->is('authors/7*')) active @endif ml-2"><a
-                                    href="{{ url('authors/7?type=1') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Author</span></a>
-                            </li>
+
                             <li class="@if (request()->is('books/7*') || request()->is('book/7*') || request()->is('book/during_period/7*')) active @endif ml-2"><a
                                     href="{{ url('books/7') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
                             </li>
-                            <li class="@if (request()->is('book/rejected*')) active @endif ml-2"><a
-                                    href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
-                            </li>
+
                         </ul>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
@@ -497,10 +459,7 @@
                                     href="{{ url('categories/4') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
-                            <li class="@if (request()->is('authors/4*')) active @endif ml-2"><a
-                                    href="{{ url('authors/4?type=1') }}"><i class="fa fa-user"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Author</span></a>
-                            </li>
+
                             <li class="@if (request()->is('course*') || request()->is('lesson/quiz*')) active @endif ml-2 "><a
                                     href="{{ url('/courses') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Courses</span></a>
@@ -508,7 +467,18 @@
 
                         </ul>
                     </li>
-
+                    <li class="@if (request()->is('publisher*')) active @endif ml-2"><a
+                            href="{{ url('publisher') }}"><i class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
+                    </li>
+                    <li class="@if (request()->input('type') == 1) active @endif ml-2"><a
+                            href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">Author</span></a>
+                    </li>
+                    <li class="@if (request()->is('book/rejected*')) active @endif ml-2"><a
+                            href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
+                    </li>
                     {{-- @if (auth()->user()->hasRole('Admin') ||
     auth()->user()->hasRole('Super Admin'))
                         <li class="@if (request()->is('books/rejected/' . auth()->user()->id)) active @endif "><a
@@ -568,11 +538,11 @@
                     </li>
                     <li class="@if (request()->is('book/rejected*')) active @endif "><a
                             href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Rejected By you</span></a>
                     </li>
                     <li class="@if (request()->is('book/approved*')) active @endif "><a
                             href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Approved</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Approved By you</span></a>
                     </li>
 
                     {{-- </ul>
@@ -593,7 +563,6 @@
                             href="{{ url('/mistakes') }}"><i class="fa fa-exclamation-triangle"></i>
                             <span class="menu-item" data-i18n="Analytics">Book Mistakes</span></a>
                     </li>
-                    <hr>
                     <li class=" navigation-header"><span>Grant</span>
                     </li>
                     <li class="@if (request()->is('*grant')) active @endif "><a href="{{ url('/grant') }}"><i
