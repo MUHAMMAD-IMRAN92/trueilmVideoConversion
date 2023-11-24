@@ -467,15 +467,15 @@
 
                         </ul>
                     </li>
-                    <li class="@if (request()->is('publisher*')) active @endif ml-2"><a
-                            href="{{ url('publisher') }}"><i class="fa fa-user"></i>
+                    <li class="@if (request()->is('publisher*')) active @endif"><a href="{{ url('publisher') }}"><i
+                                class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                     </li>
-                    <li class="@if (request()->input('type') == 1) active @endif ml-2"><a
+                    <li class="@if (request()->input('type') == 1) active @endif"><a
                             href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Author</span></a>
                     </li>
-                    <li class="@if (request()->is('book/rejected*')) active @endif ml-2"><a
+                    <li class="@if (request()->is('book/rejected*')) active @endif"><a
                             href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                     </li>

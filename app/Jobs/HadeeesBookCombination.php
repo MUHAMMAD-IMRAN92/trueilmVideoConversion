@@ -43,7 +43,7 @@ class HadeeesBookCombination implements ShouldQueue
         $hadith = Hadees::where('book_id', $this->book_id)->count();
         $authorLang = AuthorLanguage::pluck('_id')->all();
         foreach ($authorLang as $authLang) {
-            $authLangCount =  HadeesTranslation::where('book_id', $this->book_id)->where('author_lang', $authLang)->where('type', $this->type)->whereNotNull('translation')->count();
+            $authLangCount =  HadeesTranslation::where('book_id', $this->book_id)->where('author_lang', $authLang)->where('type', (int) $this->type)->whereNotNull('translation')->count();
 
             if ($hadith != 0 && $hadith == $authLangCount) {
                 $count += 1;

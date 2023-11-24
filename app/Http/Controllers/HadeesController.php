@@ -262,7 +262,7 @@ class HadeesController extends Controller
     }
     public function updateTranslation(Request $request)
     {
-
+        ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         $hadees = Hadees::where('_id', $request->hadith_id)->first();
@@ -291,6 +291,7 @@ class HadeesController extends Controller
             $alQuranTranslation->save();
             $alQurantranslationsclient =  $client->index('alHadeestranslations')->addDocuments(array($alQuranTranslation), '_id');
         }
+
         HadeeesBookCombination::dispatch($alQuranTranslation->book_id, (int)$request->type);
 
 
@@ -384,5 +385,4 @@ class HadeesController extends Controller
             'type' => $type
         ]);
     }
-
 }
