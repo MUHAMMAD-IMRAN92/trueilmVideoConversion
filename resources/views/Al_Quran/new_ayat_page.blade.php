@@ -2,8 +2,9 @@
 <style>
     @font-face {
         font-family: 'arabicfontfirst';
-        src: url('../../../../app-assets/fonts/UTHMANICHAFS1VER18.woff') format('woff');
+        src: url('../../../../../app-assets/fonts/KFGQPCUthmanicScriptHAFS1.woff') format('woff');
     }
+
 
     @font-face {
         font-family: 'arabicfontsecond';
@@ -462,7 +463,7 @@
                                                                 {{ $aya->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
-                                                                class="mt-1"
+                                                                class="mt-1 checkclass"
                                                                 style="text-align: right; line-height:50px">
                                                                 {!! @$aya->khatoot[0]->ayat !!}
 

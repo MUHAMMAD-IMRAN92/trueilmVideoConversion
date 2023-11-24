@@ -7,9 +7,10 @@
         }
 
         @font-face {
-            font-family: 'arabicfontfirst';
-            src: url('../../../../app-assets/fonts/UTHMANICHAFS1VER18.woff') format('woff');
-        }
+        font-family: 'arabicfontfirst';
+        src: url('../../../../../app-assets/fonts/KFGQPCUthmanicScriptHAFS1.woff') format('woff');
+    }
+
 
         @font-face {
             font-family: 'arabicfontsecond';

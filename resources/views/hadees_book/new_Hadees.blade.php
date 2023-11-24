@@ -2,7 +2,7 @@
 <style>
     @font-face {
         font-family: 'arabicfontfirst';
-        src: url('../../../../app-assets/fonts/UTHMANICHAFS1VER18.woff') format('woff');
+        src: url('../../../../../app-assets/fonts/KFGQPCUthmanicScriptHAFS1.woff') format('woff');
     }
 
     @font-face {
@@ -201,7 +201,7 @@
                                         <option value="">All
                                         </option>
                                         @foreach ($hadiths as $hadith)
-                                            <option style="height: fit-content;width:inherit" class="checkclass"
+                                            <option style="height: fit-content;width:inherit" class="   "
                                                 value="{{ $hadith->_id }}"
                                                 {{ request()->aya == $hadith->_id ? 'selected' : '' }}>
                                                 {{ $hadith->hadees }}
@@ -453,9 +453,9 @@
                                                                 {{ $hadith->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
-                                                                class="mt-1"
-                                                                style="text-align: right; line-height:50px">
-                                                                {{ $hadith->hadees }}
+                                                                class="mt-1 checkclass"
+                                                                style="text-align: left; line-height:50px;">
+                                                                {!! nl2br($hadith->hadees) !!}
 
                                                             </p>
 

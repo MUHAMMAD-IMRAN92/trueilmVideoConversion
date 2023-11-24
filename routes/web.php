@@ -13,6 +13,7 @@ use App\Models\Juz;
 use App\Models\Languages;
 use App\Models\Surah;
 use App\Models\HadeesTranslation;
+use App\Models\Khatoot;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -328,4 +329,6 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
-
+Route::get('Quran', function () {
+    return $quran = Khatoot::where('ayat', 'LIKE', '%۩%')->get();
+});
