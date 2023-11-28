@@ -375,8 +375,8 @@
                     </li>
                     <i class="far fa-typewriter"></i>
 
-                    <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
-                                data-i18n="Ecommerce">Hadith</span></a>
+                    {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                                data-i18n="Ecommerce">Hadith</span></a> --}}
                         {{-- <ul class="menu-content"> --}}
 
                     <li class="@if (request()->is('hadith/books/3*') || request()->is('hadith/books/3') || request()->is('hadith/books/combination/3*')) active @endif "><a
