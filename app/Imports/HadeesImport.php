@@ -19,8 +19,8 @@ class HadeesImport implements ToModel
      */
     public function model(array $row)
     {
+        // dd($row);
         if ($row[5] != '' && $row[5] != 'Hadith No.') {
-            // dd($row);
             $book =  HadeesBooks::where('_id', '655f47441c3df94998007a1a')->first();
             // dd($book);
             $mainchapter = HadithChapter::where('title', $row[1])->first();
@@ -31,7 +31,7 @@ class HadeesImport implements ToModel
                 $mainchapter->title_arabic = $row[2];
                 $mainchapter->save();
             }
-            $subchapter = HadithChapter::where('title', $row[4])->first();
+            $subchapter = HadithChapter::where('parent_id', $mainchapter->_id)->where('title', $row[3])->first();
             if (!$subchapter) {
                 $subchapter = new HadithChapter();
                 $subchapter->book_id = $book->_id;
@@ -39,7 +39,6 @@ class HadeesImport implements ToModel
                 $subchapter->title_arabic = $row[4];
                 $subchapter->parent_id = $mainchapter->_id;
                 $subchapter->save();
-                // dd($subchapter);
             }
             $type = 1;
             // if ($row[9] == '(Sahih)') {
@@ -59,7 +58,7 @@ class HadeesImport implements ToModel
             $alQuranTranslation->translation = $row[6];
             $alQuranTranslation->hadees_id = $hadees->_id;
             $alQuranTranslation->author_lang = '655ef806406d486a7f2e4702';
-            $alQuranTranslation->type = 6;
+            $alQuranTranslation->type = 5;
             $alQuranTranslation->added_by = '6447918217e6501d607f4943';
             $alQuranTranslation->book_id = $book->_id;
             $alQuranTranslation->chapter_id = $subchapter->_id;

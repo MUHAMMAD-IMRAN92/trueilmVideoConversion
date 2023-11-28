@@ -18,6 +18,12 @@
 
     .checkclasssecond {
         font-family: 'arabicfontsecond' !important;
+        font-size: 24px;
+    }
+
+    .arabic-text-alignment {
+        text-align: right !important;
+        direction: rtl;
     }
 </style>
 
@@ -444,7 +450,7 @@
 
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-12 checkclass"
+                                                    <div class="col-12 checkclasssecond"
                                                         id="non-editble-translation-{{ $key }}">
                                                         <div class="row d-flex flex-row-reverse pr-2"
                                                             style="align-items:center;gap:12px;">
@@ -453,7 +459,7 @@
                                                                 {{ $hadith->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
-                                                                class="mt-1 checkclass"
+                                                                class="mt-1 checkclasssecond arabic-text-alignment"
                                                                 style="text-align: left; line-height:50px;">
                                                                 {!! nl2br($hadith->hadees) !!}
 

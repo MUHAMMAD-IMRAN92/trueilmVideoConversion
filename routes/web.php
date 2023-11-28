@@ -329,6 +329,3 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
-Route::get('Quran', function () {
-    return $quran = Khatoot::where('ayat', 'LIKE', '%۩%')->get();
-});

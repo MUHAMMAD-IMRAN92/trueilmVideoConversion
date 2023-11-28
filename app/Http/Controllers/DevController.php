@@ -17,12 +17,11 @@ class DevController extends Controller
     }
     public function post(Request $request)
     {
-        return file_get_contents($request->file);
-        // ini_set('max_execution_time', '0');
-        // HadeesTranslation::truncate();
-        // HadithChapter::truncate();
-        // Hadees::truncate();
-        // Excel::import(new HadeesImport, $request->file);
+        ini_set('max_execution_time', '0');
+        HadeesTranslation::truncate();
+        HadithChapter::truncate();
+        Hadees::truncate();
+        Excel::import(new HadeesImport, $request->file);
 
         return 'ok';
     }
