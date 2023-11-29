@@ -606,7 +606,7 @@
                                                                         <option selected>Select
                                                                             Category
                                                                         </option>
-                                                                        {!! getCategorydropdown(0, 0, $course->category_id, 4) !!}
+                                                                        {!! getCategorydropdown(0, 0, $course->category_id, 6) !!}
 
                                                                     </select>
                                                                 </div>
