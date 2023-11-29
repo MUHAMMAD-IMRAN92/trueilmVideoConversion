@@ -142,7 +142,7 @@
                                                         </fieldset>
                                                     </div> --}}
                                                     <div class="col-6  text-md-left">
-                                                        <label for="">Product
+                                                        <label for="">
                                                             Category</label>
                                                         <div class="form-label-group">
                                                             <select class="select2 form-control" name="category_id"
@@ -150,7 +150,7 @@
                                                                 <option selected disabled>Select
                                                                     Category
                                                                 </option>
-                                                                {!! getCategorydropdown(0, 0, 0, 4) !!}
+                                                                {!! getCategorydropdown(0, 0, 0, 6) !!}
 
                                                             </select>
                                                         </div>
