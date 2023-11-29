@@ -53,7 +53,8 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" id="disable-btn-submit" enctype="multipart/form-data">
+                                        <form class="form form-vertical" id="disable-btn-submit"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row append-inputs">
@@ -173,7 +174,7 @@
                                                                 <option selected>Select
                                                                     Category
                                                                 </option>
-                                                                {!! getCategorydropdown(0, 0, $course->category_id, 4) !!}
+                                                                {!! getCategorydropdown(0, 0, $course->category_id, 6) !!}
 
                                                             </select>
                                                         </div>
