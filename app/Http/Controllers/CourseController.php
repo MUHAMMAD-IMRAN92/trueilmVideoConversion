@@ -73,7 +73,7 @@ class CourseController extends Controller
     public function add()
     {
         $tags = Tag::all();
-        $categories = Category::active()->where('type', "4")->get();
+        $categories = Category::active()->where('type', "6")->get();
         $author = Author::where('type', '1')->get();
 
         return view('courses.add', [
@@ -156,7 +156,7 @@ class CourseController extends Controller
     {
         $course = Course::where('_id', $id)->with('lessons')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
-        $categories = Category::active()->where('type', "4")->get();
+        $categories = Category::active()->where('type', "6")->get();
         $tags = Tag::all();
         $author = Author::where('type', '1')->get();
 
