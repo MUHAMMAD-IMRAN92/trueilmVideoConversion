@@ -377,7 +377,7 @@
 
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Hadith</span></a> --}}
-                        {{-- <ul class="menu-content"> --}}
+                    {{-- <ul class="menu-content"> --}}
 
                     <li class="@if (request()->is('hadith/books/3*') || request()->is('hadith/books/3') || request()->is('hadith/books/combination/3*')) active @endif "><a
                             href="{{ url('hadith/books/3') }}"><i class="fa fa-book"></i>
@@ -455,8 +455,8 @@
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Course </span></a>
                         <ul class="menu-content">
-                            <li class="@if (request()->is('categories/4') || request()->is('category/4*')) active @endif ml-2 "><a
-                                    href="{{ url('categories/4') }}"><i class="fa fa-list-alt"></i>
+                            <li class="@if (request()->is('categories/6') || request()->is('category/6*')) active @endif ml-2 "><a
+                                    href="{{ url('categories/6') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
 

@@ -44,27 +44,31 @@ class HadeesImport implements ToModel
             // if ($row[9] == '(Sahih)') {
             //     $type = 1;
             // }
-            $hadees = new Hadees();
-            $hadees->hadees = $row[7];
-            $hadees->type = $type;
-            $hadees->book_id = $book->_id;
-            $hadees->added_by = '6447918217e6501d607f4943';
-            $hadees->chapter_id = $subchapter->_id;
-            $hadees->hadith_number =  $row[5];
-            // dd($hadees);
-            $hadees->save();
+            $aLreadyExist = Hadees::where('hadees',  $row[7])->where('hadith_number', $row[5])->first();
+            if (!$aLreadyExist) {
+                $hadees = new Hadees();
+                $hadees->hadees = $row[7];
+                $hadees->type = $type;
+                $hadees->book_id = $book->_id;
+                $hadees->added_by = '6447918217e6501d607f4943';
+                $hadees->chapter_id = $subchapter->_id;
+                $hadees->hadith_number =  $row[5];
+                $hadees->save();
+            }
+            $translationALreadyExist = HadeesTranslation::where('translation',  $row[6])->first();
+            if (!$translationALreadyExist) {
+                $alQuranTranslation = new HadeesTranslation();
+                $alQuranTranslation->translation = $row[6];
+                $alQuranTranslation->hadees_id = $hadees->_id;
+                $alQuranTranslation->author_lang = '655ef806406d486a7f2e4702';
+                $alQuranTranslation->type = 5;
+                $alQuranTranslation->added_by = '6447918217e6501d607f4943';
+                $alQuranTranslation->book_id = $book->_id;
+                $alQuranTranslation->chapter_id = $subchapter->_id;
+                $alQuranTranslation->save();
+                HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
+            }
 
-            $alQuranTranslation = new HadeesTranslation();
-            $alQuranTranslation->translation = $row[6];
-            $alQuranTranslation->hadees_id = $hadees->_id;
-            $alQuranTranslation->author_lang = '655ef806406d486a7f2e4702';
-            $alQuranTranslation->type = 5;
-            $alQuranTranslation->added_by = '6447918217e6501d607f4943';
-            $alQuranTranslation->book_id = $book->_id;
-            $alQuranTranslation->chapter_id = $subchapter->_id;
-            $alQuranTranslation->save();
-
-            HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 6);
 
             // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 

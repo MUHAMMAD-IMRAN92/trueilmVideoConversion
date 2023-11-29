@@ -18,9 +18,9 @@ class DevController extends Controller
     public function post(Request $request)
     {
         ini_set('max_execution_time', '0');
-        HadeesTranslation::truncate();
-        HadithChapter::truncate();
-        Hadees::truncate();
+        // HadeesTranslation::truncate();
+        // HadithChapter::truncate();
+        // Hadees::truncate();
         Excel::import(new HadeesImport, $request->file);
 
         return 'ok';
