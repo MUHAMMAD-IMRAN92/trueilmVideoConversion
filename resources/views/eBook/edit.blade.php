@@ -131,7 +131,7 @@
                                                                 <option selected disabled>Select
                                                                     Category
                                                                 </option>
-                                                                {!! getCategorydropdown(0, 0, 0, $type) !!}
+                                                                {!! getCategorydropdown(0, 0, $book->category_id, $type) !!}
 
                                                             </select>
                                                         </div>
