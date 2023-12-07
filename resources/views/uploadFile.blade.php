@@ -54,7 +54,7 @@
                                                         <label for="basicInputFile">Book</label>
                                                         <div class="custom-file">
                                                             <input type="file" class="custom-file-input"
-                                                                id="inputGroupFile01" name="file" multiple>
+                                                                id="inputGroupFile01" name="file[]" multiple>
                                                             <label class="custom-file-label" for="inputGroupFile01">Choose
                                                                 file</label>
                                                         </div>

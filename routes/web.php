@@ -13,6 +13,7 @@ use App\Models\Juz;
 use App\Models\Languages;
 use App\Models\Surah;
 use App\Models\HadeesTranslation;
+use App\Models\HadithChapter;
 use App\Models\Khatoot;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -329,3 +330,25 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
+
+Route::get('updateChapter',  function () {
+    ini_set('max_execution_time', '0');
+
+    $chapters =  HadithChapter::get();
+
+    foreach ($chapters as $ch) {
+        $cleanedString = ltrim($ch->title, '.');
+        $ch->title =  $cleanedString;
+        $ch->save();
+    }
+
+    return 'done';
+});
+
+Route::get('updateTranslation', function () {
+    HadeesTranslation::where('book_id', '656db980db92fbfab70abb32')->where('type', 6)->get();
+    // update([
+    //     'author_lang' => '6571b1f7c1f6db9f71eb5c38'
+    // ]);
+    return 'ok';
+});

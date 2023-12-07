@@ -789,7 +789,7 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                        var author = '';
+                           var author = '';
                            if (row.author != null) {
                                author = row.author.name;
                            } else {
@@ -1565,7 +1565,7 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                        var author = '';
+                           var author = '';
                            if (row.author != null) {
                                author = row.author.name;
                            } else {
@@ -1676,7 +1676,7 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                        var author = '';
+                           var author = '';
                            if (row.author != null) {
                                author = row.author.name;
                            } else {
@@ -1787,7 +1787,7 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                        var author = '';
+                           var author = '';
                            if (row.author != null) {
                                author = row.author.name;
                            } else {
@@ -3466,12 +3466,12 @@
 
        function priceRadioFunction(val) {
            if (val == 1) {
-               $('.price').prop("disabled", false);
-               $('.sample-file').prop("disabled", false);
+               $('.price').prop("display", 'block');
+               $('.sample-file').prop("display", 'block');
                console.log($('#price').val());
            } else {
-               $('.price').prop("disabled", true);
-               $('.sample-file').prop("disabled", true);
+               $('.price').prop("display", 'none');
+               $('.sample-file').prop("display", 'none');
            }
        }
 

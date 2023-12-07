@@ -13,15 +13,20 @@ class DevController extends Controller
 {
     public function uploadFile()
     {
+
         return view('uploadFile');
     }
     public function post(Request $request)
     {
         ini_set('max_execution_time', '0');
-        // HadeesTranslation::truncate();
+
+        // Hadees::where('book_id', '656db980db92fbfab70abb32')->delete();
+        // HadeesTranslation::where('book_id', '656db980db92fbfab70abb32')->delete();
         // HadithChapter::truncate();
         // Hadees::truncate();
-        Excel::import(new HadeesImport, $request->file);
+        foreach ($request->file as $f) {
+            Excel::import(new HadeesImport, $f);
+        }
 
         return 'ok';
     }
