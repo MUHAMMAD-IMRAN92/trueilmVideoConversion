@@ -283,7 +283,7 @@
                                                             <label for="">Price</label>
                                                             <input type="number" class="price form-control"
                                                                 name="price" placeholder="" id=""
-                                                                value="" required disabled style="display: none;">
+                                                                value="" required disabled >
 
                                                         </div>
 
@@ -295,7 +295,7 @@
                                                             <div class="custom-file">
                                                                 <input type="file"
                                                                     class="sample-file custom-file-input" id=""
-                                                                    name="sample_file" disabled style="display: none;">
+                                                                    name="sample_file" disabled >
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
