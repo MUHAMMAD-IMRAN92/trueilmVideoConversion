@@ -289,7 +289,7 @@
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
-                                                            <input type="number" class="form-control" name="price"
+                                                            <input type="number" class="price form-control" name="price"
                                                                 placeholder="" id="price" required
                                                                 value="{{ $book->price }}"
                                                                 {{ $book->p_type == 0 ? 'disabled' : '' }}>
