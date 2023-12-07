@@ -3472,6 +3472,8 @@
            } else {
                $('.price').prop("disabled", true);
                $('.sample-file').prop("disabled", true);
+               console.log($('#price').val());
+
            }
        }
 
