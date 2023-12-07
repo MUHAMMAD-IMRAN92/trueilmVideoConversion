@@ -346,9 +346,8 @@ Route::get('updateChapter',  function () {
 });
 
 Route::get('updateTranslation', function () {
-    return HadeesTranslation::where('book_id', '656db980db92fbfab70abb32')->where('type', 6)->paginate(10);
-    // update([
-    //     'author_lang' => '6571b1f7c1f6db9f71eb5c38'
-    // ]);
-    'ok';
+    HadeesTranslation::where('book_id', '656db980db92fbfab70abb32')->where('type', 6)->update([
+        'author_lang' => '6571b1f7c1f6db9f71eb5c38'
+    ]);
+    return 'ok';
 });
