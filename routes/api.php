@@ -189,6 +189,7 @@ Route::get('surahUpdate', function () {
         114 => array('id' => '114', 'arabic' => 'سورة الناس', 'latin' => 'An-Nas', 'english' => 'The mankind', 'location' => '1', 'sajda' => '0', 'aya' => '6')
     );
     foreach ($surah as $s) {
+        dd($s);
         Surah::where('sequence',  $s['id'])->update([
             'english_title' => $s['latin'],
             'description' => $s['english'],
