@@ -190,7 +190,10 @@ Route::get('surahUpdate', function () {
     );
     foreach ($surah as $s) {
         // dd($s['latin']);
-      return Surah::where('sequence', $s['id'])->first();
+        Surah::where('sequence',(int) $s['id'])->update([
+            'english_title' => $s['latin'],
+            'description' => $s['english']
+        ]);
     }
 
     return 'ok';
