@@ -82,9 +82,12 @@
                                                             <fieldset class="form-group">
                                                                 <label for="basicInputFile">Content</label>
                                                                 <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input"
+                                                                    <input type="file"
+                                                                        class="file-input custom-file-input episode-custom-file-input"
                                                                         id="inputGroupFile01" name="file[]"
-                                                                        {{ $validation }} multiple>
+                                                                        onchange="multiduration()" {{ $validation }} multiple>
+                                                                    <input type="hidden" name="duration[]"
+                                                                        id="input-duration-0" required />
                                                                     <label class="custom-file-label"
                                                                         for="inputGroupFile01">Choose
                                                                         file</label>
@@ -283,7 +286,7 @@
                                                             <label for="">Price</label>
                                                             <input type="number" class="price form-control"
                                                                 name="price" placeholder="" id=""
-                                                                value="" required disabled >
+                                                                value="" required disabled>
 
                                                         </div>
 
@@ -295,7 +298,7 @@
                                                             <div class="custom-file">
                                                                 <input type="file"
                                                                     class="sample-file custom-file-input" id=""
-                                                                    name="sample_file" disabled >
+                                                                    name="sample_file" disabled>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
