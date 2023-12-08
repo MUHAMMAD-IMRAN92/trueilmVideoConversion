@@ -19,11 +19,11 @@ class HadeesImport implements ToModel
      */
     public function model(array $row)
     {
-        // dd($row);
+        dd($row);
         if ($row[5] != '' && $row[5] != 'Hadith No.') {
-            $book =  HadeesBooks::where('_id', '656f3eb8b85aa464aa6c9932')->first();
+            $book =  HadeesBooks::where('_id', '6572c51b791ab913ce0a51f4')->first();
             // dd($book);
-            $mainchapter = HadithChapter::where('title', $row[1])->where('book_id', '656f3eb8b85aa464aa6c9932')->first();
+            $mainchapter = HadithChapter::where('title', $row[1])->where('book_id', '6572c51b791ab913ce0a51f4')->first();
             if (!$mainchapter) {
                 $mainchapter = new HadithChapter();
                 $mainchapter->book_id = $book->_id;
@@ -31,7 +31,7 @@ class HadeesImport implements ToModel
                 $mainchapter->title_arabic = $row[2];
                 $mainchapter->save();
             }
-            $subchapter = HadithChapter::where('parent_id', $mainchapter->_id)->where('title', $row[3])->where('book_id', '656f3eb8b85aa464aa6c9932')->first();
+            $subchapter = HadithChapter::where('parent_id', $mainchapter->_id)->where('title', $row[3])->where('book_id', '6572c51b791ab913ce0a51f4')->first();
             if (!$subchapter) {
                 $subchapter = new HadithChapter();
                 $subchapter->book_id = $book->_id;
@@ -41,16 +41,16 @@ class HadeesImport implements ToModel
                 $subchapter->save();
             }
             $type = 1;
-            if ($row[9] == '(Hasan)') {
+            if ($row[8] == '(Hasan)') {
                 $type = 3;
             }
-            if ($row[9] == '(Da`if)') {
+            if ($row[8] == '(Da`if)') {
                 $type = 2;
             }
-            $aLreadyExist = Hadees::where('hadees',  $row[8])->where('hadith_number', $row[5])->where('chapter_id', $subchapter->_id)->first();
+            $aLreadyExist = Hadees::where('hadees',  $row[7])->where('hadith_number', $row[5])->where('chapter_id', $subchapter->_id)->first();
             if (!$aLreadyExist) {
                 $hadees = new Hadees();
-                $hadees->hadees = $row[8];
+                $hadees->hadees = $row[7];
                 $hadees->type = $type;
                 $hadees->book_id = $book->_id;
                 $hadees->added_by = '6447918217e6501d607f4943';
@@ -58,10 +58,10 @@ class HadeesImport implements ToModel
                 $hadees->hadith_number =  $row[5];
                 $hadees->save();
             }
-            $translationALreadyExist = HadeesTranslation::where('translation',  $row[7])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+            $translationALreadyExist = HadeesTranslation::where('translation',  $row[6])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
             if (!$translationALreadyExist) {
                 $alQuranTranslation = new HadeesTranslation();
-                $alQuranTranslation->translation = $row[7];
+                $alQuranTranslation->translation = $row[6];
                 $alQuranTranslation->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
                 $alQuranTranslation->author_lang = '656f3f609730d3f82f2ed995';
                 $alQuranTranslation->type = 5;
@@ -71,12 +71,12 @@ class HadeesImport implements ToModel
                 $alQuranTranslation->save();
                 HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
             }
-            $tafseerALreadyExist = HadeesTranslation::where('translation',  $row[10])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+            $tafseerALreadyExist = HadeesTranslation::where('translation',  $row[9])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
             if (!$tafseerALreadyExist) {
                 $tafseerALreadyExist = new HadeesTranslation();
-                $tafseerALreadyExist->translation = $row[10];
+                $tafseerALreadyExist->translation = $row[9];
                 $tafseerALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                $tafseerALreadyExist->author_lang = '656f3f609730d3f82f2ed995';
+                $tafseerALreadyExist->author_lang = '6571e33cc1f6db9f71eb5c3b';
                 $tafseerALreadyExist->type = 6;
                 $tafseerALreadyExist->added_by = '6447918217e6501d607f4943';
                 $tafseerALreadyExist->book_id = $book->_id;
@@ -84,10 +84,10 @@ class HadeesImport implements ToModel
                 $tafseerALreadyExist->save();
                 HadeeesBookCombination::dispatch($tafseerALreadyExist->book_id, 6);
             }
-            $notesALreadyExist = HadeesTranslation::where('translation',  $row[12])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+            $notesALreadyExist = HadeesTranslation::where('translation',  $row[11])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
             if (!$notesALreadyExist) {
                 $notesALreadyExist = new HadeesTranslation();
-                $notesALreadyExist->translation = $row[12];
+                $notesALreadyExist->translation = $row[11];
                 $notesALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
                 $notesALreadyExist->author_lang = '656f3f609730d3f82f2ed995';
                 $notesALreadyExist->type = 3;

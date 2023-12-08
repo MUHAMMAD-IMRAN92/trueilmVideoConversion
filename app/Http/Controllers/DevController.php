@@ -20,8 +20,8 @@ class DevController extends Controller
     {
         ini_set('max_execution_time', '0');
 
-        // Hadees::where('book_id', '656db980db92fbfab70abb32')->delete();
-        // HadeesTranslation::where('book_id', '656db980db92fbfab70abb32')->delete();
+        Hadees::where('book_id', '656862b4a5b9ba63bd7e4f02')->delete();
+        HadeesTranslation::where('book_id', '656862b4a5b9ba63bd7e4f02')->delete();
         // HadithChapter::truncate();
         // Hadees::truncate();
         foreach ($request->file as $f) {
