@@ -19,7 +19,7 @@ class HadeesImport implements ToModel
      */
     public function model(array $row)
     {
-        dd($row);
+        // dd($row);
         if ($row[5] != '' && $row[5] != 'Hadith No.') {
             $book =  HadeesBooks::where('_id', '6572c51b791ab913ce0a51f4')->first();
             // dd($book);
