@@ -108,7 +108,8 @@ class BookController extends Controller
     }
     public function store(Request $request)
     {
-        // return $request->all();
+        $durations = json_decode($request->duration[0], true);
+
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
@@ -161,7 +162,6 @@ class BookController extends Controller
         }
         if ($request->file) {
             foreach ($request->file as $key => $file) {
-                $duration = $request->duration;
 
                 $bookContent = new BookContent();
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -170,7 +170,7 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $bookContent->file_duration = $duration[$key];
+                $bookContent->file_duration = $durations[$key]['minutes'] . ':' .  $durations[$key]['seconds'];
                 $bookContent->sequence = $key;
                 $book->type = $request->type;
                 $bookContent->save();
@@ -246,6 +246,8 @@ class BookController extends Controller
 
     public function update(Request $request)
     {
+        $durations = json_decode($request->duration[0], true);
+
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
@@ -333,7 +335,7 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $bookContent->file_duration = $duration[$key];
+                $bookContent->file_duration =    $durations[$key]['minutes'] . ':' .  $durations[$key]['seconds'];
                 $bookContent->sequence = (int)$seq;
                 $bookContent->save();
             }
