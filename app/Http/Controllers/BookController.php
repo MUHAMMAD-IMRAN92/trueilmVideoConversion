@@ -108,7 +108,7 @@ class BookController extends Controller
     }
     public function store(Request $request)
     {
-        return $request->all();
+        // return $request->all();
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
