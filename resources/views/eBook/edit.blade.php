@@ -76,8 +76,12 @@
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
-                                                                <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="file[]" multiple>
+                                                                <input type="file"
+                                                                    class="file-input custom-file-input episode-custom-file-input"
+                                                                    id="inputGroupFile01" name="file[]"
+                                                                    onchange="multiduration()" {{ $validation }} multiple>
+                                                                <input type="hidden" name="duration[]"
+                                                                    id="input-duration-0" required />
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>

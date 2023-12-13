@@ -3668,56 +3668,63 @@
            // Listen for window resize events to update classes when the viewport width changes
            window.addEventListener("resize", handleViewportChange);
        });
+       async function calculateDurations(files) {
+           var durationPromises = [];
 
-       function duration(key) {
+           for (let i = 0; i < files.length; i++) {
+               const file = files[i];
+               const audio = new Audio();
 
-           var fileInput = $('#fileinput-' + key)[0];
-           var audio = new Audio();
-           audio.addEventListener('loadedmetadata', function() {
-               var audioDuration = audio.duration;
-               var minutes = Math.floor(audioDuration / 60);
-               var seconds = Math.floor(audioDuration % 60);
-               $('#duration-info-' + key).html(minutes + ' minutes ' + seconds + ' seconds');
-               $('#input-duration-' + key).val(minutes + ':' + seconds);
-               console.log('Audio duration:', minutes + ' minutes ' + seconds + ' seconds');
-           });
-           audio.src = URL.createObjectURL(fileInput.files[0]);
+               durationPromises.push(new Promise((resolve, reject) => {
+                   audio.addEventListener('loadedmetadata', function() {
+                       var audioDuration = audio.duration;
+                       var minutes = Math.floor(audioDuration / 60);
+                       var seconds = Math.floor(audioDuration % 60);
 
-           audio.load();
+                       var duration = {
+                           minutes,
+                           seconds
+                       };
+
+                       console.log('Audio duration for file ' + i + ':', minutes + ' minutes ' +
+                           seconds);
+                       resolve(duration);
+                   });
+
+                   audio.src = URL.createObjectURL(file);
+                   audio.load();
+               }));
+           }
+
+           return Promise.all(durationPromises);
        }
 
-       function multiduration() {
-           // Assuming you have multiple file inputs with class 'file-input'
+       async function multiduration() {
            var fileInputs = $('.file-input');
-           var durations = []; // Array to store duration values
+           console.log(fileInputs);
+
+           var durationPromises = [];
 
            fileInputs.each(function(index, fileInput) {
-               var audio = new Audio();
+               const files = fileInput.files;
 
-               audio.addEventListener('loadedmetadata', function() {
-                   var audioDuration = audio.duration;
-                   var minutes = Math.floor(audioDuration / 60);
-                   var seconds = Math.floor(audioDuration % 60);
-
-                   durations[index] = {
-                       minutes,
-                       seconds
-                   };
-
-                   // Set the duration values in the hidden input
-                   $('#input-duration-' + index).val(minutes + ':' + seconds);
-
-                   console.log('Audio duration for file ' + index + ':', minutes + ' minutes ' + seconds +
-                       ' seconds');
-               });
-
-               audio.src = URL.createObjectURL(fileInput.files[0]);
-               audio.load();
+               if (files.length > 0) {
+                   durationPromises.push(calculateDurations(files));
+               }
            });
 
+           // Wait for all promises to resolve
+           var durations = await Promise.all(durationPromises);
+
+           console.log(durations);
+
+           // Flatten the array of arrays to a single array of durations
+           durations = durations.flat();
+
            // Set the array of durations in the hidden input
-           $('[name="duration[]"]').val(JSON.stringify(durations));
+           $('[name="duration[]"]').val(durations);
        }
+
 
 
        function editEpisodeModal(key) {
