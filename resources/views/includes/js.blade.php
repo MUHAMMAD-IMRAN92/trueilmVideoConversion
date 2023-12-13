@@ -3722,7 +3722,7 @@
            durations = durations.flat();
 
            // Set the array of durations in the hidden input
-           $('[name="duration[]"]').val(durations);
+           $('[name="duration[]"]').val(JSON.stringify(durations));
        }
 
 
