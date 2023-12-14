@@ -335,7 +335,7 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $bookContent->file_duration =    $durations[$key]['minutes'] . ':' .  $durations[$key]['seconds'];
+                $bookContent->file_duration =    @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = (int)$seq;
                 $bookContent->save();
             }
