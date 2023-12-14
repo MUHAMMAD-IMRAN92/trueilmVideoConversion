@@ -79,7 +79,7 @@
                                                                 <input type="file"
                                                                     class="file-input custom-file-input episode-custom-file-input"
                                                                     id="inputGroupFile01" name="file[]"
-                                                                    onchange="multiduration()" {{ $validation }} multiple>
+                                                                    onchange="multiduration()" multiple>
                                                                 <input type="hidden" name="duration[]"
                                                                     id="input-duration-0" required />
                                                                 <label class="custom-file-label"
