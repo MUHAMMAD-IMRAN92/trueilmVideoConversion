@@ -131,7 +131,7 @@
 
                                                         <label for="">Author</label>
                                                         <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="author_id"
+                                                            <select class="select2 form-control" disabled name="author_id"
                                                                 id="">
                                                                 <option disabled selected>Select Author</option>
                                                                 @foreach ($author as $auth)
