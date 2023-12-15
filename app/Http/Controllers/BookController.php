@@ -108,7 +108,7 @@ class BookController extends Controller
     }
     public function store(Request $request)
     {
-        $durations = json_decode($request->duration[0], true);
+        $durations = json_decode(@$request->duration[0], true);
 
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
@@ -246,7 +246,7 @@ class BookController extends Controller
 
     public function update(Request $request)
     {
-        $durations = json_decode($request->duration[0], true);
+        $durations = json_decode(@$request->duration[0], true);
 
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
