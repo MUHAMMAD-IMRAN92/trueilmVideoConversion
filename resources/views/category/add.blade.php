@@ -85,6 +85,7 @@
                                                     <div class="col-6">
 
                                                         <label for="">Category Color</label>
+                                                        <br>
                                                         <input type="color" id="colorpicker" name="color"
                                                             value="#0000ff">
                                                     </div>
