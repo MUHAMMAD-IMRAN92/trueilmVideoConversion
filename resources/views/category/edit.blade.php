@@ -72,7 +72,7 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $category->description }}</textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-6">
 
                                                         <label for="">Parent Category</label>
                                                         <fieldset class="form-group">
