@@ -1,6 +1,12 @@
 @extends('layouts.default_layout')
 
 @section('content')
+    <style>
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -51,7 +57,7 @@
                                                 <div class="row append-inputs">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="">Name</label>
+                                                            <label for="" class="required">Title</label>
                                                             <div class="position-relative">
                                                                 <input type="hidden" id=""
                                                                     value="{{ $type }}" class="form-control"
@@ -74,12 +80,12 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Content</label>
+                                                            <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file"
                                                                     class="file-input custom-file-input episode-custom-file-input"
                                                                     id="inputGroupFile01" name="file[]"
-                                                                    onchange="multiduration()" multiple>
+                                                                    onchange="multiduration()" multiple required>
                                                                 <input type="hidden" name="duration[]"
                                                                     id="input-duration-0" required />
                                                                 <label class="custom-file-label"
@@ -293,8 +299,8 @@
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
-                                                            <input type="number" class="price form-control" name="price"
-                                                                placeholder="" id="price" required
+                                                            <input type="number" class="price form-control"
+                                                                name="price" placeholder="" id="price" required
                                                                 value="{{ $book->price }}"
                                                                 {{ $book->p_type == 0 ? 'disabled' : '' }}>
 
@@ -306,7 +312,8 @@
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
-                                                                <input type="file" class="sample-file custom-file-input"
+                                                                <input type="file"
+                                                                    class="sample-file custom-file-input"
                                                                     class="sample-file" name="sample_file"
                                                                     {{ $book->p_type == 0 ? 'disabled' : '' }}>
                                                                 <label class="custom-file-label"
