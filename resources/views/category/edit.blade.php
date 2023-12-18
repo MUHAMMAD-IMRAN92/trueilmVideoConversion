@@ -89,6 +89,12 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Category Color</label>
+                                                        <input type="color" id="colorpicker" name="color"
+                                                            value="#{{ $category->color }}">
+                                                    </div>
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Image</label>

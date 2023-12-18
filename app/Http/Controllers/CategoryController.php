@@ -72,6 +72,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->added_by = $this->user->id;
         $category->type = $request->type;
+        $category->color = $request->color;
         $category->status = 1;
         $category->parent_id = $request->parent_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
@@ -105,6 +106,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->added_by = $this->user->id;
         $category->type = $request->type;
+        $category->color = $request->color;
         $category->status = $category->status;
         $category->parent_id = $request->parent_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';

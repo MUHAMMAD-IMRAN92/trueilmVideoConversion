@@ -67,7 +67,7 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-6">
 
                                                         <label for="">Parent Category</label>
                                                         <fieldset class="form-group">
@@ -81,6 +81,12 @@
 
                                                             </select>
                                                         </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        <label for="">Category Color</label>
+                                                        <input type="color" id="colorpicker" name="color"
+                                                            value="#0000ff">
                                                     </div>
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">

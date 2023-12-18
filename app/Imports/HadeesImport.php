@@ -21,9 +21,9 @@ class HadeesImport implements ToModel
     {
         // dd($row);
         if ($row[5] != '' && $row[5] != 'Hadith No.') {
-            $book =  HadeesBooks::where('_id', '6576baca88a3c0cf8204d78a')->first();
+            $book =  HadeesBooks::where('_id', '655f47441c3df94998007a1a')->first();
             // dd($book);
-            $mainchapter = HadithChapter::where('title', $row[1])->where('book_id', '6576baca88a3c0cf8204d78a')->first();
+            $mainchapter = HadithChapter::where('title', $row[1])->where('book_id', '655f47441c3df94998007a1a')->first();
             if (!$mainchapter) {
                 $mainchapter = new HadithChapter();
                 $mainchapter->book_id = $book->_id;
@@ -31,7 +31,7 @@ class HadeesImport implements ToModel
                 $mainchapter->title_arabic = $row[2];
                 $mainchapter->save();
             }
-            $subchapter = HadithChapter::where('parent_id', $mainchapter->_id)->where('title', $row[3])->where('book_id', '6576baca88a3c0cf8204d78a')->first();
+            $subchapter = HadithChapter::where('parent_id', $mainchapter->_id)->where('title', $row[3])->where('book_id', '655f47441c3df94998007a1a')->first();
             if (!$subchapter) {
                 $subchapter = new HadithChapter();
                 $subchapter->book_id = $book->_id;
@@ -41,10 +41,10 @@ class HadeesImport implements ToModel
                 $subchapter->save();
             }
             $type = 1;
-            if ($row[8] == '(Hasan)') {
+            if ($row[9] == '(Hasan)') {
                 $type = 3;
             }
-            if ($row[8] == '(Da`if)') {
+            if ($row[9] == '(Da`if)') {
                 $type = 2;
             }
             $aLreadyExist = Hadees::where('hadees',  $row[7])->where('hadith_number', $row[5])->where('chapter_id', $subchapter->_id)->first();
@@ -63,7 +63,7 @@ class HadeesImport implements ToModel
                 $alQuranTranslation = new HadeesTranslation();
                 $alQuranTranslation->translation = $row[6];
                 $alQuranTranslation->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                $alQuranTranslation->author_lang = '656f3f609730d3f82f2ed995';
+                $alQuranTranslation->author_lang = '655ef806406d486a7f2e4702';
                 $alQuranTranslation->type = 5;
                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                 $alQuranTranslation->book_id = $book->_id;
@@ -71,12 +71,12 @@ class HadeesImport implements ToModel
                 $alQuranTranslation->save();
                 HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
             }
-            $tafseerALreadyExist = HadeesTranslation::where('translation',  $row[9])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+            $tafseerALreadyExist = HadeesTranslation::where('translation',  $row[10])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
             if (!$tafseerALreadyExist) {
                 $tafseerALreadyExist = new HadeesTranslation();
-                $tafseerALreadyExist->translation = $row[9];
+                $tafseerALreadyExist->translation = $row[10];
                 $tafseerALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                $tafseerALreadyExist->author_lang = '6571e33cc1f6db9f71eb5c3b';
+                $tafseerALreadyExist->author_lang = '6580231b4c98f1bb70f2df47';
                 $tafseerALreadyExist->type = 6;
                 $tafseerALreadyExist->added_by = '6447918217e6501d607f4943';
                 $tafseerALreadyExist->book_id = $book->_id;
@@ -84,12 +84,12 @@ class HadeesImport implements ToModel
                 $tafseerALreadyExist->save();
                 HadeeesBookCombination::dispatch($tafseerALreadyExist->book_id, 6);
             }
-            $notesALreadyExist = HadeesTranslation::where('translation',  $row[11])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+            $notesALreadyExist = HadeesTranslation::where('translation',  $row[12])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
             if (!$notesALreadyExist) {
                 $notesALreadyExist = new HadeesTranslation();
-                $notesALreadyExist->translation = $row[11];
+                $notesALreadyExist->translation = $row[12];
                 $notesALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                $notesALreadyExist->author_lang = '656f3f609730d3f82f2ed995';
+                $notesALreadyExist->author_lang = '655ef806406d486a7f2e4702';
                 $notesALreadyExist->type = 3;
                 $notesALreadyExist->added_by = '6447918217e6501d607f4943';
                 $notesALreadyExist->book_id = $book->_id;

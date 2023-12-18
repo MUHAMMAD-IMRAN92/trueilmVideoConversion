@@ -20,10 +20,10 @@ class DevController extends Controller
     {
         ini_set('max_execution_time', '0');
 
-        // Hadees::where('book_id', '6572c51b791ab913ce0a51f4')->delete();
-        // HadeesTranslation::where('book_id', '6572c51b791ab913ce0a51f4')->delete();
-        // HadithChapter::where('book_id', '6572c51b791ab913ce0a51f4')->delete();
-        // Hadees::where('book_id', '6572c51b791ab913ce0a51f4')->delete();
+        Hadees::where('book_id', '655f47441c3df94998007a1a')->delete();
+        HadeesTranslation::where('book_id', '655f47441c3df94998007a1a')->delete();
+        HadithChapter::where('book_id', '655f47441c3df94998007a1a')->delete();
+        Hadees::where('book_id', '655f47441c3df94998007a1a')->delete();
         foreach ($request->file as $f) {
             Excel::import(new HadeesImport, $f);
         }
