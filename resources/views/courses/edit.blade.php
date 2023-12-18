@@ -222,13 +222,14 @@
                                                             </fieldset>
                                                         </li>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6  price"
+                                                        style="display: {{ $course->p_type == 0 ? 'none' : '' }}">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="number" class=" price form-control"
                                                                 name="price" placeholder="" id=""
-                                                                value="{{ $course->price }}" required disabled>
+                                                                value="{{ $course->price }}">
 
                                                         </div>
 
@@ -656,15 +657,14 @@
                                                                     </fieldset>
                                                                 </li>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 price"
+                                                                style="display: {{ $course->p_type == 0 ? 'none' : '' }}">
 
                                                                 <div class="form-group">
                                                                     <label for="">Price</label>
                                                                     <input type="number" class=" price form-control"
                                                                         name="price" placeholder="" id=""
-                                                                        value="{{ $course->price }}"
-                                                                        {{ $course->p_type == 0 ? 'disabled' : '' }}
-                                                                        required>
+                                                                        value="{{ $course->price }}">
 
                                                                 </div>
 

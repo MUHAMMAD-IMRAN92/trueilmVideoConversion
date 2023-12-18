@@ -80,14 +80,14 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile" class="required">Content</label>
+                                                            <label for="basicInputFile" class="">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file"
                                                                     class="file-input custom-file-input episode-custom-file-input"
                                                                     id="inputGroupFile01" name="file[]"
-                                                                    onchange="multiduration()" multiple required>
+                                                                    onchange="multiduration()" multiple>
                                                                 <input type="hidden" name="duration[]"
-                                                                    id="input-duration-0" required />
+                                                                    id="input-duration-0" />
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
@@ -297,27 +297,27 @@
                                                             </fieldset>
                                                         </li>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 price"
+                                                        style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="number" class="price form-control"
                                                                 name="price" placeholder="" id="price" required
-                                                                value="{{ $book->price }}"
-                                                                {{ $book->p_type == 0 ? 'disabled' : '' }}>
+                                                                value="{{ $book->price }}">
 
                                                         </div>
 
 
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 sample-file"
+                                                        style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
                                                                 <input type="file"
                                                                     class="sample-file custom-file-input"
-                                                                    class="sample-file" name="sample_file"
-                                                                    {{ $book->p_type == 0 ? 'disabled' : '' }}>
+                                                                    class="sample-file" name="sample_file">
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>

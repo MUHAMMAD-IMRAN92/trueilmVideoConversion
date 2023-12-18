@@ -250,26 +250,7 @@ class BookController extends Controller
 
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
-        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-        if ($request->type == 1) {
-            $validated = $request->validate([
-                'title' => 'required',
-                'file.*' => 'required|file|mimes:epub',
-                'sample_file' => 'file|mimes:epub'
-            ]);
-        } elseif ($request->type == 2 || $request->type == 7) {
-            $validated = $request->validate([
-                'title' => 'required',
-                'file.*' => 'required|file|mimes:mp3',
-                'sample_file' => 'file|mimes:mp3'
-            ]);
-        } elseif ($request->type == 3) {
-            $validated = $request->validate([
-                'title' => 'required',
-                'file.*' => 'required|file|mimes:epub,pdf',
-                'sample_file' => 'file|mimes:epub,pdf'
-            ]);
-        }
+        // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         $book = Book::where('_id', $request->id)->first();
         $book->title = $request->title;
@@ -309,15 +290,15 @@ class BookController extends Controller
             }
         }
         $book->save();
-        if ($request->type == "1") {
-            $bookIndex = $client->index('ebooks')->addDocuments(array($book), '_id');
-        } else  if ($request->type == "2") {
-            $bookIndex = $client->index('audio')->addDocuments(array($book), '_id');
-        } else  if ($request->type == "3") {
-            $bookIndex = $client->index('papers')->addDocuments(array($book), '_id');
-        } else  if ($request->type == "4") {
-            $bookIndex = $client->index('podcast')->addDocuments(array($book), '_id');
-        }
+        // if ($request->type == "1") {
+        //     $bookIndex = $client->index('ebooks')->addDocuments(array($book), '_id');
+        // } else  if ($request->type == "2") {
+        //     $bookIndex = $client->index('audio')->addDocuments(array($book), '_id');
+        // } else  if ($request->type == "3") {
+        //     $bookIndex = $client->index('papers')->addDocuments(array($book), '_id');
+        // } else  if ($request->type == "4") {
+        //     $bookIndex = $client->index('podcast')->addDocuments(array($book), '_id');
+        // }
         if ($request->file) {
             foreach ($request->file as $key => $file) {
                 $duration = $request->duration;

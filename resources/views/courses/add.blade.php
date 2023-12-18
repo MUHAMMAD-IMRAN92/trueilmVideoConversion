@@ -194,13 +194,12 @@
                                                             </fieldset>
                                                         </li>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 price" style="display: none">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
-                                                            <input type="number" class=" price form-control"
-                                                                name="price" placeholder="" id=""
-                                                                value="" required disabled>
+                                                            <input type="number" class="  form-control" name="price"
+                                                                placeholder="" id="" value="" required>
 
                                                         </div>
 

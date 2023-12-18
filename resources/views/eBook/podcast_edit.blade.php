@@ -296,20 +296,20 @@
                                                             </fieldset>
                                                         </li>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6"  style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="number" class="form-control" disabled
                                                                 name="price" placeholder="" id="price" required
                                                                 value="{{ $book->price }}"
-                                                                {{ $book->p_type == 0 ? 'disabled' : '' }}>
+                                                              >
 
                                                         </div>
 
 
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6"  style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
@@ -678,27 +678,27 @@
                                                                 </fieldset>
                                                             </li>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-6 price"
+                                                            style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
 
                                                             <div class="form-group">
                                                                 <label for="">Price</label>
-                                                                <input type="number" class="form-control price"
+                                                                <input type="number" class="form-control "
                                                                     name="price" placeholder="" required
-                                                                    value="{{ $book->price }}"
-                                                                    {{ $book->p_type == 0 ? 'disabled' : '' }}>
+                                                                    value="{{ $book->price }}">
 
                                                             </div>
 
 
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-6 sample-file"
+                                                            style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
                                                             <fieldset class="form-group">
                                                                 <label for="basicInputFile">Sample File</label>
                                                                 <div class="custom-file">
                                                                     <input type="file"
-                                                                        class="custom-file-input sample-file"
-                                                                        id="" name="sample_file"
-                                                                        {{ $book->p_type == 0 ? 'disabled' : '' }}>
+                                                                        class="custom-file-input "
+                                                                        id="" name="sample_file">
                                                                     <label class="custom-file-label"
                                                                         for="inputGroupFile01">Choose
                                                                         file</label>
