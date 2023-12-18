@@ -149,7 +149,8 @@
                                                     @if ($type != 7 && $type != 2)
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile">Serial Number</label>
+                                                                <label for="basicInputFile" class="required">Serial
+                                                                    Number</label>
                                                                 <div class="custom-file">
                                                                     <div class="position-relative">
                                                                         <input type="text" id=""
@@ -163,7 +164,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile">Book Pages</label>
+                                                                <label for="basicInputFile" class="required">Book
+                                                                    Pages</label>
                                                                 <div class="custom-file">
                                                                     <div class="position-relative">
                                                                         <input type="number" id=""

@@ -156,7 +156,7 @@
                                                     @if ($type != 7 && $type != 2)
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile">Serial Number</label>
+                                                                <label for="basicInputFile"  class="required">Serial Number</label>
                                                                 <div class="custom-file">
                                                                     <div class="position-relative">
                                                                         <input type="text" id=""
@@ -169,7 +169,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile">Book Pages</label>
+                                                                <label for="basicInputFile"  class="required">Book Pages</label>
                                                                 <div class="custom-file">
                                                                     <div class="position-relative">
                                                                         <input type="number" id=""
@@ -287,25 +287,24 @@
                                                             </fieldset>
                                                         </li>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 price" style="display:none" class="">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
-                                                            <input type="number" class="price form-control"
-                                                                name="price" placeholder="" id=""
-                                                                value="" required disabled>
+                                                            <input type="number" class=" form-control" name="price"
+                                                                placeholder="" id="" value="">
 
                                                         </div>
 
 
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 sample-file" style="display:none"  class="">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
                                                                 <input type="file"
-                                                                    class="sample-file custom-file-input" id=""
-                                                                    name="sample_file" disabled>
+                                                                    class="custom-file-input" id=""
+                                                                    name="sample_file">
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>

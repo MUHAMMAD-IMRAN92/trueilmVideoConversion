@@ -3466,13 +3466,13 @@
 
        function priceRadioFunction(val) {
            if (val == 1) {
-               $('.price').prop("disabled", false);
-               $('.sample-file').prop("disabled", false);
-               console.log($('#price').val());
+               $('.price').css("display","block");
+               $('.sample-file').css("display","block");
+               console.log(val);
            } else {
-               $('.price').prop("disabled", true);
-               $('.sample-file').prop("disabled", true);
-               console.log($('#price').val());
+               $('.price').css("display", 'none');
+               $('.sample-file').css("display", 'none');
+               console.log(val);
 
            }
        }
