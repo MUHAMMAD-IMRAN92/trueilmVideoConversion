@@ -3,6 +3,12 @@
     .select2.select2-container.select2-container--default {
         width: 100% !important;
     }
+
+        .required:after {
+            content: " *";
+            color: red;
+        }
+
 </style>
 @section('content')
     <!-- BEGIN: Content-->
@@ -68,7 +74,7 @@
                                                 <div class="row append-inputs">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="">Name</label>
+                                                            <label for=""  class="required">Title</label>
                                                             <div class="position-relative">
                                                                 <input type="hidden" id=""
                                                                     value="{{ $type }}" class="form-control"
@@ -92,7 +98,7 @@
                                                     @if ($type != 7)
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile">Content</label>
+                                                                <label for="basicInputFile" >Content</label>
                                                                 <div class="custom-file">
                                                                     <input type="file" class="custom-file-input"
                                                                         id="inputGroupFile01" name="file[]" disabled
