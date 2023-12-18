@@ -93,8 +93,8 @@
 
                                                         <label for="">Category Color</label>
                                                         <br>
-                                                        <input type="color" id="colorpicker" name="color"
-                                                            value="#{{ $category->color }}">
+                                                        <input type="color" id="colorpicker" class="form-control"
+                                                            name="color" value="#{{ $category->color }}">
                                                     </div>
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">

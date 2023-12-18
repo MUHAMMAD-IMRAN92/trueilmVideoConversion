@@ -86,7 +86,7 @@
 
                                                         <label for="">Category Color</label>
                                                         <br>
-                                                        <input type="color" id="colorpicker" name="color"
+                                                        <input type="color" id="colorpicker" class="form-control" name="color"
                                                             value="#0000ff">
                                                     </div>
                                                     {{-- <div class="col-md-12">
