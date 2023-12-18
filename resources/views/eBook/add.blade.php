@@ -1,6 +1,12 @@
 @extends('layouts.default_layout')
 
 @section('content')
+    <style>
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -51,7 +57,7 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="">Title</label>
+                                                            <label class="required" for="">Title</label>
                                                             <div class="position-relative">
                                                                 <input type="hidden" id=""
                                                                     value="{{ $type }}" class="form-control"
@@ -80,12 +86,13 @@
                                                     @if ($type != 7)
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile">Content</label>
+                                                                <label for="basicInputFile" class="required">Content</label>
                                                                 <div class="custom-file">
                                                                     <input type="file"
                                                                         class="file-input custom-file-input episode-custom-file-input"
                                                                         id="inputGroupFile01" name="file[]"
-                                                                        onchange="multiduration()" {{ $validation }} multiple>
+                                                                        onchange="multiduration()" {{ $validation }}
+                                                                        multiple>
                                                                     <input type="hidden" name="duration[]"
                                                                         id="input-duration-0" required />
                                                                     <label class="custom-file-label"
@@ -97,10 +104,10 @@
                                                     @endif
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Cover Image</label>
+                                                            <label for="basicInputFile" class="required">Cover Image</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="cover">
+                                                                    id="inputGroupFile01" name="cover" required>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
