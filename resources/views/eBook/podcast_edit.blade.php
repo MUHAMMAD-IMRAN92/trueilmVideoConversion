@@ -450,7 +450,7 @@
                                                     <div class="row append-inputs">
                                                         <div class="col-12">
                                                             <div class="form-group">
-                                                                <label for="">Name</label>
+                                                                <label for=""  class="required">Title</label>
                                                                 <div class="position-relative">
                                                                     <input type="hidden" id=""
                                                                         value="{{ $type }}" class="form-control"
