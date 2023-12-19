@@ -247,7 +247,7 @@ class HomeController extends Controller
 
             // Handle the response
 
-            return redirect()->response()->json('msg', 'You are subscribed successfully!');
+            return response()->json('msg', 'You are subscribed successfully!');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
