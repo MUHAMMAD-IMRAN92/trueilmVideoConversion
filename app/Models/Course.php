@@ -23,6 +23,10 @@ class Course extends Eloquent
 
         return @$user->name;
     }
+    public function user()
+    {
+        return $this->hasOne(User::class, '_id', 'added_by');
+    }
     public function author()
     {
         return $this->hasOne(Author::class, '_id', 'author_id');

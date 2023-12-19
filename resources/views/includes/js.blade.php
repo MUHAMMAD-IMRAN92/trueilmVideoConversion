@@ -499,8 +499,8 @@
                    }, {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -510,8 +510,8 @@
                    }, {
                        "mRender": function(data, type, row) {
                            var approver_name = '';
-                           if (row.approver_name != null) {
-                               approver_name = row.approver_name;
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
                            } else {
                                approver_name = '--'
                            }
@@ -823,8 +823,8 @@
                    }, {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -909,8 +909,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1179,8 +1179,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1190,8 +1190,8 @@
                    }, {
                        "mRender": function(data, type, row) {
                            var approver_name = '';
-                           if (row.approver_name != null) {
-                               approver_name = row.approver_name;
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
                            } else {
                                approver_name = '--'
                            }
@@ -1288,8 +1288,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1300,8 +1300,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var approver_name = '';
-                           if (row.approver_name != null) {
-                               approver_name = row.approver_name;
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
                            } else {
                                approver_name = '--'
                            }
@@ -1474,8 +1474,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1598,8 +1598,8 @@
                    }, {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1709,8 +1709,8 @@
                    }, {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1820,8 +1820,8 @@
                    }, {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1888,8 +1888,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var user_name = "";
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--';
                            }

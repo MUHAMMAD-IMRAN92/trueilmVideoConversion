@@ -12,7 +12,7 @@ class Book extends Eloquent
     protected $connection = 'mongodb';
     protected $table = 'books';
     protected $guarded = [];
-    protected $appends = ['user_name', 'approver_name'];
+    // protected $appends = ['user_name', 'approver_name'];
     public function bookTraking()
     {
         return $this->hasOne(BookTranking::class, 'book_id', '_id')->orderBy('createdAt', 'desc');
@@ -47,20 +47,28 @@ class Book extends Eloquent
     {
         return $query->where('approved', 2);
     }
-    public function getUserNameAttribute()
-    {
-        // return $this->added_by;
-        $user = User::where('_id', $this->added_by)->first();
+    // public function getUserNameAttribute()
+    // {
+    //     // return $this->added_by;
+    //     $user = User::where('_id', $this->added_by)->first();
 
-        return @$user->name;
-    }
-    public function getApproverNameAttribute()
+    //     return @$user->name;
+    // }
+    public function user()
     {
-        // return $this->added_by;
-        $user = User::where('_id', $this->approved_by)->first();
-
-        return @$user->name;
+        return $this->hasOne(User::class, '_id', 'added_by');
     }
+    public function approver()
+    {
+        return $this->hasOne(User::class, '_id', 'approved_by');
+    }
+    // public function getApproverNameAttribute()
+    // {
+    //     // return $this->added_by;
+    //     $user = User::where('_id', $this->approved_by)->first();
+
+    //     return @$user->name;
+    // }
     public function bookPagescount($request)
     {
         $book_id = $this->_id;
