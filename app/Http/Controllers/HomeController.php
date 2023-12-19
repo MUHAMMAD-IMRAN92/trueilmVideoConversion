@@ -159,8 +159,6 @@ class HomeController extends Controller
     }
     public function notifyMe(Request $request)
     {
-        dd('ijrman');
-        // return 'test';
         $email = new SubcriptionEmail();
         $email->email = $request->email;
         $email->save();
