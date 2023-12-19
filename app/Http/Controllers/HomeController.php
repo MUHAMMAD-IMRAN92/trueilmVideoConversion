@@ -246,7 +246,7 @@ class HomeController extends Controller
 
             // Handle the response
 
-            return sendSuccess('Subscribed Seccessfully !');
+            return sendSuccess('Subscribed Successfully!');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
