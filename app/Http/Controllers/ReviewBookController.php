@@ -31,7 +31,7 @@ class ReviewBookController extends Controller
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = ReviewBook::count();
-        $brands = ReviewBook::when($search, function ($q) use ($search) {
+        $brands = ReviewBook::with('user', 'reviewer')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });

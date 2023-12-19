@@ -13,4 +13,8 @@ class Comments extends Eloquent
     {
         return $this->hasOne(Book::class, '_id', 'book_id');
     }
+    public function user()
+    {
+        return $this->hasOne(User::class, '_id', 'user_id');
+    }
 }

@@ -82,7 +82,7 @@
                                                     <th class="">Status</th>
                                                     <th class="">Added By</th>
                                                     <th class="">Approved By</th>
-                                                    <th class="">Read By</th>
+                                                    {{-- <th class="">Read By</th> --}}
 
                                                     <th>Action</th>
                                                 </tr>
@@ -122,7 +122,7 @@
                                                         <th class="">Added By</th>
                                                         <th class="">Approved By</th>
 
-                                                        <th class="">Read By</th>
+                                                        {{-- <th class="">Read By</th> --}}
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>

@@ -9,22 +9,15 @@ class Grant extends Eloquent
 {
     use HasFactory;
 
-    protected $appends = ['user_name', 'approver_name'];
+    // protected $appends = ['user_name', 'approver_name'];
     protected $guarded = [];
-    public function getUserNameAttribute()
+    public function user()
     {
-        // return $this->added_by;
-        $user = User::where('_id', $this->user_id)->first();
-
-        return @$user->name;
+        return $this->hasOne(User::class, '_id', 'user_id');
     }
-
-    public function getApproverNameAttribute()
+    public function approver()
     {
-        // return $this->added_by;
-        $user = User::where('_id', $this->approved_by)->first();
-
-        return @$user->name;
+        return $this->hasOne(User::class, '_id', 'approved_by');
     }
     public function scopeRejected($query)
     {

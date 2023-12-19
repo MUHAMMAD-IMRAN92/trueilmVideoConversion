@@ -32,7 +32,7 @@ class ActivitiesController extends Controller
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = Activities::where('status', 0)->count();
-        $brands = Activities::where('status', 0)->skip((int) $start)->take((int) $length)->get();
+        $brands = Activities::where('status', 0)->with('user')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Activities::where('status', 0)->skip((int) $start)->take((int) $length)->count();
 
         $data = array(

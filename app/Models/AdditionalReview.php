@@ -9,12 +9,9 @@ class AdditionalReview extends Eloquent
 {
     use HasFactory;
     protected $table = 'reviewbooks';
-    protected $appends = ['user_name'];
-    public function getUserNameAttribute()
+    public function user()
     {
-        $user = User::where('_id', $this->user_id)->first();
-
-        return @$user->name;
+        return $this->hasOne(User::class, '_id', 'user_id');
     }
     public function book()
     {

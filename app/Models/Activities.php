@@ -8,11 +8,9 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class Activities extends Eloquent
 {
     use HasFactory;
-    protected $appends = ['user_name'];
-    public function getUserNameAttribute()
-    {
-        $user = User::where('_id', $this->user_id)->first();
 
-        return @$user->name;
+    public function user()
+    {
+        return $this->hasOne(User::class, '_id', 'user_id');
     }
 }

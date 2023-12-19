@@ -75,10 +75,10 @@ class BookController extends Controller
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->count();
-        $brands->map(function ($b) {
-            $b->numberOfUser = $b->totalUserReadThisBook();
-            return $b;
-        });
+        // $brands->map(function ($b) {
+        //     $b->numberOfUser = $b->totalUserReadThisBook();
+        //     return $b;
+        // });
 
         $data = array(
             'draw' => $draw,

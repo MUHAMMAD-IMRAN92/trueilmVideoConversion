@@ -30,7 +30,7 @@ class BookMistakeController extends Controller
         $search = $request->search['value'];
         $totalBrands = BookMistake::with('book')->where('status', 0)->count();
 
-        $brands = BookMistake::with('book')->where('status', 0)->when($search, function ($q) use ($search) {
+        $brands = BookMistake::with('book')->where('status', 0)->with('user')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });

@@ -8,19 +8,13 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class ReviewBook extends Eloquent
 {
     use HasFactory;
-    protected $appends = ['user_name', 'reviewer_name'];
-    public function getUserNameAttribute()
-    {
-        // return $this->added_by;
-        $user = User::where('_id', $this->user_id)->first();
 
-        return @$user->name;
+    public function user()
+    {
+        return $this->hasOne(User::class, '_id', 'user_id');
     }
-    public function getReviewerNameAttribute()
+    public function reviewer()
     {
-        // return $this->added_by;
-        $user = User::where('_id', $this->reviwed_by)->first();
-
-        return @$user->name;
+        return $this->hasOne(User::class, '_id', 'reviwed_by');
     }
 }

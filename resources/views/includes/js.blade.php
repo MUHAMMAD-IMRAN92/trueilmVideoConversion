@@ -518,12 +518,13 @@
                            return '<td>' +
                                approver_name + '</td>'
                        }
-                   }, {
-                       "mRender": function(data, type, row) {
-                           return '<td>' +
-                               row.numberOfUser + '</td>'
-                       }
                    },
+                   //    {
+                   //        "mRender": function(data, type, row) {
+                   //            return '<td>' +
+                   //                row.numberOfUser + '</td>'
+                   //        }
+                   //    },
                    {
                        "mRender": function(data, type, row) {
                            var eye = 'feather icon-eye';
@@ -987,8 +988,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1364,8 +1365,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var user_name = '';
-                           if (row.user_name != null) {
-                               user_name = row.user_name;
+                           if (row.user != null) {
+                               user_name = row.user.name;
                            } else {
                                user_name = '--'
                            }
@@ -1376,8 +1377,8 @@
                    {
                        "mRender": function(data, type, row) {
                            var reviewed_by = '';
-                           if (row.reviewer_name != null) {
-                               reviewed_by = row.reviewer_name;
+                           if (row.reviewer != null) {
+                               reviewed_by = row.reviewer.name;
                            } else {
                                reviewed_by = '--'
                            }
@@ -2000,7 +2001,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           var sentence = `${row.user_name} Has ${row.key} (${row.title})`;
+                           var sentence = `${row.user.name} Has ${row.key} (${row.title})`;
                            return '<td>' +
                                sentence +
                                '</td>'
@@ -3466,8 +3467,8 @@
 
        function priceRadioFunction(val) {
            if (val == 1) {
-               $('.price').css("display","block");
-               $('.sample-file').css("display","block");
+               $('.price').css("display", "block");
+               $('.sample-file').css("display", "block");
                console.log(val);
            } else {
                $('.price').css("display", 'none');
