@@ -159,7 +159,7 @@ class HomeController extends Controller
     }
     public function notifyMe(Request $request)
     {
-        return 'test';
+        // return 'test';
         $email = new SubcriptionEmail();
         $email->email = $request->email;
         $email->save();
