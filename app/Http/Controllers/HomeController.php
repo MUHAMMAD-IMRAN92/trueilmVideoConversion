@@ -247,7 +247,7 @@ class HomeController extends Controller
 
             // Handle the response
 
-            return response()->json('msg', 'You are subscribed successfully!');
+            return sendSuccess('Subscribed Seccessfully !');
         } catch (\Exception $e) {
             return $e->getMessage();
         }
