@@ -30,18 +30,21 @@
         z-index: 1;
         top: 2rem;
     }
-    .form-container{
+
+    .form-container {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .subscribe{
+
+    .subscribe {
         text-align: center;
         justify-content: center;
         margin: 0;
         margin: o auto;
     }
-    .coming-soon{
+
+    .coming-soon {
         margin: 1rem 0;
         text-align: center
     }
@@ -77,5 +80,3 @@
     {{-- url('../app-assets/images/backgrounds/trueilm-logo') --}}
 
 </html>
-
-

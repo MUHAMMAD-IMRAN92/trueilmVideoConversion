@@ -28,6 +28,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('send-varification-email',  [App\Http\Controllers\Api\UserController::class, 'sendVerifyEmail']);
 Route::post('reset-password-email',  [App\Http\Controllers\Api\UserController::class, 'resetPassword']);
 
+//email notify me
+Route::post('/notify_me', [App\Http\Controllers\HomeController::class, 'notifyMe']);
+
 //stripe
 Route::post('stripe/add-card-customer', [App\Http\Controllers\Api\StripeController::class, 'createCusCard']);
 Route::post('stripe/subscribe-plan', [App\Http\Controllers\Api\StripeController::class, 'subscribe']);
