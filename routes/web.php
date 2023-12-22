@@ -15,6 +15,7 @@ use App\Models\Surah;
 use App\Models\HadeesTranslation;
 use App\Models\HadithChapter;
 use App\Models\Khatoot;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -177,7 +178,7 @@ Route::middleware(['auth'])->group(function () {
     //courses
     Route::get('courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
     Route::get('all-courses', [App\Http\Controllers\CourseController::class, 'allCourses'])->name('courses.all');
-    Route::get('course/create', [App\Http\Controllers\CourseController::class, 'add'])->name('course.add');
+    Route::get('course/create', [App\Http\Controllers\CourseController::class, 'add '])->name('course.add');
     Route::post('course/store', [App\Http\Controllers\CourseController::class, 'store'])->name('course.store');
     Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
@@ -331,23 +332,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
 
-Route::get('updateChapter',  function () {
-    ini_set('max_execution_time', '0');
-
-    $chapters =  HadithChapter::get();
-
-    foreach ($chapters as $ch) {
-        $cleanedString = ltrim($ch->title, '.');
-        $ch->title =  $cleanedString;
-        $ch->save();
-    }
-
-    return 'done';
-});
-
-Route::get('updateTranslation', function () {
-    HadeesTranslation::where('book_id', '656f3eb8b85aa464aa6c9932')->where('type', 6)->update([
-        'author_lang' => '6571e33cc1f6db9f71eb5c3b'
+Route::get('/updatePlans', function () {
+    return Subscription::where('product_title', 'Family (10 Users)')->update([
+        'product_title' => 'Big Family',
+        'description' => 'Up to 10 members/devices',
     ]);
-    return 'ok';
 });
