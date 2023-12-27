@@ -49,16 +49,27 @@ Route::post('check_expiry',  [App\Http\Controllers\Api\QuizController::class, 'c
 
 
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
+
 Route::get('/delete/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $book = Book::where('type', "1")->first();
-    return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
+    $client->deleteIndex('movies');
+    $client->deleteIndex('audio');
+    $client->deleteIndex('papers');
+    $client->deleteIndex('podcast');
+    $client->deleteIndex('alQurantranslations');
+    $client->deleteIndex('alHadeestranslations');
+    $client->deleteIndex('course');
+    $client->deleteIndex('bookForSale');
+    $client->deleteIndex('glossary');
+
+    // $book = Book::where('type', "1")->first();
+    // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
     // $book7= Book::where('ebooks', "7")->get()->toArray();
 
     // $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
-    // return 'ok';
+    return 'ok';
 });
 
 Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
