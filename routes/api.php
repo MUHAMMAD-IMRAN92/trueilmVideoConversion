@@ -63,14 +63,14 @@ Route::get('/delete/index', function () {
     // $client->deleteIndex('bookForSale');
     // $client->deleteIndex('glossary');
 
-    $client->createIndex('ebook', ['primaryKey' => '_id']);
-    $client->createIndex('audio', ['primaryKey' => '_id']);
-    $client->createIndex('paper', ['primaryKey' => '_id']);
-    $client->createIndex('podcast', ['primaryKey' => '_id']);
-    $client->createIndex('course', ['primaryKey' => '_id']);
+    // $client->createIndex('ebook', ['primaryKey' => '_id']);
+    // $client->createIndex('audio', ['primaryKey' => '_id']);
+    // $client->createIndex('paper', ['primaryKey' => '_id']);
+    // $client->createIndex('podcast', ['primaryKey' => '_id']);
+    // $client->createIndex('course', ['primaryKey' => '_id']);
 
-    // $ebook = Book::where('type', "1")->where('approved', 1)->where('status', 1)->get();
-    // $client->index('movies')->addDocuments($ebook);
+    $ebook = Book::where('type', "1")->where('approved', 1)->where('status', 1)->get();
+    $client->index('movies')->addDocuments($ebook);
 
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
