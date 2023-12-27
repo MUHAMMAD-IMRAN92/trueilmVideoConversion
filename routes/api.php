@@ -53,7 +53,6 @@ Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexT
 Route::get('/delete/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $client->deleteIndex('movies');
     // $client->deleteIndex('ebook');
     // $client->deleteIndex('audio');
     // $client->deleteIndex('paper');
@@ -70,7 +69,7 @@ Route::get('/delete/index', function () {
     // $client->createIndex('podcast', ['primaryKey' => '_id']);
     // $client->createIndex('course', ['primaryKey' => '_id']);
 
-    $ebook = Book::where('type', "1")->where('approved', 1)->where('status', 1)->get()->toArray();
+  return  $ebook = Book::where('type', "1")->where('approved', 1)->where('status', 1)->get()->toArray();
     $client->index('ebook')->addDocuments($ebook);
 
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
