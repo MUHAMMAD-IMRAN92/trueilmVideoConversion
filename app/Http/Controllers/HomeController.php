@@ -319,7 +319,7 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', '0');
         $khatoots = ['uthmani', 'indopak', 'uthmani_tajweed'];
-        Khatoot::truncate();
+        // Khatoot::truncate();
         foreach ($khatoots as $key => $khatoot) {
             $alQuran = AlQuran::get();
             foreach ($alQuran as $key => $verse) {
@@ -706,12 +706,3 @@ class HomeController extends Controller
     }
 }
 
-//lang
-// 6548d27080681501aab8029d
-
-//auth
-
-// 6548d41380681501aab802a0
-
-// 23dd802e-bc08-418a-b0c6-0763bb8f784b
-//./meilisearch --master-key="3bc7ba18215601c4de218ef53f0f90e830a7f144"

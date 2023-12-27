@@ -19,6 +19,7 @@ use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Meilisearch\Client;
@@ -331,10 +332,3 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
-
-Route::get('/updatePlans', function () {
-    return Subscription::where('product_title', 'Family (10 Users)')->update([
-        'product_title' => 'Big Family',
-        'description' => 'Up to 10 members/devices',
-    ]);
-});
