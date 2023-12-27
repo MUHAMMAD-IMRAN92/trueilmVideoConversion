@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\UserController;
 use App\Models\AlQuranTranslation;
 use App\Models\Book;
+use App\Models\BookContent;
 use App\Models\Course;
+use App\Models\CourseLesson;
 use App\Models\Surah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,11 +58,14 @@ Route::get('/delete/index', function () {
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     // $client->deleteIndex('ebook');
     // $client->deleteIndex('audio');
+    // $client->deleteIndex('audioChapter');
     // $client->deleteIndex('paper');
     // $client->deleteIndex('podcast');
+    // $client->deleteIndex('podcastEpisodes');
     // $client->deleteIndex('alQurantranslations');
     // $client->deleteIndex('alHadeestranslations');
     // $client->deleteIndex('course');
+    // $client->deleteIndex('courseLessons');
     // $client->deleteIndex('bookForSale');
     // $client->deleteIndex('glossary');
 
@@ -69,11 +74,20 @@ Route::get('/delete/index', function () {
     // $client->createIndex('paper', ['primaryKey' => '_id']);
     // $client->createIndex('podcast', ['primaryKey' => '_id']);
     // $client->createIndex('course', ['primaryKey' => '_id']);
+    $client->createIndex('courseLesson', ['primaryKey' => '_id']);
+    $client->createIndex('podcastEpisode', ['primaryKey' => '_id']);
+    $client->createIndex('audioChapter', ['primaryKey' => '_id']);
 
-    $courses = Course::get()->toArray();
-    // $ebook = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get()->toArray();
-    $client->index('course')->addDocuments($courses);
+    $courses = CourseLesson::get()->toArray();
+    $client->index('courseLesson')->addDocuments($courses);
 
+    $podcast = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get('_id');
+    $episode = BookContent::whereIn('book_id', $podcast)->get()->toArray();
+    $client->index('podcastEpisode')->addDocuments($episode);
+
+    $audios = Book::where('type', "2")->where('approved', 1)->where('status', 1)->get('_id');
+    $chapter = BookContent::whereIn('book_id', $audios)->get()->toArray();
+    $client->index('audioChapter')->addDocuments($chapter);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
     // $book7= Book::where('ebooks', "7")->get()->toArray();
