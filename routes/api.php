@@ -74,20 +74,12 @@ Route::get('/delete/index', function () {
     // $client->createIndex('paper', ['primaryKey' => '_id']);
     // $client->createIndex('podcast', ['primaryKey' => '_id']);
     // $client->createIndex('course', ['primaryKey' => '_id']);
-    $client->createIndex('courseLesson', ['primaryKey' => '_id']);
-    $client->createIndex('podcastEpisode', ['primaryKey' => '_id']);
-    $client->createIndex('audioChapter', ['primaryKey' => '_id']);
+    // $client->createIndex('courseLesson', ['primaryKey' => '_id']);
+    // $client->createIndex('podcastEpisode', ['primaryKey' => '_id']);
+    // $client->createIndex('audioChapter', ['primaryKey' => '_id']);
 
-    $courses = CourseLesson::get()->toArray();
-    $client->index('courseLesson')->addDocuments($courses);
 
-    $podcast = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get()->pluck('_id');
-    $episode = BookContent::whereIn('book_id', $podcast)->get()->toArray();
-    $client->index('podcastEpisode')->addDocuments($episode);
-
-    $audios = Book::where('type', "2")->where('approved', 1)->where('status', 1)->get()->pluck('_id');
-    $chapter = BookContent::whereIn('book_id', $audios)->get()->toArray();
-    $client->index('audioChapter')->addDocuments($chapter);
+    // $client->index('audioChapter')->addDocuments($chapter);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
     // $book7= Book::where('ebooks', "7")->get()->toArray();
