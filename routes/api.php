@@ -81,11 +81,11 @@ Route::get('/delete/index', function () {
     $courses = CourseLesson::get()->toArray();
     $client->index('courseLesson')->addDocuments($courses);
 
-  return  $podcast = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get('_id');
+    return  $podcast = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get()->pluck('_id');
     $episode = BookContent::whereIn('book_id', $podcast)->get()->toArray();
     $client->index('podcastEpisode')->addDocuments($episode);
 
-    $audios = Book::where('type', "2")->where('approved', 1)->where('status', 1)->get('_id');
+    $audios = Book::where('type', "2")->where('approved', 1)->where('status', 1)->get()->pluck('_id');
     $chapter = BookContent::whereIn('book_id', $audios)->get()->toArray();
     $client->index('audioChapter')->addDocuments($chapter);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
