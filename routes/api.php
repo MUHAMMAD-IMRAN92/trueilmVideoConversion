@@ -81,7 +81,7 @@ Route::get('/delete/index', function () {
     $courses = CourseLesson::get()->toArray();
     $client->index('courseLesson')->addDocuments($courses);
 
-    $podcast = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get('_id');
+  return  $podcast = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get('_id');
     $episode = BookContent::whereIn('book_id', $podcast)->get()->toArray();
     $client->index('podcastEpisode')->addDocuments($episode);
 
