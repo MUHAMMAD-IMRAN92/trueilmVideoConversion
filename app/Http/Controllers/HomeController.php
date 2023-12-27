@@ -424,7 +424,7 @@ class HomeController extends Controller
         } else {
             $res = $client->multiSearch([
                 (new SearchQuery())
-                    ->setIndexUid('ebooks')
+                    ->setIndexUid('ebook')
                     ->setQuery($request->search)
                     ->setLimit(10),
                 (new SearchQuery())
@@ -432,33 +432,33 @@ class HomeController extends Controller
                     ->setQuery($request->search)
                     ->setLimit(10),
                 (new SearchQuery())
-                    ->setIndexUid('papers')
+                    ->setIndexUid('paper')
                     ->setQuery($request->search)
                     ->setLimit(10),
                 (new SearchQuery())
                     ->setIndexUid('podcast')
                     ->setQuery($request->search)
                     ->setLimit(10),
-                (new SearchQuery())
-                    ->setIndexUid('alQurantranslations')
-                    ->setQuery($request->search)
-                    ->setLimit(10),
-                (new SearchQuery())
-                    ->setIndexUid('alHadeestranslations')
-                    ->setQuery($request->search)
-                    ->setLimit(10),
+                // (new SearchQuery())
+                //     ->setIndexUid('alQurantranslations')
+                //     ->setQuery($request->search)
+                //     ->setLimit(10),
+                // (new SearchQuery())
+                //     ->setIndexUid('alHadeestranslations')
+                //     ->setQuery($request->search)
+                //     ->setLimit(10),
                 (new SearchQuery())
                     ->setIndexUid('course')
                     ->setQuery($request->search)
                     ->setLimit(10),
-                (new SearchQuery())
-                    ->setIndexUid('bookForSale')
-                    ->setQuery($request->search)
-                    ->setLimit(10),
-                (new SearchQuery())
-                    ->setIndexUid('glossary')
-                    ->setQuery($request->search)
-                    ->setLimit(10),
+                // (new SearchQuery())
+                //     ->setIndexUid('bookForSale')
+                //     ->setQuery($request->search)
+                //     ->setLimit(10),
+                // (new SearchQuery())
+                //     ->setIndexUid('glossary')
+                //     ->setQuery($request->search)
+                //     ->setLimit(10),
             ]);
 
             $i = 0;
