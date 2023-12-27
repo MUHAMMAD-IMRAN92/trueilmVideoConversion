@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use App\Models\AlQuranTranslation;
 use App\Models\Book;
+use App\Models\Course;
 use App\Models\Surah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -69,8 +70,9 @@ Route::get('/delete/index', function () {
     // $client->createIndex('podcast', ['primaryKey' => '_id']);
     // $client->createIndex('course', ['primaryKey' => '_id']);
 
-    $ebook = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get()->toArray();
-    $client->index('podcast')->addDocuments($ebook);
+    $courses = Course::get()->toArray();
+    // $ebook = Book::where('type', "7")->where('approved', 1)->where('status', 1)->get()->toArray();
+    $client->index('course')->addDocuments($courses);
 
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
