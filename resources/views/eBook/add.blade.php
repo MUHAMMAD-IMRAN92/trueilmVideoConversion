@@ -74,6 +74,12 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description"></textarea>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <label for="">What's Inside</label>
+                                                        <fieldset class="form-group">
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside"></textarea>
+                                                        </fieldset>
+                                                    </div>
                                                     @php
                                                         $validation = 'accept=.epub';
                                                         if ($type == 2 || $type == 7) {

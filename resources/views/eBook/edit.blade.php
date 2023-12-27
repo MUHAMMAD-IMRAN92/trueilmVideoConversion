@@ -78,6 +78,12 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $book->description }}</textarea>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <label for="">What's Inside</label>
+                                                        <fieldset class="form-group">
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside">{{ $book->inside }}</textarea>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile" class="">Content</label>

@@ -117,6 +117,7 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
+        $book->inside = $request->inside;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
 
         if ($request->has('cover')) {
@@ -255,6 +256,7 @@ class BookController extends Controller
         $book = Book::where('_id', $request->id)->first();
         $book->title = $request->title;
         $book->description = $request->description;
+        $book->inside = $request->inside;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
 
         if ($request->cover) {

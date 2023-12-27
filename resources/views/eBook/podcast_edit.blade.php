@@ -94,6 +94,12 @@
                                                             <textarea class="form-control" id="basicTextarea" disabled rows="3" placeholder="" name="description">{{ $book->description }}</textarea>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <label for="">What's Inside</label>
+                                                        <fieldset class="form-group">
+                                                            <textarea class="form-control" id="basicTextarea" disabled rows="3" placeholder="" name="inside">{{ $book->inside }}</textarea>
+                                                        </fieldset>
+                                                    </div>
                                                     @if ($type != 7)
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
@@ -470,6 +476,12 @@
                                                             <label for="">Description</label>
                                                             <fieldset class="form-group">
                                                                 <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $book->description }}</textarea>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="">What's Inside</label>
+                                                            <fieldset class="form-group">
+                                                                <textarea class="form-control" id="basicTextarea"  rows="3" placeholder="" name="inside">{{ $book->inside }}</textarea>
                                                             </fieldset>
                                                         </div>
                                                         @if ($type != 7)
