@@ -447,14 +447,14 @@ class HomeController extends Controller
                     ->setIndexUid('podcastEpisode')
                     ->setQuery($request->search)
                     ->setLimit(10),
-                // (new SearchQuery())
-                //     ->setIndexUid('alQurantranslations')
-                //     ->setQuery($request->search)
-                //     ->setLimit(10),
-                // (new SearchQuery())
-                //     ->setIndexUid('alHadeestranslations')
-                //     ->setQuery($request->search)
-                //     ->setLimit(10),
+                (new SearchQuery())
+                    ->setIndexUid('alQurantranslations')
+                    ->setQuery($request->search)
+                    ->setLimit(10),
+                (new SearchQuery())
+                    ->setIndexUid('alHadeestranslations')
+                    ->setQuery($request->search)
+                    ->setLimit(10),
                 (new SearchQuery())
                     ->setIndexUid('course')
                     ->setQuery($request->search)
