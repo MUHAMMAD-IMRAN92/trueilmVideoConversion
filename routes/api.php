@@ -77,6 +77,8 @@ Route::get('/delete/index', function () {
     // $client->createIndex('courseLesson', ['primaryKey' => '_id']);
     // $client->createIndex('podcastEpisode', ['primaryKey' => '_id']);
     // $client->createIndex('audioChapter', ['primaryKey' => '_id']);
+    $client->createIndex('alHadeestranslations', ['primaryKey' => '_id']);
+    $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
 
 
     // $client->index('audioChapter')->addDocuments($chapter);
