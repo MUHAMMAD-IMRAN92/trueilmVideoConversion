@@ -57,31 +57,12 @@ Route::get('/delete/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     // $client->deleteIndex('ebook');
-    // $client->deleteIndex('audio');
-    // $client->deleteIndex('audioChapter');
-    // $client->deleteIndex('paper');
-    // $client->deleteIndex('podcast');
-    // $client->deleteIndex('podcastEpisodes');
-    // $client->deleteIndex('alQurantranslations');
-    // $client->deleteIndex('alHadeestranslations');
-    // $client->deleteIndex('course');
-    // $client->deleteIndex('courseLessons');
-    // $client->deleteIndex('bookForSale');
-    // $client->deleteIndex('glossary');
+   
 
-    // $client->createIndex('ebook', ['primaryKey' => '_id']);
-    // $client->createIndex('audio', ['primaryKey' => '_id']);
-    // $client->createIndex('paper', ['primaryKey' => '_id']);
-    // $client->createIndex('podcast', ['primaryKey' => '_id']);
-    // $client->createIndex('course', ['primaryKey' => '_id']);
-    // $client->createIndex('courseLesson', ['primaryKey' => '_id']);
-    // $client->createIndex('podcastEpisode', ['primaryKey' => '_id']);
-    // $client->createIndex('audioChapter', ['primaryKey' => '_id']);
-    $client->createIndex('alHadeestranslations', ['primaryKey' => '_id']);
-    $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
+    // $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
 
-
-    // $client->index('audioChapter')->addDocuments($chapter);
+    $alQuranTranslations = AlQuranTranslation::get()->toArray(); 
+    $client->index('alQurantranslations')->addDocuments($alQuranTranslations);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
     // $book7= Book::where('ebooks', "7")->get()->toArray();
