@@ -56,17 +56,10 @@ Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexT
 Route::get('/delete/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $client->deleteIndex('audio');
-    $client->deleteIndex('paper');
-    $client->deleteIndex('podcast');
-    $client->deleteIndex('audioChapter');
-    $client->deleteIndex('podcastEpisode');
+    // $client->deleteIndex('audio');
 
-    $client->createIndex('audio', ['primaryKey' => '_id']);
-    $client->createIndex('paper', ['primaryKey' => '_id']);
-    $client->createIndex('podcast', ['primaryKey' => '_id']);
-    $client->createIndex('audioChapter', ['primaryKey' => '_id']);
-    $client->createIndex('podcastEpisode', ['primaryKey' => '_id']);
+    // $client->createIndex('audio', ['primaryKey' => '_id']);
+
 
 
     // $book = Book::get()->toArray();
