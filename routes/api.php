@@ -56,13 +56,13 @@ Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexT
 Route::get('/delete/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $client->deleteIndex('ebook');
+    // $client->deleteIndex('ebook');
 
 
-    $client->createIndex('ebook', ['primaryKey' => '_id']);
+    // $client->createIndex('ebook', ['primaryKey' => '_id']);
 
-    $book = Book::get()->toArray();
-    $client->index('ebook')->addDocuments($book);
+    // $book = Book::get()->toArray();
+    // $client->index('ebook')->addDocuments($book);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
     // $book7= Book::where('ebooks', "7")->get()->toArray();
