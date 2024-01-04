@@ -14,7 +14,7 @@ class Questionaire extends Eloquent
     }
     public function correctOption()
     {
-        return $this->hasOne(QuestionaireOptions::class, 'question_id', '_id')->where('type', 1);
+        return $this->hasMany(QuestionaireOptions::class, 'question_id', '_id')->where('type', 1);
     }
 
     public function incorrectOptions()

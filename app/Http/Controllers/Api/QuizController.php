@@ -30,27 +30,39 @@ class QuizController extends Controller
             $lesson = CourseLesson::where('_id', $request->lesson_id)->first();
             $shuffled = collect();
             if ($lesson && $lesson->quiz == 1) {
-                $shuffled =  Questionaire::where('lesson_id', $lesson->_id)->with(['incorrectOptions' => function ($q) {
-                }])->with(['correctOption' => function ($c) {
-                }])->get()->take(10)->map(function ($shuffled) use ($request) {
-                    $coptions = collect([$shuffled->correctOption]);
-                    $optionsWrong = $shuffled->incorrectOptions->take(3)->toBase();
-                    $mergedOptions = $coptions->merge($optionsWrong);
-                    $shuffled->options = $mergedOptions;
-                    $attemptResult =   new AttemptResult();
-                    $attemptResult->user_id =  $request->user_id;
-                    $attemptResult->question_id =  $shuffled->_id;
-                    $attemptResult->question =  $shuffled->question;
-                    $attemptResult->lesson_id = $request->lesson_id;
-                    $attemptResult->attempt_id = $request->attempt_id;
-                    $attemptResult->options =  $shuffled->options->pluck('option', '_id')->all();
-                    $attemptResult->correct_option = $shuffled->correctOption['option'];
-                    $attemptResult->user_selected = '';
-                    $attemptResult->status = 0;
-                    $attemptResult->save();
+                $shuffled = Questionaire::where('lesson_id', $lesson->_id)
+                    ->with(['incorrectOptions' => function ($q) {
+                        // $q->shuffle(); // Shuffle the incorrect options
+                    }])
+                    ->with(['correctOption'])
+                    ->get()
+                    ->take(10)
+                    ->map(function ($shuffled) use ($request) {
+                        // Collect correct and incorrect options
+                        $coptions = $shuffled->correctOption->shuffle()->take(1);
+                        $optionsWrong = $shuffled->incorrectOptions->shuffle()->take(3);
 
-                    return $shuffled;
-                })->shuffle();
+                        // Merge and shuffle the options
+                        $mergedOptions = $coptions->merge($optionsWrong);
+
+                        // Update the options of the shuffled question
+                        $shuffled->options = $mergedOptions;
+
+                        // Create and save AttemptResult
+                        $attemptResult = new AttemptResult();
+                        $attemptResult->user_id = $request->user_id;
+                        $attemptResult->question_id = $shuffled->_id;
+                        $attemptResult->question = $shuffled->question;
+                        $attemptResult->lesson_id = $request->lesson_id;
+                        $attemptResult->attempt_id = $request->attempt_id;
+                        $attemptResult->options = $shuffled->options->pluck('option', '_id')->all();
+                        $attemptResult->correct_option = $coptions;
+                        $attemptResult->user_selected = '';
+                        $attemptResult->status = 0;
+                        $attemptResult->save();
+
+                        return $shuffled;
+                    })->shuffle();
             }
             $attemptResults =    AttemptResult::where('attempt_id',  $request->attempt_id)->where('lesson_id', $request->lesson_id)->where('user_id', $request->user_id)->get();
         }

@@ -459,7 +459,7 @@
 
                                                             @empty
                                                                 <tr>
-                                                                    <center><b>No Episode Added Yet !</b></center>
+                                                                    <center><b>No Quiz Added Yet !</b></center>
                                                                 </tr>
                                                             @endforelse
                                                         </tbody>
