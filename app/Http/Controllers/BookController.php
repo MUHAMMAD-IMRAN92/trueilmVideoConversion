@@ -701,8 +701,9 @@ class BookController extends Controller
         ]);
     }
     public function podcastEpisode(Request $request)
-    { 
+    {
         $durations = json_decode(@$request->duration[0], true);
+
         $book = Book::where('_id', $request->podcast_id)->first();
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
@@ -730,7 +731,7 @@ class BookController extends Controller
         $bookContent->host = $request->host;
         $bookContent->description = $request->episode_description;
         $bookContent->guest = $request->guest;
-        $bookContent->file_duration = @$request->duration[0];
+        $bookContent->file_duration = @$durations[0]['minutes'] . ':' .  @$durations[0]['seconds'];
 
         $bookContent->save();
 
