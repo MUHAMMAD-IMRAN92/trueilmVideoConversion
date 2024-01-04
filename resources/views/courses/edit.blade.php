@@ -752,8 +752,8 @@
                                                             <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file"
-                                                                    class="custom-file-input  episode-custom-file-input"
-                                                                    id="fileinput-0" onchange="duration(0)"
+                                                                    class="file-input custom-file-input  episode-custom-file-input"
+                                                                    id="fileinput-0" onchange="multiduration(0)"
                                                                     name="podcast_file" required>
                                                                 <input type="hidden" name="duration[]"
                                                                     id="input-duration-0" required />
@@ -882,8 +882,8 @@
                                                         <label for="basicInputFile">Content</label>
                                                         <div class="custom-file">
                                                             <input type="file"
-                                                                class="custom-file-input  episode-custom-file-input"
-                                                                id="fileinput-0" onchange="duration(0)"
+                                                                class="file-input custom-file-input  episode-custom-file-input"
+                                                                id="fileinput-0" onchange="multiduration(0)"
                                                                 name="podcast_file">
                                                             <input type="hidden" name="duration[]"
                                                                 id="input-duration-0" />

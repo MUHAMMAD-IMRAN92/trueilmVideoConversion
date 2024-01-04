@@ -249,6 +249,7 @@ class CourseController extends Controller
     }
     public function courseLessons(Request $request)
     {
+        $durations = json_decode(@$request->duration[0], true);
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->les_id) {
             $courseLesson = CourseLesson::where('_id', $request->les_id)->first();
@@ -260,7 +261,7 @@ class CourseController extends Controller
         $courseLesson->description = $request->description;
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
-        $courseLesson->file_duration = @$request->duration[0];
+        $courseLesson->file_duration = @$durations[0]['minutes'] . ':' .  @$durations[0]['seconds'];;
         if ($request->podcast_file) {
             $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
             $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
