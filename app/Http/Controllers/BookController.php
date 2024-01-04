@@ -190,7 +190,7 @@ class BookController extends Controller
 
                 // $tag = Tag::firstOrCreate(['title' => $tag]);
 
-                $contentTag = ContentGlossary::firstOrCreate(['glossary_id' => $g, 'content_id' => $book->id, 'content_type' => $request->type]);
+                $contentTag = ContentGlossary::firstOrCreate(['glossary_id' =>  $g, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
 
@@ -701,8 +701,8 @@ class BookController extends Controller
         ]);
     }
     public function podcastEpisode(Request $request)
-    {
-        // return $request->all();
+    { 
+        $durations = json_decode(@$request->duration[0], true);
         $book = Book::where('_id', $request->podcast_id)->first();
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
