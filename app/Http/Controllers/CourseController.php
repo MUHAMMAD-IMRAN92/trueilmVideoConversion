@@ -292,6 +292,13 @@ class CourseController extends Controller
             // $courseLesson->thumbnail = $request->thumbnail->getClientOriginalName();
         }
         $courseLesson->save();
+
+        $count = CourseLesson::where('course_id', $courseLesson->course_id)->count();
+
+        $course = Course::where('_id',  $courseLesson->course_id)->first();
+        $course->lesson_count = $count;
+        $course->save();
+
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
 

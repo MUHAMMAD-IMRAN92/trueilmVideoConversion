@@ -870,7 +870,7 @@
                                                         <div class="custom-file">
                                                             <input type="file"
                                                                 class="custom-file-input  episode-custom-file-input"
-                                                                id="fileinput" name="thumbnail" required>
+                                                                id="fileinput" name="thumbnail" >
 
                                                             <label class="custom-file-label" for="inputGroupFile01">Choose
                                                                 file</label>
