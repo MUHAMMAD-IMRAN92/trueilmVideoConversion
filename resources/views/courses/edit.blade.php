@@ -78,7 +78,12 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description" disabled>{{ $course->description }}</textarea>
                                                         </fieldset>
                                                     </div>
-
+                                                    <div class="col-12">
+                                                        <label for="">What's Inside</label>
+                                                        <fieldset class="form-group">
+                                                            <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside" disabled>  {{ $course->inside }}</textarea>
+                                                        </fieldset>
+                                                    </div>
                                                     <div class="col-md-10">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Image</label>
@@ -512,7 +517,12 @@
                                                                     <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="description">{{ $course->description }}</textarea>
                                                                 </fieldset>
                                                             </div>
-
+                                                            <div class="col-12">
+                                                                <label for="">What's Inside</label>
+                                                                <fieldset class="form-group">
+                                                                    <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside" >  {{ $course->inside }}</textarea>
+                                                                </fieldset>
+                                                            </div>
                                                             <div class="col-md-6">
                                                                 <fieldset class="form-group">
                                                                     <label for="basicInputFile">Image</label>
@@ -863,6 +873,12 @@
                                                         <textarea class="form-control" id="modal_lesson_description" rows="3" placeholder="" name="description"></textarea>
                                                     </fieldset>
                                                 </div>
+                                                <div class="col-12">
+                                                    <label for="">What's Inside</label>
+                                                    <fieldset class="form-group">
+                                                        <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside">{{ $course->inside }}</textarea>
+                                                    </fieldset>
+                                                </div>
                                                 <div class="col-md-12">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">Thumbnail
@@ -870,7 +886,7 @@
                                                         <div class="custom-file">
                                                             <input type="file"
                                                                 class="custom-file-input  episode-custom-file-input"
-                                                                id="fileinput" name="thumbnail" >
+                                                                id="fileinput" name="thumbnail">
 
                                                             <label class="custom-file-label" for="inputGroupFile01">Choose
                                                                 file</label>

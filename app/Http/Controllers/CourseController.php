@@ -95,6 +95,7 @@ class CourseController extends Controller
         $course->p_type = $request->pRadio;
         $course->price = $request->price;
         $course->category_id = $request->category_id;
+        $course->inside = $request->inside;
         $course->author_id = $request->author_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
@@ -180,6 +181,7 @@ class CourseController extends Controller
         $course->category_id = $request->category_id;
         $course->p_type = $request->pRadio;
         $course->price = $request->price;
+        $course->inside = $request->inside;
         $course->author_id = $request->author_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
