@@ -3679,16 +3679,21 @@
                durationPromises.push(new Promise((resolve, reject) => {
                    audio.addEventListener('loadedmetadata', function() {
                        var audioDuration = audio.duration;
-                       var minutes = Math.floor(audioDuration / 60);
-                       var seconds = Math.floor(audioDuration % 60);
+                       var mFloor = Math.floor(audioDuration / 60);
+                       var sFloor = Math.floor(audioDuration % 60);
 
+
+                       let minutes =
+                           String(mFloor).padStart(2, '0');
+                       let seconds =
+                           String(sFloor).padStart(2, '0');
                        var duration = {
                            minutes,
                            seconds
                        };
 
-                       console.log('Audio duration for file ' + i + ':', minutes + ' minutes ' +
-                           seconds);
+                       //    console.log('Audio duration for file ' + i + ':', minutes + ' minutes ' +
+                       //        seconds);
                        resolve(duration);
                    });
 
