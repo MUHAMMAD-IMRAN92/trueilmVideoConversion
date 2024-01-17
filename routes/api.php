@@ -66,9 +66,9 @@ Route::get('/delete/index', function () {
     // $client->index('ebook')->addDocuments($book);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
-    // $book7= Book::where('ebooks', "7")->get()->toArray();
+    $book7 = Book::where('ebooks', "7")->get()->toArray();
 
-    // $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
+    $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
     return 'ok';
 });
 
