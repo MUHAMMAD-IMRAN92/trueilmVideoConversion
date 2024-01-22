@@ -32,7 +32,7 @@ class HadeesImport implements ToModel
                 $mainchapter->save();
             }
             $subchapter = HadithChapter::where('title', $row[3])->where('book_id', '656f3eb8b85aa464aa6c9932')->first();
-            if (!$subchapter) {
+            if ($subchapter) {
                 // $subchapter = new HadithChapter();
                 // $subchapter->book_id = $book->_id;
                 // $subchapter->title = $row[3];
