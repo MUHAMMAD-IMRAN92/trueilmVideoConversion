@@ -21,9 +21,9 @@ class HadeesImport implements ToModel
     {
         // dd($row);
         if ($row[5] != '' && $row[5] != 'Hadith No.') {
-            $book =  HadeesBooks::where('_id', '656db980db92fbfab70abb32')->first();
+            $book =  HadeesBooks::where('_id', '656862b4a5b9ba63bd7e4f02')->first();
             // dd($book);
-            $mainchapter = HadithChapter::where('title', $row[1])->where('book_id', '656db980db92fbfab70abb32')->first();
+            $mainchapter = HadithChapter::where('title', $row[1])->where('book_id', '656862b4a5b9ba63bd7e4f02')->first();
             if (!$mainchapter) {
                 $mainchapter = new HadithChapter();
                 $mainchapter->book_id = $book->_id;
@@ -31,7 +31,7 @@ class HadeesImport implements ToModel
                 $mainchapter->title_arabic = $row[2];
                 $mainchapter->save();
             }
-            $subchapter = HadithChapter::where('title', $row[3])->where('book_id', '656db980db92fbfab70abb32')->first();
+            $subchapter = HadithChapter::where('title', $row[3])->where('book_id', '656862b4a5b9ba63bd7e4f02')->first();
             if ($subchapter) {
                 // $subchapter = new HadithChapter();
                 // $subchapter->book_id = $book->_id;
