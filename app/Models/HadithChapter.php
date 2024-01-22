@@ -8,4 +8,9 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class HadithChapter extends Eloquent
 {
     use HasFactory;
+
+    public function hadees()
+    {
+        return $this->hasMany(Hadees::class, 'chapter_id', '_id');
+    }
 }

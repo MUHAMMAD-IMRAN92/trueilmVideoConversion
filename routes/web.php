@@ -333,3 +333,30 @@ Route::middleware(['auth'])->group(function () {
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
 
+
+Route::get('updateModel', function () {
+    set_time_limit(0);
+    $chapters = HadithChapter::where('book_id', '655f47441c3df94998007a1a')->whereNull('parent_id')->pluck('_id');
+
+    foreach ($chapters as $key => $ch) {
+        $var = 20;
+        $page = 1;
+
+        $subchapters = HadithChapter::where('book_id', '655f47441c3df94998007a1a')->where('parent_id', $ch)->pluck('_id');
+        $hadith =  Hadees::whereIn('chapter_id', $subchapters)->get();
+
+        foreach ($hadith as $key => $h) {
+
+            if ($var == $key + 1) {
+                $var = $var + 20;
+                $page = $page + 1;
+            }
+
+
+            $h->page_no = $page;
+            $h->save();
+        }
+    }
+    return 'done';
+});
+
