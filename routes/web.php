@@ -15,6 +15,7 @@ use App\Models\Surah;
 use App\Models\HadeesTranslation;
 use App\Models\HadithChapter;
 use App\Models\Khatoot;
+use App\Models\RecitationCombination;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -359,4 +360,3 @@ Route::get('updateModel', function () {
     }
     return 'done';
 });
-
