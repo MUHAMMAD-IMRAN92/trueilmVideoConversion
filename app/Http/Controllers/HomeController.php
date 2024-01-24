@@ -694,6 +694,8 @@ class HomeController extends Controller
 
     public function QuranEncTranslation($key, $combination_id)
     {
+        ini_set('max_execution_time', 0);
+        ini_set("memory_limit", "-1");
         AlQuranTranslation::where('author_lang', $combination_id)->delete();
         for ($i = 1; $i < 115; $i++) {
 
