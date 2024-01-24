@@ -67,9 +67,9 @@ class CategoryController extends Controller
     }
     public function store(CategoryRequest $request)
     {
-        $categoryExit = Category::where('title', $request->title)->first();
+        $categoryExit = Category::where('title', $request->title)->where('type', $request->type)->first();
         if ($categoryExit) {
-            return redirect()->to('categories/' . $request->type)->with('msg', 'Category Already Exit!');
+            return redirect()->to('categories/' . $request->type)->with('dmsg', 'Category Already Exit!');
         } else {
             $category = new Category();
             $category->title = $request->title;

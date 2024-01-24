@@ -40,7 +40,16 @@
                         <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
                     </button>
                 </div>
-            @endif
+            @endif  @if (\Session::has('dmsg'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p class="mb-0">
+                    {{ \Session::get('dmsg') }}
+                </p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                </button>
+            </div>
+        @endif
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">
