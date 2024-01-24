@@ -67,25 +67,29 @@ class CategoryController extends Controller
     }
     public function store(CategoryRequest $request)
     {
-        $category = new Category();
-        $category->title = $request->title;
-        $category->description = $request->description;
-        $category->added_by = $this->user->id;
-        $category->type = $request->type;
-        $category->color = $request->color;
-        $category->status = 1;
-        $category->parent_id = $request->parent_id;
-        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-        if ($request->has('image')) {
-            $file = $request->file('image');
-            $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $category->image  = $base_path . $path;
+        $categoryExit = Category::where('title', $request->title)->first();
+        if ($categoryExit) {
+            return redirect()->to('categories/' . $request->type)->with('msg', 'Category Already Exit!');
+        } else {
+            $category = new Category();
+            $category->title = $request->title;
+            $category->description = $request->description;
+            $category->added_by = $this->user->id;
+            $category->type = $request->type;
+            $category->color = $request->color;
+            $category->status = 1;
+            $category->parent_id = $request->parent_id;
+            $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+            if ($request->has('image')) {
+                $file = $request->file('image');
+                $file_name = time() . '.' . $file->getClientOriginalExtension();
+                $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $category->image  = $base_path . $path;
+            }
+            $category->save();
+            return redirect()->to('categories/' . $request->type)->with('msg', 'Category Saved Successfully!');
         }
-        $category->save();
-
-        return redirect()->to('categories/' . $request->type)->with('msg', 'Publisher Saved Successfully!');;
     }
 
     public function edit($type, $id)
@@ -119,7 +123,7 @@ class CategoryController extends Controller
         }
         $category->save();
 
-        return redirect()->to('categories/' . $request->type)->with('msg', 'Publisher Updated Successfully!');;
+        return redirect()->to('categories/' . $request->type)->with('msg', 'Category Updated Successfully!');;
     }
     public function updateStatus($id)
     {

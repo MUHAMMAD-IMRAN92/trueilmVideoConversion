@@ -835,16 +835,24 @@
                    {
                        "mRender": function(data, type, row) {
                            var anchor;
+                           var a = '';
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
+                               a =
+                                   `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`') }}"><i class="fa fa-pencil" style="font-size:20px"></i></a>`;
+                           }
                            if (row.type == 2) {
                                anchor =
-                                   `<a class="ml-2" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                                   `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
                            } else {
                                anchor =
-                                   `<a  class="ml-2" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                                   `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
-                           return `<td">
-                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                                <a href="#" class="ml-2"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                           return `<td class="d-flex">
+                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+                               a +
+                               `
+                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
                                anchor +
                                `</td>`
                        }
