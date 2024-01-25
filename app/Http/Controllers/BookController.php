@@ -220,8 +220,9 @@ class BookController extends Controller
         }
     }
 
-    public function edit($type, $id)
+    public function edit(Request $request, $type, $id)
     {
+
         $categories = Category::active()->where('type', $type)->get();
         $book = Book::where('_id', $id)->with('content', 'author')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
@@ -241,12 +242,14 @@ class BookController extends Controller
             'glossary' => $glossary,
             'contentGlossary' => $contentGlossary,
             'publisher' => $publisher,
-            'author' => $author
+            'author' => $author,
+            'pending_for_approval' => $request->pending_for_approval
         ]);
     }
 
     public function update(Request $request)
     {
+        // return $request;
         $durations = json_decode(@$request->duration[0], true);
 
         ini_set('max_execution_time', '0');
@@ -378,6 +381,10 @@ class BookController extends Controller
             }
             $reference->added_by = $this->user->id;
             $reference->save();
+        }
+
+        if ($request->pending_for_approval == "true") {
+            return redirect()->to('/book/pending-for-approval')->with('msg', 'Content Saved Successfully!');
         }
 
         if ($request->type == 7) {

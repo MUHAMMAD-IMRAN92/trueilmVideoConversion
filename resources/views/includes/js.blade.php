@@ -839,7 +839,7 @@
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`') }}"><i class="fa fa-pencil" style="font-size:20px"></i></a>`;
+                                   `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?pending_for_approval=true') }}"><i class="fa fa-pencil" style="font-size:20px"></i></a>`;
                            }
                            if (row.type == 2) {
                                anchor =

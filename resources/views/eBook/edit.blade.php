@@ -72,6 +72,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                        <input type="hidden" name="pending_for_approval" value="{{$pending_for_approval}}">
+
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
@@ -322,7 +325,7 @@
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="number" class="price form-control"
-                                                                name="price" placeholder="" id="price" required
+                                                                name="price" placeholder="" id="price"
                                                                 value="{{ $book->price }}">
 
                                                         </div>
