@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendNotifications;
 use App\Models\Author;
 use App\Models\Category;
 use App\Models\Course;
@@ -15,6 +16,7 @@ use App\Models\QuizAttempts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Meilisearch\Client;
 
 class CourseController extends Controller
@@ -45,17 +47,17 @@ class CourseController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Course::when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Course::approved()->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
-        $brands = Course::when($user_id, function ($query) use ($user_id) {
+        $brands = Course::approved()->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Course::when($user_id, function ($query) use ($user_id) {
+        $brandsCount = Course::approved()->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
@@ -91,6 +93,7 @@ class CourseController extends Controller
         $course->description = $request->description;
         $course->added_by = $this->user->id;
         $course->status = 1;
+        $course->approved = 0;
         $course->age = $request->age;
         $course->p_type = $request->pRadio;
         $course->price = $request->price;
@@ -176,7 +179,7 @@ class CourseController extends Controller
         $course->title = $request->title;
         $course->description = $request->description;
         // $course->added_by = $this->user->id;
-        $course->status = 1;
+        // $course->status = 1;
         $course->age = $request->age;
         $course->category_id = $request->category_id;
         $course->p_type = $request->pRadio;
@@ -425,5 +428,79 @@ class CourseController extends Controller
         return view('courses.user_result', [
             'result' =>  $attemptResults,
         ]);
+    }
+
+    public function allPendingCourses(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Course::pendingapprove()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->count();
+        $brands = Course::pendingapprove()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Course::pendingapprove()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
+
+    public function approveCourse($id)
+    {
+        $course = Course::where('_id', $id)->first();
+        $approved = 1;
+        if ($course->approved = 0 || $course->approved = 2) {
+            $course->update([
+                'approved' => $approved,
+                'approved_by' => $this->user->id,
+                'published_at' => Carbon::now('UTC')->format('Y-m-d\TH:i:s.uP')
+            ]);
+
+            SendNotifications::dispatch($course->added_by, 'A new Course has been uploaded to TrueILM.', 0);
+            SendNotifications::dispatch($course->added_by, 'Your Course Has Been Published Approved.', 1);
+        }
+        // activity(1, $id, 1);
+        return redirect()->back()->with('msg', 'Content Approved Successfully!');
+    }
+    public function rejectCourse(Request $request, $id)
+    {
+        $course = Course::where('_id', $id)->first();
+        $approved = 2;
+        if ($course->approved == 0) {
+            $course->update([
+                'approved' => $approved,
+                'approved_by' => $this->user->id,
+                'reason' => $request->reason
+            ]);
+
+            SendNotifications::dispatch($course->added_by, 'Your Course Has Rejected.', 1);
+        }
+
+        // activity(2, $id, 1);
+        return redirect()->back()->with('msg', 'Content Reject Successfully!');
     }
 }

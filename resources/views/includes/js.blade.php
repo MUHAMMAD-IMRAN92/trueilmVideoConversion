@@ -852,8 +852,82 @@
                                 <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
                                a +
                                `
-                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
                                anchor +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#pending-courses-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-pending-courses') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 50);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = "";
+                           if (row.user != null) {
+                               user_name = row.user.name;
+                           } else {
+                               user_name = '--';
+                           }
+                           return '<td>' +
+                               user_name +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var eye = 'feather icon-eye';
+                           if (row.status == 0) {
+                               eye = 'feather icon-eye-off';
+                           }
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
+                               a =
+                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
+                                   `;
+                           }
+                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                            <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' , 2)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                               a +
                                `</td>`
                        }
                    },
@@ -3457,10 +3531,17 @@
            $(this).val($(this).val()).trigger('change');
        });
 
-       function reasonModal(key) {
-           $('#book_id').val(key);
-           var newUrl = "{{ url('book/reject/') }}" + '/' + key;
-           $('#reason_form').attr('action', newUrl);
+       function reasonModal(key, type) {
+           if (type == 1) {
+               $('#book_id').val(key);
+               var newUrl = "{{ url('book/reject/') }}" + '/' + key;
+               $('#reason_form').attr('action', newUrl);
+           } else {
+               $('#course_id').val(key);
+               var newUrl = "{{ url('course/reject/') }}" + '/' + key;
+               $('#reason_form').attr('action', newUrl);
+           }
+
 
            $('#reason').modal('show');
        }

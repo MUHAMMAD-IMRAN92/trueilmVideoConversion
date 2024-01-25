@@ -140,7 +140,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
     Route::get('book/approved', [App\Http\Controllers\BookController::class, 'approved'])->name('book.approved');
     Route::get('all-approved-book', [App\Http\Controllers\BookController::class, 'allApprovedBooks'])->name('book.all-approved');
-    Route::get('books/rejected/{id}', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
+    Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
 
     Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
@@ -185,6 +185,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
+
+    Route::get('all-pending-courses', [App\Http\Controllers\CourseController::class, 'allPendingCourses'])->name('courses.pending.all');
+    Route::get('course/approve/{id}', [App\Http\Controllers\CourseController::class, 'approveCourse'])->name('course.approve');
+    Route::get('course/reject/{id}', [App\Http\Controllers\CourseController::class, 'rejectCourse'])->name('course.reject');
+
     //course lessons
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
 

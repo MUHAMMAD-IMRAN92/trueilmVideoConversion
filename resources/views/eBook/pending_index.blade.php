@@ -70,34 +70,90 @@
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">
                     <div class="col-12">
+
                         <div class="card">
 
                             <div class="card-content">
                                 <div class="card-body">
 
-                                    <!-- Table with outer spacing -->
-                                    <div class="table-responsive">
-                                        <table class="table" id="pending-book-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Cover</th>
-                                                    <th class="">Title</th>
-                                                    <th class="description-td">Description</th>
-                                                    <th class="">Author</th>
-                                                    <th class="">Type</th>
-                                                    <th class="">Added By</th>
-                                                    <th style="width:150px">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    <ul class="nav nav-pills nav-fill">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="books-tab-fill" data-toggle="pill"
+                                                href="#books-fill" aria-expanded="true">Books & Podcasts</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="course-tab-fill" data-toggle="pill" href="#course-fill"
+                                                aria-expanded="true">Courses</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="books-fill" aria-labelledby="books-tab-fill"
+                                aria-expanded="true">
+                                <div class="card">
 
-                                            </tbody>
-                                        </table>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <!-- Table with outer spacing -->
+                                            <div class="table-responsive">
+                                                <table class="table" id="pending-book-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Cover</th>
+                                                            <th class="">Title</th>
+                                                            <th class="description-td">Description</th>
+                                                            <th class="">Author</th>
+                                                            <th class="">Type</th>
+                                                            <th class="">Added By</th>
+                                                            <th style="width:150px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <!-- Table with no outer spacing -->
+
                                     </div>
                                 </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="course-fill" aria-labelledby="course-tab-fill"
+                                aria-expanded="true">
+                                <div class="card">
 
-                                <!-- Table with no outer spacing -->
+                                    <div class="card-content">
+                                        <div class="card-body">
 
+                                            <!-- Table with outer spacing -->
+                                            <div class="table-responsive">
+                                                <table class="table" id="pending-courses-table" style="width:100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="">Image</th>
+                                                            <th>Title</th>
+                                                            <th class="description-td">Description</th>
+                                                            <th>Added By</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <!-- Table with no outer spacing -->
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

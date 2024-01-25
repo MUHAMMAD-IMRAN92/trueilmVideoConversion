@@ -31,4 +31,17 @@ class Course extends Eloquent
     {
         return $this->hasOne(Author::class, '_id', 'author_id');
     }
+    public function scopePendingApprove($query)
+    {
+        return $query->where('approved', 0);
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', 1);
+    }
+    public function scopeRejected($query)
+    {
+        return $query->where('approved', 2);
+    }
 }
