@@ -301,6 +301,19 @@
                                                                 </div>
                                                             </fieldset>
                                                         </li>
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(2)" value="2"   {{ $book->p_type == 2 ? 'checked' : '' }}>
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Executive</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
                                                     </div>
                                                     <div class="col-md-6"  style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
 
@@ -689,6 +702,19 @@
                                                                     </div>
                                                                 </fieldset>
                                                             </li>
+                                                            <li class="d-inline-block mr-2">
+                                                                <fieldset>
+                                                                    <div class="vs-radio-con">
+                                                                        <input class="pRadio" type="radio" name="pRadio"
+                                                                            onchange="priceRadioFunction(2)" value="2"   {{ $book->p_type == 2 ? 'checked' : '' }}>
+                                                                        <span class="vs-radio">
+                                                                            <span class="vs-radio--border"></span>
+                                                                            <span class="vs-radio--circle"></span>
+                                                                        </span>
+                                                                        <span class="">Executive</span>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
                                                         </div>
                                                         <div class="col-md-6 price"
                                                             style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
@@ -696,7 +722,7 @@
                                                             <div class="form-group">
                                                                 <label for="">Price</label>
                                                                 <input type="number" class="form-control "
-                                                                    name="price" placeholder="" required
+                                                                    name="price" placeholder=""
                                                                     value="{{ $book->price }}">
 
                                                             </div>
