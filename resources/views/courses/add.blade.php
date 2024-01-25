@@ -198,7 +198,7 @@
                                                                 </div>
                                                             </fieldset>
                                                         </li>
-                                                        <li class="d-inline-block mr-2">
+                                                        {{-- <li class="d-inline-block mr-2">
                                                             <fieldset>
                                                                 <div class="vs-radio-con">
                                                                     <input class="pRadio" type="radio" name="pRadio"
@@ -210,7 +210,7 @@
                                                                     <span class="">Executive</span>
                                                                 </div>
                                                             </fieldset>
-                                                        </li>
+                                                        </li> --}}
                                                     </div>
                                                     <div class="col-md-6 price" style="display: none">
 
