@@ -175,7 +175,7 @@ class CourseController extends Controller
         $course = Course::where('_id', $request->id)->first();
         $course->title = $request->title;
         $course->description = $request->description;
-        $course->added_by = $this->user->id;
+        // $course->added_by = $this->user->id;
         $course->status = 1;
         $course->age = $request->age;
         $course->category_id = $request->category_id;

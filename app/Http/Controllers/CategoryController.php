@@ -108,7 +108,7 @@ class CategoryController extends Controller
         $category = Category::where('_id', $request->id)->first();
         $category->title = $request->title;
         $category->description = $request->description;
-        $category->added_by = $this->user->id;
+        // $category->added_by = $this->user->id;
         $category->type = $request->type;
         $category->color = $request->color;
         $category->status = $category->status;
