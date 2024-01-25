@@ -843,7 +843,7 @@
                            }
                            if (row.type == 2) {
                                anchor =
-                                   `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                                   `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?pending_for_approval=true') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
                            } else {
                                anchor =
                                    `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;

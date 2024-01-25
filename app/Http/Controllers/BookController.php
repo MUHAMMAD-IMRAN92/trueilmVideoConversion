@@ -474,12 +474,13 @@ class BookController extends Controller
         return redirect()->back()->with('msg', 'Content Reject Successfully!');
     }
 
-    public function list($type, $id)
+    public function list(Request $request, $type, $id)
     {
         $content = BookContent::where('book_id', $id)->orderBy('sequence', 'asc')->get();
         return view('eBook.book_list', [
             'book_id' => $id,
-            'content' => $content
+            'content' => $content,
+            'pending_for_approval' => $request->pending_for_approval
         ]);
     }
     public function updateSequence(Request $request)
@@ -491,6 +492,10 @@ class BookController extends Controller
                 ]);
             }
         }
+        if ($request->pending_for_approval == "true") {
+            return redirect()->to('/book/pending-for-approval')->with('msg', 'Content Saved Successfully!');
+        }
+
         return redirect()->back()->with('msg', 'Sequence Updated Successfully!');;
     }
 

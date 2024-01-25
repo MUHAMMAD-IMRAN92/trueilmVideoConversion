@@ -59,6 +59,7 @@
                                                 <div class="col-12">
                                                     <form action={{ url('/book/update/sequence/') }} method="POST">
                                                         @csrf
+                                                        <input type="hidden" name="pending_for_approval" value="{{$pending_for_approval}}">
                                                         <div class="card">
                                                             <div class="card-content">
                                                                 <div class="card-body card-dashboard">
