@@ -162,7 +162,8 @@
                                                     @if ($type != 7 && $type != 2)
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile"  class="required">Serial Number</label>
+                                                                <label for="basicInputFile" class="required">Serial
+                                                                    Number</label>
                                                                 <div class="custom-file">
                                                                     <div class="position-relative">
                                                                         <input type="text" id=""
@@ -175,7 +176,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInputFile"  class="required">Book Pages</label>
+                                                                <label for="basicInputFile" class="required">Book
+                                                                    Pages</label>
                                                                 <div class="custom-file">
                                                                     <div class="position-relative">
                                                                         <input type="number" id=""
@@ -292,6 +294,19 @@
                                                                 </div>
                                                             </fieldset>
                                                         </li>
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(2)" value="2">
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Executive</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
                                                     </div>
                                                     <div class="col-md-6 price" style="display:none" class="">
 
@@ -304,13 +319,13 @@
 
 
                                                     </div>
-                                                    <div class="col-md-6 sample-file" style="display:none"  class="">
+                                                    <div class="col-md-6 sample-file" style="display:none"
+                                                        class="">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
-                                                                <input type="file"
-                                                                    class="custom-file-input" id=""
-                                                                    name="sample_file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="" name="sample_file">
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>

@@ -77,7 +77,7 @@
                                                             <label for="">Image</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="" name="image" accept="image/*">
+                                                                    id="" name="image" accept="image/*" required>
                                                                 <label class="custom-file-label" for="">Choose
                                                                     file</label>
                                                             </div>
@@ -121,7 +121,7 @@
                                                         <label for="">Author</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="author_id"
-                                                                id="">
+                                                                id="" required >
                                                                 <option disabled selected>Select Author</option>
                                                                 @foreach ($author as $auth)
                                                                     <option value="{{ $auth->_id }}">
@@ -151,7 +151,7 @@
                                                             Category</label>
                                                         <div class="form-label-group">
                                                             <select class="select2 form-control" name="category_id"
-                                                                id="create-product-category-attribute">
+                                                                id="create-product-category-attribute" required>
                                                                 <option selected disabled>Select
                                                                     Category
                                                                 </option>
@@ -198,13 +198,26 @@
                                                                 </div>
                                                             </fieldset>
                                                         </li>
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(2)" value="2">
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Executive</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
                                                     </div>
                                                     <div class="col-md-6 price" style="display: none">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="number" class="  form-control" name="price"
-                                                                placeholder="" id="" value="" required>
+                                                                placeholder="" id="" value="" >
 
                                                         </div>
 

@@ -226,6 +226,21 @@
                                                                 </div>
                                                             </fieldset>
                                                         </li>
+                                                        <li class="d-inline-block mr-2">
+                                                            <fieldset>
+                                                                <div class="vs-radio-con">
+                                                                    <input class="pRadio" type="radio" name="pRadio"
+                                                                        onchange="priceRadioFunction(2)" value="2"
+                                                                        disabled
+                                                                        {{ $course->p_type == 2 ? 'checked' : '' }}>
+                                                                    <span class="vs-radio">
+                                                                        <span class="vs-radio--border"></span>
+                                                                        <span class="vs-radio--circle"></span>
+                                                                    </span>
+                                                                    <span class="">Executive</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
                                                     </div>
                                                     <div class="col-md-6  price"
                                                         style="display: {{ $course->p_type == 0 ? 'none' : '' }}">
@@ -520,7 +535,7 @@
                                                             <div class="col-12">
                                                                 <label for="">What's Inside</label>
                                                                 <fieldset class="form-group">
-                                                                    <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside" >  {{ $course->inside }}</textarea>
+                                                                    <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside">  {{ $course->inside }}</textarea>
                                                                 </fieldset>
                                                             </div>
                                                             <div class="col-md-6">
@@ -663,6 +678,22 @@
                                                                                 <span class="vs-radio--circle"></span>
                                                                             </span>
                                                                             <span class="">Premium</span>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </li>
+                                                                <li class="d-inline-block mr-2">
+                                                                    <fieldset>
+                                                                        <div class="vs-radio-con">
+                                                                            <input class="pRadio" type="radio"
+                                                                                name="pRadio"
+                                                                                onchange="priceRadioFunction(2)"
+                                                                                value="2"
+                                                                                {{ $course->p_type == 2 ? 'checked' : '' }}>
+                                                                            <span class="vs-radio">
+                                                                                <span class="vs-radio--border"></span>
+                                                                                <span class="vs-radio--circle"></span>
+                                                                            </span>
+                                                                            <span class="">Executive</span>
                                                                         </div>
                                                                     </fieldset>
                                                                 </li>
