@@ -62,7 +62,7 @@ Route::get('/delete/index', function () {
 
 
 
-    $book = Book::where('type', '1')->get()->toArray();
+    $book = Book::where('type', '1')->where('approved', 1)->where('status', 1)->get()->toArray();
     $client->index('ebook')->addDocuments($book);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
