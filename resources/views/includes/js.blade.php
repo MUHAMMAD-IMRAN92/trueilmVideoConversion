@@ -632,6 +632,9 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                        if(row.phone == null){
+                            row.phone = '--';
+                        }
                            return '<td>' +
                                row.phone + '</td>'
                        }
