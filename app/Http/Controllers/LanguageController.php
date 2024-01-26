@@ -50,15 +50,18 @@ class LanguageController extends Controller
             $language->direction = $request->direction;
             $language->save();
         } else {
-            $language = new Languages();
-            $language->title = $request->title;
-            $language->added_by = $this->user->_id;
-            $language->direction = $request->direction;
-            $language->save();
+            $languageExit =  Languages::where('_id', $request->id)->first();
+            if ($languageExit) {
+                return redirect()->to('/language')->with('msg', "Language Already Exit !");
+            } else {
+                $language = new Languages();
+                $language->title = $request->title;
+                $language->added_by = $this->user->_id;
+                $language->direction = $request->direction;
+                $language->save();
+                return redirect()->to('/language')->with('msg', "Language Has Added !");
+            }
         }
-
-
-        return redirect()->to('/language')->with('msg', "Language Has Added !");
     }
     public function edit($id)
     {
