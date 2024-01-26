@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Imports\UsersImport;
 use App\Models\Book;
 use App\Models\BookLastSeen;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -137,6 +138,13 @@ class UserController extends Controller
     {
         $user = User::where('_id', $id)->first();
         $user->delete();
+
+        $books = Book::where('added_by', $id)->update([
+            'status', 0
+        ]);
+        $courses = Course::where('added_by', $id)->update([
+            'status', 0
+        ]);
         return redirect()->to('/user-management')->with('msg', 'User Deleted Successfully!');
     }
 
