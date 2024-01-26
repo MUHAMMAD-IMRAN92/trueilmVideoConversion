@@ -143,6 +143,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
 
+
     Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
     Route::post('podcast/episode', [App\Http\Controllers\BookController::class, 'podcastEpisode'])->name('podcast.episode');
 
@@ -189,6 +190,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-pending-courses', [App\Http\Controllers\CourseController::class, 'allPendingCourses'])->name('courses.pending.all');
     Route::get('course/approve/{id}', [App\Http\Controllers\CourseController::class, 'approveCourse'])->name('course.approve');
     Route::get('course/reject/{id}', [App\Http\Controllers\CourseController::class, 'rejectCourse'])->name('course.reject');
+    Route::get('all-rejected-by-you-courses', [App\Http\Controllers\CourseController::class, 'allRejectedByYouCourses'])->name('courses.rejected.all');
+    Route::get('all-approved-by-you-courses', [App\Http\Controllers\CourseController::class, 'allApprovedByYouCourses'])->name('courses.approved.all');
 
     //course lessons
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');

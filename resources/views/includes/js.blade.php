@@ -938,6 +938,154 @@
                }],
                "order": false
            });
+           $('#rejected-by-you-courses-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-rejected-by-you-courses') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 50);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = "";
+                           if (row.user != null) {
+                               user_name = row.user.name;
+                           } else {
+                               user_name = '--';
+                           }
+                           return '<td>' +
+                               user_name +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var eye = 'feather icon-eye';
+                           if (row.status == 0) {
+                               eye = 'feather icon-eye-off';
+                           }
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
+                               a =
+                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
+                                   `;
+                           }
+                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                           ` +
+                               a +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
+           $('#approved-by-you-courses-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-approved-by-you-courses') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+
+                           return `<td><img class="td-img" src=
+                               ${row.image}
+                               /></td>`
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 50);
+                           } else {
+                               des = '--';
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var user_name = "";
+                           if (row.user != null) {
+                               user_name = row.user.name;
+                           } else {
+                               user_name = '--';
+                           }
+                           return '<td>' +
+                               user_name +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var eye = 'feather icon-eye';
+                           if (row.status == 0) {
+                               eye = 'feather icon-eye-off';
+                           }
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
+                               a =
+                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
+                                   `;
+                           }
+                           return `<td>
+                           ` +
+                               a +
+                               `</td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#grant-table').DataTable({
                "processing": true,
                "serverSide": true,
