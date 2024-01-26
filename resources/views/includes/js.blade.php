@@ -653,6 +653,7 @@
                        "mRender": function(data, type, row) {
 
                            return `<td>
+                            <a href="#" class="reset-password" data-user-id="` + row._id + `"><i class="fa fa-key"></i></a>
                                 <a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                 <a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
                                 </td>`
@@ -4134,4 +4135,63 @@
        function removelessondiv(key) {
            $(".lessonAddQuestionDiv-" + key).remove();
        }
+       $('#user-table').on('click', '.reset-password', function() {
+           var userId = $(this).data('user-id');
+
+           // Open the modal with the form
+           $('#resetPasswordModal').modal('show');
+
+           // Attach the user ID to the modal for reference
+           $('#resetPasswordModal').data('user-id', userId);
+       });
+
+       // Event listener for the form submission
+       $('#resetPasswordForm').submit(function(e) {
+           var newPassword = $('#newPassword').val();
+           var confirmPassword = $('#confirmPassword').val();
+           var userId = $('#resetPasswordModal').data('user-id');
+           $('#user_id').val(userId);
+           if (newPassword == confirmPassword) {
+
+           } else {
+               e.preventDefault();
+               $('#did-not-match').css('display', 'block')
+           }
+       });
+
+       //    $('#resetPasswordForm').submit(function(e) {
+       //        e.preventDefault();
+
+       //        var userId = $('#resetPasswordModal').data('user-id');
+       //        var newPassword = $('#newPassword').val();
+       //        var confirmPassword = $('#confirmPassword').val();
+
+       //        if (newPassword == confirmPassword) {
+       //            $(this).submit();
+       //            $('#resetPasswordModal').modal('hide');
+       //        }
+       //        // Validate passwords and make an AJAX request
+       //        //    $.ajax({
+       //        //        url: 'reset-password',
+       //        //        method: 'POST',
+
+       //        //        data: {
+       //        //            _token: $('meta[name="csrf-token"]').attr('content'),
+       //        //            newPassword: newPassword,
+       //        //            newPassword_confirmation: confirmPassword, // Laravel expects "_confirmation" for password confirmation
+       //        //            userId: userId, // Laravel expects "_confirmation" for password confirmation
+       //        //        },
+       //        //        success: function(response) {
+       //        //            // Handle success, e.g., show a success message
+       //        //            console.log(response.message);
+       //        //        },
+       //        //        error: function(error) {
+       //        //            // Handle errors, e.g., display validation errors
+       //        //            console.log(error.responseJSON.errors);
+       //        //        }
+       //        //    });
+
+       //        // Close the modal
+
+       //    });
    </script>

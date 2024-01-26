@@ -71,7 +71,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-chat.css') }}">
     <!-- END: Page CSS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--Text Box Liabraries-->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>

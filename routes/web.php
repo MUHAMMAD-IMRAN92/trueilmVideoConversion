@@ -160,6 +160,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
     Route::post('user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
     Route::get('user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
+
+    Route::post('reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('reset.password');
+
     //app users
     Route::get('app-users', [App\Http\Controllers\UserController::class, 'appUsers'])->name('app.user');
     Route::get('all-app-user', [App\Http\Controllers\UserController::class, 'allAppUser'])->name('all.app.user');

@@ -328,4 +328,18 @@ class UserController extends Controller
         );
         return json_encode($data);
     }
+
+    public function resetPassword(Request $request)
+    {
+        $user = User::where('_id', $request->user_id)->first();
+        // dd($user);
+        if ($user) {
+            $user->update([
+                'password' => Hash::make($request->newPassword),
+            ]);
+            return redirect()->back()->with(['msg' => 'Password reset successfully']);
+        } else {
+            return response()->json(['message' => 'Something went wrong!']);
+        }
+    }
 }
