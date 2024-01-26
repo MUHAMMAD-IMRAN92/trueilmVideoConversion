@@ -559,7 +559,7 @@ class CourseController extends Controller
             SendNotifications::dispatch($course->added_by, 'Your Course Has Been Published Approved.', 1);
         }
         // activity(1, $id, 1);
-        indexing(6, $course->toArray());
+        indexing(6, $course);
 
         return redirect()->back()->with('msg', 'Content Approved Successfully!');
     }

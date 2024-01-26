@@ -123,8 +123,8 @@ function indexing($type, $content)
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
-
-    $client->index($arrIndex[$type])->addDocuments($content);
+    $contentArr = $content->toArray();
+    $client->index($arrIndex[$type])->addDocuments($contentArr);
 
     if ($type == 2) {
         $book_content = BookContent::where('book_id', $content->_id)->get()->toArray();

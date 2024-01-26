@@ -454,7 +454,7 @@ class BookController extends Controller
             SendNotifications::dispatch($book->added_by, 'Your Book Has Been Published Approved.', 1);
         }
         activity(1, $id, 1);
-        indexing((int)$book->type, $book->toArray());
+        indexing((int)$book->type, $book);
 
         return redirect()->back()->with('msg', 'Content Approved Successfully!');
     }
