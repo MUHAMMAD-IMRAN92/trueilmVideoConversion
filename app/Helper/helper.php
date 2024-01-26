@@ -5,9 +5,12 @@ use App\Models\GlossoryAttribute;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Response;
 use App\Models\Book;
+use App\Models\BookContent;
 use App\Models\BookForSale;
 use App\Models\Category;
+use App\Models\CourseLesson;
 use App\Models\Grant;
+use Meilisearch\Client;
 use Illuminate\Support\Facades\Storage;
 
 function sendSuccess($msg, $data = null)
@@ -113,4 +116,25 @@ function getCategorydropdown($parent_id = 0, $level = 0, $product_cat = 0, $type
         }
     }
     return $html;
+}
+
+function indexing($type, $content)
+{
+    ini_set("memory_limit", "-1");
+    $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+    $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
+
+    $client->index($arrIndex[$type])->addDocuments($content);
+
+    if ($type == 2) {
+        $book_content = BookContent::where('book_id', $content->_id)->get()->toArray();
+        $client->index($arrIndex[12])->addDocuments($book_content);
+    } else if ($type == 7) {
+        $book_content = BookContent::where('book_id', $content->_id)->get()->toArray();
+        $client->index($arrIndex[11])->addDocuments($book_content);
+    } else if ($type == 6) {
+        $course_lesson = CourseLesson::where('course_id', $content->_id)->get()->toArray();
+        $client->index($arrIndex[11])->addDocuments($course_lesson);
+    }
+    return 1;
 }

@@ -440,6 +440,7 @@ class BookController extends Controller
     }
     public function approveBook($id)
     {
+
         $book = Book::where('_id', $id)->first();
         $approved = 1;
         if ($book->approved = 0 || $book->approved = 2) {
@@ -453,6 +454,8 @@ class BookController extends Controller
             SendNotifications::dispatch($book->added_by, 'Your Book Has Been Published Approved.', 1);
         }
         activity(1, $id, 1);
+        indexing((int)$book->type, $book);
+
         return redirect()->back()->with('msg', 'Content Approved Successfully!');
     }
 
