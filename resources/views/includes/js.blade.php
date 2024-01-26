@@ -645,8 +645,8 @@
                                type = 'Publisher';
                            } else if (row.type == 3) {
                                type = 'Institute';
-                           }else{
-                            type = 'Super Admin';
+                           } else {
+                               type = 'Super Admin';
                            }
                            return '<td>' +
                                type + '</td>'

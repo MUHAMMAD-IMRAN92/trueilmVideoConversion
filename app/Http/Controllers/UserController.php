@@ -120,8 +120,10 @@ class UserController extends Controller
             $type = 1;
         } elseif ($request->role == 'Publisher') {
             $type = 2;
-        } else {
+        } else if ($request->role == 'Institute') {
             $type = 3;
+        } else {
+            $type = 4;
         }
         $user = User::where('_id', $request->id)->first();
         $user->name = $request->name;
