@@ -50,9 +50,9 @@ class LanguageController extends Controller
             $language->direction = $request->direction;
             $language->save();
         } else {
-            $languageExit =  Languages::where('_id', $request->id)->first();
+            $languageExit =  Languages::where('title', $request->title)->first();
             if ($languageExit) {
-                return redirect()->to('/language')->with('msg', "Language Already Exit !");
+                return redirect()->to('/language')->with('dmsg', "Language Already Exit !");
             } else {
                 $language = new Languages();
                 $language->title = $request->title;

@@ -56,6 +56,16 @@
                     </button>
                 </div>
             @endif
+            @if (\Session::has('dmsg'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p class="mb-0">
+                    {{ \Session::get('dmsg') }}
+                </p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                </button>
+            </div>
+        @endif
             <div class="modal fade bd-example-modal-lg" id="reason" tabindex="-1" role="dialog"
                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
