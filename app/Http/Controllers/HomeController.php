@@ -419,7 +419,7 @@ class HomeController extends Controller
                 $i++;
 
                 // echo '<pre>';
-                // print_r($myarray);exit;
+                // print_r($myarray);exit;js
             }
         } else {
             $res = $client->multiSearch([

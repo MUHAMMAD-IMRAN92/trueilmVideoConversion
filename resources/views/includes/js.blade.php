@@ -643,8 +643,10 @@
                                type = 'Admin';
                            } else if (row.type == 2) {
                                type = 'Publisher';
-                           } else {
+                           } else if (row.type == 3) {
                                type = 'Institute';
+                           }else{
+                            type = 'Super Admin';
                            }
                            return '<td>' +
                                type + '</td>'
