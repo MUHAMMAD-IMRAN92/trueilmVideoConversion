@@ -53,7 +53,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" id="disable-btn-submit"
+                                        <form class="form form-vertical" class="disable-btn-submit"
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
@@ -737,7 +737,7 @@
                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <form action="{{ url('course/lessons') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                        enctype="multipart/form-data" class="disable-btn-submit">
                                         <div class="form-body">
                                             @csrf
                                             <div class="modal-content">
@@ -869,7 +869,7 @@
                         <div class="modal fade bd-example-modal-lg" id="edit-episode" tabindex="-1" role="dialog"
                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
-                                <form action="{{ url('course/lessons') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ url('course/lessons') }}" method="POST" enctype="multipart/form-data" class="disable-btn-submit">
                                     <div class="form-body">
                                         @csrf
                                         <div class="modal-content">
@@ -990,7 +990,9 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="submit" class="btn btn-primary"><span class="spinner-border mr-1 ml-1"
+                                                    style="display: none"></span>
+                                                <span class="submit-text">Save</span></button>
                                             </div>
                                         </div>
                                     </div>

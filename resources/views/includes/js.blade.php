@@ -2498,7 +2498,12 @@
                $('.spinner-border').css('display', 'block');
                $('.submit-text').css('display', 'none');
            });
-
+           $('.disable-btn-submit').on('submit', function() {
+            // alert('imran');
+               $('.submit-btn').prop('disabled', 'true');
+               $('.spinner-border').css('display', 'block');
+               $('.submit-text').css('display', 'none');
+           });
            $('#app-user-table').DataTable({
                "processing": true,
                "serverSide": true,
