@@ -121,7 +121,7 @@
                                                         <label for="">Author</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="author_id"
-                                                                id="" required >
+                                                                id="" required>
                                                                 <option disabled selected>Select Author</option>
                                                                 @foreach ($author as $auth)
                                                                     <option value="{{ $auth->_id }}">
@@ -217,7 +217,7 @@
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="number" class="  form-control" name="price"
-                                                                placeholder="" id="" value="" >
+                                                                placeholder="" id="" value="">
 
                                                         </div>
 
@@ -231,8 +231,12 @@
                                                     {{-- <span class="btn btn-primary mr-1 mb-1" id="add-lesson">Add
                                                         Lesson</span> --}}
                                                     {{-- </div> --}}
+
                                                     <button type="submit" class="btn btn-primary mr-1 mb-1"
-                                                        id="submit-btn">Submit</button>
+                                                        id="submit-btn">
+                                                        <span class="spinner-border mr-1 ml-1" style="display: none"></span>
+                                                        <span class="submit-text">Submit</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>

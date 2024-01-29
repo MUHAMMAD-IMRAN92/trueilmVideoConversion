@@ -632,9 +632,9 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                        if(row.phone == null){
-                            row.phone = '--';
-                        }
+                           if (row.phone == null) {
+                               row.phone = '--';
+                           }
                            return '<td>' +
                                row.phone + '</td>'
                        }
@@ -2495,6 +2495,8 @@
            });
            $('#disable-btn-submit').on('submit', function() {
                $('#submit-btn').prop('disabled', 'true');
+               $('.spinner-border').css('display', 'block');
+               $('.submit-text').css('display', 'none');
            });
 
            $('#app-user-table').DataTable({
