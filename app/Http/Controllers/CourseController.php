@@ -550,6 +550,46 @@ class CourseController extends Controller
         );
         return json_encode($data);
     }
+
+    public function allRejectedCourses(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        if (auth()->user()->hasRole('Super Admin')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
+
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Course::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->count();
+        $brands = Course::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Course::rejected()->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
+
     public function approveCourse($id)
     {
         $course = Course::where('_id', $id)->first();

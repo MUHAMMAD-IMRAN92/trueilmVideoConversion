@@ -196,6 +196,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-rejected-by-you-courses', [App\Http\Controllers\CourseController::class, 'allRejectedByYouCourses'])->name('courses.rejected.all');
     Route::get('all-approved-by-you-courses', [App\Http\Controllers\CourseController::class, 'allApprovedByYouCourses'])->name('courses.approved.all');
 
+    Route::get('all-rejected-courses', [App\Http\Controllers\CourseController::class, 'allRejectedCourses'])->name('courses.rejected.all');
+
     //course lessons
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
 
