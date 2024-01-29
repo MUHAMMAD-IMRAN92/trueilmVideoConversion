@@ -375,11 +375,11 @@
                                                                     </td>
                                                                     <td>
                                                                         @if ($les->type == 1)
-                                                                            <audio src="{{ $les->video }}"
+                                                                            <audio src="{{ $les->file }}"
                                                                                 style="" controls></audio>
                                                                         @else
                                                                             <video style="width:300px;"
-                                                                                src="{{ $les->video }}"
+                                                                                src="{{ $les->file }}"
                                                                                 controls></video>
                                                                         @endif
                                                                     </td>
@@ -855,7 +855,10 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <span class="spinner-border mr-1 ml-1"
+                                                            style="display: none"></span>
+                                                        <span class="submit-text">Save</span></button>
                                                 </div>
                                             </div>
                                         </div>
