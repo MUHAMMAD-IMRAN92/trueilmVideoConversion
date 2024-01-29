@@ -373,22 +373,3 @@ Route::get('updateModel', function () {
     }
     return 'done';
 });
-Route::get('/new/index', function () {
-    ini_set("memory_limit", "-1");
-    ini_set('max_execution_time', '0');
-    $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $client->deleteIndex('alQurantranslations');
-
-    $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
-
-
-    $alQuran = AlQuranTranslation::get();
-    // $book = Book::where('type', '7')->where('approved', 1)->where('status', 1)->get()->toArray();
-    $client->index('alQurantranslations')->addDocuments($alQuran->toArray());
-    // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
-
-    // $book7 = Book::where('type', "7")->get()->toArray();
-
-    // $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
-    return 'ok';
-});
