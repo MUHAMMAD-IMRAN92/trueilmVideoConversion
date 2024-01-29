@@ -883,7 +883,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="td-img" src=
+                           return `<td><img class="course-td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -957,7 +957,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="td-img" src=
+                           return `<td><img class="course-td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -1031,7 +1031,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="td-img" src=
+                           return `<td><img class="course-td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -1104,7 +1104,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="td-img" src=
+                           return `<td><img class="course-td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -2171,7 +2171,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="td-img" src=
+                           return `<td><img class="course-td-img" src=
                                ${row.image}
                                /></td>`
                        }

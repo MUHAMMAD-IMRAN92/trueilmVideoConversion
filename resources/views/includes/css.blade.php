@@ -264,6 +264,11 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         height: 50px;
     }
 
+    .course-td-img {
+        width: 100px;
+        height: 50px;
+    }
+
     .card-height {
         max-height: 600px;
         overflow-y: scroll;
@@ -307,8 +312,10 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         height: 1px;
         background: #eee;
     }
-    .pointer{
+
+    .pointer {
         cursor: pointer;
     }
+
     /*.rating start*/
 </style>
