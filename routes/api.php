@@ -61,9 +61,9 @@ Route::get('/delete/index', function () {
     // $client->createIndex('ebook', ['primaryKey' => '_id']);
 
 
-
-    $book = Book::where('type', '7')->where('approved', 1)->where('status', 1)->get()->toArray();
-    $client->index('podcast')->addDocuments($book);
+    $alQuran = AlQuranTranslation::where('_id', '65085ff9ecf3636d957101d9')->first();
+    // $book = Book::where('type', '7')->where('approved', 1)->where('status', 1)->get()->toArray();
+    $client->index('alQurantranslations')->addDocuments($alQuran);
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
     // $book7 = Book::where('type', "7")->get()->toArray();
