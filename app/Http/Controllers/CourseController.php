@@ -258,6 +258,8 @@ class CourseController extends Controller
     }
     public function courseLessons(Request $request)
     {
+        ini_set("memory_limit", "-1");
+        ini_set('max_execution_time', '0');
         $durations = json_decode(@$request->duration[0], true);
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->les_id) {
