@@ -81,7 +81,7 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-2 ">
+                                                    <div class="col-md-2 mb-2">
                                                         <img src="{{ $author->image }}" alt="course image"
                                                             style="width:150px; height:120px">
                                                     </div>
