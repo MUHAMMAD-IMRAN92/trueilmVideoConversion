@@ -752,7 +752,9 @@ class BookController extends Controller
         $bookContent->file_duration = @$durations[0]['minutes'] . ':' .  @$durations[0]['seconds'];
 
         $bookContent->save();
-
+        if ($book->approved == 1) {
+            indexing(7, $book);
+        }
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
 }

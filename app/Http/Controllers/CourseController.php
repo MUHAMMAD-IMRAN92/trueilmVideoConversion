@@ -309,7 +309,9 @@ class CourseController extends Controller
         $course = Course::where('_id',  $courseLesson->course_id)->first();
         $course->lesson_count = $count;
         $course->save();
-
+        if ($course->approved == 1) {
+            indexing(6, $course);
+        }
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
 
