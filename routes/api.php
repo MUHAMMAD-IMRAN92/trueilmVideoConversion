@@ -56,9 +56,9 @@ Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexT
 Route::get('/delete/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    // $client->deleteIndex('ebook');
+    $client->deleteIndex('alQurantranslations');
 
-    // $client->createIndex('ebook', ['primaryKey' => '_id']);
+    $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
 
 
     $alQuran = AlQuranTranslation::get()->toArray();
