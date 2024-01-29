@@ -64,7 +64,7 @@
 
                                             <!-- Table with outer spacing -->
                                             <div class="table-responsive">
-                                                <table class="table" id="admin-rejected-book-table">
+                                                <table class="table" id="admin-rejected-book-table" style="width:100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>Cover</th>
