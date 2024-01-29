@@ -63,7 +63,7 @@ Route::get('/delete/index', function () {
 
     $alQuran = AlQuranTranslation::where('_id', '65085ff9ecf3636d957101d9')->first();
     // $book = Book::where('type', '7')->where('approved', 1)->where('status', 1)->get()->toArray();
-    $client->index('alQurantranslations')->addDocuments($alQuran);
+    $client->index('alQurantranslations')->addDocuments($alQuran->toArray());
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
 
     // $book7 = Book::where('type', "7")->get()->toArray();
