@@ -100,7 +100,7 @@
                                         <div class="card-body">
                                             <!-- Table with outer spacing -->
                                             <div class="table-responsive">
-                                                <table class="table" id="pending-book-table">
+                                                <table class="table" id="pending-book-table" style="width:100%;">
                                                     <thead>
                                                         <tr>
                                                             <th>Cover</th>
