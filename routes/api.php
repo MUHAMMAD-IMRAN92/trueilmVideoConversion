@@ -71,7 +71,7 @@ Route::get('/quran/index/{id}', function ($id) {
     // $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
     return 'ok';
 });
-Route::get('/course/index', function ($id) {
+Route::get('/course/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     $client->deleteIndex('course');
