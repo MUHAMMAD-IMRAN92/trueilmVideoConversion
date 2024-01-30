@@ -3,6 +3,7 @@
 <!-- BEGIN: Head-->
 @include('includes.css')
 
+
 <head>
 
 
@@ -162,7 +163,7 @@
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i
                                     class="ficon feather icon-maximize"></i></a></li>
 
-                        <li class="dropdown dropdown-user nav-item" onclick="test()"><a
+                        <li class="dropdown dropdown-user nav-item"><a onclick="logout()"
                                 class="dropdown-toggle nav-link dropdown-user-link" href="#"
                                 data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"
@@ -1082,3 +1083,15 @@
     </div>
     <!-- END: Main Menu-->
 
+    <script>
+        function logout() {
+           var css =  $('.dropdown-menu').css('display');
+
+            if(css =='block'){
+                $('.dropdown-menu').css('display', 'none');
+            }else{
+                $('.dropdown-menu').css('display', 'block');
+            }
+
+        }
+    </script>
