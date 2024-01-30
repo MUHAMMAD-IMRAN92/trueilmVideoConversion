@@ -2,6 +2,7 @@
 <html class="loading" data-textdirection="rtl">
 <!-- BEGIN: Head-->
 @include('includes.css')
+@include('includes.js')
 
 <head>
 
@@ -162,7 +163,7 @@
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i
                                     class="ficon feather icon-maximize"></i></a></li>
 
-                        <li class="dropdown dropdown-user nav-item"><a
+                        <li class="dropdown dropdown-user nav-item" onclick="test()"><a
                                 class="dropdown-toggle nav-link dropdown-user-link" href="#"
                                 data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"
@@ -1081,3 +1082,4 @@
         </div>
     </div>
     <!-- END: Main Menu-->
+
