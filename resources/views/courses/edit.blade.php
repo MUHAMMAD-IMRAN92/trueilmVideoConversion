@@ -315,7 +315,7 @@
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <thead>
-                                                            <tr>
+                                                            <tr style="text-align: center">
                                                                 <th class="">Title</th>
                                                                 <th class="description-td">Description</th>
                                                                 {{-- <th>Module Overview</th> --}}
@@ -363,7 +363,7 @@
                                                                             <span>NA</span>
                                                                         @endif
                                                                     </td> --}}
-                                                                    <td >
+                                                                    <td style="text-align: center">
                                                                         @if ($les->lesson_notes)
                                                                          <a target="blank"
                                                                                 href="{{ $les->lesson_notes }}">
@@ -373,7 +373,7 @@
                                                                             <span>NA</span>
                                                                         @endif
                                                                     </td>
-                                                                    <td>
+                                                                    <td style="text-align: center">
                                                                         @if ($les->type == 1)
                                                                             <audio src="{{ $les->file }}"
                                                                                 style="" controls></audio>
@@ -393,7 +393,7 @@
                                                                         Edit
                                                                         Quiz</a> </td>
                                                             @endif --}}
-                                                                    <td> <i class="fa fa-pencil pointer"
+                                                                    <td style="text-align: center"> <i class="fa fa-pencil pointer"
                                                                             onclick="editLessonModal({{ $key }})"></i>
                                                                     </td>
 
