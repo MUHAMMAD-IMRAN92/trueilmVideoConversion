@@ -2,7 +2,6 @@
 <html class="loading" data-textdirection="rtl">
 <!-- BEGIN: Head-->
 @include('includes.css')
-@include('includes.js')
 
 <head>
 
