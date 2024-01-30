@@ -53,15 +53,15 @@ Route::post('check_expiry',  [App\Http\Controllers\Api\QuizController::class, 'c
 
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
 
-Route::get('/delete/index', function () {
+Route::get('/quran/index/{id}', function ($id) {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $client->deleteIndex('alQurantranslations');
+    // $client->deleteIndex('alQurantranslations');
 
-    $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
+    // $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
 
 
-    $alQuran = AlQuranTranslation::where('author_lang', '65aa5d64c5da12cc4d009911')->get();
+    $alQuran = AlQuranTranslation::where('author_lang', $id)->get();
     // $book = Book::where('type', '7')->where('approved', 1)->where('status', 1)->get()->toArray();
     $client->index('alQurantranslations')->addDocuments($alQuran->toArray());
     // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
@@ -71,7 +71,18 @@ Route::get('/delete/index', function () {
     // $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
     return 'ok';
 });
+Route::get('/course/index/{id}', function ($id) {
+    ini_set("memory_limit", "-1");
+    $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+    $client->deleteIndex('course');
+    $client->createIndex('course', ['primaryKey' => '_id']);
 
+    $course = Course::get();
+    foreach ($course as $c) {
+        indexing(6, $c);
+    }
+    return 'ok';
+});
 Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
 Route::get('notification',  [App\Http\Controllers\HomeController::class, 'notification']);
 
