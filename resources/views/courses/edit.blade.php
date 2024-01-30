@@ -363,9 +363,9 @@
                                                                             <span>NA</span>
                                                                         @endif
                                                                     </td> --}}
-                                                                    <td>
+                                                                    <td style="text-align:center">
                                                                         @if ($les->lesson_notes)
-                                                                            <a target="blank"
+                                                                         <a target="blank"
                                                                                 href="{{ $les->lesson_notes }}">
                                                                                 <i class="fa fa-eye"
                                                                                     style="font-size:20px !important"></i></a>
