@@ -47,17 +47,17 @@ class CourseController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Course::approved()->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->count();
-        $brands = Course::approved()->when($user_id, function ($query) use ($user_id) {
+        $brands = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Course::approved()->when($user_id, function ($query) use ($user_id) {
+        $brandsCount = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
