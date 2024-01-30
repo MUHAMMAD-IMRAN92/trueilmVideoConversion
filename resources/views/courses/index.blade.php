@@ -62,6 +62,7 @@
                                                     <th>Title</th>
                                                     <th class="description-td">Description</th>
                                                     <th>Added By</th>
+                                                    <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

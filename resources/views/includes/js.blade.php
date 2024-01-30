@@ -2209,6 +2209,23 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var approved = '';
+                           if (row.approved == 0) {
+                               approved = 'Pending For Approval';
+                           }
+                           if (row.approved == 2) {
+                               approved = 'Rejected';
+                           }
+                           if (row.approved == 1) {
+                               approved = 'Approved';
+                           }
+                           return '<td>' +
+                               approved +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
                            var eye = 'feather icon-eye';
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';
