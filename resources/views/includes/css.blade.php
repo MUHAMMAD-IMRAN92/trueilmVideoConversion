@@ -266,7 +266,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
     .course-td-img {
         width: 100px;
-        height: 50px;
+        height: 60px;
     }
 
     .card-height {
