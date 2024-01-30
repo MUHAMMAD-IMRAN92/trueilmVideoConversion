@@ -11,7 +11,7 @@
 
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-5  mb-2">
+                <div class="content-header-left col-md-4  mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">Content</h2>
@@ -21,16 +21,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-header-left col-md-5  mb-2 d-flex" style="justify-content:end">
+                <div class="content-header-left col-md-6  mb-2 d-flex" style="justify-content:end">
                     <div class="row breadcrumbs-top d-flex">
                         <form action="{{ url('book/during_period/' . $type) }}" method='POST' class="d-flex">
                             @csrf
-                            <input class="form-control" type="date" name="s_date" id=""
+                            <input class="form-control ml-1" type="date" name="s_date" id=""
                                 value="{{ @$s_date }}">
-                            <input class="form-control" type="date" name="e_date" id=""
+                            <input class="form-control ml-1" type="date" name="e_date" id=""
                                 value="{{ @$e_date }}">
                             <input type="hidden" name="type" value="{{ $type }}" id="">
-                            <button class="btn-icon btn btn-primary btn-round  dropdown-toggle" type="submit"><span
+                            <button class="btn-icon btn btn-primary btn-round  dropdown-toggle ml-1" type="submit"><span
                                     class="add-brand-font"></span> <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
                         </form>
