@@ -391,8 +391,9 @@
                     </li>
                     <hr>
                 @endif
-                @if (auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Admin') ||
-                auth()->user()->hasRole('Super Admin'))
+                @if (auth()->user()->hasRole('Publisher') ||
+                        auth()->user()->hasRole('Admin') ||
+                        auth()->user()->hasRole('Super Admin'))
                     <li class=" navigation-header"><span>Content</span>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
@@ -629,12 +630,12 @@
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                         </li>
                     @endif
-                    @if (auth()->user()->hasRole('Institute'))
-                        <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a
-                                href="{{ url('institute/users') }}"><i class="fa fa-user"></i>
-                                <span class="menu-item" data-i18n="Analytics">Users</span></a>
-                        </li>
-                    @endif
+                @endif
+                @if (auth()->user()->hasRole('Institute'))
+                    <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a
+                            href="{{ url('institute/users') }}"><i class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">Users</span></a>
+                    </li>
                 @endif
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"
