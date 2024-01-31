@@ -83,7 +83,7 @@
                                         @endphp --}}
                                         <h2 class="text-bold-700 mt-1">
                                             {{ App\Models\Book::pendingApprove()->when(
-                                                    !auth()->user()->hasRole('Super Admin'),
+                                                    auth()->user()->hasRole('Publisher'),
                                                     function ($query) {
                                                         $query->where('added_by', auth()->user()->id);
                                                     },
