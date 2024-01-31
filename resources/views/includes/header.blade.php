@@ -391,7 +391,8 @@
                     </li>
                     <hr>
                 @endif
-                @if (auth()->user()->hasRole('Publisher'))
+                @if (auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Admin') ||
+                auth()->user()->hasRole('Super Admin'))
                     <li class=" navigation-header"><span>Content</span>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
