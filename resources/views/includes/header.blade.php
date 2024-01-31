@@ -336,14 +336,14 @@
                 @if (auth()->user()->hasRole('Admin') ||
                         auth()->user()->hasRole('Super Admin') ||
                         auth()->user()->hasRole('Publisher'))
-                        @if (auth()->user()->hasRole('Admin') ||
-                        auth()->user()->hasRole('Super Admin'))
-                <li class=" navigation-header"><span>Al Quran</span>
-                </li>
-                    {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                    @if (auth()->user()->hasRole('Admin') ||
+                            auth()->user()->hasRole('Super Admin'))
+                        <li class=" navigation-header"><span>Al Quran</span>
+                        </li>
+                        {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Al-Quran</span></a>
                         <ul class="menu-content"> --}}
-                    {{-- <li class="@if (request()->is('al-Quran*') || request()->is('surah/edit*') || request()->is('ayat*')) active @endif "><a
+                        {{-- <li class="@if (request()->is('al-Quran*') || request()->is('surah/edit*') || request()->is('ayat*')) active @endif "><a
                                     href="{{ url('al-Quran') }}"><i class="fa fa-book" aria-hidden="true"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surahs</span></a>
                             </li> --}}
@@ -486,133 +486,135 @@
                                 <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                         </li>
                     @endif
-                    <li class="@if (request()->is('language*')) active @endif "><a
-                            href="{{ url('/language') }}"><i class="fa fa-language"></i>
-                            <span class="menu-item" data-i18n="Analytics">Language</span></a>
-                    </li>
-                    <li class=" navigation-header"><span>User Management</span>
-                    </li>
-                    {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
+                    @if (auth()->user()->hasRole('Admin') ||
+                            auth()->user()->hasRole('Super Admin'))
+                        <li class="@if (request()->is('language*')) active @endif "><a
+                                href="{{ url('/language') }}"><i class="fa fa-language"></i>
+                                <span class="menu-item" data-i18n="Analytics">Language</span></a>
+                        </li>
+                        <li class=" navigation-header"><span>User Management</span>
+                        </li>
+                        {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                     data-i18n="Ecommerce">User Management</span></a> --}}
-                    {{-- <ul class="menu-content"> --}}
-                    <li class="@if (request()->is('user*')) active @endif "><a
-                            href="{{ url('user-management') }}"><i class="fa fa-user"></i>
-                            <span class="menu-item" data-i18n="Analytics">Admin Users</span></a>
-                    </li>
+                        {{-- <ul class="menu-content"> --}}
+                        <li class="@if (request()->is('user*')) active @endif "><a
+                                href="{{ url('user-management') }}"><i class="fa fa-user"></i>
+                                <span class="menu-item" data-i18n="Analytics">Admin Users</span></a>
+                        </li>
 
-                    <li class="@if (request()->is('app*')) active @endif "><a
-                            href="{{ url('app-users') }}"><i class="fa fa-user"></i>
-                            <span class="menu-item" data-i18n="Analytics">App Users</span></a>
-                    </li>
-                    <li class="@if (request()->is('affiliate*')) active @endif "><a
-                            href="{{ url('/affiliate ') }}"><i class="fa fa-id-card"></i>
-                            <span class="menu-item" data-i18n="Analytics">Affiliate </span></a>
-                    </li>
-                    <li class="@if (request()->is('family*')) active @endif "><a href="{{ url('/family ') }}"><i
-                                class="fa fa-users"></i>
-                            <span class="menu-item" data-i18n="Analytics">Family </span></a>
-                    </li>
-                    <li class="@if (request()->is('cancel_subscriptions')) active @endif "><a
-                            href="{{ url('cancel_subscriptions') }}"><i class="fa fa-times"></i>
-                            <span class="menu-item" data-i18n="Analytics">Cancel Subscription</span></a>
-                    </li>
-                    {{-- </ul>
+                        <li class="@if (request()->is('app*')) active @endif "><a
+                                href="{{ url('app-users') }}"><i class="fa fa-user"></i>
+                                <span class="menu-item" data-i18n="Analytics">App Users</span></a>
+                        </li>
+                        <li class="@if (request()->is('affiliate*')) active @endif "><a
+                                href="{{ url('/affiliate ') }}"><i class="fa fa-id-card"></i>
+                                <span class="menu-item" data-i18n="Analytics">Affiliate </span></a>
+                        </li>
+                        <li class="@if (request()->is('family*')) active @endif "><a
+                                href="{{ url('/family ') }}"><i class="fa fa-users"></i>
+                                <span class="menu-item" data-i18n="Analytics">Family </span></a>
+                        </li>
+                        <li class="@if (request()->is('cancel_subscriptions')) active @endif "><a
+                                href="{{ url('cancel_subscriptions') }}"><i class="fa fa-times"></i>
+                                <span class="menu-item" data-i18n="Analytics">Cancel Subscription</span></a>
+                        </li>
+                        {{-- </ul>
                         </li> --}}
-                    {{-- <li class="@if (request()->is('user*')) active @endif "><a
+                        {{-- <li class="@if (request()->is('user*')) active @endif "><a
                         href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">User Management</span></a>
                     </li> --}}
-                    {{-- <li class="@if (request()->is('book/pending-*')) active @endif "><a
+                        {{-- <li class="@if (request()->is('book/pending-*')) active @endif "><a
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Content for Approval</span></a>
                     </li> --}}
-                    <hr>
-                    <li class=" navigation-header"><span>Content for Approval</span>
-                    </li>
-                    {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span
+                        <hr>
+                        <li class=" navigation-header"><span>Content for Approval</span>
+                        </li>
+                        {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span
                                     class="menu-title" data-i18n="Ecommerce">Content for Approval</span></a> --}}
-                    {{-- <ul class="menu-content"> --}}
-                    <li class="@if (request()->is('book/pending-*')) active @endif "><a
-                            href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
-                    </li>
+                        {{-- <ul class="menu-content"> --}}
+                        <li class="@if (request()->is('book/pending-*')) active @endif "><a
+                                href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
+                                <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
+                        </li>
 
-                    <li class="@if (request()->is('book/rejected_by_you')) active @endif "><a
-                            href="{{ url('book/rejected_by_you') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Rejected By you</span></a>
-                    </li>
-                    <li class="@if (request()->is('book/approved*')) active @endif "><a
-                            href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Approved By you</span></a>
-                    </li>
+                        <li class="@if (request()->is('book/rejected_by_you')) active @endif "><a
+                                href="{{ url('book/rejected_by_you') }}"><i class="fa fa-book"></i>
+                                <span class="menu-item" data-i18n="Analytics">Rejected By you</span></a>
+                        </li>
+                        <li class="@if (request()->is('book/approved*')) active @endif "><a
+                                href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
+                                <span class="menu-item" data-i18n="Analytics">Approved By you</span></a>
+                        </li>
 
-                    {{-- </ul>
+                        {{-- </ul>
                         </li> --}}
 
-                    <hr>
-                    <li class=" navigation-header"><span>Reviews</span>
-                    </li>
-                    <li class="@if (request()->is('review*')) active @endif "><a href="{{ url('/review') }}"><i
-                                class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Review Book</span></a>
-                    </li>
-                    <li class="@if (request()->is('reflections*')) active @endif "><a
-                            href="{{ url('/reflections') }}"><i class="fa fa-comment-o"></i>
-                            <span class="menu-item" data-i18n="Analytics">Reflections</span></a>
-                    </li>
-                    <li class="@if (request()->is('mistake*')) active @endif "><a
-                            href="{{ url('/mistakes') }}"><i class="fa fa-exclamation-triangle"></i>
-                            <span class="menu-item" data-i18n="Analytics">Book Mistakes</span></a>
-                    </li>
-                    <li class=" navigation-header"><span>Grant</span>
-                    </li>
-                    <li class="@if (request()->is('*grant')) active @endif "><a href="{{ url('/grant') }}"><i
-                                class="fa fa-question"></i>
-                            <span class="menu-item" data-i18n="Analytics">Pending Grant</span></a>
-                    </li>
-                    <li class="@if (request()->is('grant/approved*')) active @endif "><a
-                            href="{{ url('/grant/approved') }}"><i class="fa fa-question"></i>
-                            <span class="menu-item" data-i18n="Analytics">Approved Grant</span></a>
-                    </li>
-                    <li class="@if (request()->is('grant/rejected*')) active @endif "><a
-                            href="{{ url('/grant/rejected') }}"><i class="fa fa-question"></i>
-                            <span class="menu-item" data-i18n="Analytics">Rejected Grant</span></a>
-                    </li>
+                        <hr>
+                        <li class=" navigation-header"><span>Reviews</span>
+                        </li>
+                        <li class="@if (request()->is('review*')) active @endif "><a
+                                href="{{ url('/review') }}"><i class="fa fa-book"></i>
+                                <span class="menu-item" data-i18n="Analytics">Review Book</span></a>
+                        </li>
+                        <li class="@if (request()->is('reflections*')) active @endif "><a
+                                href="{{ url('/reflections') }}"><i class="fa fa-comment-o"></i>
+                                <span class="menu-item" data-i18n="Analytics">Reflections</span></a>
+                        </li>
+                        <li class="@if (request()->is('mistake*')) active @endif "><a
+                                href="{{ url('/mistakes') }}"><i class="fa fa-exclamation-triangle"></i>
+                                <span class="menu-item" data-i18n="Analytics">Book Mistakes</span></a>
+                        </li>
+                        <li class=" navigation-header"><span>Grant</span>
+                        </li>
+                        <li class="@if (request()->is('*grant')) active @endif "><a
+                                href="{{ url('/grant') }}"><i class="fa fa-question"></i>
+                                <span class="menu-item" data-i18n="Analytics">Pending Grant</span></a>
+                        </li>
+                        <li class="@if (request()->is('grant/approved*')) active @endif "><a
+                                href="{{ url('/grant/approved') }}"><i class="fa fa-question"></i>
+                                <span class="menu-item" data-i18n="Analytics">Approved Grant</span></a>
+                        </li>
+                        <li class="@if (request()->is('grant/rejected*')) active @endif "><a
+                                href="{{ url('/grant/rejected') }}"><i class="fa fa-question"></i>
+                                <span class="menu-item" data-i18n="Analytics">Rejected Grant</span></a>
+                        </li>
 
-                    <hr>
-                    <li class="@if (request()->is('*for_sale*')) active @endif "><a
-                            href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>
-                    </li>
-                    <li class="@if (request()->is('subscription_email*')) active @endif "><a
-                            href="{{ url('/subscription_email') }}"><i class="fa fa-user"></i>
-                            <span class="menu-item" data-i18n="Analytics">Email Subscriptions</span></a>
-                    </li>
-                    <li class="@if (request()->is('glossary*')) active @endif "><a
-                            href="{{ url('/glossary') }}"><i class="fa fa-list"></i>
-                            <span class="menu-item" data-i18n="Analytics">Glossary</span></a>
-                    </li>
+                        <hr>
+                        <li class="@if (request()->is('*for_sale*')) active @endif "><a
+                                href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
+                                <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>
+                        </li>
+                        <li class="@if (request()->is('subscription_email*')) active @endif "><a
+                                href="{{ url('/subscription_email') }}"><i class="fa fa-user"></i>
+                                <span class="menu-item" data-i18n="Analytics">Email Subscriptions</span></a>
+                        </li>
+                        <li class="@if (request()->is('glossary*')) active @endif "><a
+                                href="{{ url('/glossary') }}"><i class="fa fa-list"></i>
+                                <span class="menu-item" data-i18n="Analytics">Glossary</span></a>
+                        </li>
 
-                    <li class="@if (request()->is('support*')) active @endif "><a href="{{ url('/support') }}"><i
-                                class="fa fa-question"></i>
-                            <span class="menu-item" data-i18n="Analytics">Support</span></a>
-                    </li>
-                    <li class="@if (request()->is('coupon*')) active @endif "><a href="{{ url('/coupon') }}"><i
-                                class="fa fa-percent"></i>
-                            <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
-                    </li>
+                        <li class="@if (request()->is('support*')) active @endif "><a
+                                href="{{ url('/support') }}"><i class="fa fa-question"></i>
+                                <span class="menu-item" data-i18n="Analytics">Support</span></a>
+                        </li>
+                        <li class="@if (request()->is('coupon*')) active @endif "><a
+                                href="{{ url('/coupon') }}"><i class="fa fa-percent"></i>
+                                <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
+                        </li>
 
-                    <li class="@if (request()->is('order*')) active @endif "><a href="{{ url('/order') }}"><i
-                                class="fa fa-line-chart"></i>
-                            <span class="menu-item" data-i18n="Analytics">Order</span></a>
-                    </li>
-                    {{--
+                        <li class="@if (request()->is('order*')) active @endif "><a
+                                href="{{ url('/order') }}"><i class="fa fa-line-chart"></i>
+                                <span class="menu-item" data-i18n="Analytics">Order</span></a>
+                        </li>
+                        {{--
                         <li class="@if (request()->is('addition_review')) active @endif "><a
                                 href="{{ url('/addition_review') }}"><i class="fa fa-book"></i>
                                 <span class="menu-item" data-i18n="Analytics">Book Addition Review</span></a>
                         </li> --}}
-                @endif
-                {{-- @if (auth()->user()->hasRole('Admin') ||
+                    @endif
+                    {{-- @if (auth()->user()->hasRole('Admin') ||
     auth()->user()->hasRole('Super Admin') ||
     auth()->user()->hasRole('Publisher'))
                         <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span
@@ -622,17 +624,18 @@
                             </ul>
                         </li>
                     @endif --}}
-                @if (auth()->user()->hasRole('Super Admin'))
-                    <li class="@if (request()->is('activities*')) active @endif "><a
-                            href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
-                            <span class="menu-item" data-i18n="Analytics">Activities</span></a>
-                    </li>
-                @endif
-                @if (auth()->user()->hasRole('Institute'))
-                    <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a
-                            href="{{ url('institute/users') }}"><i class="fa fa-user"></i>
-                            <span class="menu-item" data-i18n="Analytics">Users</span></a>
-                    </li>
+                    @if (auth()->user()->hasRole('Super Admin'))
+                        <li class="@if (request()->is('activities*')) active @endif "><a
+                                href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
+                                <span class="menu-item" data-i18n="Analytics">Activities</span></a>
+                        </li>
+                    @endif
+                    @if (auth()->user()->hasRole('Institute'))
+                        <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a
+                                href="{{ url('institute/users') }}"><i class="fa fa-user"></i>
+                                <span class="menu-item" data-i18n="Analytics">Users</span></a>
+                        </li>
+                    @endif
                 @endif
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"
