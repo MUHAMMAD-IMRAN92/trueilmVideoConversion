@@ -77,15 +77,21 @@
                                                 <i class="fa fa-book text-primary font-medium-5"></i>
                                             </div>
                                         </div>
-                                        @php
+                                        {{-- @php
                                             $total_pending = App\Models\Book::pendingApprove()
                                                 ->count();
-                                        @endphp
+                                        @endphp --}}
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ $total_pending }}
+                                            {{ App\Models\Book::pendingApprove()->when(
+                                                    !auth()->user()->hasRole('Super Admin'),
+                                                    function ($query) {
+                                                        $query->where('added_by', auth()->user()->id);
+                                                    },
+                                                )->count() }}
                                         </h2>
                                         <p class="mb-0">Pending For Approval Book <u style="font-size: 10px">
-                                                @if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin') )
+                                                @if (auth()->user()->hasRole('Super Admin') ||
+                                                        auth()->user()->hasRole('Admin'))
                                                     <a href="{{ url('book/pending-for-approval') }}">Click</a>
                                                 @endif
                                             </u>
