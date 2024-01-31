@@ -42,16 +42,16 @@ class PublisherController extends Controller
                 $q->where('name', 'like', "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->count();
-        $brands = $brands->map(function ($p) {
-            $sum = 0;
-            $book = Book::where('publisher_id', $p->_id)->get();
+        // $brands = $brands->map(function ($p) {
+        //     $sum = 0;
+        //     $book = Book::where('publisher_id', $p->_id)->get();
 
-            $book->each(function ($b) use ($p, $sum) {
-                $sum += $b->sum('type');
-            });
-            $p->readPages  = $sum;
-            return $p;
-        });
+        //     $book->each(function ($b) use ($p, $sum) {
+        //         $sum += $b->sum('type');
+        //     });
+        //     $p->readPages  = $sum;
+        //     return $p;
+        // });
 
         $data = array(
             'draw' => $draw,
