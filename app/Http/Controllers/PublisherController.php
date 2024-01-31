@@ -96,7 +96,7 @@ class PublisherController extends Controller
     }
     public function publisherBookReadingDetail(Request $request, $id)
     {
-        $bookRead = Book::where('publisher_id', $id)->whereHas('bookTraking', function ($q) use ($id, $request) {
+        $bookRead = Book::approved()->where('publisher_id', $id)->whereHas('bookTraking', function ($q) use ($id, $request) {
             $q->when($request->e_date, function ($q) use ($request) {
                 $q->whereBetween('createdAt', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
             });
