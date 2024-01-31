@@ -333,11 +333,13 @@
                     </ul>
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
-                <li class=" navigation-header"><span>Al Quran</span>
-                </li>
                 @if (auth()->user()->hasRole('Admin') ||
                         auth()->user()->hasRole('Super Admin') ||
                         auth()->user()->hasRole('Publisher'))
+                        @if (auth()->user()->hasRole('Admin') ||
+                        auth()->user()->hasRole('Super Admin'))
+                <li class=" navigation-header"><span>Al Quran</span>
+                </li>
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Al-Quran</span></a>
                         <ul class="menu-content"> --}}
@@ -345,8 +347,7 @@
                                     href="{{ url('al-Quran') }}"><i class="fa fa-book" aria-hidden="true"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surahs</span></a>
                             </li> --}}
-                    @if (auth()->user()->hasRole('Admin') ||
-                    auth()->user()->hasRole('Super Admin'))
+
                         <li class="@if (request()->is('juz*') || request()->is('juz*') || request()->is('juz*')) active @endif "><a href="{{ url('juz') }}"><i
                                     class="fa fa-list"></i>
                                 <span class="menu-item" data-i18n="Analytics">Juz</span></a>
