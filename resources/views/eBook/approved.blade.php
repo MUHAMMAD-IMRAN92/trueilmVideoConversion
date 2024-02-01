@@ -66,30 +66,32 @@
                     </button>
                 </div>
             @endif
-            <div class="col-12">
 
-                <div class="card">
-
-                    <div class="card-content">
-                        <div class="card-body">
-
-                            <ul class="nav nav-pills nav-fill">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="books-tab-fill" data-toggle="pill" href="#books-fill"
-                                        aria-expanded="true">Books & Podcasts</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="course-tab-fill" data-toggle="pill" href="#course-fill"
-                                        aria-expanded="true">Courses</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="content-body">
+
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">
+                    <div class="col-12">
+
+                        <div class="card">
+
+                            <div class="card-content">
+                                <div class="card-body">
+
+                                    <ul class="nav nav-pills nav-fill">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="books-tab-fill" data-toggle="pill"
+                                                href="#books-fill" aria-expanded="true">Books & Podcasts</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="course-tab-fill" data-toggle="pill" href="#course-fill"
+                                                aria-expanded="true">Courses</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="books-fill" aria-labelledby="books-tab-fill"
@@ -101,7 +103,7 @@
 
                                             <!-- Table with outer spacing -->
                                             <div class="table-responsive">
-                                                <table class="table" id="approved-book-table" style="width:100%;">
+                                                <table class="table w-100" id="approved-book-table" >
                                                     <thead>
                                                         <tr>
                                                             <th>Cover</th>
