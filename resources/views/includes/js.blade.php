@@ -2166,7 +2166,7 @@
                                anchor =
                                    `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
-                           return `<td class="d-flex" style="width :33px;">
+                           return `<td class="d-flex" style="width :150px;">
                                ` +
                                a +
                                `
