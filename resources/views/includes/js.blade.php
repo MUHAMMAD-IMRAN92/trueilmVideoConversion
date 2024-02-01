@@ -2166,13 +2166,11 @@
                                anchor =
                                    `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
                            }
-                           return `<td class="d-flex">
-                               ` +
+                           return `<td class="d-flex" width:"150px !important;">  ` + anchor +
                                a +
-                               `
-                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)"  cursor:pointer"  data-href=""></i></a>` +
-                               anchor +
-                               `</td>`
+
+                               `<a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)"  cursor:pointer"  data-href=""></i></a>
+                              </td>`
                        }
                    },
 

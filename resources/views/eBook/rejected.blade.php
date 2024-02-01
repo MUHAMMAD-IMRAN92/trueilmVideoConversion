@@ -113,7 +113,7 @@
                                                             <th class="">Reason</th>
                                                             @if (auth()->user()->hasRole('Admin') ||
                                                                     auth()->user()->hasRole('Super Admin'))
-                                                                <th>Action</th>
+                                                                <th class="action-td ">Action</th>
                                                             @else
                                                                 <th></th>
                                                             @endif

@@ -338,5 +338,9 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         }
     }
 
+    .action-td {
+        width: 10% !important;
+    }
+
     /*.rating start*/
 </style>
