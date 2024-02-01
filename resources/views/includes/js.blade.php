@@ -1005,7 +1005,7 @@
                                    `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
                                    `;
                            }
-                           return `<td style="width :33px;"><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
                            ` +
                                a +
                                `</td>`
@@ -2166,12 +2166,16 @@
                                anchor =
                                    `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
-                           return `<td>
+                           return `<td class="d-flex">
                                ` +
-                               a + anchor +
-                               `<a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a></td>`
+                               a +
+                               `
+                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                               anchor +
+                               `</td>`
                        }
                    },
+
                ],
                "columnDefs": [{
                    'targets': [0, 1, 2, 3, 4, 5, 6],
@@ -3804,6 +3808,7 @@
        });
 
        function reasonModal(key, type) {
+
            if (type == 1) {
                $('#book_id').val(key);
                var newUrl = "{{ url('book/reject/') }}" + '/' + key;
