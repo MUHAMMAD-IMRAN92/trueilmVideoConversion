@@ -73,8 +73,12 @@
                                                         </div>
                                                     </div>
 
-                                                        <input type="hidden" name="pending_for_approval" value="{{$pending_for_approval}}">
-
+                                                    <input type="hidden" name="pending_for_approval"
+                                                        value="{{ $pending_for_approval }}">
+                                                    <input type="hidden" name="approved"
+                                                        value="{{ $approved }}">
+                                                    <input type="hidden" name="rejected_by_you"
+                                                        value="{{ $rejected_by_you }}">
                                                     <div class="col-12">
                                                         <label for="">Description</label>
                                                         <fieldset class="form-group">
@@ -179,8 +183,8 @@
                                                                     <div class="position-relative">
                                                                         <input type="number" id=""
                                                                             class="form-control" name="pages"
-                                                                            placeholder="" value="{{ $book->book_pages }}"
-                                                                            required>
+                                                                            placeholder=""
+                                                                            value="{{ $book->book_pages }}" required>
 
                                                                     </div>
                                                                 </div>

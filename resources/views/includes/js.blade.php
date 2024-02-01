@@ -1930,15 +1930,27 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var anchor;
                            var a = '';
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
+                                   `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?rejected_by_you=true') }}"><i class="fa fa-pencil" style="font-size:20px"></i></a>`;
                            }
-                           return `<td>
-                                    ${a}
-                                </td>`
+                           if (row.type == 2) {
+                               anchor =
+                                   `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?rejected_by_you=true') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                           } else {
+                               anchor =
+                                   `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                           }
+                           return `<td class="d-flex">
+                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+                               a +
+                               `
+                                ` +
+                               anchor +
+                               `</td>`
                        }
                    },
                ],
@@ -2140,16 +2152,29 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                           var reason = '';
-                           if (row.reason != null) {
-                               reason = row.reason;
-                           } else {
-                               reason = '--'
+                           var anchor;
+                           var a = '';
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
+                               a =
+                                   `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?approved=true') }}"><i class="fa fa-pencil" style="font-size:20px"></i></a>`;
                            }
-                           return '<td>' +
-                               reason + '</td>'
+                           if (row.type == 2) {
+                               anchor =
+                                   `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?approved=true') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                           } else {
+                               anchor =
+                                   `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                           }
+                           return `<td class="d-flex">
+                               ` +
+                               a +
+                               `
+                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                               anchor +
+                               `</td>`
                        }
-                   }
+                   },
 
                ],
                "columnDefs": [{
@@ -2516,7 +2541,7 @@
                $('.submit-text').css('display', 'none');
            });
            $('.disable-btn-submit').on('submit', function() {
-            // alert('imran');
+               // alert('imran');
                $('.submit-btn').prop('disabled', 'true');
                $('.spinner-border').css('display', 'block');
                $('.submit-text').css('display', 'none');

@@ -243,7 +243,9 @@ class BookController extends Controller
             'contentGlossary' => $contentGlossary,
             'publisher' => $publisher,
             'author' => $author,
-            'pending_for_approval' => $request->pending_for_approval
+            'pending_for_approval' => $request->pending_for_approval,
+            'approved' => $request->approved,
+            'rejected_by_you' => $request->rejected_by_you
         ]);
     }
 
@@ -386,7 +388,12 @@ class BookController extends Controller
         if ($request->pending_for_approval == "true") {
             return redirect()->to('/book/pending-for-approval')->with('msg', 'Content Saved Successfully!');
         }
-
+        if ($request->rejected_by_you == "true") {
+            return redirect()->to('/book/rejected_by_you')->with('msg', 'Content Saved Successfully!');
+        }
+        if ($request->approved == "true") {
+            return redirect()->to('/book/approved')->with('msg', 'Content Saved Successfully!');
+        }
         if ($request->type == 7) {
             return redirect()->back();
         }
@@ -463,7 +470,7 @@ class BookController extends Controller
     {
         $book = Book::where('_id', $id)->first();
         $approved = 2;
-        if ($book->approved == 0) {
+        if ($book->approved == 0 || $book->approved == 1) {
             $book->update([
                 'approved' => $approved,
                 'approved_by' => $this->user->id,
