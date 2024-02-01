@@ -110,7 +110,7 @@
                                                             <th class="">Author</th>
                                                             <th class="">Type</th>
                                                             <th class="">Added By</th>
-                                                            <th class="">Action</th>
+                                                            <th class="" style="width:150px;">Action</th>
 
 
                                                         </tr>
