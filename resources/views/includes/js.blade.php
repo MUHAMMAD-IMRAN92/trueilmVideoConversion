@@ -1005,7 +1005,7 @@
                                    `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
                                    `;
                            }
-                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                           return `<td style="width :33px;"><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
                            ` +
                                a +
                                `</td>`
@@ -2166,7 +2166,7 @@
                                anchor =
                                    `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                            }
-                           return `<td class="d-flex">
+                           return `<td class="d-flex" style="width :33px;">
                                ` +
                                a +
                                `
