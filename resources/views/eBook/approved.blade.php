@@ -6,43 +6,43 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="modal fade bd-example-modal-lg" id="reason" tabindex="-1" role="dialog"
-        aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form action="{{ url('/') }}" method="GET" id="reason_form">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Reason For Rejection</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-12">
-                            <input type="hidden"name="book_id" id="book_id" placeholder="">
-                            <div class="col-md-6">
-                                <fieldset class="form-group">
-                                    <label for="basicInputFile">Reason</label>
-                                    <div class="custom-file">
-                                        <div class="position-relative">
-                                            <textarea name="reason" id="" cols="93" rows="10"></textarea>
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <form action="{{ url('/') }}" method="GET" id="reason_form">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Reason For Rejection</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-12">
+                                <input type="hidden"name="book_id" id="book_id" placeholder="">
+                                <div class="col-md-6">
+                                    <fieldset class="form-group">
+                                        <label for="basicInputFile">Reason</label>
+                                        <div class="custom-file">
+                                            <div class="position-relative">
+                                                <textarea name="reason" id="" cols="93" rows="10"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                </fieldset>
+                                    </fieldset>
+                                </div>
+
+
                             </div>
 
-
                         </div>
-
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-9 col-12 mb-2">
@@ -145,7 +145,7 @@
                                                             <th>Title</th>
                                                             <th class="description-td">Description</th>
                                                             <th>Added By</th>
-                                                            <th>Action</th>
+                                                            <th style="width:150px;">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
