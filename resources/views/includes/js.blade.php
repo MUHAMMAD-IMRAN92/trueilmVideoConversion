@@ -2168,10 +2168,10 @@
                            }
                            return `<td>
                                ` +
-                               a +
+                               a + anchor +
                                `
                                 <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
-                               anchor +
+                               +
                                `</td>`
                        }
                    },
