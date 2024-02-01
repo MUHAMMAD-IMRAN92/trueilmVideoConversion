@@ -5,7 +5,7 @@
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
-        <div class="modal fade bd-example-modal-lg" id="reason" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-lg" id="reason" tabindex="-1" role="dialog"
             aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <form action="{{ url('/') }}" method="GET" id="reason_form">
@@ -110,7 +110,7 @@
                                                             <th class="">Author</th>
                                                             <th class="">Type</th>
                                                             <th class="">Added By</th>
-                                                            <th class="" >Action</th>
+                                                            <th class="">Action</th>
 
 
                                                         </tr>
@@ -145,7 +145,7 @@
                                                             <th>Title</th>
                                                             <th class="description-td">Description</th>
                                                             <th>Added By</th>
-                                                            <th >Action</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
