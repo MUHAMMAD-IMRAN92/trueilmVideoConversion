@@ -1915,6 +1915,17 @@
                            return '<td>' +
                                user_name + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var approver_name = '';
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
+                           } else {
+                               approver_name = '--'
+                           }
+                           return '<td>' +
+                               approver_name + '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
@@ -2038,6 +2049,17 @@
                            return '<td>' +
                                user_name + '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var approver_name = '';
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
+                           } else {
+                               approver_name = '--'
+                           }
+                           return '<td>' +
+                               approver_name + '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
@@ -2148,6 +2170,17 @@
                            }
                            return '<td>' +
                                user_name + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var approver_name = '';
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
+                           } else {
+                               approver_name = '--'
+                           }
+                           return '<td>' +
+                               approver_name + '</td>'
                        }
                    },
                    {

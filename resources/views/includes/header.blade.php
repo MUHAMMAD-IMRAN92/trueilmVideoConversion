@@ -541,11 +541,11 @@
 
                     <li class="@if (request()->is('book/rejected_by_you')) active @endif "><a
                             href="{{ url('book/rejected_by_you') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Rejected By you</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Rejected Content</span></a>
                     </li>
                     <li class="@if (request()->is('book/approved*')) active @endif "><a
                             href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
-                            <span class="menu-item" data-i18n="Analytics">Approved By you</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Approved Content</span></a>
                     </li>
 
                     {{-- </ul>

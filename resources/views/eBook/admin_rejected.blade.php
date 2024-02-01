@@ -73,6 +73,7 @@
                                                             <th class="">Author</th>
                                                             <th class="">Type</th>
                                                             <th class="">Added By</th>
+                                                            <th class="">Rejected By</th>
                                                             <th class="">Reason</th>
                                                             @if (auth()->user()->hasRole('Admin'))
                                                                 <th>Action</th>
@@ -103,7 +104,8 @@
 
                                             <!-- Table with outer spacing -->
                                             <div class="table-responsive">
-                                                <table class="table" id="rejected-by-you-courses-table" style="width:100%;">
+                                                <table class="table" id="rejected-by-you-courses-table"
+                                                    style="width:100%;">
                                                     <thead>
                                                         <tr>
                                                             <th class="">Image</th>

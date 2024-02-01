@@ -110,6 +110,7 @@
                                                             <th class="">Author</th>
                                                             <th class="">Type</th>
                                                             <th class="">Added By</th>
+                                                            <th class="">Rejected By</th>
                                                             <th class="">Reason</th>
                                                             @if (auth()->user()->hasRole('Admin') ||
                                                                     auth()->user()->hasRole('Super Admin'))

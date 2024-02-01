@@ -110,9 +110,8 @@
                                                             <th class="">Author</th>
                                                             <th class="">Type</th>
                                                             <th class="">Added By</th>
+                                                            <th class="">Approved By</th>
                                                             <th class="action-td">Action</th>
-
-
                                                         </tr>
                                                     </thead>
                                                     <tbody>
