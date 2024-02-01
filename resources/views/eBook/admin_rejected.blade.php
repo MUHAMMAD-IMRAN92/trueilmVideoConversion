@@ -76,7 +76,7 @@
                                                             <th class="">Rejected By</th>
                                                             <th class="">Reason</th>
                                                             @if (auth()->user()->hasRole('Admin'))
-                                                                <th>Action</th>
+                                                                <th class="action-td">Action</th>
                                                             @else
                                                                 <th></th>
                                                             @endif
