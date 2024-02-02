@@ -113,6 +113,8 @@
                                                             <th>Title</th>
                                                             <th class="description-td">Description</th>
                                                             <th>Added By</th>
+                                                            <th class="">Rejected By</th>
+                                                            <th class="">Reason</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>

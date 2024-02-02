@@ -995,6 +995,30 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var approver_name = '';
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
+                           } else {
+                               approver_name = '--'
+                           }
+                           return '<td>' +
+                               approver_name + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var reason = '';
+                           if (row.reason != null) {
+                               reason = row.reason;
+                           } else {
+                               reason = '--'
+                           }
+                           return '<td>' +
+                               reason + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
                            var eye = 'feather icon-eye';
                            if (row.status == 0) {
                                eye = 'feather icon-eye-off';
@@ -1076,10 +1100,10 @@
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
+                                   `<a  class="ml-1" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>
                                    `;
                            }
-                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i>` +
+                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i>` +
                                a +
                                `</td>`
                        }
@@ -1139,7 +1163,19 @@
                                user_name +
                                '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var approver_name = '';
+                           if (row.approver != null) {
+                               approver_name = row.approver.name;
+                           } else {
+                               approver_name = '--'
+                           }
+                           return '<td>' +
+                               approver_name + '</td>'
+                       }
                    },
+
                    {
                        "mRender": function(data, type, row) {
                            var eye = 'feather icon-eye';
@@ -1149,7 +1185,7 @@
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
+                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>
                                    `;
                            }
                            return `<td>

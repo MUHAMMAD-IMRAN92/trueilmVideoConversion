@@ -138,14 +138,14 @@
 
                                             <!-- Table with outer spacing -->
                                             <div class="table-responsive">
-                                                <table class="table" id="approved-by-you-courses-table"
-                                                    style="width:100%;">
+                                                <table class="table w-100" id="approved-by-you-courses-table">
                                                     <thead>
                                                         <tr>
                                                             <th class="">Image</th>
                                                             <th>Title</th>
                                                             <th class="description-td">Description</th>
                                                             <th>Added By</th>
+                                                            <th class="">Approved By</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>

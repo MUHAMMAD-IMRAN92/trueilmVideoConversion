@@ -44,4 +44,8 @@ class Course extends Eloquent
     {
         return $query->where('approved', 2);
     }
+    public function approver()
+    {
+        return $this->hasOne(User::class, '_id', 'approved_by');
+    }
 }

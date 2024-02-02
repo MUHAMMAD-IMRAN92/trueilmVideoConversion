@@ -490,17 +490,14 @@ class CourseController extends Controller
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = Course::rejected()->when($user_id, function ($query) use ($user_id) {
-
         })->count();
         $brands = Course::rejected()->when($user_id, function ($query) use ($user_id) {
-
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'approver')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::rejected()->when($user_id, function ($query) use ($user_id) {
-
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -528,17 +525,14 @@ class CourseController extends Controller
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = Course::approved()->when($user_id, function ($query) use ($user_id) {
-
         })->count();
         $brands = Course::approved()->when($user_id, function ($query) use ($user_id) {
-
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'approver')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::approved()->when($user_id, function ($query) use ($user_id) {
-
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -575,7 +569,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'approver')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::rejected()->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
