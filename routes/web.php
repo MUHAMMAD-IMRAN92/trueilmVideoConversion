@@ -175,6 +175,8 @@ Route::middleware(['auth'])->group(function () {
     //categories
     Route::get('categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
     Route::get('all-category', [App\Http\Controllers\CategoryController::class, 'allCategory'])->name('category.all');
+    Route::get('categories/inactive', [App\Http\Controllers\CategoryController::class, 'inActive'])->name('inactive.categories');
+    Route::get('all-inactive-category', [App\Http\Controllers\CategoryController::class, 'allInactiveCategory'])->name('inactive-category.all');
     Route::get('category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.add');
     Route::post('category/store', [App\Http\Controllers\CategoryController::class, 'store'])->name('category.store');
     Route::get('category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');

@@ -403,6 +403,10 @@
                                     href="{{ url('categories') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
+                            <li class="@if (request()->is('categories/inactive')) active @endif ml-2"><a
+                                    href="{{ url('categories/inactive') }}"><i class="fa fa-list-alt"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Inactive Category</span></a>
+                            </li>
 
 
                             {{-- <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a

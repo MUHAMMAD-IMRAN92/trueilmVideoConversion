@@ -21,7 +21,7 @@
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
-                            <a href="{{ url("category/create") }}">
+                            <a href="{{ url('category/create') }}">
                                 <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle"
                                     type="button"><span class="add-brand-font">Add Category</span> <i class="fa fa-plus"
                                         aria-hidden="true"></i>
@@ -40,57 +40,57 @@
                         <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
                     </button>
                 </div>
-            @endif  @if (\Session::has('dmsg'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <p class="mb-0">
-                    {{ \Session::get('dmsg') }}
-                </p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
-                </button>
-            </div>
-        @endif
-            <div class="content-body">
-                <!-- Basic Tables start -->
-                <div class="row" id="basic-table">
-                    <div class="col-12">
-                        <div class="card">
+                @endif @if (\Session::has('dmsg'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p class="mb-0">
+                            {{ \Session::get('dmsg') }}
+                        </p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                        </button>
+                    </div>
+                @endif
+                <div class="content-body">
+                    <!-- Basic Tables start -->
+                    <div class="row" id="basic-table">
+                        <div class="col-12">
+                            <div class="card">
 
-                            <div class="card-content">
-                                <div class="card-body">
+                                <div class="card-content">
+                                    <div class="card-body">
 
-                                    <!-- Table with outer spacing -->
-                                    <div class="table-responsive">
-                                        <table class="table" id="category-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th class="description-td">Detail</th>
+                                        <!-- Table with outer spacing -->
+                                        <div class="table-responsive">
+                                            <table class="table" id="category-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th class="description-td">Detail</th>
 
-                                                    @if (auth()->user()->hasRole('Admin') ||
-                                                            auth()->user()->hasRole('Super Admin'))
-                                                        <th>Action</th>
-                                                    @else
-                                                        <th></th>
-                                                    @endif
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                                        @if (auth()->user()->hasRole('Admin') ||
+                                                                auth()->user()->hasRole('Super Admin'))
+                                                            <th>Action</th>
+                                                        @else
+                                                            <th></th>
+                                                        @endif
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
+
+                                    <!-- Table with no outer spacing -->
+
                                 </div>
-
-                                <!-- Table with no outer spacing -->
-
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Basic Tables end -->
+                    <!-- Basic Tables end -->
 
-            </div>
+                </div>
         </div>
     </div>
     <!-- END: Content-->

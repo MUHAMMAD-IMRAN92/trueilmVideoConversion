@@ -26,6 +26,11 @@ class CategoryController extends Controller
 
         return view('category.index');
     }
+    public function inActive()
+    {
+
+        return view('category.inactive');
+    }
     public function allCategory(Request $request)
     {
         if (Session::get('type') == 'undefined') {
@@ -35,13 +40,13 @@ class CategoryController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Category::where('type', $request->type)->count();
-        $brands = Category::when($search, function ($q) use ($search) {
+        $totalBrands = Category::active()->count();
+        $brands = Category::active()->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Category::when($search, function ($q) use ($search) {
+        $brandsCount = Category::active()->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -90,7 +95,7 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $pcategories = Category::where('parent_id', "0")->get();
+        $pcategories = Category::active()->where('parent_id', "0")->get();
         $category = Category::where('_id', $id)->first();
         return view('category.edit', [
             'category' => $category,
@@ -118,7 +123,7 @@ class CategoryController extends Controller
         }
         $category->save();
 
-        return redirect()->to('categories' )->with('msg', 'Category Updated Successfully!');;
+        return redirect()->to('categories')->with('msg', 'Category Updated Successfully!');;
     }
     public function updateStatus($id)
     {
@@ -130,5 +135,31 @@ class CategoryController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function allInactiveCategory(Request $request)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Category::inactive()->count();
+        $brands = Category::inactive()->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Category::inactive()->when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
     }
 }

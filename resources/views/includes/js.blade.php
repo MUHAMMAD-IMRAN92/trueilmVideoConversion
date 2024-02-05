@@ -768,6 +768,59 @@
                    "orderable": false
                }],
                "order": false
+           });   $('#inactive-category-table').DataTable({
+               "processing": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-inactive-category') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.title + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var des = '';
+                           if (row.description != null) {
+                               des = row.description.slice(0, 50);
+                           }
+                           return '<td>' +
+                               des +
+                               '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           var eye = 'feather icon-eye';
+                           if (row.status == 0) {
+                               eye = 'feather icon-eye-off';
+                           }
+                           var a = '';
+                           if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                               "{{ auth()->user()->hasRole('Super Admin') }}") {
+                               a =
+                                   `<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                   <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
+                                   eye + `"></i></a>`;
+                           }
+                           return `<td>
+                                ` + a + `
+
+                                </td>`
+                       }
+                   },
+               ],
+               "columnDefs": [{
+                   'targets': [0, 1, 2],
+                   "orderable": false
+               }],
+               "order": false
            });
            $('#pending-book-table').DataTable({
                "processing": true,
