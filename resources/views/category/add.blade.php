@@ -52,9 +52,7 @@
                                                         <div class="form-group">
                                                             <label for="">Title</label>
                                                             <div class="position-relative">
-                                                                <input type="hidden" id="" class="form-control"
-                                                                    name="type" placeholder=""
-                                                                    value="{{ $type }}">
+
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder="" required>
 

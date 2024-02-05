@@ -106,6 +106,7 @@
                                                             <th>Cover</th>
                                                             <th class="">Title</th>
                                                             <th class="description-td">Description</th>
+                                                            <th class="">Category</th>
                                                             <th class="">Author</th>
                                                             <th class="">Type</th>
                                                             <th class="">Added By</th>
@@ -139,8 +140,9 @@
                                                             <th class="">Image</th>
                                                             <th>Title</th>
                                                             <th class="description-td">Description</th>
+                                                            <th class="">Category</th>
                                                             <th>Added By</th>
-                                                            <th>Action</th>
+                                                            <th style="width:150px">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

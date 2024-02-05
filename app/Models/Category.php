@@ -21,4 +21,8 @@ class Category extends Eloquent
     {
         return $this->hasMany(Category::class, 'parent_id', '_id');
     }
+    public function content()
+    {
+        return $this->hasMany(Book::class, 'category_id', '_id');
+    }
 }

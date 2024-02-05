@@ -105,4 +105,8 @@ class Book extends Eloquent
     {
         return $this->hasOne(Author::class, '_id', 'author_id');
     }
+    public function category()
+    {
+        return $this->hasOne(Category::class, '_id', 'category_id');
+    }
 }

@@ -21,13 +21,10 @@ class CategoryController extends Controller
             return $next($request);
         });
     }
-    public function index($type)
+    public function index()
     {
-        Session::put('type', $type);
 
-        return view('category.index', [
-            'type' => $type
-        ]);
+        return view('category.index');
     }
     public function allCategory(Request $request)
     {
@@ -39,12 +36,12 @@ class CategoryController extends Controller
         $length = $request->get('length');
         $search = $request->search['value'];
         $totalBrands = Category::where('type', $request->type)->count();
-        $brands = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
+        $brands = Category::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Category::where('type', Session::get('type'))->when($search, function ($q) use ($search) {
+        $brandsCount = Category::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -57,25 +54,24 @@ class CategoryController extends Controller
         );
         return json_encode($data);
     }
-    public function create($type)
+    public function create()
     {
-        $pcategories = Category::where('parent_id', "0")->where('type', $type)->get();
+        $pcategories = Category::where('parent_id', "0")->get();
         return view('category.add', [
-            'type' => $type,
             'pcategories' => $pcategories
         ]);
     }
     public function store(CategoryRequest $request)
     {
-        $categoryExit = Category::where('title', $request->title)->where('type', $request->type)->first();
+        $categoryExit = Category::where('title', $request->title)->first();
         if ($categoryExit) {
-            return redirect()->to('categories/' . $request->type)->with('dmsg', 'Category Already Exit!');
+            return redirect()->to('categories')->with('dmsg', 'Category Already Exit!');
         } else {
             $category = new Category();
             $category->title = $request->title;
             $category->description = $request->description;
             $category->added_by = $this->user->id;
-            $category->type = $request->type;
+            $category->type = 0;
             $category->color = $request->color;
             $category->status = 1;
             $category->parent_id = $request->parent_id;
@@ -88,17 +84,16 @@ class CategoryController extends Controller
                 $category->image  = $base_path . $path;
             }
             $category->save();
-            return redirect()->to('categories/' . $request->type)->with('msg', 'Category Saved Successfully!');
+            return redirect()->to('categories')->with('msg', 'Category Saved Successfully!');
         }
     }
 
-    public function edit($type, $id)
+    public function edit($id)
     {
-        $pcategories = Category::where('parent_id', "0")->where('type', $type)->get();
+        $pcategories = Category::where('parent_id', "0")->get();
         $category = Category::where('_id', $id)->first();
         return view('category.edit', [
             'category' => $category,
-            'type' =>  $type,
             'pcategories' => $pcategories
         ]);
     }
@@ -109,7 +104,7 @@ class CategoryController extends Controller
         $category->title = $request->title;
         $category->description = $request->description;
         // $category->added_by = $this->user->id;
-        $category->type = $request->type;
+        $category->type = 0;
         $category->color = $request->color;
         $category->status = $category->status;
         $category->parent_id = $request->parent_id;
@@ -123,7 +118,7 @@ class CategoryController extends Controller
         }
         $category->save();
 
-        return redirect()->to('categories/' . $request->type)->with('msg', 'Category Updated Successfully!');;
+        return redirect()->to('categories' )->with('msg', 'Category Updated Successfully!');;
     }
     public function updateStatus($id)
     {

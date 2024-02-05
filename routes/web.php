@@ -173,11 +173,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all/cancel_subscriptions', [App\Http\Controllers\UserController::class, 'allCancelSubscription'])->name('all.cancelsubscription');
 
     //categories
-    Route::get('categories/{type}', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
+    Route::get('categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
     Route::get('all-category', [App\Http\Controllers\CategoryController::class, 'allCategory'])->name('category.all');
-    Route::get('category/{type}/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.add');
+    Route::get('category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.add');
     Route::post('category/store', [App\Http\Controllers\CategoryController::class, 'store'])->name('category.store');
-    Route::get('category/{type}/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
+    Route::get('category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
     Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
     Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
 
@@ -371,5 +371,15 @@ Route::get('updateModel', function () {
             $h->save();
         }
     }
+    return 'done';
+});
+
+Route::get('category_test', function () {
+    set_time_limit(0);
+    $category = Category::get();
+    // foreach ($category as $cat) {
+    //     \DB::connection('mongodb')->collection('categroies')->where('id', $cat->id)->update(['$unset' => ['0' => "type", '1' => 0]]);
+    // }
+
     return 'done';
 });

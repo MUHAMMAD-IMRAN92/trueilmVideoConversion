@@ -447,6 +447,17 @@
                                des +
                                '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = '';
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--'
+                           }
+                           return '<td>' +
+                               category + '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
@@ -741,7 +752,7 @@
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-2" href="{{ url('category/`+row.type+`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                   `<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                    <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
                                    eye + `"></i></a>`;
                            }
@@ -792,6 +803,17 @@
                            return '<td>' +
                                des +
                                '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = '';
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--'
+                           }
+                           return '<td>' +
+                               category + '</td>'
                        }
                    },
                    {
@@ -883,7 +905,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="course-td-img" src=
+                           return `<td><img class="td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -903,6 +925,18 @@
                            }
                            return '<td>' +
                                des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = "";
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--';
+                           }
+                           return '<td>' +
+                               category +
                                '</td>'
                        }
                    },
@@ -957,7 +991,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="course-td-img" src=
+                           return `<td><img class="td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -977,6 +1011,18 @@
                            }
                            return '<td>' +
                                des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = "";
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--';
+                           }
+                           return '<td>' +
+                               category +
                                '</td>'
                        }
                    },
@@ -1026,10 +1072,10 @@
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
+                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>
                                    `;
                            }
-                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                           return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>
                            ` +
                                a +
                                `</td>`
@@ -1055,7 +1101,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="course-td-img" src=
+                           return `<td><img class="td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -1075,6 +1121,18 @@
                            }
                            return '<td>' +
                                des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = "";
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--';
+                           }
+                           return '<td>' +
+                               category +
                                '</td>'
                        }
                    },
@@ -1128,7 +1186,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="course-td-img" src=
+                           return `<td><img class="td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -1148,6 +1206,18 @@
                            }
                            return '<td>' +
                                des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = "";
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--';
+                           }
+                           return '<td>' +
+                               category +
                                '</td>'
                        }
                    },
@@ -1908,6 +1978,17 @@
                                des +
                                '</td>'
                        }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = '';
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--'
+                           }
+                           return '<td>' +
+                               category + '</td>'
+                       }
                    },
                    {
                        "mRender": function(data, type, row) {
@@ -2045,6 +2126,18 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var category = '';
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--'
+                           }
+                           return '<td>' +
+                               category + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
                            var author = '';
                            if (row.author != null) {
                                author = row.author.name;
@@ -2167,6 +2260,18 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                           var category = '';
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--'
+                           }
+                           return '<td>' +
+                               category + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
                            var author = '';
                            if (row.author != null) {
                                author = row.author.name;
@@ -2263,7 +2368,7 @@
                "columns": [{
                        "mRender": function(data, type, row) {
 
-                           return `<td><img class="course-td-img" src=
+                           return `<td><img class="td-img" src=
                                ${row.image}
                                /></td>`
                        }
@@ -2283,6 +2388,18 @@
                            }
                            return '<td>' +
                                des +
+                               '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           var category = "";
+                           if (row.category != null) {
+                               category = row.category.title;
+                           } else {
+                               category = '--';
+                           }
+                           return '<td>' +
+                               category +
                                '</td>'
                        }
                    },

@@ -61,6 +61,7 @@
                                                     <th class="">Image</th>
                                                     <th>Title</th>
                                                     <th class="description-td">Description</th>
+                                                    <th>Category</th>
                                                     <th>Added By</th>
                                                     <th>Status</th>
                                                     <th>Action</th>

@@ -99,13 +99,13 @@ function getCategorydropdown($parent_id = 0, $level = 0, $product_cat = 0, $type
     for ($loop = 0; $loop < $level; $loop++) {
         $seperator .= "-";
     }
-    $level_categories = Category::where('parent_id', (string)$parent_id)->where('type', (string)$type)->get();
+    $level_categories = Category::where('parent_id', (string)$parent_id)->get();
     foreach ($level_categories as $key => $category) {
-        $count =  Category::where('parent_id', $category->_id)->where('type',  (string)$type)->count();
+        $count =  Category::where('parent_id', $category->_id)->count();
         if ($count > 0) {
             $html .= '<optgroup  label="' . $seperator . $category->title . '">';
             $level++;
-            $html .= getCategorydropdown($category->_id, $level, $product_cat, $type);
+            $html .= getCategorydropdown($category->_id, $level, $product_cat, 0);
             $html .= '</optgroup>';
         } else {
             $selected = "";

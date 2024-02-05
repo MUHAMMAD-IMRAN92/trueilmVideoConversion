@@ -56,7 +56,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'category')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
@@ -75,7 +75,7 @@ class CourseController extends Controller
     public function add()
     {
         $tags = Tag::all();
-        $categories = Category::active()->where('type', "6")->get();
+        $categories = Category::active()->get();
         $author = Author::where('type', '1')->get();
 
         return view('courses.add', [
@@ -162,7 +162,7 @@ class CourseController extends Controller
     {
         $course = Course::where('_id', $id)->with('lessons')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
-        $categories = Category::active()->where('type', "6")->get();
+        $categories = Category::active()->get();
         $tags = Tag::all();
         $author = Author::where('type', '1')->get();
 
@@ -460,7 +460,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'category')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::pendingapprove()->when($user_id, function ($query) use ($user_id) {
             // $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
@@ -496,7 +496,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user', 'approver')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'approver', 'category')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::rejected()->when($user_id, function ($query) use ($user_id) {
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
@@ -531,7 +531,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user', 'approver')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'approver', 'category')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::approved()->when($user_id, function ($query) use ($user_id) {
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
@@ -569,7 +569,7 @@ class CourseController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at', 'desc')->with('user', 'approver')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->with('user', 'approver', 'category')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Course::rejected()->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {

@@ -53,9 +53,7 @@
                                                         <div class="form-group">
                                                             <label for="">Name</label>
                                                             <div class="position-relative">
-                                                                <input type="hidden" id="" class="form-control"
-                                                                    name="type" placeholder=""
-                                                                    value="{{ $type }}">
+
                                                                 <input type="hidden" id="" class="form-control"
                                                                     name="id" placeholder=""
                                                                     value="{{ $category->_id }}" required>

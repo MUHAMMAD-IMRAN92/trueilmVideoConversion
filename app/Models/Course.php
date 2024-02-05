@@ -48,4 +48,8 @@ class Course extends Eloquent
     {
         return $this->hasOne(User::class, '_id', 'approved_by');
     }
+    public function category()
+    {
+        return $this->hasOne(Category::class, '_id', 'category_id');
+    }
 }
