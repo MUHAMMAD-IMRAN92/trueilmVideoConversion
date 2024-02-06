@@ -11,14 +11,24 @@
         src: url('../../../../app-assets/fonts/ZEENASKHDARUSALAM.woff') format('woff');
     }
 
+    @font-face {
+        font-family: 'indopak';
+        src: url('../../../../app-assets/fonts/indopak-nastaleeq-waqf-lazim-v4.2.1.woff') format('woff');
+    }
 
     .checkclass {
         font-family: 'arabicfontfirst' !important;
         font-size: 26px;
     }
 
+
     .checkclasssecond {
         font-family: 'arabicfontsecond' !important;
+    }
+
+    .checkclassthird {
+        font-family: 'indopak' !important;
+        font-size: 26px;
     }
 </style>
 
@@ -203,7 +213,7 @@
                                             <option value="">All
                                             </option>
                                             @foreach ($surah->ayats as $aya)
-                                                <option style="height: fit-content;width:inherit" class="checkclass"
+                                                <option style="height: fit-content;width:inherit" class="checkclassthird"
                                                     value="{{ $aya->_id }}"
                                                     {{ request()->aya == $aya->_id ? 'selected' : '' }}>
                                                     {{ $aya->sequence . ' : ' . $aya->ayat }}
@@ -217,11 +227,11 @@
 
                                         <select class="select2 form-control" name="khatoot" id="">
 
-                                            <option class="checkclass" value="1"
+                                            <option class="checkclassthird" value="1"
                                                 {{ request()->khatoot == 1 ? 'selected' : '' }}>
                                                 Uthmani
                                             </option>
-                                            <option class="checkclass" value="2"
+                                            <option class="checkclassthird" value="2"
                                                 {{ request()->khatoot == 2 ? 'selected' : '' }}>
                                                 Indopak
                                             </option>
@@ -296,7 +306,7 @@
 
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-12 checkclass" id="non-editble-translation--1">
+                                                    <div class="col-12 checkclassthird" id="non-editble-translation--1">
                                                         <div class="row d-flex flex-row-reverse pr-2"
                                                             style="align-items:center;gap:12px;">
 
@@ -331,7 +341,7 @@
                                                 </div>
 
                                                 <div id="editble--1" style="display:none">
-                                                    <div class="row checkclass" style=" text-align:right"
+                                                    <div class="row checkclassthird" style=" text-align:right"
                                                         id="editble--1">
 
                                                         <div class="col-12">
@@ -454,7 +464,7 @@
 
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-12 checkclass"
+                                                    <div class="col-12 checkclassthird"
                                                         id="non-editble-translation-{{ $key }}">
                                                         <div class="row d-flex flex-row-reverse pr-2"
                                                             style="align-items:center;gap:12px;">
@@ -463,11 +473,12 @@
                                                                 {{ $aya->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
-                                                                class="mt-1 checkclass"
+                                                                class="mt-1 checkclassthird"
                                                                 style="text-align: right; line-height:50px">
-                                                                {!! @$aya->khatoot[0]->ayat !!}
+                                                                {!! @$aya->khatoot[0]->ayat !!}</p> <span
+                                                                class="checkclass">{{ @$aya->arabic_aya_no }}</span>
 
-                                                            </p>
+
 
                                                         </div>
 
@@ -526,7 +537,7 @@
                                                     </div>
                                                 @endif
                                                 <div id="editble-{{ $key }}" style="display:none">
-                                                    <div class="row checkclass" style=" text-align:right"
+                                                    <div class="row checkclassthird" style=" text-align:right"
                                                         id="editble-{{ $key }}">
 
                                                         <div class="col-12">
@@ -557,7 +568,7 @@
                                                     </div>
                                                 </div>
                                                 <div id="revelation-editble-{{ $key }}" style="display:none">
-                                                    <div class="row checkclass" style=" text-align:right"
+                                                    <div class="row checkclassthird" style=" text-align:right"
                                                         id="editble-{{ $key }}">
 
                                                         <div class="col-12">
@@ -591,7 +602,7 @@
                                                     style="margin-left:50% !important;display:none"
                                                     id="spinner-grow-{{ $key }}"></div>
                                                 <div id="notes-editble-{{ $key }}" style="display:none">
-                                                    <div class="row checkclass" style=" text-align:right"
+                                                    <div class="row checkclassthird" style=" text-align:right"
                                                         id="editble-{{ $key }}">
 
                                                         <div class="col-12">

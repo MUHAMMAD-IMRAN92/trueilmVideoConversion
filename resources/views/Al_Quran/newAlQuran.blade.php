@@ -13,6 +13,10 @@
             src: url('../../../../app-assets/fonts/ZEENASKHDARUSALAM.woff') format('woff');
         }
 
+        @font-face {
+            font-family: 'indopak';
+            src: url('../../../../app-assets/fonts/ indopak-nastaleeq-waqf-lazim-v4.2.1.woff') format('woff');
+        }
 
         .checkclass {
             font-family: 'arabicfontfirst' !important;
@@ -21,6 +25,11 @@
 
         .checkclasssecond {
             font-family: 'arabicfontsecond' !important;
+        }
+
+        .checkclassthird {
+            font-family: 'indopak' !important;
+            font-size: 26px;
         }
     </style>
     <!-- BEGIN: Content-->
@@ -38,7 +47,7 @@
                             <form action="{{ url('all_surah_translations/' . $content_type) }}" method="GET"
                                 class="">
                                 <div class="form-label-group">
-                                    <select class="select2 form-control checkclass" name="surah" id="">
+                                    <select class="select2 form-control checkclassthird" name="surah" id="">
                                         <option selected disabled>Select
                                             Surah
                                         </option>
@@ -80,7 +89,8 @@
                                     <tr
                                         onclick="document.location ='{{ url('surah_translations/' . $content_type . '/' . $surah->surah_id) }}';">
                                         <td>{{ $surah->sequence }}.</td>
-                                        <td class="product-name checkclass" style="font-size: 20px">{{ $surah->title }}</td>
+                                        <td class="product-name checkclassthird" style="font-size: 20px">{{ $surah->title }}
+                                        </td>
 
                                         <td>
                                             @php

@@ -342,5 +342,70 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         width: 10% !important;
     }
 
+
+    .madda_necessary {
+        color: #7b2ece;
+    }
+
+    .madda_normal {
+        color: #b8a7ff;
+    }
+
+    .ham_wasl {
+        color: #a8a8a8;
+    }
+
+    .idgham_wo_ghunnah {
+        color: #1098c0;
+    }
+
+    .madda_permissible {
+        color: #a76eff;
+    }
+
+    .slnt {
+        color: #ababab;
+    }
+
+    .ghunnah {
+        color: #65bd00;
+    }
+
+    .qalaqah {
+        color: #8e3000;
+    }
+
+    .ikhafa {
+        color: #ba4860;
+    }
+
+    .madda_obligatory {
+        color: #bd49ea;
+    }
+
+    .idgham_ghunnah {
+        color: #1098c0;
+    }
+
+    .ikhafa_shafawi {
+        color: #d06462;
+    }
+
+    .idgham_shafawi {
+        color: #1098c0;
+    }
+
+    .laam_shamsiyah {
+        color: #ababab;
+    }
+
+    .ghunnah {
+        color: #65bd00;
+    }
+
+    .iqlab {
+        color: #65bd00;
+    }
+
     /*.rating start*/
 </style>

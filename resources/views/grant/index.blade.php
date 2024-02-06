@@ -118,7 +118,7 @@
                                                     <th class="">Type</th>
 
                                                     <th class="">Applied By</th>
-                                                    <th>Action</th>
+                                                    <th >Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

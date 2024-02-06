@@ -7,9 +7,9 @@
         }
 
         @font-face {
-        font-family: 'arabicfontfirst';
-        src: url('../../../../../app-assets/fonts/KFGQPCUthmanicScriptHAFS1.woff') format('woff');
-    }
+            font-family: 'arabicfontfirst';
+            src: url('../../../../../app-assets/fonts/KFGQPCUthmanicScriptHAFS1.woff') format('woff');
+        }
 
 
         @font-face {
@@ -17,6 +17,10 @@
             src: url('../../../../app-assets/fonts/ZEENASKHDARUSALAM.woff') format('woff');
         }
 
+        @font-face {
+            font-family: 'indopak';
+            src: url('../../../../app-assets/fonts/indopak-nastaleeq-waqf-lazim-v4.2.1.woff') format('woff');
+        }
 
         .checkclass {
             font-family: 'arabicfontfirst' !important;
@@ -25,6 +29,11 @@
 
         .checkclasssecond {
             font-family: 'arabicfontsecond' !important;
+        }
+
+        .checkclassthird {
+            font-family: 'indopak' !important;
+            font-size: 26px;
         }
     </style>
 
@@ -108,7 +117,7 @@
                         </form>
 
                         <div class="col-2 ">
-                            <h2 class="content-header-title float-left mb-0 mt-1 checkclass">{{ $surah->surah }}</h2>
+                            <h2 class="content-header-title float-left mb-0 mt-1 checkclassthird">{{ $surah->surah }}</h2>
                         </div>
                     </div>
                 </div>
