@@ -23,8 +23,7 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link href="
-    https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css
-    " rel="stylesheet">
+    https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/vendors/css/extensions/tether-theme-arrows.css') }}">
@@ -70,7 +69,8 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/data-list-view.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-chat.css') }}">
     <!-- END: Page CSS-->
