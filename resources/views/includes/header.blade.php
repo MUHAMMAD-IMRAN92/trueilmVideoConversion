@@ -22,6 +22,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- BEGIN: Vendor CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/reseter.css/1.0.8/reseter.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/vendors/css/extensions/tether-theme-arrows.css') }}">

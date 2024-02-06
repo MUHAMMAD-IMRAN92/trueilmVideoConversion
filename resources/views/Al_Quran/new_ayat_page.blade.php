@@ -32,7 +32,7 @@
     }
 </style>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/reseter.css/1.0.8/reseter.css" rel="stylesheet">
+
 @section('content')
     <!-- BEGIN: Content-->
     <div class="app-content content">
