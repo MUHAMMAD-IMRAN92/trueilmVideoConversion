@@ -75,46 +75,51 @@
                         <div class="col-5 d-flex">
 
                             <form action="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}" method="GET">
-                                <div class="form-label-group">
-                                    <select class="select2 form-control" name="lang" id="">
-                                        <option selected disabled>Select
-                                            Language
-                                        </option>
-                                        <option value="">All
-                                        </option>
-                                        @foreach ($languages as $lang)
-                                            <option value="{{ $lang->_id }}"
-                                                {{ request()->lang == $lang->_id ? 'selected' : '' }}
-                                                {{ $currentCombination->lang_id == $lang->_id ? 'selected' : '' }}>
-                                                {{ $lang->title }}
+                                <div class="row form-label-group">
+                                    <div class="col-6 ">
+                                        <select class="select2 form-control" name="lang" id="">
+                                            <option selected disabled>Select
+                                                Language
                                             </option>
-                                        @endforeach
-
-                                    </select>
-                                    <select class="select2 form-control" name="author" id="">
-                                        <option selected disabled>Select
-                                            Author
-                                        </option>
-                                        <option value="">All
-                                        </option>
-                                        @foreach ($author as $auth)
-                                            <option value="{{ $auth->_id }}"
-                                                {{ request()->author == $auth->_id ? 'selected' : '' }}
-                                                {{ $currentCombination->author_id == $auth->_id ? 'selected' : '' }}>
-                                                {{ $auth->name }}
+                                            <option value="">All
                                             </option>
-                                        @endforeach
+                                            @foreach ($languages as $lang)
+                                                <option value="{{ $lang->_id }}"
+                                                    {{ request()->lang == $lang->_id ? 'selected' : '' }}
+                                                    {{ $currentCombination->lang_id == $lang->_id ? 'selected' : '' }}>
+                                                    {{ $lang->title }}
+                                                </option>
+                                            @endforeach
 
-
-                                    </select>
-                                    <div class="mt-2">
-                                        <button class="btn btn-dark" type="submit"> Search</button>
-                                        <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
-                                            class="btn btn-dark"> Clear</a>
+                                        </select>
                                     </div>
+                                    <div class="col-6">
+                                        <select class="select2 form-control" name="author" id="">
+                                            <option selected disabled>Select
+                                                Author
+                                            </option>
+                                            <option value="">All
+                                            </option>
+                                            @foreach ($author as $auth)
+                                                <option value="{{ $auth->_id }}"
+                                                    {{ request()->author == $auth->_id ? 'selected' : '' }}
+                                                    {{ $currentCombination->author_id == $auth->_id ? 'selected' : '' }}>
+                                                    {{ $auth->name }}
+                                                </option>
+                                            @endforeach
 
 
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mt-2">
+                                            <button class="btn btn-dark" type="submit"> Search</button>
+                                            <a href="{{ url('surah_translations/' . $type . '/' . $surah->_id) }}"
+                                                class="btn btn-dark"> Clear</a>
+                                        </div>
 
+
+                                    </div>
                                 </div>
                             </form>
                         </div>

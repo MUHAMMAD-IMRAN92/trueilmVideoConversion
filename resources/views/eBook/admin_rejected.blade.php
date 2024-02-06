@@ -78,7 +78,7 @@
                                                             <th class="">Rejected By</th>
                                                             <th class="">Reason</th>
                                                             @if (auth()->user()->hasRole('Admin'))
-                                                                <th style="width:150px">Action</th>
+                                                                <th class="d-flex" style="width:130px">Action</th>
                                                             @else
                                                                 <th></th>
                                                             @endif
@@ -117,7 +117,7 @@
                                                             <th>Added By</th>
                                                             <th class="">Rejected By</th>
                                                             <th class="">Reason</th>
-                                                            <th  class="action-td">Action</th>
+                                                            <th class="action-td">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
