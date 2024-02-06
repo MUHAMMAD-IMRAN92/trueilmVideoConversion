@@ -407,5 +407,11 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         color: #65bd00;
     }
 
+    html,
+    body {
+        text-rendering: optimizeLegibility !important;
+        font-synthesis: none;
+    }
+
     /*.rating start*/
 </style>
