@@ -91,5 +91,5 @@ Route::get('AlQuranTafseer',  [App\Http\Controllers\HomeController::class, 'AlQu
 Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 
 
-Route::get('translations_api_rendering/{translation_id}/{combination_id}', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
+Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
 Route::get('QuranEncTranslation/{key}/{combination_id}',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);

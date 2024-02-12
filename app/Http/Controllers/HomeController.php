@@ -348,29 +348,36 @@ class HomeController extends Controller
     }
     // text_indopak
     // text_uthmani_tajweed
-    public function AlQuranTranslations($translation_id, $combination_id)
+    public function AlQuranTranslations()
     {
         ini_set('max_execution_time', '0');
 
-        AlQuranTranslation::where('author_lang', $combination_id)->delete();
+        $authArr = [
+            85 => "65ca0c95d5f8cfe031aeabea", 17 => "65ca0c9cd5f8cfe031aeabeb", 207 => "65ca0ca3d5f8cfe031aeabec", 149 => "65ca0ca9d5f8cfe031aeabed", 19 => "65ca0cafd5f8cfe031aeabee",
+            167 => "65ca0cb6d5f8cfe031aeabef", 84 => "65ca0cbbd5f8cfe031aeabf0", 206 => "65ca0cc3d5f8cfe031aeabf1", 95 => "65ca0cc8d5f8cfe031aeabf2", 171 => "65ca0ccdd5f8cfe031aeabf3"
+        ];
+        foreach ($authArr  as $nokey => $arr) {
+            AlQuranTranslation::where('author_lang', $arr)->delete();
 
-        $alQuran = AlQuran::get();
-        foreach ($alQuran as $key => $verse) {
-            $url = Http::get("https://api.quran.com/api/v4/quran/translations/$translation_id?verse_key=$verse->verse_key");
-            $response = json_decode($url->body());
+            $alQuran = AlQuran::get();
+            foreach ($alQuran as $key => $verse) {
+                $url = Http::get("https://api.quran.com/api/v4/quran/translations/$nokey?verse_key=$verse->verse_key");
+                $response = json_decode($url->body());
 
-            $alQuranTranslation = new AlQuranTranslation();
+                $alQuranTranslation = new AlQuranTranslation();
 
-            $alQuranTranslation->translation = strip_tags($response->translations[0]->text);
-            $alQuranTranslation->ayat_id = $verse->_id;
-            $alQuranTranslation->surah_id = $verse->surah_id;
-            $alQuranTranslation->author_lang = $combination_id;
-            $alQuranTranslation->type = 1;
-            $alQuranTranslation->added_by = '6447918217e6501d607f4943';
-            $alQuranTranslation->save();
+                $alQuranTranslation->translation = strip_tags($response->translations[0]->text);
+                $alQuranTranslation->ayat_id = $verse->_id;
+                $alQuranTranslation->surah_id = $verse->surah_id;
+                $alQuranTranslation->author_lang = $arr;
+                $alQuranTranslation->type = 1;
+                $alQuranTranslation->added_by = '6447918217e6501d607f4943';
+                $alQuranTranslation->save();
 
-            SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 1);
+                SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 1);
+            }
         }
+
         return 'save!';
     }
     function search(Request $request)
