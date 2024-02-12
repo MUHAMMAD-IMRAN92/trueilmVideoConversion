@@ -625,6 +625,7 @@ class HomeController extends Controller
         ini_set('max_execution_time', '0');
 
         AlQuranTranslation::where('author_lang', '65ca0021d5f8cfe031aeabe0')->delete();
+        AlQuranTranslation::where('author_lang', '65ca000ad5f8cfe031aeabdf')->delete();
         // AlQuranTranslation::where('author_lang', '65546f0381f11c8450d5cecd')->delete();
         // AlQuranTranslation::where('author_lang', '655470dd81f11c8450d5cece')->delete();
         // return '1';
