@@ -353,6 +353,7 @@ class HomeController extends Controller
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", -1);
 
+        $alQuran = AlQuran::get();
         $authArr = [
             85 => "65ca0c95d5f8cfe031aeabea", 17 => "65ca0c9cd5f8cfe031aeabeb", 207 => "65ca0ca3d5f8cfe031aeabec", 149 => "65ca0ca9d5f8cfe031aeabed", 19 => "65ca0cafd5f8cfe031aeabee",
             167 => "65ca0cb6d5f8cfe031aeabef", 84 => "65ca0cbbd5f8cfe031aeabf0", 206 => "65ca0cc3d5f8cfe031aeabf1", 95 => "65ca0cc8d5f8cfe031aeabf2", 171 => "65ca0ccdd5f8cfe031aeabf3"
@@ -360,7 +361,6 @@ class HomeController extends Controller
         foreach ($authArr  as $nokey => $arr) {
             AlQuranTranslation::where('author_lang', $arr)->delete();
 
-            $alQuran = AlQuran::get();
             foreach ($alQuran as $key => $verse) {
                 $url = Http::get("https://api.quran.com/api/v4/quran/translations/$nokey?verse_key=$verse->verse_key");
                 $response = json_decode($url->body());
@@ -375,7 +375,7 @@ class HomeController extends Controller
                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                 $alQuranTranslation->save();
 
-                SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 1);
+                // SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 1);
             }
         }
 
