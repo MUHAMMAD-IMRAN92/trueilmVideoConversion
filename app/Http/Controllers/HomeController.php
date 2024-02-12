@@ -624,7 +624,7 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', '0');
 
-        AlQuranTranslation::where('author_lang', '65c9fc37d5f8cfe031aeabdc')->delete();
+        AlQuranTranslation::where('author_lang', '65ca0021d5f8cfe031aeabe0')->delete();
         // AlQuranTranslation::where('author_lang', '65546f0381f11c8450d5cecd')->delete();
         // AlQuranTranslation::where('author_lang', '655470dd81f11c8450d5cece')->delete();
         // return '1';
@@ -687,11 +687,37 @@ class HomeController extends Controller
 
                 //     SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
                 // }
-                if ($tafser->resource_id == 168) {
+                // if ($tafser->resource_id == 168) {
+                //     $alQuranTranslation = new AlQuranTranslation();
+
+                //     $alQuranTranslation->translation = strip_tags($tafser->text);
+                //     $alQuranTranslation->author_lang = '65c9fc37d5f8cfe031aeabdc';
+                //     $alQuranTranslation->ayat_id = $verse->_id;
+                //     $alQuranTranslation->surah_id = $verse->surah_id;
+                //     $alQuranTranslation->type = 2;
+                //     $alQuranTranslation->added_by = '6447918217e6501d607f4943';
+                //     $alQuranTranslation->save();
+
+                //     SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
+                // }
+                if ($tafser->resource_id == 159) {
                     $alQuranTranslation = new AlQuranTranslation();
 
                     $alQuranTranslation->translation = strip_tags($tafser->text);
-                    $alQuranTranslation->author_lang = '65c9fc37d5f8cfe031aeabdc';
+                    $alQuranTranslation->author_lang = '65ca0021d5f8cfe031aeabe0';
+                    $alQuranTranslation->ayat_id = $verse->_id;
+                    $alQuranTranslation->surah_id = $verse->surah_id;
+                    $alQuranTranslation->type = 2;
+                    $alQuranTranslation->added_by = '6447918217e6501d607f4943';
+                    $alQuranTranslation->save();
+
+                    SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 2);
+                }
+                if ($tafser->resource_id == 157) {
+                    $alQuranTranslation = new AlQuranTranslation();
+
+                    $alQuranTranslation->translation = strip_tags($tafser->text);
+                    $alQuranTranslation->author_lang = '65ca000ad5f8cfe031aeabdf';
                     $alQuranTranslation->ayat_id = $verse->_id;
                     $alQuranTranslation->surah_id = $verse->surah_id;
                     $alQuranTranslation->type = 2;
