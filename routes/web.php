@@ -375,13 +375,3 @@ Route::get('updateModel', function () {
     }
     return 'done';
 });
-
-Route::get('category_test', function () {
-    set_time_limit(0);
-    $category = Category::get();
-    // foreach ($category as $cat) {
-    //     \DB::connection('mongodb')->collection('categroies')->where('id', $cat->id)->update(['$unset' => ['0' => "type", '1' => 0]]);
-    // }
-
-    return 'done';
-});
