@@ -78,7 +78,7 @@
                                                                                 @foreach ($content as $key => $c)
                                                                                     <tr>
 
-                                                                                        <td>{{ $c->book_name }}</td>
+                                                                                        <td>{{str_replace(".mp3","",$c->book_name);  }}</td>
                                                                                         <td> <input type="hidden"
                                                                                                 value="{{ $c->_id }}"
                                                                                                 name="chapters[]"><input
