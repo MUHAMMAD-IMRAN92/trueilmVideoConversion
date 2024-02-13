@@ -25,7 +25,7 @@ class DevController extends Controller
     {
         ini_set('max_execution_time', '0');
         $rows = Excel::import(new HadeesImport, $request->file);
-
+        return 'ok';
         // $homepage = file_get_contents($request->file[0]);
         // $response = '';
         // $zip = zip_open($request->file[0]);
