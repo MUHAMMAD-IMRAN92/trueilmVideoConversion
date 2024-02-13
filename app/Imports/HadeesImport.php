@@ -20,10 +20,6 @@ class HadeesImport implements ToModel
      */
     public function model(array $row)
     {
-        $noString = $row[3] . ':' . $row[8];
-
-        $Khatoot = Khatoot::where('type', 1)->where('verse_key', (string)$noString)->update([
-            'ayat' => $row[9]
-        ]);
+       
     }
 }
