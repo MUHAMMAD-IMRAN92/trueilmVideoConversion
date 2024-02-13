@@ -377,9 +377,7 @@ Route::get('updateModel', function () {
 });
 Route::get('check', function () {
     set_time_limit(0);
-    $alQuran = AlQuran::with(['translations' => function ($q) {
-        $q->where('author_lang', '65ca0021d5f8cfe031aeabe0');
-    }])->get();
+    $alQuran = AlQuranTranslation::ordeBy('created_at', 'DESC')->get()->take(869);
 
 
     return $alQuran;
