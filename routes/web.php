@@ -375,9 +375,12 @@ Route::get('updateModel', function () {
     }
     return 'done';
 });
-// Route::get('check', function () {
-//        $alQuran = AlQuranTranslation::truncate();
+Route::get('testSing', function () {
+    $alQuran = Khatoot::where('type', 1)->get();
 
-//        return   $alQuranTranslation =   AlQuran::truncate();
-//     return 'done';
-// });
+    foreach ($alQuran as $ayah) {
+        $ayah = str_replace('۞', '', $ayah->ayat);
+        $ayah->save();
+    }
+    return 'done';
+});
