@@ -375,3 +375,10 @@ Route::get('updateModel', function () {
     }
     return 'done';
 });
+Route::get('check', function () {
+    set_time_limit(0);
+    $alQuran = AlQuranTranslation::where('author_lang', "65ca0021d5f8cfe031aeabe0")->orderBy('created_at', 'DESC')->get()->take(869)->pluck('_id');
+
+    $alQuranTranslation =   AlQuranTranslation::whereIn('_id', $alQuran)->delete();
+    return $alQuranTranslation;
+});
