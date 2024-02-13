@@ -94,12 +94,3 @@ Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 
 Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
 Route::get('QuranEncTranslation/{key}/{combination_id}',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);
-Route::get('check', function () {
-    set_time_limit(0);
-    $alQuran = AlQuran::whereHas('translations', function ($q) {
-        $q->where('author_lang', "65ca0c95d5f8cfe031aeabea");
-    })->withCount('translations')->get()->where('translations_count', '>=', 1);
-
-
-    return $alQuran;
-});
