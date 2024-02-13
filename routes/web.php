@@ -379,7 +379,7 @@ Route::get('testSing', function () {
     $alQuran = Khatoot::where('type', 1)->get();
 
     foreach ($alQuran as $ayah) {
-        $ayah = str_replace('۞', '', $ayah->ayat);
+        $ayah->ayat = str_replace('۞', '', $ayah->ayat);
         $ayah->save();
     }
     return 'done';
