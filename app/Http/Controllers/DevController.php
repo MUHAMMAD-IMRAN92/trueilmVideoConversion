@@ -92,7 +92,7 @@ class DevController extends Controller
                             $hadees->book_id = $book->_id;
                             $hadees->added_by = '6447918217e6501d607f4943';
                             $hadees->chapter_id = $subchapter->_id;
-
+                            $hadees->takreej = $row[12];
                             $hadees->hadith_number =  0;
                             $hadees->auto_gen_chapter_no = $key;
                             $hadees->save();
@@ -107,7 +107,7 @@ class DevController extends Controller
                             $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                             $alQuranTranslation->book_id = $book->_id;
                             $alQuranTranslation->chapter_id = $subchapter->_id;
-                            $alQuranTranslation->takreej = $row[12];
+
                             $alQuranTranslation->save();
                             HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
                         }
@@ -154,6 +154,7 @@ class DevController extends Controller
                                 } else {
                                     $chapterNo = $row[4];
                                 }
+                                $hadees->takreej = $row[12];
                                 $hadees->hadith_number =  $hadithno;
                                 $hadees->auto_gen_chapter_no = $key;
                                 $hadees->save();
@@ -168,7 +169,7 @@ class DevController extends Controller
                                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                                 $alQuranTranslation->book_id = $book->_id;
                                 $alQuranTranslation->chapter_id = $subchapter->_id;
-                                $alQuranTranslation->takreej = $row[12];
+
                                 $alQuranTranslation->save();
                                 HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
                             }
