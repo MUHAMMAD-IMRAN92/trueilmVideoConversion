@@ -379,7 +379,7 @@ Route::get('check', function () {
     set_time_limit(0);
     $alQuran = AlQuran::whereHas('translations', function ($q) {
         $q->where('author_lang', "65ca0021d5f8cfe031aeabe0");
-    })->withCount('translations')->get()->where('translations_count', '>=', 1);
+    })->withCount('translations')->get();
 
 
     return $alQuran;
