@@ -69,7 +69,7 @@
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">
-                    <div class="col-12">
+                    {{-- <div class="col-12">
 
                         <div class="card">
 
@@ -89,75 +89,80 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-12">
-                        <div class="tab-content">
+                        {{-- <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="books-fill" aria-labelledby="books-tab-fill"
-                                aria-expanded="true">
-                                <div class="card">
+                                aria-expanded="true"> --}}
+                        <input type="hidden" value="{{ $type }}" name="" id="content-type">
+                        @if ($type != 6)
+                            <div class="card">
 
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <!-- Table with outer spacing -->
-                                            <div class="table-responsive">
-                                                <table class="table" id="pending-book-table" style="width:100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Cover</th>
-                                                            <th class="">Title</th>
-                                                            <th class="description-td">Description</th>
-                                                            <th class="">Category</th>
-                                                            <th class="">Author</th>
-                                                            <th class="">Type</th>
-                                                            <th class="">Added By</th>
-                                                            <th style="width:150px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <!-- Table with outer spacing -->
+                                        <div class="table-responsive">
+                                            <table class="table" id="pending-book-table" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cover</th>
+                                                        <th class="">Title</th>
+                                                        <th class="description-td">Description</th>
+                                                        <th class="">Category</th>
+                                                        <th class="">Author</th>
+                                                        <th class="">Type</th>
+                                                        <th class="">Added By</th>
+                                                        <th style="width:150px">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                </tbody>
+                                            </table>
                                         </div>
-
-                                        <!-- Table with no outer spacing -->
-
                                     </div>
+
+                                    <!-- Table with no outer spacing -->
+
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="course-fill" aria-labelledby="course-tab-fill"
-                                aria-expanded="true">
-                                <div class="card">
+                        @endif
+                        {{-- </div> --}}
+                        {{-- <div role="tabpanel" class="tab-pane" id="course-fill" aria-labelledby="course-tab-fill" --}}
+                        {{-- aria-expanded="true"> --}}
+                        @if ($type == 6)
+                            <div class="card">
 
-                                    <div class="card-content">
-                                        <div class="card-body">
+                                <div class="card-content">
+                                    <div class="card-body">
 
-                                            <!-- Table with outer spacing -->
-                                            <div class="table-responsive">
-                                                <table class="table" id="pending-courses-table" style="width:100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="">Image</th>
-                                                            <th>Title</th>
-                                                            <th class="description-td">Description</th>
-                                                            <th class="">Category</th>
-                                                            <th>Added By</th>
-                                                            <th style="width:150px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                        <!-- Table with outer spacing -->
+                                        <div class="table-responsive">
+                                            <table class="table" id="pending-courses-table" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="">Image</th>
+                                                        <th>Title</th>
+                                                        <th class="description-td">Description</th>
+                                                        <th class="">Category</th>
+                                                        <th>Added By</th>
+                                                        <th style="width:150px">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                </tbody>
+                                            </table>
                                         </div>
-
-                                        <!-- Table with no outer spacing -->
-
                                     </div>
+
+                                    <!-- Table with no outer spacing -->
+
                                 </div>
                             </div>
-                        </div>
+                        @endif
+                        {{-- </div> --}}
+                        {{-- </div> --}}
                     </div>
                 </div>
                 <!-- Basic Tables end -->

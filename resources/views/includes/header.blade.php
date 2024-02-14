@@ -68,8 +68,7 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('app-assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/data-list-view.css') }}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/app-chat.css') }}">
     <!-- END: Page CSS-->
@@ -336,8 +335,7 @@
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
 
-                @if (auth()->user()->hasRole('Admin') ||
-                        auth()->user()->hasRole('Super Admin'))
+                @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                     <li class=" navigation-header"><span>Al Quran</span>
                     </li>
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
@@ -393,9 +391,7 @@
                     </li>
                     <hr>
                 @endif
-                @if (auth()->user()->hasRole('Publisher') ||
-                        auth()->user()->hasRole('Admin') ||
-                        auth()->user()->hasRole('Super Admin'))
+                @if (auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                     <li class=" navigation-header"><span>Content</span>
                     </li>
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
@@ -457,8 +453,7 @@
                             <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                     </li>
                 @endif
-                @if (auth()->user()->hasRole('Admin') ||
-                        auth()->user()->hasRole('Super Admin'))
+                @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                     <li class="@if (request()->is('language*')) active @endif "><a
                             href="{{ url('/language') }}"><i class="fa fa-language"></i>
                             <span class="menu-item" data-i18n="Analytics">Language</span></a>
@@ -505,11 +500,42 @@
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span
                                     class="menu-title" data-i18n="Ecommerce">Content for Approval</span></a> --}}
                     {{-- <ul class="menu-content"> --}}
-                    <li class="@if (request()->is('book/pending-*')) active @endif "><a
+
+                    {{-- <li class="@if (request()->is('book/pending-*')) active @endif "><a
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
-                    </li>
+                    </li> --}}
+                    <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                                data-i18n="Ecommerce">Pending for Approval</span></a>
+                        <ul class="menu-content">
 
+                            <li class="@if (request()->is('book/pending-for-approval/1')) active @endif ml-2"><a
+                                    href="{{ url('book/pending-for-approval/1') }}"><i class="ffa fa-book"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Ebook</span></a>
+                            </li>
+                            <li class="@if (request()->is('book/pending-for-approval/2')) active @endif ml-2"><a
+                                    href="{{ url('book/pending-for-approval/2') }}"><i class="fa fa-book"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Audio Book</span></a>
+                            </li>
+                            <li class="@if (request()->is('book/pending-for-approval/3')) active @endif ml-2"><a
+                                    href="{{ url('book/pending-for-approval/3') }}"><i class="fa fa-file"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Papers</span></a>
+                            </li>
+                            <li class="@if (request()->is('book/pending-for-approval/7')) active @endif ml-2"><a
+                                    href="{{ url('book/pending-for-approval/7') }}"><i class="fa fa-list"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
+                            </li>
+                            <li class="@if (request()->is('book/pending-for-approval/6')) active @endif ml-2"><a
+                                    href="{{ url('book/pending-for-approval/6') }}"><i class="fa fa-list"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Courses</span></a>
+                            </li>
+                            {{-- <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
+                            href="{{ url('books/1') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">eBooks</span></a>
+                    </li> --}}
+
+                        </ul>
+                    </li>
                     <li class="@if (request()->is('book/rejected_by_you')) active @endif "><a
                             href="{{ url('book/rejected_by_you') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected Content</span></a>
@@ -585,9 +611,7 @@
                                 <span class="menu-item" data-i18n="Analytics">Book Addition Review</span></a>
                         </li> --}}
 
-                    {{-- @if (auth()->user()->hasRole('Admin') ||
-    auth()->user()->hasRole('Super Admin') ||
-    auth()->user()->hasRole('Publisher'))
+                    {{-- @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Publisher'))
                         <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span
                                     class="menu-title" data-i18n="Ecommerce">Content Management</span></a>
                             <ul class="menu-content">

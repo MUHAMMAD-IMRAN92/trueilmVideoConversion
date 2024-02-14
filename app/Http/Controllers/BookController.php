@@ -414,25 +414,26 @@ class BookController extends Controller
 
         return redirect()->back();
     }
-    public function pendingForApprove()
+    public function pendingForApprove($type)
     {
         return view('eBook.pending_index', [
-            'type' => Session::get('type')
+            'type' => $type
         ]);
     }
     public function allPendingForApprovalBooks(Request $request)
     {
+        $type = $request->type;
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::pendingApprove()->count();
-        $brands = Book::pendingApprove()->with('author', 'user', 'approver' , 'category')->when($search, function ($q) use ($search) {
+        $totalBrands = Book::where('type', $type)->pendingApprove()->count();
+        $brands = Book::where('type', $type)->pendingApprove()->with('author', 'user', 'approver', 'category')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::pendingApprove()->when($search, function ($q) use ($search) {
+        $brandsCount = Book::where('type', $type)->pendingApprove()->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });

@@ -836,6 +836,7 @@
                "order": false
            });
            $('#pending-book-table').DataTable({
+
                "processing": true,
                "stateSave": true,
                "serverSide": true,
@@ -844,7 +845,10 @@
                    "searchPlaceholder": "Search here"
                },
                "ajax": {
-                   url: '<?= url('all-pending-book') ?>'
+                   url: '<?= url('all-pending-book') ?>',
+                   "data": function(d) {
+                       d.type = $('#content-type').val();
+                   }
                },
                "columns": [{
                        "mRender": function(data, type, row) {
