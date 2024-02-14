@@ -74,6 +74,7 @@
 
            $('#ayat-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -116,6 +117,7 @@
            });
            $('#juz-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -156,6 +158,7 @@
            });
            $('#publisher-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -200,6 +203,7 @@
 
            $('#author-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -245,6 +249,7 @@
            });
            $('#order-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -342,6 +347,7 @@
            });
            $('#book-for-sale-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -411,6 +417,7 @@
            });
            $('#ebook-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -576,6 +583,7 @@
            });
            $('#hadees-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -619,6 +627,7 @@
            });
            $('#user-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -684,6 +693,7 @@
            });
            $('#subs-email-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -717,6 +727,7 @@
            });
            $('#category-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -768,8 +779,10 @@
                    "orderable": false
                }],
                "order": false
-           });   $('#inactive-category-table').DataTable({
+           });
+           $('#inactive-category-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -824,6 +837,7 @@
            });
            $('#pending-book-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -947,6 +961,7 @@
            });
            $('#pending-courses-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1033,6 +1048,7 @@
            });
            $('#rejected-by-you-courses-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1143,6 +1159,7 @@
            });
            $('#rejected-courses-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1228,6 +1245,7 @@
            });
            $('#approved-by-you-courses-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1326,6 +1344,7 @@
            });
            $('#grant-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1412,6 +1431,7 @@
            });
            $('#book-mistake-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1485,6 +1505,7 @@
            });
            $('#comments-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1545,6 +1566,7 @@
            });
            $('#reflection-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1596,6 +1618,7 @@
            });
            $('#rejected-grant-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1705,6 +1728,7 @@
            });
            $('#approved-grant-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1802,6 +1826,7 @@
            });
            $('#book-review-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1906,6 +1931,7 @@
            //epub additional review
            $('#book-addition-review-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -1998,6 +2024,7 @@
            });
            $('#admin-rejected-book-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2143,6 +2170,7 @@
            });
            $('#rejected-book-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2277,6 +2305,7 @@
            });
            $('#approved-book-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2410,6 +2439,7 @@
            });
            $('#courses-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2508,6 +2538,7 @@
            });
            $('#support-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2578,6 +2609,7 @@
            });
            $('#activity-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2613,6 +2645,7 @@
            });
            $('#glossory-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2645,6 +2678,7 @@
            });
            $('#coupon-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2785,6 +2819,7 @@
            });
            $('#app-user-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2847,6 +2882,7 @@
            });
            $('#cancel-subsciption').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
@@ -2909,6 +2945,7 @@
            });
            $('#institue-users-table').DataTable({
                "processing": true,
+               "stateSave": true,
                "serverSide": true,
                "deferRender": true,
                "language": {
