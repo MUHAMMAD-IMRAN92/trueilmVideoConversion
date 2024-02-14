@@ -77,6 +77,7 @@ class StripeController extends Controller
                 $session = $stripe->billingPortal->sessions->create([
                     'customer' => $customer,
                     'return_url' =>   $request->return_url,
+                    'allow_promotion_codes' => true
                 ]);
                 return  sendSuccess('Billing Portal Url .', $session->url);
             } else {
@@ -93,7 +94,7 @@ class StripeController extends Controller
                     'customer' => $customer,
                     'success_url' =>  $request->success_url,
                     'cancel_url' =>  $request->cancel_url,
-                    'allow_promotion_codes' => true
+
                 ]);
                 $plan = Subscription::where('price_id', $request->price)->where('status', 0)->first();
                 $userSubscription = new UserSubscription();
