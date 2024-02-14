@@ -375,8 +375,6 @@ class HomeController extends Controller
                         'type' => 1,
                         'added_by' => '6447918217e6501d607f4943',
                     ];
-                } else {
-                    continue;
                 }
             }
             $chunkSize = 1000;
