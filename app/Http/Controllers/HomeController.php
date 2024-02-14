@@ -355,25 +355,29 @@ class HomeController extends Controller
 
         $alQuran = AlQuran::get();
         $authArr = [
-            207 => "65ca0ca3d5f8cfe031aeabec", 149 => "65ca0ca9d5f8cfe031aeabed", 19 => "65ca0cafd5f8cfe031aeabee", 167 => "65ca0cb6d5f8cfe031aeabef",
+            167 => "65ca0cb6d5f8cfe031aeabef",
             84 => "65ca0cbbd5f8cfe031aeabf0", 206 => "65ca0cc3d5f8cfe031aeabf1", 95 => "65ca0cc8d5f8cfe031aeabf2", 171 => "65ca0ccdd5f8cfe031aeabf3"
         ];
-        // 65ca0c9cd5f8cfe031aeabeb
         foreach ($authArr  as $nokey => $arr) {
             AlQuranTranslation::where('author_lang', $arr)->delete();
             $records = [];
             foreach ($alQuran as $key => $verse) {
-                $url = Http::get("https://api.quran.com/api/v4/quran/translations/$nokey?verse_key=$verse->verse_key");
-                $response = json_decode($url->body());
 
-                $records[] = [
-                    'translation' => strip_tags($response->translations[0]->text),
-                    'ayat_id' => $verse->_id,
-                    'surah_id' => $verse->surah_id,
-                    'author_lang' => $arr,
-                    'type' => 1,
-                    'added_by' => '6447918217e6501d607f4943',
-                ];
+                $url = Http::get("https://api.quran.com/api/v4/quran/translations/$nokey?verse_key=$verse->verse_key");
+                if ($url->successful()) {
+                    $response = json_decode(@$url->body());
+
+                    $records[] = [
+                        'translation' => strip_tags(@$response->translations[0]->text),
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' => $arr,
+                        'type' => 1,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                } else {
+                    continue;
+                }
             }
             $chunkSize = 1000;
             $chunks = array_chunk($records, $chunkSize);
@@ -633,7 +637,8 @@ class HomeController extends Controller
 
     public function AlQuranTafseer()
     {
-        ini_set('max_execution_time', '0');
+        ini_set('max_execution_time', 0);
+        ini_set("memory_limit", "-1");
 
         AlQuranTranslation::where('author_lang', '65ca0021d5f8cfe031aeabe0')->delete();
         AlQuranTranslation::where('author_lang', '65c9fc37d5f8cfe031aeabdc')->delete();
