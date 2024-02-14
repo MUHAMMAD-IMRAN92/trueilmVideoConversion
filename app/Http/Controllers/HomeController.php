@@ -695,6 +695,7 @@ class HomeController extends Controller
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
         AlQuranTranslation::where('author_lang', $combination_id)->delete();
+        $records = [];
         for ($i = 1; $i < 115; $i++) {
 
             $surah = Surah::where('sequence', $i)->first();
@@ -709,23 +710,22 @@ class HomeController extends Controller
                 $ayaNo = $res->sura . ':' . $res->aya;
                 $alQuran = AlQuran::where('verse_key',  $ayaNo)->first();
 
-                $alQuranTranslation = new AlQuranTranslation();
-                // $alQuranTranslation->lang = $lang;`
-
-                // [1] preg_replace('/\[[^\]]*\]/', '', $res->translation)
-                // 1. \Str::after($res->translation, '.');
-                $alQuranTranslation->translation = \Str::after($res->translation, '.');
-                $alQuranTranslation->ayat_id = $alQuran->id;
-                $alQuranTranslation->added_by = '6447918217e6501d607f4943';
-                $alQuranTranslation->surah_id = $alQuran->surah_id;
-                $alQuranTranslation->author_lang = $combination_id;
-                $alQuranTranslation->type = 1;
-
-                $alQuranTranslation->save();
-                SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 1);
+                $records[] = [
+                    'translation' => strip_tags(@$res->translation),
+                    'ayat_id' => $alQuran->id,
+                    'surah_id' =>  $alQuran->surah_id,
+                    'author_lang' => $combination_id,
+                    'type' => 1,
+                    'added_by' => '6447918217e6501d607f4943',
+                ];
+                // SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 1);
             }
         }
-
+        $chunkSize = 1000;
+        $chunks = array_chunk($records, $chunkSize);
+        foreach ($chunks as $chunk) {
+            AlQuranTranslation::insert($chunk);
+        }
 
         return 'done';
     }
