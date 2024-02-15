@@ -124,7 +124,7 @@ class StripeController extends Controller
 
 
         // $endpoint_secret = 'whsec_CzOJbOFa7h8jaLUBlTbCQThnCHVQJgwm';
-        $endpoint_secret = 'whsec_kk0UpM82MNDiVOajDZ0ZdRFGvY9QrZ36';
+        $endpoint_secret = 'whsec_YOfNdwXJc2MVjkns5UihqTmplZFtcDmo';
 
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
