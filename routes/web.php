@@ -352,14 +352,14 @@ Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])
 
 Route::get('updateModel', function () {
     set_time_limit(0);
-    $chapters = HadithChapter::where('book_id', '65ce0923e08adee9f4146f27')->whereNull('parent_id')->pluck('_id');
+    $chapters = HadithChapter::where('book_id', '655f47441c3df94998007a1a')->whereNull('parent_id')->pluck('_id');
 
     foreach ($chapters as $key => $ch) {
         $var = 20;
         $page = 1;
         // 656862b4a5b9ba63bd7e4f02
         // 65ce0923e08adee9f4146f27
-        $subchapters = HadithChapter::where('book_id', '65ce0923e08adee9f4146f27')->where('parent_id', $ch)->pluck('_id');
+        $subchapters = HadithChapter::where('book_id', '655f47441c3df94998007a1a')->where('parent_id', $ch)->pluck('_id');
         $hadith =  Hadees::whereIn('chapter_id', $subchapters)->get();
 
         foreach ($hadith as $key => $h) {

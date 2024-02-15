@@ -123,7 +123,8 @@ class StripeController extends Controller
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
 
-        $endpoint_secret = 'whsec_CzOJbOFa7h8jaLUBlTbCQThnCHVQJgwm';
+        // $endpoint_secret = 'whsec_CzOJbOFa7h8jaLUBlTbCQThnCHVQJgwm';
+        $endpoint_secret = 'we_1Ok7hOAQpnlOGBUJo03Beppp';
 
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
