@@ -8,7 +8,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class HadithChapter extends Eloquent
 {
     use HasFactory;
-    protected $table = "new_hadees_chapters";
+    protected $table = "hadith_chapters";
 
     public function hadees()
     {

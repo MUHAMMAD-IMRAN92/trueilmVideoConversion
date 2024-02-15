@@ -9,7 +9,7 @@ class HadeesTranslation extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $table = 'new_hadees_translations';
+    protected $table = 'hadees_translations';
     protected $appends = ['lang_title'];
 
     public function getLangTitleAttribute()

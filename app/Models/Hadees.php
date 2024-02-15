@@ -9,7 +9,7 @@ class Hadees extends Eloquent
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $table = 'new_hadees';
+    protected $table = 'hadees';
     public function translations()
     {
         return $this->hasMany(HadeesTranslation::class, 'hadees_id', 'id');
