@@ -90,7 +90,8 @@ class StripeController extends Controller
                         'quantity' => 1, // Set the quantity to 1 for a standard subscription
                     ]],
                     'mode' => 'subscription',
-                    'customer' => $customer,  'discounts' => [['coupon' => "J8QZRkMC"]],
+                    'customer' => $customer,
+                    'allow_promotion_codes' => true,
                     'success_url' =>  $request->success_url,
                     'cancel_url' =>  $request->cancel_url,
 
