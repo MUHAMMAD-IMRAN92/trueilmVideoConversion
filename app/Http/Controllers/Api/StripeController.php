@@ -82,7 +82,7 @@ class StripeController extends Controller
             } else {
                 // $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
                 Stripe::setApiKey(env('STRIPE_SECRET'));
-                $coupon = "tftJHSKO";
+
                 $session = \Stripe\Checkout\Session::create([
                     'payment_method_types' => ['card'],
                     'line_items' => [[
@@ -90,7 +90,7 @@ class StripeController extends Controller
                         'quantity' => 1, // Set the quantity to 1 for a standard subscription
                     ]],
                     'mode' => 'subscription',
-                    'customer' => $customer,  'discounts' => [['coupon' => "MYCODE"]],
+                    'customer' => $customer,  'discounts' => [['coupon' => "J8QZRkMC"]],
                     'success_url' =>  $request->success_url,
                     'cancel_url' =>  $request->cancel_url,
 
