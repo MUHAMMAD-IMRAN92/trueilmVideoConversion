@@ -43,53 +43,54 @@
                         <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
                     </button>
                 </div>
-            @endif @if (\Session::has('dmsg'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <p class="mb-0">
-                    {{ \Session::get('dmsg') }}
-                </p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
-                </button>
-            </div>
-        @endif
-            <div class="content-body">
-                <!-- Basic Tables start -->
-                <div class="row" id="basic-table">
-                    <div class="col-12">
-                        <div class="card">
+                @endif @if (\Session::has('dmsg'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <p class="mb-0">
+                            {{ \Session::get('dmsg') }}
+                        </p>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                        </button>
+                    </div>
+                @endif
+                <div class="content-body">
+                    <!-- Basic Tables start -->
+                    <div class="row" id="basic-table">
+                        <div class="col-12">
+                            <div class="card">
 
-                            <div class="card-content">
-                                <div class="card-body">
+                                <div class="card-content">
+                                    <div class="card-body">
 
-                                    <!-- Table with outer spacing -->
-                                    <div class="table-responsive">
-                                        <table class="table" id="coupon-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Title</th>
-                                                    <th>Description</th>
-                                                    <th>Percentage</th>
+                                        <!-- Table with outer spacing -->
+                                        <div class="table-responsive">
+                                            <table class="table" id="coupon-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Title</th>
+                                                        <th>Description</th>
+                                                        <th>Promotion Code</th>
+                                                        <th>Percentage</th>
 
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
+
+                                    <!-- Table with no outer spacing -->
+
                                 </div>
-
-                                <!-- Table with no outer spacing -->
-
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Basic Tables end -->
+                    <!-- Basic Tables end -->
 
-            </div>
+                </div>
         </div>
     </div>
     <!-- END: Content-->

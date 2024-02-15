@@ -33,7 +33,7 @@ class CouponController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
-        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Coupon::when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -74,7 +74,9 @@ class CouponController extends Controller
             $coupon->save();
             // Connect to your stripe account
 
-
+            $pCode =  $stripe->promotionCodes->create(['coupon' =>  $coupon->coupon]);
+            $coupon->p_code = $pCode->code;
+            $coupon->save();
             return redirect()->to('/coupon')->with('msg', 'Coupon Saved Successfully!');
         } catch (\Exception $e) {
             // return $e->getMessage();

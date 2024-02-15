@@ -2711,6 +2711,11 @@
                    }, {
                        "mRender": function(data, type, row) {
                            return '<td>' +
+                               row.p_code + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
                                row.percentage + '</td>'
                        }
                    },
