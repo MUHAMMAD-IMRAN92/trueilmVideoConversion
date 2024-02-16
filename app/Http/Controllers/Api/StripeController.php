@@ -96,7 +96,7 @@ class StripeController extends Controller
                     'cancel_url' =>  $request->cancel_url,
 
                 ]);
-                $plan = Subscription::where('price_id', $request->price)->where('status', 0)->first();
+                $plan = Subscription::where('price_id', $request->price)->where('status', 1)->first();
                 $userSubscription = new UserSubscription();
                 $userSubscription->user_id = $user->_id;
                 $userSubscription->email = $user->email;
