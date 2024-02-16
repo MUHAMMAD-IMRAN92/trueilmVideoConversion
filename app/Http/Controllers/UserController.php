@@ -378,7 +378,7 @@ class UserController extends Controller
         } else {
             $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
             if ($checkLifeTime > 0) {
-                return redirect()->back()->with(['dmsg' => 'Checkbox for Life TIme Access Not Granted !']);
+                return redirect()->back()->with(['dmsg' => 'Life TIme Access Not Granted !']);
             }
         }
 
