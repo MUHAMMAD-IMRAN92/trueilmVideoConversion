@@ -222,9 +222,9 @@ class BookController extends Controller
 
     public function edit(Request $request, $type, $id)
     {
-        if ($type == 7) {
-            return redirect()->to('podcast/edit/' . $id);
-        }
+        // if ($type == 7) {
+        //     return redirect()->to('podcast/edit/' . $id);
+        // }
         $categories = Category::active()->get();
         $book = Book::where('_id', $id)->with('content', 'author')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
@@ -234,7 +234,11 @@ class BookController extends Controller
         $publisher = Publisher::all();
         $contentGlossary = ContentGlossary::where('content_id', $id)->get();
         $author = Author::where('type', '1')->get();
-        return view('eBook.edit', [
+        $view = 'eBook.edit';
+        if ($type == 7) {
+            $view = 'eBook.podcast_edit';
+        }
+        return view($view, [
             'book' => $book,
             'type' => $type,
             'categories' => $categories,
@@ -388,7 +392,7 @@ class BookController extends Controller
         }
 
         if ($request->pending_for_approval == "true") {
-            return redirect()->to('/book/pending-for-approval')->with('msg', 'Content Saved Successfully!');
+            return redirect()->to('/book/pending-for-approval/'+$)->with('msg', 'Content Saved Successfully!');
         }
         if ($request->rejected_by_you == "true") {
             return redirect()->to('/book/rejected_by_you')->with('msg', 'Content Saved Successfully!');
