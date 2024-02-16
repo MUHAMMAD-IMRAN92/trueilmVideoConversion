@@ -9,4 +9,8 @@ class UserSubscription extends Eloquent
 {
     use HasFactory;
     protected $table = 'user_subcriptions';
+    public function plan()
+    {
+        return $this->hasMany(Subscription::class, 'plan_id', '_id');
+    }
 }

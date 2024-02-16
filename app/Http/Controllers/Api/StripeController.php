@@ -106,6 +106,7 @@ class StripeController extends Controller
                 $userSubscription->status = $session->payment_status;
                 $userSubscription->plan_name = @$plan->product_title;
                 $userSubscription->plan_type = @$plan->type;
+                $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;
                 $userSubscription->save();
 

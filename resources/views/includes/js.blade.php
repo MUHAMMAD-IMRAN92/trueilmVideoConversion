@@ -2878,6 +2878,7 @@
                        "mRender": function(data, type, row) {
                            return `<td>
                                 <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
+                                <a  class="ml-2" href="{{ url('app-user/profile/`+row._id+`') }}"><i class="fa fa-user" style="font-size:24px"></i></a>
                                </td>`;
 
                        }

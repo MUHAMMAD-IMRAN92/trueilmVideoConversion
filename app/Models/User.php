@@ -104,4 +104,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserSubscription::class, 'user_id', '_id')->where('status', 'cancelled');
     }
+    public function subscription()
+    {
+        return $this->hasMany(UserSubscription::class, 'user_id', '_id')->where('status', 'paid');
+    }
 }

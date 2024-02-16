@@ -169,6 +169,8 @@ Route::middleware(['auth'])->group(function () {
     //app users
     Route::get('app-users', [App\Http\Controllers\UserController::class, 'appUsers'])->name('app.user');
     Route::get('all-app-user', [App\Http\Controllers\UserController::class, 'allAppUser'])->name('all.app.user');
+    Route::get('app-user/profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('app.user.profile');
+    Route::post('app-user/subscription', [App\Http\Controllers\UserController::class, 'giveSubscription'])->name('app.user.subscription');
     Route::get('app-user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
     Route::get('affiliate/app-user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
     Route::get('family/app-user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');

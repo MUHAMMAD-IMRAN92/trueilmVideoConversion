@@ -7,7 +7,9 @@ use App\Imports\UsersImport;
 use App\Models\Book;
 use App\Models\BookLastSeen;
 use App\Models\Course;
+use App\Models\Subscription;
 use App\Models\User;
+use App\Models\UserSubscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -343,5 +345,35 @@ class UserController extends Controller
         } else {
             return response()->json(['message' => 'Something went wrong!']);
         }
+    }
+    public function profile($id)
+    {
+        $user = User::where('_id', $id)->with('subscription.plan')->first();
+        $subscription = Subscription::where('product_title', 'product_title')->first();
+
+        $checkLifeTime = UserSubscription::whereHas('plan', function ($q) use ($subscription, $user) {
+            $q->where('user_id', $user->_id)->where('plan_id',  @$subscription->_id);
+        })->count();
+        return view('user.user_profile', [
+            'user' => $user,
+            'checkLifeTime' => $checkLifeTime
+        ]);
+    }
+    public   function giveSubscription(Request $request)
+    {
+        $user = User::where('_id', $request->id)->first();
+        if ($request->subscription == true) {
+            $subscription = Subscription::where('product_title', 'product_title')->first();
+            $userSubscription = new UserSubscription();
+            $userSubscription->user_id =  $user->_id;
+            $userSubscription->email =  $user->email;
+            $userSubscription->plan_id =  @$subscription->_id;
+            $userSubscription->save();
+            return redirect()->back()->with(['msg' => 'Life Time Access Given!']);
+        } else {
+            return redirect()->back()->with(['dmsg' => 'Something went wrong!']);
+        }
+
+        return $request->all();
     }
 }
