@@ -370,7 +370,7 @@ class AlQuranController extends Controller
             $q->where('surah_id', $request->surah);
         })->paginate(10);
 
-        $surahDropDown =   Surah::get(['_id', 'surah', 'sequence']);
+        $surahDropDown =   Surah::orderBy('sequence' , 'ASC')->get(['_id', 'surah', 'sequence']);
         if ((int)$type == 3) {
             $combinationCount =  RecitationCombination::count();
         } else {
