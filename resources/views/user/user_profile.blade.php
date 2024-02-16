@@ -138,7 +138,7 @@
                             <div class="content-header-left col-md-9 col-12 mb-2">
                                 <div class="row breadcrumbs-top">
                                     <div class="col-12">
-                                        <h2 class="content-header-title float-left mb-0">User Subscriptions</h2>
+                                        <h2 class="content-header-title float-left mb-0">User Subscription</h2>
                                         <div class="breadcrumb-wrapper col-12">
 
                                         </div>
@@ -163,9 +163,9 @@
                                                     <tbody>
                                                         @forelse ($user->subscription as $subs)
                                                             <tr>
-                                                                <td>{{ @$subs->plan[0]->product_title }}</td>
-                                                                <td>{{ @$subs->plan[0]->description }}</td>
-                                                                <td>{{ @$subs->plan[0]->price }}</td>
+                                                                <td>{{ @$subs->plan->product_title }}</td>
+                                                                <td>{{ @$subs->plan->description }}</td>
+                                                                <td>{{ @$subs->plan->price }}</td>
                                                                 <td>{{ @$subs->expiry }}</td>
                                                             </tr>
                                                         @empty

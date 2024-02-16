@@ -11,6 +11,6 @@ class UserSubscription extends Eloquent
     protected $table = 'user_subcriptions';
     public function plan()
     {
-        return $this->hasMany(Subscription::class, '_id', 'plan_id');
+        return $this->hasOne(Subscription::class, '_id', 'plan_id');
     }
 }
