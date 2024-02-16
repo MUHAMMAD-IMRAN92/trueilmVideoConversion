@@ -47,6 +47,8 @@
                                         <form class="form form-vertical" action="{{ url('app-user/subscription') }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
+                                            <input type="hidden" id="" class="form-control" name="id"
+                                                placeholder="" value="{{ $user->_id }}" disabled>
                                             <div class="form-body">
                                                 <div class="row append-inputs">
                                                     <div class="col-12">
