@@ -367,6 +367,7 @@ class UserController extends Controller
             $userSubscription = new UserSubscription();
             $userSubscription->user_id =  $user->_id;
             $userSubscription->email =  $user->email;
+            $userSubscription->status =  'paid';
             $userSubscription->plan_id =  @$subscription->_id;
             $userSubscription->save();
             return redirect()->back()->with(['msg' => 'Life Time Access Given!']);
