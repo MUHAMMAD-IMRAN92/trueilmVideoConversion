@@ -351,9 +351,7 @@ class UserController extends Controller
         $user = User::where('_id', $id)->with('subscription.plan')->first();
         $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
 
-        $checkLifeTime = UserSubscription::whereHas('plan', function ($q) use ($subscription, $user) {
-            $q->where('user_id', $user->_id)->where('plan_id',  @$subscription->_id);
-        })->count();
+        $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->count();
         return view('user.user_profile', [
             'user' => $user,
             'checkLifeTime' => $checkLifeTime
@@ -362,11 +360,9 @@ class UserController extends Controller
     public   function giveSubscription(Request $request)
     {
         $user = User::where('_id', $request->id)->first();
+        $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
         if ($request->subscription == true) {
-            $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
-            $checkLifeTime = UserSubscription::whereHas('plan', function ($q) use ($subscription, $user) {
-                $q->where('user_id', $user->_id)->where('plan_id',  @$subscription->_id);
-            })->count();
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->count();
             if ($checkLifeTime > 0) {
                 return redirect()->back()->with(['msg' => 'Life Time Access Already Given!']);
             } else {
@@ -379,7 +375,10 @@ class UserController extends Controller
                 return redirect()->back()->with(['msg' => 'Life Time Access Given!']);
             }
         } else {
-            return redirect()->back()->with(['dmsg' => 'Checkbox for Life TIme plan not selected !']);
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
+            if ($checkLifeTime > 0) {
+                return redirect()->back()->with(['dmsg' => 'Checkbox for Life TIme Access Not Granted !']);
+            }
         }
 
         return $request->all();
