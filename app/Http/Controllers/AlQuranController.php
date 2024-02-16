@@ -449,7 +449,7 @@ class AlQuranController extends Controller
             ->when($request->ayat_id, function ($q) use ($request) {
                 $q->where('_id', $request->ayat_id);
             })
-            ->where('surah_id', $surah_id)
+            ->where('surah_id', $surah_id)->orderBy('verse_number' , 'ASC')
             ->paginate(10);
 
         $languages = Languages::all();

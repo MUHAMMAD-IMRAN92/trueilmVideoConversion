@@ -143,6 +143,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
 
+    //delete audio chapter
+
+    Route::get('delete/audio/{id}', [App\Http\Controllers\BookController::class, 'deleteAudioChapter'])->name('book.audio.delete.chapter');
 
     Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
     Route::post('podcast/episode', [App\Http\Controllers\BookController::class, 'podcastEpisode'])->name('podcast.episode');

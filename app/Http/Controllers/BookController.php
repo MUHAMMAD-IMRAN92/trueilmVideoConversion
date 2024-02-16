@@ -735,4 +735,10 @@ class BookController extends Controller
         }
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
+    public function deleteAudioChapter($id)
+    {
+        $bookContent = BookContent::where('_id', $id)->delete();
+
+        return redirect()->back()->with('msg', 'Chapter Deleted!');
+    }
 }

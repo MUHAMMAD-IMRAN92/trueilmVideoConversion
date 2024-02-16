@@ -59,7 +59,8 @@
                                                 <div class="col-12">
                                                     <form action={{ url('/book/update/sequence/') }} method="POST">
                                                         @csrf
-                                                        <input type="hidden" name="pending_for_approval" value="{{$pending_for_approval}}">
+                                                        <input type="hidden" name="pending_for_approval"
+                                                            value="{{ $pending_for_approval }}">
                                                         <div class="card">
                                                             <div class="card-content">
                                                                 <div class="card-body card-dashboard">
@@ -69,6 +70,7 @@
                                                                                 <tr>
                                                                                     <th>Chapter</th>
                                                                                     <th>Sequence</th>
+                                                                                    <th>Content</th>
                                                                                     <th>Action</th>
                                                                                 </tr>
                                                                             </thead>
@@ -78,7 +80,8 @@
                                                                                 @foreach ($content as $key => $c)
                                                                                     <tr>
 
-                                                                                        <td>{{str_replace(".mp3","",$c->book_name);  }}</td>
+                                                                                        <td>{{ str_replace('.mp3', '', $c->book_name) }}
+                                                                                        </td>
                                                                                         <td> <input type="hidden"
                                                                                                 value="{{ $c->_id }}"
                                                                                                 name="chapters[]"><input
@@ -87,9 +90,19 @@
                                                                                                 class="form-control"
                                                                                                 value="{{ $c->sequence == '' ? $key : $c->sequence }}">
                                                                                         </td>
-                                                                                        <td><audio controls>
-                                                                                            <source src="{{ $c->file }}" type="audio/mp3">
-                                                                                          </audio></td>
+                                                                                        <td>
+                                                                                            <span> <audio controls>
+                                                                                                    <source
+                                                                                                        src="{{ $c->file }}"
+                                                                                                        type="audio/mp3">
+                                                                                                </audio></span>
+
+                                                                                        </td>
+                                                                                        <td><span class="ml-2"> <a
+                                                                                                    href="{{ url('delete/audio/' . $c->_id) }}">
+                                                                                                    <i class="fa fa-trash "
+                                                                                                        style="font-size:24px;"></i></a></span>
+                                                                                        </td>
                                                                                     </tr>
                                                                                 @endforeach
                                                                             </tbody>
