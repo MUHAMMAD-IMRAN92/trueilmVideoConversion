@@ -157,7 +157,7 @@
                                                             <th>Plan</th>
                                                             <th class="description-td">Plan Description</th>
                                                             <th>Price</th>
-                                                            <th>Expiry</th>
+                                                            <th>Expiry Duration</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -166,7 +166,12 @@
                                                                 <td>{{ @$subs->plan->product_title }}</td>
                                                                 <td>{{ @$subs->plan->description }}</td>
                                                                 <td>{{ @$subs->plan->price }}</td>
-                                                                <td>{{ @$subs->expiry }}</td>
+                                                                @if (@$subs->plan->type == 1)
+                                                                    <td>Monthly</td>
+                                                                @elseif(@$subs->plan->type == 2)
+                                                                    <td>Yearly</td>
+                                                                @else
+                                                                    <td>Life TIme/td>
                                                             </tr>
                                                         @empty
                                                             <center><b>No Plan Subscribed Yet!</b></center>
