@@ -363,7 +363,7 @@ class UserController extends Controller
     {
         $user = User::where('_id', $request->id)->first();
         if ($request->subscription == true) {
-            $subscription = Subscription::where('product_title', 'product_title')->first();
+            $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
             $userSubscription = new UserSubscription();
             $userSubscription->user_id =  $user->_id;
             $userSubscription->email =  $user->email;
@@ -372,7 +372,7 @@ class UserController extends Controller
             $userSubscription->save();
             return redirect()->back()->with(['msg' => 'Life Time Access Given!']);
         } else {
-            return redirect()->back()->with(['dmsg' => 'Something went wrong!']);
+            return redirect()->back()->with(['dmsg' => 'Checkbox for Life TIme plan not selected !']);
         }
 
         return $request->all();
