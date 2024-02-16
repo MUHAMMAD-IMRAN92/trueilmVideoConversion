@@ -162,16 +162,20 @@
                                                     </thead>
                                                     <tbody>
                                                         @forelse ($user->subscription as $subs)
+                                                            @php
+                                                                $type = 'Life Time';
+                                                                if (@$subs->plan->type == 1) {
+                                                                    $type = 'Monthly';
+                                                                } elseif (@$subs->plan->type == 2) {
+                                                                    $type = 'Yearly';
+                                                                }
+
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{ @$subs->plan->product_title }}</td>
                                                                 <td>{{ @$subs->plan->description }}</td>
                                                                 <td>{{ @$subs->plan->price }}</td>
-                                                                @if (@$subs->plan->type == 1)
-                                                                    <td>Monthly</td>
-                                                                @elseif(@$subs->plan->type == 2)
-                                                                    <td>Yearly</td>
-                                                                @else
-                                                                    <td>Life TIme</td>
+                                                                <td>{{ $type }}</td>
                                                             </tr>
                                                         @empty
                                                             <center><b>No Plan Subscribed Yet!</b></center>
