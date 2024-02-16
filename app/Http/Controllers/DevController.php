@@ -27,25 +27,25 @@ class DevController extends Controller
 
 
 
-        // Hadees::where('book_id', '655f47441c3df94998007a1a')->delete();
-        // HadeesTranslation::where('book_id', '655f47441c3df94998007a1a')->delete();
-        // HadithChapter::where('book_id', '655f47441c3df94998007a1a')->delete();
+        // Hadees::where('book_id', '6572c51b791ab913ce0a51f4')->delete();
+        // HadeesTranslation::where('book_id', '6572c51b791ab913ce0a51f4')->delete();
+        // HadithChapter::where('book_id', '6572c51b791ab913ce0a51f4')->delete();
 
 
         $rows = Excel::tocollection(new HadeesImport, $request->file);
 
-        $book =  HadeesBooks::where('_id', '655f47441c3df94998007a1a')->first();
+        $book =  HadeesBooks::where('_id', '6572c51b791ab913ce0a51f4')->first();
         foreach ($rows as $key1 => $row1) {
             foreach ($row1 as $key => $row) {
-
+                // dd($row);
                 if ($key != 0) {
 
 
-                    $count = HadithCHapter::where('book_id', '655f47441c3df94998007a1a')->orderBy('created_at', 'DESC')->first()->auto_gen_chapter_no ?? 0;
+                    $count = HadithCHapter::where('book_id', '6572c51b791ab913ce0a51f4')->orderBy('created_at', 'DESC')->first()->auto_gen_chapter_no ?? 0;
                     $count = $count + 1;
                     // return $row[45];
                     // return $row[670];
-                    $mainchapter = HadithChapter::where('title', $row[2])->where('book_id', '655f47441c3df94998007a1a')->first();
+                    $mainchapter = HadithChapter::where('title', $row[2])->where('book_id', '6572c51b791ab913ce0a51f4')->first();
                     if (!$mainchapter) {
                         $mainchapter = new HadithChapter();
                         $mainchapter->book_id = $book->_id;
@@ -60,7 +60,7 @@ class DevController extends Controller
                         $mainchapter->auto_gen_chapter_no = $count;
                         $mainchapter->save();
                     }
-                    $subchapter = HadithChapter::where('title', @$row[5])->where('parent_id', $mainchapter->_id)->where('book_id', '655f47441c3df94998007a1a')->first();
+                    $subchapter = HadithChapter::where('title', @$row[5])->where('parent_id', $mainchapter->_id)->where('book_id', '6572c51b791ab913ce0a51f4')->first();
                     if (!$subchapter) {
                         $subchapter = new HadithChapter();
                         $subchapter->book_id = $book->_id;
@@ -77,10 +77,10 @@ class DevController extends Controller
                         $subchapter->save();
                     }
                     $type = 1;
-                    if (@$row[11] == '(Hasan)') {
+                    if (@$row[10] == '(Hasan)') {
                         $type = 3;
                     }
-                    if (@$row[11] == '(Da`if)') {
+                    if (@$row[10] == '(Da`if)') {
                         $type = 2;
                     }
                     if (@$row[7] == '') {
@@ -92,7 +92,7 @@ class DevController extends Controller
                             $hadees->book_id = $book->_id;
                             $hadees->added_by = '6447918217e6501d607f4943';
                             $hadees->chapter_id = $subchapter->_id;
-                            $hadees->takreej = @$row[12];
+                            $hadees->takreej = '';
                             $hadees->hadith_number =  0;
                             $hadees->auto_gen_chapter_no = $key;
                             $hadees->save();
@@ -102,40 +102,40 @@ class DevController extends Controller
                             $alQuranTranslation = new HadeesTranslation();
                             $alQuranTranslation->translation = @$row[8];
                             $alQuranTranslation->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                            $alQuranTranslation->author_lang = '655ef806406d486a7f2e4702';
+                            $alQuranTranslation->author_lang = '656dbbc2ca1ee46a431fddd9';
                             $alQuranTranslation->type = 5;
                             $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                             $alQuranTranslation->book_id = $book->_id;
                             $alQuranTranslation->chapter_id = $subchapter->_id;
 
                             $alQuranTranslation->save();
-                            HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
+                            // HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
                         }
-                        $tafseerALreadyExist = HadeesTranslation::where('translation',  @$row[13])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+                        $tafseerALreadyExist = HadeesTranslation::where('translation',  @$row[11])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
                         if (!$tafseerALreadyExist) {
                             $tafseerALreadyExist = new HadeesTranslation();
-                            $tafseerALreadyExist->translation = @$row[13];
+                            $tafseerALreadyExist->translation = @$row[11];
                             $tafseerALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                            $tafseerALreadyExist->author_lang = '6580231b4c98f1bb70f2df47';
+                            $tafseerALreadyExist->author_lang = '6571b1f7c1f6db9f71eb5c38';
                             $tafseerALreadyExist->type = 6;
                             $tafseerALreadyExist->added_by = '6447918217e6501d607f4943';
                             $tafseerALreadyExist->book_id = $book->_id;
                             $tafseerALreadyExist->chapter_id = $subchapter->_id;
                             $tafseerALreadyExist->save();
-                            HadeeesBookCombination::dispatch($tafseerALreadyExist->book_id, 6);
+                            // HadeeesBookCombination::dispatch($tafseerALreadyExist->book_id, 6);
                         }
-                        $notesALreadyExist = HadeesTranslation::where('translation',  @$row[14])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+                        $notesALreadyExist = HadeesTranslation::where('translation',  @$row[12])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
                         if (!$notesALreadyExist) {
                             $notesALreadyExist = new HadeesTranslation();
-                            $notesALreadyExist->translation = @$row[14];
+                            $notesALreadyExist->translation = @$row[12];
                             $notesALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                            $notesALreadyExist->author_lang = '655ef806406d486a7f2e4702';
+                            $notesALreadyExist->author_lang = '656dbbc2ca1ee46a431fddd9';
                             $notesALreadyExist->type = 3;
                             $notesALreadyExist->added_by = '6447918217e6501d607f4943';
                             $notesALreadyExist->book_id = $book->_id;
                             $notesALreadyExist->chapter_id = $subchapter->_id;
                             $notesALreadyExist->save();
-                            HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 6);
+                            // HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 6);
                         }
                         $count + 1;
                     } else {
@@ -154,7 +154,7 @@ class DevController extends Controller
                                 } else {
                                     $chapterNo = @$row[4];
                                 }
-                                $hadees->takreej = @$row[12];
+                                $hadees->takreej = '';
                                 $hadees->hadith_number =  $hadithno;
                                 $hadees->auto_gen_chapter_no = $key;
                                 $hadees->save();
@@ -164,40 +164,40 @@ class DevController extends Controller
                                 $alQuranTranslation = new HadeesTranslation();
                                 $alQuranTranslation->translation = @$row[8];
                                 $alQuranTranslation->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                                $alQuranTranslation->author_lang = '655ef806406d486a7f2e4702';
+                                $alQuranTranslation->author_lang = '656dbbc2ca1ee46a431fddd9';
                                 $alQuranTranslation->type = 5;
                                 $alQuranTranslation->added_by = '6447918217e6501d607f4943';
                                 $alQuranTranslation->book_id = $book->_id;
                                 $alQuranTranslation->chapter_id = $subchapter->_id;
 
                                 $alQuranTranslation->save();
-                                HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
+                                // HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 5);
                             }
-                            $tafseerALreadyExist = HadeesTranslation::where('translation',  @$row[13])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+                            $tafseerALreadyExist = HadeesTranslation::where('translation',  @$row[11])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
                             if (!$tafseerALreadyExist) {
                                 $tafseerALreadyExist = new HadeesTranslation();
-                                $tafseerALreadyExist->translation = @$row[13];
+                                $tafseerALreadyExist->translation = @$row[11];
                                 $tafseerALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                                $tafseerALreadyExist->author_lang = '6580231b4c98f1bb70f2df47';
+                                $tafseerALreadyExist->author_lang = '6571b1f7c1f6db9f71eb5c38';
                                 $tafseerALreadyExist->type = 6;
                                 $tafseerALreadyExist->added_by = '6447918217e6501d607f4943';
                                 $tafseerALreadyExist->book_id = $book->_id;
                                 $tafseerALreadyExist->chapter_id = $subchapter->_id;
                                 $tafseerALreadyExist->save();
-                                HadeeesBookCombination::dispatch($tafseerALreadyExist->book_id, 6);
+                                // HadeeesBookCombination::dispatch($tafseerALreadyExist->book_id, 6);
                             }
-                            $notesALreadyExist = HadeesTranslation::where('translation',  @$row[14])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
+                            $notesALreadyExist = HadeesTranslation::where('translation',  @$row[12])->where('hadees_id', $hadees->_id ?? $aLreadyExist->_id)->first();
                             if (!$notesALreadyExist) {
                                 $notesALreadyExist = new HadeesTranslation();
-                                $notesALreadyExist->translation = @$row[14];
+                                $notesALreadyExist->translation = @$row[12];
                                 $notesALreadyExist->hadees_id = $hadees->_id ?? $aLreadyExist->_id;
-                                $notesALreadyExist->author_lang = '655ef806406d486a7f2e4702';
+                                $notesALreadyExist->author_lang = '656dbbc2ca1ee46a431fddd9';
                                 $notesALreadyExist->type = 3;
                                 $notesALreadyExist->added_by = '6447918217e6501d607f4943';
                                 $notesALreadyExist->book_id = $book->_id;
                                 $notesALreadyExist->chapter_id = $subchapter->_id;
                                 $notesALreadyExist->save();
-                                HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 6);
+                                // HadeeesBookCombination::dispatch($alQuranTranslation->book_id, 6);
                             }
                         }
                     }

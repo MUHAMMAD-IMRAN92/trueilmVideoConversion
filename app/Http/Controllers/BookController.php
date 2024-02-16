@@ -222,7 +222,9 @@ class BookController extends Controller
 
     public function edit(Request $request, $type, $id)
     {
-
+        if ($type == 7) {
+            return redirect()->to('podcast/edit/' . $id);
+        }
         $categories = Category::active()->get();
         $book = Book::where('_id', $id)->with('content', 'author')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
