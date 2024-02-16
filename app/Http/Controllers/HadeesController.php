@@ -370,7 +370,7 @@ class HadeesController extends Controller
             $q->where('type', 4)->where('author_lang', $combination_id);
         }])->with(['notes' => function ($q) use ($combination_id, $type) {
             $q->where('type', 3)->where('author_lang', $combination_id);
-        }])->paginate(10);
+        }])->orderBy('hadith_number')->paginate(10);
         $languages = Languages::all();
         $author = Author::all();
         $currentCombination =  AuthorLanguage::where('type', (int)$type)->where('_id', $combination_id)->with(['HadithTranslations' => function ($q) use ($book_id, $type) {
