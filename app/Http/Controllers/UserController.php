@@ -349,7 +349,7 @@ class UserController extends Controller
     public function profile($id)
     {
         $user = User::where('_id', $id)->with('subscription.plan')->first();
-        $subscription = Subscription::where('product_title', 'product_title')->first();
+        $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
 
         $checkLifeTime = UserSubscription::whereHas('plan', function ($q) use ($subscription, $user) {
             $q->where('user_id', $user->_id)->where('plan_id',  @$subscription->_id);
