@@ -48,7 +48,7 @@
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" id="" class="form-control" name="id"
-                                                placeholder="" value="{{ $user->_id }}" disabled>
+                                                placeholder="" value="{{ $user->_id }}">
                                             <div class="form-body">
                                                 <div class="row append-inputs">
                                                     <div class="col-12">
