@@ -171,7 +171,7 @@
                                                                 @elseif(@$subs->plan->type == 2)
                                                                     <td>Yearly</td>
                                                                 @else
-                                                                    <td>Life TIme/td>
+                                                                    <td>Life TIme</td>
                                                             </tr>
                                                         @empty
                                                             <center><b>No Plan Subscribed Yet!</b></center>
