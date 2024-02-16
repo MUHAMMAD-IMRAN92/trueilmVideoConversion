@@ -134,7 +134,7 @@
                                                 <tbody>
                                                     @forelse ($user->subscription as $subs)
                                                         <tr>
-                                                            <td>{{ @$subs->plan->title }}</td>
+                                                            <td>{{ @$subs->plan->product_title }}</td>
                                                             <td>{{ @$subs->plan->description }}</td>
                                                             <td>{{ @$subs->plan->price }}</td>
                                                             <td>{{ @$subs->expiry }}</td>
