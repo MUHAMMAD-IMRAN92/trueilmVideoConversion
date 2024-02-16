@@ -364,13 +364,20 @@ class UserController extends Controller
         $user = User::where('_id', $request->id)->first();
         if ($request->subscription == true) {
             $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
-            $userSubscription = new UserSubscription();
-            $userSubscription->user_id =  $user->_id;
-            $userSubscription->email =  $user->email;
-            $userSubscription->status =  'paid';
-            $userSubscription->plan_id =  @$subscription->_id;
-            $userSubscription->save();
-            return redirect()->back()->with(['msg' => 'Life Time Access Given!']);
+            $checkLifeTime = UserSubscription::whereHas('plan', function ($q) use ($subscription, $user) {
+                $q->where('user_id', $user->_id)->where('plan_id',  @$subscription->_id);
+            })->count();
+            if ($checkLifeTime > 0) {
+                return redirect()->back()->with(['msg' => 'Life Time Access Already Given!']);
+            } else {
+                $userSubscription = new UserSubscription();
+                $userSubscription->user_id =  $user->_id;
+                $userSubscription->email =  $user->email;
+                $userSubscription->status =  'paid';
+                $userSubscription->plan_id =  @$subscription->_id;
+                $userSubscription->save();
+                return redirect()->back()->with(['msg' => 'Life Time Access Given!']);
+            }
         } else {
             return redirect()->back()->with(['dmsg' => 'Checkbox for Life TIme plan not selected !']);
         }
