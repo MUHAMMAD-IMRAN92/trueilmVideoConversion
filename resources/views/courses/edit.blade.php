@@ -513,7 +513,8 @@
                                                             <div class="col-12">
                                                                 <div class="form-group">
                                                                     <label for="">Name</label>
-                                                                    <div class="position-relative">
+                                                                    <div class="position-relative"> <input type="hidden" name="pending_for_approval"
+                                                                        value="{{ $pending_for_approval }}">    
                                                                         <input type="hidden" id=""
                                                                             class="form-control" name="id"
                                                                             placeholder="" value="{{ $course->_id }}"

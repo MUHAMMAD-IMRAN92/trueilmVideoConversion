@@ -1034,7 +1034,7 @@
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
+                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`?pending_for_approval=true') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
                                    `;
                            }
                            return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>

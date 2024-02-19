@@ -158,8 +158,9 @@ class CourseController extends Controller
         return redirect()->to('/course/edit/' . $course->_id)->with('msg', 'Course Saved Successfully!');;
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+
         $course = Course::where('_id', $id)->with('lessons')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $categories = Category::active()->get();
@@ -171,7 +172,8 @@ class CourseController extends Controller
             'tags' => $tags,
             'contentTags' =>  $contentTag,
             'categories' => $categories,
-            'author' => $author
+            'author' => $author,
+            'pending_for_approval' => $request->pending_for_approval
         ]);
     }
 
@@ -242,6 +244,9 @@ class CourseController extends Controller
                 }
                 $courseLesson->save();
             }
+        }
+        if ($request->pending_for_approval == "true") {
+            return redirect()->to('/book/pending-for-approval/6')->with('msg', 'Content Saved Successfully!');
         }
         return redirect()->back()->with('msg', 'Course Saved Successfully!');;
     }
