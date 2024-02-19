@@ -74,14 +74,14 @@ class StripeController extends Controller
             $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where('status', 'paid')->get();
 
             if (count($subscription) != 0) {
-                return "checkout 1";
+                // return "checkout 1";
                 $session = $stripe->billingPortal->sessions->create([
                     'customer' => $customer,
                     'return_url' =>   $request->return_url,
                 ]);
                 return  sendSuccess('Billing Portal Url .', $session->url);
             } else {
-                return "checkout";
+                // return "checkout";
                 // $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
                 Stripe::setApiKey(env('STRIPE_SECRET'));
 
