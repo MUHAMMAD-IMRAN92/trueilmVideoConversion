@@ -17,7 +17,6 @@ use App\Models\HadithChapter;
 use App\Models\Khatoot;
 use App\Models\RecitationCombination;
 use App\Models\Subscription;
-use App\Models\SurahCombinations;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
