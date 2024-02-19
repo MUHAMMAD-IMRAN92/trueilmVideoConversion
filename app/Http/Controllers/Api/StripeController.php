@@ -71,7 +71,7 @@ class StripeController extends Controller
         if ($user) {
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where('status', 'paid')->get();
+            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->whereIn('status', ['paid', 'cancelled'])->get();
 
             if (count($subscription) != 0) {
                 // return "checkout 1";
