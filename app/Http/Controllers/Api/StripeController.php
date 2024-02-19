@@ -72,8 +72,9 @@ class StripeController extends Controller
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where('status', 'paid')->get();
+            return $subscription;
             if ($subscription) {
-
+                return 'test portal here';
                 $session = $stripe->billingPortal->sessions->create([
                     'customer' => $customer,
                     'return_url' =>   $request->return_url,
