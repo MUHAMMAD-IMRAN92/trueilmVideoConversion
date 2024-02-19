@@ -72,7 +72,7 @@ class StripeController extends Controller
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where('status', 'paid')->get();
-            if (count($subscription) > 0) {
+            if (count($subscription) == 0) {
 
                 $session = $stripe->billingPortal->sessions->create([
                     'customer' => $customer,
@@ -141,7 +141,7 @@ class StripeController extends Controller
             // Invalid payload
 
             http_response_code(400);
-        exit();
+            exit();
         } catch (\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
 
