@@ -72,7 +72,7 @@ class StripeController extends Controller
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where('status', 'paid')->get();
-            if (count($subscription) != 0) {
+            if ($subscription) {
 
                 $session = $stripe->billingPortal->sessions->create([
                     'customer' => $customer,
