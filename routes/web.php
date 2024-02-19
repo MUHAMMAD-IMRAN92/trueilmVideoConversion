@@ -17,6 +17,7 @@ use App\Models\HadithChapter;
 use App\Models\Khatoot;
 use App\Models\RecitationCombination;
 use App\Models\Subscription;
+use App\Models\SurahCombinations;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Jobs\SurahCombination as SurahCombinationJob;
 
 /*
 |--------------------------------------------------------------------------
@@ -379,8 +381,9 @@ Route::get('updateModel', function () {
     }
     return 'done';
 });
-// Route::get('test', function () {
-//     return Hadees::where('book_id' , )->delete();
-//     return HadeesChapter::where('book_id')->delete();
-//     return HadithTranslations::where('book_id')->delete();
-// });
+Route::get('test', function () {
+    $surah = Surah::all();
+    foreach ($surah as $s) {
+        SurahCombinations::dispatch($s->_id, 1);
+    }
+});
