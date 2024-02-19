@@ -84,7 +84,7 @@ class UserController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
-        return $user;
+
         // if ($user) {
         //     $userEmail = $user->email;
         //     Mail::to($userEmail)->send(new ResetPassword($user));
@@ -94,7 +94,7 @@ class UserController extends Controller
         // }
         if ($user) {
             try {
-                $api_key = env('MAIL_PASSWORD');
+              return  $api_key = env('MAIL_PASSWORD');
                 $api_url = "https://api.sendgrid.com/v3/mail/send";
 
                 // Set the email details and template variables
