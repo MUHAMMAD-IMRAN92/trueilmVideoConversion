@@ -114,8 +114,8 @@ class UserController extends Controller
                                     "email" => $to_email
                                 ]
                             ],
+                            "dynamic_template_data" => $template_vars
                         ],
-                        "dynamic_template_data" => $template_vars
                     ],
                     "from" => [
                         "email" => $from_email
