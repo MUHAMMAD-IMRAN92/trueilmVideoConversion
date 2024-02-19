@@ -92,47 +92,51 @@ class UserController extends Controller
         //     return sendError('User Not Found!', []);
         // }
         if ($user) {
-            $api_key = env('MAIL_PASSWORD');
-            $api_url = "https://api.sendgrid.com/v3/mail/send";
+            try {
+                $api_key = env('MAIL_PASSWORD');
+                $api_url = "https://api.sendgrid.com/v3/mail/send";
 
-            // Set the email details and template variables
-            $to_email =  $user->email;
-            $from_email = env('MAIL_FROM_ADDRESS');
-            $template_id = "d-a894a8dd5b154f6987533cd1e1023864";
-            $template_vars = [
-                'id' => $user->_id
-            ];
+                // Set the email details and template variables
+                $to_email =  $user->email;
+                $from_email = env('MAIL_FROM_ADDRESS');
+                $template_id = "d-a894a8dd5b154f6987533cd1e1023864";
+                $template_vars = [
+                    'id' => $user->_id
+                ];
 
-            // Set the payload as a JSON string
-            $payload = json_encode([
-                "personalizations" => [
-                    [
-                        "to" => [
-                            [
-                                "email" => $to_email
-                            ]
+                // Set the payload as a JSON string
+                $payload = json_encode([
+                    "personalizations" => [
+                        [
+                            "to" => [
+                                [
+                                    "email" => $to_email
+                                ]
+                            ],
                         ],
+                        "dynamic_template_data" => $template_vars
                     ],
-                    "dynamic_template_data" => $template_vars
-                ],
-                "from" => [
-                    "email" => $from_email
-                ],
-                "template_id" => $template_id
-            ]);
+                    "from" => [
+                        "email" => $from_email
+                    ],
+                    "template_id" => $template_id
+                ]);
 
-            // Set the cURL options and send the POST request
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $api_url);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                "Authorization: Bearer $api_key",
-                "Content-Type: application/json"
-            ]);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $response = curl_exec($ch);
-            curl_close($ch);
+                // Set the cURL options and send the POST request
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $api_url);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    "Authorization: Bearer $api_key",
+                    "Content-Type: application/json"
+                ]);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec($ch);
+                curl_close($ch);
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
         } else {
             return sendError('User Not Found!', []);
         }
