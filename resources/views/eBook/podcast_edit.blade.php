@@ -315,20 +315,21 @@
                                                             </fieldset>
                                                         </li> --}}
                                                     </div>
-                                                    <div class="col-md-6"  style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
+                                                    <div class="col-md-6"
+                                                        style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
                                                             <input type="number" class="form-control" disabled
                                                                 name="price" placeholder="" id="price" required
-                                                                value="{{ $book->price }}"
-                                                              >
+                                                                value="{{ $book->price }}">
 
                                                         </div>
 
 
                                                     </div>
-                                                    <div class="col-md-6"  style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
+                                                    <div class="col-md-6"
+                                                        style="display: {{ $book->p_type == 0 ? 'none' : '' }}">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">
@@ -470,6 +471,8 @@
                                                             <div class="form-group">
                                                                 <label for="" class="required">Title</label>
                                                                 <div class="position-relative">
+                                                                    <input type="hidden" name="pending_for_approval"
+                                                                        value="{{ $pending_for_approval }}">
                                                                     <input type="hidden" id=""
                                                                         value="{{ $type }}" class="form-control"
                                                                         name="type" placeholder="" required>
@@ -494,7 +497,7 @@
                                                         <div class="col-12">
                                                             <label for="">What's Inside</label>
                                                             <fieldset class="form-group">
-                                                                <textarea class="form-control" id="basicTextarea"  rows="3" placeholder="" name="inside">{{ $book->inside }}</textarea>
+                                                                <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside">{{ $book->inside }}</textarea>
                                                             </fieldset>
                                                         </div>
                                                         @if ($type != 7)
@@ -734,8 +737,7 @@
                                                             <fieldset class="form-group">
                                                                 <label for="basicInputFile">Sample File</label>
                                                                 <div class="custom-file">
-                                                                    <input type="file"
-                                                                        class="custom-file-input "
+                                                                    <input type="file" class="custom-file-input "
                                                                         id="" name="sample_file">
                                                                     <label class="custom-file-label"
                                                                         for="inputGroupFile01">Choose
