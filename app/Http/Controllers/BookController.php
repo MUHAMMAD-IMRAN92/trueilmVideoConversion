@@ -392,7 +392,7 @@ class BookController extends Controller
         }
 
         if ($request->pending_for_approval == "true") {
-            return redirect()->to('/book/pending-for-approval/')->with('msg', 'Content Saved Successfully!');
+            return redirect()->to('/book/pending-for-approval/' .  $book->type)->with('msg', 'Content Saved Successfully!');
         }
         if ($request->rejected_by_you == "true") {
             return redirect()->to('/book/rejected_by_you')->with('msg', 'Content Saved Successfully!');
