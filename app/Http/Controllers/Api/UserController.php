@@ -84,6 +84,7 @@ class UserController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+        return $user;
         // if ($user) {
         //     $userEmail = $user->email;
         //     Mail::to($userEmail)->send(new ResetPassword($user));
