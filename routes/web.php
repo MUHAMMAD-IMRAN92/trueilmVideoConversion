@@ -383,6 +383,6 @@ Route::get('updateModel', function () {
 Route::get('test', function () {
     $surah = Surah::all();
     foreach ($surah as $s) {
-        SurahCombinations::dispatch($s->_id, 1);
+        SurahCombinationJob::dispatch($s->_id, 1);
     }
 });
