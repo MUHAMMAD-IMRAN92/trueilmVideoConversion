@@ -2857,8 +2857,13 @@
                    },
                    {
                        "mRender": function(data, type, row) {
+                        phone = '--';
+                           if (row.phone != undefined) {
+                            phone = row.phone
+                           }
                            return '<td>' +
-                               row.phone + '</td>'
+                            phone + '</td>'
+
                        }
                    }, {
                        "mRender": function(data, type, row) {

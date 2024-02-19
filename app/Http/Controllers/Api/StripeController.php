@@ -141,7 +141,7 @@ class StripeController extends Controller
             // Invalid payload
 
             http_response_code(400);
-            exit();
+        exit();
         } catch (\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
 
