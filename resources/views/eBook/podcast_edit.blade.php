@@ -472,7 +472,7 @@
                                                                 <label for="" class="required">Title</label>
                                                                 <div class="position-relative">
                                                                     <input type="hidden" name="pending_for_approval"
-                                                                        value="{{ $pending_for_approval }}">
+                                                                        value="{{ @$pending_for_approval }}">
                                                                     <input type="hidden" id=""
                                                                         value="{{ $type }}" class="form-control"
                                                                         name="type" placeholder="" required>
