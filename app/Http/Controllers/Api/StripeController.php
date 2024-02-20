@@ -98,6 +98,7 @@ class StripeController extends Controller
                     'cancel_url' =>  $request->cancel_url,
 
                 ]);
+                return Carbon::parse($session->expires_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 $plan = Subscription::where('price_id', $request->price)->where('status', 1)->first();
                 $userSubscription = new UserSubscription();
                 $userSubscription->user_id = $user->_id;
