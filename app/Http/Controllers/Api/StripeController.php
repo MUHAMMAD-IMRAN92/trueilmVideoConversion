@@ -175,7 +175,6 @@ class StripeController extends Controller
                         $userSubscription->status = 'paid';
                         $userSubscription->expiray_date = Carbon::parse(@$session->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
-                        $userSubscription->onject =  $session->data;
                         $userSubscription->save();
                     }
                 }
