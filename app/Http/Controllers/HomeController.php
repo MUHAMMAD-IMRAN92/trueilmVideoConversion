@@ -77,7 +77,7 @@ class HomeController extends Controller
             // Set the email details and template variables
             $to_email =  $email->email;
             $from_email = env('MAIL_FROM_ADDRESS');
-            $template_id = "d-597d210c4a514c7982b774607a93738a";
+            $template_id = "d-7e587e06880844b08966509abe9a9117";
             $template_vars = [];
 
             // Set the payload as a JSON string
@@ -114,7 +114,7 @@ class HomeController extends Controller
             //Admin Email
             $to_email =  'salam@trueilm.com';
             $from_email = env('MAIL_FROM_ADDRESS');
-            $template_id = "d-9c8e85a4e7e144df80d4b725d4e55634";
+            $template_id = "d-8f3cb730011d4d608f1ef9ab917d4a2e";
             $template_vars = [
                 'email' => $email->email
             ];
@@ -171,7 +171,7 @@ class HomeController extends Controller
             // Set the email details and template variables
             $to_email =  $email->email;
             $from_email = env('MAIL_FROM_ADDRESS');
-            $template_id = "d-597d210c4a514c7982b774607a93738a";
+            $template_id = "d-7e587e06880844b08966509abe9a9117";
             $template_vars = [];
 
             // Set the payload as a JSON string
@@ -208,7 +208,7 @@ class HomeController extends Controller
             //Admin Email
             $to_email =  'salam@trueilm.com';
             $from_email = env('MAIL_FROM_ADDRESS');
-            $template_id = "d-9c8e85a4e7e144df80d4b725d4e55634";
+            $template_id = "d-8f3cb730011d4d608f1ef9ab917d4a2e";
             $template_vars = [
                 'email' => $email->email
             ];
