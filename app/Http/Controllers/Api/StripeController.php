@@ -159,6 +159,7 @@ class StripeController extends Controller
 
                 $userSubscription  = UserSubscription::where('checkout_id', $session->id)->first();
                 $userSubscription->status = $session->payment_status;
+                $userSubscription->expires_at = Carbon::parse($session->expires_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 $userSubscription->subscription_id = $session->subscription;
                 $userSubscription->save();
             case 'customer.subscription.updated':
@@ -172,6 +173,7 @@ class StripeController extends Controller
                         $userSubscription->save();
                     } else {
                         $userSubscription->status = 'paid';
+                        $userSubscription->expires_at = Carbon::parse($session->expires_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
                         $userSubscription->save();
                     }
