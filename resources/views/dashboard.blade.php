@@ -12,8 +12,7 @@
                 <!-- Dashboard Ecommerce Starts -->
                 <section id="dashboard-ecommerce">
                     <div class="row">
-                        @if (auth()->user()->hasRole('Admin') ||
-                                auth()->user()->hasRole('Super Admin'))
+                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -44,9 +43,7 @@
                                 </div>
                             </div>
                         @endif
-                        @if (auth()->user()->hasRole('Admin') ||
-                                auth()->user()->hasRole('Publisher') ||
-                                auth()->user()->hasRole('Super Admin'))
+                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Super Admin'))
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -56,12 +53,9 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::when(
-                                                !auth()->user()->hasRole('Super Admin'),
-                                                function ($query) {
-                                                    $query->where('added_by', auth()->user()->id);
-                                                },
-                                            )->count() }}
+                                            {{ App\Models\Book::when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                                $query->where('added_by', auth()->user()->id);
+                                            })->count() }}
                                         </h2>
                                         <p class="mb-0">Total Books</p>
                                     </div>
@@ -82,16 +76,12 @@
                                                 ->count();
                                         @endphp --}}
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::pendingApprove()->when(
-                                                    auth()->user()->hasRole('Publisher'),
-                                                    function ($query) {
-                                                        $query->where('added_by', auth()->user()->id);
-                                                    },
-                                                )->count() }}
+                                            {{ App\Models\Book::pendingApprove()->when(auth()->user()->hasRole('Publisher'), function ($query) {
+                                                    $query->where('added_by', auth()->user()->id);
+                                                })->count() }}
                                         </h2>
                                         <p class="mb-0">Pending For Approval Book <u style="font-size: 10px">
-                                                @if (auth()->user()->hasRole('Super Admin') ||
-                                                        auth()->user()->hasRole('Admin'))
+                                                @if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
                                                     <a href="{{ url('book/pending-for-approval') }}">Click</a>
                                                 @endif
                                             </u>
@@ -110,12 +100,9 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::rejected()->when(
-                                                    !auth()->user()->hasRole('Super Admin'),
-                                                    function ($query) {
-                                                        $query->where('added_by', auth()->user()->id);
-                                                    },
-                                                )->count() }}
+                                            {{ App\Models\Book::rejected()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                                    $query->where('added_by', auth()->user()->id);
+                                                })->count() }}
                                         </h2>
                                         <p class="mb-0">Rejected Books<u style="font-size: 10px">
 
@@ -135,12 +122,9 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->ebook()->when(
-                                                    !auth()->user()->hasRole('Super Admin'),
-                                                    function ($query) {
-                                                        $query->where('added_by', auth()->user()->id);
-                                                    },
-                                                )->count() }}
+                                            {{ App\Models\Book::approved()->ebook()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                                    $query->where('added_by', auth()->user()->id);
+                                                })->count() }}
                                         </h2>
                                         <p class="mb-0">eBooks<u style="font-size: 10px">
 
@@ -160,12 +144,9 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->audio()->when(
-                                                    !auth()->user()->hasRole('Super Admin'),
-                                                    function ($query) {
-                                                        $query->where('added_by', auth()->user()->id);
-                                                    },
-                                                )->count() }}
+                                            {{ App\Models\Book::approved()->audio()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                                    $query->where('added_by', auth()->user()->id);
+                                                })->count() }}
                                         </h2>
                                         <p class="mb-0">Audio Books<u style="font-size: 10px">
 
@@ -185,12 +166,9 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->paper()->when(
-                                                    !auth()->user()->hasRole('Super Admin'),
-                                                    function ($query) {
-                                                        $query->where('added_by', auth()->user()->id);
-                                                    },
-                                                )->count() }}
+                                            {{ App\Models\Book::approved()->paper()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                                    $query->where('added_by', auth()->user()->id);
+                                                })->count() }}
                                         </h2>
                                         <p class="mb-0">Research Papers<u style="font-size: 10px">
 
@@ -234,3 +212,13 @@
     </div>
     <!-- END: Content-->
 @endsection
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+            appId: "{{ env('ONESIGNAL_APP_ID') }}",
+            allowLocalhostAsSecureOrigin: true,
+        });
+    });
+</script>
