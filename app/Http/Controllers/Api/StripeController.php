@@ -105,7 +105,7 @@ class StripeController extends Controller
                 $userSubscription->email = $user->email;
                 $userSubscription->customer = $user->customer;
                 $userSubscription->price_id =  $request->price;
-                $userSubscription->expiray_date = Carbon::parse($session->expires_at)->setTimezone('UTC');
+                $userSubscription->expiray_date = (string)$session->expires_at;
                 $userSubscription->status = $session->payment_status;
                 $userSubscription->plan_name = @$plan->product_title;
                 $userSubscription->plan_type = @$plan->type;
