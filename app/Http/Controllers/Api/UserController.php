@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
 use App\Mail\UserVarification;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -141,6 +143,32 @@ class UserController extends Controller
             }
         } else {
             return sendError('User Not Found!', []);
+        }
+    }
+    public function saveToSendGrid(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return sendError('Validation Failed!', $validator->errors());
+        }
+        $apiKey = getenv('MAIL_PASSWORD');
+        $sg = new \SendGrid($apiKey);
+        $request_body = json_decode('{
+                    "contacts": [
+                        {
+                            "email": "' . $request->email . '"
+                        }
+                    ],
+
+                }');
+        try {
+            //saving in global list
+            $response = $sg->client->marketing()->contacts()->put($request_body);
+            return sendSuccess('User Save To Sendgrid Contacts!', []);
+        } catch (Exception $ex) {
+            echo 'Caught exception: ' .  $ex->getMessage();
         }
     }
 }

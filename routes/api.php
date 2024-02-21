@@ -51,6 +51,9 @@ Route::post('check_answer',  [App\Http\Controllers\Api\QuizController::class, 'c
 Route::post('attempt_result',  [App\Http\Controllers\Api\QuizController::class, 'attemptResult']);
 Route::post('check_expiry',  [App\Http\Controllers\Api\QuizController::class, 'checkExpiry']);
 
+//sendgrid save user to contact list
+Route::post('save-to-sendgrid-list',  [App\Http\Controllers\Api\UserController::class, 'saveToSendGrid']);
+
 
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
 
