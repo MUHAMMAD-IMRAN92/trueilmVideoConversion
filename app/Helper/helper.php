@@ -138,3 +138,40 @@ function indexing($type, $content)
     }
     return 1;
 }
+
+function addContactToSendGridList($email, $type)
+{
+    $apiKey = getenv('MAIL_PASSWORD');
+    $sg = new \SendGrid($apiKey);
+    $list = '';
+    if ($type == 3) {
+        $list = 'ba9e0598-ac9f-49a3-a383-be02ecb8f2b3';
+    } elseif ($type == 2) {
+        $list = 'a612123e-74e9-404e-a863-ea1a8163b58f';
+    } else {
+        $list = 'af6f628a-e024-4ce0-95a6-c72e2ef16df3';
+    }
+    $request_body = json_decode('{
+                "contacts": [
+                    {
+                        "email": "' . $email . '"
+                    }
+                ],
+                "list_ids": [
+                    "' . $list . '"
+                    ]
+
+            }');
+    try {
+        //saving in specific list
+        $response = $sg->client->marketing()->contacts()->put($request_body);
+        if ($response->statusCode() == 202) {
+
+            return sendSuccess('User Saved To Sendgrid List!', []);
+        } else {
+            return sendError('msg', $response->body());
+        }
+    } catch (Exception $ex) {
+        return sendError('Exception!', $response->body());
+    }
+}

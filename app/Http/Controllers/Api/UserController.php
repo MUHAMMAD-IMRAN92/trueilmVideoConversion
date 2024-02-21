@@ -155,6 +155,8 @@ class UserController extends Controller
         }
         $apiKey = getenv('MAIL_PASSWORD');
         $sg = new \SendGrid($apiKey);
+        $response = $sg->client->marketing()->lists()->get(null);
+        return $response->body();
         $request_body = json_decode('{
                     "contacts": [
                         {
