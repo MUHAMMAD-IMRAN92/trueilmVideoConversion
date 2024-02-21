@@ -166,7 +166,7 @@ class UserController extends Controller
         try {
             //saving in global list
             $response = $sg->client->marketing()->contacts()->put($request_body);
-            return sendSuccess('User Save To Sendgrid Contacts!', []);
+            return sendSuccess('User Saved To Sendgrid Contacts!', []);
         } catch (Exception $ex) {
             return sendError('Exception!', $response->body());
         }
