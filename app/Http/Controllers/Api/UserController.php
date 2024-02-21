@@ -160,7 +160,7 @@ class UserController extends Controller
                         {
                             "email": "' . $request->email . '"
                         }
-                    ],
+                    ]
 
                 }');
         try {
