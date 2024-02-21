@@ -166,7 +166,12 @@ class UserController extends Controller
         try {
             //saving in global list
             $response = $sg->client->marketing()->contacts()->put($request_body);
-            return sendSuccess('User Saved To Sendgrid Contacts!', []);
+            if ($response->statusCode() == 202) {
+
+                return sendSuccess('User Saved To Sendgrid Contacts!', []);
+            } else {
+                return sendError('msg', $response->body());
+            }
         } catch (Exception $ex) {
             return sendError('Exception!', $response->body());
         }
