@@ -52,9 +52,9 @@
 
    <!-- END: Page JS-->
    <script>
-       $(".select2").select2({
-           tags: true
-       });
+       //    $(".select2").select2({
+       //        tags: true
+       //    });
        $(document).ready(function() {
            $('.summernote').summernote({
                height: 150,
@@ -2857,12 +2857,12 @@
                    },
                    {
                        "mRender": function(data, type, row) {
-                        phone = '--';
+                           phone = '--';
                            if (row.phone != undefined) {
-                            phone = row.phone
+                               phone = row.phone
                            }
                            return '<td>' +
-                            phone + '</td>'
+                               phone + '</td>'
 
                        }
                    }, {
