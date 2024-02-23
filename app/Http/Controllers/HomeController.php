@@ -617,14 +617,14 @@ class HomeController extends Controller
         $alQuran  = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
 
-            $url = Http::get("https://api.quran.com/api/v4/recitations/7/by_ayah/$verse->verse_key");
+            $url = Http::get("https://api.quran.com/api/v4/recitations/1/by_ayah/$verse->verse_key");
             $ayat = json_decode($url->body());;
 
             $url = 'https://verses.quran.com/' . $ayat->audio_files[0]->url;
             $client = new GuzzleHttpClient();
             $response = $client->get($url);
 
-            $modifiedFileName = 'audios/1/65aa6e45c5da12cc4d009915/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
+            $modifiedFileName = 'audios/1/6557274dc662153f0a764f0d/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
 
             Storage::disk('s3')->put($modifiedFileName, $response->getBody());
         }
