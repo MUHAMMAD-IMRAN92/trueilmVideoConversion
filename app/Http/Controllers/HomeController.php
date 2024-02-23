@@ -611,20 +611,21 @@ class HomeController extends Controller
     }
     public function audios()
     {
+
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
 
         $alQuran  = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
 
-            $url = Http::get("https://api.quran.com/api/v4/recitations/5/by_ayah/$verse->verse_key");
+            $url = Http::get("https://api.quran.com/api/v4/recitations/6/by_ayah/$verse->verse_key");
             $ayat = json_decode($url->body());;
 
             $url = 'https://verses.quran.com/' . $ayat->audio_files[0]->url;
             $client = new GuzzleHttpClient();
             $response = $client->get($url);
 
-            $modifiedFileName = 'audios/1/65d83fba172ca17ee19d9273/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
+            $modifiedFileName = 'audios/1/65d897ee172ca17ee19d927d/' . str_replace(':', '_', $verse->verse_key) . '.mp3';
 
             Storage::disk('s3')->put($modifiedFileName, $response->getBody());
         }
