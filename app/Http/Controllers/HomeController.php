@@ -619,9 +619,9 @@ class HomeController extends Controller
         foreach ($alQuran as $key => $verse) {
 
             $url = Http::get("https://api.quran.com/api/v4/recitations/6/by_ayah/$verse->verse_key");
-            $ayat = json_decode($url->body());;
+            $ayat = json_decode($url->body());
 
-            $url = 'https://verses.quran.com/' . $ayat->audio_files[0]->url;
+            $url = $ayat->audio_files[0]->url;
             $client = new GuzzleHttpClient();
             $response = $client->get($url);
 
