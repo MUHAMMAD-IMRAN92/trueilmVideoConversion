@@ -226,9 +226,9 @@
                                                                 }
                                                                 $mtype = 'Big Family';
                                                                 if (@$subs->type == 1) {
-                                                                    $mtype = 'Family';
-                                                                } elseif (@$subs->type == 2) {
                                                                     $mtype = 'Individual';
+                                                                } elseif (@$subs->type == 2) {
+                                                                    $mtype = 'Family';
                                                                 }
                                                             @endphp
                                                             <tr>
