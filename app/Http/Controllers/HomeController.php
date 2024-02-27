@@ -243,6 +243,27 @@ class HomeController extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $response = curl_exec($ch);
             curl_close($ch);
+            $apiKey = getenv('MAIL_PASSWORD');
+            $sg = new \SendGrid($apiKey);
+
+            $request_body = json_decode('{
+                    "contacts": [
+                        {
+                            "email": "' . $request->email . '",
+                            "user_name" : "' . @$request->user_name . '",
+                            "phone_number" : "' . @$request->phone . '"
+                        }
+                    ],
+                    "list_ids":[
+                        "1b79ee80-8124-4a97-8cf8-38a767e94185"
+                        ]
+                }');
+
+
+
+            //saving in global list
+
+            $response = $sg->client->marketing()->contacts()->put($request_body);
 
             // Handle the response
 

@@ -155,17 +155,26 @@ class UserController extends Controller
         }
         $apiKey = getenv('MAIL_PASSWORD');
         $sg = new \SendGrid($apiKey);
-        $request_body = json_decode('{
-                    "contacts": [
-                        {
-                            "email": "' . $request->email . '"
-                        }
-                    ]
 
-                }');
+        $request_body = json_decode('{
+                "contacts": [
+                    {
+                        "email": "' . $request->email . '",
+                        "user_name" : "' . @$request->user_name . '",
+                        "phone_number" : "' . @$request->phone . '"
+                    }
+                ],
+                "list_ids":[
+                    "081c7e27-20c9-4a29-838e-e41b62d7dd8d"
+                    ]
+            }');
+
+
         try {
             //saving in global list
+
             $response = $sg->client->marketing()->contacts()->put($request_body);
+
             if ($response->statusCode() == 202) {
 
                 return sendSuccess('User Saved To Sendgrid Contacts!', []);

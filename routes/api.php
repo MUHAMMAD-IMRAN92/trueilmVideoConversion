@@ -102,6 +102,15 @@ Route::get('QuranEncTranslation/{key}/{combination_id}',  [App\Http\Controllers\
 Route::get('lists', function () {
     $apiKey = getenv('MAIL_PASSWORD');
     $sg = new \SendGrid($apiKey);
-    $response = $sg->client->contactdb()->lists()->get();
-    return   $response->body();
+
+
+    try {
+        $response = $sg->client->marketing()->lists()->get();
+        // return $response->body();
+        // print $response->statusCode() . "\n";
+        // print_r($response->headers());
+        print $response->body() . "\n";
+    } catch (Exception $ex) {
+        echo 'Caught exception: ' .  $ex->getMessage();
+    }
 });
