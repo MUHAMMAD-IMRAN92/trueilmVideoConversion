@@ -349,9 +349,9 @@ class UserController extends Controller
     public function profile($id)
     {
         $user = User::where('_id', $id)->with('subscription.plan')->first();
-        $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
+        $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
 
-        $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->count();
+        $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->pluck('type')->toArray();
         return view('user.user_profile', [
             'user' => $user,
             'checkLifeTime' => $checkLifeTime
@@ -360,11 +360,11 @@ class UserController extends Controller
     public   function giveSubscription(Request $request)
     {
         $user = User::where('_id', $request->id)->first();
-        $subscription = Subscription::where('product_title', 'Deen Essentials')->first();
-        if ($request->subscription == true) {
-            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->count();
-            if ($checkLifeTime > 0) {
-                return redirect()->back()->with(['msg' => 'Life Time Access Already Given!']);
+        $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
+        foreach ($request->subscription as $subs) {
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('type', $subs)->where('plan_id',  @$subscription->_id)->first();
+            if ($checkLifeTime) {
+                continue;
             } else {
                 $userSubscription = new UserSubscription();
                 $userSubscription->user_id =  $user->_id;
@@ -372,16 +372,11 @@ class UserController extends Controller
                 $userSubscription->status =  'paid';
                 $userSubscription->plan_id =  @$subscription->_id;
                 $userSubscription->expiry =  'Life Time';
+                $userSubscription->type =  $subs;
                 $userSubscription->save();
-                return redirect()->back()->with(['msg' => 'Life Time Access Given!']);
-            }
-        } else {
-            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
-            if ($checkLifeTime > 0) {
-                return redirect()->back()->with(['dmsg' => 'Life TIme Access Not Granted !']);
             }
         }
-
-        return $request->all();
+        $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('type',  $request->subscription)->delete();
+        return redirect()->back()->with(['msg' => 'Access updated Successfully!']);
     }
 }

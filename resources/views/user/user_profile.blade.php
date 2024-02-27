@@ -102,28 +102,82 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-6 ml-1">
+                                                        <div class="d-flex">
+                                                            <div class="col-6 ">
 
-                                                            {{-- <label for="">Life Time Member</label> --}}
+                                                                {{-- <label for="">Life Time Member</label> --}}
 
-                                                            {{-- <input type="checkbox" id="" name="subscription"
+                                                                {{-- <input type="checkbox" id="" name="subscription"
                                                             value="1" placeholder="" style=""> <span> Life Time Member</span> --}}
 
-                                                            <li class="d-inline-block mr-2">
-                                                                <fieldset>
-                                                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                        <input type="checkbox"
-                                                                            {{ $checkLifeTime != 0 ? 'checked' : '' }}
-                                                                            value="true" name="subscription">
-                                                                        <span class="vs-checkbox">
-                                                                            <span class="vs-checkbox--check">
-                                                                                <i class="vs-icon feather icon-check"></i>
+                                                                <li class="d-inline-block mr-2">
+                                                                    <fieldset>
+                                                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                            <input type="checkbox"
+                                                                                {{ in_array(1, $checkLifeTime) == true ? 'checked' : '' }}
+                                                                                value="1" name="subscription[]">
+                                                                            <span class="vs-checkbox">
+                                                                                <span class="vs-checkbox--check">
+                                                                                    <i
+                                                                                        class="vs-icon feather icon-check"></i>
+                                                                                </span>
                                                                             </span>
-                                                                        </span>
-                                                                        <span class="">Life Time Member</span>
-                                                                    </div>
-                                                                </fieldset>
-                                                            </li>
+                                                                            <span class="">Individual(Life Time
+                                                                                Member)</span>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </li>
+                                                            </div>
+                                                            <div class="col-6 ">
+
+                                                                {{-- <label for="">Life Time Member</label> --}}
+
+                                                                {{-- <input type="checkbox" id="" name="subscription"
+                                                            value="1" placeholder="" style=""> <span> Life Time Member</span> --}}
+
+                                                                <li class="d-inline-block mr-2">
+                                                                    <fieldset>
+                                                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                            <input type="checkbox"
+                                                                                {{ in_array(2, $checkLifeTime) == true ? 'checked' : '' }}
+                                                                                value="2" name="subscription[]">
+                                                                            <span class="vs-checkbox">
+                                                                                <span class="vs-checkbox--check">
+                                                                                    <i
+                                                                                        class="vs-icon feather icon-check"></i>
+                                                                                </span>
+                                                                            </span>
+                                                                            <span class="">Family (Life Time
+                                                                                Member)</span>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </li>
+                                                            </div>
+                                                            <div class="col-6 ">
+
+                                                                {{-- <label for="">Life Time Member</label> --}}
+
+                                                                {{-- <input type="checkbox" id="" name="subscription"
+                                                            value="1" placeholder="" style=""> <span> Life Time Member</span> --}}
+
+                                                                <li class="d-inline-block mr-2">
+                                                                    <fieldset>
+                                                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                            <input type="checkbox"
+                                                                                {{ in_array(3, $checkLifeTime) == true ? 'checked' : '' }}
+                                                                                value="3" name="subscription[]">
+                                                                            <span class="vs-checkbox">
+                                                                                <span class="vs-checkbox--check">
+                                                                                    <i
+                                                                                        class="vs-icon feather icon-check"></i>
+                                                                                </span>
+                                                                            </span>
+                                                                            <span class="">Big Family (Life Time
+                                                                                Member)</span>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </li>
+                                                            </div>
                                                         </div>
                                                         <div class="col-12" style="text-align: right">
                                                             <button type="submit"
