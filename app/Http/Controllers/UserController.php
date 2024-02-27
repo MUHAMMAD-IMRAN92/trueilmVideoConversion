@@ -361,22 +361,28 @@ class UserController extends Controller
     {
         $user = User::where('_id', $request->id)->first();
         $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
-        foreach ($request->subscription as $subs) {
-            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('type', $subs)->where('plan_id',  @$subscription->_id)->first();
-            if ($checkLifeTime) {
-                continue;
-            } else {
-                $userSubscription = new UserSubscription();
-                $userSubscription->user_id =  $user->_id;
-                $userSubscription->email =  $user->email;
-                $userSubscription->status =  'paid';
-                $userSubscription->plan_id =  @$subscription->_id;
-                $userSubscription->expiry =  'Life Time';
-                $userSubscription->type =  $subs;
-                $userSubscription->save();
+        if ($request->subscription) {
+
+
+            foreach ($request->subscription as $subs) {
+                $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('type', $subs)->where('plan_id',  @$subscription->_id)->first();
+                if ($checkLifeTime) {
+                    continue;
+                } else {
+                    $userSubscription = new UserSubscription();
+                    $userSubscription->user_id =  $user->_id;
+                    $userSubscription->email =  $user->email;
+                    $userSubscription->status =  'paid';
+                    $userSubscription->plan_id =  @$subscription->_id;
+                    $userSubscription->expiry =  'Life Time';
+                    $userSubscription->type =  $subs;
+                    $userSubscription->save();
+                }
             }
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('type',  $request->subscription)->delete();
+        } else {
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
         }
-        $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('type',  $request->subscription)->delete();
         return redirect()->back()->with(['msg' => 'Access updated Successfully!']);
     }
 }

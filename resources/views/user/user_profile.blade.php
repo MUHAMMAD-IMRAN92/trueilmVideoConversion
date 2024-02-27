@@ -212,6 +212,7 @@
                                                             <th class="description-td">Plan Description</th>
                                                             <th>Price</th>
                                                             <th>Expiry Duration</th>
+                                                            <th>Membership </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -223,13 +224,19 @@
                                                                 } elseif (@$subs->plan->type == 2) {
                                                                     $type = 'Yearly';
                                                                 }
-
+                                                                $mtype = 'Big Family';
+                                                                if (@$subs->type == 1) {
+                                                                    $mtype = 'Family';
+                                                                } elseif (@$subs->type == 2) {
+                                                                    $mtype = 'Individual';
+                                                                }
                                                             @endphp
                                                             <tr>
                                                                 <td>{{ @$subs->plan->product_title }}</td>
                                                                 <td>{{ @$subs->plan->description }}</td>
                                                                 <td>{{ @$subs->plan->price }}</td>
-                                                                <td>{{ $type }}</td>
+                                                                <td>{{ @$type }}</td>
+                                                                <td>{{ @$mtype }}</td>
                                                             </tr>
                                                         @empty
                                                             <center><b>No Plan Subscribed Yet!</b></center>
