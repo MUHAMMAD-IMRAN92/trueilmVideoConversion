@@ -97,3 +97,11 @@ Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 
 Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
 Route::get('QuranEncTranslation/{key}/{combination_id}',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);
+
+
+Route::get('lists', function () {
+    $apiKey = getenv('MAIL_PASSWORD');
+    $sg = new \SendGrid($apiKey);
+    $response = $sg->client->contactdb()->lists()->get();
+    return   $response->body();
+});
