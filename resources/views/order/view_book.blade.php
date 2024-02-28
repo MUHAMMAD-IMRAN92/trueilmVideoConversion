@@ -16,7 +16,7 @@
 
 <body oncontextmenu="return false">
     @if (auth()->user())
-        <iframe src="https://staging.trueilm.com/epub-viewer/{{ $book_id }}"
+        <iframe src="https://app.trueilm.com/epub-viewer/{{ $book_id }}"
             frameborder="0"></iframe>
     @else
         <strong>
