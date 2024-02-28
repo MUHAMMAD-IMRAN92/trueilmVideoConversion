@@ -375,7 +375,7 @@ class UserController extends Controller
                     $userSubscription->status =  'paid';
                     $userSubscription->plan_id =  @$subscription->_id;
                     $userSubscription->expiry =  'Life Time';
-                    $userSubscription->plan_type =  $subs;
+                    $userSubscription->type =  $subs;
                     $userSubscription->save();
                 }
             }
