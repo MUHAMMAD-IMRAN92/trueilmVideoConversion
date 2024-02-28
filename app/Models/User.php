@@ -57,7 +57,7 @@ class User extends Authenticatable
         // } else {
         //     return 0;
         // }
-        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('status', 'paid')->get();
+        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('plan_name' , '!=' , 'Freemium')->where('status', 'paid')->get();
         if ($userSubscription) {
             return count($userSubscription);
         } else {
