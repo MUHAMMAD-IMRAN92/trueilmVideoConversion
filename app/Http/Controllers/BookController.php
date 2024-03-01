@@ -747,4 +747,10 @@ class BookController extends Controller
 
         return redirect()->back()->with('msg', 'Chapter Deleted!');
     }
+    public function updateChapterName(Request $request)
+    {
+        $boookContent = BookContent::where('_id', $request->content_id)->update(['book_name' => $request->name]);
+
+        return 'updated';
+    }
 }

@@ -4611,4 +4611,33 @@
        //        // Close the modal
 
        //    });
+
+       function makeInput(key) {
+           //    alert('ok');
+           $('#name-span-' + key).css('display', 'none');
+           $('#name-input-div-' + key).css('display', 'flex');
+       }
+
+       function saveFileName(id, key) {
+           var name = $('#input-' + key).val();
+
+           $.ajax({
+               url: '/update/audio/name',
+               method: 'GET',
+
+               data: {
+                   content_id: id,
+                   name: name
+               },
+               success: function(response) {
+                   $('#name-span-' + key).html(name);
+                   $('#name-span-' + key).css('display', 'block');
+                   $('#name-input-div-' + key).css('display', 'none');
+               },
+               error: function(error) {
+                   // Handle errors, e.g., display validation errors
+                   console.log(error.responseJSON.errors);
+               }
+           });
+       }
    </script>

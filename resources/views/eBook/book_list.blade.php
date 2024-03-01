@@ -80,7 +80,25 @@
                                                                                 @foreach ($content as $key => $c)
                                                                                     <tr>
 
-                                                                                        <td>{{ str_replace('.mp3', '', $c->book_name) }}
+                                                                                        <td
+                                                                                            onclick="makeInput({{ $key }})">
+                                                                                            <span
+                                                                                                id="name-span-{{ $key }}">
+                                                                                                {{ str_replace('.mp3', '', $c->book_name) }}</span>
+                                                                                            <div id="name-input-div-{{ $key }}"
+                                                                                                style="display: none !important">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    name=""
+                                                                                                    value="{{ str_replace('.mp3', '', $c->book_name) }}"
+                                                                                                    id="input-{{ $key }}">
+                                                                                                <span
+                                                                                                    class="btn btn-success ml-1"
+                                                                                                    onclick="saveFileName('{{ $c->_id }}' ,  '{{ $key }}')">
+                                                                                                    <i
+                                                                                                        class="fa fa-check "></i>
+                                                                                                </span>
+                                                                                            </div>
                                                                                         </td>
                                                                                         <td> <input type="hidden"
                                                                                                 value="{{ $c->_id }}"
