@@ -103,6 +103,14 @@ Route::get('/course/index', function () {
             $books = BookContent::whereIn('book_id', $book)->get()->toArray();
             $client->index($arr)->addDocuments($books);
         }
+        if ($key == 4) {
+            $book = AlQuranTranslation::get()->toArray();
+            $client->index($arr)->addDocuments($book);
+        }
+        if ($key == 5) {
+            $book = AlQuranTranslation::get()->toArray();
+            $client->index($arr)->addDocuments($book);
+        }
     }
 
     return 'ok';
