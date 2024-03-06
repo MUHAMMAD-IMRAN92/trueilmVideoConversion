@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\BookContent;
 use App\Models\Course;
 use App\Models\CourseLesson;
+use App\Models\HadeesTranslation;
 use App\Models\Surah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -104,15 +105,18 @@ Route::get('/course/index', function () {
             $client->index($arr)->addDocuments($books);
         }
         if ($key == 4) {
-            $book = AlQuranTranslation::get()->toArray();
-            $client->index($arr)->addDocuments($book);
+            $client->deleteIndex($arr);
+            $book = AlQuranTranslation::chunk(1000, function ($AlQuran) use ($client, $arr) {
+                $client->index($arr)->addDocuments($AlQuran->toArray());
+            });
         }
         if ($key == 5) {
-            $book = AlQuranTranslation::get()->toArray();
-            $client->index($arr)->addDocuments($book);
+            $client->deleteIndex($arr);
+            $book = HadeesTranslation::chunk(1000, function ($AlQuran) use ($client, $arr) {
+                $client->index($arr)->addDocuments($AlQuran->toArray());
+            });
         }
     }
-
     return 'ok';
 });
 Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
