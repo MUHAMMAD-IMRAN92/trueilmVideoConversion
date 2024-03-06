@@ -82,7 +82,7 @@ Route::get('/course/index', function () {
     foreach ($arrIndex as $key => $arr) {
         $client->createIndex($arr, ['primaryKey' => '_id']);
         if ($key == 1 || $key == 2 || $key == 3 || $key == 7) {
-            $book = Book::where('type', $key)->get()->toArray();
+            $book = Book::where('type', (string) $key)->get()->toArray();
             $client->index($arr)->addDocuments($book);
         }
         if ($key == 6) {
@@ -94,12 +94,12 @@ Route::get('/course/index', function () {
             $client->index($arr)->addDocuments($book);
         }
         if ($key == 11) {
-            $book = Book::where('type', 7)->get()->pluck('_id');
+            $book = Book::where('type', (string) 7)->get()->pluck('_id');
             $books = BookContent::whereIn('book_id', $book)->get()->toArray();
             $client->index($arr)->addDocuments($books);
         }
         if ($key == 12) {
-            $book = Book::where('type', 2)->get()->pluck('_id');
+            $book = Book::where('type', (string) 2)->get()->pluck('_id');
             $books = BookContent::whereIn('book_id', $book)->get()->toArray();
             $client->index($arr)->addDocuments($books);
         }
