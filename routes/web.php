@@ -382,9 +382,6 @@ Route::get('updateModel', function () {
     }
     return 'done';
 });
-Route::get('test', function () {
-    $surah = Surah::all();
-    foreach ($surah as $s) {
-        SurahCombinationJob::dispatch($s->_id, 1);
-    }
+Route::get('phpinfo', function () {
+    return phpinfo();
 });

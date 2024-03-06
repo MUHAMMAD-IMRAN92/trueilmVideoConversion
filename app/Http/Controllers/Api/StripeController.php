@@ -117,6 +117,7 @@ class StripeController extends Controller
                 $userSubscription->plan_type = @$plan->type;
                 $userSubscription->type = $mtype;
                 $userSubscription->plan_id = @$plan->_id;
+                $userSubscription->is_trail = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;
                 $userSubscription->save();
 
