@@ -78,13 +78,33 @@ Route::get('/quran/index/{id}', function ($id) {
 Route::get('/course/index', function () {
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    $client->deleteIndex('course');
-    $client->createIndex('course', ['primaryKey' => '_id']);
-
-    $course = Course::get();
-    foreach ($course as $c) {
-        indexing(6, $c);
+    $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
+    foreach ($arrIndex as $key => $arr) {
+        $client->createIndex($arr, ['primaryKey' => '_id']);
+        if ($key == 1 || $key == 2 || $key == 3 || $key == 7) {
+            $book = Book::where('type', $key)->get()->toArray();
+            $client->index($arr)->addDocuments($book);
+        }
+        if ($key == 6) {
+            $book = Course::get()->toArray();
+            $client->index($arr)->addDocuments($book);
+        }
+        if ($key == 7) {
+            $book = CourseLesson::get()->toArray();
+            $client->index($arr)->addDocuments($book);
+        }
+        if ($key == 11) {
+            $book = Book::where('type', 7)->get()->pluck('_id');
+            $books = BookContent::whereIn('book_id', $book)->get()->toArray();
+            $client->index($arr)->addDocuments($books);
+        }
+        if ($key == 12) {
+            $book = Book::where('type', 2)->get()->pluck('_id');
+            $books = BookContent::whereIn('book_id', $book)->get()->toArray();
+            $client->index($arr)->addDocuments($books);
+        }
     }
+
     return 'ok';
 });
 Route::get('qr/generate',  [App\Http\Controllers\HomeController::class, 'generateQr']);
@@ -97,20 +117,3 @@ Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 
 Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
 Route::get('QuranEncTranslation/{key}/{combination_id}',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);
-
-
-Route::get('lists', function () {
-    $apiKey = getenv('MAIL_PASSWORD');
-    $sg = new \SendGrid($apiKey);
-
-
-    try {
-        $response = $sg->client->marketing()->lists()->get();
-        // return $response->body();
-        // print $response->statusCode() . "\n";
-        // print_r($response->headers());
-        print $response->body() . "\n";
-    } catch (Exception $ex) {
-        echo 'Caught exception: ' .  $ex->getMessage();
-    }
-});
