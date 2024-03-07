@@ -365,7 +365,7 @@
                                                                     </td> --}}
                                                                     <td style="text-align: center">
                                                                         @if ($les->lesson_notes)
-                                                                         <a target="blank"
+                                                                            <a target="blank"
                                                                                 href="{{ $les->lesson_notes }}">
                                                                                 <i class="fa fa-eye"
                                                                                     style="font-size:20px !important"></i></a>
@@ -393,7 +393,8 @@
                                                                         Edit
                                                                         Quiz</a> </td>
                                                             @endif --}}
-                                                                    <td style="text-align: center"> <i class="fa fa-pencil pointer"
+                                                                    <td style="text-align: center"> <i
+                                                                            class="fa fa-pencil pointer"
                                                                             onclick="editLessonModal({{ $key }})"></i>
                                                                     </td>
 
@@ -513,8 +514,9 @@
                                                             <div class="col-12">
                                                                 <div class="form-group">
                                                                     <label for="">Name</label>
-                                                                    <div class="position-relative"> <input type="hidden" name="pending_for_approval"
-                                                                        value="{{ $pending_for_approval }}">    
+                                                                    <div class="position-relative"> <input type="hidden"
+                                                                            name="pending_for_approval"
+                                                                            value="{{ $pending_for_approval }}">
                                                                         <input type="hidden" id=""
                                                                             class="form-control" name="id"
                                                                             placeholder="" value="{{ $course->_id }}"
@@ -844,7 +846,7 @@
                                                             <div class="custom-file">
                                                                 <input type="file"
                                                                     class="custom-file-input  episode-custom-file-input"
-                                                                    id="fileinput" name="lesson_notes" required>
+                                                                    id="fileinput" name="lesson_notes">
 
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
@@ -870,7 +872,8 @@
                         <div class="modal fade bd-example-modal-lg" id="edit-episode" tabindex="-1" role="dialog"
                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
-                                <form action="{{ url('course/lessons') }}" method="POST" enctype="multipart/form-data" class="disable-btn-submit">
+                                <form action="{{ url('course/lessons') }}" method="POST" enctype="multipart/form-data"
+                                    class="disable-btn-submit">
                                     <div class="form-body">
                                         @csrf
                                         <div class="modal-content">
@@ -991,9 +994,9 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary"><span class="spinner-border mr-1 ml-1"
-                                                    style="display: none"></span>
-                                                <span class="submit-text">Save</span></button>
+                                                <button type="submit" class="btn btn-primary"><span
+                                                        class="spinner-border mr-1 ml-1" style="display: none"></span>
+                                                    <span class="submit-text">Save</span></button>
                                             </div>
                                         </div>
                                     </div>

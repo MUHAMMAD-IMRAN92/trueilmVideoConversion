@@ -27,25 +27,24 @@ class DevController extends Controller
 
 
 
-        Hadees::where('book_id', '65df2525158f6781d30cda21')->delete();
-        HadeesTranslation::where('book_id', '65df2525158f6781d30cda21')->delete();
-        HadithChapter::where('book_id', '65df2525158f6781d30cda21')->delete();
-
+        Hadees::where('book_id', '65e818a933123ced9748503d')->delete();
+        HadeesTranslation::where('book_id', '65e818a933123ced9748503d')->delete();
+        HadithChapter::where('book_id', '65e818a933123ced9748503d')->delete();
 
         $rows = Excel::tocollection(new HadeesImport, $request->file);
 
-        $book =  HadeesBooks::where('_id', '65df2525158f6781d30cda21')->first();
+        $book =  HadeesBooks::where('_id', '65e96911d67654aab27f7cb8')->first();
         foreach ($rows as $key1 => $row1) {
             foreach ($row1 as $key => $row) {
-                // dd($row);
+                dd($row);
                 if ($key != 0) {
 
 
-                    $count = HadithCHapter::where('book_id', '65df2525158f6781d30cda21')->orderBy('created_at', 'DESC')->first()->auto_gen_chapter_no ?? 0;
+                    $count = HadithCHapter::where('book_id', '65e96911d67654aab27f7cb8')->orderBy('created_at', 'DESC')->first()->auto_gen_chapter_no ?? 0;
                     $count = $count + 1;
                     // return $row[45];
                     // return $row[670];
-                    $mainchapter = HadithChapter::where('title', $row[2])->where('book_id', '65df2525158f6781d30cda21')->first();
+                    $mainchapter = HadithChapter::where('title', $row[2])->where('book_id', '65e96911d67654aab27f7cb8')->first();
                     if (!$mainchapter) {
                         $mainchapter = new HadithChapter();
                         $mainchapter->book_id = $book->_id;
@@ -60,22 +59,22 @@ class DevController extends Controller
                         $mainchapter->auto_gen_chapter_no = $count;
                         $mainchapter->save();
                     }
-                    // $subchapter = HadithChapter::where('title', @$row[5])->where('parent_id', $mainchapter->_id)->where('book_id', '65df2525158f6781d30cda21')->first();
-                    // if (!$subchapter) {
-                    //     $subchapter = new HadithChapter();
-                    //     $subchapter->book_id = $book->_id;
-                    //     $subchapter->title = @$row[5];
-                    //     $subchapter->title_arabic = @$row[6];
-                    //     $subchapter->parent_id = @$mainchapter->_id;
-                    //     if (@$row[5] == '') {
-                    //         $chapterNo = 0;
-                    //     } else {
-                    //         $chapterNo = @$row[5];
-                    //     }
-                    //     $subchapter->chapter_no = @$row[5];
-                    //     $subchapter->auto_gen_chapter_no = $count;
-                    //     $subchapter->save();
-                    // }
+                    $subchapter = HadithChapter::where('title', @$row[5])->where('parent_id', $mainchapter->_id)->where('book_id', '65e96911d67654aab27f7cb8')->first();
+                    if (!$subchapter) {
+                        $subchapter = new HadithChapter();
+                        $subchapter->book_id = $book->_id;
+                        $subchapter->title = @$row[5];
+                        $subchapter->title_arabic = @$row[6];
+                        $subchapter->parent_id = @$mainchapter->_id;
+                        if (@$row[5] == '') {
+                            $chapterNo = 0;
+                        } else {
+                            $chapterNo = @$row[5];
+                        }
+                        $subchapter->chapter_no = @$row[5];
+                        $subchapter->auto_gen_chapter_no = $count;
+                        $subchapter->save();
+                    }
                     $type = 1;
                     if (@$row[7] == '(Hasan)') {
                         $type = 3;
