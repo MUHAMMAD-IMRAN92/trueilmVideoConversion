@@ -82,42 +82,48 @@ Route::get('/course/index', function () {
     $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
     foreach ($arrIndex as $key => $arr) {
         $client->createIndex($arr, ['primaryKey' => '_id']);
-        // if ($key == 1 || $key == 2 || $key == 3 || $key == 7) {
-        //     $book = Book::where('type', (string) $key)->get()->toArray();
-        //     $client->index($arr)->addDocuments($book);
-        // }
+        if ($key == 1 || $key == 2 || $key == 3 || $key == 7) {
+            $client->deleteIndex($arr);
+            $client->createIndex($arr, ['primaryKey' => '_id']);
+            $book = Book::where('type', (string) $key)->where('approved', 1)->where('status', 1)->get()->toArray();
+            $client->index($arr)->addDocuments($book);
+        }
         // if ($key == 6) {
         //     $book = Course::get()->toArray();
         //     $client->index($arr)->addDocuments($book);
         // }
         // if ($key == 7) {
+        //     $client->deleteIndex($arr);
+        //     $client->createIndex($arr, ['primaryKey' => '_id']);
         //     $book = CourseLesson::get()->toArray();
         //     $client->index($arr)->addDocuments($book);
         // }
-        // if ($key == 11) {
-        //     $book = Book::where('type', (string) 7)->get()->pluck('_id');
-        //     $books = BookContent::whereIn('book_id', $book)->get()->toArray();
-        //     $client->index($arr)->addDocuments($books);
-        // }
+        if ($key == 11) {
+            $client->deleteIndex($arr);
+            $client->createIndex($arr, ['primaryKey' => '_id']);
+            $book = Book::where('type', (string) 7)->where('approved', 1)->where('status', 1)->get()->pluck('_id');
+            $books = BookContent::whereIn('book_id', $book)->get()->toArray();
+            $client->index($arr)->addDocuments($books);
+        }
         // if ($key == 12) {
         //     $book = Book::where('type', (string) 2)->get()->pluck('_id');
         //     $books = BookContent::whereIn('book_id', $book)->get()->toArray();
         //     $client->index($arr)->addDocuments($books);
         // }
-        if ($key == 4) {
-            $client->deleteIndex($arr);
-            $client->createIndex($arr, ['primaryKey' => '_id']);
+        // if ($key == 4) {
+        //     // $client->deleteIndex($arr);
+        //     $client->createIndex($arr, ['primaryKey' => '_id']);
 
-            $book = AlQuranTranslation::where('author_lang', '65aa5d64c5da12cc4d009911')->where('type', 1)->get();
-            $client->index($arr)->addDocuments($book->toArray());
-        }
-        if ($key == 5) {
-            $client->deleteIndex($arr);
-            $client->createIndex($arr, ['primaryKey' => '_id']);
-            $book = HadeesTranslation::where('book_id', '655f47441c3df94998007a1a')->where('type', 5)->get();
+        //     $book = AlQuranTranslation::where('author_lang', '65aa5d64c5da12cc4d009911')->where('type', 1)->get();
+        //     $client->index($arr)->addDocuments($book->toArray());
+        // }
+        // if ($key == 5) {
+        //     // $client->deleteIndex($arr);
+        //     $client->createIndex($arr, ['primaryKey' => '_id']);
+        //     $book = HadeesTranslation::where('book_id', '655f47441c3df94998007a1a')->where('type', 5)->get();
 
-            $client->index($arr)->addDocuments($book->toArray());
-        }
+        //     $client->index($arr)->addDocuments($book->toArray());
+        // }
     }
     return 'ok';
 });
