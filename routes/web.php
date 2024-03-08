@@ -354,17 +354,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
-Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
+Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'updateChapter'])->name('file.upload');
 
 
 Route::get('updateModel', function () {
     set_time_limit(0);
-    $chapters = HadithChapter::where('book_id', '65df2525158f6781d30cda21')->pluck('_id');
+    $chapters = HadithChapter::where('book_id', '65e9a1249de8bf4c113a2d30')->whereNull('parent_id')->pluck('_id');
     // ->whereNull('parent_id')
     foreach ($chapters as $key => $ch) {
         $var = 20;
         $page = 1;
-        // $subchapters = HadithChapter::where('book_id', '65df1a99158f6781d30cda16')->where('parent_id', $ch)->pluck('_id');
+        // $subchapters = HadithChapter::where('book_id', '65e96911d67654aab27f7cb8')->where('parent_id', $ch)->pluck('_id');
         $hadith =  Hadees::where('chapter_id', $ch)->get();
         // $hadith =  Hadees::whereIn('chapter_id', $subchapters)->get();
 

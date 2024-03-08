@@ -717,7 +717,7 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
-        AlQuranTranslation::where('author_lang', $combination_id)->delete();
+        AlQuranTranslation::where('author_lang', $combination_id)->where('type', 3)->delete();
         $records = [];
         for ($i = 1; $i < 115; $i++) {
 
@@ -734,11 +734,11 @@ class HomeController extends Controller
                 $alQuran = AlQuran::where('verse_key',  $ayaNo)->first();
 
                 $records[] = [
-                    'translation' => strip_tags(@$res->translation),
+                    'translation' => strip_tags(@$res->footnotes),
                     'ayat_id' => $alQuran->id,
                     'surah_id' =>  $alQuran->surah_id,
                     'author_lang' => $combination_id,
-                    'type' => 1,
+                    'type' => 3,
                     'added_by' => '6447918217e6501d607f4943',
                 ];
                 // SurahCombinationJob::dispatch($alQuranTranslation->surah_id, 1);
