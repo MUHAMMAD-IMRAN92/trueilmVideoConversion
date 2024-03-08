@@ -105,12 +105,11 @@ Route::get('/course/index', function () {
         //     $client->index($arr)->addDocuments($books);
         // }
         if ($key == 4) {
-            $client->deleteIndex($arr);
+            // $client->deleteIndex($arr);
             $client->createIndex($arr, ['primaryKey' => 'id']);
 
-            $book = AlQuranTranslation::where('author_lang', '65aa5d64c5da12cc4d009911')->where('type', 1)->chunk(1000, function ($AlQuran) use ($client, $arr) {
-                $client->index($arr)->addDocuments($AlQuran->toArray());
-            });
+            $book = AlQuranTranslation::where('author_lang', '65aa5d64c5da12cc4d009911')->where('type', 1)->get();
+            $client->index($arr)->addDocuments($book->toArray());
         }
         // if ($key == 5) {
         //     $client->deleteIndex($arr);
