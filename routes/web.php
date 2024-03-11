@@ -393,11 +393,11 @@ Route::get('removeChara', function () {
 
             return $cleaned_ayat = str_replace('', '', $ayat);
         }
-        if ($ayat != $cleaned_ayat) {
-            // If the character was removed, update the model
-            $khatoot->ayat = $cleaned_ayat;
-            $khatoot->save();
-        }
+        // if ($ayat != $cleaned_ayat) {
+        //     // If the character was removed, update the model
+        //     $khatoot->ayat = $cleaned_ayat;
+        //     $khatoot->save();
+        // }
     }
     return 'ok';
 });
