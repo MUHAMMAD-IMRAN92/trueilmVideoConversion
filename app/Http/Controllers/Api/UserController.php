@@ -251,6 +251,21 @@ class UserController extends Controller
                 $response = curl_exec($ch);
                 curl_close($ch);
                 // dd($response);
+
+                $request_body = json_decode('{
+                    "contacts": [
+                        {
+                            "email": "' . $email . '",
+                        }
+                    ],
+                    "list_ids":[
+                        "081c7e27-20c9-4a29-838e-e41b62d7dd8d"
+                        ]
+                }');
+
+
+
+                $sg->client->marketing()->contacts()->put($request_body);
             }
             return sendSuccess('Email Has Been Sent To Users!', []);
         } else {
