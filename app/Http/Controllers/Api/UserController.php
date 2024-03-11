@@ -281,8 +281,6 @@ class UserController extends Controller
 
                 $sg = new \SendGrid($apiKey);
                 $sg->client->marketing()->contacts()->put($request_body2);
-
-
             }
             return sendSuccess('Email Has Been Sent To Users!', []);
         } else {
