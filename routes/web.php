@@ -389,7 +389,7 @@ Route::get('phpinfo', function () {
 Route::get('removeChara', function () {
     $khatoots = Khatoot::where('type', 2)->get();
     foreach ($khatoots as $khatoot) {
-        $khatoot->ayat =    str_replace("\u{200}", '', $khatoot->ayat);
+        $khatoot->ayat =    str_replace("", '', $khatoot->ayat);
         $khatoot->save();
     }
     return 'ok';

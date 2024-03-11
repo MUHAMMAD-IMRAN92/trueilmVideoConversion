@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\HadeeesBookCombination;
 use App\Models\HadeesBooks;
-
+use App\Models\Khatoot;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Meilisearch\Client;
 
@@ -266,20 +266,16 @@ class DevController extends Controller
 
     public function updateChapter(Request $request)
     {
+        ini_set('max_execution_time', '0');
         $rows = Excel::tocollection(new HadeesImport, $request->file);
 
-        $book =  HadeesBooks::where('_id', '65e9a1249de8bf4c113a2d30')->first();
         foreach ($rows as $key1 => $row1) {
             foreach ($row1 as $key => $row) {
-                // dd($row);
-                if ($key != 0) {
-                    $mainchapter = HadithChapter::where('title', $row[1])->where('book_id', '65e9a1249de8bf4c113a2d30')->first();
-                    if ($mainchapter) {
-                        $mainchapter->title = $row[1];
-                        $mainchapter->title_arabic = $row[2];
-                        $mainchapter->save();
-                    }
-                }
+                // dd($row[0]);
+                $khatoot  = Khatoot::where('type', 2)->where('verse_key', $row[0])->first();
+                $khatoot->update([
+                    'ayat' => str_replace('', '', $row[1]),
+                ]);
             }
         }
     }

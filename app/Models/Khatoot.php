@@ -8,4 +8,5 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class Khatoot extends Eloquent
 {
     use HasFactory;
+    protected $guarded = [];
 }
