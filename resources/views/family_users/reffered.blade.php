@@ -67,9 +67,9 @@
                                             <tbody>
                                                 @forelse ($users as $user)
                                                     <tr>
-                                                        <td>{{ $user->name }}</td>
+                                                        <td>{{ $user->name ?? '--' }}</td>
                                                         <td>{{ $user->email }}</td>
-                                                        <td>{{ $user->phone }}</td>
+                                                        <td>{{ $user->phone ?? '--' }}</td>
 
                                                         <td> <a
                                                                 href="{{ url('family/app-user/books_reading_details/' . $user->id) }}"><i
