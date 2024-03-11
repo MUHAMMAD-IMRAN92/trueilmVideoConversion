@@ -389,7 +389,7 @@ Route::get('removeChara', function () {
     set_time_limit(0);
     $khatoots = Khatoot::where('type', 2)->get();
     foreach ($khatoots as $key => $khatoot) {
-       return $cleaned_string = preg_replace('/\b(?:[0-9٠-٣٠٠]|)\b/u', '', "اِنَّ الَّذِیْنَ كَفَرُوْا سَوَآءٌ عَلَیْهِمْ ءَاَنْذَرْتَهُمْ اَمْ لَمْ تُنْذِرْهُمْ لَا یُؤْمِنُوْنَ ۟");
+       return $cleaned_string = preg_replace('', '', "اِنَّ الَّذِیْنَ كَفَرُوْا سَوَآءٌ عَلَیْهِمْ ءَاَنْذَرْتَهُمْ اَمْ لَمْ تُنْذِرْهُمْ لَا یُؤْمِنُوْنَ ۟");
 
            $khatoot->ayat = str_replace("", "", 'اِنَّ الَّذِیْنَ كَفَرُوْا سَوَآءٌ عَلَیْهِمْ ءَاَنْذَرْتَهُمْ اَمْ لَمْ تُنْذِرْهُمْ لَا یُؤْمِنُوْنَ ۟');
         $khatoot->save();
