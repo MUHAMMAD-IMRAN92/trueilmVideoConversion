@@ -2152,6 +2152,10 @@
                            if (row.type == 2) {
                                anchor =
                                    `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?rejected_by_you=true') }}"> <i class="fa fa-list"  > </i></a>`;
+                           } else if (row.type == 7) {
+                               anchor =
+                                   `<a class="ml-1" href="{{ url('podcast/edit/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
+
                            } else {
                                anchor =
                                    `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
