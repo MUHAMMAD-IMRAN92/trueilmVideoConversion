@@ -386,10 +386,13 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('removeChara', function () {
-  return  $khatoots = Khatoot::where('type', 2)->get();
-    foreach ($khatoots as $khatoot) {
+    $khatoots = Khatoot::where('type', 2)->get();
+    foreach ($khatoots as $key => $khatoot) {
         $ayat = $khatoot->ayat;
-        $cleaned_ayat = str_replace('', '', $ayat);
+        if ($key == 2) {
+
+            return $cleaned_ayat = str_replace('', '', $ayat);
+        }
         if ($ayat != $cleaned_ayat) {
             // If the character was removed, update the model
             $khatoot->ayat = $cleaned_ayat;
