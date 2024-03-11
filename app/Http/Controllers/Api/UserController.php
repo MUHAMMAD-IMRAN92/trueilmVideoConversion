@@ -50,8 +50,8 @@ class UserController extends Controller
                                 "email" => $to_email
                             ]
                         ],
+                        "dynamic_template_data" => $template_vars
                     ],
-                    "dynamic_template_data" => $template_vars
                 ],
                 "from" => [
                     "email" => $from_email
@@ -216,8 +216,8 @@ class UserController extends Controller
                 $from_email = env('MAIL_FROM_ADDRESS');
                 $template_id = "d-2d58bf14d855411897e43e96cde47eec";
                 $template_vars = [
-                    'email' => $email,
-                    'password' => 'password',
+                    "email" => $email,
+                    "password" => "password",
                 ];
 
                 // Set the payload as a JSON string
@@ -229,8 +229,8 @@ class UserController extends Controller
                                     "email" => $to_email
                                 ]
                             ],
+                            "dynamic_template_data" => $template_vars,
                         ],
-                        "dynamic_template_data" => $template_vars
                     ],
                     "from" => [
                         "email" => $from_email
@@ -250,6 +250,7 @@ class UserController extends Controller
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
                 curl_close($ch);
+                // dd($response);
             }
             return sendSuccess('Email Has Been Sent To Users!', []);
         } else {
