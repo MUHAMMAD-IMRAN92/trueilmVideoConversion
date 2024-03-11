@@ -385,3 +385,12 @@ Route::get('updateModel', function () {
 Route::get('phpinfo', function () {
     return phpinfo();
 });
+
+Route::get('removeChara', function () {
+    $khatoots = Khatoot::where('type', 2)->get();
+    foreach ($khatoots as $khatoot) {
+        $khatoot->ayat =    str_replace("\u{200}", '', $khatoot->ayat);
+        $khatoot->save();
+    }
+    return 'ok';
+});

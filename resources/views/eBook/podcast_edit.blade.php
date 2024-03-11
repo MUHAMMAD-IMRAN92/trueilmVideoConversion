@@ -415,6 +415,9 @@
                                                             <input type="hidden" name=""
                                                                 id="episode_id{{ $key }}"
                                                                 value="{{ $con->_id }}">
+                                                            <input type="hidden" name=""
+                                                                id="sequence{{ $key }}"
+                                                                value="{{ $con->sequence }}">
                                                             <td id="title{{ $key }}">{{ $con->title }}</td>
                                                             <td id="description{{ $key }}">
                                                                 {{ $con->description ?? '--' }}</td>
@@ -840,6 +843,18 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Sequence</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="number" id=""
+                                                                        class="form-control" name="sequence"
+                                                                        placeholder="">
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -934,6 +949,18 @@
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Sequence</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="number" id="modal-episode-sequence"
+                                                                        class="form-control" name="sequence"
+                                                                        placeholder="" value="">
+                                                                </div>
                                                             </div>
                                                         </fieldset>
                                                     </div>
