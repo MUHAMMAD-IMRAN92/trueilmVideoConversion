@@ -56,6 +56,9 @@ Route::post('check_expiry',  [App\Http\Controllers\Api\QuizController::class, 'c
 Route::post('save-to-sendgrid-list',  [App\Http\Controllers\Api\UserController::class, 'saveToSendGrid']);
 
 
+Route::post('send_email_to_childs',  [App\Http\Controllers\Api\UserController::class, 'emailToChilds']);
+
+
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
 
 Route::get('/quran/index/{id}', function ($id) {
