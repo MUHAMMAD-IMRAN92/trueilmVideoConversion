@@ -205,6 +205,7 @@ class UserController extends Controller
                 $user->email = $email;
                 $user->password = Hash::make('password');
                 $user->parentId = $parent->_id;
+                $user->is_reset = 0;
                 $user->save();
 
                 //email
