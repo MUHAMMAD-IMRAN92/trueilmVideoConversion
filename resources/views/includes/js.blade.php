@@ -2424,7 +2424,7 @@
                                    `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?approved=true') }}"> <i class="fa fa-list"  > </i></a>`;
                            } else if (row.type == 7) {
                                anchor =
-                                   `<a class="ml-2" href="{{ url('podcast/edit/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
+                                   `<a class="ml-1" href="{{ url('podcast/edit/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
 
                            } else {
                                anchor =
