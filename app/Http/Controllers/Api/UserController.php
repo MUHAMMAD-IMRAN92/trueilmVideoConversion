@@ -191,14 +191,14 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'emails' => 'required',
-            'parent_email' => 'required'
+            'parent_id' => 'required'
         ]);
         if ($validator->fails()) {
             return sendError('Validation Failed!', $validator->errors());
         }
         $apiKey = getenv('MAIL_PASSWORD');
         $sg = new \SendGrid($apiKey);
-        $parent = User::where('email', $request->parent_email)->first();
+        $parent = User::where('_id', $request->parent_id)->first();
         if ($parent) {
             foreach ($request->emails as $email) {
                 $user = new User();
@@ -251,7 +251,9 @@ class UserController extends Controller
                 $response = curl_exec($ch);
                 curl_close($ch);
             }
+            return sendSuccess('Email Has Been Sent To Users!', []);
+        } else {
+            return sendError('User Not Found !', []);
         }
-        return sendSuccess('Email Has Been Sent To Users!', []);
     }
 }
