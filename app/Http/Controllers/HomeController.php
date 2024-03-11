@@ -339,12 +339,12 @@ class HomeController extends Controller
     public function renderApi()
     {
         ini_set('max_execution_time', '0');
-        $khatoots = ['uthmani', 'indopak', 'uthmani_tajweed'];
-        // Khatoot::truncate();
+        $khatoots = ['indopak'];
+        // $khatoots = ['uthmani', 'indopak', 'uthmani_tajweed'];
+        Khatoot::where('type', 2)->delete();
+        $alQuran = AlQuran::get();
         foreach ($khatoots as $key => $khatoot) {
-            $alQuran = AlQuran::get();
             foreach ($alQuran as $key => $verse) {
-
                 $url = Http::get("https://api.quran.com/api/v4/quran/verses/$khatoot?verse_key=$verse->verse_key");
                 $ayat = json_decode($url->body());
                 $alQuran = new Khatoot();
