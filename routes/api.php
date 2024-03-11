@@ -140,3 +140,25 @@ Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 
 Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
 Route::get('QuranEncTranslation/{key}/{combination_id}',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);
+Route::get('lists', function () {
+    $apiKey = getenv('MAIL_PASSWORD');
+    $sg = new \SendGrid($apiKey);
+
+    $email = "imran@gmail.com";
+
+    $request_body2 = json_decode('{
+        "contacts": [
+            {
+                "email": "' . $email . '"
+            }
+        ],
+        "list_ids":[
+            "b0cb003e-2d44-40c0-a56a-8a0070f1ce14"
+        ]
+    }');
+    $response = $sg->client->marketing()->contacts()->put($request_body2);
+
+    dd($response);
+});
+    // $List =     $sg->client->marketing()->lists()->get();
+    // dd($List->body());
