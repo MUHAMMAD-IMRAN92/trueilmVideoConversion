@@ -345,27 +345,24 @@ class HomeController extends Controller
         $alQuran = AlQuran::get();
         foreach ($khatoots as $key => $khatoot) {
             foreach ($alQuran as $key => $verse) {
-                if ($verse->surah_id == '64d0aa5af18dae6c92664082') {
-                    $url = Http::get("https://api.quran.com/api/v4/quran/verses/$khatoot?verse_key=$verse->verse_key");
-                    $ayat = json_decode($url->body());
-                    $alQuran = new Khatoot();
-                    $alQuran->surah_id = $verse->surah_id;
-                    if ($khatoot == 'uthmani') {
-                        $alQuran->ayat = $ayat->verses[0]->text_uthmani;
-                        $alQuran->type = 1;
-                    } elseif ($khatoot == 'indopak') {
-                        $alQuran->ayat = $ayat->verses[0]->text_indopak;
-                        $alQuran->type = 2;
-                    } else {
-                        $alQuran->ayat = $ayat->verses[0]->text_uthmani_tajweed;
-                        $alQuran->type = 3;
-                    }
-                    $alQuran->alQuran_id = $verse->_id;
-                    $alQuran->verse_key = $verse->verse_key;
-                    $alQuran->save();
+
+                $url = Http::get("https://api.quran.com/api/v4/quran/verses/$khatoot?verse_key=$verse->verse_key");
+                $ayat = json_decode($url->body());
+                $alQuran = new Khatoot();
+                $alQuran->surah_id = $verse->surah_id;
+                if ($khatoot == 'uthmani') {
+                    $alQuran->ayat = $ayat->verses[0]->text_uthmani;
+                    $alQuran->type = 1;
+                } elseif ($khatoot == 'indopak') {
+                    $alQuran->ayat = $ayat->verses[0]->text_indopak;
+                    $alQuran->type = 2;
                 } else {
-                    return 'done';
+                    $alQuran->ayat = $ayat->verses[0]->text_uthmani_tajweed;
+                    $alQuran->type = 3;
                 }
+                $alQuran->alQuran_id = $verse->_id;
+                $alQuran->verse_key = $verse->verse_key;
+                $alQuran->save();
             }
         }
 
