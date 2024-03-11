@@ -614,7 +614,7 @@ class CourseController extends Controller
     {
         $course = Course::where('_id', $id)->first();
         $approved = 2;
-        if ($course->approved == 0) {
+        if ($course->approved == 0 || $course->approved == 1) {
             $course->update([
                 'approved' => $approved,
                 'approved_by' => $this->user->id,
