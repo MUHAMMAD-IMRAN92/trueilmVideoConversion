@@ -391,7 +391,7 @@ Route::get('removeChara', function () {
         $ayat = $khatoot->ayat;
         if ($key == 4) {
 
-            return $cleaned_ayat = str_replace("", '', "اِیَّاكَ نَعْبُدُ وَاِیَّاكَ نَسْتَعِیْنُ ۟ؕ");
+            return $cleaned_ayat = str_replace("", "", "اِیَّاكَ نَعْبُدُ وَاِیَّاكَ نَسْتَعِیْنُ ۟ؕ");
         }
         // if ($ayat != $cleaned_ayat) {
         //     // If the character was removed, update the model
