@@ -394,6 +394,9 @@ Route::get('removeChara', function () {
         $cleaned_string = str_replace('', '', $ayat);
         $khatoot->ayat = $cleaned_string;
         $khatoot->save();
+        if ($key == 4) {
+            return $khatoot;
+        }
     }
     return 'ok';
 });
