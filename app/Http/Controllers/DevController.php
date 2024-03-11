@@ -271,10 +271,10 @@ class DevController extends Controller
 
         foreach ($rows as $key1 => $row1) {
             foreach ($row1 as $key => $row) {
-                // dd($row[0]);
+
                 $khatoot  = Khatoot::where('type', 2)->where('verse_key', $row[0])->first();
                 $khatoot->update([
-                    'ayat' => str_replace('', '', $row[1]),
+                    'ayat' => str_replace(``, '', $row[1]),
                 ]);
             }
         }
