@@ -386,7 +386,7 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('removeChara', function () {
-    $khatoots = Khatoot::where('type', 2)->get();
+  return  $khatoots = Khatoot::where('type', 2)->get();
     foreach ($khatoots as $khatoot) {
         $ayat = $khatoot->ayat;
         $cleaned_ayat = str_replace('', '', $ayat);
