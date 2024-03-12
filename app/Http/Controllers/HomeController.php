@@ -346,24 +346,23 @@ class HomeController extends Controller
         foreach ($khatoots as $key => $khatoot) {
             foreach ($alQuran as $key => $verse) {
 
-                    $url = Http::get("https://api.quran.com/api/v4/quran/verses/$khatoot?verse_key=$verse->verse_key");
-                    $ayat = json_decode($url->body());
-                    $alQuran = new Khatoot();
-                    $alQuran->surah_id = $verse->surah_id;
-                    if ($khatoot == 'uthmani') {
-                        $alQuran->ayat = $ayat->verses[0]->text_uthmani;
-                        $alQuran->type = 1;
-                    } elseif ($khatoot == 'indopak') {
-                        $alQuran->ayat = $ayat->verses[0]->text_indopak;
-                        $alQuran->type = 2;
-                    } else {
-                        $alQuran->ayat = $ayat->verses[0]->text_uthmani_tajweed;
-                        $alQuran->type = 3;
-                    }
-                    $alQuran->alQuran_id = $verse->_id;
-                    $alQuran->verse_key = $verse->verse_key;
-                    $alQuran->save();
-
+                $url = Http::get("https://api.quran.com/api/v4/quran/verses/$khatoot?verse_key=$verse->verse_key");
+                $ayat = json_decode($url->body());
+                $alQuran = new Khatoot();
+                $alQuran->surah_id = $verse->surah_id;
+                if ($khatoot == 'uthmani') {
+                    $alQuran->ayat = $ayat->verses[0]->text_uthmani;
+                    $alQuran->type = 1;
+                } elseif ($khatoot == 'indopak') {
+                    $alQuran->ayat = $ayat->verses[0]->text_indopak;
+                    $alQuran->type = 2;
+                } else {
+                    $alQuran->ayat = $ayat->verses[0]->text_uthmani_tajweed;
+                    $alQuran->type = 3;
+                }
+                $alQuran->alQuran_id = $verse->_id;
+                $alQuran->verse_key = $verse->verse_key;
+                $alQuran->save();
             }
         }
 
@@ -378,8 +377,7 @@ class HomeController extends Controller
 
         $alQuran = AlQuran::get();
         $authArr = [
-            158 => "65cc78d727f4180ddef58d35", 831 => "65cc79b327f4180ddef58d36", 54 => "65cc7a9327f4180ddef58d3c", 156 => "65cc808627f4180ddef58d42", 151 => "65cc80ef27f4180ddef58d44",
-            97 => "65cc8fb627f4180ddef58d46"
+            124 => "65cc78d727f4180ddef58d35"
         ];
         foreach ($authArr  as $nokey => $arr) {
             AlQuranTranslation::where('author_lang', $arr)->delete();

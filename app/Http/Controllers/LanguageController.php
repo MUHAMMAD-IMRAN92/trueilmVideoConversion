@@ -49,6 +49,7 @@ class LanguageController extends Controller
             $language->added_by = $this->user->_id;
             $language->direction = $request->direction;
             $language->save();
+            return redirect()->to('/language')->with('msg', "Language Has Updated !");
         } else {
             $languageExit =  Languages::where('title', $request->title)->first();
             if ($languageExit) {

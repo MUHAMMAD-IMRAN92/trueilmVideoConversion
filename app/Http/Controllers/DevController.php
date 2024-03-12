@@ -9,6 +9,8 @@ use App\Models\HadithChapter;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\HadeeesBookCombination;
+use App\Models\AlQuran;
+use App\Models\AlQuranTranslation;
 use App\Models\HadeesBooks;
 use App\Models\Khatoot;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -266,17 +268,46 @@ class DevController extends Controller
 
     public function updateChapter(Request $request)
     {
-        ini_set('max_execution_time', '0');
+        ini_set('max_execution_time', 0);
+        ini_set("memory_limit", "-1");
+        $records = [];
         $rows = Excel::tocollection(new HadeesImport, $request->file);
-
         foreach ($rows as $key1 => $row1) {
             foreach ($row1 as $key => $row) {
-
-                $khatoot  = Khatoot::where('type', 2)->where('verse_key', $row[0])->first();
-                $khatoot->update([
-                    'ayat' => str_replace(``, '', $row[1]),
-                ]);
+                if ($key != 0) {
+                    $alQuran = AlQuran::where('verse_key', $row[0] . ':' . $row[4])->first();
+                    if ($alQuran != null) {
+                        $alQuranTranslation = AlQuranTranslation::where('translation', $row[5])->where('type', 1)->first();
+                        if (!$alQuranTranslation) {
+                            $records[] = [
+                                'translation' =>  $row[5],
+                                'ayat_id' => $alQuran->_id,
+                                'surah_id' => $alQuran->surah_id,
+                                'author_lang' => '65f018727904908d102dd919',
+                                'type' => 1,
+                                'added_by' => '6447918217e6501d607f4943',
+                            ];
+                        }
+                        $alQuranTranslation = AlQuranTranslation::where('translation', $row[7])->where('type', 2)->first();
+                        if (!$alQuranTranslation) {
+                            $records[] = [
+                                'translation' =>  $row[7],
+                                'ayat_id' => $alQuran->_id,
+                                'surah_id' => $alQuran->surah_id,
+                                'author_lang' => '65f019ac7904908d102dd91a',
+                                'type' => 2,
+                                'added_by' => '6447918217e6501d607f4943',
+                            ];
+                        }
+                    }
+                }
             }
         }
+        $chunkSize = 1000;
+        $chunks = array_chunk($records, $chunkSize);
+        foreach ($chunks as $chunk) {
+            AlQuranTranslation::insert($chunk);
+        }
+        return 'save!';
     }
 }
