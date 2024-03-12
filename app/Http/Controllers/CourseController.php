@@ -274,7 +274,7 @@ class CourseController extends Controller
         }
 
         $courseLesson->title = $request->lesson_title;
-        $courseLesson->description = $request->description;
+        $courseLesson->description = $request->description ?? '';
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
         $courseLesson->file_duration = @$durations[0]['minutes'] . ':' .  @$durations[0]['seconds'];;
