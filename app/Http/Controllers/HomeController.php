@@ -377,7 +377,7 @@ class HomeController extends Controller
 
         $alQuran = AlQuran::get();
         $authArr = [
-            124 => "65f02c717904908d102dd921"
+            211 => "65f02ef87904908d102dd923", 28 => "65f03c335937a0b37a635062"
         ];
         foreach ($authArr  as $nokey => $arr) {
             AlQuranTranslation::where('author_lang', $arr)->delete();
