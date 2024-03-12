@@ -13,6 +13,7 @@
         "doctrine/dbal": "3.7.x-dev",
         "fruitcake/laravel-cors": "^3.0@dev",
         "guzzlehttp/guzzle": "^7.5",
+        "james-heinrich/getid3": "2.0.x-dev",
         "jenssegers/mongodb": "*",
         "laravel/cashier": "13.x-dev",
         "laravel/framework": "^8.75",
