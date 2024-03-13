@@ -376,29 +376,29 @@ class HomeController extends Controller
         ini_set("memory_limit", -1);
 
         $alQuran = AlQuran::get();
-        $authArr = [
-            124 => "65f02c717904908d102dd921"
-        ];
-        foreach ($authArr  as $nokey => $arr) {
-            AlQuranTranslation::where('author_lang', $arr)->delete();
-            $records = [];
-            foreach ($alQuran as $key => $verse) {
+        // $authArr = [
+        //     124 => "65f02c717904908d102dd921"
+        // ];
+        // foreach ($authArr  as $nokey => $arr) {
+        AlQuranTranslation::where('author_lang', '65f175985937a0b37a635068')->delete();
+        $records = [];
+        foreach ($alQuran as $key => $verse) {
 
-                $url = Http::get("https://api.quran.com/api/v4/quran/translations/$nokey?verse_key=$verse->verse_key");
-                if ($url->successful()) {
-                    $response = json_decode(@$url->body());
+            $url = Http::get("https://api.quran.com/api/v4/quran/translations/43?verse_key=$verse->verse_key");
+            if ($url->successful()) {
+                $response = json_decode(@$url->body());
 
-                    $records[] = [
-                        'translation' => strip_tags(@$response->translations[0]->text),
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => $arr,
-                        'type' => 1,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
+                $records[] = [
+                    'translation' => strip_tags(@$response->translations[0]->text),
+                    'ayat_id' => $verse->_id,
+                    'surah_id' => $verse->surah_id,
+                    'author_lang' => '65f175985937a0b37a635068',
+                    'type' => 1,
+                    'added_by' => '6447918217e6501d607f4943',
+                ];
             }
         }
+        // }
 
         $chunkSize = 1000;
         $chunks = array_chunk($records, $chunkSize);
