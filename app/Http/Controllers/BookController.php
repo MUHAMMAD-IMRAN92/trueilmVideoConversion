@@ -719,7 +719,7 @@ class BookController extends Controller
             $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
             $path =   $request->podcast_file->storeAs('files', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-            return  $bookContent->file = $base_path . $path;
+            $bookContent->file = $base_path . $path;
             if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
                 $bookContent->type = 1;
             } else {
