@@ -726,11 +726,11 @@ class BookController extends Controller
                 $bookContent->type = 2;
             }
             $bookContent->book_name = $request->podcast_file->getClientOriginalName();
+            $getID3 = new \JamesHeinrich\GetID3\GetID3;
+            $file = $getID3->analyze(@$request->podcast_file);
+            $duration = date('i:s', $file['playtime_seconds']);
         }
 
-        $getID3 = new \JamesHeinrich\GetID3\GetID3;
-        $file = $getID3->analyze(@$request->podcast_file);
-        $duration = date('i:s', $file['playtime_seconds']);
 
         $bookContent->book_id = $book->_id;
         $bookContent->title = $request->episode_title;
