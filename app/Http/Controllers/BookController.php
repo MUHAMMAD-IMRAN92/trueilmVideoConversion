@@ -112,7 +112,6 @@ class BookController extends Controller
 
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
-        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         $book = new Book();
         $book->title = $request->title;
@@ -152,15 +151,6 @@ class BookController extends Controller
         }
         $book->save();
 
-        if ($request->type == "1") {
-            $bookIndex = $client->index('ebooks')->addDocuments(array($book), '_id');
-        } else  if ($request->type == "2") {
-            $bookIndex = $client->index('audio')->addDocuments(array($book), '_id');
-        } else  if ($request->type == "3") {
-            $bookIndex = $client->index('papers')->addDocuments(array($book), '_id');
-        } else  if ($request->type == "4") {
-            $bookIndex = $client->index('podcast')->addDocuments(array($book), '_id');
-        }
         if ($request->file) {
             foreach ($request->file as $key => $file) {
 
@@ -171,7 +161,11 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
+                $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                $file = $getID3->analyze(@$file);
+                $duration = date('i:s', $file['playtime_seconds']);
+                $bookContent->file_duration = @$duration;
+                // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = $key;
                 $book->type = $request->type;
                 $bookContent->save();
@@ -257,8 +251,6 @@ class BookController extends Controller
 
     public function update(Request $request)
     {
-        // return $request;
-        $durations = json_decode(@$request->duration[0], true);
 
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
@@ -329,7 +321,11 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $bookContent->file_duration =    @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
+                $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                $file = $getID3->analyze(@$file);
+                $duration = date('i:s', $file['playtime_seconds']);
+                $bookContent->file_duration = @$duration;
+                // $bookContent->file_duration =    @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = (int)$seq;
                 $bookContent->save();
             }
@@ -704,8 +700,6 @@ class BookController extends Controller
     }
     public function podcastEpisode(Request $request)
     {
-        $durations = json_decode(@$request->duration[0], true);
-
         $book = Book::where('_id', $request->podcast_id)->first();
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
