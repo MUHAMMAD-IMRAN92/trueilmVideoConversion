@@ -274,24 +274,25 @@ class DevController extends Controller
         $rows = Excel::tocollection(new HadeesImport, $request->file);
         foreach ($rows as $key1 => $row1) {
             foreach ($row1 as $key => $row) {
+                // dd($row);
                 if ($key != 0) {
-                    $alQuran = AlQuran::where('verse_key', $row[0] . ':' . $row[4])->first();
+                    $alQuran = AlQuran::where('verse_key', $row[0] . ':' . $row[3])->first();
                     if ($alQuran != null) {
 
                         $records[] = [
                             'translation' =>  $row[5],
                             'ayat_id' => $alQuran->_id,
                             'surah_id' => $alQuran->surah_id,
-                            'author_lang' => '65f018727904908d102dd919',
+                            'author_lang' => '65f298fd5937a0b37a63507d',
                             'type' => 1,
                             'added_by' => '6447918217e6501d607f4943',
                         ];
 
                         $records[] = [
-                            'translation' =>  $row[7],
+                            'translation' =>  $row[6],
                             'ayat_id' => $alQuran->_id,
                             'surah_id' => $alQuran->surah_id,
-                            'author_lang' => '65f019ac7904908d102dd91a',
+                            'author_lang' => '65f299245937a0b37a63507e',
                             'type' => 2,
                             'added_by' => '6447918217e6501d607f4943',
                         ];

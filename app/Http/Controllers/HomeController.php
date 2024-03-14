@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs\SurahCombination as SurahCombinationJob;
+use App\Models\AuthorLanguage;
 use App\Models\Book;
 use App\Models\BookForSale;
 use App\Models\Course;
@@ -376,29 +377,37 @@ class HomeController extends Controller
         ini_set("memory_limit", -1);
 
         $alQuran = AlQuran::get();
-        // $authArr = [
-        //     124 => "65f02c717904908d102dd921"
-        // ];
-        // foreach ($authArr  as $nokey => $arr) {
-        AlQuranTranslation::where('author_lang', '65f175985937a0b37a635068')->delete();
+        $lang = '65f2bf515937a0b37a635088';
+        $authors = [
+            41 => "65f2bf7f5937a0b37a635089"
+        ];
         $records = [];
-        foreach ($alQuran as $key => $verse) {
+        foreach ($authors  as $nokey => $arr) {
+            $authorLang = AuthorLanguage::where('lang_id', $lang)->where('author_id', $arr)->firstOrCreate([
+                'lang_id' => $lang,
+                'author_id' => $arr,
+                'type' => 1,
+                'status' => 1
+            ]);
+            return $authorLang;
+            AlQuranTranslation::where('author_lang', $authorLang->_id)->delete();
+            foreach ($alQuran as $key => $verse) {
 
-            $url = Http::get("https://api.quran.com/api/v4/quran/translations/43?verse_key=$verse->verse_key");
-            if ($url->successful()) {
-                $response = json_decode(@$url->body());
+                $url = Http::get("https://api.quran.com/api/v4/quran/translations/$nokey?verse_key=$verse->verse_key");
+                if ($url->successful()) {
+                    $response = json_decode(@$url->body());
 
-                $records[] = [
-                    'translation' => strip_tags(@$response->translations[0]->text),
-                    'ayat_id' => $verse->_id,
-                    'surah_id' => $verse->surah_id,
-                    'author_lang' => '65f175985937a0b37a635068',
-                    'type' => 1,
-                    'added_by' => '6447918217e6501d607f4943',
-                ];
+                    $records[] = [
+                        'translation' => strip_tags(@$response->translations[0]->text),
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' =>  $authorLang->_id,
+                        'type' => 1,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                }
             }
         }
-        // }
 
         $chunkSize = 1000;
         $chunks = array_chunk($records, $chunkSize);
