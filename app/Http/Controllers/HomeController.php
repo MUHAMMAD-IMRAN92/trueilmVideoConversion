@@ -389,7 +389,7 @@ class HomeController extends Controller
                 'type' => 1,
                 'status' => 1
             ]);
-            return $authorLang;
+            // return $authorLang;
             AlQuranTranslation::where('author_lang', $authorLang->_id)->delete();
             foreach ($alQuran as $key => $verse) {
 
