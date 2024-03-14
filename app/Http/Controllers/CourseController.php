@@ -273,14 +273,12 @@ class CourseController extends Controller
         } else {
             $courseLesson = new CourseLesson();
         }
-        $getID3 = new \JamesHeinrich\GetID3\GetID3;
-        $file = $getID3->analyze(@$request->podcast_file);
-        $duration = date('i:s', $file['playtime_seconds']);
+
         $courseLesson->title = $request->lesson_title;
         $courseLesson->description = $request->description ?? '';
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
-        $courseLesson->file_duration = @$duration;
+
         if ($request->podcast_file) {
             $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
             $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
@@ -292,6 +290,10 @@ class CourseController extends Controller
                 $courseLesson->type = 2;
             }
             $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+            $getID3 = new \JamesHeinrich\GetID3\GetID3;
+            $file = $getID3->analyze(@$request->podcast_file);
+            $duration = date('i:s', $file['playtime_seconds']);
+            $courseLesson->file_duration = @$duration;
         }
 
         if ($request->lesson_notes) {
