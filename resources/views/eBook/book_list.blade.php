@@ -7,13 +7,18 @@
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="content-header-left col-md-12 col-12 mb-2">
                     <div class="row breadcrumbs-top">
-                        <div class="col-12">
+                        <div class="col-10">
                             <h2 class="content-header-title float-left mb-0">Content Sequence</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-dark" data-toggle="modal" data-target="#add-episode"> Add
+                                Chapter</button>
+
                         </div>
                     </div>
                 </div>
@@ -132,6 +137,59 @@
                                                         </div>
                                                         <button type="submit" class="btn btn-dark"
                                                             style="float:right">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade bd-example-modal-lg" id="add-episode" tabindex="-1"
+                                                role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <form action="{{ url('add/audio/chapter') }}" method="POST"
+                                                        enctype="multipart/form-data">
+                                                        <div class="form-body">
+                                                            @csrf
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Add
+                                                                        Episode
+                                                                    </h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+
+                                                                    <input type="hidden" id=""
+                                                                        class="form-control" name="book_id"
+                                                                        placeholder="" value={{ $book_id }}>
+
+                                                                    <div class="col-md-12">
+                                                                        <fieldset class="form-group">
+                                                                            <label for="basicInputFile">Content</label>
+                                                                            <div class="custom-file">
+                                                                                <input type="file"
+                                                                                    class="file-input custom-file-input  episode-custom-file-input"
+                                                                                    id="fileinput-0" name="file[]"
+                                                                                    multiple required>
+
+                                                                                <span id="duration-info-0"></span>
+                                                                                <label class="custom-file-label"
+                                                                                    for="inputGroupFile01">Choose
+                                                                                    file</label>
+                                                                            </div>
+                                                                        </fieldset>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>

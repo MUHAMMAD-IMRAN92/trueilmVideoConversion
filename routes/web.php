@@ -148,6 +148,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('delete/audio/{id}', [App\Http\Controllers\BookController::class, 'deleteAudioChapter'])->name('book.audio.delete.chapter');
     Route::get('update/audio/name', [App\Http\Controllers\BookController::class, 'updateChapterName'])->name('book.audio.update.chapter');
+    Route::post('add/audio/chapter', [App\Http\Controllers\BookController::class, 'addAudioChapter'])->name('book.audio.add.chapter');
 
     Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
     Route::post('podcast/episode', [App\Http\Controllers\BookController::class, 'podcastEpisode'])->name('podcast.episode');

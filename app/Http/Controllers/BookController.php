@@ -752,4 +752,31 @@ class BookController extends Controller
 
         return 'updated';
     }
+    public function addAudioChapter(Request $request)
+    {
+        if ($request->file) {
+            $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+            foreach ($request->file as $key => $file) {
+                $count = BookContent::where('book_id', $request->book_id)->count();
+                $seq = $count + $key;
+
+                $bookContent = new BookContent();
+                $file_name = time() . '.' . $file->getClientOriginalExtension();
+                $path =   $file->storeAs('files', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $bookContent->file = $base_path . $path;
+                $bookContent->book_id = $request->book_id;
+                $bookContent->book_name = $file->getClientOriginalName();
+                $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                $file = $getID3->analyze(@$file);
+                $duration = date('i:s', $file['playtime_seconds']);
+                $bookContent->file_duration = @$duration;
+                // $bookContent->file_duration =    @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
+                $bookContent->sequence = (int)$seq;
+                $bookContent->save();
+            }
+        }
+
+        return redirect()->back()->with('msg', 'Chapter Added!');
+    }
 }
