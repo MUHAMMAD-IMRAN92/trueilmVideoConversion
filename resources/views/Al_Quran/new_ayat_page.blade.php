@@ -218,7 +218,7 @@
                                             <option value="">All
                                             </option>
                                             @foreach ($surah->ayats as $aya)
-                                                <option style="height: fit-content;width:inherit" class="checkclassthird"
+                                                <option style="height: fit-content;width:100%" class="checkclassthird"
                                                     value="{{ $aya->_id }}"
                                                     {{ request()->aya == $aya->_id ? 'selected' : '' }}>
                                                     {{ $aya->sequence . ' : ' . $aya->ayat }}
@@ -228,7 +228,7 @@
 
                                         </select>
                                     </div>
-                                    <div class=" col-6 form-label-group" style="margin-left: 1px">
+                                    <div class=" col-6 form-label-group" style="margin-left: 1px; width:100%;">
 
                                         <select class="select2 form-control" name="khatoot" id="">
 
@@ -478,14 +478,12 @@
                                                                 {{ $aya->sequence }} </div>
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
-                                                                class="mt-1 checkclassthird "
+                                                                class="mt-1 @if (request()->khatoot == 2 || request()->khatoot == 3) checkclassthird @else checkclass @endif "
                                                                 style="text-align: right; line-height:50px;  @if (request()->khatoot == 2) direction:rtl;unicode-bidi:bidi-override; @endif">
                                                                 {!! str_replace('&#8203;', '', @$aya->khatoot[0]->ayat) !!}</p>
 
-                                                                @if (request()->khatoot != 2)
-
+                                                            @if (request()->khatoot != 2)`
                                                                 <span class="checkclass">{{ @$aya->arabic_aya_no }}</span>
-
                                                             @endif
                                                         </div>
 
