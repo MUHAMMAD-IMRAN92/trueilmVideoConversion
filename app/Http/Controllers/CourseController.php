@@ -263,7 +263,6 @@ class CourseController extends Controller
     }
     public function courseLessons(Request $request)
     {
-
         ini_set("memory_limit", "-1");
         ini_set('max_execution_time', '0');
 
@@ -312,6 +311,8 @@ class CourseController extends Controller
 
             // $courseLesson->thumbnail = $request->thumbnail->getClientOriginalName();
         }
+        $courseLesson->sequence = @$request->sequence ?? 0;
+
         $courseLesson->save();
 
         $count = CourseLesson::where('course_id', $courseLesson->course_id)->count();

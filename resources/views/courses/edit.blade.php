@@ -332,6 +332,9 @@
                                                                         id="episode_id{{ $key }}"
                                                                         value="{{ $course->_id }}">
                                                                     <input type="hidden" name=""
+                                                                        id="sequence{{ $key }}"
+                                                                        value="{{ $les->sequence }}">
+                                                                    <input type="hidden" name=""
                                                                         id="les_id{{ $key }}"
                                                                         value="{{ $les->_id }}">
                                                                     <td id="title{{ $key }}">{{ $les->title }}
@@ -854,6 +857,17 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Sequence</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="number" class="form-control"
+                                                                        name="sequence" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -911,12 +925,7 @@
                                                         <textarea class="form-control" id="modal_lesson_description" rows="3" placeholder="" name="description"></textarea>
                                                     </fieldset>
                                                 </div>
-                                                <div class="col-12">
-                                                    <label for="">What's Inside</label>
-                                                    <fieldset class="form-group">
-                                                        <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="inside">{{ $course->inside }}</textarea>
-                                                    </fieldset>
-                                                </div>
+
                                                 <div class="col-md-12">
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">Thumbnail
@@ -987,6 +996,17 @@
 
                                                             <label class="custom-file-label" for="inputGroupFile01">Choose
                                                                 file</label>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <fieldset class="form-group">
+                                                        <label for="basicInputFile">Sequence</label>
+                                                        <div class="custom-file">
+                                                            <div class="position-relative">
+                                                                <input type="number" id="modal-episode-sequence"
+                                                                    class="form-control" name="sequence" placeholder="">
+                                                            </div>
                                                         </div>
                                                     </fieldset>
                                                 </div>
