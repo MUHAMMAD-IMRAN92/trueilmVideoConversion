@@ -480,8 +480,13 @@
                                                             <p id="non-edit-lang-select-{{ $key }}"
                                                                 class="mt-1 checkclassthird"
                                                                 style="text-align: right; line-height:50px">
-                                                                {!! str_replace('&#8203;', '', @$aya->khatoot[0]->ayat) !!}</p> <span
+                                                                {!! str_replace('&#8203;', '', @$aya->khatoot[0]->ayat) !!}</p>
+                                                                @if(request()->khatoot != 2){
+                                                                     <span
                                                                 class="checkclass">{{ @$aya->arabic_aya_no }}</span>
+                                                                }
+                                                                @endif
+
 
 
 
