@@ -203,7 +203,7 @@
 
                             </div>
                         </div> --}}
-                        <div class="col-4 d-flex ">
+                        <div class="col-4  ">
 
                             <form
                                 action="{{ url('/surah/translations/' . $type . '/' . $surah->_id . '/' . $currentCombination->_id) }}"
