@@ -1330,7 +1330,7 @@
                            if ("{{ auth()->user()->hasRole('Admin') }}" ||
                                "{{ auth()->user()->hasRole('Super Admin') }}") {
                                a =
-                                   `<a  class="ml-2" href="{{ url('course/reject/`+row._id+`') }}"><i class=" fa fa-list" > </i></a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>
+                                   `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a> <a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>
                                    `;
                            }
                            return `<td>
