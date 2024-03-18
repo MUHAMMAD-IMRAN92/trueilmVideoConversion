@@ -161,10 +161,13 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                $file = $getID3->analyze(@$file);
-                $duration = date('i:s', $file['playtime_seconds']);
-                $bookContent->file_duration = @$duration;
+                if ($book->type == 2) {
+                    $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                    $file = $getID3->analyze(@$file);
+                    $duration = date('i:s', $file['playtime_seconds']);
+                    $bookContent->file_duration = @$duration;
+                }
+
                 // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = $key;
                 $book->type = $request->type;
@@ -321,10 +324,12 @@ class BookController extends Controller
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-                $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                $file = $getID3->analyze(@$file);
-                $duration = date('i:s', $file['playtime_seconds']);
-                $bookContent->file_duration = @$duration;
+                if ($book->type == 2) {
+                    $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                    $file = $getID3->analyze(@$file);
+                    $duration = date('i:s', $file['playtime_seconds']);
+                    $bookContent->file_duration = @$duration;
+                }
                 // $bookContent->file_duration =    @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = (int)$seq;
                 $bookContent->save();
