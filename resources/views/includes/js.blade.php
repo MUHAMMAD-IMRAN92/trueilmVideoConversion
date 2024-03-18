@@ -4406,7 +4406,7 @@
            $('#modal-episode-guest').val(guest);
            $('#modal-episode-host').val(host);
            $('#modal-episode-title').val(title);
-           $('#modal-episode-description').val(description);
+           $('#modal-episode-description').val(description.trim());
            $('#modal-episode-id').val(epi_id);
            $('#modal-episode-sequence').val(sequence);
            $('#edit-episode').modal('show');
@@ -4420,7 +4420,7 @@
            var les_id = $('#les_id' + key).val();
            var sequence = $('#sequence' + key).val();
            console.log(description);
-           $('#modal_lesson_description').html(description);
+           $('#modal_lesson_description').html(description.trim());
            $('#modal-lesson-title').val(title);
            $('#course_id').val(epi_id);
            $('#les_id').val(les_id);
