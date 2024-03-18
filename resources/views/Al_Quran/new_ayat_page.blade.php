@@ -213,7 +213,7 @@
                                     <div class="col-6 form-label-group p-0 m-0">
                                         <select class="select2 form-control" name="ayat_id" id="">
                                             <option selected disabled>Select
-                                                Surah
+                                                Ayat
                                             </option>
                                             <option value="">All
                                             </option>
