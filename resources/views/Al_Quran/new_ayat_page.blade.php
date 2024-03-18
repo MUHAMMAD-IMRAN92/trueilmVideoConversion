@@ -479,7 +479,7 @@
 
                                                             <p id="non-edit-lang-select-{{ $key }}"
                                                                 class="mt-1 checkclassthird "
-                                                                style="text-align: right; line-height:50px;  @if (request()->khatoot == 2) direction:rtl; @endif">
+                                                                style="text-align: right; line-height:50px;  @if (request()->khatoot == 2) direction:rtl;unicode-bidi:bidi-override; @endif">
                                                                 {!! str_replace('&#8203;', '', @$aya->khatoot[0]->ayat) !!}</p>
 
                                                                 @if (request()->khatoot != 2)
