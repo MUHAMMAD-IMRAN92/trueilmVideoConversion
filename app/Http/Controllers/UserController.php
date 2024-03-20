@@ -387,6 +387,9 @@ class UserController extends Controller
     }
     public static function checkSubscriptionExpiry()
     {
+        \DB::table('test')->insert([
+            'key' => 'value'
+        ]);
         $now = Carbon::now();
 
         // $thirtyDaysAgo = $now->copy()->subDays(30);
