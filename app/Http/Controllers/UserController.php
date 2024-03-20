@@ -401,7 +401,7 @@ class UserController extends Controller
         $api_key = env('MAIL_PASSWORD');
         $api_url = "https://api.sendgrid.com/v3/mail/send";
         foreach ($usersToEmail as $user) {
-            $user->istrail = 0;
+            $user->istrial = 0;
             $user->save();
             $to_email =  $user->email;
             $from_email = env('MAIL_FROM_ADDRESS');
