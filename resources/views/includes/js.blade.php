@@ -3031,6 +3031,62 @@
                "order": false
            });
        });
+       $('#series-table').DataTable({
+           "processing": true,
+           "stateSave": true,
+           "serverSide": true,
+           "deferRender": true,
+           "language": {
+               "searchPlaceholder": "Search here"
+           },
+           "ajax": {
+               url: '<?= url('all-series') ?>'
+           },
+           "columns": [{
+                   "mRender": function(data, type, row) {
+                       return '<td>' +
+                           row.title + '</td>'
+                   }
+               },
+               {
+                   "mRender": function(data, type, row) {
+                       var des = '';
+                       if (row.description != null) {
+                           des = row.description.slice(0, 50);
+                       } else {
+                           des = '--';
+                       }
+                       return '<td>' +
+                           des +
+                           '</td>'
+                   }
+               },
+               {
+                   "mRender": function(data, type, row) {
+                       return '<td>' +
+                           (row.courses).length + '</td>'
+                   }
+               },
+               {
+                   "mRender": function(data, type, row) {
+                       var eye = 'feather icon-eye';
+                       if (row.status == 0) {
+                           eye = 'feather icon-eye-off';
+                       }
+                       return `<td>
+                                <a  class="ml-2" href="{{ url('series/edit/`+row._id+`') }}"><i class="fa fa-pencil"></i></a>
+                                <a  class="ml-2" href="{{ url('series/update-status/`+row._id+`') }}"><i class="` +
+                           eye + `"></i></a>
+                                </td>`
+                   }
+               },
+           ],
+           "columnDefs": [{
+
+               "orderable": false
+           }],
+           "order": false
+       });
 
        function fileSelect(e, l) {
            console.log(e.target.files[0].name);
@@ -4419,7 +4475,6 @@
            var epi_id = $('#episode_id' + key).val();
            var les_id = $('#les_id' + key).val();
            var sequence = $('#sequence' + key).val();
-           console.log(description);
            $('#modal_lesson_description').html(description.trim());
            $('#modal-lesson-title').val(title);
            $('#course_id').val(epi_id);

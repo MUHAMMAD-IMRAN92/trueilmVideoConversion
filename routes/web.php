@@ -201,16 +201,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
     Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
     Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
-
     Route::get('all-pending-courses', [App\Http\Controllers\CourseController::class, 'allPendingCourses'])->name('courses.pending.all');
     Route::get('course/approve/{id}', [App\Http\Controllers\CourseController::class, 'approveCourse'])->name('course.approve');
     Route::get('course/reject/{id}', [App\Http\Controllers\CourseController::class, 'rejectCourse'])->name('course.reject');
     Route::get('all-rejected-by-you-courses', [App\Http\Controllers\CourseController::class, 'allRejectedByYouCourses'])->name('courses.rejected.all');
     Route::get('all-approved-by-you-courses', [App\Http\Controllers\CourseController::class, 'allApprovedByYouCourses'])->name('courses.approved.all');
-
     Route::get('all-rejected-courses', [App\Http\Controllers\CourseController::class, 'allRejectedCourses'])->name('courses.rejected.all');
-
-    //course lessons
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
 
     //lesson quiz
@@ -221,6 +217,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('lesson/quiz/results/{course_id}/{id}', [App\Http\Controllers\CourseController::class, 'quizResults'])->name('quiz.results');
     Route::get('lesson/quiz/results/{user_id}', [App\Http\Controllers\CourseController::class, 'userAttemptsResults'])->name('quiz.user.results');
 
+    //course series
+    Route::get('series', [App\Http\Controllers\CourseSeriesController::class, 'seriesIndex'])->name('series');
+    Route::get('all-series', [App\Http\Controllers\CourseSeriesController::class, 'allSeries'])->name('series.all');
+    Route::get('series/create', [App\Http\Controllers\CourseSeriesController::class, 'add'])->name('series.add');
+    Route::post('series/store', [App\Http\Controllers\CourseSeriesController::class, 'store'])->name('series.store');
+    Route::get('series/edit/{id}', [App\Http\Controllers\CourseSeriesController::class, 'edit'])->name('series.edit');
+    Route::post('series/update', [App\Http\Controllers\CourseSeriesController::class, 'update'])->name('series.update');
+    Route::get('series/update-status/{id}', [App\Http\Controllers\CourseSeriesController::class, 'updateStatus'])->name('series.statusUpdate');
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
@@ -392,5 +396,4 @@ Route::get('del', function () {
     $now = Carbon::now();
 
     $thirtyDaysAgo = $now->copy()->subDays(30);
-
 });

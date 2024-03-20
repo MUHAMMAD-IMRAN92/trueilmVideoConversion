@@ -432,12 +432,31 @@
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
                     </li>
-                    <li class="@if (request()->is('course*') || request()->is('lesson/quiz*')) active @endif  "><a
+                    {{-- <li class="@if (request()->is('course*') || request()->is('lesson/quiz*')) active @endif  "><a
                             href="{{ url('/courses') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Courses</span></a>
+                    </li> --}}
+
+                    <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
+                                data-i18n="Ecommerce">Courses</span></a>
+                        <ul class="menu-content">
+                            <li class="@if (request()->is('course/*') || request()->is('courses*') || request()->is('lesson/quiz*')) active @endif  "><a
+                                    href="{{ url('/courses') }}"><i class="fa fa-list"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Courses</span></a>
+                            </li>
+                            <li class="@if (request()->is('series*')) active @endif ml-2"><a
+                                    href="{{ url('series') }}"><i class="fa fa-list-alt"></i>
+                                    <span class="menu-item" data-i18n="Analytics">Course Series</span></a>
+                            </li>
+
+
+                            {{-- <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
+                            href="{{ url('books/1') }}"><i class="fa fa-book"></i>
+                            <span class="menu-item" data-i18n="Analytics">eBooks</span></a>
+                            </li> --}}
+
+                        </ul>
                     </li>
-
-
 
 
                     <li class="@if (request()->is('publisher*')) active @endif"><a href="{{ url('publisher') }}"><i
