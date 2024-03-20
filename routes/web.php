@@ -393,48 +393,4 @@ Route::get('del', function () {
 
     $thirtyDaysAgo = $now->copy()->subDays(30);
 
-    $usersToEmail = UserSubscription::where('istrial', 1)
-        ->where('start_date', '<=', $thirtyDaysAgo)
-        ->get();
-    foreach ($usersToEmail as $user) {
-        $user->istrail = 0;
-        $user->save();
-        $to_email =  $user->email;
-        $from_email = env('MAIL_FROM_ADDRESS');
-        $template_id = "d-8e1abcf085124ec9a9e5c356601f8f60";
-        // $template_vars = [
-        //     'email' => 'imran.skylinxtech@gmail.com'
-        // ];
-
-        // Set the payload as a JSON string
-        $payload = json_encode([
-            "personalizations" => [
-                [
-                    "to" => [
-                        [
-                            "email" => $to_email
-                        ]
-                    ],
-                    // "dynamic_template_data" => $template_vars
-                ]
-            ],
-            "from" => [
-                "email" => $from_email
-            ],
-            "template_id" => $template_id
-        ]);
-
-        // Set the cURL options and send the POST request
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $api_url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Authorization: Bearer $api_key",
-            "Content-Type: application/json"
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-    }
 });
