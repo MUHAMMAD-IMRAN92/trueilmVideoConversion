@@ -395,7 +395,7 @@ class UserController extends Controller
         $api_url = "https://api.sendgrid.com/v3/mail/send";
 
         // Set the email details and template variables
-        $to_email =  'imran.skylinxtech@gamil.com';
+        $to_email =  'imran.skylinxtech@gmail.com';
         $from_email = env('MAIL_FROM_ADDRESS');
         $template_id = "d-a894a8dd5b154f6987533cd1e1023864";
         $template_vars = [
