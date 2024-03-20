@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Storage;
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Jobs\SurahCombination as SurahCombinationJob;
+use App\Models\UserSubscription;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -386,7 +388,6 @@ Route::get('updateModel', function () {
 Route::get('phpinfo', function () {
     return phpinfo();
 });
-Route::get('del', function () {
-    $ids =   AlQuranTranslation::where('author_lang', '65f02c717904908d102dd921')->get()->take(6236)->pluck('_id');
-  return  AlQuranTranslation::where('author_lang', '65f02c717904908d102dd921')->whereNotIn('_id', $ids)->delete();
+Route::get('date', function () {
+    return $now = Carbon::now();
 });

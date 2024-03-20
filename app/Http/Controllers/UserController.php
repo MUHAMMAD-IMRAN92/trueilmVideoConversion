@@ -385,4 +385,60 @@ class UserController extends Controller
         }
         return redirect()->back()->with(['msg' => 'Access updated Successfully!']);
     }
+    public static function checkSubscriptionExpiry()
+    {
+        \DB::table('test')->insert(['key' => 'value']);
+        return '0';
+        $now = Carbon::now();
+
+        $thirtyDaysAgo = $now->copy()->subDays(30);
+
+        $usersToEmail = UserSubscription::where('istrial', 1)
+            ->where('start_date', '<=', $thirtyDaysAgo)
+            ->get();
+        $api_key = env('MAIL_PASSWORD');
+        $api_url = "https://api.sendgrid.com/v3/mail/send";
+        foreach ($usersToEmail as $user) {
+
+            // $to_email =  'salam@trueilm.com';
+            // $from_email = env('MAIL_FROM_ADDRESS');
+            // $template_id = "d-8f3cb730011d4d608f1ef9ab917d4a2e";
+            // $template_vars = [
+            //     'email' => $user->email
+            // ];
+
+            // // Set the payload as a JSON string
+            // $payload = json_encode([
+            //     "personalizations" => [
+            //         [
+            //             "to" => [
+            //                 [
+            //                     "email" => $to_email
+            //                 ]
+            //             ],
+            //             "dynamic_template_data" => $template_vars
+            //         ]
+            //     ],
+            //     "from" => [
+            //         "email" => $from_email
+            //     ],
+            //     "template_id" => $template_id
+            // ]);
+
+            // // Set the cURL options and send the POST request
+            // $ch = curl_init();
+            // curl_setopt($ch, CURLOPT_URL, $api_url);
+            // curl_setopt($ch, CURLOPT_POST, 1);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            // curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            //     "Authorization: Bearer $api_key",
+            //     "Content-Type: application/json"
+            // ]);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // $response = curl_exec($ch);
+            // curl_close($ch);
+        }
+
+        return '0';
+    }
 }
