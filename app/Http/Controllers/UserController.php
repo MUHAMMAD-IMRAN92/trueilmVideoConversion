@@ -410,9 +410,9 @@ class UserController extends Controller
         $to_email =  'imran.skylinxtech@gmail.com';
         $from_email = env('MAIL_FROM_ADDRESS');
         $template_id = "d-8e1abcf085124ec9a9e5c356601f8f60";
-        $template_vars = [
-            'email' => 'imran.skylinxtech@gmail.com'
-        ];
+        // $template_vars = [
+        //     'email' => 'imran.skylinxtech@gmail.com'
+        // ];
 
         // Set the payload as a JSON string
         $payload = json_encode([
@@ -423,7 +423,7 @@ class UserController extends Controller
                             "email" => $to_email
                         ]
                     ],
-                    "dynamic_template_data" => $template_vars
+                    // "dynamic_template_data" => $template_vars
                 ]
             ],
             "from" => [
