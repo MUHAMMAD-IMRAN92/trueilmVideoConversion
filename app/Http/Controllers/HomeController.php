@@ -377,9 +377,9 @@ class HomeController extends Controller
         ini_set("memory_limit", -1);
 
         $alQuran = AlQuran::get();
-        $lang = '65f9718890f9240c5603c316';
+        $lang = '65f02bafc54da37cc4014ac2';
         $authors = [
-            144 => "65f971bba4ab245649d5c4bc"
+            210 => "65f02ebd7904908d102dd922", 77 => "65fbb8bba4ab245649d5c4d0", 52 => "65fbb903a4ab245649d5c4d1"
         ];
         $records = [];
         foreach ($authors  as $nokey => $arr) {
@@ -414,6 +414,7 @@ class HomeController extends Controller
         foreach ($chunks as $chunk) {
             AlQuranTranslation::insert($chunk);
         }
+
         return 'save!';
     }
     function search(Request $request)
