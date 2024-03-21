@@ -396,7 +396,7 @@ Route::get('del', function () {
     $surah = Surah::all();
 
     foreach ($surah as $s) {
-        SurahCombinationJob::dispatch($surah->_id, 1);
+        SurahCombinationJob::dispatch($s->_id, 1);
     }
     return 'ok';
 });
