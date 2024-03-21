@@ -393,7 +393,10 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('del', function () {
-    $now = Carbon::now();
+    $surah = Surah::all();
 
-    $thirtyDaysAgo = $now->copy()->subDays(30);
+    foreach ($surah as $s) {
+        SurahCombinationJob::dispatch($surah->_id, 1);
+    }
+    return 'ok';
 });
