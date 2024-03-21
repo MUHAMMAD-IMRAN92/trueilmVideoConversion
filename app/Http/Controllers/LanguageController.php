@@ -25,7 +25,7 @@ class LanguageController extends Controller
     public function index()
     {
 
-        $languages =  Languages::orderBy('title', 'ASC')->all();
+        $languages =  Languages::orderBy('title', 'ASC')->get();
 
         return view('language.index', [
             'languages' =>  $languages
