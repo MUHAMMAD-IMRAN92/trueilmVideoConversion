@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->call(
             [new UserController(), 'checkSubscriptionExpiry']
-        )->dailyAt('13:00');
+        )->dailyAt('00:00');
     }
 
     /**
