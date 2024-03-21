@@ -138,7 +138,51 @@ function indexing($type, $content)
     }
     return 1;
 }
+function subscriptionEmail($userEmail, $plan, $template_id)
+{
+    $api_key = env('MAIL_PASSWORD');
+    $api_url = "https://api.sendgrid.com/v3/mail/send";
 
+    // Set the email details and template variables
+    $to_email =  $userEmail;
+    $from_email = env('MAIL_FROM_ADDRESS');
+
+    $template_vars = [
+        'subscription' => $plan
+    ];
+
+    // Set the payload as a JSON string
+    $payload = json_encode([
+        "personalizations" => [
+            [
+                "to" => [
+                    [
+                        "email" => $to_email
+                    ]
+                ], "dynamic_template_data" => $template_vars
+            ]
+        ],
+        "from" => [
+            "email" => $from_email
+        ],
+        "template_id" => $template_id
+    ]);
+
+    // Set the cURL options and send the POST request
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $api_url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Authorization: Bearer $api_key",
+        "Content-Type: application/json"
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return 1;
+}
 function addContactToSendGridList($email, $type)
 {
     $apiKey = getenv('MAIL_PASSWORD');
@@ -173,51 +217,5 @@ function addContactToSendGridList($email, $type)
         }
     } catch (Exception $ex) {
         return sendError('Exception!', $response->body());
-    }
-
-    function subscriptionEmail($userEmail, $plan, $template_id)
-    {
-        $api_key = env('MAIL_PASSWORD');
-        $api_url = "https://api.sendgrid.com/v3/mail/send";
-
-        // Set the email details and template variables
-        $to_email =  $userEmail;
-        $from_email = env('MAIL_FROM_ADDRESS');
-
-        $template_vars = [
-            'subscription' => $plan
-        ];
-
-        // Set the payload as a JSON string
-        $payload = json_encode([
-            "personalizations" => [
-                [
-                    "to" => [
-                        [
-                            "email" => $to_email
-                        ]
-                    ], "dynamic_template_data" => $template_vars
-                ]
-            ],
-            "from" => [
-                "email" => $from_email
-            ],
-            "template_id" => $template_id
-        ]);
-
-        // Set the cURL options and send the POST request
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $api_url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Authorization: Bearer $api_key",
-            "Content-Type: application/json"
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        return 1;
     }
 }
