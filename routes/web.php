@@ -393,10 +393,6 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('del', function () {
-    $surah = Surah::all();
-
-    foreach ($surah as $s) {
-        SurahCombinationJob::dispatch($s->_id, 1);
-    }
+    subscriptionEmail('imran.skylinxtech@gmail.com', 'Individual', 'd-8916f7b9d17747dab3925394287fa4f8');
     return 'ok';
 });
