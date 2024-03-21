@@ -98,7 +98,7 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ @$br->title }}</td>
                                                         <td>{{ $vType }}</td>
-                                                        <td>{{ @$br->bookTraking->total_pages }}</td>
+                                                        <td>{{ @$br->bookTraking->total_pages ?? 0 }}</td>
                                                     </tr>
                                                 @empty
                                                     <tr>
