@@ -121,7 +121,6 @@ class StripeController extends Controller
                 $userSubscription->checkout_id = $session->id;
                 $userSubscription->save();
 
-
                 return  sendSuccess('Checkout Session Url .', $session->url);
             }
         } else {
@@ -188,6 +187,8 @@ class StripeController extends Controller
                         $userSubscription->save();
 
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
+
+                        addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
                     }
                 }
             default:

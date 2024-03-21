@@ -393,6 +393,6 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('del', function () {
-    subscriptionEmail('imran.skylinxtech@gmail.com', 'Individual', 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
+    addContactToSendGridList('imran.skylinxtech@gmail.com', 1);
     return 'ok';
 });
