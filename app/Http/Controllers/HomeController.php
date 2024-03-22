@@ -727,9 +727,9 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
-        $lang = '65fd07506e907be5274e28f3';
+        $lang = '65fd10a56e907be5274e28f5';
         $authors = [
-            'assamese_rafeeq' => "65fd07746e907be5274e28f4"
+            'asante_harun' => "65fd10b86e907be5274e28f6"
         ];
         $records = [];
         foreach ($authors  as $nokey => $arr) {
