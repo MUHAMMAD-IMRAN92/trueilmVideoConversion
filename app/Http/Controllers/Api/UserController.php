@@ -213,7 +213,7 @@ class UserController extends Controller
                     $exitingUser->parentId = $parent->_id;
                     // $exitingUser->is_reset = 0;
                     $exitingUser->save();
-                    $password = '';
+                    $password = 'Your Last Password!';
                     // $arr->push($email);
                 }
 
