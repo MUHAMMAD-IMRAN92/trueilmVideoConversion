@@ -608,8 +608,8 @@ class CourseController extends Controller
                 'published_at' => Carbon::now('UTC')->format('Y-m-d\TH:i:s.uP')
             ]);
 
-            SendNotifications::dispatch($course->added_by, 'A new Course has been uploaded to TrueILM.', 0);
-            SendNotifications::dispatch($course->added_by, 'Your Course Has Been Published Approved.', 1);
+            // SendNotifications::dispatch($course->added_by, 'A new Course has been uploaded to TrueILM.', 0);
+            // SendNotifications::dispatch($course->added_by, 'Your Course Has Been Published Approved.', 1);
         }
         // activity(1, $id, 1);
         indexing(6, $course);
@@ -627,7 +627,7 @@ class CourseController extends Controller
                 'reason' => $request->reason
             ]);
 
-            SendNotifications::dispatch($course->added_by, 'Your Course Has Rejected.', 1);
+            // SendNotifications::dispatch($course->added_by, 'Your Course Has Rejected.', 1);
         }
 
         // activity(2, $id, 1);

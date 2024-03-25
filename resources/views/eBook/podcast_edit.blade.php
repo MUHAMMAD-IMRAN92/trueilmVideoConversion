@@ -382,11 +382,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-10">
+                                        <div class="col-8">
                                             <h2 class="">
                                                 Episodes:</h2>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-4">
+                                            {{-- <span class="btn btn-primary" data-toggle="modal"
+                                                data-target="#add-bulk">Bulk Upload</span> --}}
                                             <span class="btn btn-primary" data-toggle="modal"
                                                 data-target="#add-episode">Add Episode</span>
                                         </div>
@@ -852,6 +854,54 @@
                                                                         class="form-control" name="sequence"
                                                                         placeholder="">
                                                                 </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal fade bd-example-modal-lg" id="add-bulk" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <form action="{{ route('podcast.bulk.episode') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="form-body">
+                                            @csrf
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Bulk Episodes
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="col-md-12">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Content</label>
+                                                            <div class="custom-file">
+                                                                <input type="hidden" id=""
+                                                                        class="form-control" name="podcast_id"
+                                                                        placeholder="" value={{ $book->_id }}>
+
+                                                                <input type="file"
+                                                                    class="file-input custom-file-input  episode-custom-file-input"
+                                                                    id="fileinput-1"
+                                                                    name="podcast_file[]" multiple>
+
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
                                                             </div>
                                                         </fieldset>
                                                     </div>

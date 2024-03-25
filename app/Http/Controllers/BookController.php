@@ -464,8 +464,8 @@ class BookController extends Controller
                 'published_at' => Carbon::now('UTC')->format('Y-m-d\TH:i:s.uP')
             ]);
 
-            SendNotifications::dispatch($book->added_by, 'A new book has been uploaded to TrueILM.', 0);
-            SendNotifications::dispatch($book->added_by, 'Your Book Has Been Published Approved.', 1);
+            // SendNotifications::dispatch($book->added_by, 'A new book has been uploaded to TrueILM.', 0);
+            // SendNotifications::dispatch($book->added_by, 'Your Book Has Been Published Approved.', 1);
         }
         activity(1, $id, 1);
         indexing((int)$book->type, $book);
@@ -484,7 +484,7 @@ class BookController extends Controller
                 'reason' => $request->reason
             ]);
 
-            SendNotifications::dispatch($book->added_by, 'Your Book Has Rejected.', 1);
+            // SendNotifications::dispatch($book->added_by, 'Your Book Has Rejected.', 1);
         }
 
         activity(2, $id, 1);
@@ -728,7 +728,6 @@ class BookController extends Controller
             $file = $getID3->analyze(@$request->podcast_file);
             $duration = date('i:s', $file['playtime_seconds']);
             $bookContent->file_duration = @$duration;
-
         }
 
 
@@ -743,6 +742,44 @@ class BookController extends Controller
         if ($book->approved == 1) {
             indexing(7, $book);
         }
+        return redirect()->back()->with('msg', 'Episode Saved !');
+    }
+    public function  podcastBulkEpisode(Request $request)
+    {
+        // return $request->all();
+        $book = Book::where('_id', $request->podcast_id)->first();
+
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+
+        if ($request->podcast_file) {
+            foreach ($request->podcast_file as $file) {
+
+              $bookContent = new BookContent();
+                $file_name = time() . '.' . $file->getClientOriginalExtension();
+                $path =   $file->storeAs('files', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $bookContent->file = $base_path . $path;
+                if ($file->getClientOriginalExtension() == 'mp3') {
+                    $bookContent->type = 1;
+                } else {
+                    $bookContent->type = 2;
+                }
+                $bookContent->book_name = $file->getClientOriginalName();
+
+                $bookContent->book_id = $book->_id;
+                $bookContent->title = \Str::beforelast('.', $bookContent->book_name);
+                $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                $file = $getID3->analyze(@$file);
+                $duration = date('i:s', $file['playtime_seconds']);
+                $bookContent->file_duration = @$duration;
+
+                $bookContent->save();
+            }
+        }
+
+        // if ($book->approved == 1) {
+        //     indexing(7, $book);
+        // }
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
     public function deleteAudioChapter($id)

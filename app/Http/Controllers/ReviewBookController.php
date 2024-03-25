@@ -69,7 +69,7 @@ class ReviewBookController extends Controller
         $reviewBook->status = 1;
 
         $reviewBook->save();
-        SendNotifications::dispatch($reviewBook->user_id, 'Your Book has been reviewed', 1);
+        // SendNotifications::dispatch($reviewBook->user_id, 'Your Book has been reviewed', 1);
 
         return redirect()->to('/review')->with('msg', 'Review Saved!');
     }

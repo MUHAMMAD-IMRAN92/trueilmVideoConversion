@@ -72,7 +72,7 @@ class SupportController extends Controller
             $support->status = 1;
             $support->save();
         }
-        SendNotifications::dispatch($support->support, 'Your have a message in support', 0);
+        // SendNotifications::dispatch($support->support, 'Your have a message in support', 0);
 
         return redirect()->back()->with('msg', 'Response Sent!');
     }

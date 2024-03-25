@@ -154,6 +154,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
     Route::post('podcast/episode', [App\Http\Controllers\BookController::class, 'podcastEpisode'])->name('podcast.episode');
+    Route::post('podcast/bulk/episode', [App\Http\Controllers\BookController::class, 'podcastBulkEpisode'])->name('podcast.bulk.episode');
 
     //super admin revet
     Route::get('activities', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('book.activities');
