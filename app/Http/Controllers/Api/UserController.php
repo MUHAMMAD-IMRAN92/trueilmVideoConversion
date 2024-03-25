@@ -229,7 +229,7 @@ class UserController extends Controller
                 $template_vars = [
                     "email" => $email,
                     "password" => $password,
-                    "parentEmail" => $parent->email
+                    "parentName" => $parent->name
                 ];
 
                 // Set the payload as a JSON string
