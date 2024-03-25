@@ -197,6 +197,7 @@ class UserController extends Controller
         $apiKey = getenv('MAIL_PASSWORD');
         $sg = new \SendGrid($apiKey);
         $parent = User::where('_id', $request->parent_id)->first();
+        // $arr = collect();
         if ($parent) {
             foreach ($request->emails as $email) {
                 $exitingUser = User::where('email', $email)->first();
@@ -211,6 +212,8 @@ class UserController extends Controller
                     $exitingUser->parentId = $parent->_id;
                     $exitingUser->is_reset = 0;
                     $exitingUser->save();
+
+                    // $arr->push($email);
                 }
 
 
