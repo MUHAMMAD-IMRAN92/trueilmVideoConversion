@@ -198,6 +198,7 @@ class UserController extends Controller
         $sg = new \SendGrid($apiKey);
         $parent = User::where('_id', $request->parent_id)->first();
         // $arr = collect();
+        $password = "password";
         if ($parent) {
             foreach ($request->emails as $email) {
                 $exitingUser = User::where('email', $email)->first();
@@ -210,9 +211,9 @@ class UserController extends Controller
                     $user->save();
                 } else {
                     $exitingUser->parentId = $parent->_id;
-                    $exitingUser->is_reset = 0;
+                    // $exitingUser->is_reset = 0;
                     $exitingUser->save();
-
+                    $password = '';
                     // $arr->push($email);
                 }
 
@@ -227,7 +228,8 @@ class UserController extends Controller
                 $template_id = "d-2d58bf14d855411897e43e96cde47eec";
                 $template_vars = [
                     "email" => $email,
-                    "password" => "password",
+                    "password" => $password,
+                    "parentEmail" => $parent->email
                 ];
 
                 // Set the payload as a JSON string
