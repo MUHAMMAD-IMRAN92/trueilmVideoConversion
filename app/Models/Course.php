@@ -52,4 +52,8 @@ class Course extends Eloquent
     {
         return $this->hasOne(Category::class, '_id', 'category_id');
     }
+    public function bookTraking()
+    {
+        return $this->hasOne(BookTranking::class, 'book_id', '_id')->orderBy('createdAt', 'desc');
+    }
 }

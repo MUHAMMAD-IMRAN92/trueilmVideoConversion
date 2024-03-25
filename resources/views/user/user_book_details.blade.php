@@ -14,7 +14,7 @@
                 <div class="content-header-left col-md-7 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">User Books Details</h2>
+                            <h2 class="content-header-title float-left mb-0">User Content Details</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -63,6 +63,7 @@
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">
                     <div class="col-12">
+                        <h4>Ebooks / Audio Books / Podcasts</h4>
                         <div class="card">
 
                             <div class="card-content">
@@ -103,6 +104,46 @@
                                                 @empty
                                                     <tr>
                                                         <center> <b> No Book Read Yet !</b></center>
+                                                        <br>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {{ $book_read->links() }}
+                                <!-- Table with no outer spacing -->
+
+                            </div>
+                        </div>
+                        <h4>Courses</h4>
+                        <div class="card">
+
+                            <div class="card-content">
+                                <div class="card-body">
+
+                                    <!-- Table with outer spacing -->
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr#</th>
+                                                    <th class="description-td">Course Title</th>
+
+                                                    <th class="">Lessons</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($courseRead as $key => $br)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ @$br->title }}</td>
+
+                                                        <td>{{ @$br->bookTraking->total_pages ?? 0 }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <center> <b> No Course Started Yet !</b></center>
                                                         <br>
                                                     </tr>
                                                 @endforelse
