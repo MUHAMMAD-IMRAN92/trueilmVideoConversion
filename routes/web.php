@@ -393,6 +393,6 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('del', function () {
-    addContactToSendGridList('imran.skylinxtech@gmail.com', 1);
-    return 'ok';
+    $collect = collect(['imran' , 'test' , 'test1']);
+    return $collect[0];
 });

@@ -728,6 +728,7 @@ class BookController extends Controller
             $file = $getID3->analyze(@$request->podcast_file);
             $duration = date('i:s', $file['playtime_seconds']);
             $bookContent->file_duration = @$duration;
+
         }
 
 

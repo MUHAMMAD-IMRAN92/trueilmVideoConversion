@@ -26,9 +26,21 @@ class BookTranking extends Eloquent
 
         foreach ($count as $c) {
 
-            $sumDetail =  BookTrankingDetails::where('track_id', $this->_id)->where($type, $c)->get()->sum('total_diff');
-            if ($sumDetail >= 7) {
-                $total_count++;
+            if ($this->type == 1 || $this->type == 3) {
+                $sumDetail =  BookTrankingDetails::where('track_id', $this->_id)->where($type, $c)->get()->sum('total_diff');
+                if ($sumDetail >= 7) {
+                    $total_count++;
+                }
+            } else {
+                $trackingDetail =  BookTrankingDetails::where('track_id', $this->_id)->where($type, $c)->get();
+                $sumDetail = $trackingDetail->sum('total_diff');
+                $fileDuration = $trackingDetail[0]->duration;
+                $time = $fileDuration;
+                list($minutes, $seconds) = explode(":", $time);
+                $total_minutes = $minutes + ($seconds / 60);
+                if ($total_minutes <= $sumDetail) {
+                    $total_count++;
+                }
             }
         }
         return $total_count;
