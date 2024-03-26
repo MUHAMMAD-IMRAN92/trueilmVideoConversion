@@ -395,12 +395,10 @@ Route::get('phpinfo', function () {
 });
 Route::get('del', function () {
     $podcast = Book::where('type', '7')->pluck('_id');
-     $content =  BookContent::whereIn('book_id', $podcast)->get();
+    return $content =  BookContent::whereIn('book_id', $podcast)->get();
     foreach ($content  as $c) {
         $int = (int)$c->sequence1;
-        // $c->sequence = $int;
-        $c->update([
-            'sequence' =>  $c->sequence1
-        ]);
+        $c->sequence = $int;
+        $c->save();
     }
 });

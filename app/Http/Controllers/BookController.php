@@ -168,7 +168,7 @@ class BookController extends Controller
                 }
 
                 // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
-                $bookContent->sequence = $key;
+                $bookContent->sequence = (int)$key;
                 $book->type = $request->type;
                 $bookContent->save();
             }
@@ -364,7 +364,7 @@ class BookController extends Controller
                 $bookContent->title = $request->episode_title[$key];
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $request->podcast_file[$key]->getClientOriginalName();
-                $bookContent->sequence = $key;
+                $bookContent->sequence = (int)$key;
                 $bookContent->host = $host;
                 $bookContent->guest = @$request->guest[$key];
                 $bookContent->file_duration = @$request->duration[$key];
