@@ -394,5 +394,5 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('del', function () {
-  return 'ok';
+    return 'ok';
 });
