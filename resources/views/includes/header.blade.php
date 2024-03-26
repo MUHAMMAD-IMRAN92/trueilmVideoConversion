@@ -444,7 +444,7 @@
                                     href="{{ url('/courses') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                             </li>
-                            <li class="@if (request()->is('series*')) active @endif ml-2"><a
+                            <li class="@if (request()->is('series*')) active @endif "><a
                                     href="{{ url('series') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Course Series</span></a>
                             </li>

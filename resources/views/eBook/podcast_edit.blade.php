@@ -387,8 +387,8 @@
                                                 Episodes:</h2>
                                         </div>
                                         <div class="col-4">
-                                            {{-- <span class="btn btn-primary" data-toggle="modal"
-                                                data-target="#add-bulk">Bulk Upload</span> --}}
+                                            <span class="btn btn-primary" data-toggle="modal"
+                                                data-target="#add-bulk">Bulk Upload</span>
                                             <span class="btn btn-primary" data-toggle="modal"
                                                 data-target="#add-episode">Add Episode</span>
                                         </div>
@@ -873,7 +873,7 @@
                             <div class="modal fade bd-example-modal-lg" id="add-bulk" tabindex="-1" role="dialog"
                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <form action="{{ route('podcast.bulk.episode') }}" method="POST"
+                                    <form action="{{ route('podcast.bulk.episode') }}" method="POST" id="disable-btn-submit"
                                         enctype="multipart/form-data">
                                         <div class="form-body">
                                             @csrf
@@ -898,7 +898,7 @@
 
                                                                 <input type="file"
                                                                     class="file-input custom-file-input  episode-custom-file-input"
-                                                                    id="fileinput-1" name="podcast_file[]" multiple>
+                                                                    id="fileinput-1" name="podcast_file[]" required multiple>
 
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
@@ -910,7 +910,12 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary mr-1"
+                                                        id="submit-btn">
+                                                        <span class="spinner-border mr-1 ml-1"
+                                                            style="display: none"></span>
+                                                        <span class="submit-text">Submit</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
