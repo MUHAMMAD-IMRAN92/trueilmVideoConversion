@@ -8,4 +8,5 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class BookContent extends Eloquent
 {
     use HasFactory;
+    protected $guarded = [];
 }

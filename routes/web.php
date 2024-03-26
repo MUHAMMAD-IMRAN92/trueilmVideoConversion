@@ -394,6 +394,13 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('del', function () {
-    $collect = collect(['imran' , 'test' , 'test1']);
-    return $collect[0];
+    $podcast = Book::where('type', '7')->pluck('_id');
+     $content =  BookContent::whereIn('book_id', $podcast)->get();
+    foreach ($content  as $c) {
+        $int = (int)$c->sequence1;
+        // $c->sequence = $int;
+        $c->update([
+            'sequence' =>  $c->sequence1
+        ]);
+    }
 });
