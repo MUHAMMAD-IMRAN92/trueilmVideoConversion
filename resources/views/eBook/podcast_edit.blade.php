@@ -423,8 +423,10 @@
                                                             <td id="title{{ $key }}">{{ $con->title }}</td>
                                                             <td id="description{{ $key }}">
                                                                 {{ $con->description ?? '--' }}</td>
-                                                            <td id="host{{ $key }}">{{ $con->host }}</td>
-                                                            <td id="guest{{ $key }}">{{ $con->guest }}</td>
+                                                            <td id="host{{ $key }}">{{ $con->host ?? '--' }}
+                                                            </td>
+                                                            <td id="guest{{ $key }}">{{ $con->guest ?? '--' }}
+                                                            </td>
                                                             <td>
                                                                 @if ($con->type == 1)
                                                                     <audio src="{{ $con->file }}" style=""
@@ -624,7 +626,7 @@
                                                             <fieldset class="form-group">
                                                                 <select class="select2 form-control" name="suitble"
                                                                     id="">
-                                                                    <option>Select Suitable</option>
+                                                                    <option disabled selected>Select Suitable</option>
                                                                     @foreach ($suitbles as $suitble)
                                                                         <option value="{{ $suitble->_id }}"
                                                                             {{ $book->content_suitble == $suitble->_id ? 'selected' : '' }}>
@@ -656,7 +658,7 @@
                                                             <fieldset class="form-group">
                                                                 <select class="select2 form-control" name="publisher_id"
                                                                     id="">
-                                                                    <option selected>Select Publsiher</option>
+                                                                    <option disabled selected>Select Publsiher</option>
                                                                     @foreach ($publisher as $p)
                                                                         <option value="{{ $p->_id }}"
                                                                             {{ $book->publisher_id == $p->_id ? 'selected' : '' }}>
@@ -890,14 +892,13 @@
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
-                                                                <input type="hidden" id=""
-                                                                        class="form-control" name="podcast_id"
-                                                                        placeholder="" value={{ $book->_id }}>
+                                                                <input type="hidden" id="" class="form-control"
+                                                                    name="podcast_id" placeholder=""
+                                                                    value={{ $book->_id }}>
 
                                                                 <input type="file"
                                                                     class="file-input custom-file-input  episode-custom-file-input"
-                                                                    id="fileinput-1"
-                                                                    name="podcast_file[]" multiple>
+                                                                    id="fileinput-1" name="podcast_file[]" multiple>
 
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose

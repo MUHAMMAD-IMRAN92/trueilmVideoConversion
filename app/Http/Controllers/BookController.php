@@ -754,7 +754,7 @@ class BookController extends Controller
         if ($request->podcast_file) {
             foreach ($request->podcast_file as $file) {
 
-              $bookContent = new BookContent();
+                $bookContent = new BookContent();
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
                 $path =   $file->storeAs('files', $file_name, 's3');
                 Storage::disk('s3')->setVisibility($path, 'public');
@@ -767,7 +767,7 @@ class BookController extends Controller
                 $bookContent->book_name = $file->getClientOriginalName();
 
                 $bookContent->book_id = $book->_id;
-                $bookContent->title = \Str::beforelast('.', $bookContent->book_name);
+                $bookContent->title = \Str::beforelast($bookContent->book_name, '.');
                 $getID3 = new \JamesHeinrich\GetID3\GetID3;
                 $file = $getID3->analyze(@$file);
                 $duration = date('i:s', $file['playtime_seconds']);
@@ -777,9 +777,9 @@ class BookController extends Controller
             }
         }
 
-        // if ($book->approved == 1) {
-        //     indexing(7, $book);
-        // }
+        if ($book->approved == 1) {
+            indexing(7, $book);
+        }
         return redirect()->back()->with('msg', 'Episode Saved !');
     }
     public function deleteAudioChapter($id)
