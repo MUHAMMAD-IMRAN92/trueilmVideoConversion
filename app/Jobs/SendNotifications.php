@@ -32,7 +32,7 @@ class SendNotifications implements ShouldQueue
     {
         $this->user = User::where('_id', $user)->first();
         if ($this->user) {
-            $devices = UserDevices::where('user_id')->pluck('player_id');
+            $devices = UserDevices::where('user_id', $this->user)->where('status', 1)->get()->pluck('player_id');
             $this->playerId = $devices;
         } else {
             $this->playerId = [];
@@ -69,7 +69,7 @@ class SendNotifications implements ShouldQueue
                 $url = null,
                 $data = null,
                 $buttons = null,
-                $schedule = null
+                $schedule = null,
             );
             $notification = new Notification();
             $notification->user_id = 0;
