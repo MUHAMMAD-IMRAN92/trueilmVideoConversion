@@ -598,6 +598,11 @@
                     </li>
 
                     <hr>
+                    <li class="@if (request()->is('notification*')) active @endif "><a
+                            href="{{ url('/notification') }}"><i class="fa fa-list"></i>
+                            <span class="menu-item" data-i18n="Analytics">Notification</span></a>
+                    </li>
+
                     <li class="@if (request()->is('*for_sale*')) active @endif "><a
                             href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>

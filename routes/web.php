@@ -251,6 +251,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('glossary/edit/{id}', [App\Http\Controllers\GlossoryController::class, 'edit'])->name('glossary.edit');
     Route::post('glossary/update', [App\Http\Controllers\GlossoryController::class, 'update'])->name('glossary.update');
 
+    //Notifications
+    Route::get('notification', [App\Http\Controllers\NotificationController::class, 'index'])->name('notification');
+    Route::get('all-notification', [App\Http\Controllers\NotificationController::class, 'allNotifications'])->name('notification.all');
+    Route::get('notification/create', [App\Http\Controllers\NotificationController::class, 'add'])->name('notification.add');
+    Route::post('notification/store', [App\Http\Controllers\NotificationController::class, 'store'])->name('notification.store');
+
     //book for sale
     Route::get('books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'index'])->name('books_for_sale');
     Route::get('all_books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'allBookForSale'])->name('books_for_sale.all');

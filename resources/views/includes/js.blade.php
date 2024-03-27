@@ -2688,6 +2688,46 @@
                }],
                "order": false
            });
+           $('#notification-table').DataTable({
+               "processing": true,
+               "stateSave": true,
+               "serverSide": true,
+               "deferRender": true,
+               "language": {
+                   "searchPlaceholder": "Search here"
+               },
+               "ajax": {
+                   url: '<?= url('all-notification') ?>'
+               },
+               "columns": [{
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.heading + '</td>'
+                       }
+                   },
+                   {
+                       "mRender": function(data, type, row) {
+                           return '<td>' +
+                               row.notification + '</td>'
+                       }
+                   }, {
+                       "mRender": function(data, type, row) {
+                           // Create a new Date object from the timestamp string
+                           const dateObject = new Date(row.created_at);
+
+                           // Get the date in the desired format (YYYY-MM-DD)
+                           const formattedDate = dateObject.toISOString().split('T')[0];
+                           return '<td>' +
+                               formattedDate + '</td>'
+                       }
+                   },
+               ],
+               "columnDefs": [{
+
+                   "orderable": false
+               }],
+               "order": false
+           });
            $('#coupon-table').DataTable({
                "processing": true,
                "stateSave": true,
