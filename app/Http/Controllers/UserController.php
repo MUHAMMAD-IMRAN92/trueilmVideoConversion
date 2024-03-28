@@ -155,7 +155,7 @@ class UserController extends Controller
 
     public function appUsers()
     {
-        $brands = User::whereNull('deleted_at')->whereNull('type')->orderBy('created_at' , 'desc')->get();
+        $brands = User::whereNull('deleted_at')->whereNull('type')->get();
         return view('user.app_users');
     }
     public function allAppUser(Request $request)
@@ -169,7 +169,7 @@ class UserController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
             });
-        })->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = User::whereNull('deleted_at')->whereNull('type')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
