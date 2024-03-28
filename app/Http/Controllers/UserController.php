@@ -155,7 +155,7 @@ class UserController extends Controller
 
     public function appUsers()
     {
-        $brands = User::whereNull('deleted_at')->whereNull('type')->get();
+        $brands = User::whereNull('deleted_at')->whereNull('type')->orderBy('created_at' , 'desc')->get();
         return view('user.app_users');
     }
     public function allAppUser(Request $request)
