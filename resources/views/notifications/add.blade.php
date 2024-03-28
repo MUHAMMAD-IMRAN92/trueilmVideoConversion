@@ -62,7 +62,7 @@
                                                     </div>
 
                                                     <div class="col-12">
-                                                        <label for="">Usage</label>
+                                                        <label for="">Text</label>
                                                         <fieldset class="form-group">
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="notification"></textarea>
                                                         </fieldset>
