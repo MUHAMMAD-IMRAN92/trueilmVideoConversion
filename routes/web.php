@@ -400,5 +400,7 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('del', function () {
-    return 'ok';
+    $hadees =   HadeesTranslation::where('book_id', '655f47441c3df94998007a1a')->where('type', 6)->whereNotNull('translation')->pluck('hadees_id');
+
+    return Hadees::wherein('_id', $hadees)->pluck('hadees');
 });

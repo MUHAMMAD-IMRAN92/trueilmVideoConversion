@@ -169,7 +169,7 @@ class UserController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
             });
-        })->orderBy('created_at' , 'desc')->skip((int) $start)->take((int) $length)->get();
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = User::whereNull('deleted_at')->whereNull('type')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
@@ -287,7 +287,7 @@ class UserController extends Controller
     }
     public function reffered($id)
     {
-        $users =   User::where('reffer_id', $id)->paginate(10);
+         $users =   User::where('reffer_id', $id)->with('subscription')->paginate(10);
 
         return view('affliate_users.reffered', [
             'users' => $users
