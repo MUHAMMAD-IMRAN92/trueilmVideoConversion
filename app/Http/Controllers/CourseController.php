@@ -291,8 +291,15 @@ class CourseController extends Controller
             $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
             $getID3 = new \JamesHeinrich\GetID3\GetID3;
             $file = $getID3->analyze(@$request->podcast_file);
-            $duration = date('i:s', $file['playtime_seconds']);
-            $courseLesson->file_duration = @$duration;
+            $duration = date('H:i:s', $file['playtime_seconds']);
+            list($hours, $minutes, $seconds) = explode(':', $duration);
+
+            // Calculate total duration in minutes
+            $total_minutes = $hours * 60 + $minutes;
+
+            // Construct the duration in the format MM:SS
+            $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+            $courseLesson->file_duration = @$duration_minutes_seconds;
         }
 
         if ($request->lesson_notes) {
