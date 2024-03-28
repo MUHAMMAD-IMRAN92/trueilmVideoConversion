@@ -57,7 +57,7 @@ class User extends Authenticatable
         // } else {
         //     return 0;
         // }
-        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('plan_name' , '!=' , 'Freemium')->where('status', 'paid')->get();
+        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('plan_name', '!=', 'Freemium')->where('status', 'paid')->get();
         if ($userSubscription) {
             return count($userSubscription);
         } else {
@@ -82,11 +82,11 @@ class User extends Authenticatable
     }
     public function book()
     {
-        return $this->hasMany(Book::class, 'user_id', '_id')->orerBy('created_at', 'desc');
+        return $this->hasMany(Book::class, 'user_id', '_id')->orderBy('created_at', 'desc');
     }
     public function bookLastSeen()
     {
-        return $this->hasMany(BookLastSeen::class, 'user_id', '_id')->orerBy('created_at', 'desc');
+        return $this->hasMany(BookLastSeen::class, 'user_id', '_id')->orderBy('created_at', 'desc');
     }
     protected $appends = ['status'];
 
@@ -106,6 +106,6 @@ class User extends Authenticatable
     }
     public function subscription()
     {
-        return $this->hasMany(UserSubscription::class, 'user_id', '_id')->where('plan_name' , '!=' , 'Freemium')->where('status', 'paid');
+        return $this->hasMany(UserSubscription::class, 'user_id', '_id')->where('plan_name', '!=', 'Freemium')->where('status', 'paid');
     }
 }
