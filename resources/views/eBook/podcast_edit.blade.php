@@ -422,10 +422,10 @@
                                                                 value="{{ $con->sequence }}">
                                                             <td id="title{{ $key }}">{{ $con->title }}</td>
                                                             <td id="description{{ $key }}">
-                                                                {{ $con->description ?? '--' }}</td>
-                                                            <td id="host{{ $key }}">{{ $con->host ?? '--' }}
+                                                                {{ @$con->description }}</td>
+                                                            <td id="host{{ $key }}">{{ @$con->host }}
                                                             </td>
-                                                            <td id="guest{{ $key }}">{{ $con->guest ?? '--' }}
+                                                            <td id="guest{{ $key }}">{{ @$con->guest }}
                                                             </td>
                                                             <td>
                                                                 @if ($con->type == 1)
@@ -873,8 +873,8 @@
                             <div class="modal fade bd-example-modal-lg" id="add-bulk" tabindex="-1" role="dialog"
                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <form action="{{ route('podcast.bulk.episode') }}" method="POST" id="disable-btn-submit"
-                                        enctype="multipart/form-data">
+                                    <form action="{{ route('podcast.bulk.episode') }}" method="POST"
+                                        id="disable-btn-submit" enctype="multipart/form-data">
                                         <div class="form-body">
                                             @csrf
                                             <div class="modal-content">
@@ -898,7 +898,8 @@
 
                                                                 <input type="file"
                                                                     class="file-input custom-file-input  episode-custom-file-input"
-                                                                    id="fileinput-1" name="podcast_file[]" required multiple>
+                                                                    id="fileinput-1" name="podcast_file[]" required
+                                                                    multiple>
 
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
@@ -910,8 +911,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary mr-1"
-                                                        id="submit-btn">
+                                                    <button type="submit" class="btn btn-primary mr-1" id="submit-btn">
                                                         <span class="spinner-border mr-1 ml-1"
                                                             style="display: none"></span>
                                                         <span class="submit-text">Submit</span>
