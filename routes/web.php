@@ -403,7 +403,7 @@ Route::get('dev', function () {
     $surah = Surah::get();
     foreach ($surah as $s) {
 
-        SurahCombinationJob::dispatch($s->surah_id, 1);
+        SurahCombinationJob::dispatch($s->_id, 1);
     }
     return 'Done';
 });
