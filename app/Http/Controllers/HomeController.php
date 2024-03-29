@@ -377,9 +377,9 @@ class HomeController extends Controller
         ini_set("memory_limit", -1);
 
         $alQuran = AlQuran::get();
-        $lang = '66068eeb0e34c7428db179fb';
+        $lang = '660691420e34c7428db17a00';
         $authors = [
-            37 => "66068ffe0e34c7428db179ff",
+            38 => "660691510e34c7428db17a01",
         ];
         $records = [];
         foreach ($authors  as $nokey => $arr) {
