@@ -158,9 +158,14 @@
                                         </td>
                                         {{-- <td class="product-name" style="font-size: 20px">{{ $combination->language->title }}
                                         </td> --}}
-
+                                        @php
+                                            $translationCount = $combination->translations;
+                                            if ($translationCount > $surah->ayats) {
+                                                $translationCount = $surah->ayats;
+                                            }
+                                        @endphp
                                         <td class="product-price">
-                                            {{ count($combination->translations) . '/' . count($surah->ayats) }}</td>
+                                            {{ count($translationCount) . '/' . count($surah->ayats) }}</td>
                                         <td class="product-action">
                                             <span class="action-edit"><i class="fa fa-external-link"></i></span>
 
