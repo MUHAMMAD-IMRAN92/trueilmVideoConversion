@@ -279,7 +279,7 @@ class UserController extends Controller
     }
     public function affiliate()
     {
-        $users =   User::whereHas('refferer')->with('refferer')->paginate(10);
+        $users =   User::whereHas('refferer')->with('refferer', 'subscription')->paginate(10);
 
         return view('affliate_users.index', [
             'users' => $users
@@ -287,7 +287,7 @@ class UserController extends Controller
     }
     public function reffered($id)
     {
-         $users =   User::where('reffer_id', $id)->with('subscription')->paginate(10);
+        $users =   User::where('reffer_id', $id)->with('subscription')->paginate(10);
 
         return view('affliate_users.reffered', [
             'users' => $users

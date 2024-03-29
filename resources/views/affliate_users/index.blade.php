@@ -61,6 +61,7 @@
                                                     <th class="description-td">Email</th>
                                                     <th class="">Phone</th>
                                                     <th class="">Reffered</th>
+                                                    <th class="">Subscription</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -71,6 +72,29 @@
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ $user->phone }}</td>
                                                         <td>{{ count($user->refferer) }}</td>
+                                                        <td>
+                                                            @forelse ($user->subscription as $subs)
+                                                                @php
+                                                                    $type = 'Life Time';
+                                                                    if (@$subs->plan->type == 1) {
+                                                                        $type = 'Monthly';
+                                                                    } elseif (@$subs->plan->type == 2) {
+                                                                        $type = 'Yearly';
+                                                                    }
+                                                                    $mtype = 'Big Family';
+                                                                    if (@$subs->type == 1) {
+                                                                        $mtype = 'Individual';
+                                                                    } elseif (@$subs->type == 2) {
+                                                                        $mtype = 'Family';
+                                                                    }
+                                                                @endphp
+
+                                                                {{ @$subs->plan->product_title . '(' . $mtype . ' : '. $type . ')' }}
+                                                                <br>
+                                                            @empty
+                                                                Not Subscribed
+                                                            @endforelse
+                                                        </td>
                                                         <td> <a href="{{ url('affiliate/reffered/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
                                                                     style="font-size:24px"></i></a> </td>
