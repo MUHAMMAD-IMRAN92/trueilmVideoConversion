@@ -60,17 +60,28 @@ class NotificationController extends Controller
         $notification->is_read = 0;
         $notification->send_to = 0;
         $notification->type = 0;
+        $notification->sent_by = $this->user->_id;
         $notification->save();
         $data = [
             'headings' => ['en' => $request->heading],
+            'contents' => ['en' => $request->notification],
         ];
         \OneSignal::sendNotificationToAll(
-            $request->notification,
+            null,
             $url = null,
             $data,
             $buttons = null,
             $schedule = null,
         );
+        // $userId = ['1a2c607e-9e61-4df9-bdc7-b9bbac9ec7d9'];
+        // \OneSignal::sendNotificationToUser(
+        //     'test',
+        //     $userId,
+        //     $url = null,
+        //     $data,
+        //     $buttons = null,
+        //     $schedule = null
+        // );
         return redirect()->to('/notification')->with('msg', 'Notification Saved Successfully!');
     }
 }
