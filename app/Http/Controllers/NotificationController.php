@@ -70,7 +70,7 @@ class NotificationController extends Controller
             null,
             null,
             $request->heading,
-            "Custom subtitle"
+            null
         );
         // $userId = ['ccec9dfe-2cc2-48ab-920e-9c6be75ff315'];
         // \OneSignal::sendNotificationToUser(
