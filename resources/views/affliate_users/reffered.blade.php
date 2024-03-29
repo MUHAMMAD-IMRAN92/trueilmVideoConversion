@@ -88,7 +88,7 @@
                                                                     }
                                                                 @endphp
 
-                                                                {{ @$subs->plan->product_title . '(' . $mtype . ' : '. $type . ')' }}
+                                                                {{  $mtype . ' : '. $type }}
                                                                 <br>
                                                             @empty
                                                                 Not Subscribed
