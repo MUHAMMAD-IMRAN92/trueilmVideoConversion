@@ -44,7 +44,7 @@ class SurahCombination implements ShouldQueue
         foreach ($authorLang as $authLang) {
             $authLangCount =  AlQuranTranslation::where('surah_id', $this->surah_id)->where('author_lang', $authLang)->where('type', $this->type)->whereNotNull('translation')->count();
 
-            if ($ayats != 0 && $ayats >= $authLangCount) {
+            if ($ayats != 0 && $ayats <= $authLangCount) {
                 $count += 1;
             }
         }
