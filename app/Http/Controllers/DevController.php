@@ -29,6 +29,8 @@ class DevController extends Controller
     }
     public function post(Request $request)
     {
+        use Symfony\Component\Process\Process;
+
         $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
         $outputDir = public_path('output/'); // Output directory for HLS files
 
@@ -51,11 +53,16 @@ class DevController extends Controller
             '-hls_list_size', '0', // List all segments in playlist
             $outputFile
         ]);
+
+        // Start debugging
+        \Log::info('FFmpeg command: ' . $process->getCommandLine()); // Log FFmpeg command being executed
+
         $process->run();
 
         // Check if FFmpeg process was successful
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
+            \Log::error('FFmpeg error output: ' . $process->getErrorOutput()); // Log FFmpeg error output
+            throw new \RuntimeException('Failed to execute FFmpeg command');
         }
 
         // Output file path
@@ -63,9 +70,10 @@ class DevController extends Controller
 
         // Check if the output HLS playlist was created
         if (file_exists($outputFilePath)) {
-            echo 'HLS playlist created successfully at: ' . $outputFilePath;
+            \Log::info('HLS playlist created successfully at: ' . $outputFilePath); // Log successful HLS playlist creation
         } else {
-            echo 'Failed to create HLS playlist.';
+            \Log::error('Failed to create HLS playlist'); // Log failure to create HLS playlist
+            throw new \RuntimeException('Failed to create HLS playlist');
         }
 
         return 'ok';
