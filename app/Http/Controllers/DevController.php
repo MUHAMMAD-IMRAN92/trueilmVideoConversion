@@ -28,54 +28,50 @@ class DevController extends Controller
         return view('uploadFile');
     }
 
-
-
-    public function convertToHLS($inputFilePath, $outputDirectory)
+    public function convertToHLS($inputFilePath, $outputDir)
     {
-        $ffmpeg = FFMpeg::create();
+        // Ensure the output directory exists
+        if (!file_exists($outputDir)) {
+            mkdir($outputDir, 0755, true); // Create the directory if it doesn't exist
+        }
 
-        $video = $ffmpeg->open($inputFilePath);
+        // Output HLS playlist filename
+        $outputFile = $outputDir . '/output.m3u8';
 
-        // Define HLS format options
-        $format = new \FFMpeg\Format\Video\X264('libx264');
-        $format->setAudioCodec('aac');
-        $format->setKiloBitrate(2000); // Adjust as needed
-        $format->setAudioKiloBitrate(128); // Adjust as needed
-        $format->setAdditionalParameters(['-hls_time', '10', '-hls_list_size', '0']);
+        // Specify the full path to the FFmpeg executable
+        $ffmpegPath = '/full/path/to/ffmpeg'; // Replace with the actual path to your FFmpeg executable
 
-        // Convert to HLS
-        $video->save($format, $outputDirectory);
+        // Execute FFmpeg command using shell_exec
+        $command = "$ffmpegPath -i $inputFilePath -vf scale=-2:480 -c:a aac -c:v h264 -hls_time 10 -hls_list_size 0 $outputFile";
+        \Log::info('FFmpeg command: ' . $command);
+
+        $output = shell_exec($command);
+
+        if ($output === null) {
+            \Log::error('Failed to execute FFmpeg command');
+            throw new \RuntimeException('Failed to execute FFmpeg command');
+        }
+
+        return $outputFile;
     }
-}
+
     public function post(Request $request)
     {
-        $inputFilePath = $request->file('video')->getPathname();
-        $outputDirectory = storage_path('app/public/hls/');
 
-        $videoConverter->convertToHLS($inputFilePath, $outputDirectory);
 
-        return response()->json(['message' => 'Video converted to HLS successfully']);
-    }
-        return 'ok';
-        // $config = [
-        //     'ffmpeg.binaries'  => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
-        //     'ffprobe.binaries' => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
-        //     'timeout'          => 3600, // The timeout for the underlying process
-        //     'ffmpeg.threads'   => 12,   // The number of threads that FFmpeg should use
-        // ];
 
-        // $log = new Logger('FFmpeg_Streaming');
-        // $log->pushHandler(new StreamHandler('/storage/log/ffmpeg-streaming.log')); // path to log file
+        $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
+        $outputDir = public_path('output/'); // Output directory for HLS files
 
-        // $ffmpeg = \Streaming\FFMpeg::create($config, $log);
-
-        // $video = $ffmpeg->open($request->file);
-        // $video->dash()
-        //     ->x264() // Format of the video. Alternatives: hevc() and vp9()
-        //     ->autoGenerateRepresentations() // Auto generate representations
-        //     ->save(); // It can be passed a path to the method or it can be null
+        try {
+            $outputFile = $this->convertToHLS($request->file, $outputDir);
+            return 'Conversion successful. HLS playlist created at: ' . $outputFile;
+        } catch (\Exception $e) {
+            return 'Conversion failed: ' . $e->getMessage();
+        }
         ini_set('max_execution_time', '0');
 
+        return 'ok';
 
 
         Hadees::where('book_id', '65e96911d67654aab27f7cb8')->delete();
