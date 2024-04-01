@@ -30,48 +30,32 @@ class DevController extends Controller
 
 
 
-    public function convertToHLS($inputFilePath, $outputDir)
+    public function convertToHLS($inputFilePath, $outputDirectory)
     {
-        // Ensure the output directory exists
-        if (!file_exists($outputDir)) {
-            mkdir($outputDir, 0755, true); // Create the directory if it doesn't exist
-        }
+        $ffmpeg = FFMpeg::create();
 
-        // Output HLS playlist filename
-        $outputFile = $outputDir . 'output.m3u8';
+        $video = $ffmpeg->open($inputFilePath);
 
-        // Execute FFmpeg command
-        $process = new Process([
-            'ffmpeg',
-            '-i', $inputFilePath,
-            '-vf', 'scale=-2:480', // Adjust resolution if needed
-            '-c:a', 'aac',
-            '-c:v', 'h264',
-            '-hls_time', '10', // Segment duration in seconds
-            '-hls_list_size', '0', // List all segments in playlist
-            $outputFile
-        ]);
-        $process->run();
+        // Define HLS format options
+        $format = new \FFMpeg\Format\Video\X264('libx264');
+        $format->setAudioCodec('aac');
+        $format->setKiloBitrate(2000); // Adjust as needed
+        $format->setAudioKiloBitrate(128); // Adjust as needed
+        $format->setAdditionalParameters(['-hls_time', '10', '-hls_list_size', '0']);
 
-        // Check if FFmpeg process was successful
-        if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
-        }
-
-        return $outputFile;
+        // Convert to HLS
+        $video->save($format, $outputDirectory);
     }
-
+}
     public function post(Request $request)
     {
-        $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
-        $outputDir = public_path('output/'); // Output directory for HLS files
+        $inputFilePath = $request->file('video')->getPathname();
+        $outputDirectory = storage_path('app/public/hls/');
 
-        try {
-            $outputFile = $this->convertToHLS($request->file, $outputDir);
-            return 'Conversion successful. HLS playlist created at: ' . $outputFile;
-        } catch (\Exception $e) {
-            return 'Conversion failed: ' . $e->getMessage();
-        }
+        $videoConverter->convertToHLS($inputFilePath, $outputDirectory);
+
+        return response()->json(['message' => 'Video converted to HLS successfully']);
+    }
         return 'ok';
         // $config = [
         //     'ffmpeg.binaries'  => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
