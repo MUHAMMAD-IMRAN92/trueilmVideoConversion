@@ -27,23 +27,23 @@ class DevController extends Controller
 
         return view('uploadFile');
     }
-    public function post(Request $request)
-    {
-        $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
-        $outputDir = public_path('output/'); // Output directory for HLS files
 
+
+
+    public function convertToHLS($inputFilePath, $outputDir)
+    {
         // Ensure the output directory exists
         if (!file_exists($outputDir)) {
             mkdir($outputDir, 0755, true); // Create the directory if it doesn't exist
         }
 
         // Output HLS playlist filename
-        $outputFile = $outputDir . 'output.m3u8';
+        $outputFile = $outputDir . '/output.m3u8';
 
         // Execute FFmpeg command
         $process = new Process([
             'ffmpeg',
-            '-i', $inputFile,
+            '-i', $inputFilePath,
             '-vf', 'scale=-2:480', // Adjust resolution if needed
             '-c:a', 'aac',
             '-c:v', 'h264',
@@ -58,16 +58,20 @@ class DevController extends Controller
             throw new \RuntimeException($process->getErrorOutput());
         }
 
-        // Output file path
-        $outputFilePath = public_path('output/output.m3u8');
+        return $outputFile;
+    }
 
-        // Check if the output HLS playlist was created
-        if (file_exists($outputFilePath)) {
-            echo 'HLS playlist created successfully at: ' . $outputFilePath;
-        } else {
-            echo 'Failed to create HLS playlist.';
+    public function post(Request $request)
+    {
+        $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
+        $outputDir = public_path('output/'); // Output directory for HLS files
+
+        try {
+            $outputFile = $this->convertToHLS($request->file, $outputDir);
+            return 'Conversion successful. HLS playlist created at: ' . $outputFile;
+        } catch (\Exception $e) {
+            return 'Conversion failed: ' . $e->getMessage();
         }
-
         return 'ok';
         // $config = [
         //     'ffmpeg.binaries'  => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
