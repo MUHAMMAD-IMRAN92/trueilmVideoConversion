@@ -31,7 +31,7 @@ class DevController extends Controller
     {
 
         $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
-        $outputDir = public_path('output/'); // Output directory for HLS files
+        $outputDir = storage_path('output/'); // Output directory for HLS files
 
         // Ensure the output directory exists
         if (!file_exists($outputDir)) {
