@@ -352,7 +352,7 @@
                     </li>
                     <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a href="{{ url('authors') }}"><i
                                 class="fa fa-user"></i>
-                            <span class="menu-item" data-i18n="Analytics">Author</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Transaltions Author</span></a>
                     </li>
                     <li class="@if (request()->is('all_surah_translations/1') ||
                             request()->is('surah_translations/1*') ||
@@ -629,6 +629,7 @@
                                 class="fa fa-line-chart"></i>
                             <span class="menu-item" data-i18n="Analytics">Order</span></a>
                     </li>
+
                     {{--
                         <li class="@if (request()->is('addition_review')) active @endif "><a
                                 href="{{ url('/addition_review') }}"><i class="fa fa-book"></i>
@@ -648,14 +649,17 @@
                                 href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                         </li>
+
                     @endif
                 @endif
+
                 @if (auth()->user()->hasRole('Institute'))
                     <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a
                             href="{{ url('institute/users') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Users</span></a>
                     </li>
                 @endif
+                <br>
                 {{-- <li class="@if (request()->is('admin/page_creation*')) active @endif"><a href="{{ url('admin/page_creation') }}"><i
                     class="fa fa-list-alt" aria-hidden="true"></i> <span class="menu-item"
                     data-i18n="eCommerce">Create Pages</span></a>
