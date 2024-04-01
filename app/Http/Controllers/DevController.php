@@ -39,7 +39,7 @@ class DevController extends Controller
         $outputFile = $outputDir . '/output.m3u8';
 
         // Specify the full path to the FFmpeg executable
-        $ffmpegPath = '/full/path/to/ffmpeg'; // Replace with the actual path to your FFmpeg executable
+        $ffmpegPath = '/usr/bin/ffmpeg'; // Replace with the actual path to your FFmpeg executable
 
         // Execute FFmpeg command using shell_exec
         $command = "$ffmpegPath -i $inputFilePath -vf scale=-2:480 -c:a aac -c:v h264 -hls_time 10 -hls_list_size 0 $outputFile";
