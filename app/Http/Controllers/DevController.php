@@ -29,9 +29,8 @@ class DevController extends Controller
     }
     public function post(Request $request)
     {
-
         $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
-        $outputDir = storage_path('output/'); // Output directory for HLS files
+        $outputDir = public_path('output/'); // Output directory for HLS files
 
         // Ensure the output directory exists
         if (!file_exists($outputDir)) {
@@ -52,16 +51,11 @@ class DevController extends Controller
             '-hls_list_size', '0', // List all segments in playlist
             $outputFile
         ]);
-
-        // Start debugging
-        \Log::info('FFmpeg command: ' . $process->getCommandLine()); // Log FFmpeg command being executed
-
         $process->run();
 
         // Check if FFmpeg process was successful
         if (!$process->isSuccessful()) {
-            \Log::error('FFmpeg error output: ' . $process->getErrorOutput()); // Log FFmpeg error output
-            throw new \RuntimeException('Failed to execute FFmpeg command');
+            throw new \RuntimeException($process->getErrorOutput());
         }
 
         // Output file path
@@ -69,10 +63,9 @@ class DevController extends Controller
 
         // Check if the output HLS playlist was created
         if (file_exists($outputFilePath)) {
-            \Log::info('HLS playlist created successfully at: ' . $outputFilePath); // Log successful HLS playlist creation
+            echo 'HLS playlist created successfully at: ' . $outputFilePath;
         } else {
-            \Log::error('Failed to create HLS playlist'); // Log failure to create HLS playlist
-            throw new \RuntimeException('Failed to create HLS playlist');
+            echo 'Failed to create HLS playlist.';
         }
 
         return 'ok';
