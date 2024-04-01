@@ -59,7 +59,7 @@ class DevController extends Controller
         }
 
         // Output file path
-        $outputFilePath = public_path('output/output.m3u8');
+        $outputFilePath = public_path('/output.m3u8');
 
         // Check if the output HLS playlist was created
         if (file_exists($outputFilePath)) {
