@@ -28,48 +28,57 @@ class DevController extends Controller
         return view('uploadFile');
     }
 
-    public function convertToHLS($inputFilePath, $outputDir)
-    {
-        // Ensure the output directory exists
-        if (!file_exists($outputDir)) {
-            mkdir($outputDir, 0755, true); // Create the directory if it doesn't exist
-        }
 
-        // Output HLS playlist filename
-        $outputFile = $outputDir . '/output.m3u8';
-
-        // Specify the full path to the FFmpeg executable
-        $ffmpegPath = '/usr/bin/ffmpeg'; // Replace with the actual path to your FFmpeg executable
-
-        // Execute FFmpeg command using shell_exec
-        $command = "$ffmpegPath -i $inputFilePath -vf scale=-2:480 -c:a aac -c:v h264 -hls_time 10 -hls_list_size 0 $outputFile";
-        \Log::info('FFmpeg command: ' . $command);
-
-        $output = shell_exec($command);
-
-        if ($output === null) {
-            \Log::error('Failed to execute FFmpeg command');
-            throw new \RuntimeException('Failed to execute FFmpeg command');
-        }
-
-        return $outputFile;
-    }
 
     public function post(Request $request)
     {
+        $video = $request->file;
+        $path = 'test_files';
+        $video_extension = $video->getClientOriginalExtension(); // getting image extension
+        $video_extension = strtolower($video_extension);
+        $allowedextentions = [
+            "mov", "3g2", "3gp", "4xm", "a64", "aa", "aac", "ac3", "act", "adf", "adp", "adts", "adx", "aea", "afc", "aiff", "alaw", "alias_pix", "alsa", "amr", "anm", "apc", "ape", "apng",
+            "aqtitle", "asf", "asf_o", "asf_stream", "ass", "ast", "au", "avi", "avisynth", "avm2", "avr", "avs", "bethsoftvid", "bfi", "bfstm", "bin", "bink", "bit", "bmp_pipe",
+            "bmv", "boa", "brender_pix", "brstm", "c93", "caf", "cavsvideo", "cdg", "cdxl", "cine", "concat", "crc", "dash", "data", "daud", "dds_pipe", "dfa", "dirac", "dnxhd",
+            "dpx_pipe", "dsf", "dsicin", "dss", "dts", "dtshd", "dv", "dv1394", "dvbsub", "dvd", "dxa", "ea", "ea_cdata", "eac3", "epaf", "exr_pipe", "f32be", "f32le", "f4v",
+            "f64be", "f64le", "fbdev", "ffm", "ffmetadata", "film_cpk", "filmstrip", "flac", "flic", "flv", "framecrc", "framemd5", "frm", "g722", "g723_1", "g729", "gif", "gsm", "gxf",
+            "h261", "h263", "h264", "hds", "hevc", "hls", "hls", "applehttp", "hnm", "ico", "idcin", "idf", "iff", "ilbc", "image2", "image2pipe", "ingenient", "ipmovie",
+            "ipod", "ircam", "ismv", "iss", "iv8", "ivf", "j2k_pipe", "jacosub", "jpeg_pipe", "jpegls_pipe", "jv", "latm", "lavfi", "live_flv", "lmlm4", "loas", "lrc",
+            "lvf", "lxf", "m4v", "matroska", "mkv", "matroska", "webm", "md5", "mgsts", "microdvd", "mjpeg", "mkvtimestamp_v2", "mlp", "mlv", "mm", "mmf", "mp4", "m4a", "3gp",
+            "3g2", "mj2", "mp2", "mp3", "mp4", "mpc", "mpc8", "mpeg", "mpeg1video", "mpeg2video", "mpegts", "mpegtsraw", "mpegvideo", "mpjpeg", "mpl2", "mpsub", "msnwctcp",
+            "mtv", "mulaw", "mv", "mvi", "mxf", "mxf_d10", "mxf_opatom", "mxg", "nc", "nistsphere", "nsv", "null", "nut", "nuv", "oga", "ogg", "oma", "opus", "oss", "paf",
+            "pictor_pipe", "pjs", "pmp", "png_pipe", "psp", "psxstr", "pulse", "pva", "pvf", "qcp", "qdraw_pipe", "r3d", "rawvideo", "realtext", "redspark", "rl2", "rm",
+            "roq", "rpl", "rsd", "rso", "rtp", "rtp_mpegts", "rtsp", "s16be", "s16le", "s24be", "s24le", "s32be", "s32le", "s8", "sami", "sap", "sbg", "sdl", "sdp", "sdr2",
+            "segment", "sgi_pipe", "shn", "siff", "singlejpeg", "sln", "smjpeg", "smk", "smoothstreaming", "smush", "sol", "sox", "spdif", "spx", "srt", "stl",
+            "stream_segment", "ssegment", "subviewer", "subviewer1", "sunrast_pipe", "sup", "svcd", "swf", "tak", "tedcaptions", "tee", "thp", "tiertexseq",
+            "tiff_pipe", "tmv", "truehd", "tta", "tty", "txd", "u16be", "u16le", "u24be", "u24le", "u32be", "u32le", "u8", "uncodedframecrc", "v4l2", "vc1", "vc1test",
+            "vcd", "video4linux2", "v4l2", "vivo", "vmd", "vob", "vobsub", "voc", "vplayer", "vqf", "w64", "wav", "wc3movie", "webm", "webm_chunk", "webm_dash_manife",
+            "webp", "webp_pipe", "webvtt", "wsaud", "wsvqa", "wtv", "wv", "x11grab", "xa", "xbin", "xmv", "xv", "xwma", "wmv", "yop", "yuv4mpegpipe"
+        ];
+        if (in_array($video_extension, $allowedextentions)) {
+            // $video_destinationPath = base_path('public/' . $path); // upload path
+            $video_destinationPath = "https://trueilm.s3.eu-north-1.amazonaws.com/test_files"; // upload path
+            $video_fileName = 'video_' . \Str::random(15) . '.' . 'm3u8'; // renameing image
+            $fileDestination = $video_destinationPath . '/' . $video_fileName;
 
-
-
-        $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
-        $outputDir = public_path('output/'); // Output directory for HLS files
-
-        try {
-            $outputFile = $this->convertToHLS($request->file, $outputDir);
-            return 'Conversion successful. HLS playlist created at: ' . $outputFile;
-        } catch (\Exception $e) {
-            return 'Conversion failed: ' . $e->getMessage();
+            $filePath = $video->getRealPath();
+            exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
+            echo '<pre>';
+            print_r($result);
+            // print_r($status);
+            exit;
+            // $info = getVideoInformation($result);
+            // $poster_name = explode('.', $video_fileName)[0] . '.jpg';
+            // $poster = 'public/images/' . $path . '/posters/' . $poster_name;
+            // exec("ffmpeg -ss $info[1] -i $filePath -frames:v 1 $poster 2>&1");
+            // $data['file'] = '/' . $path . '/' . $video_fileName;
+            // $data['poster'] = '/' . $path . '/posters/' . $poster_name;
+        } else {
+            $data['file'] = '';
+            $data['poster'] = '';
         }
-        ini_set('max_execution_time', '0');
+        return $data;
+
 
         return 'ok';
 
