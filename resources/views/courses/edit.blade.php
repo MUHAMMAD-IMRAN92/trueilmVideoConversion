@@ -140,8 +140,8 @@
 
                                                         <label for="">Author</label>
                                                         <fieldset class="form-group">
-                                                            <select class="select2 form-control" name="author_id"
-                                                                id="" disabled>
+                                                            <select class=" form-control" name=""
+                                                                 disabled>
                                                                 <option disabled selected>Select Author</option>
                                                                 @foreach ($author as $auth)
                                                                     <option
@@ -594,17 +594,33 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-6">
+                                                            {{-- <div class="col-6">
 
                                                                 <label for="">Author</label>
                                                                 <fieldset class="form-group">
-                                                                    <select class="select2 form-control" name="author_id"
+                                                                    <select class="select2  form-control" name="author_id"
                                                                         id="">
                                                                         <option disabled selected>Select Author</option>
                                                                         @foreach ($author as $auth)
                                                                             <option
                                                                                 {{ $course->author_id == $auth->_id ? 'selected' : '' }}
                                                                                 value="{{ $auth->_id }}">
+                                                                                {{ $auth->name }}</option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </fieldset>
+                                                            </div> --}}
+                                                            <div class="col-6">
+
+                                                                <label for="">Author</label>
+                                                                <fieldset class="form-group">
+                                                                    <select class="select2 form-control" name="author_id"
+                                                                        id="author_edit" required>
+                                                                        <option disabled selected>Select Author</option>
+                                                                        @foreach ($author as $auth)
+                                                                            <option value="{{ $auth->_id }}"
+                                                                                {{ $course->author_id == $auth->_id ? 'selected' : '' }}>
                                                                                 {{ $auth->name }}</option>
                                                                         @endforeach
 
