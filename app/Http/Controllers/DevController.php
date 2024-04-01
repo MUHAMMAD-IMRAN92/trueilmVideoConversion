@@ -15,6 +15,10 @@ use App\Models\HadeesBooks;
 use App\Models\Khatoot;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Meilisearch\Client;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Symfony\Component\Process\Process;
+use Illuminate\Support\Facades\Storage;
 
 class DevController extends Controller
 {
@@ -25,6 +29,47 @@ class DevController extends Controller
     }
     public function post(Request $request)
     {
+        $inputFile = $request->file;
+        $outputDir = 'public/';
+
+
+        // Create a directory for HLS segments
+        $outputDir .= 'output.m3u8';
+
+        // Execute FFmpeg command
+        $process = new Process([
+            'ffmpeg',
+            '-i', $inputFile,
+            '-vf', 'scale=-2:480', // Adjust resolution if needed
+            '-c:a', 'aac',
+            '-c:v', 'h264',
+            '-hls_time', '10', // Segment duration in seconds
+            '-hls_list_size', '0', // List all segments in playlist
+            $outputDir
+        ]);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new \RuntimeException($process->getErrorOutput());
+        }
+
+        dd($process);
+        // $config = [
+        //     'ffmpeg.binaries'  => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
+        //     'ffprobe.binaries' => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
+        //     'timeout'          => 3600, // The timeout for the underlying process
+        //     'ffmpeg.threads'   => 12,   // The number of threads that FFmpeg should use
+        // ];
+
+        // $log = new Logger('FFmpeg_Streaming');
+        // $log->pushHandler(new StreamHandler('/storage/log/ffmpeg-streaming.log')); // path to log file
+
+        // $ffmpeg = \Streaming\FFMpeg::create($config, $log);
+
+        // $video = $ffmpeg->open($request->file);
+        // $video->dash()
+        //     ->x264() // Format of the video. Alternatives: hevc() and vp9()
+        //     ->autoGenerateRepresentations() // Auto generate representations
+        //     ->save(); // It can be passed a path to the method or it can be null
         ini_set('max_execution_time', '0');
 
 

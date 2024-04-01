@@ -368,7 +368,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
-Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'updateChapter'])->name('file.upload');
+Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
 
 
 Route::get('updateModel', function () {
