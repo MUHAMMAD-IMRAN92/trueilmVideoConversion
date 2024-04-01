@@ -29,12 +29,16 @@ class DevController extends Controller
     }
     public function post(Request $request)
     {
-        $inputFile = $request->file;
-        $outputDir = 'public/';
+        $inputFile = $request->file('file')->getPathname(); // Get the path to the uploaded file
+        $outputDir = public_path('output/'); // Output directory for HLS files
 
+        // Ensure the output directory exists
+        if (!file_exists($outputDir)) {
+            mkdir($outputDir, 0755, true); // Create the directory if it doesn't exist
+        }
 
-        // Create a directory for HLS segments
-        $outputDir .= 'output.m3u8';
+        // Output HLS playlist filename
+        $outputFile = $outputDir . 'output.m3u8';
 
         // Execute FFmpeg command
         $process = new Process([
@@ -45,14 +49,27 @@ class DevController extends Controller
             '-c:v', 'h264',
             '-hls_time', '10', // Segment duration in seconds
             '-hls_list_size', '0', // List all segments in playlist
-            $outputDir
+            $outputFile
         ]);
         $process->run();
+
+        // Check if FFmpeg process was successful
         if (!$process->isSuccessful()) {
             throw new \RuntimeException($process->getErrorOutput());
         }
 
-        dd($process);
+        // Output file path
+        $outputFilePath = public_path('output/output.m3u8');
+
+        // Check if the output HLS playlist was created
+        if (file_exists($outputFilePath)) {
+            echo 'HLS playlist created successfully at: ' . $outputFilePath;
+        } else {
+            echo 'Failed to create HLS playlist.';
+        }
+
+
+        return 'ok';
         // $config = [
         //     'ffmpeg.binaries'  => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
         //     'ffprobe.binaries' => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
