@@ -352,7 +352,7 @@
                     </li>
                     <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a href="{{ url('authors') }}"><i
                                 class="fa fa-user"></i>
-                            <span class="menu-item" data-i18n="Analytics">Transaltions Author</span></a>
+                            <span class="menu-item" data-i18n="Analytics">Translations Author</span></a>
                     </li>
                     <li class="@if (request()->is('all_surah_translations/1') ||
                             request()->is('surah_translations/1*') ||
