@@ -68,6 +68,12 @@
                                                 </div>
                                             </div>
                                         </form>
+
+                                        <video width="352" height="198" controls>
+                                            <source
+                                                src="https://trueilm.s3.eu-north-1.amazonaws.com/test_files/video_OOw5HJJiAEYmaIp.m3u8"
+                                                type="application/x-mpegURL">
+                                        </video>
                                     </div>
                                 </div>
                             </div>
@@ -81,3 +87,16 @@
     </div>
     <!-- END: Content-->
 @endsection
+<!-- CSS  -->
+<link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
+
+<h1>Video</h1>
+
+<video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="268"
+data-setup='{}'>
+  <source src="http://iphone-streaming.ustream.tv/uhls/3064708/streams/live/iphone/playlist.m3u8" type='application/x-mpegURL'>
+</video>
+
+<script>
+var player = videojs('my_video_1');
+</script>

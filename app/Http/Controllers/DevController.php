@@ -33,7 +33,7 @@ class DevController extends Controller
     public function post(Request $request)
     {
         $video = $request->file;
-        $path = 'test_files';
+        $path = 'videos';
         $video_extension = $video->getClientOriginalExtension(); // getting image extension
         $video_extension = strtolower($video_extension);
         $allowedextentions = [
@@ -56,13 +56,17 @@ class DevController extends Controller
             "webp", "webp_pipe", "webvtt", "wsaud", "wsvqa", "wtv", "wv", "x11grab", "xa", "xbin", "xmv", "xv", "xwma", "wmv", "yop", "yuv4mpegpipe"
         ];
         if (in_array($video_extension, $allowedextentions)) {
-            // $video_destinationPath = base_path('public/' . $path); // upload path
-            $video_destinationPath = "https://trueilm.s3.eu-north-1.amazonaws.com/test_files"; // upload path
+            $video_destinationPath = base_path('public/' . $path); // upload path
             $video_fileName = 'video_' . \Str::random(15) . '.' . 'm3u8'; // renameing image
             $fileDestination = $video_destinationPath . '/' . $video_fileName;
 
             $filePath = $video->getRealPath();
             exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
+            $content =  file_get_contents(public_path('videos/' . $video_fileName));
+            $filePath = 'test_files/' . $video_fileName;
+            Storage::disk('s3')->put($filePath,  $content);
+
+            \File::delete($fileDestination);
             echo '<pre>';
             print_r($result);
             // print_r($status);
