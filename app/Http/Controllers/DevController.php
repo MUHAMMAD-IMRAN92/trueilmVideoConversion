@@ -52,7 +52,7 @@ class DevController extends Controller
             throw new \RuntimeException($process->getErrorOutput());
         }
 
-        dd($process);
+        dd('------------>'.$process);
         // $config = [
         //     'ffmpeg.binaries'  => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
         //     'ffprobe.binaries' => 'C:\ffmpeg\ffmpeg-master-latest-linux64-gpl\bin',
