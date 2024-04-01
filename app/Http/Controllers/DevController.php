@@ -38,7 +38,7 @@ class DevController extends Controller
         }
 
         // Output HLS playlist filename
-        $outputFile = $outputDir . '/output.m3u8';
+        $outputFile = $outputDir . 'output.m3u8';
 
         // Execute FFmpeg command
         $process = new Process([
