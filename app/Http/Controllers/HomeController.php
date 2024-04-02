@@ -674,7 +674,8 @@ class HomeController extends Controller
         AlQuranTranslation::where('author_lang', '65ca0021d5f8cfe031aeabe0')->delete();
         AlQuranTranslation::where('author_lang', '65c9fc37d5f8cfe031aeabdc')->delete();
         AlQuranTranslation::where('author_lang', '65ca000ad5f8cfe031aeabdf')->delete();
-        // AlQuranTranslation::where('author_lang', '655470dd81f11c8450d5cece')->delete();
+        AlQuranTranslation::where('author_lang', '653a4a7f468e05bace1187b9')->delete();
+        AlQuranTranslation::where('author_lang', '655470dd81f11c8450d5cece')->delete();
         // return '1';
         $alQuran = AlQuran::get();
         foreach ($alQuran as $key => $verse) {
@@ -684,7 +685,7 @@ class HomeController extends Controller
             foreach ($response->tafsirs as $tafser) {
                 if ($tafser->resource_id == 168) {
                     $records[] = [
-                        'translation' =>  strip_tags($tafser->text),
+                        'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
                         'author_lang' => '65c9fc37d5f8cfe031aeabdc',
@@ -695,7 +696,7 @@ class HomeController extends Controller
 
                 if ($tafser->resource_id == 159) {
                     $records[] = [
-                        'translation' =>  strip_tags($tafser->text),
+                        'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
                         'author_lang' => '65ca0021d5f8cfe031aeabe0',
@@ -705,7 +706,27 @@ class HomeController extends Controller
                 }
                 if ($tafser->resource_id == 157) {
                     $records[] = [
-                        'translation' =>  strip_tags($tafser->text),
+                        'translation' =>  $tafser->text,
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' => '65ca000ad5f8cfe031aeabdf',
+                        'type' => 2,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                }
+                if ($tafser->resource_id == 169) {
+                    $records[] = [
+                        'translation' =>  $tafser->text,
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' => '65ca000ad5f8cfe031aeabdf',
+                        'type' => 2,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                }
+                if ($tafser->resource_id == 16) {
+                    $records[] = [
+                        'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
                         'author_lang' => '65ca000ad5f8cfe031aeabdf',
