@@ -57,7 +57,8 @@ class DevController extends Controller
         ];
         if (in_array($video_extension, $allowedextentions)) {
             $video_destinationPath = base_path('public/' . $path); // upload path
-            $video_fileName = 'video_' . \Str::random(15) . '.' . 'm3u8'; // renameing image
+            $nameWithoutExtension = 'video_' . \Str::random(15);
+            $video_fileName = $nameWithoutExtension . '.' . 'm3u8'; // renameing image
             $fileDestination = $video_destinationPath . '/' . $video_fileName;
 
             $filePath = $video->getRealPath();
@@ -65,6 +66,11 @@ class DevController extends Controller
             $content =  file_get_contents(public_path('videos/' . $video_fileName));
             $filePath = 'test_files/' . $video_fileName;
             Storage::disk('s3')->put($filePath,  $content);
+
+            $fileNameTs =  $nameWithoutExtension . '0.ts';
+            $contentts =  file_get_contents(public_path('videos/' . $fileNameTs));
+            $filePathTs =  'test_files/' . $fileNameTs;
+            Storage::disk('s3')->put($filePathTs,  $contentts);
 
             \File::delete($fileDestination);
             echo '<pre>';

@@ -69,11 +69,11 @@
                                             </div>
                                         </form>
 
-                                        <video width="352" height="198" controls>
+                                        {{-- <video width="352" height="198" controls>
                                             <source
                                                 src="https://trueilm.s3.eu-north-1.amazonaws.com/test_files/video_OOw5HJJiAEYmaIp.m3u8"
                                                 type="application/x-mpegURL">
-                                        </video>
+                                        </video> --}}
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
     <!-- END: Content-->
 @endsection
 <!-- CSS  -->
-<link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
+{{-- <link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
 
 <h1>Video</h1>
 
@@ -99,4 +99,4 @@ data-setup='{}'>
 
 <script>
 var player = videojs('my_video_1');
-</script>
+</script> --}}
