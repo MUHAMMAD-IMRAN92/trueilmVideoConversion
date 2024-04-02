@@ -719,7 +719,7 @@ class HomeController extends Controller
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
-                        'author_lang' => '65ca000ad5f8cfe031aeabdf',
+                        'author_lang' => '653a4a7f468e05bace1187b9',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];
@@ -729,7 +729,7 @@ class HomeController extends Controller
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
-                        'author_lang' => '65ca000ad5f8cfe031aeabdf',
+                        'author_lang' => '655470dd81f11c8450d5cece',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];

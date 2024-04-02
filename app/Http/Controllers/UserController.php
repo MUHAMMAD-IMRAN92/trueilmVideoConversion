@@ -375,6 +375,12 @@ class UserController extends Controller
 
 
             foreach ($request->subscription as $subs) {
+                $planName = 'Big Family';
+                if (@$subs == 1) {
+                    $planName = 'Individual';
+                } elseif (@$subs == 2) {
+                    $planName = 'Family';
+                }
                 $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('type', $subs)->where('plan_id',  @$subscription->_id)->first();
                 if ($checkLifeTime) {
                     continue;
@@ -382,6 +388,7 @@ class UserController extends Controller
                     $userSubscription = new UserSubscription();
                     $userSubscription->user_id =  $user->_id;
                     $userSubscription->email =  $user->email;
+                    $userSubscription->plan_name =  $planName;
                     $userSubscription->status =  'paid';
                     $userSubscription->plan_id =  @$subscription->_id;
                     $userSubscription->expiry =  'Life Time';
