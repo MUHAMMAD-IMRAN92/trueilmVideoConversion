@@ -58,7 +58,7 @@ class DevController extends Controller
         if (in_array($video_extension, $allowedextentions)) {
 
             // Define the path within your S3 bucket where you want to store the HLS files
-            $outputDirectory = 'https://trueilm.s3.eu-north-1.amazonaws.com/test_files';
+            $outputDirectory = 'test_files';
 
             // Define the resolutions and bitrates for the renditions
             $renditions = [
