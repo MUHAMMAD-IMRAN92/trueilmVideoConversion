@@ -674,6 +674,7 @@ class HomeController extends Controller
 
         AlQuranTranslation::where('author_lang', '653a49b6468e05bace1187b5')->delete();
         AlQuranTranslation::where('author_lang', '65546dd181f11c8450d5cec8')->delete();
+        AlQuranTranslation::where('author_lang', '65c9ffb2d5f8cfe031aeabdd')->delete();
 
         // return '1';
         $alQuran = AlQuran::get();
@@ -699,6 +700,16 @@ class HomeController extends Controller
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
                         'author_lang' => '65546dd181f11c8450d5cec8',
+                        'type' => 2,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                }
+                if ($tafser->resource_id == 159) {
+                    $records[] = [
+                        'translation' =>  $tafser->text,
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' => '65c9ffb2d5f8cfe031aeabdd',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];
