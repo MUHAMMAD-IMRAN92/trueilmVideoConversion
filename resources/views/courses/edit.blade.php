@@ -140,8 +140,7 @@
 
                                                         <label for="">Author</label>
                                                         <fieldset class="form-group">
-                                                            <select class=" form-control" name=""
-                                                                 disabled>
+                                                            <select class=" form-control" name="" disabled>
                                                                 <option disabled selected>Select Author</option>
                                                                 @foreach ($author as $auth)
                                                                     <option
@@ -1051,3 +1050,10 @@
 
     <!-- END: Content-->
 @endsection
+<script>
+    $(document).ready(function() {
+        $(".select2").select2({
+            dropdownParent: $("#author-lang")
+        });
+    });
+</script>

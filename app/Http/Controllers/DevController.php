@@ -56,21 +56,47 @@ class DevController extends Controller
             "webp", "webp_pipe", "webvtt", "wsaud", "wsvqa", "wtv", "wv", "x11grab", "xa", "xbin", "xmv", "xv", "xwma", "wmv", "yop", "yuv4mpegpipe"
         ];
         if (in_array($video_extension, $allowedextentions)) {
-            $video_destinationPath = base_path('public/' . $path); // upload path
+            $outputDirectory = base_path('public/' . $path);
+
+            // Define the resolutions and bitrates for the renditions
+            $renditions = [
+                ['resolution' => '640x360', 'bitrate' => '800k'],
+                ['resolution' => '854x480', 'bitrate' => '1200k'],
+                ['resolution' => '1280x720', 'bitrate' => '2500k'],
+            ];
+
+            // Generate each rendition
+            foreach ($renditions as $index => $rendition) {
+                $filePath = $video->getRealPath();
+                $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
+                $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
+                exec($command, $result, $status);
+            }
+
+            // Generate HLS master playlist
+            $masterPlaylist = "#EXTM3U\n";
+            foreach ($renditions as $index => $rendition) {
+                $resolution = $rendition['resolution'];
+                $bitrate = $rendition['bitrate'];
+                $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
+                $masterPlaylist .= "#EXT-X-STREAM-INF:BANDWIDTH={$bitrate},RESOLUTION={$resolution}\n{$outputPath}\n";
+            }
             $nameWithoutExtension = 'video_' . \Str::random(15);
-            $video_fileName = $nameWithoutExtension . '.' . 'm3u8'; // renameing image
+            file_put_contents($outputDirectory . '/' . $nameWithoutExtension . '.m3u8', $masterPlaylist);
+
+
+
+            $video_destinationPath = base_path('public/' . $path); // upload path
+            // $nameWithoutExtension = 'video_' . \Str::random(15);
+            $video_fileName = $nameWithoutExtension . '.m3u8'; // renameing image
             $fileDestination = $video_destinationPath . '/' . $video_fileName;
 
-            $filePath = $video->getRealPath();
-            exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
+            // $filePath = $video->getRealPath();
+            // exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
             $content =  file_get_contents(public_path('videos/' . $video_fileName));
             $filePath = 'test_files/' . $video_fileName;
             Storage::disk('s3')->put($filePath,  $content);
 
-            // $fileNameTs =  $nameWithoutExtension . '0.ts';
-            // $contentts =  file_get_contents(public_path('videos/' . $fileNameTs));
-            // $filePathTs =  'test_files/' . $fileNameTs;
-            // Storage::disk('s3')->put($filePathTs,  $contentts);
             if ($status === 0) {
                 echo "Conversion successful!";
 
@@ -83,12 +109,22 @@ class DevController extends Controller
                 // Upload each TS file to the desired directory
                 foreach ($tsFiles as $tsFile) {
                     $tsFileName = pathinfo($tsFile, PATHINFO_BASENAME);
-                    $destinationPath = 'videos/' . $tsFileName; // Adjust the destination directory as needed
+                    $destinationPath = 'test_files/' . $tsFileName; // Adjust the destination directory as needed
 
                     // Upload the TS file to the desired directory
                     Storage::disk('s3')->put($destinationPath, file_get_contents($tsFile));
 
                     echo "Uploaded $tsFileName to $destinationPath\n";
+                }
+                $renditionFiles = glob($hlsDirectory . '/rendition_*');
+                foreach ($renditionFiles as $renditionFile) {
+                    $renditionFileName = pathinfo($renditionFile, PATHINFO_BASENAME);
+                    $destinationPath = 'test_files/' . $renditionFileName; // Adjust the destination directory as needed
+
+                    // Upload the rendition_0 file to the desired directory
+                    Storage::disk('s3')->put($destinationPath, file_get_contents($renditionFile));
+
+                    echo "Uploaded $renditionFileName to $destinationPath\n";
                 }
             } else {
                 echo "Conversion failed!";

@@ -4738,7 +4738,5 @@
          });
      }
 
-     $(".select2").select2({
-         dropdownParent: $("#author-lang")
-     });
+
  </script>
