@@ -671,10 +671,7 @@ class HomeController extends Controller
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
 
-
-        AlQuranTranslation::where('author_lang', '653a49b6468e05bace1187b5')->delete();
-        AlQuranTranslation::where('author_lang', '65546dd181f11c8450d5cec8')->delete();
-        AlQuranTranslation::where('author_lang', '65c9ffb2d5f8cfe031aeabdd')->delete();
+        AlQuranTranslation::where('author_lang', '65546f0381f11c8450d5cecd')->delete();
 
         // return '1';
         $alQuran = AlQuran::get();
@@ -684,32 +681,12 @@ class HomeController extends Controller
             $records = [];
             foreach ($response->tafsirs as $tafser) {
 
-                if ($tafser->resource_id == 160) {
+                if ($tafser->resource_id == 93) {
                     $records[] = [
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
-                        'author_lang' => '653a49b6468e05bace1187b5',
-                        'type' => 2,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
-                if ($tafser->resource_id == 14) {
-                    $records[] = [
-                        'translation' =>  $tafser->text,
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => '65546dd181f11c8450d5cec8',
-                        'type' => 2,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
-                if ($tafser->resource_id == 159) {
-                    $records[] = [
-                        'translation' =>  $tafser->text,
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => '65c9ffb2d5f8cfe031aeabdd',
+                        'author_lang' => '65546f0381f11c8450d5cecd',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];
