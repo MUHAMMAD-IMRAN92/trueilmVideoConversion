@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\HadeeesBookCombination;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
+use App\Models\Course;
 use App\Models\HadeesBooks;
 use App\Models\Khatoot;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -429,5 +430,14 @@ class DevController extends Controller
             AlQuranTranslation::insert($chunk);
         }
         return 'save!';
+    }
+    public function videoConversion()
+    {
+        $course = Course::first();
+        $s3Url = $course->introduction_video;
+        $fileName = basename($s3Url);
+        Storage::put(public_path('videos/'), file_get_contents($s3Url));
+
+        return 'ok';
     }
 }
