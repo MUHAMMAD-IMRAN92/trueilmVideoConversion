@@ -33,7 +33,9 @@ class DevController extends Controller
 
     public function post(Request $request)
     {
-        $video = $request->file;
+        $course = Course::first();
+        $s3Url = $course->introduction_video;
+        $video =  Storage::put(public_path('videos/'), file_get_contents($s3Url));
         $path = 'videos';
         $video_extension = $video->getClientOriginalExtension(); // getting image extension
         $video_extension = strtolower($video_extension);
@@ -433,6 +435,9 @@ class DevController extends Controller
     }
     public function videoConversion()
     {
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 0);
+
         $course = Course::first();
         $s3Url = $course->introduction_video;
         $fileName = basename($s3Url);

@@ -406,7 +406,6 @@ Route::get('dev', function () {
     foreach ($surah as $s) {
 
         SurahCombinationJob::dispatch($s->_id, 1);
-
     }
     return 'Done';
 });
