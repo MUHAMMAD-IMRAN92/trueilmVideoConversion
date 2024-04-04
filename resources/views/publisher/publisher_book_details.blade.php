@@ -77,7 +77,7 @@
                                                     <th class="description-td">Book Title</th>
                                                     <th class="">Content Type</th>
 
-                                                    <th class="">Pages Read</th>
+                                                    <th class="">Pages / Chapters</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
