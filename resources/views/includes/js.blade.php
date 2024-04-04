@@ -211,17 +211,17 @@
                              row.name + '</td>'
                      }
                  },
-                 {
-                     "mRender": function(data, type, row) {
-                         var des = '';
-                         if (row.description != null) {
-                             des = row.description;
-                         }
-                         return '<td>' +
-                             des +
-                             '</td>'
-                     }
-                 },
+                //  {
+                //      "mRender": function(data, type, row) {
+                //          var des = '';
+                //          if (row.description != null) {
+                //              des = row.description;
+                //          }
+                //          return '<td>' +
+                //              des +
+                //              '</td>'
+                //      }
+                //  },
                  {
                      "mRender": function(data, type, row) {
 

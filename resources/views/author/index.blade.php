@@ -60,7 +60,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
-                                                    <th class="description-td">Detail</th>
+                                                    {{-- <th class="description-td">Detail</th> --}}
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
