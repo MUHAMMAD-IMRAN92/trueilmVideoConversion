@@ -37,7 +37,7 @@ class BookTranking extends Eloquent
                 $fileDuration = $trackingDetail[0]->duration;
                 $time = $fileDuration;
                 list($minutes, $seconds) = explode(":", $time);
-                $total_minutes = $minutes + ($seconds / 60);
+                $total_minutes = (int)$minutes + ((int)$seconds / 60);
                 if ($total_minutes <= $sumDetail) {
                     $total_count++;
                 }
