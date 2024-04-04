@@ -4738,4 +4738,5 @@
              }
          });
      }
+     $('#languages-table').DataTable();
  </script>

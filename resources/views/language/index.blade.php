@@ -115,7 +115,7 @@
 
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" id="languages-table">
                                             <thead>
                                                 <tr>
 
