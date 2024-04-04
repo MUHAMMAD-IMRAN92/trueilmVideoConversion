@@ -4738,5 +4738,7 @@
              }
          });
      }
-     $('#languages-table').DataTable();
+     $('#languages-table').DataTable({
+         "stateSave": true
+     });
  </script>
