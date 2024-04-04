@@ -163,11 +163,11 @@
 
                                                             <td>{{ $b->title }}</td>
                                                             {{-- <td>{{ $b->description }}</td> --}}
-                                                            <td>{{ @$b->author->name }}</td>
+                                                            <td>{{ @$b->author->name ?? '--' }}</td>
                                                             {{-- <td>{{ $b->type }}</td> --}}
                                                             <td>{{ $b->approved }}</td>
-                                                            <td>{{ @$b->user_name }}</td>
-                                                            <td>{{ @$b->approver_name }}</td>
+                                                            <td>{{ @$b->user_name ?? '--' }}</td>
+                                                            <td>{{ @$b->approver_name ?? '--' }}</td>
                                                             <td>{{ $b->numberOfUser }}</td>
                                                             <td>
                                                                 <a class="ml-2"
