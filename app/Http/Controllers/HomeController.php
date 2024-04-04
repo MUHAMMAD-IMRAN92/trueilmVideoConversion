@@ -379,7 +379,7 @@ class HomeController extends Controller
         $alQuran = AlQuran::get();
         $lang = '650b147f2ece62476479e1b3';
         $authors = [
-            79 => "660e5183ae9ec963fad92d19",
+            45 => "660e517bae9ec963fad92d18",
         ];
         $records = [];
         foreach ($authors  as $nokey => $arr) {
