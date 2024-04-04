@@ -402,11 +402,11 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    $surah = Surah::get();
-    foreach ($surah as $s) {
+    // $surah = Surah::get();
+    // foreach ($surah as $s) {
 
-        SurahCombinationJob::dispatch($s->_id, 1);
-    }
-    return 'Done';
-    // return \File::deleteAll(public_path('/videos/test.txt'));
+    //     SurahCombinationJob::dispatch($s->_id, 1);
+    // }
+    // return 'Done';
+    return \Hash::make(rand(1,10));
 });

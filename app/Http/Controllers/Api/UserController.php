@@ -26,7 +26,11 @@ class UserController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+
         if ($user) {
+            $token = \Hash::make(rand(1, 10));
+            $user->tokken = $token;
+            $user->save();
             $userEmail = $user->email;
             // Mail::to($userEmail)->send(new UserVarification($user));
             $api_key = env('MAIL_PASSWORD');
@@ -37,8 +41,7 @@ class UserController extends Controller
             $from_email = env('MAIL_FROM_ADDRESS');
             $template_id = "d-b6a996c0c8f04d71bcf05f77d983f2e6";
             $template_vars = [
-                'id' => $user->_id,
-                'email' => $userEmail
+                'id' => $token
             ];
 
             // Set the payload as a JSON string
