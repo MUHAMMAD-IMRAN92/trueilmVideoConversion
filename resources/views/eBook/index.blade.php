@@ -116,7 +116,7 @@
                                                     <tr>
                                                         <th>Cover</th>
                                                         <th class="">Title</th>
-                                                        <th class="description-td">Description</th>
+
                                                         <th class="">Author</th>
                                                         <th class="">Type</th>
                                                         <th class="">Status</th>
@@ -162,8 +162,8 @@
                                                             <td><img class="td-img" src="{{ $b->image }}"></td>
 
                                                             <td>{{ $b->title }}</td>
-                                                            <td>{{ $b->description }}</td>
-                                                            <td>{{ $b->author }}</td>
+
+                                                            <td>{{ @$b->author->name }}</td>
                                                             <td>{{ $b->type }}</td>
                                                             <td>{{ $b->approved }}</td>
                                                             <td>{{ @$b->user_name }}</td>
