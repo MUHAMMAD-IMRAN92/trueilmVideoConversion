@@ -110,8 +110,8 @@
                                     <div class="card-body">
 
                                         <!-- Table with outer spacing -->
-                                        <div class="table-responsive">
-                                            <table class="table">
+                                        <div class="table-responsive" >
+                                            <table class="table datatable">
                                                 <thead>
                                                     <tr>
                                                         <th>Cover</th>

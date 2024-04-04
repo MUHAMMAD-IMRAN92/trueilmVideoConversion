@@ -4741,4 +4741,7 @@
      $('#languages-table').DataTable({
          "stateSave": true
      });
+     $('.datatable').DataTable({
+         "stateSave": true
+     });
  </script>
