@@ -439,7 +439,7 @@ class DevController extends Controller
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 0);
 
-        $c = Course::first();
+        $c = Course::where('_id', '65f2cd8bc665ad57c70defd2')->first();
         // foreach ($course as $c) {
 
 
@@ -481,7 +481,7 @@ class DevController extends Controller
         // $filePath = $video->getRealPath();
         // exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
         $content =  file_get_contents(public_path('videos/' . $video_fileName));
-        $filePath = 'courses_videos_hls/' . $video_fileName;
+        $filePath = 'courses_videos_hls/' . $c->_id  . $video_fileName;
         Storage::disk('s3')->put($filePath,  $content);
         echo '<pre>';
         print_r($result);

@@ -346,10 +346,10 @@
                                     <span class="menu-item" data-i18n="Analytics">Surahs</span></a>
                             </li> --}}
 
-                    <li class="@if (request()->is('juz*') || request()->is('juz*') || request()->is('juz*')) active @endif "><a href="{{ url('juz') }}"><i
+                    {{-- <li class="@if (request()->is('juz*') || request()->is('juz*') || request()->is('juz*')) active @endif "><a href="{{ url('juz') }}"><i
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Juz</span></a>
-                    </li>
+                    </li> --}}
                     <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a href="{{ url('authors') }}"><i
                                 class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Translations Author</span></a>

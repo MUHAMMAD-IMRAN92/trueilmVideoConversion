@@ -432,19 +432,20 @@
                              row.title + '</td>'
                      }
                  },
+                 //  {
+                 //      "mRender": function(data, type, row) {
+                 //          var des = '';
+                 //          if (row.description != null) {
+                 //              des = row.description.slice(0, 50);
+                 //          } else {
+                 //              des = '--';
+                 //          }
+                 //          return '<td>' +
+                 //              des +
+                 //              '</td>'
+                 //      }
+                 //  },
                  {
-                     "mRender": function(data, type, row) {
-                         var des = '';
-                         if (row.description != null) {
-                             des = row.description.slice(0, 50);
-                         } else {
-                             des = '--';
-                         }
-                         return '<td>' +
-                             des +
-                             '</td>'
-                     }
-                 }, {
                      "mRender": function(data, type, row) {
                          var category = '';
                          if (row.category != null) {
@@ -468,26 +469,26 @@
                              author + '</td>'
                      }
                  },
-                 {
-                     "mRender": function(data, type, row) {
-                         var type = '';
-                         if (row.type == 1) {
-                             type = 'eBook';
-                         }
-                         if (row.type == 2) {
-                             type = 'Audio Book';
-                         }
-                         if (row.type == 3) {
-                             type = 'Research Paper';
-                         }
-                         if (row.type == 7) {
-                             type = 'Podcast';
-                         }
-                         return '<td>' +
-                             type +
-                             '</td>'
-                     }
-                 },
+                 //  {
+                 //      "mRender": function(data, type, row) {
+                 //          var type = '';
+                 //          if (row.type == 1) {
+                 //              type = 'eBook';
+                 //          }
+                 //          if (row.type == 2) {
+                 //              type = 'Audio Book';
+                 //          }
+                 //          if (row.type == 3) {
+                 //              type = 'Research Paper';
+                 //          }
+                 //          if (row.type == 7) {
+                 //              type = 'Podcast';
+                 //          }
+                 //          return '<td>' +
+                 //              type +
+                 //              '</td>'
+                 //      }
+                 //  },
                  {
                      "mRender": function(data, type, row) {
                          var approved = '';
@@ -4737,6 +4738,4 @@
              }
          });
      }
-
-
  </script>

@@ -76,10 +76,10 @@
                                                 <tr>
                                                     <th>Cover</th>
                                                     <th class="">Title</th>
-                                                    <th class="description-td">Description</th>
+                                                    {{-- <th class="description-td">Description</th> --}}
                                                     <th class="">Category</th>
                                                     <th class="">Author</th>
-                                                    <th class="">Type</th>
+                                                    {{-- <th class="">Type</th> --}}
                                                     <th class="">Status</th>
                                                     <th class="">Added By</th>
                                                     <th class="">Approved By</th>
