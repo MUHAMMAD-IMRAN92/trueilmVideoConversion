@@ -29,7 +29,7 @@ class UserController extends Controller
 
         if ($user) {
             $token = \Hash::make(rand(1, 10));
-            $user->tokken = $token;
+            $user->verification_token = $token;
             $user->save();
             $userEmail = $user->email;
             // Mail::to($userEmail)->send(new UserVarification($user));
