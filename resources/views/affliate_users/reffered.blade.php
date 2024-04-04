@@ -71,7 +71,7 @@
                                                         <td>{{ $user->name }}</td>
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ $user->phone }}</td>
-                                                        {{-- <td>
+                                                        <td>
                                                             @forelse ($user->subscription as $subs)
                                                                 @php
                                                                     $type = 'Life Time';
@@ -93,7 +93,7 @@
                                                             @empty
                                                                 Not Subscribed
                                                             @endforelse
-                                                        </td> --}}
+                                                        </td>
                                                         <td> <a
                                                                 href="{{ url('affiliate/app-user/books_reading_details/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
