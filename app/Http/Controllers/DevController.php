@@ -493,9 +493,7 @@ class DevController extends Controller
                 $content =  file_get_contents(public_path('videos/' . $video_fileName));
                 $filePath = 'courses_videos_hls/' . $c->_id . '/'  . $video_fileName;
                 Storage::disk('s3')->put($filePath,  $content);
-                echo '<pre>';
-                print_r($result);
-                print_r($status);
+
                 if ($status === 0) {
                     echo "Conversion successful!";
 
@@ -529,10 +527,10 @@ class DevController extends Controller
 
                         echo "Uploaded $renditionFileName to $destinationPath\n";
                     }
-                    $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
-                    $c->hls_conversion = 1;
-                    $c->save();
                 }
+                $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                $c->hls_conversion = 1;
+                $c->save();
                 \File::deleteDirectory(public_path('videos'));
                 \File::makeDirectory(public_path('videos'));
             }
