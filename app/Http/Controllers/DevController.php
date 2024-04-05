@@ -440,7 +440,9 @@ class DevController extends Controller
         ini_set('max_execution_time', 0);
 
         $activeJob = \DB::table('jobs')->where('is_active', 1)->where('key', 'hls_conversion')->first();
-
+        \DB::table('test')->insert([
+            'key' => 'conversion'
+        ]);
 
         if ($activeJob) {
             return '0';
