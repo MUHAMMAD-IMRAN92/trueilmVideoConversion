@@ -534,6 +534,8 @@ class DevController extends Controller
                     $c->hls_conversion = 1;
                     $c->save();
                 }
+                \File::deleteDirectory(public_path('videos'));
+                \File::makeDirectory(public_path('videos'));
             }
 
             \DB::table('jobs')

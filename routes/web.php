@@ -404,9 +404,8 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    $activeJob = \DB::table('jobs')->where('is_active', 1)->where('key', 'hls_conversion')->first();
-   
-    dd($activeJob);
+
+
     // $surah = Surah::get();
     // foreach ($surah as $s) {
 
