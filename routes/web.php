@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Storage;
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Jobs\SurahCombination as SurahCombinationJob;
+use App\Models\Course;
+use App\Models\CourseLesson;
 use App\Models\UserSubscription;
 use Carbon\Carbon;
 
@@ -402,11 +404,14 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
+    $activeJob = \DB::table('jobs')->where('is_active', 1)->where('key', 'hls_conversion')->first();
+   
+    dd($activeJob);
     // $surah = Surah::get();
     // foreach ($surah as $s) {
 
     //     SurahCombinationJob::dispatch($s->_id, 1);
     // }
-    // return 'Done';
-    return \Hash::make(rand(1,10));
+    return 'Done';
+    return \Hash::make(rand(1, 10));
 });

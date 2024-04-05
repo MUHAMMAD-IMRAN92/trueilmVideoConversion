@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\DevController;
 use App\Http\Controllers\UserController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -20,6 +21,9 @@ class Kernel extends ConsoleKernel
         $schedule->call(
             [new UserController(), 'checkSubscriptionExpiry']
         )->dailyAt('00:00');
+        $schedule->call(
+            [new DevController(), 'videoConversion']
+        )->everyThirtyMinutes();
     }
 
     /**

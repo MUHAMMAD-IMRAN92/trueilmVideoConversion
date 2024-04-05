@@ -439,87 +439,108 @@ class DevController extends Controller
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 0);
 
-        $c = Course::where('_id', '65f2cd8bc665ad57c70defd2')->first();
-        // foreach ($course as $c) {
+        $activeJob = \DB::table('jobs')->where('is_active', 1)->where('key', 'hls_conversion')->first();
 
 
-        $path = 'videos';
-        // $video = $request->file;
-        $outputDirectory = base_path('public/' . $path);
+        if ($activeJob) {
+            return '0';
+        } else {
+            \DB::table('jobs')->insert(
+                ['is_active' => 1, 'key' => 'hls_conversion']
+            );
+            $course = Course::where('hls_conversion', 0)->get();
+            foreach ($course as $c) {
 
-        // Define the resolutions and bitrates for the renditions
-        $renditions = [
-            ['resolution' => '640x360', 'bitrate' => '800k'],
-            ['resolution' => '854x480', 'bitrate' => '1200k'],
-            ['resolution' => '1280x720', 'bitrate' => '2500k'],
-        ];
 
-        // Generate each rendition
-        foreach ($renditions as $index => $rendition) {
-            $filePath = $c->introduction_video;
-            $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
-            $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
-            exec($command, $result, $status);
-        }
+                $path = 'videos';
+                // $video = $request->file;
+                $outputDirectory = base_path('public/' . $path);
 
-        // Generate HLS master playlist
-        $masterPlaylist = "#EXTM3U\n";
-        foreach ($renditions as $index => $rendition) {
-            $resolution = $rendition['resolution'];
-            $bitrate = $rendition['bitrate'];
-            $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/' . $c->_id . '/rendition_' . $index . '.m3u8';
-            $masterPlaylist .= "#EXT-X-STREAM-INF:BANDWIDTH={$bitrate},RESOLUTION={$resolution}\n{$outputPath}\n";
-        }
-        $nameWithoutExtension = 'video_' . \Str::random(15);
-        file_put_contents($outputDirectory . '/' . $nameWithoutExtension . '.m3u8', $masterPlaylist);
+                // Define the resolutions and bitrates for the renditions
+                $renditions = [
+                    ['resolution' => '480x270', 'bitrate' => '518000'],
+                    ['resolution' => '640x360', 'bitrate' => '938000'],
+                    ['resolution' => '854x480', 'bitrate' => '1611000'],
+                    ['resolution' => '1280x720', 'bitrate' => '2520000'],
+                ];
 
-        $video_destinationPath = base_path('public/' . $path); // upload path
-        // $nameWithoutExtension = 'video_' . \Str::random(15);
-        $video_fileName = $nameWithoutExtension . '.m3u8'; // renameing image
-        $fileDestination = $video_destinationPath . '/' . $video_fileName;
+                // Generate each rendition
+                foreach ($renditions as $index => $rendition) {
+                    $filePath = $c->introduction_video;
+                    // $filePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/SampleVideo_1280x720_1mb.mp4';
+                    $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
+                    $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
+                    exec($command, $result, $status);
+                }
 
-        // $filePath = $video->getRealPath();
-        // exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
-        $content =  file_get_contents(public_path('videos/' . $video_fileName));
-        $filePath = 'courses_videos_hls/' . $c->_id  . $video_fileName;
-        Storage::disk('s3')->put($filePath,  $content);
-        echo '<pre>';
-        print_r($result);
-        print_r($status);
-        if ($status === 0) {
-            echo "Conversion successful!";
+                // Generate HLS master playlist
+                $masterPlaylist = "#EXTM3U\n";
+                foreach ($renditions as $index => $rendition) {
+                    $resolution = $rendition['resolution'];
+                    $bitrate = $rendition['bitrate'];
+                    $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/' . $c->_id . '/rendition_' . $index . '.m3u8';
+                    $masterPlaylist .= "#EXT-X-STREAM-INF:BANDWIDTH={$bitrate},RESOLUTION={$resolution}\n{$outputPath}\n";
+                }
+                $nameWithoutExtension = 'video_' . \Str::random(15);
+                file_put_contents($outputDirectory . '/' . $nameWithoutExtension . '.m3u8', $masterPlaylist);
 
-            // Get the directory where the HLS files are stored
-            $hlsDirectory = pathinfo($fileDestination, PATHINFO_DIRNAME);
+                $video_destinationPath = base_path('public/' . $path); // upload path
+                // $nameWithoutExtension = 'video_' . \Str::random(15);
+                $video_fileName = $nameWithoutExtension . '.m3u8'; // renameing image
+                $fileDestination = $video_destinationPath . '/' . $video_fileName;
 
-            // Get all TS files generated by ffmpeg
-            $tsFiles = glob($hlsDirectory . '/*.ts');
+                // $filePath = $video->getRealPath();
+                // exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
+                $content =  file_get_contents(public_path('videos/' . $video_fileName));
+                $filePath = 'courses_videos_hls/' . $c->_id . '/'  . $video_fileName;
+                Storage::disk('s3')->put($filePath,  $content);
+                echo '<pre>';
+                print_r($result);
+                print_r($status);
+                if ($status === 0) {
+                    echo "Conversion successful!";
 
-            // Upload each TS file to the desired directory
-            // Upload TS files to S3
-            foreach ($tsFiles as $tsFile) {
-                $tsFileName = pathinfo($tsFile, PATHINFO_BASENAME);
-                $destinationPath = 'courses_videos_hls/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
+                    // Get the directory where the HLS files are stored
+                    $hlsDirectory = pathinfo($fileDestination, PATHINFO_DIRNAME);
 
-                // Upload the TS file to the desired directory on S3
-                Storage::disk('s3')->put($destinationPath, file_get_contents($tsFile));
+                    // Get all TS files generated by ffmpeg
+                    $tsFiles = glob($hlsDirectory . '/*.ts');
 
-                echo "Uploaded $tsFileName to $destinationPath\n";
+                    // Upload each TS file to the desired directory
+                    // Upload TS files to S3
+                    foreach ($tsFiles as $tsFile) {
+                        $tsFileName = pathinfo($tsFile, PATHINFO_BASENAME);
+                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
+
+                        // Upload the TS file to the desired directory on S3
+                        Storage::disk('s3')->put($destinationPath, file_get_contents($tsFile));
+
+                        echo "Uploaded $tsFileName to $destinationPath\n";
+                    }
+
+                    // Upload Rendition files to S3
+                    $renditionFiles = glob($hlsDirectory . '/rendition_*');
+
+                    foreach ($renditionFiles as $renditionFile) {
+                        $renditionFileName = pathinfo($renditionFile, PATHINFO_BASENAME);
+                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
+
+                        // Upload the Rendition file to the desired directory on S3
+                        Storage::disk('s3')->put($destinationPath, file_get_contents($renditionFile));
+
+                        echo "Uploaded $renditionFileName to $destinationPath\n";
+                    }
+                    $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                    $c->hls_conversion = 1;
+                    $c->save();
+                }
             }
 
-            // Upload Rendition files to S3
-            $renditionFiles = glob($hlsDirectory . '/rendition_*');
-
-            foreach ($renditionFiles as $renditionFile) {
-                $renditionFileName = pathinfo($renditionFile, PATHINFO_BASENAME);
-                $destinationPath = 'courses_videos_hls/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
-
-                // Upload the Rendition file to the desired directory on S3
-                Storage::disk('s3')->put($destinationPath, file_get_contents($renditionFile));
-
-                echo "Uploaded $renditionFileName to $destinationPath\n";
-            }
+            \DB::table('jobs')
+                ->where('is_active', 1)
+                ->where('key', 'hls_conversion')
+                ->update(['is_active' => 0]);
+            return '0';
         }
-        // }
     }
 }
