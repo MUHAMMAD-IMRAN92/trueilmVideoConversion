@@ -411,7 +411,8 @@ Route::get('dev', function () {
 
     //     SurahCombinationJob::dispatch($s->_id, 1);
     // }
-    \File::deleteDirectory(public_path('delete'));
+    exec('rm -r ' . public_path('delete'));
+    // \File::deleteDirectory(public_path('delete'));
     // \File::makeDirectory(public_path('delete'));
     return 'Done';
     return \Hash::make(rand(1, 10));
