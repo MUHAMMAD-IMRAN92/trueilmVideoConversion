@@ -101,6 +101,7 @@ class StripeController extends Controller
 
                 $plan = Subscription::where('price_id', $request->price)->where('status', 1)->first();
                 $mtype = 3;
+
                 if ($plan->product_title == 'Individual') {
                     $mtype = 1;
                 } elseif ($plan->product_title == 'Family') {
@@ -116,8 +117,9 @@ class StripeController extends Controller
                 $userSubscription->plan_name = @$plan->product_title;
                 $userSubscription->plan_type = @$plan->type;
                 $userSubscription->type = $mtype;
-                $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->is_trail = @$plan->_id;
+                $userSubscription->seats = @$plan->seat;
+                $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;
                 $userSubscription->save();
 
