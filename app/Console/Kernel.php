@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
         )->dailyAt('00:00');
         $schedule->call(
             [new DevController(), 'videoConversion']
-        )->everySecond();
+        )->everyMinute();
     }
 
     /**
