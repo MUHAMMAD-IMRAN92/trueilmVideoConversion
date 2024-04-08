@@ -30,6 +30,7 @@ use App\Models\Course;
 use App\Models\CourseLesson;
 use App\Models\UserSubscription;
 use Carbon\Carbon;
+use MongoDB\Operation\Count;
 
 /*
 |--------------------------------------------------------------------------
@@ -405,6 +406,9 @@ Route::get('phpinfo', function () {
 });
 Route::get('dev', function () {
 
+    $courseLessons = CourseLesson::whereNotnull('course_id')->update([
+        'hls_conversion' => 0
+    ]);
 
     // $surah = Surah::get();
     // foreach ($surah as $s) {
@@ -412,7 +416,7 @@ Route::get('dev', function () {
     //     SurahCombinationJob::dispatch($s->_id, 1);
     // }
     // exec('rm -r ' . public_path('delete'));
-    \File::deleteDirectory(public_path('delete'));
+    // \File::deleteDirectory(public_path('delete'));
     // \File::makeDirectory(public_path('delete'));
     return 'Done';
     return \Hash::make(rand(1, 10));

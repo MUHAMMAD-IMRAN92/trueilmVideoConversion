@@ -12,6 +12,7 @@ use App\Jobs\HadeeesBookCombination;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
 use App\Models\Course;
+use App\Models\CourseLesson;
 use App\Models\HadeesBooks;
 use App\Models\Khatoot;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -447,7 +448,7 @@ class DevController extends Controller
             \DB::table('jobs')->insert(
                 ['is_active' => 1, 'key' => 'hls_conversion']
             );
-            $course = Course::where('hls_conversion', 0)->get();
+            $course = CourseLesson::where('hls_conversion', 0)->get();
             foreach ($course as $c) {
 
 
@@ -465,7 +466,7 @@ class DevController extends Controller
 
                 // Generate each rendition
                 foreach ($renditions as $index => $rendition) {
-                    $filePath = $c->introduction_video;
+                    $filePath = $c->file;
                     // $filePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/SampleVideo_1280x720_1mb.mp4';
                     $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
                     $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
