@@ -405,9 +405,9 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-
-    $courseLessons = CourseLesson::whereNotnull('course_id')->update([
-        'hls_conversion' => 0
+    $book = Book::where('type', "7")->pluck('_id');
+    $contetn = BookContent::whereIn('book_id', $book)->where('type', 1)->update([
+        'hls_conversion' => 1
     ]);
 
     // $surah = Surah::get();
