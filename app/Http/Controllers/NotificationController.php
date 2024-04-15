@@ -48,11 +48,11 @@ class NotificationController extends Controller
         );
         return json_encode($data);
     }
-    public function add()
+    public function addPopup()
     {
         return view('notifications.add');
     }
-    public function store(Request $request)
+    public function storePopup(Request $request)
     {
         $notification = new Notification();
         $notification->heading = $request->heading;
@@ -85,4 +85,42 @@ class NotificationController extends Controller
         // );
         return redirect()->to('/notification')->with('msg', 'Notification Saved Successfully!');
     }
+    public function popupIndex()
+    {
+        return view('popup.index');
+    }
+    public function allPopup(Request $request)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = Notification::count();
+        $brands = Notification::when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('heading', 'like', "%$search%");
+            });
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = Notification::when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('heading', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
+    public function add()
+    {
+        return view('popup.add');
+    }
+    public function store(Request $request)
+    {
+
+        return redirect()->to('/notification')->with('msg', 'Notification Saved Successfully!');
+    }F
 }

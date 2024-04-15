@@ -260,6 +260,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('notification/create', [App\Http\Controllers\NotificationController::class, 'add'])->name('notification.add');
     Route::post('notification/store', [App\Http\Controllers\NotificationController::class, 'store'])->name('notification.store');
 
+    //Popups
+    Route::get('popups', [App\Http\Controllers\NotificationController::class, 'popupIndex'])->name('popup');
+    Route::get('all-popup', [App\Http\Controllers\NotificationController::class, 'allPopup'])->name('popup.all');
+    Route::get('popup/create', [App\Http\Controllers\NotificationController::class, 'addPopup'])->name('popup.add');
+    Route::post('popup/store', [App\Http\Controllers\NotificationController::class, 'storePopup'])->name('popup.store');
+
     //book for sale
     Route::get('books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'index'])->name('books_for_sale');
     Route::get('all_books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'allBookForSale'])->name('books_for_sale.all');
@@ -405,10 +411,7 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    $book = Book::where('type', "7")->pluck('_id');
-    $contetn = BookContent::whereIn('book_id', $book)->where('type', 1)->update([
-        'hls_conversion' => 1
-    ]);
+
 
     // $surah = Surah::get();
     // foreach ($surah as $s) {
