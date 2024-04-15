@@ -450,10 +450,10 @@ class DevController extends Controller
             \DB::table('jobs')->insert(
                 ['is_active' => 1, 'key' => 'hls_conversion']
             );
-            // $course = CourseLesson::where('hls_conversion', 0)->get();
+            $course = CourseLesson::where('hls_conversion', 0)->get();
 
-            $book = Book::where('type', "7")->pluck('_id');
-            $course = BookContent::whereIn('book_id', $book)->where('type', 2)->get();
+            // $book = Book::where('type', "7")->pluck('_id');
+            // $course = BookContent::whereIn('book_id', $book)->where('type', 2)->get();
             foreach ($course as $c) {
 
 
