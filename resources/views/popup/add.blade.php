@@ -2,6 +2,12 @@
 
 @section('content')
     <!-- BEGIN: Content-->
+    <style>
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -52,7 +58,7 @@
                                                 <div class="row ">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="">Title</label>
+                                                            <label for="" class="required">Title</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
                                                                     name="title" placeholder="" required>
@@ -62,12 +68,12 @@
                                                     </div>
 
                                                     <div class="col-12">
-                                                        <label for="">Text</label>
+                                                        <label for="" class="required">Text</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="form-control " id="basicTextarea" rows="3" placeholder="" name="text"></textarea>
+                                                            <textarea class="form-control " id="basicTextarea" rows="3" placeholder="" name="text" required></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-6"><label for="">Select Device</label>
+                                                    <div class="col-6" ><label for="" class="required">Select Device</label>
                                                         <fieldset class="form-group">
                                                             <select class="selct2 form-control reference-select"
                                                                 name="device">
