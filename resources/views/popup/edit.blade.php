@@ -73,7 +73,7 @@
                                                     <div class="col-12">
                                                         <label for=""class="required">Text</label>
                                                         <fieldset class="form-group">
-                                                            <textarea class="form-control " id="basicTextarea" rows="3" placeholder="" name="text" required>{{ $popup->text }}</textarea>
+                                                            <textarea class="form-control summernote" id="basicTextarea" rows="3" placeholder="" name="text" required>{{ $popup->text }}</textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-6"><label for="" class="required">Select Device</label>

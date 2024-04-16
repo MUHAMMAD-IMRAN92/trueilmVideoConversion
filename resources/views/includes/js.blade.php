@@ -61,6 +61,7 @@
                  ['height', ['height']]
              ]
          });
+         $('.dropdown-toggle').dropdown();
 
          $('#ayat-table').DataTable({
              "processing": true,
