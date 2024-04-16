@@ -377,9 +377,9 @@ class HomeController extends Controller
         ini_set("memory_limit", -1);
 
         $alQuran = AlQuran::get();
-        $lang = '65f02f6a0c8ddb001b0f1ae2';
+        $lang = '661e5c43f5fc71367a0ba3a6';
         $authors = [
-            140 => "65f9523fa4ab245649d5c4ba",
+            48 => "661e5c75f5fc71367a0ba3a8",
         ];
         $records = [];
         foreach ($authors  as $nokey => $arr) {
@@ -708,9 +708,8 @@ class HomeController extends Controller
         $lang = '65f02f6a0c8ddb001b0f1ae2';
         $authors = [
             'spanish_montada_eu' => "660298c90e34c7428db17993",
-            'spanish_garcia' => "661ce2300eacfdb755d01664",
-            'spanish_montada_latin' => "661ce2d80eacfdb755d01665"
         ];
+        // 'spanish_garcia' => "661ce2300eacfdb755d01664",
         $records = [];
         foreach ($authors  as $nokey => $arr) {
             $authorLang = AuthorLanguage::where('lang_id', $lang)->where('author_id', $arr)->firstOrCreate([
