@@ -2733,23 +2733,67 @@
              "columns": [{
                      "mRender": function(data, type, row) {
                          return '<td>' +
-                             row.heading + '</td>'
+                             row.title + '</td>'
                      }
                  },
                  {
                      "mRender": function(data, type, row) {
                          return '<td>' +
-                             row.notification + '</td>'
+                             row.text + '</td>'
                      }
                  }, {
                      "mRender": function(data, type, row) {
-                         // Create a new Date object from the timestamp string
-                         const dateObject = new Date(row.created_at);
-
-                         // Get the date in the desired format (YYYY-MM-DD)
-                         const formattedDate = dateObject.toISOString().split('T')[0];
+                         var device = 'Mobile App';
+                         if (row.device == 2) {
+                             device = 'Web App';
+                         }
                          return '<td>' +
-                             formattedDate + '</td>'
+                             device + '</td>'
+                     }
+                 }, {
+                     "mRender": function(data, type, row) {
+                         var type = 'Promotional';
+                         if (row.type == 2) {
+                             type = 'Alert';
+                         }
+                         return '<td>' +
+                             type + '</td>'
+                     }
+                 },
+                 {
+                     "mRender": function(data, type, row) {
+                         var start = row.start;
+                         if (row.start == undefined) {
+                             start = '--';
+
+                         }
+                         return '<td>' +
+                             start + '</td>'
+                     }
+                 }, {
+                     "mRender": function(data, type, row) {
+                         var interval = row.interval;
+                         if (row.interval == undefined) {
+                             interval = '--';
+
+                         }
+                         return '<td>' +
+                             interval; + '</td>'
+                     }
+                 },
+                 {
+                     "mRender": function(data, type, row) {
+                         var eye = 'feather icon-eye';
+
+                         if (row.status == 0) {
+                             eye = 'feather icon-eye-off';
+                         }
+
+                         return `<td>
+                                <a  class="ml-2" href="{{ url('popup/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a> <a  class="ml-2" href="{{ url('popup/update-status/`+row._id+`') }}"><i class="` +
+                             eye + `"></i></a>
+
+                                </td>`
                      }
                  },
              ],

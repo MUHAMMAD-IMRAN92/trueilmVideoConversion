@@ -265,6 +265,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-popup', [App\Http\Controllers\NotificationController::class, 'allPopup'])->name('popup.all');
     Route::get('popup/create', [App\Http\Controllers\NotificationController::class, 'addPopup'])->name('popup.add');
     Route::post('popup/store', [App\Http\Controllers\NotificationController::class, 'storePopup'])->name('popup.store');
+    Route::get('popup/edit/{id}', [App\Http\Controllers\NotificationController::class, 'editPopup'])->name('popup.edit');
+    Route::post('popup/updatePopup', [App\Http\Controllers\NotificationController::class, 'updatePopup'])->name('popup.update');
+    Route::get('popup/update-status/{id}', [App\Http\Controllers\NotificationController::class, 'popupStatusUpdate'])->name('popup.statusUpdate');
 
     //book for sale
     Route::get('books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'index'])->name('books_for_sale');
@@ -411,13 +414,13 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
+    set_time_limit(0);
 
+    $surah = Surah::get();
+    foreach ($surah as $s) {
 
-    // $surah = Surah::get();
-    // foreach ($surah as $s) {
-
-    //     SurahCombinationJob::dispatch($s->_id, 1);
-    // }
+        SurahCombinationJob::dispatch($s->_id, 1);
+    }
     // exec('rm -r ' . public_path('delete'));
     // \File::deleteDirectory(public_path('delete'));
     // \File::makeDirectory(public_path('delete'));
