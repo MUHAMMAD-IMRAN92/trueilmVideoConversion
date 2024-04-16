@@ -707,9 +707,9 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
         $lang = '65f02f6a0c8ddb001b0f1ae2';
         $authors = [
-            'spanish_montada_eu' => "660298c90e34c7428db17993",
+            // 'spanish_montada_eu' => "660298c90e34c7428db17993",
+            'spanish_garcia' => "661ce2300eacfdb755d01664",
         ];
-        // 'spanish_garcia' => "661ce2300eacfdb755d01664",
         $records = [];
         foreach ($authors  as $nokey => $arr) {
             $authorLang = AuthorLanguage::where('lang_id', $lang)->where('author_id', $arr)->firstOrCreate([
