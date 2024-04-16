@@ -142,7 +142,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="">Start</label>
+                                                            <label for="">Interval</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
                                                                     name="interval" placeholder=""
@@ -153,7 +153,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="">Interval</label>
+                                                            <label for="">Start</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
                                                                     name="start" placeholder=""
