@@ -133,7 +133,15 @@ class NotificationController extends Controller
         $popup->start =  $request->start;
         $popup->interval =  $request->interval;
         $popup->button_text =  $request->button_text;
+        $popup->plan =  $request->plan;
         $popup->added_by = $this->user->_id;
+        if ($popup->type == 1) {
+            $count =   Popup::where('device', $request->device)->where('type', $popup->type)->count();
+            $popup->key = 'E' . $count + 1;
+        } else {
+            $count =   Popup::where('device', $request->device)->where('type', $popup->type)->count();
+            $popup->key = 'S' . $count + 1;
+        }
         if ($request->image) {
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -166,6 +174,14 @@ class NotificationController extends Controller
             $popup->start =  $request->start;
             $popup->interval =  $request->interval;
             $popup->added_by = $this->user->_id;
+            $popup->plan =  $request->plan;
+            if ($popup->type == 1) {
+                $count =   Popup::where('device', $request->device)->where('type', $popup->type)->count();
+                $popup->key = 'E' . $count + 1;
+            } else {
+                $count =   Popup::where('device', $request->device)->where('type', $popup->type)->count();
+                $popup->key = 'S' . $count + 1;
+            }
             if ($request->image) {
                 $file = $request->file('image');
                 $file_name = time() . '.' . $file->getClientOriginalExtension();

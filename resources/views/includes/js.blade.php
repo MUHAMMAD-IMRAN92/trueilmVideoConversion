@@ -2753,12 +2753,17 @@
                      }
                  }, {
                      "mRender": function(data, type, row) {
-                         var type = 'Promotional';
-                         if (row.type == 2) {
-                             type = 'Alert';
+                         var plan = 'Freemium';
+                         if (row.plan == 2) {
+                            plan = 'Individual';
+                         } else if (row.plan == 3) {
+                            plan = 'Family';
+
+                         } else if (row.plan == 4) {
+                            plan = 'Big Family';
                          }
                          return '<td>' +
-                             type + '</td>'
+                            plan + '</td>'
                      }
                  },
                  {

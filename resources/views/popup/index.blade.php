@@ -61,9 +61,9 @@
                                                     <th>Title</th>
                                                     <th>Text</th>
                                                     <th>Device</th>
-                                                    <th>Type</th>
-                                                    <th>Start</th>
+                                                    <th>Plan</th>
                                                     <th>Interval</th>
+                                                    <th>Start</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

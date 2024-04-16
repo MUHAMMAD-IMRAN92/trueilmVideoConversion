@@ -76,7 +76,8 @@
                                                             <textarea class="form-control summernote" id="basicTextarea" rows="3" placeholder="" name="text" required>{{ $popup->text }}</textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-6"><label for="" class="required">Select Device</label>
+                                                    <div class="col-6"><label for="" class="required">Select
+                                                            Device</label>
                                                         <fieldset class="form-group">
                                                             <select class="selct2 form-control reference-select"
                                                                 name="device" required>
@@ -95,14 +96,34 @@
                                                     <div class="col-6"><label for="">Select Type</label>
                                                         <fieldset class="form-group">
                                                             <select class="selct2 form-control reference-select"
-                                                                name="type" value="{{ $popup->type }}">
+                                                                name="type">
                                                                 <option value="" disabled selected>Please Select Type
                                                                 </option>
                                                                 <option value="1"
-                                                                    {{ $popup->type == 1 ? 'selected' : '' }}>Promotional
+                                                                    {{ $popup->type == 1 ? 'selected' : '' }}>Event</option>
+                                                                <option value="2"
+                                                                    {{ $popup->type == 2 ? 'selected' : '' }}>Static
+                                                                </option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6"><label for="">Select Group</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="selct2 form-control reference-select"
+                                                                name="plan">
+                                                                <option value="" disabled selected>Please Select Group
+                                                                </option>
+                                                                <option value="1"
+                                                                    {{ $popup->plan == 1 ? 'selected' : '' }}>Freemium
                                                                 </option>
                                                                 <option value="2"
-                                                                    {{ $popup->type == 2 ? 'selected' : '' }}>Alerts
+                                                                    {{ $popup->plan == 2 ? 'selected' : '' }}>Individual
+                                                                </option>
+                                                                <option value="2"
+                                                                    {{ $popup->plan == 3 ? 'selected' : '' }}>Family
+                                                                </option>
+                                                                <option value="2"
+                                                                    {{ $popup->plan == 4 ? 'selected' : '' }}>Big Family
                                                                 </option>
                                                             </select>
                                                         </fieldset>
@@ -124,8 +145,8 @@
                                                             <label for="">Start</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
-                                                                    name="start" placeholder=""
-                                                                    value="{{ $popup->start }}">
+                                                                    name="interval" placeholder=""
+                                                                    value="{{ $popup->interval }}">
 
                                                             </div>
                                                         </div>
@@ -135,9 +156,8 @@
                                                             <label for="">Interval</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
-                                                                    name="interval" placeholder=""
-                                                                    value="{{ $popup->interval }}">
-
+                                                                    name="start" placeholder=""
+                                                                    value="{{ $popup->start }}">
                                                             </div>
                                                         </div>
                                                     </div>

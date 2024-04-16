@@ -73,7 +73,32 @@
                                                             <textarea class="form-control summernote" id="basicTextarea" rows="3" placeholder="" name="text" required></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-6" ><label for="" class="required">Select Device</label>
+                                                    <div class="col-6"><label for="">Select Type</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="selct2 form-control reference-select"
+                                                                name="type">
+                                                                <option value="" disabled selected>Please Select Type
+                                                                </option>
+                                                                <option value="1">Event</option>
+                                                                <option value="2">Static</option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6"><label for="">Select Group</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="selct2 form-control reference-select"
+                                                                name="plan">
+                                                                <option value="" disabled selected>Please Select Group
+                                                                </option>
+                                                                <option value="1">Freemium</option>
+                                                                <option value="2">Individual</option>
+                                                                <option value="2">Family</option>
+                                                                <option value="2">Big Family</option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6"><label for="" class="required">Select
+                                                            Device</label>
                                                         <fieldset class="form-group">
                                                             <select class="selct2 form-control reference-select"
                                                                 name="device">
@@ -112,9 +137,9 @@
                                                         <div class="form-group">
                                                             <label for="">Start</label>
                                                             <div class="position-relative">
-                                                                <input type="number" id="" class="form-control"
-                                                                    name="start" placeholder="">
 
+                                                                <input type="number" id="" class="form-control"
+                                                                    name="interval" placeholder="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -123,7 +148,7 @@
                                                             <label for="">Interval</label>
                                                             <div class="position-relative">
                                                                 <input type="number" id="" class="form-control"
-                                                                    name="interval" placeholder="">
+                                                                    name="start" placeholder="">
 
                                                             </div>
                                                         </div>
