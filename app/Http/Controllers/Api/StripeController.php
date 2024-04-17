@@ -121,6 +121,7 @@ class StripeController extends Controller
                 $userSubscription->seats = @$plan->seats;
                 $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;
+                $userSubscription->start_date = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
 
                 $userSubscription->save();
 
