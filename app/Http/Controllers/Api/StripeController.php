@@ -170,7 +170,6 @@ class StripeController extends Controller
 
                 $userSubscription  = UserSubscription::where('checkout_id', $session->id)->first();
                 $userSubscription->status = $session->payment_status;
-                $userSubscription->expiray_date = Carbon::parse(@$session->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 $userSubscription->subscription_id = $session->subscription;
                 $userSubscription->save();
             case 'customer.subscription.updated':
