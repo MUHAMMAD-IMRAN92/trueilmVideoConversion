@@ -219,3 +219,21 @@ function addContactToSendGridList($email, $type)
         return sendError('Exception!', $response->body());
     }
 }
+function countHtmlFiles($directory)
+{
+    $htmlFileCount = 0;
+    // Open the directory
+    $dir = opendir($directory);
+
+    // Loop through the directory
+    while (($file = readdir($dir)) !== false) {
+        // Check if the file is a regular file and ends with .html (case insensitive)
+        if (is_file($directory . '/' . $file) && strtolower(pathinfo($file, PATHINFO_EXTENSION)) === 'html') {
+            $htmlFileCount++;
+        }
+    }
+
+    closedir($dir);
+
+    return $htmlFileCount;
+}

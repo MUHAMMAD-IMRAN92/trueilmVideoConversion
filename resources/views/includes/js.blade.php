@@ -60,8 +60,8 @@
                  ['para', ['ul', 'ol', 'paragraph']],
                  ['height', ['height']]
              ]
+              $('.dropdown-toggle').dropdown();
          });
-         $('.dropdown-toggle').dropdown();
 
          $('#ayat-table').DataTable({
              "processing": true,

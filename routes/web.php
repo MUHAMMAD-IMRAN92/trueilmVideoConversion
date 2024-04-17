@@ -417,29 +417,21 @@ Route::get('dev', function () {
 
     set_time_limit(0);
 
-    $book = public_path('1704301898.epub');
+    $book = public_path('1709389902.epub');
 
-    $epubFilePath = $book;
-
-    // Open the ePub file
     $zip = new ZipArchive;
-    if ($zip->open($epubFilePath) === TRUE) {
-        // Check if META-INF directory exists
-        if ($zip->locateName('META-INF/container.xml') !== false) {
-            // Extract the container.xml file
-            $containerXml = $zip;
-
-            // Do something with the container.xml content
-            dd($containerXml);
-        } else {
-            echo 'META-INF/container.xml not found';
-        }
-
-        // Close the ePub file
+    $res = $zip->open($book);
+    if ($res === TRUE) {
+        // Extract to a directory
+        $zip->extractTo(public_path('/test/'));
         $zip->close();
+
+        echo 'Extraction successful!';
     } else {
-        echo 'Failed to open the ePub file';
+        echo 'Extraction failed.';
     }
+    return $htmlFileCount = countHtmlFiles(public_path('/test/'));
+
     return 'done';
     $surah = Surah::get();
     foreach ($surah as $s) {
