@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Imports\InstituteUserImport;
 use App\Imports\UsersImport;
 use App\Models\Book;
 use App\Models\BookLastSeen;
 use App\Models\BookTranking;
 use App\Models\Course;
+use App\Models\InstitueUser;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Models\UserSubscription;
@@ -19,6 +21,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use \Stripe\Plan;
 
 class UserController extends Controller
 {
@@ -93,6 +96,33 @@ class UserController extends Controller
         $user->type = $type;
         $user->save();
 
+        if ($user && $type == 3) {
+
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            $product =  $stripe->products->create(['name' => $request->plan_title]);
+            if ($product) {
+                $price =  $stripe->plans->create([
+                    "amount" =>  $request->amount,
+                    "interval" => $request->interval,
+                    "currency" => "usd",
+                    "product" => @$product->id
+                ]);
+
+                $subscription  = new Subscription();
+                $subscription->price_id  = $price->id;
+                $subscription->product_id  = $product->id;
+                $subscription->price  = $request->amount;
+                $subscription->product_title  = $request->plan_title;
+                $subscription->institue_id  = $user->_id;
+                $subscription->plan_type  = 4;
+                if ($request->interval == 'month') {
+                    $subscription->type = 1;
+                } else {
+                    $subscription->type = 2;
+                }
+                $subscription->save();
+            }
+        }
         $user->assignRole($request->input('role'));
 
         return redirect()->to('/user-management')->with('msg', 'User Saved Successfully!');;
@@ -218,13 +248,13 @@ class UserController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = User::where('institute_id', $this->user->_id)->whereNull('deleted_at')->count();
-        $brands = User::where('institute_id', $this->user->_id)->whereNull('deleted_at')->when($search, function ($q) use ($search) {
+        $totalBrands = InstitueUser::where('institute_id', $this->user->_id)->whereNull('deleted_at')->count();
+        $brands = InstitueUser::where('institute_id', $this->user->_id)->whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
             });
         })->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = User::where('institute_id', $this->user->_id)->whereNull('deleted_at')->when($search, function ($q) use ($search) {
+        $brandsCount = InstitueUser::where('institute_id', $this->user->_id)->whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
             });
@@ -244,20 +274,19 @@ class UserController extends Controller
     public function storeInstituteUsers(UserRequest $request)
     {
 
-        $user = new User();
+        // $user = new User();
+        $user = new InstitueUser();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->password = Hash::make($request->password);
-        $user->added_by = $this->user->id;
         $user->institute_id =  $this->user->id;
+        $user->user_id =  null;
         $user->save();
 
         return redirect()->to('/institute/users')->with('msg', 'User Saved Successfully!');
     }
     public function deleteInstituteUsers($id)
     {
-        $user = User::where('_id', $id)->first();
+        $user = InstitueUser::where('_id', $id)->first();
         $user->forceDelete();
         return redirect()->to('/institute/users')->with('msg', 'User Deleted Successfully!');
     }
@@ -274,6 +303,17 @@ class UserController extends Controller
 
         $file = $request->file;
         Excel::import(new UsersImport, $file);
+
+        return redirect('/institute/users')->with('msg', 'User Imported Successfully!');
+    }
+    public function importUserForInstitueTable(Request $request)
+    {
+        $validated = $request->validate([
+            'file' => 'required|file|mimes:csv,xlsx',
+        ]);
+
+        $file = $request->file;
+        Excel::import(new InstituteUserImport, $file);
 
         return redirect('/institute/users')->with('msg', 'User Imported Successfully!');
     }
@@ -392,7 +432,8 @@ class UserController extends Controller
                     $userSubscription->status =  'paid';
                     $userSubscription->plan_id =  @$subscription->_id;
                     $userSubscription->expiry =  'Life Time';
-                    $userSubscription->type =  $subs;
+                    $userSubscription->plan_type =  $subs;
+                    $userSubscription->type =  3;
                     $userSubscription->save();
                 }
             }

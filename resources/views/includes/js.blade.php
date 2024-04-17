@@ -60,7 +60,7 @@
                  ['para', ['ul', 'ol', 'paragraph']],
                  ['height', ['height']]
              ]
-              $('.dropdown-toggle').dropdown();
+             //  $('.dropdown-toggle').dropdown();
          });
 
          $('#ayat-table').DataTable({
@@ -2755,15 +2755,15 @@
                      "mRender": function(data, type, row) {
                          var plan = 'Freemium';
                          if (row.plan == 2) {
-                            plan = 'Individual';
+                             plan = 'Individual';
                          } else if (row.plan == 3) {
-                            plan = 'Family';
+                             plan = 'Family';
 
                          } else if (row.plan == 4) {
-                            plan = 'Big Family';
+                             plan = 'Big Family';
                          }
                          return '<td>' +
-                            plan + '</td>'
+                             plan + '</td>'
                      }
                  },
                  {
@@ -3116,29 +3116,30 @@
                              '</td>'
                      }
                  },
-                 {
-                     "mRender": function(data, type, row) {
-                         return '<td>' +
-                             row.phone + '</td>'
-                     }
-                 }, {
-                     "mRender": function(data, type, row) {
-                         var status = '';
-                         if (row.status == 0) {
-                             status = 'Not Subscribed';
-                         } else {
-                             status = 'Subscribed';
+                 //  {
+                 //      "mRender": function(data, type, row) {
+                 //          return '<td>' +
+                 //              row.phone + '</td>'
+                 //      }
+                 //  },
+                 //  {
+                 //      "mRender": function(data, type, row) {
+                 //          var status = '';
+                 //          if (row.status == 0) {
+                 //              status = 'Not Subscribed';
+                 //          } else {
+                 //              status = 'Subscribed';
 
-                         }
-                         return '<td>' +
-                             status +
-                             '</td>'
-                     }
-                 },
+                 //          }
+                 //          return '<td>' +
+                 //              status +
+                 //              '</td>'
+                 //      }
+                 //  },
+                 //  <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
                  {
                      "mRender": function(data, type, row) {
                          return `<td>
-                                <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
                                 <a  class="ml-2" href="{{ url('institute/user/delete/`+row._id+`') }}"><i class="fa fa-trash" style="font-size:24px"></i></a>
                                </td>`;
 
@@ -4834,4 +4835,14 @@
      $('.datatable').DataTable({
          "stateSave": true
      });
+
+     function showPlanForm() {
+         var role = $('#role-dropdown').val();
+         if (role == 'Institute') {
+             console.log(role);
+             $('#plan_form').css('display', 'block')
+         } else {
+             $('#plan_form').css('display', 'none')
+         }
+     }
  </script>

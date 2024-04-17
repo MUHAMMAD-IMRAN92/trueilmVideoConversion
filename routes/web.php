@@ -308,7 +308,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('institute/user/update', [App\Http\Controllers\UserController::class, 'updateInstituteUsers'])->name('institute.user.update');
     Route::get('institute/user/delete/{id}', [App\Http\Controllers\UserController::class, 'deleteInstituteUsers'])->name('institute.user.delete');
     Route::get('institute/download/sample', [App\Http\Controllers\UserController::class, 'downloadSample'])->name('institute.download.sample');
-    Route::post('institute/import/user', [App\Http\Controllers\UserController::class, 'importUser'])->name('institute.user.import');
+    // Route::post('institute/import/user', [App\Http\Controllers\UserController::class, 'importUser'])->name('institute.user.import');
+    Route::post('institute/import/user', [App\Http\Controllers\UserController::class, 'importUserForInstitueTable'])->name('institute.user.import');
     //order
     Route::get('order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
     Route::get('all-order', [App\Http\Controllers\OrderController::class, 'allOrder'])->name('order.all');
@@ -417,19 +418,38 @@ Route::get('dev', function () {
 
     set_time_limit(0);
 
-    $book = public_path('1709389902.epub');
+    $subscription = UserSubscription::all();
+    foreach ($subscription  as $s) {
+        $mtype = 0;
 
-    $zip = new ZipArchive;
-    $res = $zip->open($book);
-    if ($res === TRUE) {
-        // Extract to a directory
-        $zip->extractTo(public_path('/test/'));
-        $zip->close();
+        if ($s->plan_name == 'Individual') {
+            $mtype = 1;
+        } elseif ($s->plan_name == 'Family') {
+            $mtype = 2;
+        } else if ($s->plan_name == 'Big Family') {
+            $mtype = 3;
+        }
 
-        echo 'Extraction successful!';
-    } else {
-        echo 'Extraction failed.';
+        $s->type =  $s->plan_type;
+        $s->plan_type = $mtype;
+        $s->save();
     }
+    return 1;
+
+
+    // $book = public_path('1709389902.epub');
+
+    // $zip = new ZipArchive;
+    // $res = $zip->open($book);
+    // if ($res === TRUE) {
+    //     // Extract to a directory
+    //     $zip->extractTo(public_path('/test/'));
+    //     $zip->close();
+
+    //     echo 'Extraction successful!';
+    // } else {
+    //     echo 'Extraction failed.';
+    // }
     return $htmlFileCount = countHtmlFiles(public_path('/test/'));
 
     return 'done';

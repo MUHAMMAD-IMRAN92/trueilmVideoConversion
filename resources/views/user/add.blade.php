@@ -90,14 +90,55 @@
                                                     <div class="col-12">
                                                         <label for="">Role</label>
                                                         <fieldset class="form-group">
-                                                            <select class="form-control" id="" name="role"
-                                                                required>
+                                                            <select class="form-control" id="role-dropdown" name="role"
+                                                                required onchange="showPlanForm()">
                                                                 @foreach ($roles as $role)
                                                                     <option value="{{ $role->name }}">{{ $role->name }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
                                                         </fieldset>
+                                                    </div>
+                                                    <div class="col-12" id="plan_form" style="display: none; ">
+
+
+                                                        <h4 class="">Subscription Plan:</h4>
+                                                        <div class="">
+
+                                                            <div class="form-group">
+                                                                <label for="">Plan Title</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="plan_title"
+                                                                        placeholder="" required>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="">Amount</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="amount" placeholder=""
+                                                                        required>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="">Duration</label>
+                                                                <fieldset class="form-group">
+                                                                    <select class="selct2 form-control reference-select"
+                                                                        name="interval">
+                                                                        <option value="" disabled selected>Please
+                                                                            Select Duration
+                                                                        </option>
+                                                                        <option value="month">Monthly</option>
+                                                                        <option value="year">Yearly</option>
+                                                                    </select>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="col-12" style="text-align: right">
                                                         <button type="submit"
