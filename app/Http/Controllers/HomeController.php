@@ -705,10 +705,9 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
-        $lang = '65f02f6a0c8ddb001b0f1ae2';
+        $lang = '661f7487f5fc71367a0ba3af';
         $authors = [
-            'spanish_montada_eu' => "660298c90e34c7428db17993",
-            // 'spanish_garcia' => "661ce2300eacfdb755d01664",
+            'swahili_barawani' => "661f74aff5fc71367a0ba3b0",
         ];
         $records = [];
         foreach ($authors  as $nokey => $arr) {
@@ -720,7 +719,7 @@ class HomeController extends Controller
             ]);
             AlQuranTranslation::where('author_lang', $authorLang->_id)->where('type', 1)->delete();
             AlQuranTranslation::where('author_lang', $authorLang->_id)->where('type', 3)->delete();
-            $records = [];
+
             for ($i = 1; $i < 115; $i++) {
 
                 $surah = Surah::where('sequence', $i)->first();
