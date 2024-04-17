@@ -414,6 +414,7 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
+    return Carbon::parse(1715171021)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
     set_time_limit(0);
 
     $surah = Surah::get();
