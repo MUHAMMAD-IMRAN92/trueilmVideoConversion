@@ -71,7 +71,7 @@ class StripeController extends Controller
         if ($user) {
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->whereIn('status', ['paid', 'cancelled'])->where('istrail', 0)->get();
+            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->whereIn('status', ['paid', 'cancelled'])->get();
 
             if (count($subscription) != 0) {
                 // return "checkout 1";
@@ -121,6 +121,7 @@ class StripeController extends Controller
                 $userSubscription->seats = @$plan->seats;
                 $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;
+
                 $userSubscription->save();
 
                 return  sendSuccess('Checkout Session Url .', $session->url);
@@ -185,6 +186,7 @@ class StripeController extends Controller
                     } else {
                         $userSubscription->status = 'paid';
                         $userSubscription->expiray_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                        $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
                         $userSubscription->save();
 
