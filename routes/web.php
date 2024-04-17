@@ -419,11 +419,11 @@ Route::get('dev', function () {
 
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
-    $subscription = $stripe->subscriptions->retrieve(
+    return $subscription = $stripe->subscriptions->retrieve(
         'sub_1P6UICAQpnlOGBUJ9qyXkUoa',
         []
     );
-    return 
+
 
 
     $surah = Surah::get();
