@@ -197,11 +197,11 @@ class StripeController extends Controller
                 $userSubscription->status = $session->payment_status;
                 $userSubscription->subscription_id = $session->subscription;
                 $userSubscription->save();
-            case 'checkout.session.async_payment_succeeded':
-                $paymentIntent = $event->data->object;
+                $subscription = $stripe->subscriptions->retrieve($session->subscription, []);
+
 
                 \DB::table('test')->insert([
-                    'key' => $paymentIntent
+                    'subscription' => $subscription
                 ]);
             default:
                 echo 'Received unknown event type ' . $event->type;
