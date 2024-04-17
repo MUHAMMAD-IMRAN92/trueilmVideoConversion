@@ -178,9 +178,8 @@ class StripeController extends Controller
 
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-8916f7b9d17747dab3925394287fa4f8');
                     } else {
-                        $userSubscription->status =  Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                        // $userSubscription->expiray_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                        $userSubscription->expiray_date = 'test';
+                        $userSubscription->status = 'paid';
+                        $userSubscription->expiray_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
                         $userSubscription->save();
@@ -196,13 +195,9 @@ class StripeController extends Controller
                 $userSubscription  = UserSubscription::where('checkout_id', $session->id)->first();
                 $userSubscription->status = $session->payment_status;
                 $userSubscription->subscription_id = $session->subscription;
+                $uSubscription = $stripe->subscriptions->retrieve($session->subscription, []);
+                $userSubscription->expiray_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 $userSubscription->save();
-                $subscription = $stripe->subscriptions->retrieve($session->subscription, []);
-
-
-                \DB::table('test')->insert([
-                    'subscription' => $subscription
-                ]);
             default:
                 echo 'Received unknown event type ' . $event->type;
         }
