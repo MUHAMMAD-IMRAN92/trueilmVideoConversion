@@ -417,15 +417,30 @@ Route::get('dev', function () {
 
     set_time_limit(0);
 
-    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    $book = public_path('1704301898.epub');
 
-    return $subscription = $stripe->subscriptions->retrieve(
-        'sub_1P6UICAQpnlOGBUJ9qyXkUoa',
-        []
-    );
+    $epubFilePath = $book;
 
+    // Open the ePub file
+    $zip = new ZipArchive;
+    if ($zip->open($epubFilePath) === TRUE) {
+        // Check if META-INF directory exists
+        if ($zip->locateName('META-INF/container.xml') !== false) {
+            // Extract the container.xml file
+            $containerXml = $zip;
 
+            // Do something with the container.xml content
+            dd($containerXml);
+        } else {
+            echo 'META-INF/container.xml not found';
+        }
 
+        // Close the ePub file
+        $zip->close();
+    } else {
+        echo 'Failed to open the ePub file';
+    }
+    return 'done';
     $surah = Surah::get();
     foreach ($surah as $s) {
 

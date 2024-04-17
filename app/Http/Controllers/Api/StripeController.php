@@ -198,6 +198,7 @@ class StripeController extends Controller
                 $uSubscription = $stripe->subscriptions->retrieve($session->subscription, []);
                 $userSubscription->expiray_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                $userSubscription->istrail = 0;
                 $userSubscription->save();
             default:
                 echo 'Received unknown event type ' . $event->type;
