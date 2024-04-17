@@ -418,25 +418,7 @@ Route::get('dev', function () {
 
     set_time_limit(0);
 
-    $subscription = UserSubscription::all();
-    foreach ($subscription  as $s) {
-        $mtype = 0;
-
-        if ($s->plan_name == 'Individual') {
-            $mtype = 1;
-        } elseif ($s->plan_name == 'Family') {
-            $mtype = 2;
-        } else if ($s->plan_name == 'Big Family') {
-            $mtype = 3;
-        }
-
-        $s->type =  $s->plan_type;
-        $s->plan_type = $mtype;
-        $s->save();
-    }
-    return 1;
-
-
+    return 'done';
     // $book = public_path('1709389902.epub');
 
     // $zip = new ZipArchive;
@@ -452,7 +434,6 @@ Route::get('dev', function () {
     // }
     return $htmlFileCount = countHtmlFiles(public_path('/test/'));
 
-    return 'done';
     $surah = Surah::get();
     foreach ($surah as $s) {
 

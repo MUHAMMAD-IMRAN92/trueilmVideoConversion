@@ -102,7 +102,7 @@ class UserController extends Controller
             $product =  $stripe->products->create(['name' => $request->plan_title]);
             if ($product) {
                 $price =  $stripe->plans->create([
-                    "amount" =>  $request->amount,
+                    "amount" =>  $request->amount * 100,
                     "interval" => $request->interval,
                     "currency" => "usd",
                     "product" => @$product->id
