@@ -197,6 +197,12 @@ class StripeController extends Controller
                         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
                     }
                 }
+            case 'payment_intent.succeeded':
+                $paymentIntent = $event->data->object;
+
+                \DB::table('test')->insert([
+                    'key' => $paymentIntent
+                ]);
             default:
                 echo 'Received unknown event type ' . $event->type;
         }
