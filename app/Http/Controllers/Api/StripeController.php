@@ -197,7 +197,7 @@ class StripeController extends Controller
                 $userSubscription->status = $session->payment_status;
                 $userSubscription->subscription_id = $session->subscription;
                 $userSubscription->save();
-            case 'payment_intent.succeeded':
+            case 'checkout.session.async_payment_succeeded':
                 $paymentIntent = $event->data->object;
 
                 \DB::table('test')->insert([
