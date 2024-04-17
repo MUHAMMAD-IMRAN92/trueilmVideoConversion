@@ -165,13 +165,7 @@ class StripeController extends Controller
 
         // Handle the event
         switch ($event->type) {
-            case 'checkout.session.completed':
-                $session = $event->data->object;
 
-                $userSubscription  = UserSubscription::where('checkout_id', $session->id)->first();
-                $userSubscription->status = $session->payment_status;
-                $userSubscription->subscription_id = $session->subscription;
-                $userSubscription->save();
             case 'customer.subscription.updated':
                 $subscription = $event->data->object;
 
@@ -196,6 +190,13 @@ class StripeController extends Controller
                         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
                     }
                 }
+            case 'checkout.session.completed':
+                $session = $event->data->object;
+
+                $userSubscription  = UserSubscription::where('checkout_id', $session->id)->first();
+                $userSubscription->status = $session->payment_status;
+                $userSubscription->subscription_id = $session->subscription;
+                $userSubscription->save();
             case 'payment_intent.succeeded':
                 $paymentIntent = $event->data->object;
 
