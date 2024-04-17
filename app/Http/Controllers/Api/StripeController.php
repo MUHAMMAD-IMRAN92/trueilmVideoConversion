@@ -185,7 +185,7 @@ class StripeController extends Controller
 
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-8916f7b9d17747dab3925394287fa4f8');
                     } else {
-                        $userSubscription->status = 'paid';
+                        // $userSubscription->status = 'paid';
                         // $userSubscription->expiray_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->expiray_date = 'test';
                         $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
