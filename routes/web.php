@@ -212,6 +212,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-approved-by-you-courses', [App\Http\Controllers\CourseController::class, 'allApprovedByYouCourses'])->name('courses.approved.all');
     Route::get('all-rejected-courses', [App\Http\Controllers\CourseController::class, 'allRejectedCourses'])->name('courses.rejected.all');
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
+    Route::post('course/bulk/episode', [App\Http\Controllers\CourseController::class, 'courseBulkEpisode'])->name('course.bulk.episode');
 
     //lesson quiz
     Route::get('lesson/quiz/add/{course_id}', [App\Http\Controllers\CourseController::class, 'addQuiz'])->name('quiz.add');

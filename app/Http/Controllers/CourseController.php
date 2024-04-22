@@ -640,4 +640,42 @@ class CourseController extends Controller
         // activity(2, $id, 1);
         return redirect()->back()->with('msg', 'Content Reject Successfully!');
     }
+    public function  courseBulkEpisode(Request $request)
+    {
+
+        $course = Course::where('_id', $request->course_id)->first();
+
+        $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+
+        if ($request->podcast_file) {
+            foreach ($request->podcast_file as $file) {
+                $bookContent = new CourseLesson();
+                $file_name = time() . '.' . $file->getClientOriginalExtension();
+                $path =   $file->storeAs('files', $file_name, 's3');
+                Storage::disk('s3')->setVisibility($path, 'public');
+                $bookContent->file = $base_path . $path;
+
+                $bookContent->book_name = $file->getClientOriginalName();
+
+                $bookContent->course_id = $course->_id;
+                $bookContent->title = \Str::beforelast($bookContent->book_name, '.');
+
+                $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                $file = $getID3->analyze(@$file);
+                $duration = date('H:i:s', $file['playtime_seconds']);
+                list($hours, $minutes, $seconds) = explode(':', $duration);
+
+                // Calculate total duration in minutes
+                $total_minutes = $hours * 60 + $minutes;
+
+                // Construct the duration in the format MM:SS
+                $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+                $bookContent->file_duration = @$duration_minutes_seconds;
+
+                $bookContent->save();
+            }
+        }
+
+        return redirect()->back()->with('msg', 'Episode Saved !');
+    }
 }

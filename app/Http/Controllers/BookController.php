@@ -790,7 +790,7 @@ class BookController extends Controller
                 $bookContent->book_id = $book->_id;
                 $bookContent->title = \Str::beforelast($bookContent->book_name, '.');
                 $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                $file = $getID3->analyze(@$request->podcast_file);
+                $file = $getID3->analyze(@$file);
                 $duration = date('H:i:s', $file['playtime_seconds']);
                 list($hours, $minutes, $seconds) = explode(':', $duration);
 
