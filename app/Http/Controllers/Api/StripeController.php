@@ -100,12 +100,14 @@ class StripeController extends Controller
                 ]);
 
                 $plan = Subscription::where('price_id', $request->price)->where('status', 1)->first();
-                $mtype = 3;
+                $mtype = 4;
 
                 if ($plan->product_title == 'Individual') {
                     $mtype = 1;
                 } elseif ($plan->product_title == 'Family') {
                     $mtype = 2;
+                } elseif ($plan->product_title == 'Big Family') {
+                    $mtype = 3;
                 }
                 $userSubscription = new UserSubscription();
                 $userSubscription->user_id = $user->_id;
