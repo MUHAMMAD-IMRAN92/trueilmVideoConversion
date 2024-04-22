@@ -800,6 +800,7 @@ class BookController extends Controller
                 // Construct the duration in the format MM:SS
                 $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
                 $bookContent->file_duration = @$duration_minutes_seconds;
+                $bookContent->hls_conversion = 0;
 
                 $bookContent->save();
             }
