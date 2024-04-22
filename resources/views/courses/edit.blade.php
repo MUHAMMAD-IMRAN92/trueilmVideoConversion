@@ -326,6 +326,7 @@
                                                                 {{-- <th>Module Overview</th> --}}
                                                                 {{-- <th>KWL Worksheet</th> --}}
                                                                 <th>Lesson Notes</th>
+                                                                <th>Status</th>
                                                                 <th>Content</th>
                                                                 {{-- <th>Quiz</th> --}}
                                                                 <th>Action</th>
@@ -353,9 +354,8 @@
                                                                                 name=""
                                                                                 value="{{ str_replace('.mp3', '', $les->title) }}"
                                                                                 id="input-{{ $key }}">
-                                                                                 <input
-                                                                                type="text" class="form-control ml-1"
-                                                                                name=""
+                                                                            <input type="text"
+                                                                                class="form-control ml-1" name=""
                                                                                 value="{{ $les->sequence }}"
                                                                                 id="input-seq-{{ $key }}">
                                                                             <span class="btn btn-success ml-1"
@@ -399,6 +399,22 @@
                                                                                     style="font-size:20px !important"></i></a>
                                                                         @else
                                                                             <span>NA</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    </td>
+                                                                    <td class="">
+                                                                        @if ($les->hls_conversion == 1)
+                                                                            <div class="chip chip-success">
+                                                                                <div class="chip-body">
+                                                                                    <div class="chip-text">Published</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @else
+                                                                            <div class="chip chip-warning">
+                                                                                <div class="chip-body">
+                                                                                    <div class="chip-text">Pending</div>
+                                                                                </div>
+                                                                            </div>
                                                                         @endif
                                                                     </td>
                                                                     <td style="text-align: center">

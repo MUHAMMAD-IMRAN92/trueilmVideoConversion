@@ -407,6 +407,7 @@
                                                         <th class="">Description</th>
                                                         <th>Host</th>
                                                         <th>Guest</th>
+                                                        <th class="">Status</th>
                                                         <th class="description-td">Content</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -426,7 +427,22 @@
                                                             <td id="host{{ $key }}">{{ @$con->host }}
                                                             </td>
                                                             <td id="guest{{ $key }}">{{ @$con->guest }}
+                                                            </td><td class="">
+                                                                @if ($con->hls_conversion == 1)
+                                                                    <div class="chip chip-success">
+                                                                        <div class="chip-body">
+                                                                            <div class="chip-text">Published</div>
+                                                                        </div>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="chip chip-warning">
+                                                                        <div class="chip-body">
+                                                                            <div class="chip-text">Pending</div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
                                                             </td>
+
                                                             <td>
                                                                 @if ($con->type == 1)
                                                                     <audio src="{{ $con->file }}" style=""
@@ -1049,9 +1065,9 @@
     <!-- END: Content-->
 @endsection
 <script>
-     $(document).ready(function() {
-         $(".select2").select2({
-             dropdownParent: $("#author-lang")
-         });
-     });
+    $(document).ready(function() {
+        $(".select2").select2({
+            dropdownParent: $("#author-lang")
+        });
+    });
 </script>
