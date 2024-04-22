@@ -213,6 +213,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-rejected-courses', [App\Http\Controllers\CourseController::class, 'allRejectedCourses'])->name('courses.rejected.all');
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
     Route::post('course/bulk/episode', [App\Http\Controllers\CourseController::class, 'courseBulkEpisode'])->name('course.bulk.episode');
+    Route::get('update/lesson/title', [App\Http\Controllers\CourseController::class, 'updateLessonName'])->name('course.lesson.update.title');
 
     //lesson quiz
     Route::get('lesson/quiz/add/{course_id}', [App\Http\Controllers\CourseController::class, 'addQuiz'])->name('quiz.add');
@@ -418,6 +419,7 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
+
 
     return 'done';
     // $book = public_path('1709389902.epub');

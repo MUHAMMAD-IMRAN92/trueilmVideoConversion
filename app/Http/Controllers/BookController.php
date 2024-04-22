@@ -758,6 +758,7 @@ class BookController extends Controller
         $bookContent->description = $request->episode_description;
         $bookContent->guest = $request->guest;
         $bookContent->sequence = (int)@$request->sequence ?? 0;
+        $bookContent->hls_conversion = 0;
 
         $bookContent->save();
         if ($book->approved == 1) {

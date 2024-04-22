@@ -4829,6 +4829,31 @@
              }
          });
      }
+
+     function saveFileNameCourses(id, key) {
+         var name = $('#input-' + key).val();
+         var sequence = $('#input-seq-' + key).val();
+
+         $.ajax({
+             url: '/update/lesson/title',
+             method: 'GET',
+
+             data: {
+                 content_id: id,
+                 name: name,
+                 sequence: sequence
+             },
+             success: function(response) {
+                 $('#name-span-' + key).html(name);
+                 $('#name-span-' + key).css('display', 'block');
+                 $('#name-input-div-' + key).css('display', 'none');
+             },
+             error: function(error) {
+                 // Handle errors, e.g., display validation errors
+                 console.log(error.responseJSON.errors);
+             }
+         });
+     }
      $('#languages-table').DataTable({
          "stateSave": true
      });

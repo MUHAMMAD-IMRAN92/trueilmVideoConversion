@@ -318,7 +318,8 @@ class CourseController extends Controller
 
             // $courseLesson->thumbnail = $request->thumbnail->getClientOriginalName();
         }
-        $courseLesson->sequence = @$request->sequence ?? 0;
+        $courseLesson->sequence = (int) @$request->sequence ?? 0;
+        $courseLesson->hls_conversion = 0;
 
         $courseLesson->save();
 
@@ -350,7 +351,7 @@ class CourseController extends Controller
                 $question = new Questionaire();
                 $question->question = $q;
                 $question->lesson_id = $request->lesson_id;
-                $question->sequence = $key;
+                $question->sequence = (int) $key;
                 $question->added_by = $this->user->_id;
                 $question->save();
 
@@ -407,7 +408,7 @@ class CourseController extends Controller
                 $question = new Questionaire();
                 $question->question = $q;
                 $question->lesson_id = $request->lesson_id;
-                $question->sequence = $key;
+                $question->sequence = (int) $key;
                 $question->added_by = $this->user->_id;
                 $question->save();
 
@@ -678,5 +679,11 @@ class CourseController extends Controller
         }
 
         return redirect()->back()->with('msg', 'Episode Saved !');
+    }
+    public function updateLessonName(Request $request)
+    {
+        $boookContent = CourseLesson::where('_id', $request->content_id)->update(['title' => $request->name, 'sequence' => (int)$request->sequence]);
+
+        return 'updated';
     }
 }

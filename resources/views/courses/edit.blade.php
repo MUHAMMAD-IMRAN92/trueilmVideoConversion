@@ -322,7 +322,7 @@
                                                         <thead>
                                                             <tr style="text-align: center">
                                                                 <th class="">Title</th>
-                                                                <th class="description-td">Description</th>
+                                                                {{-- <th class="description-td">Description</th> --}}
                                                                 {{-- <th>Module Overview</th> --}}
                                                                 {{-- <th>KWL Worksheet</th> --}}
                                                                 <th>Lesson Notes</th>
@@ -342,10 +342,30 @@
                                                                     <input type="hidden" name=""
                                                                         id="les_id{{ $key }}"
                                                                         value="{{ $les->_id }}">
-                                                                    <td id="title{{ $key }}">{{ $les->title }}
+                                                                    {{-- <td id="title{{ $key }}">{{ $les->title }}
+                                                                    </td> --}}
+                                                                    <td onclick="makeInput({{ $key }})">
+                                                                        <span id="name-span-{{ $key }}">
+                                                                            {{ str_replace('.mp3', '', $les->title) }}</span>
+                                                                        <div id="name-input-div-{{ $key }}"
+                                                                            style="display: none !important">
+                                                                            <input type="text" class="form-control"
+                                                                                name=""
+                                                                                value="{{ str_replace('.mp3', '', $les->title) }}"
+                                                                                id="input-{{ $key }}">
+                                                                                 <input
+                                                                                type="text" class="form-control ml-1"
+                                                                                name=""
+                                                                                value="{{ $les->sequence }}"
+                                                                                id="input-seq-{{ $key }}">
+                                                                            <span class="btn btn-success ml-1"
+                                                                                onclick="saveFileNameCourses('{{ $les->_id }}' ,  '{{ $key }}')">
+                                                                                <i class="fa fa-check "></i>
+                                                                            </span>
+                                                                        </div>
                                                                     </td>
-                                                                    <td id="description{{ $key }}">
-                                                                        {{ $les->description }}</td>
+                                                                    {{-- <td id="description{{ $key }}">
+                                                                        {{ $les->description }}</td> --}}
 
 
 
