@@ -420,6 +420,9 @@ Route::get('dev', function () {
 
     set_time_limit(0);
 
+    $couse = CourseLesson::whereNotNull('hls_video_url')->update([
+        'hls_conversion' => 1
+    ]);
 
     return 'done';
     // $book = public_path('1709389902.epub');
