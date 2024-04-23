@@ -182,9 +182,7 @@ class StripeController extends Controller
                 $subscription = $event->data->object;
 
                 $userSubscription  = UserSubscription::where('subscription_id',  $subscription->id)->first();
-                \DB::table('jobs')->insert(
-                    ['check' => $userSubscription]
-                );
+
                 if ($userSubscription) {
                     if ($subscription->cancel_at_period_end == true) {
                         $userSubscription->status = 'cancelled';
