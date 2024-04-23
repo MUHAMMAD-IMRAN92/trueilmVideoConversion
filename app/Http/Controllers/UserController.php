@@ -116,6 +116,7 @@ class UserController extends Controller
                 $subscription->institue_id  = $user->_id;
                 $subscription->plan_type  = 4;
                 $subscription->type = 1;
+                $subscription->status  = 1;
                 $subscription->save();
             }
             $yearlyProduct =  $stripe->products->create(['name' => $request->yearly_plan_title]);
@@ -134,6 +135,7 @@ class UserController extends Controller
                 $subscription->product_title  = $request->yearly_plan_title;
                 $subscription->institue_id  = $user->_id;
                 $subscription->plan_type  = 4;
+                $subscription->status  = 1;
                 $subscription->type = 2;
 
                 $subscription->save();
