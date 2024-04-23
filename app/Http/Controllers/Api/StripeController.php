@@ -172,25 +172,28 @@ class StripeController extends Controller
                 $subscription = $event->data->object;
 
                 $userSubscription  = UserSubscription::where('subscription_id',  $subscription->id)->first();
-                if ($userSubscription) {
-                    if ($subscription->cancel_at_period_end == true) {
-                        $userSubscription->status = 'cancelled';
-                        $userSubscription->canceled_at = Carbon::parse($subscription->canceled_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                        $userSubscription->save();
+                \DB::table('jobs')->insert(
+                    ['check' => $userSubscription]
+                );
+                // if ($userSubscription) {
+                //     if ($subscription->cancel_at_period_end == true) {
+                //         $userSubscription->status = 'cancelled';
+                //         $userSubscription->canceled_at = Carbon::parse($subscription->canceled_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                //         $userSubscription->save();
 
-                        subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-8916f7b9d17747dab3925394287fa4f8');
-                    } else {
-                        $userSubscription->status = 'paid';
-                        $userSubscription->expiray_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                        $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                        $userSubscription->canceled_at = '';
-                        $userSubscription->save();
+                //         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-8916f7b9d17747dab3925394287fa4f8');
+                //     } else {
+                //         $userSubscription->status = 'paid';
+                //         $userSubscription->expiray_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                //         $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                //         $userSubscription->canceled_at = '';
+                //         $userSubscription->save();
 
-                        subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
+                //         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
 
-                        addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
-                    }
-                }
+                //         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
+                //     }
+                // }
             case 'checkout.session.completed':
                 $session = $event->data->object;
 
