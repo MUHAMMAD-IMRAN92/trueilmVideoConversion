@@ -167,7 +167,17 @@ class StripeController extends Controller
 
         // Handle the event
         switch ($event->type) {
+            case 'checkout.session.completed':
+                $session = $event->data->object;
 
+                $userSubscription  = UserSubscription::where('checkout_id', $session->id)->first();
+                $userSubscription->status = $session->payment_status;
+                $userSubscription->subscription_id = $session->subscription;
+                $uSubscription = $stripe->subscriptions->retrieve($session->subscription, []);
+                $userSubscription->expiray_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                $userSubscription->istrail = 0;
+                $userSubscription->save();
             case 'customer.subscription.updated':
                 $subscription = $event->data->object;
 
@@ -194,17 +204,7 @@ class StripeController extends Controller
                 //         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
                 //     }
                 // }
-            case 'checkout.session.completed':
-                $session = $event->data->object;
 
-                $userSubscription  = UserSubscription::where('checkout_id', $session->id)->first();
-                $userSubscription->status = $session->payment_status;
-                $userSubscription->subscription_id = $session->subscription;
-                $uSubscription = $stripe->subscriptions->retrieve($session->subscription, []);
-                $userSubscription->expiray_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                $userSubscription->istrail = 0;
-                $userSubscription->save();
             default:
                 echo 'Received unknown event type ' . $event->type;
         }
