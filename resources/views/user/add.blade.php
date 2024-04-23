@@ -102,14 +102,14 @@
                                                     <div class="col-12" id="plan_form" style="display: none; ">
 
 
-                                                        <h4 class="">Subscription Plan:</h4>
                                                         <div class="">
+                                                            <h5 class="">Monthly Plan:</h5>
 
                                                             <div class="form-group">
                                                                 <label for="">Plan Title</label>
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
-                                                                        class="form-control" name="plan_title"
+                                                                        class="form-control" name="monthly_plan_title"
                                                                         placeholder="" required>
 
                                                                 </div>
@@ -119,27 +119,39 @@
                                                                 <label for="">Amount</label>
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
-                                                                        class="form-control" name="amount" placeholder=""
-                                                                        required>
+                                                                        class="form-control" name="monthly_amount"
+                                                                        placeholder="" required>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="">
+                                                            <h5 class="">yearly Plan:</h5>
+
+                                                            <div class="form-group">
+                                                                <label for="">Plan Title</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="yearly_plan_title"
+                                                                        placeholder="" required>
 
                                                                 </div>
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="">Duration</label>
-                                                                <fieldset class="form-group">
-                                                                    <select class="selct2 form-control reference-select"
-                                                                        name="interval">
-                                                                        <option value="" disabled selected>Please
-                                                                            Select Duration
-                                                                        </option>
-                                                                        <option value="month">Monthly</option>
-                                                                        <option value="year">Yearly</option>
-                                                                    </select>
-                                                                </fieldset>
+                                                                <label for="">Amount</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="yearly_amount"
+                                                                        placeholder="" required>
+
+                                                                </div>
                                                             </div>
+
                                                         </div>
                                                     </div>
+
                                                     <div class="col-12" style="text-align: right">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>

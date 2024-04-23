@@ -75,7 +75,7 @@ class UserController extends Controller
             'roles' => $roles
         ]);
     }
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
         $type = 0;
         if ($request->role == 'Admin') {
@@ -99,27 +99,43 @@ class UserController extends Controller
         if ($user && $type == 3) {
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            $product =  $stripe->products->create(['name' => $request->plan_title]);
-            if ($product) {
+            $monthlyProduct =  $stripe->products->create(['name' => $request->monthly_plan_title]);
+            if ($monthlyProduct) {
                 $price =  $stripe->plans->create([
-                    "amount" =>  $request->amount * 100,
-                    "interval" => $request->interval,
+                    "amount" =>  $request->monthly_amount * 100,
+                    "interval" => 'month',
                     "currency" => "usd",
-                    "product" => @$product->id
+                    "product" => @$monthlyProduct->id
                 ]);
 
                 $subscription  = new Subscription();
                 $subscription->price_id  = $price->id;
-                $subscription->product_id  = $product->id;
-                $subscription->price  = $request->amount;
-                $subscription->product_title  = $request->plan_title;
+                $subscription->product_id  = $monthlyProduct->id;
+                $subscription->price  = $request->monthly_amount;
+                $subscription->product_title  = $request->monthly_plan_title;
                 $subscription->institue_id  = $user->_id;
                 $subscription->plan_type  = 4;
-                if ($request->interval == 'month') {
-                    $subscription->type = 1;
-                } else {
-                    $subscription->type = 2;
-                }
+                $subscription->type = 1;
+                $subscription->save();
+            }
+            $yearlyProduct =  $stripe->products->create(['name' => $request->yearly_plan_title]);
+            if ($yearlyProduct) {
+                $price =  $stripe->plans->create([
+                    "amount" =>  $request->yearly_amount * 100,
+                    "interval" => 'year',
+                    "currency" => "usd",
+                    "product" => @$yearlyProduct->id
+                ]);
+
+                $subscription  = new Subscription();
+                $subscription->price_id  = $price->id;
+                $subscription->product_id  = $yearlyProduct->id;
+                $subscription->price  = $request->yearly_amount;
+                $subscription->product_title  = $request->yearly_plan_title;
+                $subscription->institue_id  = $user->_id;
+                $subscription->plan_type  = 4;
+                $subscription->type = 2;
+
                 $subscription->save();
             }
         }
