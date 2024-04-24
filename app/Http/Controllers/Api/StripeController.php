@@ -119,11 +119,11 @@ class StripeController extends Controller
                 $userSubscription->plan_name = @$plan->product_title;
                 $userSubscription->plan_type = $mtype;
                 $userSubscription->type = @$plan->type;
-                if ($mtype == 1) {
+                // if ($mtype == 1) {
 
-                    $userSubscription->istrail = 1;
-                    $userSubscription->expiray_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                }
+                //     $userSubscription->istrail = 1;
+                //     $userSubscription->expiray_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                // }
                 $userSubscription->seats = @$plan->seats;
                 $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;
