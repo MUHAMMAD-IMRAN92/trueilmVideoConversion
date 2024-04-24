@@ -119,7 +119,10 @@ class StripeController extends Controller
                 $userSubscription->plan_name = @$plan->product_title;
                 $userSubscription->plan_type = $mtype;
                 $userSubscription->type = @$plan->type;
-                $userSubscription->istrail = 1;
+                if ($mtype == 1) {
+
+                    $userSubscription->istrail = 1;
+                }
                 $userSubscription->seats = @$plan->seats;
                 $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;

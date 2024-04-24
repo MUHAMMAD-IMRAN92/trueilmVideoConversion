@@ -199,8 +199,35 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->added_by = $this->user->id;
         $user->type = $type;
-        $user->save();
 
+        if ($type == 3) {
+            $user->seats = $request->seats;
+            $user->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+            $user->institute_type = $request->institute_type;
+        }
+        $user->save();
+        // if ($user && $type == 3 && $request->institute_type == 2) {
+        //     $instituteSubscription = Subscription::where('institute_id',  $request->id)->first();
+
+        //     if ($instituteSubscription->price != $request->price) {
+        //         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        //         $newPrice =   $stripe->prices->create([
+        //             'product' => $instituteSubscription->product_id,
+        //             'unit_amount' => $request->price * 100, // New price amount in cents ($15)
+        //             'currency' => 'usd', // Currency code (e.g., USD)
+        //             'recurring' => [
+        //                 'interval' => 'year', // Specify the billing interval (e.g., month)
+        //             ],
+        //         ]);
+        //         $stripe->prices->update(
+        //             $instituteSubscription->price,
+        //             ['metadata' => ['active' => false]]
+        //         );
+        //         $instituteSubscription->price = $request->price;
+        //         $instituteSubscription->price_id = $$newPrice->id;
+        //         $instituteSubscription->save();
+        //     }
+        // }
         return redirect()->to('/user-management')->with('msg', 'User Updated Successfully!');;
     }
 

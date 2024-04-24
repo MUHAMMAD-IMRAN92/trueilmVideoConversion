@@ -705,7 +705,7 @@ class HomeController extends Controller
     {
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
-        $lang = '6628f24b3b5ca447c07fb3fb';
+        $lang = '6628f34b3b5ca447c07fb3fd';
         $authors = [
             'uyghur_saleh' => "6628f28c3b5ca447c07fb3fc",
         ];
