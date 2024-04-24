@@ -109,6 +109,7 @@ class StripeController extends Controller
                 } elseif ($plan->product_title == 'Big Family') {
                     $mtype = 3;
                 }
+                $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
                 $userSubscription = new UserSubscription();
                 $userSubscription->user_id = $user->_id;
                 $userSubscription->email = $user->email;

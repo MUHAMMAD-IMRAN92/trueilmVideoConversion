@@ -419,11 +419,12 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    // \File::deleteDirectory(public_path('videos'));
-
-    \File::makeDirectory(public_path('videos'));
-
-    return 'done';
+    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    $newPrice = $stripe->prices->update(
+        'price_1P95ueAQpnlOGBUJnYh8mclu',
+        ['active' => false]
+    );
+    return $newPrice;
     // $book = public_path('1709389902.epub');
 
     // $zip = new ZipArchive;

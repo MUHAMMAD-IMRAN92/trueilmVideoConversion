@@ -194,41 +194,47 @@ class UserController extends Controller
             $type = 4;
         }
         $user = User::where('_id', $request->id)->first();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->added_by = $this->user->id;
-        $user->type = $type;
+        if ($user) {
 
-        if ($type == 3) {
-            $user->seats = $request->seats;
-            $user->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-            $user->institute_type = $request->institute_type;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->added_by = $this->user->id;
+            $user->type = $type;
+
+            if ($type == 3) {
+                $user->seats = $request->seats;
+                $user->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                $user->institute_type = $request->institute_type;
+            }
+            $user->save();
+            // if ($type == 3 && $request->institute_type == 2) {
+            //     $instituteSubscription = Subscription::where('institute_id',  $request->id)->first();
+
+            //     if ($instituteSubscription->price != $request->price) {
+            //         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            //         $newPrice =   $stripe->prices->create([
+            //             'product' => $instituteSubscription->product_id,
+            //             'unit_amount' => $request->price * 100, // New price amount in cents ($15)
+            //             'currency' => 'usd', // Currency code (e.g., USD)
+            //             'recurring' => [
+            //                 'interval' => 'year', // Specify the billing interval (e.g., month)
+            //             ],
+            //         ]);
+            //         $stripe->prices->update(
+            //             $instituteSubscription->price,
+            //             ['metadata' => ['active' => false]]
+            //         );
+            //         $instituteSubscription->price = $request->price;
+            //         $instituteSubscription->price_id = $$newPrice->id;
+            //         $instituteSubscription->save();
+            //     }
+            // }
+            return redirect()->to('/user-management')->with('msg', 'User Updated Successfully!');;
+        }else{
+            return redirect()->to('/user-management')->with('dmsg', 'User Not Found !');;
+
         }
-        $user->save();
-        // if ($user && $type == 3 && $request->institute_type == 2) {
-        //     $instituteSubscription = Subscription::where('institute_id',  $request->id)->first();
-
-        //     if ($instituteSubscription->price != $request->price) {
-        //         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-        //         $newPrice =   $stripe->prices->create([
-        //             'product' => $instituteSubscription->product_id,
-        //             'unit_amount' => $request->price * 100, // New price amount in cents ($15)
-        //             'currency' => 'usd', // Currency code (e.g., USD)
-        //             'recurring' => [
-        //                 'interval' => 'year', // Specify the billing interval (e.g., month)
-        //             ],
-        //         ]);
-        //         $stripe->prices->update(
-        //             $instituteSubscription->price,
-        //             ['metadata' => ['active' => false]]
-        //         );
-        //         $instituteSubscription->price = $request->price;
-        //         $instituteSubscription->price_id = $$newPrice->id;
-        //         $instituteSubscription->save();
-        //     }
-        // }
-        return redirect()->to('/user-management')->with('msg', 'User Updated Successfully!');;
     }
 
     public function delete($id)
