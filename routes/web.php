@@ -419,12 +419,8 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    $newPrice = $stripe->prices->update(
-        'price_1P95ueAQpnlOGBUJnYh8mclu',
-        ['active' => false]
-    );
-    return $newPrice;
+    return Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+
     // $book = public_path('1709389902.epub');
 
     // $zip = new ZipArchive;
