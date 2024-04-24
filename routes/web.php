@@ -420,7 +420,7 @@ Route::get('dev', function () {
 
     set_time_limit(0);
     \File::deleteDirectory(public_path('videos'));
-    \File::makeDirectory(public_path('videos'));
+    // \File::makeDirectory(public_path('videos'));
 
     return 'done';
     // $book = public_path('1709389902.epub');
