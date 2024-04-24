@@ -91,7 +91,7 @@
                                                         <label for="">Role</label>
                                                         <fieldset class="form-group">
                                                             <select class="form-control" id="role-dropdown" name="role"
-                                                                required onchange="showPlanForm()">
+                                                                required onchange="showType()">
                                                                 @foreach ($roles as $role)
                                                                     <option value="{{ $role->name }}">{{ $role->name }}
                                                                     </option>
@@ -99,9 +99,80 @@
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <div class="radio_for_institute_type" style="display: none">
+                                                            <h5>Institution Type</h5>
+                                                            <ul class="list-unstyled mb-0 mt-1">
+                                                                <li class="d-inline-block mr-2">
+                                                                    <fieldset>
+                                                                        <div class="custom-control custom-radio">
+                                                                            <input type="radio"
+                                                                                class="custom-control-input"
+                                                                                name="institute_type" id="customRadio1"
+                                                                                checked value="1">
+                                                                            <label class="custom-control-label"
+                                                                                for="customRadio1">Bulk Subscription</label>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </li>
+                                                                <li class="d-inline-block mr-2">
+                                                                    <fieldset>
+                                                                        <div class="custom-control custom-radio">
+                                                                            <input type="radio"
+                                                                                class="custom-control-input"
+                                                                                name="institute_type" id="customRadio2"
+                                                                                value="2">
+                                                                            <label class="custom-control-label"
+                                                                                for="customRadio2">Subscription For
+                                                                                Students</label>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 mt-2" id="bulk_plan_form" style="display: none; ">
+
+
+                                                        <div class="">
+                                                            {{-- <h5 class="">Seats</h5> --}}
+
+                                                            <div class="form-group">
+                                                                <label for="">Seats</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="seats"
+                                                                        placeholder="">
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="">Expiry Date</label>
+                                                                <div class="position-relative">
+                                                                    <input type="date" id=""
+                                                                        class="form-control" name="expiry_date"
+                                                                        placeholder="">
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <br>
                                                     <div class="col-12" id="plan_form" style="display: none; ">
 
+                                                        <div class="form-group">
+                                                            <label for="">Seats</label>
+                                                            <div class="position-relative">
+                                                                <input type="text" id="" class="form-control"
+                                                                    name="seats" placeholder="">
 
+                                                            </div>
+                                                        </div>
                                                         <div class="">
                                                             <h5 class="">Monthly Plan:</h5>
 
@@ -110,7 +181,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
                                                                         class="form-control" name="monthly_plan_title"
-                                                                        placeholder="" required>
+                                                                        placeholder="">
 
                                                                 </div>
                                                             </div>
@@ -120,21 +191,21 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
                                                                         class="form-control" name="monthly_amount"
-                                                                        placeholder="" required>
+                                                                        placeholder="">
 
                                                                 </div>
                                                             </div>
 
                                                         </div>
                                                         <div class="">
-                                                            <h5 class="">yearly Plan:</h5>
+                                                            <h5 class="">Yearly Plan:</h5>
 
                                                             <div class="form-group">
                                                                 <label for="">Plan Title</label>
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
                                                                         class="form-control" name="yearly_plan_title"
-                                                                        placeholder="" required>
+                                                                        placeholder="">
 
                                                                 </div>
                                                             </div>
@@ -144,7 +215,7 @@
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
                                                                         class="form-control" name="yearly_amount"
-                                                                        placeholder="" required>
+                                                                        placeholder="">
 
                                                                 </div>
                                                             </div>

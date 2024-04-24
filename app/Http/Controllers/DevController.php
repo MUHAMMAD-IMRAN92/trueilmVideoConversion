@@ -453,7 +453,7 @@ class DevController extends Controller
             // $course = CourseLesson::where('hls_conversion', 0)->get();
 
             $book = Book::where('type', "7")->pluck('_id');
-            $course = BookContent::whereIn('book_id', $book)->where('type', 2)->get();
+            $course = BookContent::whereIn('book_id', $book)->where('type', 2)->where('hls_conversion', 0)->get();
             foreach ($course as $c) {
 
 

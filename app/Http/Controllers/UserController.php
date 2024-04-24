@@ -77,6 +77,10 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'email' => 'unique:users,email,except,_id'
+        ]);
+
         $type = 0;
         if ($request->role == 'Admin') {
             $type = 1;
@@ -94,10 +98,11 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->added_by = $this->user->id;
         $user->type = $type;
+        $user->seats = $request->seats;
+        $user->institute_type = $request->institute_type;
         $user->save();
 
-        if ($user && $type == 3) {
-
+        if ($user && $type == 3 && $request->institute_type == 2) {
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $monthlyProduct =  $stripe->products->create(['name' => $request->monthly_plan_title]);
             if ($monthlyProduct) {
@@ -140,6 +145,17 @@ class UserController extends Controller
 
                 $subscription->save();
             }
+        } elseif ($type == 3  && $request->institute_type == 1) {
+            $subscription  = new Subscription();
+            $subscription->price  = 0;
+            $subscription->product_title  = $user->name . ' Freemium';
+            $subscription->institue_id  = $user->_id;
+            $subscription->plan_type  = 4;
+            $subscription->status  = 1;
+            $subscription->type = 0;
+            $subscription->status  = 1;
+            $subscription->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+            $subscription->save();
         }
         $user->assignRole($request->input('role'));
 

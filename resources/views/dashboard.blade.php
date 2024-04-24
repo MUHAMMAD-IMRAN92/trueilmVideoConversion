@@ -201,6 +201,48 @@
                                     <br>
                                 </div>
                             </div>
+                            <div class="col-lg-9 col-sm-9 col9">
+                                {{-- <input type="text" value="Hello World" id="myInput"> --}}
+
+                                <!-- The button used to copy the text -->
+                                {{-- <div class="card">
+                                    <div class="form-group d-flex">
+                                        <div class="col-10">
+                                            <div class="position-relative">
+                                                <input type="text" id="myInput" class="form-control" name="seats"
+                                                    placeholder="" disabled
+                                                    value="https://app.trueilm.com/{{ auth()->user()->_id . '/' . auth()->user()->name }}">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="btn btn-dark" onclick="myFunction()">Copy Link</button>
+
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="card  d-flex">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <div class="col-12 d-flex ">
+                                            <div class="col-10">
+                                                <div class="position-relative">
+                                                    <input type="text" id="myInput" class="form-control" name=""
+                                                        placeholder="" readonly="readonly"
+                                                        value="https://app.trueilm.com/{{ auth()->user()->_id . '/' . auth()->user()->name }}">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <button class="btn btn-dark" id="copy-link-btn"
+                                                    onclick="myFunction()">Copy Link</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
                         @endif
                     </div>
 
@@ -212,3 +254,21 @@
     </div>
     <!-- END: Content-->
 @endsection
+<script>
+    function myFunction() {
+        /* Get the text field */
+        var copyText = document.getElementById("myInput");
+        /* Select the text field */
+        copyText.select();
+        console.log(copyText.select());
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Alert the copied text */
+        $('#copy-link-btn').html('Copied !');
+        setTimeout(() => {
+            $('#copy-link-btn').html('Copy Link')
+        }, 3000);
+    }
+</script>

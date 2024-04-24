@@ -4861,13 +4861,31 @@
          "stateSave": true
      });
 
-     function showPlanForm() {
+     $('input[name="institute_type"]').on("change", function(event) {
+         var type = $('input[name="institute_type"]:checked').val();
+         if (type == 2) {
+             console.log(type);
+             $('#plan_form').css('display', 'block')
+             $('#bulk_plan_form').css('display', 'none')
+         } else {
+             $('#bulk_plan_form').css('display', 'block')
+             $('#plan_form').css('display', 'none');
+
+         }
+     });
+
+
+
+     function showType() {
          var role = $('#role-dropdown').val();
          if (role == 'Institute') {
              console.log(role);
-             $('#plan_form').css('display', 'block')
+             $('.radio_for_institute_type').css('display', 'block')
+             $('#bulk_plan_form').css('display', 'block')
          } else {
-             $('#plan_form').css('display', 'none')
+             $('.radio_for_institute_type').css('display', 'none');
+             $('#bulk_plan_form').css('display', 'none')
+
          }
      }
  </script>
