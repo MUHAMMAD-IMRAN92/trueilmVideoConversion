@@ -419,8 +419,8 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    // \File::deleteDirectory(public_path('videos'));
-    exec('rm -r ' . public_path('videos'));
+    \File::deleteDirectory(public_path('videos'));
+    // exec('rm -r ' . public_path('videos'));
     // \File::makeDirectory(public_path('videos'));
 
     return 'done';
