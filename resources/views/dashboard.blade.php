@@ -229,7 +229,7 @@
                                                 <div class="position-relative">
                                                     <input type="text" id="myInput" class="form-control" name=""
                                                         placeholder="" readonly="readonly"
-                                                        value="https://app.trueilm.com/{{ auth()->user()->_id . '/' . auth()->user()->name }}">
+                                                        value="https://app.trueilm.com/sign-up/{{ auth()->user()->_id . '/' . auth()->user()->name }}">
 
                                                 </div>
                                             </div>

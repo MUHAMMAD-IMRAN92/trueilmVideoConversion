@@ -153,7 +153,6 @@ class UserController extends Controller
             $subscription->plan_type  = 4;
             $subscription->status  = 1;
             $subscription->type = 0;
-            $subscription->status  = 1;
             $subscription->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $subscription->save();
         }
