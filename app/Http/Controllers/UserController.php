@@ -98,10 +98,12 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->added_by = $this->user->id;
         $user->type = $type;
-        $user->seats = $request->seats;
-        $user->institute_type = $request->institute_type;
+        if ($type == 3) {
+            $user->seats = $request->seats;
+            $user->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+            $user->institute_type = $request->institute_type;
+        }
         $user->save();
-
         if ($user && $type == 3 && $request->institute_type == 2) {
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             $monthlyProduct =  $stripe->products->create(['name' => $request->monthly_plan_title]);

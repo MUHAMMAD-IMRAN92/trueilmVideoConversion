@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">Edit User</h2>
                             <div class="breadcrumb-wrapper col-12">
-                                                           </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,8 @@
                                                 <div class="row append-inputs">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <input type="hidden" value="{{ $user->_id }}" name="id">
+                                                            <input type="hidden" value="{{ $user->_id }}"
+                                                                name="id">
                                                             <label for="">Name</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
@@ -97,12 +98,146 @@
                                                             <select class="form-control" id="" name="role"
                                                                 required>
                                                                 @foreach ($roles as $role)
-                                                                    <option value="{{ $role->name }}">{{ $role->name }}
+                                                                    <option value="{{ $role->name }}"
+                                                                        {{ $user->hasRole($role->name) == true ? 'selected' : '' }}>
+                                                                        {{ $role->name }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
                                                         </fieldset>
                                                     </div>
+                                                    @if ($user->hasRole('Institute'))
+                                                        <div class="col-12">
+                                                            <div class="radio_for_institute_type">
+                                                                <h5>Institution Type</h5>
+                                                                <ul class="list-unstyled mb-0 mt-1">
+                                                                    <li class="d-inline-block mr-2">
+                                                                        <fieldset>
+                                                                            <div class="custom-control custom-radio">
+                                                                                <input type="radio"
+                                                                                    class="custom-control-input"
+                                                                                    name="institute_type" id="customRadio1"
+                                                                                    checked value="1">
+                                                                                <label class="custom-control-label"
+                                                                                    for="customRadio1">Bulk
+                                                                                    Subscription</label>
+                                                                            </div>
+                                                                        </fieldset>
+                                                                    </li>
+                                                                    <li class="d-inline-block mr-2">
+                                                                        <fieldset>
+                                                                            <div class="custom-control custom-radio">
+                                                                                <input type="radio"
+                                                                                    class="custom-control-input"
+                                                                                    name="institute_type" id="customRadio2"
+                                                                                    value="2">
+                                                                                <label class="custom-control-label"
+                                                                                    for="customRadio2">Subscription For
+                                                                                    Students</label>
+                                                                            </div>
+                                                                        </fieldset>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 mt-2" id="bulk_plan_form"
+                                                            style="{{ $user->institute_type == 2 ? 'display:none' : '' }}">
+
+
+                                                            <div class="">
+                                                                {{-- <h5 class="">Seats</h5> --}}
+
+                                                                <div class="form-group">
+                                                                    <label for="">Seats</label>
+                                                                    <div class="position-relative">
+                                                                        <input type="text" id=""
+                                                                            class="form-control" name="seats"
+                                                                            placeholder="" value="{{ $user->seats }}">
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="">Expiry Date</label>
+                                                                    <div class="position-relative">
+                                                                        <input type="date" id=""
+                                                                            class="form-control" name="expiry_date"
+                                                                            placeholder=""
+                                                                            value="{{ \Carbon\Carbon::parse($user->expiry_date)->toDateString() }}">
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <br>
+                                                        <div class="col-12" id="plan_form"
+                                                            style="{{ $user->institute_type == 1 ? 'display:none' : '' }}">
+
+                                                            <div class="form-group">
+                                                                <label for="">Seats</label>
+                                                                <div class="position-relative">
+                                                                    <input type="text" id=""
+                                                                        class="form-control" name="seats"
+                                                                        placeholder="" value="{{ $user->seats }}">
+
+                                                                </div>
+                                                            </div>
+
+                                                            {{-- <div class="">
+                                                                <h5 class="">Monthly Plan:</h5>
+
+                                                                <div class="form-group">
+                                                                    <label for="">Plan Title</label>
+                                                                    <div class="position-relative">
+                                                                        <input type="text" id=""
+                                                                            class="form-control" name="monthly_plan_title"
+                                                                            placeholder="">
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="">Amount</label>
+                                                                    <div class="position-relative">
+                                                                        <input type="text" id=""
+                                                                            class="form-control" name="monthly_amount"
+                                                                            placeholder="">
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="">
+                                                                <h5 class="">Yearly Plan:</h5>
+
+                                                                <div class="form-group">
+                                                                    <label for="">Plan Title</label>
+                                                                    <div class="position-relative">
+                                                                        <input type="text" id=""
+                                                                            class="form-control" name="yearly_plan_title"
+                                                                            placeholder="">
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="">Amount</label>
+                                                                    <div class="position-relative">
+                                                                        <input type="text" id=""
+                                                                            class="form-control" name="yearly_amount"
+                                                                            placeholder="">
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div> --}}
+
+                                                        </div>
+                                                    @endif
                                                     <div class="col-12" style="text-align: right">
                                                         <button type="submit"
                                                             class="btn btn-primary mr-1 mb-1">Submit</button>
