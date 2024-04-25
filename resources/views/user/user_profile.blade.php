@@ -225,9 +225,9 @@
                                                                     $type = 'Yearly';
                                                                 }
                                                                 $mtype = 'Big Family';
-                                                                if (@$subs->type == 1) {
+                                                                if (@$subs->plan_type == 1) {
                                                                     $mtype = 'Individual';
-                                                                } elseif (@$subs->type == 2) {
+                                                                } elseif (@$subs->plan_type == 2) {
                                                                     $mtype = 'Family';
                                                                 }
                                                             @endphp

@@ -509,7 +509,7 @@ class UserController extends Controller
         $user = User::where('_id', $id)->with('subscription.plan')->first();
         $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
 
-        $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->pluck('type')->toArray();
+        $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->pluck('plan_type')->toArray();
         return view('user.user_profile', [
             'user' => $user,
             'checkLifeTime' => $checkLifeTime
