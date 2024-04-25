@@ -419,7 +419,7 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    return Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+   return Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
 
     // $book = public_path('1709389902.epub');
 

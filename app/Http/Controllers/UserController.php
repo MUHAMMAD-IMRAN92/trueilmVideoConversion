@@ -98,7 +98,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->added_by = $this->user->id;
         $user->type = $type;
-        if ($type == 3) {
+        if ($type == 3 &&  $request->institute_type == 1) {
             $user->seats = $request->seats;
             $user->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $user->institute_type = $request->institute_type;
@@ -129,7 +129,7 @@ class UserController extends Controller
             $yearlyProduct =  $stripe->products->create(['name' => $request->yearly_plan_title]);
             if ($yearlyProduct) {
                 $price =  $stripe->plans->create([
-                    "amount" =>  $request->yearly_amount * 100,
+                    "amount" =>  $request->price * 100,
                     "interval" => 'year',
                     "currency" => "usd",
                     "product" => @$yearlyProduct->id
@@ -138,7 +138,7 @@ class UserController extends Controller
                 $subscription  = new Subscription();
                 $subscription->price_id  = $price->id;
                 $subscription->product_id  = $yearlyProduct->id;
-                $subscription->price  = $request->yearly_amount;
+                $subscription->price  = $request->price;
                 $subscription->product_title  = $request->yearly_plan_title;
                 $subscription->institue_id  = $user->_id;
                 $subscription->plan_type  = 4;
@@ -172,10 +172,12 @@ class UserController extends Controller
         //     $plan = [];
 
         // }
+        $instituteSubscription = Subscription::where('institue_id',  $id)->where('type', 2)->first();
 
         return view('user.edit', [
             'user' => $user,
-            'roles' => $roles
+            'roles' => $roles,
+            'instituteSubscription' => $instituteSubscription
         ]);
     }
 
@@ -206,28 +208,29 @@ class UserController extends Controller
                 $user->institute_type = $request->institute_type;
             }
             $user->save();
-            // if ($type == 3 && $request->institute_type == 2) {
-            //     $instituteSubscription = Subscription::where('institute_id',  $request->id)->first();
+            if ($type == 3 && $request->institute_type == 2) {
+                $instituteSubscription = Subscription::where('institue_id',  $request->id)->where('type', 2)->first();
 
-            //     if ($instituteSubscription->price != $request->price) {
-            //         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            //         $newPrice =   $stripe->prices->create([
-            //             'product' => $instituteSubscription->product_id,
-            //             'unit_amount' => $request->price * 100, // New price amount in cents ($15)
-            //             'currency' => 'usd', // Currency code (e.g., USD)
-            //             'recurring' => [
-            //                 'interval' => 'year', // Specify the billing interval (e.g., month)
-            //             ],
-            //         ]);
-            //         $stripe->prices->update(
-            //             $instituteSubscription->price,
-            //             ['metadata' => ['active' => false]]
-            //         );
-            //         $instituteSubscription->price = $request->price;
-            //         $instituteSubscription->price_id = $$newPrice->id;
-            //         $instituteSubscription->save();
-            //     }
-            // }
+                if ($instituteSubscription->price != $request->price) {
+                    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+                    $newPrice =   $stripe->prices->create([
+                        'product' => $instituteSubscription->product_id,
+                        'unit_amount' => $request->price * 100, // New price amount in cents ($15)
+                        'currency' => 'usd', // Currency code (e.g., USD)
+                        'recurring' => [
+                            'interval' => 'year', // Specify the billing interval (e.g., month)
+                        ],
+                    ]);
+
+                    $stripe->prices->update(
+                        $instituteSubscription->price_id,
+                        ['active' => false]
+                    );
+                    $instituteSubscription->price = $request->price;
+                    $instituteSubscription->price_id = $$newPrice->id;
+                    $instituteSubscription->save();
+                }
+            }
             return redirect()->to('/user-management')->with('msg', 'User Updated Successfully!');;
         } else {
             return redirect()->to('/user-management')->with('dmsg', 'User Not Found !');;
@@ -542,7 +545,7 @@ class UserController extends Controller
                     $userSubscription->save();
                 }
             }
-            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('type',  $request->subscription)->delete();
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('type',  $request->subscription)->where('plan_id', @$subscription->_id)->delete();
         } else {
             $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
         }

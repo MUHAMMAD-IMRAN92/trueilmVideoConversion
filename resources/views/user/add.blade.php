@@ -214,7 +214,7 @@
                                                                 <label for="">Amount</label>
                                                                 <div class="position-relative">
                                                                     <input type="text" id=""
-                                                                        class="form-control" name="yearly_amount"
+                                                                        class="form-control" name="price"
                                                                         placeholder="">
 
                                                                 </div>

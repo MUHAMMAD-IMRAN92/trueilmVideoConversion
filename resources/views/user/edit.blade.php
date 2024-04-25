@@ -117,7 +117,7 @@
                                                                                 <input type="radio"
                                                                                     class="custom-control-input"
                                                                                     name="institute_type" id="customRadio1"
-                                                                                    checked value="1">
+                                                                                    {{$user->institute_type == 1 ? 'checked':''}} value="1">
                                                                                 <label class="custom-control-label"
                                                                                     for="customRadio1">Bulk
                                                                                     Subscription</label>
@@ -130,7 +130,7 @@
                                                                                 <input type="radio"
                                                                                     class="custom-control-input"
                                                                                     name="institute_type" id="customRadio2"
-                                                                                    value="2">
+                                                                                    value="2" {{$user->institute_type == 2 ? 'checked':''}}>
                                                                                 <label class="custom-control-label"
                                                                                     for="customRadio2">Subscription For
                                                                                     Students</label>
@@ -211,7 +211,7 @@
                                                                 </div>
 
                                                             </div> --}}
-                                                            {{-- <div class="">
+                                                            <div class="">
                                                                 <h5 class="">Yearly Plan:</h5>
 
                                                                 <div class="form-group">
@@ -219,7 +219,9 @@
                                                                     <div class="position-relative">
                                                                         <input type="text" id=""
                                                                             class="form-control" name="yearly_plan_title"
-                                                                            placeholder="" disabled>
+                                                                            placeholder=""
+                                                                            value="{{ $instituteSubscription->product_title }}"
+                                                                            disabled>
 
                                                                     </div>
                                                                 </div>
@@ -228,13 +230,14 @@
                                                                     <label for="">Amount</label>
                                                                     <div class="position-relative">
                                                                         <input type="text" id=""
-                                                                            class="form-control" name="yearly_amount"
-                                                                            placeholder="">
+                                                                            class="form-control" name="price"
+                                                                            placeholder=""
+                                                                            value="{{ $instituteSubscription->price }}">
 
                                                                     </div>
                                                                 </div>
 
-                                                            </div> --}}
+                                                            </div>
 
                                                         </div>
                                                     @endif
