@@ -71,7 +71,7 @@ class StripeController extends Controller
         if ($user) {
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->whereIn('status', ['paid', 'cancelled'])->get();
+            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->whereIn('status', ['paid', 'cancelled'])->where('istrail', '!=', 1)->get();
 
             if (count($subscription) != 0) {
                 // return "checkout 1";
@@ -80,7 +80,7 @@ class StripeController extends Controller
                     'return_url' =>   $request->return_url,
                 ]);
                 return  sendSuccess('Billing Portal Url .', $session->url);
-            }else {
+            } else {
 
                 Stripe::setApiKey(env('STRIPE_SECRET'));
 
