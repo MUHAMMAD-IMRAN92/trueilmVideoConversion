@@ -173,7 +173,7 @@
 
                                                             </div>
                                                         </div>
-                                                        <div class="">
+                                                        {{-- <div class="">
                                                             <h5 class="">Monthly Plan:</h5>
 
                                                             <div class="form-group">
@@ -196,7 +196,7 @@
                                                                 </div>
                                                             </div>
 
-                                                        </div>
+                                                        </div> --}}
                                                         <div class="">
                                                             <h5 class="">Yearly Plan:</h5>
 

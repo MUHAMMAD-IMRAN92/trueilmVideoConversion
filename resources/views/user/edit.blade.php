@@ -210,8 +210,8 @@
                                                                     </div>
                                                                 </div>
 
-                                                            </div>
-                                                            <div class="">
+                                                            </div> --}}
+                                                            {{-- <div class="">
                                                                 <h5 class="">Yearly Plan:</h5>
 
                                                                 <div class="form-group">
@@ -219,7 +219,7 @@
                                                                     <div class="position-relative">
                                                                         <input type="text" id=""
                                                                             class="form-control" name="yearly_plan_title"
-                                                                            placeholder="">
+                                                                            placeholder="" disabled>
 
                                                                     </div>
                                                                 </div>

@@ -106,26 +106,26 @@ class UserController extends Controller
         $user->save();
         if ($user && $type == 3 && $request->institute_type == 2) {
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            $monthlyProduct =  $stripe->products->create(['name' => $request->monthly_plan_title]);
-            if ($monthlyProduct) {
-                $price =  $stripe->plans->create([
-                    "amount" =>  $request->monthly_amount * 100,
-                    "interval" => 'month',
-                    "currency" => "usd",
-                    "product" => @$monthlyProduct->id
-                ]);
+            // $monthlyProduct =  $stripe->products->create(['name' => $request->monthly_plan_title]);
+            // if ($monthlyProduct) {
+            //     $price =  $stripe->plans->create([
+            //         "amount" =>  $request->monthly_amount * 100,
+            //         "interval" => 'month',
+            //         "currency" => "usd",
+            //         "product" => @$monthlyProduct->id
+            //     ]);
 
-                $subscription  = new Subscription();
-                $subscription->price_id  = $price->id;
-                $subscription->product_id  = $monthlyProduct->id;
-                $subscription->price  = $request->monthly_amount;
-                $subscription->product_title  = $request->monthly_plan_title;
-                $subscription->institue_id  = $user->_id;
-                $subscription->plan_type  = 4;
-                $subscription->type = 1;
-                $subscription->status  = 1;
-                $subscription->save();
-            }
+            //     $subscription  = new Subscription();
+            //     $subscription->price_id  = $price->id;
+            //     $subscription->product_id  = $monthlyProduct->id;
+            //     $subscription->price  = $request->monthly_amount;
+            //     $subscription->product_title  = $request->monthly_plan_title;
+            //     $subscription->institue_id  = $user->_id;
+            //     $subscription->plan_type  = 4;
+            //     $subscription->type = 1;
+            //     $subscription->status  = 1;
+            //     $subscription->save();
+            // }
             $yearlyProduct =  $stripe->products->create(['name' => $request->yearly_plan_title]);
             if ($yearlyProduct) {
                 $price =  $stripe->plans->create([
@@ -165,15 +165,13 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::where('name', 'dev')->first();
-        $role = Role::where('name', 'Admin')->first();
-        // $permission = Permission::create(['name' => 'all']);
-        // $role->givePermissionTo($permission);
-        // $user->assignRole($role);
-
-
         $user = User::where('_id', $id)->first();
         $roles = Role::all();
+        // $plan = [];
+        // if ($user->type == 3 && $user->institute_tpye == 2) {
+        //     $plan = [];
+
+        // }
 
         return view('user.edit', [
             'user' => $user,
@@ -231,9 +229,8 @@ class UserController extends Controller
             //     }
             // }
             return redirect()->to('/user-management')->with('msg', 'User Updated Successfully!');;
-        }else{
+        } else {
             return redirect()->to('/user-management')->with('dmsg', 'User Not Found !');;
-
         }
     }
 
