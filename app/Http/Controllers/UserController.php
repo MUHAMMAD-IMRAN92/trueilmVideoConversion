@@ -529,7 +529,7 @@ class UserController extends Controller
                 } elseif (@$subs == 2) {
                     $planName = 'Family';
                 }
-                $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('type', $subs)->where('plan_id',  @$subscription->_id)->first();
+                $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_type', $subs)->where('plan_id',  @$subscription->_id)->first();
                 if ($checkLifeTime) {
                     continue;
                 } else {
@@ -545,7 +545,7 @@ class UserController extends Controller
                     $userSubscription->save();
                 }
             }
-            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('type',  $request->subscription)->where('plan_id', @$subscription->_id)->delete();
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('plan_type',  $request->subscription)->where('plan_id', @$subscription->_id)->delete();
         } else {
             $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
         }
