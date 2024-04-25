@@ -118,7 +118,7 @@ class StripeController extends Controller
                 $userSubscription->plan_name = @$plan->product_title;
                 $userSubscription->plan_type = $mtype;
                 $userSubscription->type = @$plan->type;
-                if ($mtype == 1) {
+                if ($mtype == 1 && $request->trail == 1) {
                     $userSubscription->istrail = 1;
                     $userSubscription->status = 'paid';
                     $userSubscription->expiray_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
