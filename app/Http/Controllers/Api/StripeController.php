@@ -120,6 +120,7 @@ class StripeController extends Controller
                 $userSubscription->type = @$plan->type;
                 if ($mtype == 1) {
                     $userSubscription->istrail = 1;
+                    $userSubscription->status = 'paid';
                     $userSubscription->expiray_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 }
                 $userSubscription->seats = @$plan->seats;
