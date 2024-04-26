@@ -238,9 +238,9 @@ function countHtmlFiles($directory)
 
     return $htmlFileCount;
 }
-function deleteOtherSubscriptions($customer, $currentSubscription = null)
+function deleteOtherSubscriptions($currentSubscription)
 {
-    $userSubscriptions = UserSubscription::where('customer', $customer)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->get()->last();
+    $userSubscriptions = UserSubscription::where('customer', $currentSubscription->customer)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->first();
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
     if ($userSubscriptions) {
 
@@ -255,7 +255,7 @@ function deleteOtherSubscriptions($customer, $currentSubscription = null)
             );
             $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
         }
-        $userSubscriptions = UserSubscription::where('customer', $customer)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->delete();
+        $userSubscriptions = UserSubscription::where('customer', $currentSubscription->ustomer)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->delete();
     }
     return  1;
 }

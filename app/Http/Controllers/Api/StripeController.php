@@ -184,7 +184,7 @@ class StripeController extends Controller
                 $userSubscription->save();
 
                 $subscription = UserSubscription::where('customer', $userSubscription->customer)->where('istrail',  1)->whereIn('status', ['paid'])->delete();
-
+                deleteOtherSubscriptions($userSubscription);
             case 'customer.subscription.updated':
                 $subscription = $event->data->object;
 
@@ -206,7 +206,6 @@ class StripeController extends Controller
 
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
                         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
-                        deleteOtherSubscriptions($userSubscription->customer, $userSubscription);
                     }
                 }
 
