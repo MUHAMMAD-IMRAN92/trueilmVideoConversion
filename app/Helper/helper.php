@@ -252,7 +252,7 @@ function deleteOtherSubscriptions($currentSubscription)
         }
         $userSubscriptions->status = 'cancelled';
         $userSubscriptions->save();
-        UserSubscription::where('customer', $currentSubscription->ustomer)->whereIn('status', ['cancelled'])->where('plan_type', '!=', 0)->where('_id', '!=',  $userSubscriptions->_id)->delete();
+        UserSubscription::where('customer', $currentSubscription->customer)->whereIn('status', ['cancelled'])->where('plan_type', '!=', 0)->where('_id', '!=',  $userSubscriptions->_id)->delete();
         $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
     }
     return  1;
