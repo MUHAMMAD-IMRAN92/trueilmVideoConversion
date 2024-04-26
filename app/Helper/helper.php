@@ -255,6 +255,7 @@ function deleteOtherSubscriptions($customer, $currentSubscription = null)
             );
             $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
         }
+        $userSubscriptions = UserSubscription::where('customer', $customer)->where('status', 'paid')->where('plan_type', '!=', 0)->whereNull('deleted_at')->get()->last()->delete();
     }
     return  1;
 }
