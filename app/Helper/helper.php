@@ -247,7 +247,7 @@ function deleteOtherSubscriptions($currentSubscription)
         if ($currentSubscription->plan_type < $userSubscriptions->plan_type) {
             $stripe->subscriptions->update(
                 $currentSubscription->subscription_id,
-                ['trial_end' => strtotime($userSubscriptions->expiray_date)]
+                ['trial_end' => strtotime($userSubscriptions->expiry_date)]
             );
         }
         $userSubscriptions->status = 'cancelled';
