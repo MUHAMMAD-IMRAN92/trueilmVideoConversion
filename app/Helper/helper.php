@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\CourseLesson;
 use App\Models\Grant;
 use App\Models\UserSubscription;
+use Carbon\Carbon;
 use Meilisearch\Client;
 use Illuminate\Support\Facades\Storage;
 
@@ -245,11 +246,12 @@ function deleteOtherSubscriptions($currentSubscription)
     if ($userSubscriptions) {
 
         if ($currentSubscription->plan_type < $userSubscriptions->plan_type) {
-            $stripe->subscriptions->update(
+            $updatedSubs =  $stripe->subscriptions->update(
                 $currentSubscription->subscription_id,
                 ['trial_end' => strtotime($userSubscriptions->expiry_date)]
             );
-            $currentSubscription->start_date = $userSubscriptions->expiry_date;
+            $currentSubscription->start_date = Carbon::parse(@$updatedSubs->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');;
+            $currentSubscription->expiry_Date = Carbon::parse(@$updatedSubs->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $currentSubscription->save();
         }
         $userSubscriptions->status = 'cancelled';
