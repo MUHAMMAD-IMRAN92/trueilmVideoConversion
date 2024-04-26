@@ -419,9 +419,7 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-
-    $stripe->subscriptions->cancel('sub_1P9nCdAQpnlOGBUJrIMOGThI', []);
+    return UserSubscription::get();
     return 'ok';
     $helperFunction =  deleteOtherSubscriptions('cus_Pgev6C7dJDS0rf');
     $helperFunction;
