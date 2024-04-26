@@ -121,7 +121,7 @@ class StripeController extends Controller
                 if ($mtype == 1 && $request->trail == 1) {
                     $userSubscription->istrail = 1;
                     $userSubscription->status = 'paid';
-                    $userSubscription->expiray_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                    $userSubscription->expiry_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 }
                 $userSubscription->seats = @$plan->seats;
                 $userSubscription->plan_id = @$plan->_id;
@@ -178,7 +178,7 @@ class StripeController extends Controller
                 $userSubscription->status = $session->payment_status;
                 $userSubscription->subscription_id = $session->subscription;
                 $uSubscription = $stripe->subscriptions->retrieve($session->subscription, []);
-                $userSubscription->expiray_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                $userSubscription->expiry_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                 $userSubscription->istrail = 0;
                 $userSubscription->save();
@@ -199,7 +199,7 @@ class StripeController extends Controller
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-8916f7b9d17747dab3925394287fa4f8');
                     } else {
                         $userSubscription->status = 'paid';
-                        $userSubscription->expiray_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                        $userSubscription->expiry_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
                         $userSubscription->save();
