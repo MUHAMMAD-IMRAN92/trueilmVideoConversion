@@ -249,6 +249,8 @@ function deleteOtherSubscriptions($currentSubscription)
                 $currentSubscription->subscription_id,
                 ['trial_end' => strtotime($userSubscriptions->expiry_date)]
             );
+            $currentSubscription->start_date = $userSubscriptions->expiry_date;
+            $currentSubscription->save();
         }
         $userSubscriptions->status = 'cancelled';
         $userSubscriptions->save();
