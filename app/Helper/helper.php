@@ -10,6 +10,7 @@ use App\Models\BookForSale;
 use App\Models\Category;
 use App\Models\CourseLesson;
 use App\Models\Grant;
+use App\Models\UserSubscription;
 use Meilisearch\Client;
 use Illuminate\Support\Facades\Storage;
 
@@ -236,4 +237,21 @@ function countHtmlFiles($directory)
     closedir($dir);
 
     return $htmlFileCount;
+}
+function deleteOtherSubscriptions($customer, $currentSubscription = null)
+{
+    $userSubscriptions = UserSubscription::where('customer', $customer)->where('status', 'paid')->where('plan_type', '!=', 0)->whereNull('deleted_at')->get()->last();
+    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    if ($userSubscriptions) {
+
+        if ($currentSubscription->plan_type > $userSubscriptions->plan_type) {
+            $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
+        } else {
+            $stripe->subscriptions->update(
+                $currentSubscription->subscription_id,
+                ['trail_end' => strtotime($userSubscriptions->expiry_date)]
+            );
+        }
+    }
+    return  1;
 }
