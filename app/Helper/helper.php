@@ -246,6 +246,8 @@ function deleteOtherSubscriptions($customer, $currentSubscription = null)
 
         if ($currentSubscription->plan_type > $userSubscriptions->plan_type) {
             $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
+            $userSubscriptions->status = 'cancelled';
+            $userSubscriptions->save();
         } else {
             $stripe->subscriptions->update(
                 $currentSubscription->subscription_id,
