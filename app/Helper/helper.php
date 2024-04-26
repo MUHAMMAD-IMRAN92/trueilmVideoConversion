@@ -244,18 +244,16 @@ function deleteOtherSubscriptions($currentSubscription)
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
     if ($userSubscriptions) {
 
-        if ($currentSubscription->plan_type > $userSubscriptions->plan_type) {
-            $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
-            $userSubscriptions->status = 'cancelled';
-            $userSubscriptions->save();
-        } else {
+        if ($currentSubscription->plan_type < $userSubscriptions->plan_type) {
             $stripe->subscriptions->update(
                 $currentSubscription->subscription_id,
                 ['trial_end' => strtotime($userSubscriptions->expiray_date)]
             );
-            $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
         }
-      UserSubscription::where('customer', $currentSubscription->ustomer)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->delete();
+        $userSubscriptions->status = 'cancelled';
+        $userSubscriptions->save();
+        $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
+        UserSubscription::where('customer', $currentSubscription->ustomer)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->delete();
     }
     return  1;
 }
