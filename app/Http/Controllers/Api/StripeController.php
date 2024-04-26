@@ -203,6 +203,7 @@ class StripeController extends Controller
                         $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
                         $userSubscription->save();
+                        deleteOtherSubscriptions($userSubscription);
 
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
                         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
