@@ -419,7 +419,11 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-   return Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+
+    $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
+    $helperFunction =  deleteOtherSubscriptions('cus_Pgev6C7dJDS0rf');
+    return $helperFunction;
 
     // $book = public_path('1709389902.epub');
 

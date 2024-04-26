@@ -249,7 +249,7 @@ function deleteOtherSubscriptions($customer, $currentSubscription = null)
         } else {
             $stripe->subscriptions->update(
                 $currentSubscription->subscription_id,
-                ['trail_end' => strtotime($userSubscriptions->expiry_date)]
+                ['trial_end' => strtotime($userSubscriptions->expiry_date)]
             );
         }
     }
