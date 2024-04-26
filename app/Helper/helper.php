@@ -251,6 +251,7 @@ function deleteOtherSubscriptions($customer, $currentSubscription = null)
                 $currentSubscription->subscription_id,
                 ['trial_end' => strtotime($userSubscriptions->expiray_date)]
             );
+            $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
         }
     }
     return  1;

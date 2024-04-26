@@ -421,9 +421,10 @@ Route::get('dev', function () {
     set_time_limit(0);
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
-    $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
+    $stripe->subscriptions->cancel('sub_1P9nCdAQpnlOGBUJrIMOGThI', []);
+    return 'ok';
     $helperFunction =  deleteOtherSubscriptions('cus_Pgev6C7dJDS0rf');
-    return $helperFunction;
+    $helperFunction;
 
     // $book = public_path('1709389902.epub');
 
