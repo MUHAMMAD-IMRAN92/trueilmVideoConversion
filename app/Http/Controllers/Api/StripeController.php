@@ -71,7 +71,7 @@ class StripeController extends Controller
         if ($user) {
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->whereIn('status', ['paid', 'cancelled'])->whereNull('deleted_at')->where('istrail', '!=', 1)->get();
+            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->whereIn('status', ['paid', 'cancelled'])->whereNull('deleted_at')->where('istrial', 0)->get();
 
             if (count($subscription) != 0) {
                 // return "checkout 1";
@@ -109,6 +109,7 @@ class StripeController extends Controller
                     $mtype = 3;
                 }
                 $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
+
                 $userSubscription = new UserSubscription();
                 $userSubscription->user_id = $user->_id;
                 $userSubscription->email = $user->email;
