@@ -54,7 +54,7 @@
 
                                     <!-- Table with outer spacing -->
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table datatable">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
