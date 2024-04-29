@@ -183,9 +183,9 @@ class StripeController extends Controller
                     $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                     $userSubscription->istrail = 0;
                     $userSubscription->save();
+                    $subscription = UserSubscription::where('customer', $userSubscription->customer)->where('istrail',  1)->whereIn('status', ['paid'])->delete();
+                    deleteOtherSubscriptions($userSubscription);
                 }
-                $subscription = UserSubscription::where('customer', $userSubscription->customer)->where('istrail',  1)->whereIn('status', ['paid'])->delete();
-                deleteOtherSubscriptions($userSubscription);
             case 'customer.subscription.updated':
                 $subscription = $event->data->object;
 
