@@ -419,8 +419,8 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    return   UserSubscription::where('customer', 'cus_Q0wot1g0AhDOxp')->where('price_id', 'price_1OtPyoAQpnlOGBUJIsvNUOUV')->where('istrail', 0)->where('status', '!=', 'unpaid')->get();
-
+    $subsscription =   UserSubscription::where('customer', 'cus_Q0wot1g0AhDOxp')->where('price_id', 'price_1OtPyoAQpnlOGBUJIsvNUOUV')->where('istrail', 0)->where('status', '!=', 'unpaid')->get();
+    return count($subsscription);
     return 'ok';
     $helperFunction =  deleteOtherSubscriptions('cus_Pgev6C7dJDS0rf');
     $helperFunction;
