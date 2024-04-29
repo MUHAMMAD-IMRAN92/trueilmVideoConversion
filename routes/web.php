@@ -419,7 +419,7 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    return UserSubscription::get();
+    return UserSubscription::whereNotNull('istrail')->where('istrail', 1)->get();
     return 'ok';
     $helperFunction =  deleteOtherSubscriptions('cus_Pgev6C7dJDS0rf');
     $helperFunction;
