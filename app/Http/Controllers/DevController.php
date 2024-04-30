@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\HadeeesBookCombination;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
+use App\Models\AuthorLanguage;
 use App\Models\Book;
 use App\Models\BookContent;
 use App\Models\Course;
@@ -634,6 +635,20 @@ class DevController extends Controller
                 ->where('key', 'hls_conversion')
                 ->update(['is_active' => 0]);
             return '0';
+        }
+    }
+    public function indexing()
+    {
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+
+        $authorLangs = AuthorLanguage::where('type', 1)->get();
+        foreach ($authorLangs as $key => $authorLang) {
+            $translations = ALQuranTranslation::where('author_lang', $authorLang)->get();
+            $client->index('alQurantranslations')->addDocuments($translations->toArray());
+
+            \DB::table('jobs')
+                ->where('key', 'indexing')
+                ->update(['completed' => $key + 1]);
         }
     }
 }

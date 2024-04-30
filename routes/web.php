@@ -419,11 +419,7 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    $subsscription =   UserSubscription::where('customer', 'cus_Q0wot1g0AhDOxp')->where('price_id', 'price_1OtPyoAQpnlOGBUJIsvNUOUV')->where('istrail', 0)->where('status', '!=', 'unpaid')->get();
-    return count($subsscription);
     return 'ok';
-    $helperFunction =  deleteOtherSubscriptions('cus_Pgev6C7dJDS0rf');
-    $helperFunction;
 
     // $book = public_path('1709389902.epub');
 
@@ -438,7 +434,6 @@ Route::get('dev', function () {
     // } else {
     //     echo 'Extraction failed.';
     // }
-    return $htmlFileCount = countHtmlFiles(public_path('/test/'));
 
     $surah = Surah::get();
     foreach ($surah as $s) {
@@ -450,3 +445,4 @@ Route::get('dev', function () {
     return 'Done';
     return \Hash::make(rand(1, 10));
 });
+Route::get('indexing', [App\Http\Controllers\DevController::class, 'indexing']);
