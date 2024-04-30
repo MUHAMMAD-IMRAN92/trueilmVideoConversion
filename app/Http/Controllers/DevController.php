@@ -639,11 +639,13 @@ class DevController extends Controller
     }
     public function indexing()
     {
+        ini_set('max_execution_time', 0);
+        ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
         $authorLangs = AuthorLanguage::where('type', 1)->get();
         foreach ($authorLangs as $key => $authorLang) {
-            $translations = ALQuranTranslation::where('author_lang', $authorLang)->get();
+            $translations = AlQuranTranslation::where('author_lang', $authorLang->_id)->get();
             $client->index('alQurantranslations')->addDocuments($translations->toArray());
 
             \DB::table('jobs')
