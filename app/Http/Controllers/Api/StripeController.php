@@ -108,29 +108,61 @@ class StripeController extends Controller
                 } elseif ($plan->product_title == 'Big Family') {
                     $mtype = 3;
                 }
-                $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
-
-                $userSubscription = new UserSubscription();
-                $userSubscription->user_id = $user->_id;
-                $userSubscription->email = $user->email;
-                $userSubscription->customer = $user->customer;
-                $userSubscription->price_id =  $request->price;
-                $userSubscription->status = $session->payment_status;
-                $userSubscription->plan_name = @$plan->product_title;
-                $userSubscription->plan_type = $mtype;
-                $userSubscription->type = @$plan->type;
                 if ($mtype == 1 && $request->trail == 1) {
-                    $userSubscription->istrail = 1;
-                    $userSubscription->status = 'paid';
-                    $userSubscription->expiry_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                    $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'paid')->where('istrail', $request->trail)->get();
+                    if ($existing) {
+                        return  sendSuccess('Checkout Session Url .', $session->url);
+                    } else {
+                        $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
+
+                        $userSubscription = new UserSubscription();
+                        $userSubscription->user_id = $user->_id;
+                        $userSubscription->email = $user->email;
+                        $userSubscription->customer = $user->customer;
+                        $userSubscription->price_id =  $request->price;
+                        $userSubscription->status = $session->payment_status;
+                        $userSubscription->plan_name = @$plan->product_title;
+                        $userSubscription->plan_type = $mtype;
+                        $userSubscription->type = @$plan->type;
+                        if ($mtype == 1 && $request->trail == 1) {
+                            $userSubscription->istrail = 1;
+                            $userSubscription->status = 'paid';
+                            $userSubscription->expiry_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                        }
+                        $userSubscription->seats = @$plan->seats;
+                        $userSubscription->plan_id = @$plan->_id;
+                        $userSubscription->checkout_id = $session->id;
+                        $userSubscription->start_date = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+
+
+                        $userSubscription->save();
+                    }
+                } else {
+
+                    $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
+
+                    $userSubscription = new UserSubscription();
+                    $userSubscription->user_id = $user->_id;
+                    $userSubscription->email = $user->email;
+                    $userSubscription->customer = $user->customer;
+                    $userSubscription->price_id =  $request->price;
+                    $userSubscription->status = $session->payment_status;
+                    $userSubscription->plan_name = @$plan->product_title;
+                    $userSubscription->plan_type = $mtype;
+                    $userSubscription->type = @$plan->type;
+                    if ($mtype == 1 && $request->trail == 1) {
+                        $userSubscription->istrail = 1;
+                        $userSubscription->status = 'paid';
+                        $userSubscription->expiry_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                    }
+                    $userSubscription->seats = @$plan->seats;
+                    $userSubscription->plan_id = @$plan->_id;
+                    $userSubscription->checkout_id = $session->id;
+                    $userSubscription->start_date = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+
+
+                    $userSubscription->save();
                 }
-                $userSubscription->seats = @$plan->seats;
-                $userSubscription->plan_id = @$plan->_id;
-                $userSubscription->checkout_id = $session->id;
-                $userSubscription->start_date = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-
-
-                $userSubscription->save();
 
                 return  sendSuccess('Checkout Session Url .', $session->url);
             }
