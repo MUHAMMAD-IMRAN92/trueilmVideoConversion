@@ -189,7 +189,7 @@ class StripeController extends Controller
                     $userSubscription->save();
                     $subscription = UserSubscription::where('customer', $userSubscription->customer)->where('istrail',  1)->whereIn('status', ['paid'])->delete();
                     deleteOtherSubscriptions($userSubscription);
-                    UserSubscription::where('user_id',  @$userSubscription->_id)->where('plan_name', 'Freemium')->delete();
+                    UserSubscription::where('user_id',  @$userSubscription->user_id)->where('plan_name', 'Freemium')->delete();
                 }
             case 'customer.subscription.updated':
                 $subscription = $event->data->object;
