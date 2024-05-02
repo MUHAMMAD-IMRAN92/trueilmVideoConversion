@@ -90,9 +90,8 @@
                                                         <div class="form-group">
                                                             <label for="">End Date</label>
                                                             <div class="position-relative">
-                                                                <input type="datetime-local" id=""
-                                                                    class="form-control" name="end_date" required
-                                                                    placeholder="" required>
+                                                                <input type="date" id="" class="form-control"
+                                                                    name="end_date" placeholder="" required>
 
                                                             </div>
                                                         </div>
