@@ -419,7 +419,8 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    return 'ok';
+    return Carbon::createFromTimestamp('1714676580')->toDateTimeString();
+    return strtotime('2024-05-02T19:03');
 
     // $book = public_path('1709389902.epub');
 

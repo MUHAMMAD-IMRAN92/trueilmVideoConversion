@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Coupon;
+use Carbon\Carbon;
 use Stripe\Stripe;
 
 class CouponController extends Controller
@@ -69,7 +70,7 @@ class CouponController extends Controller
             $coupon->description = $request->description;
             $coupon->coupon =   str_replace(' ', '', $request->coupon);
             $coupon->percentage = $request->percentage;
-            $coupon->end_date = $request->end_date;
+            $coupon->end_date = Carbon::parse($request->end_date)->format('Y-m-dTH:i:s');
             $coupon->status = 1;
             $coupon->added_by = $this->user->id;
             $coupon->save();
