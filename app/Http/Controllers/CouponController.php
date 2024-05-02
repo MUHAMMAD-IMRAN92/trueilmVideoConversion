@@ -74,7 +74,7 @@ class CouponController extends Controller
             $coupon->save();
             // Connect to your stripe account
 
-            $pCode =  $stripe->promotionCodes->create(['coupon' =>  $coupon->coupon]);
+            $pCode =  $stripe->promotionCodes->create(['coupon' =>  $coupon->coupon, 'redeems_by' => $request->end_date]);
             $coupon->p_code = $pCode->code;
             $coupon->save();
             return redirect()->to('/coupon')->with('msg', 'Coupon Saved Successfully!');
