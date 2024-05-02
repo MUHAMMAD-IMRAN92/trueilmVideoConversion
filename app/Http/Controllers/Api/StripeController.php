@@ -109,11 +109,8 @@ class StripeController extends Controller
                     $mtype = 3;
                 }
                 if ($mtype == 1 && $request->trail == 1) {
-                    // $existingInd = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'paid')->where('istrail', $request->trail)->get();
-                    // if ($existingInd) {
-                    //     return  sendSuccess('Checkout Session Url .', $session->url);
-                    // } else {
-
+                    $existingInd = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'paid')->where('istrail', $request->trail)->get();
+                    if (!$existingInd) {
                         $userSubscription = new UserSubscription();
                         $userSubscription->user_id = $user->_id;
                         $userSubscription->email = $user->email;
@@ -135,7 +132,9 @@ class StripeController extends Controller
 
 
                         $userSubscription->save();
-                    // }
+                    } else {
+                        return  sendSuccess('Checkout Session Url .', $session->url);
+                    }
                 } else {
 
                     $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
