@@ -135,7 +135,8 @@ class StripeController extends Controller
 
                         UserSubscription::where('user_id',  $user->_id)->where('plan_name', 'Freemium')->delete();
                     } else {
-                        return  sendSuccess('Checkout Session Url .', $session->url);
+                        $data['trailAlreadyExist'] = 1;
+                        return  sendSuccess('Checkout Session Url .', $data);
                     }
                 } else {
 
