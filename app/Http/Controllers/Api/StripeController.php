@@ -124,7 +124,7 @@ class StripeController extends Controller
                     $userSubscription->istrail = 1;
                     $userSubscription->status = 'paid';
                     $userSubscription->expiry_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                    UserSubscription::where('user_id',  @$userSubscription->_id)->where('plan_name', 'Freemium')->delete();
+                    UserSubscription::where('user_id',  @$userSubscription->user_id)->where('plan_name', 'Freemium')->delete();
                 }
                 $userSubscription->seats = @$plan->seats;
                 $userSubscription->plan_id = @$plan->_id;
