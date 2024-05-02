@@ -109,7 +109,7 @@ class StripeController extends Controller
                     $mtype = 3;
                 }
                 if ($mtype == 1 && $request->trail == 1) {
-                    $existingInd = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('istrail', $request->trail)->get();
+                    $existingInd = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('istrail', $request->trail)->first();
                     if (!$existingInd) {
                         $userSubscription = new UserSubscription();
                         $userSubscription->user_id = $user->_id;
