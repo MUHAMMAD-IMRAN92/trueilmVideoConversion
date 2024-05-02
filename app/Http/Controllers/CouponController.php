@@ -60,7 +60,8 @@ class CouponController extends Controller
             $coupon = $stripe->coupons->create([
                 'id' =>  str_replace(' ', '', $request->coupon),
                 'percent_off' => $request->percentage,
-                'duration' => 'once'
+                'duration' => 'once',
+                'redeem_by' => strtotime($request->end_date)
             ]);
 
             $coupon = new Coupon();
@@ -74,12 +75,12 @@ class CouponController extends Controller
             $coupon->save();
             // Connect to your stripe account
 
-            $pCode =  $stripe->promotionCodes->create(['coupon' =>  $coupon->coupon, 'redeems_by' => $request->end_date]);
+            $pCode =  $stripe->promotionCodes->create(['coupon' =>  $coupon->coupon]);
             $coupon->p_code = $pCode->code;
             $coupon->save();
             return redirect()->to('/coupon')->with('msg', 'Coupon Saved Successfully!');
         } catch (\Exception $e) {
-            // return $e->getMessage();
+            return $e->getMessage();
             return redirect()->to('/coupon')->with('dmsg', 'SomeThing Went Wrong!');
         }
     }
