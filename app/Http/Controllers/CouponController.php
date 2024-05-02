@@ -58,7 +58,7 @@ class CouponController extends Controller
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
             Stripe::setApiKey(env('STRIPE_SECRET'));
             // create coupon
-            $endDate = Carbon::parse($request->end_date)->addHour(1);
+            $endDate = Carbon::parse($request->end_date)->subHour(9);
             $coupon = $stripe->coupons->create([
                 'id' =>  str_replace(' ', '', $request->coupon),
                 'percent_off' => $request->percentage,
