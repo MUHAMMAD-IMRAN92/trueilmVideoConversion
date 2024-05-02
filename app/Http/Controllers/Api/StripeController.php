@@ -132,6 +132,8 @@ class StripeController extends Controller
 
 
                         $userSubscription->save();
+
+                        UserSubscription::where('user_id',  $user->_id)->where('plan_name', 'Freemium')->delete();
                     } else {
                         return  sendSuccess('Checkout Session Url .', $session->url);
                     }
@@ -216,6 +218,7 @@ class StripeController extends Controller
                     $userSubscription->save();
                     $subscription = UserSubscription::where('customer', $userSubscription->customer)->where('istrail',  1)->whereIn('status', ['paid'])->delete();
                     deleteOtherSubscriptions($userSubscription);
+                    UserSubscription::where('user_id',  @$userSubscription->_id)->where('plan_name', 'Freemium')->delete();
                 }
             case 'customer.subscription.updated':
                 $subscription = $event->data->object;
