@@ -198,7 +198,8 @@ class StripeController extends Controller
 
                 if ($userSubscription) {
                     if ($subscription->cancel_at_period_end == true) {
-                        $userSubscription->status = 'cancelled';
+                        // $userSubscription->status = 'cancelled';
+                        $userSubscription->stripeCancelled = 1;
                         $userSubscription->canceled_at = Carbon::parse($subscription->canceled_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->save();
                         // deleteOtherSubscriptions($userSubscription);
