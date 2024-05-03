@@ -261,6 +261,9 @@ function deleteOtherSubscriptions($currentSubscription)
             $userSubscriptions->save();
         }
         $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
+    } else {
+        $userSubscriptions->stripeCancelled = 1;
+        $userSubscriptions->save();
     }
     return  1;
 }
