@@ -18,6 +18,8 @@ use App\Models\Course;
 use App\Models\CourseLesson;
 use App\Models\HadeesBooks;
 use App\Models\Khatoot;
+use App\Models\UserSubscription;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Meilisearch\Client;
 use Monolog\Handler\StreamHandler;
@@ -656,5 +658,30 @@ class DevController extends Controller
                 ->where('key', 'indexing')
                 ->update(['completed' => $key + 1]);
         }
+    }
+    public function cancelExpireSubscriptions()
+    {
+        ini_set('max_execution_time', 0);
+        ini_set("memory_limit", "-1");
+        $today = Carbon::now()->toDateString();
+        $userSubscriptions = UserSubscription::where('status', 'paid')->where('stripeCancelled', 1)->whereDate('expiry_date', $today)->get();
+        foreach ($userSubscriptions as $userSubscription) {
+            $userSubscription->status = 'cancelled';
+            $userSubscription->save();
+            $subscriptionCount = UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->count();
+            if ($subscriptionCount == 0) {
+                $userSubscription = new UserSubscription();
+                $userSubscription->user_id = $userSubscriptions->user_id;
+                $userSubscription->email = $userSubscription->email;
+                $userSubscription->customer = $userSubscription->customer;
+                $userSubscription->price_id = '0';
+                $userSubscription->status = 'paid';
+                $userSubscription->plan_name = 'Freemium';
+                $userSubscription->plan_name = Carbon::now();
+                $userSubscription->plan_type = 0;
+                $userSubscription->save();
+            }
+        }
+        return '1';
     }
 }
