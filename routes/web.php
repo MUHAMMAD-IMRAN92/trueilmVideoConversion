@@ -419,8 +419,13 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    return Carbon::createFromTimestamp('1714676580')->toDateTimeString();
-    return strtotime('2024-05-02T19:03');
+    $course = Course::get();
+    foreach ($course as $c) {
+        $cLesson = CourseLesson::where('course_id', $c->_id)->where('hls_conversion', 1)->count();
+        $c->lesson_count = $cLesson;
+        $c->save();
+    }
+    return 'done';
 
     // $book = public_path('1709389902.epub');
 

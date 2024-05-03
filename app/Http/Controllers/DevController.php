@@ -538,6 +538,7 @@ class DevController extends Controller
                 $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
+
                 \File::deleteDirectory(public_path('videos'));
                 \File::makeDirectory(public_path('videos'));
             }
@@ -627,6 +628,9 @@ class DevController extends Controller
                 $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
+                $course = Course::where('_id',  $c->course_id)->first();
+                $course->lesson_count = $course->lesson_count + 1;
+                $course->save();
                 \File::deleteDirectory(public_path('videos'));
                 \File::makeDirectory(public_path('videos'));
             }
