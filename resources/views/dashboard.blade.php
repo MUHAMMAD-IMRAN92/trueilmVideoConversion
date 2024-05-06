@@ -82,7 +82,7 @@
                                         </h2>
                                         <p class="mb-0">Pending For Approval Book <u style="font-size: 10px">
                                                 @if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
-                                                    <a href="{{ url('book/pending-for-approval') }}">Click</a>
+                                                    <a href="{{ url('book/pending-for-approval/1') }}">Click</a>
                                                 @endif
                                             </u>
 
