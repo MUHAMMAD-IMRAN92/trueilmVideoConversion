@@ -4858,7 +4858,8 @@
          "stateSave": true
      });
      $('.datatable').DataTable({
-         "stateSave": true
+         "stateSave": true,
+         'ordering': false
      });
 
      $('input[name="institute_type"]').on("change", function(event) {

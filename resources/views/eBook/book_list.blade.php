@@ -70,7 +70,7 @@
                                                             <div class="card-content">
                                                                 <div class="card-body card-dashboard">
                                                                     <div class="table-responsive">
-                                                                        <table class="table zero-configuration">
+                                                                        <table class="table datatable">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Chapter</th>
