@@ -521,7 +521,8 @@ class UserController extends Controller
         $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
         if ($request->subscription) {
 
-            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->delete();
+            UserSubscription::where('user_id', $user->_id)->whereIn('plan_type', [0, 1])->delete();
+            UserSubscription::where('user_id', $user->_id)->whereIn('plan_type', [2, 3])->update(['stripeCancelled' => 1]);
 
             foreach ($request->subscription as $subs) {
                 $planName = 'Big Family';
@@ -542,6 +543,7 @@ class UserController extends Controller
                     $userSubscription->plan_id =  @$subscription->_id;
                     $userSubscription->expiry =  'Life Time';
                     $userSubscription->plan_type =  $subs;
+                    $userSubscription->start_date =  Carbon::now();
                     $userSubscription->type =  3;
                     $userSubscription->save();
                 }
