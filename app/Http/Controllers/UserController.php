@@ -262,13 +262,13 @@ class UserController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = User::whereNull('deleted_at')->whereNull('type')->count();
-        $brands = User::whereNull('deleted_at')->whereNull('type')->when($search, function ($q) use ($search) {
+        $totalBrands = User::whereNull('deleted_at')->count();
+        $brands = User::whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = User::whereNull('deleted_at')->whereNull('type')->when($search, function ($q) use ($search) {
+        $brandsCount = User::whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
             });
@@ -521,6 +521,7 @@ class UserController extends Controller
         $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
         if ($request->subscription) {
 
+            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->delete();
 
             foreach ($request->subscription as $subs) {
                 $planName = 'Big Family';
@@ -549,6 +550,7 @@ class UserController extends Controller
         } else {
             $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
         }
+
         return redirect()->back()->with(['msg' => 'Access updated Successfully!']);
     }
     public static function checkSubscriptionExpiry()
