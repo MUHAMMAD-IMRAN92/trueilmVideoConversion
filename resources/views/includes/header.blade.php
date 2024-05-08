@@ -463,7 +463,7 @@
                                 class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                     </li>
-                    <li class="@if (request()->input('type') == 1) active @endif"><a
+                    <li class="@if (request()->input('type') == 1 && request()->is('authors')) active @endif"><a
                             href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Author</span></a>
                     </li>
@@ -649,7 +649,6 @@
                                 href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                         </li>
-
                     @endif
                 @endif
 

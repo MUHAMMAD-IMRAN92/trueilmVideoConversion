@@ -649,10 +649,10 @@ class DevController extends Controller
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
-        $authorLangs = AuthorLanguage::where('type', 1)->get();
-        foreach ($authorLangs as $key => $authorLang) {
-            $translations = AlQuranTranslation::where('author_lang', $authorLang->_id)->get();
-            $client->index('alQurantranslations')->addDocuments($translations->toArray());
+        $hadeesBooks = HadeesBooks::get();
+        foreach ($hadeesBooks as $key => $book) {
+            $translations = HadeesTranslation::where('book_id', $book->_id)->get();
+            $client->index('alHadeestranslations')->addDocuments($translations->toArray());
 
             \DB::table('jobs')
                 ->where('key', 'indexing')

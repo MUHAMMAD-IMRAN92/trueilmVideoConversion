@@ -25,21 +25,38 @@
                     <div class="row d-flex">
                         <form action="{{ url('book/during_period/' . $type) }}" method="POST" class="d-flex">
                             @csrf
-                            {{-- <div class="mr-1">
+                            <div class="mr-1">
+                                <li class="d-inline-block mr-2">
+                                    <fieldset>
+                                        <div class="vs-checkbox-con vs-checkbox-primary">
+                                            <input type="checkbox" value="1" name="uncategorized"
+                                                {{ @$uncategorized == 1 ? 'checked' : '' }}>
+                                            <span class="vs-checkbox">
+                                                <span class="vs-checkbox--check">
+                                                    <i class="vs-icon feather icon-check"></i>
+                                                </span>
+                                            </span>
+                                            <span class="">Uncategorized </span>
+                                        </div>
+                                    </fieldset>
+                                </li>
+                            </div>
+                            <div class="mr-1">
                                 <fieldset class="form-group">
-                                    <select class="selct2 form-control" name="status">
+                                    <select class="selct2 form-control" name="approved">
                                         <option value="" selected disabled>Status</option>
-                                        <option value="1">Approved</option>
-                                        <option value="2">Rejected</option>
-                                        <option value="0">Pending For Approval</option>
+                                        <option value="3" {{ @$approved == 3 ? 'selected' : '' }}>Pending For Approval
+                                        </option>
+                                        <option value="1" {{ @$approved == 1 ? 'selected' : '' }}>Approved</option>
+                                        <option value="2" {{ @$approved == 2 ? 'selected' : '' }}>Rejected</option>
                                     </select>
                                 </fieldset>
-                            </div> --}}
+                            </div>
                             {{-- <div class="mr-1">
                                 <fieldset class="form-group">
                                     <select class="selct2 form-control" name="status">
                                         <option value="" selected disabled>Status</option>
-                                        <option value="1">Un categorized</option>
+                                        <option value="1">Uncategorized</option>
                                         <option value="2">All Category</option>
                                     </select>
                                 </fieldset>
@@ -137,12 +154,14 @@
 
                                         <!-- Table with outer spacing -->
                                         <div class="table-responsive">
-                                            <table class="table datatable">
+                                            <table class="table">
                                                 <thead>
                                                     <tr>
                                                         <th>Cover</th>
                                                         <th class="">Title</th>
                                                         {{-- <th class="description-td">Description</th> --}}
+                                                        <th class="">Category</th>
+
                                                         <th class="">Author</th>
                                                         {{-- <th class="">Type</th> --}}
                                                         <th class="">Status</th>
@@ -189,6 +208,7 @@
 
                                                             <td>{{ $b->title }}</td>
                                                             {{-- <td>{{ $b->description }}</td> --}}
+                                                            <td>{{ @$b->category->title ?? '--' }}</td>
                                                             <td>{{ @$b->author->name ?? '--' }}</td>
                                                             {{-- <td>{{ $b->type }}</td> --}}
                                                             <td>{{ $b->approved }}</td>

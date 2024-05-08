@@ -591,17 +591,22 @@ class BookController extends Controller
         } else {
             $user_id = auth()->user()->id;
         }
-        $books = Book::where('approved', '!=', 2)->where('type', $request->type)->when($user_id, function ($query) use ($user_id) {
+        $books = Book::where('type', $request->type)->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
-        })->when($request->e_date, function ($q) use ($request) {
-            $q->whereBetween('created_at', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
-        })->with('author', 'category')->orderBy('created_at', 'desc')->paginate(10);
+        })->when($request->e_date, function ($query) use ($request) {
+            $query->whereBetween('created_at', [new Carbon($request->s_date),  new Carbon($request->e_date)]);
+        })->when('approved', (int) $request->approved)->when($request->uncategorized, function ($query) {
+            $query->where('category_id', null);
+        })->with('author', 'category')->orderBy('created_at', 'desc')->get();
         $books->map(function ($b) {
             $b->numberOfUser = $b->totalUserReadThisBook();
             return $b;
         });
+        // return $request->approved;
         return view('eBook.index', [
             'type' => $request->type,
+            'approved' => $request->approved,
+            'uncategorized' => $request->uncategorized,
             'hidden_table' => 1,
             'books' => $books,
             's_date' => $request->s_date,
