@@ -25,7 +25,7 @@
                     <div class="row d-flex">
                         <form action="{{ url('book/during_period/' . $type) }}" method="POST" class="d-flex">
                             @csrf
-                            <div class="mr-1">
+                            {{-- <div class="mr-1">
                                 <li class="d-inline-block mr-2">
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
@@ -40,8 +40,8 @@
                                         </div>
                                     </fieldset>
                                 </li>
-                            </div>
-                            <div class="mr-1">
+                            </div> --}}
+                            {{-- <div class="mr-1">
                                 <fieldset class="form-group">
                                     <select class="selct2 form-control" name="approved">
                                         <option value="" selected disabled>Status</option>
@@ -51,7 +51,7 @@
                                         <option value="2" {{ @$approved == 2 ? 'selected' : '' }}>Rejected</option>
                                     </select>
                                 </fieldset>
-                            </div>
+                            </div> --}}
                             {{-- <div class="mr-1">
                                 <fieldset class="form-group">
                                     <select class="selct2 form-control" name="status">
