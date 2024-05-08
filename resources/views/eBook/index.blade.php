@@ -61,7 +61,7 @@
                                     </select>
                                 </fieldset>
                             </div> --}}
-                            <div class="mr-1">
+                            {{-- <div class="mr-1">
                                 <input class="form-control" type="date" name="s_date" value="{{ @$s_date }}">
                             </div>
                             <div class="mr-1">
@@ -72,7 +72,7 @@
                                 style="width: 36px; height: 36px;">
                                 <span class="add-brand-font"></span>
                                 <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
+                            </button> --}}
 
                         </form>
                     </div>
