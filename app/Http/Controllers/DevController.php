@@ -651,7 +651,7 @@ class DevController extends Controller
 
         $hadeesBooks = HadeesBooks::get();
         foreach ($hadeesBooks as $key => $book) {
-            $translations = HadeesTranslation::where('book_id', $book->_id)->get();
+            $translations = HadeesTranslation::where('book_id', $book->_id)->whereIn('type', [5, 6])->get();
             $client->index('alHadeestranslations')->addDocuments($translations->toArray());
 
             \DB::table('jobs')
