@@ -97,8 +97,7 @@
                                                                     <input type="file"
                                                                         class="file-input custom-file-input episode-custom-file-input"
                                                                         id="inputGroupFile01" name="file[]"
-                                                                       {{ $validation }}
-                                                                        multiple>
+                                                                        {{ $validation }} multiple>
 
                                                                     <label class="custom-file-label"
                                                                         for="inputGroupFile01">Choose
@@ -270,8 +269,8 @@
                                                             <fieldset>
                                                                 <div class="vs-radio-con">
                                                                     <input class="pRadio" type="radio" name="pRadio"
-                                                                        onchange="priceRadioFunction(0)" checked
-                                                                        value="0">
+                                                                        onchange="priceRadioFunction(0)" value="0"
+                                                                        {{ $type == 7 ? 'checked' : '' }}>
                                                                     <span class="vs-radio">
                                                                         <span class="vs-radio--border"></span>
                                                                         <span class="vs-radio--circle"></span>
@@ -284,7 +283,8 @@
                                                             <fieldset>
                                                                 <div class="vs-radio-con">
                                                                     <input class="pRadio" type="radio" name="pRadio"
-                                                                        onchange="priceRadioFunction(1)" value="1">
+                                                                        onchange="priceRadioFunction(1)" value="1"
+                                                                        {{ $type != 7 ? 'checked' : '' }}>
                                                                     <span class="vs-radio">
                                                                         <span class="vs-radio--border"></span>
                                                                         <span class="vs-radio--circle"></span>
@@ -307,7 +307,8 @@
                                                             </fieldset>
                                                         </li> --}}
                                                     </div>
-                                                    <div class="col-md-6 price" style="display:none" class="">
+                                                    <div class="col-md-6 price"
+                                                        style="display:{{ $type == 7 ? 'none' : '' }}" class="">
 
                                                         <div class="form-group">
                                                             <label for="">Price</label>
@@ -318,8 +319,8 @@
 
 
                                                     </div>
-                                                    <div class="col-md-6 sample-file" style="display:none"
-                                                        class="">
+                                                    <div class="col-md-6 sample-file"
+                                                        style="display:{{ $type == 7 ? 'none' : '' }}" class="">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Sample File</label>
                                                             <div class="custom-file">

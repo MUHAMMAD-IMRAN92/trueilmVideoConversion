@@ -196,6 +196,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
     Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
     Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
+    Route::post('category/change_content_category', [App\Http\Controllers\CategoryController::class, 'updateContentCategory'])->name('category.update.contentCategory');
 
     //courses
     Route::get('courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
@@ -419,12 +420,10 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
 
     set_time_limit(0);
-    $course = Course::get();
-    foreach ($course as $c) {
-        $cLesson = CourseLesson::where('course_id', $c->_id)->where('hls_conversion', 1)->count();
-        $c->lesson_count = $cLesson;
-        $c->save();
-    }
+    ini_set('max_execution_time', 0);
+    ini_set("memory_limit", "-1");
+
+
     return 'done';
 
     // $book = public_path('1709389902.epub');

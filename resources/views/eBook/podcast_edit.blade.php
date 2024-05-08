@@ -455,6 +455,7 @@
 
                                                             <td> <i class="fa fa-pencil pointer"
                                                                     onclick="editEpisodeModal({{ $key }})"></i>
+
                                                             </td>
 
                                                         </tr>

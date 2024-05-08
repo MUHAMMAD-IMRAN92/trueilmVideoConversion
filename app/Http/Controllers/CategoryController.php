@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
+use App\Models\Book;
+use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -127,14 +129,28 @@ class CategoryController extends Controller
     }
     public function updateStatus($id)
     {
-        $category = Category::where('_id', $id)->first();
-        $status = $category->status == 1 ? 0 : 1;
+        $book = Book::where('category_id', $id)->get();
+        $course = Course::where('category_id', $id)->get();
+        $categories = Category::active()->where('_id', '!=', $id)->get();
+        if (count($book) > 0 && count($course) > 0) {
 
-        $category->update([
-            'status' => $status
-        ]);
+            return view('category.switch_category', [
+                'books' => $book,
+                'courses' => $course,
+                'categories' => $categories,
+                'currentCategory' => $id
+            ]);
+        } else {
 
-        return redirect()->back();
+            $category = Category::where('_id', $id)->first();
+            $status = $category->status == 1 ? 0 : 1;
+
+            $category->update([
+                'status' => $status
+            ]);
+
+            return redirect()->back()->with('msg', 'Category Disabled Successfully!');
+        }
     }
 
     public function allInactiveCategory(Request $request)
@@ -161,5 +177,18 @@ class CategoryController extends Controller
             'data' => $brands,
         );
         return json_encode($data);
+    }
+    public function updateContentCategory(Request $request)
+    {
+        if ($request->alternative_category) {
+            $book = Book::where('category_id', $request->old_categroy)->update([
+                'category_id' => $request->alternative_category
+            ]);
+            $course = Course::where('category_id', $request->old_categroy)->update([
+                'category_id' => $request->alternative_category
+            ]);
+        }
+
+        return redirect()->to('/categories')->with('msg', 'Category Disabled Successfully!');
     }
 }

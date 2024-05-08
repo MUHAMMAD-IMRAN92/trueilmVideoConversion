@@ -14,6 +14,7 @@
  <script src="{{ asset('app-assets/js/scripts/datatables/datatable.js') }}"></script>
 
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
  <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js') }}"></script>
  <script src="{{ asset('app-assets/vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
@@ -738,7 +739,7 @@
                      "mRender": function(data, type, row) {
                          var des = '';
                          if (row.description != null) {
-                             des = row.description.slice(0, 50);
+                             des = row.description;
                          }
                          return '<td>' +
                              des +
@@ -793,7 +794,7 @@
                      "mRender": function(data, type, row) {
                          var des = '';
                          if (row.description != null) {
-                             des = row.description.slice(0, 50);
+                             des = row.description;
                          }
                          return '<td>' +
                              des +
@@ -2809,7 +2810,24 @@
              }],
              "order": false
          });
+
+         var clipboard = new ClipboardJS('.copy-btn');
+         // Listen for success event
+         clipboard.on('success', function(e) {
+             // Change tooltip text to "Copied"
+             e.trigger.setAttribute('title', 'Copied');
+             // Reinitialize Bootstrap tooltip
+             //  $(e.trigger).tooltip('show');
+             // After 3 seconds, revert the tooltip text back to "Copy URL"
+             setTimeout(function() {
+                 e.trigger.setAttribute('title', 'Copy URL');
+                 $(e.trigger).tooltip('hide');
+             }, 1000); // Change the delay time to 3000 milliseconds (3 seconds)
+         });
+         $('.copy-btn').tooltip();
+
          $('#coupon-table').DataTable({
+
              "processing": true,
              "stateSave": true,
              "serverSide": true,
@@ -2850,10 +2868,10 @@
                  },
                  {
                      "mRender": function(data, type, row) {
-
+                         let copyIcon =
+                             `<a class="ml-2 copy-btn" data-toggle="tooltip" data-placement="top" data-clipboard-text="https://app.trueilm.com/sing-up?p_code=${row.p_code}" title="Copy URL"><i class="fa fa-copy" ></i></a>`
                          return `<td>
                                 <a  class="ml-2" href="{{ url('coupon/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
-
                                 </td>`
                      }
                  },

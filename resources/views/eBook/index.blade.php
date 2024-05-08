@@ -11,7 +11,7 @@
 
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-4  mb-2">
+                <div class="content-header-left col-md-2  mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">Content</h2>
@@ -21,21 +21,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-header-left col-md-6  mb-2 d-flex" style="justify-content:end">
-                    <div class="row breadcrumbs-top d-flex">
-                        <form action="{{ url('book/during_period/' . $type) }}" method='POST' class="d-flex">
+                <div class="content-header-left col-md-8 mb-2 d-flex" style="justify-content: end;">
+                    <div class="row d-flex">
+                        <form action="{{ url('book/during_period/' . $type) }}" method="POST" class="d-flex">
                             @csrf
-                            <input class="form-control ml-1" type="date" name="s_date" id=""
-                                value="{{ @$s_date }}">
-                            <input class="form-control ml-1" type="date" name="e_date" id=""
-                                value="{{ @$e_date }}">
-                            <input type="hidden" name="type" value="{{ $type }}" id="">
-                            <button class="btn-icon btn btn-primary btn-round  dropdown-toggle ml-1" type="submit"><span
-                                    class="add-brand-font"></span> <i class="fa fa-search" aria-hidden="true"></i>
+                            {{-- <div class="mr-1">
+                                <fieldset class="form-group">
+                                    <select class="selct2 form-control" name="status">
+                                        <option value="" selected disabled>Status</option>
+                                        <option value="1">Approved</option>
+                                        <option value="2">Rejected</option>
+                                        <option value="0">Pending For Approval</option>
+                                    </select>
+                                </fieldset>
+                            </div> --}}
+                            {{-- <div class="mr-1">
+                                <fieldset class="form-group">
+                                    <select class="selct2 form-control" name="status">
+                                        <option value="" selected disabled>Status</option>
+                                        <option value="1">Un categorized</option>
+                                        <option value="2">All Category</option>
+                                    </select>
+                                </fieldset>
+                            </div> --}}
+                            <div class="mr-1">
+                                <input class="form-control" type="date" name="s_date" value="{{ @$s_date }}">
+                            </div>
+                            <div class="mr-1">
+                                <input class="form-control" type="date" name="e_date" value="{{ @$e_date }}">
+                            </div>
+                            <input type="hidden" name="type" value="{{ $type }}">
+                            <button class="btn-icon btn btn-primary rounded-circle p-0" type="submit"
+                                style="width: 36px; height: 36px;">
+                                <span class="add-brand-font"></span>
+                                <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
+
                         </form>
                     </div>
                 </div>
+
+
                 <div class="content-header-right text-md-right col-md-2  d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
@@ -110,7 +136,7 @@
                                     <div class="card-body">
 
                                         <!-- Table with outer spacing -->
-                                        <div class="table-responsive" >
+                                        <div class="table-responsive">
                                             <table class="table datatable">
                                                 <thead>
                                                     <tr>
