@@ -663,8 +663,8 @@ class DevController extends Controller
     {
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
-        $startOfDayUTC = Carbon::now('UTC')->startOfDay();
-        $userSubscriptions = UserSubscription::where('status', 'paid')->where('stripeCancelled', 1)->whereDate('expiry_date', '>=', $startOfDayUTC)->get();
+        $startOfDayUTC = Carbon::tomorrow('UTC');
+        $userSubscriptions = UserSubscription::where('status', 'paid')->where('stripeCancelled', 1)->whereDate('expiry_date', '<', $startOfDayUTC)->get();
         foreach ($userSubscriptions as $userSubscription) {
             $userSubscription->status = 'cancelled';
             $userSubscription->save();
