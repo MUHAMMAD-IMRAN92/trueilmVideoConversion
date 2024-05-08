@@ -422,7 +422,8 @@ Route::get('dev', function () {
     set_time_limit(0);
     ini_set('max_execution_time', 0);
     ini_set("memory_limit", "-1");
-
+    $startOfDayUTC = Carbon::tomorrow('UTC');
+    return $userSubscriptions = UserSubscription::where('status', 'paid')->where('stripeCancelled', 1)->whereDate('expiry_date', '<', $startOfDayUTC)->get();
 
     return 'done';
 
