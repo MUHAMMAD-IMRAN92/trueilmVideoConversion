@@ -251,10 +251,10 @@ function deleteOtherSubscriptions($currentSubscription)
                     $currentSubscription->subscription_id,
                     ['trial_end' => strtotime($userSubscriptions->expiry_date)]
                 );
+                $currentSubscription->start_date = Carbon::parse(@$userSubscriptions->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                $currentSubscription->expiry_date = Carbon::parse(@$updatedSubs->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                $currentSubscription->save();
             }
-            $currentSubscription->start_date = Carbon::parse(@$userSubscriptions->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-            $currentSubscription->expiry_date = Carbon::parse(@$updatedSubs->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-            $currentSubscription->save();
             if ($userSubscriptions->type == 3) {
                 $userSubscriptions->delete();
             } else {
