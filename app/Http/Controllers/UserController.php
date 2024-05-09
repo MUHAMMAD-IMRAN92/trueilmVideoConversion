@@ -521,8 +521,8 @@ class UserController extends Controller
         $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
         if ($request->subscription) {
 
-            UserSubscription::where('user_id', $user->_id)->whereIn('plan_type', [0, 1])->delete();
-            UserSubscription::where('user_id', $user->_id)->whereIn('plan_type', [2, 3])->update(['stripeCancelled' => 1]);
+            UserSubscription::where('user_id', $user->_id)->whereIn('type', [3])->delete();
+            UserSubscription::where('user_id', $user->_id)->whereIn('type', [1, 2])->update(['stripeCancelled' => 1]);
 
             foreach ($request->subscription as $subs) {
                 $planName = 'Big Family';
