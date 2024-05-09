@@ -260,7 +260,7 @@ function deleteOtherSubscriptions($currentSubscription)
                 $userSubscriptions->save();
             }
         } else {
-            UserSubscription::where('subscription_id',  $userSubscriptions->subscription_id)->delete();
+            UserSubscription::where('subscription_id',  $userSubscriptions->subscription_id)->where('email', $currentSubscription->email)->delete();
             $userSubscriptions->status = 'cancelled';
             $userSubscriptions->save();
         }
