@@ -545,6 +545,11 @@ class UserController extends Controller
                     $userSubscription->plan_type =  $subs;
                     $userSubscription->start_date =  Carbon::now();
                     $userSubscription->type =  3;
+                    if ($subs == 2) {
+                        $userSubscription->plan_type = 5;
+                    } elseif ($subs == 3) {
+                        $userSubscription->plan_type =  10;
+                    }
                     $userSubscription->save();
                 }
             }
