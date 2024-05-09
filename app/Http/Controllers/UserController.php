@@ -521,8 +521,6 @@ class UserController extends Controller
         $subscription = Subscription::where('product_title', 'TrueILM Plan')->first();
         if ($request->subscription) {
 
-            UserSubscription::where('user_id', $user->_id)->whereIn('type', [3])->delete();
-            UserSubscription::where('user_id', $user->_id)->whereIn('type', [1, 2])->update(['stripeCancelled' => 1]);
 
             foreach ($request->subscription as $subs) {
                 $planName = 'Big Family';
@@ -551,11 +549,35 @@ class UserController extends Controller
                         $userSubscription->seats =  10;
                     }
                     $userSubscription->save();
+
+                    $userSubscriptionOfStripe =   UserSubscription::where('user_id', $user->_id)->whereIn('type', [1, 2])->where('status', 'paid')->orderBy('plan_type', 'DESC')->first();
+                    if ($userSubscriptionOfStripe->plan_type <  $userSubscription->plan_type) {
+                        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+                        $stripe->subscriptions->cancel($userSubscriptionOfStripe->subscription_id, []);
+                        $userSubscriptionOfStripe->delete();
+                    } else {
+                        $userSubscriptionOfStripe->stripeCancelled = 1;
+                        $userSubscriptionOfStripe->save();
+                    }
                 }
             }
             $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('plan_type',  $request->subscription)->where('plan_id', @$subscription->_id)->delete();
         } else {
             $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
+            $userSubscriptionOfStripe =   UserSubscription::where('user_id', $user->_id)->where('status', 'paid')->first();
+            if (!$userSubscriptionOfStripe) {
+
+                $newuserSubscription = new UserSubscription();
+                $newuserSubscription->user_id = $user->_id;
+                $newuserSubscription->email = $user->email;
+                $newuserSubscription->customer = $user->customer;
+                $newuserSubscription->price_id = '0';
+                $newuserSubscription->status = 'paid';
+                $newuserSubscription->plan_name = 'Freemium';
+                $newuserSubscription->plan_id = '65cf47c31b80a2d2b83f7128';
+                $newuserSubscription->plan_type = 0;
+                $newuserSubscription->save();
+            }
         }
 
         return redirect()->back()->with(['msg' => 'Access updated Successfully!']);
