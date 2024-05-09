@@ -241,7 +241,7 @@ function countHtmlFiles($directory)
 }
 function deleteOtherSubscriptions($currentSubscription)
 {
-    $userSubscriptions = UserSubscription::where('customer', $currentSubscription->customer)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->first();
+    $userSubscriptions = UserSubscription::where('customer', $currentSubscription->email)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->first();
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
     if ($userSubscriptions) {
 
