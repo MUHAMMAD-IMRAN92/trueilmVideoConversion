@@ -551,6 +551,7 @@ class UserController extends Controller
                     $userSubscription->save();
 
                     $userSubscriptionOfStripe =   UserSubscription::where('user_id', $user->_id)->whereIn('type', [1, 2])->where('status', 'paid')->orderBy('plan_type', 'DESC')->first();
+                    $freemium =   UserSubscription::where('user_id', $user->_id)->whereIn('plan_type', [0])->where('status', 'paid')->delete();
                     if ($userSubscriptionOfStripe) {
 
                         if ($userSubscriptionOfStripe->plan_type <  $userSubscription->plan_type) {

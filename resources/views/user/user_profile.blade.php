@@ -102,45 +102,38 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                         <div class="d-flex">
-                                                            <div class="col-6 ">
-
-                                                                {{-- <label for="">Life Time Member</label> --}}
-
-                                                                {{-- <input type="checkbox" id="" name="subscription"
-                                                            value="1" placeholder="" style=""> <span> Life Time Member</span> --}}
-
+                                                            <div class="col-6">
                                                                 <li class="d-inline-block mr-2">
                                                                     <fieldset>
                                                                         <div class="vs-checkbox-con vs-checkbox-primary">
                                                                             <input type="checkbox"
                                                                                 {{ in_array(1, $checkLifeTime) == true ? 'checked' : '' }}
-                                                                                value="1" name="subscription[]">
+                                                                                value="1" name="subscription[]"
+                                                                                class="subscription-checkbox"
+                                                                                data-group="lifetime">
                                                                             <span class="vs-checkbox">
                                                                                 <span class="vs-checkbox--check">
                                                                                     <i
                                                                                         class="vs-icon feather icon-check"></i>
                                                                                 </span>
                                                                             </span>
-                                                                            <span class="">Individual(Life Time
+                                                                            <span class="">Individual (Life Time
                                                                                 Member)</span>
                                                                         </div>
                                                                     </fieldset>
                                                                 </li>
                                                             </div>
-                                                            <div class="col-6 ">
-
-                                                                {{-- <label for="">Life Time Member</label> --}}
-
-                                                                {{-- <input type="checkbox" id="" name="subscription"
-                                                            value="1" placeholder="" style=""> <span> Life Time Member</span> --}}
-
+                                                            <div class="col-6">
                                                                 <li class="d-inline-block mr-2">
                                                                     <fieldset>
                                                                         <div class="vs-checkbox-con vs-checkbox-primary">
                                                                             <input type="checkbox"
                                                                                 {{ in_array(2, $checkLifeTime) == true ? 'checked' : '' }}
-                                                                                value="2" name="subscription[]">
+                                                                                value="2" name="subscription[]"
+                                                                                class="subscription-checkbox"
+                                                                                data-group="lifetime">
                                                                             <span class="vs-checkbox">
                                                                                 <span class="vs-checkbox--check">
                                                                                     <i
@@ -153,19 +146,15 @@
                                                                     </fieldset>
                                                                 </li>
                                                             </div>
-                                                            <div class="col-6 ">
-
-                                                                {{-- <label for="">Life Time Member</label> --}}
-
-                                                                {{-- <input type="checkbox" id="" name="subscription"
-                                                            value="1" placeholder="" style=""> <span> Life Time Member</span> --}}
-
+                                                            <div class="col-6">
                                                                 <li class="d-inline-block mr-2">
                                                                     <fieldset>
                                                                         <div class="vs-checkbox-con vs-checkbox-primary">
                                                                             <input type="checkbox"
                                                                                 {{ in_array(3, $checkLifeTime) == true ? 'checked' : '' }}
-                                                                                value="3" name="subscription[]">
+                                                                                value="3" name="subscription[]"
+                                                                                class="subscription-checkbox"
+                                                                                data-group="lifetime">
                                                                             <span class="vs-checkbox">
                                                                                 <span class="vs-checkbox--check">
                                                                                     <i
@@ -179,6 +168,7 @@
                                                                 </li>
                                                             </div>
                                                         </div>
+
                                                         <div class="col-12" style="text-align: right">
                                                             <button type="submit"
                                                                 class="btn btn-primary mr-1 mb-1">Submit</button>
@@ -257,3 +247,29 @@
     </div>
     <!-- END: Content-->
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all checkboxes
+        const checkboxes = document.querySelectorAll('.subscription-checkbox');
+
+        // Loop through each checkbox
+        checkboxes.forEach(function(checkbox) {
+            // Add event listener to each checkbox
+            checkbox.addEventListener('change', function() {
+                // If the checkbox is checked
+                if (this.checked) {
+                    // Get the group of the clicked checkbox
+                    const group = this.getAttribute('data-group');
+
+                    // Uncheck all checkboxes in the same group except for the clicked one
+                    checkboxes.forEach(function(otherCheckbox) {
+                        if (otherCheckbox !== checkbox && otherCheckbox.getAttribute(
+                                'data-group') === group) {
+                            otherCheckbox.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
