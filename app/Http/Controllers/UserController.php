@@ -551,13 +551,16 @@ class UserController extends Controller
                     $userSubscription->save();
 
                     $userSubscriptionOfStripe =   UserSubscription::where('user_id', $user->_id)->whereIn('type', [1, 2])->where('status', 'paid')->orderBy('plan_type', 'DESC')->first();
-                    if ($userSubscriptionOfStripe->plan_type <  $userSubscription->plan_type) {
-                        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-                        $stripe->subscriptions->cancel($userSubscriptionOfStripe->subscription_id, []);
-                        $userSubscriptionOfStripe->delete();
-                    } else {
-                        $userSubscriptionOfStripe->stripeCancelled = 1;
-                        $userSubscriptionOfStripe->save();
+                    if ($userSubscriptionOfStripe) {
+
+                        if ($userSubscriptionOfStripe->plan_type <  $userSubscription->plan_type) {
+                            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+                            $stripe->subscriptions->cancel($userSubscriptionOfStripe->subscription_id, []);
+                            $userSubscriptionOfStripe->delete();
+                        } else {
+                            $userSubscriptionOfStripe->stripeCancelled = 1;
+                            $userSubscriptionOfStripe->save();
+                        }
                     }
                 }
             }
