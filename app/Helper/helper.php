@@ -246,7 +246,7 @@ function deleteOtherSubscriptions($userSubscription)
     UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->delete();
     UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('type', 3)->delete();
 
-    $oldSubscription = UserSubscription::where('email', $userSubscription->email)->where('_id', $userSubscription->_id)->where('status', 'paid')->first();
+    $oldSubscription = UserSubscription::where('email', $userSubscription->email)->where('_id', '!=', $userSubscription->_id)->where('status', 'paid')->first();
 
     if ($oldSubscription) {
 
