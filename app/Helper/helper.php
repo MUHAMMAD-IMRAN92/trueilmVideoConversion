@@ -262,10 +262,10 @@ function deleteOtherSubscriptions($currentSubscription)
                 $userSubscriptions->save();
             }
         } else {
+            $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
             UserSubscription::where('subscription_id',  $userSubscriptions->subscription_id)->where('email', $currentSubscription->email)->delete();
             $userSubscriptions->status = 'cancelled';
             $userSubscriptions->save();
-            $stripe->subscriptions->cancel($userSubscriptions->subscription_id, []);
         }
     }
     return  1;
