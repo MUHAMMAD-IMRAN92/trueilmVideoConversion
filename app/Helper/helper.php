@@ -257,15 +257,16 @@ function deleteOtherSubscriptions($userSubscription)
                 $userSubscription->subscription_id,
                 ['trial_end' => strtotime($oldSubscription->expiry_date)]
             );
+
+
+            $oldSubscription->stripeCancelled = 1;
+            $oldSubscription->save();
+
             $userSubscription->start_date = Carbon::parse(@$oldSubscription->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $userSubscription->expiry_date = Carbon::parse(@$updatedSubs->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $userSubscription->testString = 'expiry check';
 
             $userSubscription->save();
-
-
-            $oldSubscription->stripeCancelled = 1;
-            $oldSubscription->save();
         } else {
             $stripe->subscriptions->cancel($oldSubscription->subscription_id, []);
             UserSubscription::where('subscription_id',  $oldSubscription->subscription_id)->where('email', $oldSubscription->email)->delete();
