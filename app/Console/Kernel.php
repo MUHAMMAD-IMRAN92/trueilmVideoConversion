@@ -21,9 +21,9 @@ class Kernel extends ConsoleKernel
         $schedule->call(
             [new UserController(), 'checkSubscriptionExpiry']
         )->dailyAt('00:00');
-        $schedule->call(
-            [new DevController(), 'cancelExpireSubscriptions']
-        )->dailyAt('13:00');
+        // $schedule->call(
+        //     [new DevController(), 'cancelExpireSubscriptions']
+        // )->dailyAt('13:00');
         $schedule->call(
             [new DevController(), 'videoConversion']
         )->everyThirtyMinutes();

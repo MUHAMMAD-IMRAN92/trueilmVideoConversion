@@ -239,7 +239,40 @@ function countHtmlFiles($directory)
 
     return $htmlFileCount;
 }
-function deleteOtherSubscriptions($currentSubscription)
+function deleteOtherSubscriptions($userSubscription)
+{
+    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('plan_name', 'Freemium')->delete();
+    UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->delete();
+    UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('type', 3)->delete();
+
+    $oldSubscription = UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->first();
+
+    if ($oldSubscription) {
+
+        if ($oldSubscription->plan_type > $userSubscription->plan_type) {
+
+            $updatedSubs =  $stripe->subscriptions->update(
+                $userSubscription->subscription_id,
+                ['trial_end' => strtotime($oldSubscription->expiry_date)]
+            );
+            $userSubscription->start_date = Carbon::parse(@$oldSubscription->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+            $userSubscription->expiry_date = Carbon::parse(@$updatedSubs->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+            $userSubscription->save();
+
+
+            $oldSubscription->stripeCancelled = 1;
+            $oldSubscription->save();
+        } else {
+            $stripe->subscriptions->cancel($oldSubscription->subscription_id, []);
+            UserSubscription::where('subscription_id',  $oldSubscription->subscription_id)->where('email', $oldSubscription->email)->delete();
+            $oldSubscription->status = 'cancelled';
+            $oldSubscription->save();
+        }
+    }
+    return  1;
+}
+function deleteOtherSubscriptionscopy($currentSubscription)
 {
     $userSubscriptions = UserSubscription::where('email', $currentSubscription->email)->where('status', 'paid')->where('plan_type', '!=', 0)->where('_id', '!=',  $currentSubscription->_id)->whereNull('deleted_at')->first();
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
