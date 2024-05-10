@@ -343,8 +343,9 @@
                                                                     <input type="hidden" name=""
                                                                         id="les_id{{ $key }}"
                                                                         value="{{ $les->_id }}">
-                                                                    {{-- <td id="title{{ $key }}">{{ $les->title }}
-                                                                    </td> --}}
+                                                                    <td class="d-none" id="title{{ $key }}">
+                                                                        {{ $les->title }}
+                                                                    </td>
                                                                     <td onclick="makeInput({{ $key }})">
                                                                         <span id="name-span-{{ $key }}">
                                                                             {{ str_replace('.mp3', '', $les->title) }}</span>
@@ -364,8 +365,9 @@
                                                                             </span>
                                                                         </div>
                                                                     </td>
-                                                                    {{-- <td id="description{{ $key }}">
-                                                                        {{ $les->description }}</td> --}}
+                                                                    <td class="d-none"
+                                                                        id="description{{ $key }}">
+                                                                        {{ $les->description }}</td>
 
 
 
@@ -1144,10 +1146,3 @@
 
     <!-- END: Content-->
 @endsection
-<script>
-    $(document).ready(function() {
-        $(".select2").select2({
-            dropdownParent: $("#author-lang")
-        });
-    });
-</script>
