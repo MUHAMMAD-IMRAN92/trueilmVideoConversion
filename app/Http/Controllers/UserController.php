@@ -550,19 +550,22 @@ class UserController extends Controller
                     }
                     $userSubscription->save();
 
-                    $userSubscriptionOfStripe =   UserSubscription::where('user_id', $user->_id)->whereIn('type', [1, 2])->where('status', 'paid')->orderBy('plan_type', 'DESC')->first();
+                    $userSubscriptionOfStripe =   UserSubscription::where('user_id', $user->_id)->whereIn('type', [1, 2])->where('status', 'paid')->orderBy('plan_type', 'DESC')->get();
                     $freemium =   UserSubscription::where('user_id', $user->_id)->whereIn('plan_type', [0])->where('status', 'paid')->delete();
                     if ($userSubscriptionOfStripe) {
+                        foreach ($userSubscriptionOfStripe as $subs) {
 
-                        if ($userSubscriptionOfStripe->plan_type <=  $userSubscription->plan_type) {
-                            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-                            if (!$userSubscriptionOfStripe->stripeCancelled == 1) {
-                                $stripe->subscriptions->cancel($userSubscriptionOfStripe->subscription_id, []);
+
+                            if ($subs->plan_type <=  $userSubscription->plan_type) {
+                                $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+                                if (!$subs->stripeCancelled == 1) {
+                                    @$stripe->subscriptions->cancel($subs->subscription_id, []);
+                                }
+                                $subs->delete();
+                            } else {
+                                $subs->stripeCancelled = 1;
+                                $subs->save();
                             }
-                            $userSubscriptionOfStripe->delete();
-                        } else {
-                            $userSubscriptionOfStripe->stripeCancelled = 1;
-                            $userSubscriptionOfStripe->save();
                         }
                     }
                 }

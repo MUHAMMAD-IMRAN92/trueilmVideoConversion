@@ -186,7 +186,7 @@ class StripeController extends Controller
                     $userSubscription->expiry_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                     $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                     $userSubscription->istrail = 0;
-                    $userSubscription->testString = 'Status complete if';
+                    // $userSubscription->testString = 'Status complete if';
                     $userSubscription->save();
                     deleteOtherSubscriptions($userSubscription);
                 }
@@ -207,7 +207,7 @@ class StripeController extends Controller
                         $userSubscription->expiry_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
-                        $userSubscription->testString = 'Statu Paid update else';
+                        // $userSubscription->testString = 'Statu Paid update else';
                         $userSubscription->save();
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
                         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
