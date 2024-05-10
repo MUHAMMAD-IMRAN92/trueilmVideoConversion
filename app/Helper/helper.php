@@ -251,6 +251,7 @@ function deleteOtherSubscriptions($userSubscription)
     if ($oldSubscription) {
 
         if ($oldSubscription->plan_type > $userSubscription->plan_type) {
+            $stripe->subscriptions->cancel($oldSubscription->subscription_id, []);
 
             $updatedSubs =  $stripe->subscriptions->update(
                 $userSubscription->subscription_id,
