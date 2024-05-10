@@ -509,6 +509,17 @@
                      }
                  }, {
                      "mRender": function(data, type, row) {
+                         var ptype = '';
+                         if (row.p_type == 0) {
+                             ptype = "Freemium";
+                         } else {
+                             ptype = "Premium";
+                         }
+                         return '<td>' +
+                             ptype + '</td>'
+                     }
+                 }, {
+                     "mRender": function(data, type, row) {
                          var user_name = '';
                          if (row.user != null) {
                              user_name = row.user.name;

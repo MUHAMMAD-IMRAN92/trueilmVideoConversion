@@ -23,7 +23,7 @@
                 </div>
                 <div class="content-header-left col-md-8 mb-2 d-flex" style="justify-content: end;">
                     <div class="row d-flex">
-                        <form action="{{ url('book/during_period/' . $type) }}" method="POST" class="d-flex">
+                        <form action="{{ url('book/during_period/' . $type) }}" method="GET" class="d-flex">
                             @csrf
                             {{-- <div class="mr-1">
                                 <li class="d-inline-block mr-2">
@@ -40,24 +40,37 @@
                                         </div>
                                     </fieldset>
                                 </li>
-                            </div> --}}
-                            {{-- <div class="mr-1">
+                            </div>
+                            <div class="mr-1">
                                 <fieldset class="form-group">
                                     <select class="selct2 form-control" name="approved">
-                                        <option value="" selected disabled>Status</option>
+                                        <option value="" selected disabled>Approval Status</option>
                                         <option value="3" {{ @$approved == 3 ? 'selected' : '' }}>Pending For Approval
                                         </option>
                                         <option value="1" {{ @$approved == 1 ? 'selected' : '' }}>Approved</option>
                                         <option value="2" {{ @$approved == 2 ? 'selected' : '' }}>Rejected</option>
                                     </select>
                                 </fieldset>
-                            </div> --}}
-                            {{-- <div class="mr-1">
+                            </div>
+                            <div class="mr-1">
                                 <fieldset class="form-group">
-                                    <select class="selct2 form-control" name="status">
-                                        <option value="" selected disabled>Status</option>
-                                        <option value="1">Uncategorized</option>
-                                        <option value="2">All Category</option>
+                                    <select class="selct2 form-control" name="category">
+                                        <option value="" selected disabled>Category</option>
+                                        @foreach ($categories as $cat)
+                                            <option value="{{ $cat->_id }}"
+                                                {{ $cat->_id == @$category ? 'selected' : '' }}>{{ $cat->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="mr-1">
+                                <fieldset class="form-group">
+                                    <select class="selct2 form-control" name="p_type">
+                                        <option value="" selected disabled>Price Type</option>
+                                        <option value="1" {{ @$p_type == '1' ? 'selected' : '' }}>Premium
+                                        </option>
+                                        <option value="2" {{ @$p_type == '2' ? 'selected' : '' }}>Freemium</option>
                                     </select>
                                 </fieldset>
                             </div> --}}
@@ -66,13 +79,13 @@
                             </div>
                             <div class="mr-1">
                                 <input class="form-control" type="date" name="e_date" value="{{ @$e_date }}">
-                            </div>
+                            </div> --}}
                             <input type="hidden" name="type" value="{{ $type }}">
-                            <button class="btn-icon btn btn-primary rounded-circle p-0" type="submit"
-                                style="width: 36px; height: 36px;">
-                                <span class="add-brand-font"></span>
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button> --}}
+                                {{-- <button class="btn-icon btn btn-primary rounded-circle p-0" type="submit"
+                                    style="width: 36px; height: 36px;">
+                                    <span class="add-brand-font"></span>
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button> --}}
 
                         </form>
                     </div>
@@ -124,6 +137,7 @@
                                                     <th class="">Author</th>
                                                     {{-- <th class="">Type</th> --}}
                                                     <th class="">Status</th>
+                                                    <th class="">Price</th>
                                                     <th class="">Added By</th>
                                                     <th class="">Approved By</th>
                                                     {{-- <th class="">Read By</th> --}}
@@ -154,7 +168,7 @@
 
                                         <!-- Table with outer spacing -->
                                         <div class="table-responsive">
-                                            <table class="table">
+                                            <table class="table datatable">
                                                 <thead>
                                                     <tr>
                                                         <th>Cover</th>
@@ -165,6 +179,7 @@
                                                         <th class="">Author</th>
                                                         {{-- <th class="">Type</th> --}}
                                                         <th class="">Status</th>
+                                                        <th class="">Price</th>
                                                         <th class="">Added By</th>
                                                         <th class="">Approved By</th>
 
@@ -202,6 +217,10 @@
                                                             if ($b->status == 0) {
                                                                 $eye = 'feather icon-eye-off';
                                                             }
+                                                            $p_type = 'Freemium';
+                                                            if ($p_type == 1) {
+                                                                $p_type = 'Premium';
+                                                            }
                                                         @endphp
                                                         <tr>
                                                             <td><img class="td-img" src="{{ $b->image }}"></td>
@@ -212,6 +231,7 @@
                                                             <td>{{ @$b->author->name ?? '--' }}</td>
                                                             {{-- <td>{{ $b->type }}</td> --}}
                                                             <td>{{ $b->approved }}</td>
+                                                            <td>{{ $p_type }}</td>
                                                             <td>{{ @$b->user_name ?? '--' }}</td>
                                                             <td>{{ @$b->approver_name ?? '--' }}</td>
                                                             <td>{{ $b->numberOfUser }}</td>
@@ -230,6 +250,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                            {{-- {{$books->links()}} --}}
                                         </div>
                                     </div>
 

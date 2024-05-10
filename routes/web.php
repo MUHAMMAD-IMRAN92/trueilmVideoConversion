@@ -143,7 +143,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/approve/{id}', [App\Http\Controllers\BookController::class, 'approveBook'])->name('book.approveBook');
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
     Route::get('book/view/{id}', [App\Http\Controllers\BookController::class, 'viewBook'])->name('book.viewBook');
-    Route::post('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
+    Route::get('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
     Route::get('book/approved', [App\Http\Controllers\BookController::class, 'approved'])->name('book.approved');
     Route::get('all-approved-book', [App\Http\Controllers\BookController::class, 'allApprovedBooks'])->name('book.all-approved');
     Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
@@ -431,19 +431,10 @@ Route::get('dev', function () {
     // $res = $zip->open($book);
     // if ($res === TRUE) {
     //     // Extract to a directory
-    //     $zip->extractTo(public_path('/test/'));
-    //     $zip->close();
+    //     $zip->extras $s) {
 
-    //     echo 'Extraction successful!';
-    // } else {
-    //     echo 'Extraction failed.';
-    // }
+    SurahCombinationJob::dispatch($s->_id, 1);
 
-    $surah = Surah::get();
-    foreach ($surah as $s) {
-
-        SurahCombinationJob::dispatch($s->_id, 1);
-    }
     // \File::deleteDirectory(public_path('delete'));
     // \File::makeDirectory(public_path('delete'));
     return 'Done';
