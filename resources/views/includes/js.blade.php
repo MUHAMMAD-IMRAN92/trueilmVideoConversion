@@ -4627,7 +4627,7 @@
          var les_id = $('#les_id' + key).val();
          var sequence = $('#sequence' + key).val();
          $('#modal_lesson_description').html(description);
-         $('#modal-lesson-title').val(title);
+         $('#modal-lesson-title').val(title.trim());
          $('#course_id').val(epi_id);
          $('#les_id').val(les_id);
          $('#edit-episode').modal('show');
