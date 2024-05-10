@@ -214,6 +214,7 @@ class StripeController extends Controller
 
                         subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-38e9c1b490d048ed83ed9acabd2ad1d0');
                         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
+                        deleteOtherSubscriptions($userSubscription);
                     }
                 }
 
