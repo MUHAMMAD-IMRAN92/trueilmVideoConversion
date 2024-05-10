@@ -556,7 +556,9 @@ class UserController extends Controller
 
                         if ($userSubscriptionOfStripe->plan_type <=  $userSubscription->plan_type) {
                             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-                            $stripe->subscriptions->cancel($userSubscriptionOfStripe->subscription_id, []);
+                            if (!$userSubscriptionOfStripe->stripeCancelled == 1) {
+                                $stripe->subscriptions->cancel($userSubscriptionOfStripe->subscription_id, []);
+                            }
                             $userSubscriptionOfStripe->delete();
                         } else {
                             $userSubscriptionOfStripe->stripeCancelled = 1;
