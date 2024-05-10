@@ -259,6 +259,8 @@ function deleteOtherSubscriptions($userSubscription)
             );
             $userSubscription->start_date = Carbon::parse(@$oldSubscription->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $userSubscription->expiry_date = Carbon::parse(@$updatedSubs->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+            $userSubscription->testString = 'expiry check';
+
             $userSubscription->save();
 
 
