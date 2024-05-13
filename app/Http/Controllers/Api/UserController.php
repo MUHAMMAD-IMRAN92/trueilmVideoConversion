@@ -264,7 +264,7 @@ class UserController extends Controller
                     "Content-Type: application/json"
                 ]);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-             return   $response = curl_exec($ch);
+                $response = curl_exec($ch);
                 curl_close($ch);
                 // dd($response);
 

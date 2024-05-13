@@ -88,7 +88,7 @@
                                 </button> --}}
 
                         </form>
-                        <div class="mr-1">
+                        {{-- <div class="mr-1">
                             <fieldset class="form-group">
                                 <select class="selct2 form-control" name="category" id="ajax-table-category">
                                     <option value="" selected disabled>Category</option>
@@ -110,7 +110,7 @@
                                     <option value="2" {{ @$p_type == '0' ? 'selected' : '' }}>Freemium</option>
                                 </select>
                             </fieldset>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
