@@ -422,9 +422,9 @@ Route::get('dev', function () {
     set_time_limit(0);
     ini_set('max_execution_time', 0);
     ini_set("memory_limit", "-1");
-    $lifeTimeSubscription = UserSubscription::where('email', 'fefov@mailinator.com')->where('status', 'paid')->get();
+    $lifeTimeSubscription = UserSubscription::where('email', 'hagig@mailinator.com')->where('type', 3)->where('status', 'paid')->get();
 
-    return $lifeTimeSubscription;
+    return count($lifeTimeSubscription);
 
     // $book = public_path('1709389902.epub');
 
