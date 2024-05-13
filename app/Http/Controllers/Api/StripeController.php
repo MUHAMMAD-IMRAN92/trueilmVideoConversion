@@ -69,9 +69,9 @@ class StripeController extends Controller
     {
         $user = User::where('email', $request->email)->first();
         if ($user) {
-            $customer =   $user->customer;
+            return $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-          return  $lifeTimeSubscription = UserSubscription::where('email', $request->email)->where('type', 3)->where('status', 'paid')->get();
+            $lifeTimeSubscription = UserSubscription::where('email', $request->email)->where('type', 3)->where('status', 'paid')->get();
 
             if (count($lifeTimeSubscription) > 0 && $request->isAccount == 0) {
                 return  sendSuccess('Checkout Session Url .', '');
