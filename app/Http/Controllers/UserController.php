@@ -572,7 +572,7 @@ class UserController extends Controller
             }
             $checkLifeTime = UserSubscription::where('user_id', $user->_id)->whereNotIn('plan_type',  $request->subscription)->where('plan_id', @$subscription->_id)->delete();
         } else {
-            $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
+            // $checkLifeTime = UserSubscription::where('user_id', $user->_id)->where('plan_id',  @$subscription->_id)->delete();
             $userSubscriptionOfStripe =   UserSubscription::where('user_id', $user->_id)->where('status', 'paid')->first();
             if (!$userSubscriptionOfStripe) {
 
