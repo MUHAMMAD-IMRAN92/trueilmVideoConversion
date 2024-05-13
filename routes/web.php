@@ -422,8 +422,9 @@ Route::get('dev', function () {
     set_time_limit(0);
     ini_set('max_execution_time', 0);
     ini_set("memory_limit", "-1");
+    $lifeTimeSubscription = UserSubscription::where('email', 'fefov@mailinator.com')->where('status', 'paid')->get();
 
-    return 'done';
+    return $lifeTimeSubscription;
 
     // $book = public_path('1709389902.epub');
 
@@ -437,7 +438,6 @@ Route::get('dev', function () {
 
     // \File::deleteDirectory(public_path('delete'));
     // \File::makeDirectory(public_path('delete'));
-    return 'Done';
-    return \Hash::make(rand(1, 10));
+
 });
 Route::get('indexing', [App\Http\Controllers\DevController::class, 'indexing']);
