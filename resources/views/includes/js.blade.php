@@ -407,7 +407,7 @@
              }],
              "order": false
          });
-         $('#ebook-table').DataTable({
+         var ebooktable = $('#ebook-table').DataTable({
              "processing": true,
              "stateSave": true,
              "serverSide": true,
@@ -584,6 +584,18 @@
                  "orderable": false
              }],
              "order": false
+         });
+         $('#ajax-table-category').on('change', function() {
+             // Get the selected category value
+             var category = $(this).val();
+             // Update the DataTable's AJAX URL with the selected category value
+             ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category).load();
+         });
+         $('#ajax-table-price').on('change', function() {
+             // Get the selected category value
+             var price = $(this).val();
+             // Update the DataTable's AJAX URL with the selected category value
+             ebooktable.ajax.url('<?= url('all-book') ?>?price=' + price).load();
          });
          $('#hadees-table').DataTable({
              "processing": true,

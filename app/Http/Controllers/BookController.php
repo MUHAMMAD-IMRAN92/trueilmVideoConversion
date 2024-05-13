@@ -61,8 +61,12 @@ class BookController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', (int)$request->price);
         })->count();
         $brands = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
@@ -70,11 +74,19 @@ class BookController extends Controller
             });
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', (int)$request->price);
         })->with('author', 'user', 'approver', 'category')->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', (int)$request->price);
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->skip((int) $start)->take((int) $length)->count();

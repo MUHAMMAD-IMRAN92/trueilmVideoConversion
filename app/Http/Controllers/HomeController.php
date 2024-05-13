@@ -93,7 +93,7 @@ class HomeController extends Controller
                     ]
                 ],
                 "from" => [
-                    "email" => $from_email
+                "email" => $from_email
                 ],
                 "template_id" => $template_id
             ]);

@@ -81,15 +81,39 @@
                                 <input class="form-control" type="date" name="e_date" value="{{ @$e_date }}">
                             </div> --}}
                             <input type="hidden" name="type" value="{{ $type }}">
-                                {{-- <button class="btn-icon btn btn-primary rounded-circle p-0" type="submit"
+                            {{-- <button class="btn-icon btn btn-primary rounded-circle p-0" type="submit"
                                     style="width: 36px; height: 36px;">
                                     <span class="add-brand-font"></span>
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </button> --}}
 
                         </form>
+                        <div class="mr-1">
+                            <fieldset class="form-group">
+                                <select class="selct2 form-control" name="category" id="ajax-table-category">
+                                    <option value="" selected disabled>Category</option>
+                                    @foreach ($categories as $cat)
+                                        <option value="{{ $cat->_id }}">
+                                            {{ $cat->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </fieldset>
+                        </div>
+                        <div class="mr-1">
+                            <fieldset class="form-group">
+                                <select class="selct2 form-control" name="category" id="ajax-table-price">
+
+                                    <option value="" selected disabled>Price Type</option>
+                                    <option value="1" {{ @$p_type == '1' ? 'selected' : '' }}>Premium
+                                    </option>
+                                    <option value="2" {{ @$p_type == '0' ? 'selected' : '' }}>Freemium</option>
+                                </select>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
+
 
 
                 <div class="content-header-right text-md-right col-md-2  d-md-block d-none">
