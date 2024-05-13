@@ -242,8 +242,17 @@ function countHtmlFiles($directory)
 function deleteOtherSubscriptions($userSubscription)
 {
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    UserSubscription::where('email', $userSubscription->email)->where('plan_name', 'Freemium')->update([
+        'testString' =>  'updated by type Free'
+    ]);
     UserSubscription::where('email', $userSubscription->email)->where('plan_name', 'Freemium')->delete();
+    UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->update([
+        'testString' =>  'updated by type1'
+    ]);
     UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->delete();
+    UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('type', 3)->update([
+        'testString' =>  'updated by type3'
+    ]);
     UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('type', 3)->delete();
 
     $oldSubscription = UserSubscription::where('email', $userSubscription->email)->where('_id', '!=', $userSubscription->_id)->where('status', 'paid')->first();
@@ -271,6 +280,9 @@ function deleteOtherSubscriptions($userSubscription)
             $stripe->subscriptions->cancel($oldSubscription->subscription_id, []);
             $oldSubscription->status = 'cancelled';
             $oldSubscription->save();
+            UserSubscription::where('subscription_id',  $oldSubscription->subscription_id)->where('email', $oldSubscription->email)->update([
+                'testString' =>  'updated by else'
+            ]);
             UserSubscription::where('subscription_id',  $oldSubscription->subscription_id)->where('email', $oldSubscription->email)->delete();
         }
     }

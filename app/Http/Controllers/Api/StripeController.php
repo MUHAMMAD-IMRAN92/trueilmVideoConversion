@@ -192,7 +192,7 @@ class StripeController extends Controller
                     $userSubscription->expiry_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                     $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                     $userSubscription->istrail = 0;
-                    // $userSubscription->testString = 'Status complete if';
+                    $userSubscription->testString = 'Status complete if';
                     $userSubscription->save();
                     deleteOtherSubscriptions($userSubscription);
                 }
