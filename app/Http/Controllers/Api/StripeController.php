@@ -212,7 +212,7 @@ class StripeController extends Controller
                         $userSubscription->expiry_date = Carbon::parse(@$subscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->start_date = Carbon::parse(@$subscription->created)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->canceled_at = '';
-                        // $userSubscription->testString = 'Statu Paid update else';
+                        $userSubscription->testString = 'Statu Paid update else';
                         $userSubscription->save();
                         addContactToSendGridList(@$userSubscription->email, @$userSubscription->type);
                     }
