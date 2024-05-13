@@ -422,29 +422,7 @@ Route::get('dev', function () {
     set_time_limit(0);
     ini_set('max_execution_time', 0);
     ini_set("memory_limit", "-1");
-    $existing =   UserSubscription::where('user_id',  '66422a6b65a939629789b581')->where('plan_name', 'Freemium')->delete();
+    UserSubscription::where('user_id',  @$userSubscription->user_id)->where('plan_name', 'Freemium')->delete();
 
     return $existing;
-
-    // $book = public_path('1709389902.epub');
-
-    // $zip = new ZipArchive;
-    // $res = $zip->open($book);
-    // if ($res === TRUE) {
-    //     // Extract to a directory
-    //     $zip->extras $s) {
-
-    SurahCombinationJob::dispatch($s->_id, 1);
-eSubscription = UserSubscription::where('email', 'hagig@mailinator.com')->where('type', 3)->where('status', 'paid')->get();
-
-    return count($lifeTimeSubscription);
-
-    // $book = public_path('1709389902.epub');
-
-    // $zip = new ZipArchive;
-    // $res = $zip->open($book);
-    // if ($res === TRUE) {
-    //     // Extract to a directory
-    //     $zip->extras $s) {
-
-    // SurahCombinationJob::dispatch($s->_id, 1);
+});
