@@ -269,9 +269,9 @@ function deleteOtherSubscriptions($userSubscription)
             $userSubscription->save();
         } else {
             $stripe->subscriptions->cancel($oldSubscription->subscription_id, []);
-            UserSubscription::where('subscription_id',  $oldSubscription->subscription_id)->where('email', $oldSubscription->email)->delete();
             $oldSubscription->status = 'cancelled';
             $oldSubscription->save();
+            UserSubscription::where('subscription_id',  $oldSubscription->subscription_id)->where('email', $oldSubscription->email)->delete();
         }
     }
     return  1;
