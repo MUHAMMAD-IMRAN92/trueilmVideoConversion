@@ -434,7 +434,7 @@ Route::get('dev', function () {
     //     // Extract to a directory
     //     $zip->extras $s) {
 
-    SurahCombinationJob::dispatch($s->_id, 1);
+    // SurahCombinationJob::dispatch($s->_id, 1);
 
     // \File::deleteDirectory(public_path('delete'));
     // \File::makeDirectory(public_path('delete'));
