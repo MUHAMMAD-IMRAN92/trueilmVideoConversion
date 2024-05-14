@@ -415,6 +415,7 @@
              "language": {
                  "searchPlaceholder": "Search here"
              },
+
              "ajax": {
                  url: '<?= url('all-book') ?>',
                  data: {
@@ -510,7 +511,7 @@
                  }, {
                      "mRender": function(data, type, row) {
                          var ptype = '';
-                         if (row.p_type == 0) {
+                         if (row.p_type == "0") {
                              ptype = "Freemium";
                          } else {
                              ptype = "Premium";
@@ -585,18 +586,96 @@
              }],
              "order": false
          });
+         var category;
+         var price;
+         var aproval;
+         var uncategorized = '';
+         var author = '';
          $('#ajax-table-category').on('change', function() {
              // Get the selected category value
-             var category = $(this).val();
+             price = $('#ajax-table-price').val() == null ? '' : $('#ajax-table-price').val();
+             category = $(this).val() == null ? '' : $(this).val();
+             aproval = $('#ajax-table-approval').val() == null ? '' : $('#ajax-table-approval').val();
+             if ($('#ajax-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             author = $('#ajax-table-author').val() == null ? '' : $('#ajax-table-author').val();
              // Update the DataTable's AJAX URL with the selected category value
-             ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category).load();
+             ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
+                     '&aproval=' + aproval + '&uncategorized=' + uncategorized + '&author=' + author)
+                 .load();
          });
          $('#ajax-table-price').on('change', function() {
              // Get the selected category value
-             var price = $(this).val();
+             price = $(this).val() == null ? '' : $(this).val();
+             category = $('#ajax-table-category').val() == null ? '' : $('#ajax-table-category').val();
+             aproval = $('#ajax-table-approval').val() == null ? '' : $('#ajax-table-approval').val();
+             author = $('#ajax-table-author').val() == null ? '' : $('#ajax-table-author').val();
+             if ($('#ajax-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
              // Update the DataTable's AJAX URL with the selected category value
-             ebooktable.ajax.url('<?= url('all-book') ?>?price=' + price).load();
+             ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
+                     '&aproval=' + aproval + '&uncategorized=' + uncategorized + '&author=' + author)
+                 .load();
          });
+         $('#ajax-table-approval').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-table-price').val() == null ? '' : $('#ajax-table-price').val();
+             category = $('#ajax-table-category').val() == null ? '' : $('#ajax-table-category').val();
+             aproval = $(this).val() == null ? '' : $(this).val();
+             author = $('#ajax-table-author').val() == null ? '' : $('#ajax-table-author').val();
+             if ($('#ajax-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             // Update the DataTable's AJAX URL with the selected category value
+             ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
+                     '&aproval=' + aproval + '&uncategorized=' + uncategorized + '&author=' + author)
+                 .load();
+         });
+         $('#ajax-table-author').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-table-price').val() == null ? '' : $('#ajax-table-price').val();
+             category = $('#ajax-table-category').val() == null ? '' : $('#ajax-table-category').val();
+             author = $(this).val() == null ? '' : $(this).val();
+             if ($('#ajax-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             // Update the DataTable's AJAX URL with the selected category value
+             ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
+                     '&aproval=' + aproval + '&uncategorized=' + '&author=' + author)
+                 .load();
+         });
+         $('#ajax-uncategorized').on('change', function() {
+             if ($(this).is(':checked')) {
+                 // Get the selected category value
+                 $('#ajax-table-category').prop('disabled', true);
+                 console.log($(this).val());
+                 price = $('#ajax-table-price').val() == null ? '' : $('#ajax-table-price').val();
+                 category = '';
+                 aproval = $('#ajax-table-approval').val() == null ? '' : $('#ajax-table-approval')
+                     .val();
+                 author = $('#ajax-table-author').val() == null ? '' : $('#ajax-table-author').val();
+                 // Update the DataTable's AJAX URL with the selected category value
+                 ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
+                         '&aproval=' + aproval + '&uncategorized=' + true + '&author=' + author)
+                     .load();
+             } else {
+                 $('#ajax-table-category').prop('disabled', false);
+                 price = $('#ajax-table-price').val() == null ? '' : $('#ajax-table-price').val();
+                 category = $('#ajax-table-category').val() == null ? '' : $('#ajax-table-category')
+                     .val();
+                 aproval = $('#ajax-table-approval').val() == null ? '' : $('#ajax-table-approval')
+                     .val();
+                 author = $('#ajax-table-author').val() == null ? '' : $('#ajax-table-author').val();
+
+                 // Update the DataTable's AJAX URL with the selected category value
+                 ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
+                         '&aproval=' + aproval + '&author=' + author)
+                     .load();
+             }
+         });
+
          $('#hadees-table').DataTable({
              "processing": true,
              "stateSave": true,
@@ -2465,7 +2544,7 @@
              }],
              "order": false
          });
-         $('#courses-table').DataTable({
+         var courseTable = $('#courses-table').DataTable({
              "processing": true,
              "stateSave": true,
              "serverSide": true,
@@ -2563,6 +2642,135 @@
                  "orderable": false
              }],
              "order": false
+         });
+         var courseCategory;
+         var coursePrice;
+         var courseAproval;
+         var courseUncategorized = '';
+         var courseAuthor = '';
+         $('#course-ajax-table-category').on('change', function() {
+             // Get the selected category value
+             coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
+                 '#course-ajax-table-price').val();
+             courseCategory = $(this).val() == null ? '' : $(this).val();
+             courseAproval = $('#course-ajax-table-approval').val() == null ? '' : $(
+                 '#course-ajax-table-approval').val();
+             courseAuthor = $('#course-ajax-table-author').val() == null ? '' : $(
+                 '#course-ajax-table-author').val();
+             if ($('#course-ajax-uncategorized').is(':checked')) {
+                 courseUncategorized = true
+             }
+             // Update the DataTable's AJAX URL with the selected category value
+             courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory + '&price=' +
+                     coursePrice +
+                     '&aproval=' + courseAproval + '&uncategorized=' + courseUncategorized + '&author=' +
+                     courseAuthor
+                 )
+                 .load();
+         });
+         $('#course-ajax-table-price').on('change', function() {
+             // Get the selected category value
+             coursePrice = $(this).val() == null ? '' : $(this).val();
+             courseCategory = $('#course-ajax-table-category').val() == null ? '' : $(
+                 '#course-ajax-table-category').val();
+             courseAproval = $('#course-ajax-table-approval').val() == null ? '' : $(
+                 '#course-ajax-table-approval').val();
+             courseAuthor = $('#course-ajax-table-author').val() == null ? '' : $(
+                 '#course-ajax-table-author').val();
+             if ($('#course-ajax-uncategorized').is(':checked')) {
+                 courseUncategorized = true
+             }
+             // Update the DataTable's AJAX URL with the selected category value
+             courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory + '&price=' +
+                     coursePrice +
+                     '&aproval=' + courseAproval + '&uncategorized=' + courseUncategorized + '&author=' +
+                     courseAuthor
+                 )
+                 .load();
+         });
+         $('#course-ajax-table-approval').on('change', function() {
+             // Get the selected category value
+             coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
+                 '#course-ajax-table-price').val();
+             courseCategory = $('#course-ajax-table-category').val() == null ? '' : $(
+                 '#course-ajax-table-category').val();
+             courseAproval = $(this).val() == null ? '' : $(this).val();
+             if ($('#course-ajax-uncategorized').is(':checked')) {
+                 courseUncategorized = true
+             }
+             courseAuthor = $('#course-ajax-table-author').val() == null ? '' : $(
+                 '#course-ajax-table-author').val();
+             // Update the DataTable's AJAX URL with the selected category value
+             courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory + '&price=' +
+                     coursePrice +
+                     '&aproval=' + courseAproval + '&uncategorized=' + courseUncategorized + '&author=' +
+                     courseAuthor
+                 )
+                 .load();
+         });
+         $('#course-ajax-table-author').on('change', function() {
+             // Get the selected category value
+             coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
+                 '#course-ajax-table-price').val();
+             courseCategory = $('#course-ajax-table-category').val() == null ? '' : $(
+                 '#course-ajax-table-category').val();
+             courseAuthor = $(this).val() == null ? '' : $(this).val();
+             if ($('#course-ajax-uncategorized').is(':checked')) {
+                 courseUncategorized = true
+             }
+             courseAproval = $('#course-ajax-table-approval').val() == null ? '' : $(
+                 '#course-ajax-table-approval').val();
+
+             // Update the DataTable's AJAX URL with the selected category value
+             courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory + '&price=' +
+                     coursePrice +
+                     '&aproval=' + courseAproval + '&uncategorized=' + courseUncategorized + '&author=' +
+                     courseAuthor
+                 )
+                 .load();
+         });
+         $('#course-ajax-uncategorized').on('change', function() {
+             if ($(this).is(':checked')) {
+                 // Get the selected category value
+                 $('#course-ajax-table-category').prop('disabled', true);
+                 console.log($(this).val());
+                 coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
+                     '#course-ajax-table-price').val();
+                 courseCategory = '';
+                 courseAproval = $('#course-ajax-table-approval').val() == null ? '' : $(
+                         '#course-ajax-table-approval')
+                     .val();
+                 courseAuthor = $('#course-ajax-table-author').val() == null ? '' : $(
+                     '#course-ajax-table-author').val();
+                 // Update the DataTable's AJAX URL with the selected category value
+                 courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory +
+                         '&price=' +
+                         coursePrice +
+                         '&aproval=' + courseAproval + '&uncategorized=' + true + '&author=' +
+                         courseAuthor
+                     )
+                     .load();
+             } else {
+                 $('#course-ajax-table-category').prop('disabled', false);
+                 coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
+                     '#course-ajax-table-price').val();
+                 courseCategory = $('#course-ajax-table-category').val() == null ? '' : $(
+                         '#course-ajax-table-category')
+                     .val();
+                 courseAproval = $('#course-ajax-table-approval').val() == null ? '' : $(
+                         '#course-ajax-table-approval')
+                     .val();
+                 courseAuthor = $('#course-ajax-table-author').val() == null ? '' : $(
+                     '#course-ajax-table-author').val();
+                 // Update the DataTable's AJAX URL with the selected category value
+                 courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory +
+                         '&price=' +
+                         coursePrice +
+                         '&aproval=' + courseAproval + '&author=' +
+                         courseAuthor
+                     )
+                     .load();
+             }
          });
          $('#support-table').DataTable({
              "processing": true,

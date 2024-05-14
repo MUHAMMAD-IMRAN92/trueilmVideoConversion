@@ -32,7 +32,13 @@ class CourseController extends Controller
     }
     public function index()
     {
-        return view('courses.index');
+        $categories = Category::active()->get();
+        $authors = Author::where('type', '1')->get();
+
+        return view('courses.index', [
+            'categories' => $categories,
+            'authors' => $authors
+        ]);
     }
     public function allCourses(Request $request)
     {
@@ -49,20 +55,53 @@ class CourseController extends Controller
         $search = $request->search['value'];
         $totalBrands = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($user_id, $request) {
+            $query->where('approved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->count();
+
         $brands = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($user_id, $request) {
+            $query->where('approved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->orderBy('created_at', 'desc')->with('user', 'category')->skip((int) $start)->take((int) $length)->get();
+
+
         $brandsCount = Course::when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($user_id, $request) {
+            $query->where('approved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
             'draw' => $draw,

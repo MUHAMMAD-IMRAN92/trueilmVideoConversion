@@ -25,61 +25,6 @@
                     <div class="row d-flex">
                         <form action="{{ url('book/during_period/' . $type) }}" method="GET" class="d-flex">
                             @csrf
-                            {{-- <div class="mr-1">
-                                <li class="d-inline-block mr-2">
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" value="1" name="uncategorized"
-                                                {{ @$uncategorized == 1 ? 'checked' : '' }}>
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">Uncategorized </span>
-                                        </div>
-                                    </fieldset>
-                                </li>
-                            </div>
-                            <div class="mr-1">
-                                <fieldset class="form-group">
-                                    <select class="selct2 form-control" name="approved">
-                                        <option value="" selected disabled>Approval Status</option>
-                                        <option value="3" {{ @$approved == 3 ? 'selected' : '' }}>Pending For Approval
-                                        </option>
-                                        <option value="1" {{ @$approved == 1 ? 'selected' : '' }}>Approved</option>
-                                        <option value="2" {{ @$approved == 2 ? 'selected' : '' }}>Rejected</option>
-                                    </select>
-                                </fieldset>
-                            </div>
-                            <div class="mr-1">
-                                <fieldset class="form-group">
-                                    <select class="selct2 form-control" name="category">
-                                        <option value="" selected disabled>Category</option>
-                                        @foreach ($categories as $cat)
-                                            <option value="{{ $cat->_id }}"
-                                                {{ $cat->_id == @$category ? 'selected' : '' }}>{{ $cat->title }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </fieldset>
-                            </div>
-                            <div class="mr-1">
-                                <fieldset class="form-group">
-                                    <select class="selct2 form-control" name="p_type">
-                                        <option value="" selected disabled>Price Type</option>
-                                        <option value="1" {{ @$p_type == '1' ? 'selected' : '' }}>Premium
-                                        </option>
-                                        <option value="2" {{ @$p_type == '2' ? 'selected' : '' }}>Freemium</option>
-                                    </select>
-                                </fieldset>
-                            </div> --}}
-                            {{-- <div class="mr-1">
-                                <input class="form-control" type="date" name="s_date" value="{{ @$s_date }}">
-                            </div>
-                            <div class="mr-1">
-                                <input class="form-control" type="date" name="e_date" value="{{ @$e_date }}">
-                            </div> --}}
                             <input type="hidden" name="type" value="{{ $type }}">
                             {{-- <button class="btn-icon btn btn-primary rounded-circle p-0" type="submit"
                                     style="width: 36px; height: 36px;">
@@ -88,10 +33,26 @@
                                 </button> --}}
 
                         </form>
-                        {{-- <div class="mr-1">
-                            <fieldset class="form-group">
-                                <select class="selct2 form-control" name="category" id="ajax-table-category">
-                                    <option value="" selected disabled>Category</option>
+                        <div class="mr-1">
+                            <li class="d-inline-block mr-2" style="margin-top: 5px !important">
+                                <fieldset>
+                                    <div class="vs-checkbox-con vs-checkbox-primary">
+                                        <input type="checkbox" value="1" name="uncategorized" id="ajax-uncategorized"
+                                            {{ @$uncategorized == 1 ? 'checked' : '' }}>
+                                        <span class="vs-checkbox">
+                                            <span class="vs-checkbox--check">
+                                                <i class="vs-icon feather icon-check"></i>
+                                            </span>
+                                        </span>
+                                        <span class="">Uncategorized </span>
+                                    </div>
+                                </fieldset>
+                            </li>
+                        </div>
+                        <div class="mr-1">
+                            <fieldset class="form-group" style="width: 10rem !important">
+                                <select class="select2 form-control" name="category" id="ajax-table-category">
+                                    <option value=" " selected disabled>Category</option>
                                     @foreach ($categories as $cat)
                                         <option value="{{ $cat->_id }}">
                                             {{ $cat->title }}
@@ -101,16 +62,40 @@
                             </fieldset>
                         </div>
                         <div class="mr-1">
-                            <fieldset class="form-group">
-                                <select class="selct2 form-control" name="category" id="ajax-table-price">
-
-                                    <option value="" selected disabled>Price Type</option>
-                                    <option value="1" {{ @$p_type == '1' ? 'selected' : '' }}>Premium
-                                    </option>
-                                    <option value="2" {{ @$p_type == '0' ? 'selected' : '' }}>Freemium</option>
+                            <fieldset class="form-group" style="width: 10rem !important">
+                                <select class="select2 form-control" name="author" id="ajax-table-author">
+                                    <option value=" " selected disabled>Author</option>
+                                    @foreach ($authors as $auth)
+                                        <option value="{{ $auth->_id }}">
+                                            {{ $auth->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </fieldset>
-                        </div> --}}
+                        </div>
+                        <div class="mr-1">
+                            <fieldset class="form-group">
+                                <select class="selct2 form-control" name="price" id="ajax-table-price">
+
+                                    <option value=" " selected disabled>Price Type</option>
+                                    <option value="1" {{ @$p_type == '1' ? 'selected' : '' }}>Premium
+                                    </option>
+                                    <option value="0" {{ @$p_type == '0' ? 'selected' : '' }}>Freemium</option>
+                                </select>
+                            </fieldset>
+                        </div>
+                        <div class="mr-1">
+                            <fieldset class="form-group">
+                                <select class="selct2 form-control" name="approval" id="ajax-table-approval">
+
+                                    <option value=" " selected disabled>Approval Type</option>
+                                    <option value="0">Pending For Approval
+                                    </option>
+                                    <option value="1">Approved</option>
+                                    <option value="2">Rejected</option>
+                                </select>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
 

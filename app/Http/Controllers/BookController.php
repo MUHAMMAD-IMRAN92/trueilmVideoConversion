@@ -38,11 +38,13 @@ class BookController extends Controller
     {
         Session::put('bookType', $type);
         $categories = Category::active()->get();
+        $authors = Author::where('type', '1')->get();
 
         return view('eBook.index', [
             'type' => $type,
             'categories' => $categories,
-            'hidden_table' => 0
+            'hidden_table' => 0,
+            'authors' => $authors
         ]);
     }
     public function allBooks(Request $request)
@@ -57,7 +59,7 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
+        $totalBrands = Book::where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -66,9 +68,16 @@ class BookController extends Controller
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
-            $query->where('p_type', (int)$request->price);
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($user_id, $request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->count();
-        $brands = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
+
+        $brands = Book::where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -77,18 +86,33 @@ class BookController extends Controller
         })->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($request->price, function ($query) use ($user_id, $request) {
-            $query->where('p_type', (int)$request->price);
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($user_id, $request) {
+            $query->where('approved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->with('author', 'user', 'approver', 'category')->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::where('approved', '!=', 2)->where('type', $request->type)->when($search, function ($q) use ($search) {
+
+        $brandsCount = Book::where('type', $request->type)->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($request->price, function ($query) use ($user_id, $request) {
-            $query->where('p_type', (int)$request->price);
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($user_id, $request) {
+            $query->where('aproved', (int)$request->aproval);
         })->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
+        })->when($request->aproval, function ($query) use ($user_id, $request) {
+            $query->where('approved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->skip((int) $start)->take((int) $length)->count();
         // $brands->map(function ($b) {
         //     $b->numberOfUser = $b->totalUserReadThisBook();
