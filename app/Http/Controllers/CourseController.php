@@ -358,7 +358,8 @@ class CourseController extends Controller
             // $courseLesson->thumbnail = $request->thumbnail->getClientOriginalName();
         }
         $courseLesson->sequence = (int) @$request->sequence ?? 0;
-        $courseLesson->hls_conversion = 0;
+        $courseLesson->is_kwl = $request->is_kwl;
+        $courseLesson->hls_conversion = @$courseLesson->hls_conversion ?? 0;
 
         $courseLesson->save();
 

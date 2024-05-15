@@ -1,6 +1,12 @@
 @extends('layouts.default_layout')
 
 @section('content')
+    <style>
+        .cat-img {
+            width: 125px;
+            height: 125px;
+        }
+    </style>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -93,6 +99,22 @@
 
                                                         <input type="color" id="colorpicker" class="form-control"
                                                             name="color" value="#{{ $category->color }}">
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Icon</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="icon" accept="image/*">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        <img class="cat-img" src="{{ $category->image }}" alt="">
                                                     </div>
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">

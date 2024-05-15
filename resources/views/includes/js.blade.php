@@ -641,9 +641,10 @@
              if ($('#ajax-uncategorized').is(':checked')) {
                  uncategorized = true
              }
+
              // Update the DataTable's AJAX URL with the selected category value
              ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
-                     '&aproval=' + aproval + '&uncategorized=' + '&author=' + author)
+                     '&aproval=' + aproval + '&uncategorized=' + uncategorized + '&author=' + author)
                  .load();
          });
          $('#ajax-uncategorized').on('change', function() {
@@ -657,7 +658,7 @@
                      .val();
                  author = $('#ajax-table-author').val() == null ? '' : $('#ajax-table-author').val();
                  // Update the DataTable's AJAX URL with the selected category value
-                 ebooktable.ajax.url('<?= url('all-book') ?>?category=' + category + '&price=' + price +
+                 ebooktable.ajax.url('<?= url('all-book') ?>?price=' + price +
                          '&aproval=' + aproval + '&uncategorized=' + true + '&author=' + author)
                      .load();
              } else {
@@ -2668,26 +2669,7 @@
                  )
                  .load();
          });
-         $('#course-ajax-table-price').on('change', function() {
-             // Get the selected category value
-             coursePrice = $(this).val() == null ? '' : $(this).val();
-             courseCategory = $('#course-ajax-table-category').val() == null ? '' : $(
-                 '#course-ajax-table-category').val();
-             courseAproval = $('#course-ajax-table-approval').val() == null ? '' : $(
-                 '#course-ajax-table-approval').val();
-             courseAuthor = $('#course-ajax-table-author').val() == null ? '' : $(
-                 '#course-ajax-table-author').val();
-             if ($('#course-ajax-uncategorized').is(':checked')) {
-                 courseUncategorized = true
-             }
-             // Update the DataTable's AJAX URL with the selected category value
-             courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory + '&price=' +
-                     coursePrice +
-                     '&aproval=' + courseAproval + '&uncategorized=' + courseUncategorized + '&author=' +
-                     courseAuthor
-                 )
-                 .load();
-         });
+
          $('#course-ajax-table-approval').on('change', function() {
              // Get the selected category value
              coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
@@ -3204,7 +3186,7 @@
              $('.spinner-border').css('display', 'block');
              $('.submit-text').css('display', 'none');
          });
-         $('#app-user-table').DataTable({
+         var appUserTable = $('#app-user-table').DataTable({
              "processing": true,
              "stateSave": true,
              "serverSide": true,
@@ -3245,13 +3227,13 @@
                      }
                  }, {
                      "mRender": function(data, type, row) {
-                         var status = '';
-                         if (row.status == 0) {
-                             status = 'Not Subscribed';
-                         } else {
-                             status = 'Subscribed';
+                         var status = row.status;
+                         //  if (row.status == 0) {
+                         //      status = 'Not Subscribed';
+                         //  } else {
+                         //      status = 'Subscribed';
 
-                         }
+                         //  }
                          return '<td>' +
                              status +
                              '</td>'
@@ -3272,6 +3254,27 @@
                  "orderable": false
              }],
              "order": false
+         });
+         $('#user-ajax-table-unsubscribed').on('change', function() {
+             if ($(this).is(':checked')) {
+                 $('#user-ajax-table-plan-type').prop('disabled', true);
+
+                 appUserTable.ajax.url('<?= url('all-app-user') ?>?unsubscribed=' + true)
+                     .load();
+             } else {
+                 $('#user-ajax-table-plan-type').prop('disabled', false);
+
+                 appUserTable.ajax.url('<?= url('all-app-user') ?>?unsubscribed=')
+                     .load();
+             }
+
+         });
+         $('#user-ajax-table-plan-type').on('change', function() {
+             planType = $(this).val() == null ? '' : $(this).val();
+
+             appUserTable.ajax.url('<?= url('all-app-user') ?>?planType=' + planType)
+                 .load();
+
          });
          $('#cancel-subsciption').DataTable({
              "processing": true,
@@ -4177,6 +4180,7 @@
 
      function getFilesAjax(key) {
          var referenceType = $('#reference-new-lang-select-' + key).val();
+         $('#file-new-lang-select-' + key).html('<option value="" selected disabled>Loading...</option>');
 
          $.ajax({
              type: "GET",
@@ -4846,12 +4850,16 @@
          var epi_id = $('#episode_id' + key).val();
          var les_id = $('#les_id' + key).val();
          var sequence = $('#sequence' + key).val();
+         var kwl = $('#kwl' + key).val();
          $('#modal_lesson_description').html(description);
          $('#modal-lesson-title').val(title.trim());
          $('#course_id').val(epi_id);
          $('#les_id').val(les_id);
          $('#edit-episode').modal('show');
          $('#modal-episode-sequence').val(sequence);
+         if (kwl == 1) {
+             $('#modal-episode-kwl').prop('checked', true);
+         }
      }
 
      function addQuestion() {

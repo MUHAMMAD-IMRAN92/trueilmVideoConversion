@@ -87,6 +87,19 @@
                                                         <input type="color" id="colorpicker" class="form-control"
                                                             name="color" value="#0000ff">
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Icon</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input"
+                                                                    id="inputGroupFile01" name="icon" accept="image/*">
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Image</label>

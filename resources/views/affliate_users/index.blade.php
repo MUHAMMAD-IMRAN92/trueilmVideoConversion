@@ -73,27 +73,7 @@
                                                         <td>{{ $user->phone }}</td>
                                                         <td>{{ count($user->refferer) }}</td>
                                                         <td>
-                                                            @forelse ($user->subscription as $subs)
-                                                                @php
-                                                                    $type = 'Life Time';
-                                                                    if (@$subs->plan->type == 1) {
-                                                                        $type = 'Monthly';
-                                                                    } elseif (@$subs->plan->type == 2) {
-                                                                        $type = 'Yearly';
-                                                                    }
-                                                                    $mtype = 'Big Family';
-                                                                    if (@$subs->type == 1) {
-                                                                        $mtype = 'Individual';
-                                                                    } elseif (@$subs->type == 2) {
-                                                                        $mtype = 'Family';
-                                                                    }
-                                                                @endphp
-
-                                                                {{ $mtype . ' : '. $type }}
-                                                                <br>
-                                                            @empty
-                                                                Not Subscribed
-                                                            @endforelse
+                                                           {{$user->status}}
                                                         </td>
                                                         <td> <a href="{{ url('affiliate/reffered/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"

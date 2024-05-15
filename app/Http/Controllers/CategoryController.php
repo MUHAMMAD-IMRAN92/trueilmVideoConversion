@@ -83,10 +83,10 @@ class CategoryController extends Controller
             $category->status = 1;
             $category->parent_id = $request->parent_id;
             $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-            if ($request->has('image')) {
-                $file = $request->file('image');
+            if ($request->has('icon')) {
+                $file = $request->file('icon');
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
+                $path =   $request->file('icon')->storeAs('categories_image', $file_name, 's3');
                 Storage::disk('s3')->setVisibility($path, 'public');
                 $category->image  = $base_path . $path;
             }
@@ -116,10 +116,10 @@ class CategoryController extends Controller
         $category->status = $category->status;
         $category->parent_id = $request->parent_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-        if ($request->has('image')) {
-            $file = $request->file('image');
+        if ($request->has('icon')) {
+            $file = $request->file('icon');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
-            $path =   $request->file('image')->storeAs('categories_image', $file_name, 's3');
+            $path =   $request->file('icon')->storeAs('categories_image', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
             $category->image  = $base_path . $path;
         }
@@ -132,13 +132,14 @@ class CategoryController extends Controller
         $book = Book::where('category_id', $id)->get();
         $course = Course::where('category_id', $id)->get();
         $categories = Category::active()->where('_id', '!=', $id)->get();
-        if (count($book) > 0 && count($course) > 0) {
+        $currentCategory = Category::where('_id', $id)->first();
+        if (count($book) > 0 || count($course) > 0) {
 
             return view('category.switch_category', [
                 'books' => $book,
                 'courses' => $course,
                 'categories' => $categories,
-                'currentCategory' => $id
+                'currentCategory' => $currentCategory
             ]);
         } else {
 

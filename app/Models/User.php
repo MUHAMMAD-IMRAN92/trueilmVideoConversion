@@ -51,13 +51,28 @@ class User extends Authenticatable
     public function getStatusAttribute()
     {
 
-        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('plan_name', '!=', 'Freemium')->where('status', 'paid')->get();
-        if ($userSubscription) {
-            return count($userSubscription);
-        } else {
-            return 0;
+        $userSubscription = UserSubscription::where('user_id', $this->_id)->where('status', 'paid')->orderBy('plan_type', 'DESC')->first();
+        if (@$userSubscription->plan_type == 3) {
+            return 'Big Family';
+        } else if (@$userSubscription->plan_type == 2) {
+            return 'Family';
+        } elseif (@$userSubscription->plan_type == 1) {
+            return 'Individual';
+        } elseif (@$userSubscription->plan_type == 0)  {
+            return 'Freemium';
         }
     }
+
+    // public function getStatusAttribute()
+    // {
+
+    //     $userSubscription = UserSubscription::where('user_id', $this->_id)->where('plan_name', '!=', 'Freemium')->where('status', 'paid')->get();
+    //     if ($userSubscription) {
+    //         return count($userSubscription);
+    //     } else {
+    //         return 0;
+    //     }
+    // }
     public function getCancelSubcriptionAttribute()
     {
         $userSubscription = UserSubscription::where('user_id', $this->_id)->where('status', 'cancelled')->get();

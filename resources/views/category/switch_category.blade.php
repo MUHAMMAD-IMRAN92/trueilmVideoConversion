@@ -11,7 +11,7 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Disable Category</h2>
+                            <h2 class="content-header-title float-left mb-0">Disable Category ({{$currentCategory->title}})</h2>
                             <div class="breadcrumb-wrapper col-12">
 
                             </div>
@@ -50,10 +50,10 @@
                 <div class="content-body">
                     <!-- Basic Tables start -->
                     <div class="row ">
-                        <div class="col-12 ">
+                        <div class="col-12">
                             <form action="{{ url('category/change_content_category') }}" method="POST">
                                 @csrf
-                                <div class="col-10">
+                                <div class="col-12">
                                     <input type="hidden" name="old_categroy" value="{{ $currentCategory }}">
                                     <label for="">Alternative Category</label>
                                     <fieldset class="form-group">
@@ -68,7 +68,7 @@
                                         </select>
                                     </fieldset>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-12">
                                     <button type="submit" class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                 </div>

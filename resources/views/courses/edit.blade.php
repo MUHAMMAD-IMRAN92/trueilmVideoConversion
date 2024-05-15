@@ -341,6 +341,9 @@
                                                                         id="sequence{{ $key }}"
                                                                         value="{{ $les->sequence }}">
                                                                     <input type="hidden" name=""
+                                                                        id="kwl{{ $key }}"
+                                                                        value="{{ $les->is_kwl }}">
+                                                                    <input type="hidden" name=""
                                                                         id="les_id{{ $key }}"
                                                                         value="{{ $les->_id }}">
                                                                     <td class="d-none" id="title{{ $key }}">
@@ -968,16 +971,34 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Sequence</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="number" class="form-control"
-                                                                        name="sequence" placeholder="">
+                                                    <div class="col-12 m-0 p-0 d-flex">
+                                                        <div class="col-md-6">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInputFile">Sequence</label>
+                                                                <div class="custom-file">
+                                                                    <div class="position-relative">
+                                                                        <input type="number" class="form-control"
+                                                                            name="sequence" placeholder="">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </fieldset>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-md-6 mt-2">
+                                                            <li class="d-inline-block">
+                                                                <fieldset>
+                                                                    <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                        <input type="checkbox" value="1"
+                                                                            name="is_kwl">
+                                                                        <span class="vs-checkbox">
+                                                                            <span class="vs-checkbox--check">
+                                                                                <i class="vs-icon feather icon-check"></i>
+                                                                            </span>
+                                                                        </span>
+                                                                        <span class="">KWL</span>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </li>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -1110,16 +1131,36 @@
                                                         </div>
                                                     </fieldset>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <fieldset class="form-group">
-                                                        <label for="basicInputFile">Sequence</label>
-                                                        <div class="custom-file">
-                                                            <div class="position-relative">
-                                                                <input type="number" id="modal-episode-sequence"
-                                                                    class="form-control" name="sequence" placeholder="">
+
+                                                <div class="col-12 m-0 p-0 d-flex">
+                                                    <div class="col-md-6">
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile">Sequence</label>
+                                                            <div class="custom-file">
+                                                                <div class="position-relative">
+                                                                    <input type="number" id="modal-episode-sequence"
+                                                                        class="form-control" name="sequence"
+                                                                        placeholder="">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </fieldset>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-md-6 mt-2">
+                                                        <li class="d-inline-block">
+                                                            <fieldset>
+                                                                <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                    <input type="checkbox" value="1" name="is_kwl"
+                                                                        id="modal-episode-kwl">
+                                                                    <span class="vs-checkbox">
+                                                                        <span class="vs-checkbox--check">
+                                                                            <i class="vs-icon feather icon-check"></i>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="">KWL</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </li>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

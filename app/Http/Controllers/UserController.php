@@ -262,15 +262,33 @@ class UserController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = User::whereNull('deleted_at')->count();
+        $totalBrands = User::whereNull('deleted_at')->when($request->unsubscribed, function ($query) {
+            $query->whereDoesntHave('subscription');
+        })->when($request->planType, function ($query) use ($request) {
+            $query->whereHas('subscription', function ($q) use ($request) {
+                $q->where('plan_type', (int) $request->planType);
+            });
+        })->count();
         $brands = User::whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");
+            });
+        })->when($request->unsubscribed, function ($query) {
+            $query->whereDoesntHave('subscription');
+        })->when($request->planType, function ($query) use ($request) {
+            $query->whereHas('subscription', function ($q) use ($request) {
+                $q->where('plan_type', (int) $request->planType);
             });
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = User::whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
+            });
+        })->when($request->unsubscribed, function ($query) {
+            $query->whereDoesntHave('subscription');
+        })->when($request->planType, function ($query) use ($request) {
+            $query->whereHas('subscription', function ($q) use ($request) {
+                $q->where('plan_type', (int) $request->planType);
             });
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(

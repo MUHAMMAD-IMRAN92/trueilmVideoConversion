@@ -349,7 +349,7 @@
                                                                 </option>
                                                                 <option value="1">eBook</option>
                                                                 <option value="2">Audio</option>
-                                                                <option value="3">Paper</option>
+                                                                {{-- <option value="3">Paper</option> --}}
                                                             </select>
                                                         </fieldset>
                                                     </div>
@@ -358,7 +358,7 @@
                                                         <label for="">Select Book</label>
                                                         <div class="form-label-group">
                                                             <fieldset class="form-group">
-                                                                <select class="selct2 form-control" name="reference_file"
+                                                                <select class="select2 form-control" name="reference_file"
                                                                     id="file-new-lang-select-0">
                                                                     <option value="" selected>Please Select File
                                                                     </option>

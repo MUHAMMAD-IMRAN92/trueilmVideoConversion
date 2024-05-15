@@ -364,6 +364,10 @@
                             request()->is('surah/translations/2*')) active @endif "><a
                             href="{{ url('all_surah_translations/2') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Surah Tafseers</span></a> </li>
+                    <li class="@if (request()->is('language*')) active @endif "><a href="{{ url('/language') }}"><i
+                                class="fa fa-language"></i>
+                            <span class="menu-item" data-i18n="Analytics">Language</span></a>
+                    </li>
                     {{-- <li class="@if (request()->is('all_surah_translations/6') || request()->is('surah_translations/6*') || request()->is('surah/translations/6*')) active @endif "><a
                                     href="{{ url('all_surah_translations/6') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surah Recitations</span></a> </li> --}}
@@ -397,7 +401,7 @@
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Category</span></a>
                         <ul class="menu-content">
-                            <li class="@if (request()->is('categories')) active @endif ml-2"><a
+                            <li class="@if (request()->is('categories') ||request()->is('category/*') ) active @endif ml-2"><a
                                     href="{{ url('categories') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
@@ -473,10 +477,7 @@
                     </li>
                 @endif
                 @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
-                    <li class="@if (request()->is('language*')) active @endif "><a
-                            href="{{ url('/language') }}"><i class="fa fa-language"></i>
-                            <span class="menu-item" data-i18n="Analytics">Language</span></a>
-                    </li>
+
                     <li class=" navigation-header"><span>User Management</span>
                     </li>
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"

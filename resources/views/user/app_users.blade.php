@@ -11,7 +11,7 @@
 
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-md-7 col-12 mb-2">
+                <div class="content-header-left col-md-4 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
                             <h2 class="content-header-title float-left mb-0">App User Managemanet</h2>
@@ -21,18 +21,38 @@
                         </div>
                     </div>
                 </div>
+                <div class="content-header-left col-md-8 mb-2 d-flex" style="justify-content: end;">
+                    <div class="row d-flex">
+                        <div class="mr-1">
+                            <li class="d-inline-block mr-2 " style="margin-top: 5px !important">
+                                <fieldset>
+                                    <div class="vs-checkbox-con vs-checkbox-primary">
+                                        <input type="checkbox" value="1" name="unsubscribed"
+                                            id="user-ajax-table-unsubscribed">
+                                        <span class="vs-checkbox">
+                                            <span class="vs-checkbox--check">
+                                                <i class="vs-icon feather icon-check"></i>
+                                            </span>
+                                        </span>
+                                        <span class="">Unsubscribed </span>
+                                    </div>
+                                </fieldset>
+                            </li>
+                        </div>
+                        <div class="mr-1">
+                            <fieldset class="form-group">
+                                <select class="selct2 form-control mr-2" name="plan_type" id="user-ajax-table-plan-type">
 
-                {{-- <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                    <div class="form-group breadcrum-right">
-                        <div class="dropdown">
-                            <a href="{{ route('user.add') }}"> <button
-                                    class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
-                                        class="add-brand-font">Add User</span> <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button></a>
-
+                                    <option value="" selected disabled>Subscription Type</option>
+                                    <option value="1">Individual
+                                    </option>
+                                    <option value="2">Family</option>
+                                    <option value="3">Big Family</option>
+                                </select>
+                            </fieldset>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
             @if (\Session::has('msg'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

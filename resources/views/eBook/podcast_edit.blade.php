@@ -427,7 +427,8 @@
                                                             <td id="host{{ $key }}">{{ @$con->host }}
                                                             </td>
                                                             <td id="guest{{ $key }}">{{ @$con->guest }}
-                                                            </td><td class="">
+                                                            </td>
+                                                            <td class="">
                                                                 @if ($con->hls_conversion == 1)
                                                                     <div class="chip chip-success">
                                                                         <div class="chip-body">
@@ -455,7 +456,8 @@
 
                                                             <td> <i class="fa fa-pencil pointer"
                                                                     onclick="editEpisodeModal({{ $key }})"></i>
-
+                                                                {{-- <i class="fa fa-trash pointer ml-2"
+                                                                    onclick=""></i> --}}
                                                             </td>
 
                                                         </tr>
