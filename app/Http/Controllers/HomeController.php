@@ -590,6 +590,36 @@ class HomeController extends Controller
             }
             $res = $client->multiSearch($queries);
         }
+        $i = 0;
+        foreach ($res['results'] as $r) {
+            $myarray = [];
+            if ($r['indexUid'] == 'alHadeestranslations') {
+                foreach ($r['hits'] as $h) {
+                    // return $h;
+                    $Hadith = Hadees::where('_id',  $h['hadees_id'])->first();
+                    if ($Hadith) {
+                        $h['Hadith'] = $Hadith;
+                    }
+                    $myarray[] = $h;
+                }
+            } elseif ($r['indexUid'] == 'alQurantranslations') {
+                foreach ($r['hits'] as $h) {
+                    // return $h;
+                    $AlQuran = AlQuran::where('_id',  $h['ayat_id'])->with('khatoot')->first();
+                    if ($AlQuran) {
+                        $h['AlQuran'] = $AlQuran;
+                    }
+                    $myarray[] = $h;
+                }
+            } else {
+                $myarray = $r['hits'];
+            }
+            $res['results'][$i]['hits'] = $myarray;
+            $i++;
+
+            // echo '<pre>';
+            // print_r($myarray);exit;js
+        }
         return response()->json($res);
     }
     public function generateQr(Request $request)
