@@ -576,7 +576,8 @@ class HomeController extends Controller
             return response()->json($validator->errors());
         }
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-        $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
+        // $arrIndex = [1 => 'ebooks', 2 => 'audio', 3 => 'papers', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 8 => 'bookForSale', 9 => 'glossary'];
+        $arrIndex = [4 => 'alQurantranslations'];
         $queries = [];
         if ($request->type != "" || count($request->type) != 0) {
             // $arr = explode(',', $request->type);
@@ -584,44 +585,10 @@ class HomeController extends Controller
                 $queries[] = (new SearchQuery())
                     ->setIndexUid($arrIndex[$ar])
                     ->setQuery($request->search)
+                    ->setOffset(10)
                     ->setLimit(20);
             }
             $res = $client->multiSearch($queries);
-        } else {
-            $res = $client->multiSearch([
-                (new SearchQuery())
-                    ->setIndexUid('ebooks')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('audio')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('papers')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('podcast')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('alQurantranslations')
-                    ->setQuery($request->search)
-                    ->setLimit(20),
-                (new SearchQuery())
-                    ->setIndexUid('alHadeestranslations')
-                    ->setQuery($request->search),
-                (new SearchQuery())
-                    ->setIndexUid('course')
-                    ->setQuery($request->search),
-                (new SearchQuery())
-                    ->setIndexUid('bookForSale')
-                    ->setQuery($request->search),
-                (new SearchQuery())
-                    ->setIndexUid('glossary')
-                    ->setQuery($request->search),
-            ]);
         }
         return response()->json($res);
     }
@@ -672,21 +639,43 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
 
         AlQuranTranslation::where('author_lang', '6645dcda6140f945123f461d')->delete();
+        AlQuranTranslation::where('author_lang', '6645e2f36140f945123f4624')->delete();
+        AlQuranTranslation::where('author_lang', '6645e3646140f945123f4625')->delete();
 
         // return '1';
         $alQuran = AlQuran::get();
+        $records = [];
         foreach ($alQuran as $key => $verse) {
             $url = Http::get("https://api.quran.com/api/v4/quran/tafsirs/160?verse_key=$verse->verse_key");
             $response = json_decode($url->body());
-            $records = [];
             foreach ($response->tafsirs as $tafser) {
 
-                if ($tafser->resource_id == 91) {
+                if ($tafser->resource_id == 94) {
                     $records[] = [
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
                         'author_lang' => '6645dcda6140f945123f461d',
+                        'type' => 2,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                }
+                if ($tafser->resource_id == 15) {
+                    $records[] = [
+                        'translation' =>  $tafser->text,
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' => '6645e2f36140f945123f4624',
+                        'type' => 2,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                }
+                if ($tafser->resource_id == 90) {
+                    $records[] = [
+                        'translation' =>  $tafser->text,
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' => '6645e3646140f945123f4625',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];
