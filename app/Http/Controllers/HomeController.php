@@ -585,8 +585,8 @@ class HomeController extends Controller
                 $queries[] = (new SearchQuery())
                     ->setIndexUid($arrIndex[$ar])
                     ->setQuery($request->search)
-                    ->setOffset(10)
-                    ->setLimit(20);
+                    ->setOffset($request->offset)
+                    ->setLimit($request->limit);
             }
             $res = $client->multiSearch($queries);
         }
