@@ -93,7 +93,7 @@ class HomeController extends Controller
                     ]
                 ],
                 "from" => [
-                "email" => $from_email
+                    "email" => $from_email
                 ],
                 "template_id" => $template_id
             ]);
@@ -671,7 +671,7 @@ class HomeController extends Controller
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
 
-        AlQuranTranslation::where('author_lang', '65546f0381f11c8450d5cecd')->delete();
+        AlQuranTranslation::where('author_lang', '6645b23b6140f945123f461b')->delete();
 
         // return '1';
         $alQuran = AlQuran::get();
@@ -681,12 +681,12 @@ class HomeController extends Controller
             $records = [];
             foreach ($response->tafsirs as $tafser) {
 
-                if ($tafser->resource_id == 93) {
+                if ($tafser->resource_id == 91) {
                     $records[] = [
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
-                        'author_lang' => '65546f0381f11c8450d5cecd',
+                        'author_lang' => '6645b23b6140f945123f461b',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];

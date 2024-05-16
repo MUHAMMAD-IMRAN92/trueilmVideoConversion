@@ -772,11 +772,20 @@
                      }
                  }, {
                      "mRender": function(data, type, row) {
+                         var a = "";
+                         if ("{{ auth()->user()->email }}" == row.email ||
+                             "{{ auth()->user()->hasRole('Super Admin') }}") {
+
+                             a = `<a href="#" class="reset-password ml-2" data-user-id="` + row
+                                 ._id +
+                                 `"><i class="fa fa-key"></i></a>`;
+                         }
 
                          return `<td>
-                            <a href="#" class="reset-password" data-user-id="` + row._id + `"><i class="fa fa-key"></i></a>
+
                                 <a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                <a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
+                                <a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a> ` +
+                             a + `
                                 </td>`
                      }
                  },

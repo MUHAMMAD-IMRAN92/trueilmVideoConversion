@@ -9,7 +9,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                    <h5 class="modal-title" id="resetPasswordModalLabel">
+                        {{ auth()->user()->hasRole('Super Admin') == true ? 'Reset Password' : 'Change Password' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -27,7 +28,8 @@
                             <label for="confirmPassword">Confirm Password:</label>
                             <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
                                 required>
-                                <span class="danger" id="did-not-match" style="display:none;">Password Not Matched</span>
+                            <span class="danger mt-1" id="did-not-match" style="display:none;">Password does not
+                                match</span>
                         </div>
                         <button type="submit" class="btn btn-primary" style="float: right">Reset</button>
                     </form>

@@ -114,7 +114,7 @@
                                                     </div>
                                                     <div class="col-6">
 
-                                                        <img class="cat-img" src="{{ $category->image }}" alt="">
+                                                        <img class="cat-img" src="{{ $category->image }}" alt="No Icon">
                                                     </div>
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
