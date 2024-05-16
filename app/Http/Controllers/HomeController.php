@@ -660,32 +660,32 @@ class HomeController extends Controller
                         'added_by' => '6447918217e6501d607f4943',
                     ];
                 }
-                if ($tafser->resource_id == 15) {
-                    $records[] = [
-                        'translation' =>  $tafser->text,
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => '6645e2f36140f945123f4624',
-                        'type' => 2,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
-                if ($tafser->resource_id == 90) {
-                    $records[] = [
-                        'translation' =>  $tafser->text,
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => '6645e3646140f945123f4625',
-                        'type' => 2,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
+                // if ($tafser->resource_id == 15) {
+                //     $records[] = [
+                //         'translation' =>  $tafser->text,
+                //         'ayat_id' => $verse->_id,
+                //         'surah_id' => $verse->surah_id,
+                //         'author_lang' => '6645e2f36140f945123f4624',
+                //         'type' => 2,
+                //         'added_by' => '6447918217e6501d607f4943',
+                //     ];
+                // }
+                // if ($tafser->resource_id == 90) {
+                //     $records[] = [
+                //         'translation' =>  $tafser->text,
+                //         'ayat_id' => $verse->_id,
+                //         'surah_id' => $verse->surah_id,
+                //         'author_lang' => '6645e3646140f945123f4625',
+                //         'type' => 2,
+                //         'added_by' => '6447918217e6501d607f4943',
+                //     ];
+                // }
             }
-            $chunkSize = 1000;
-            $chunks = array_chunk($records, $chunkSize);
-            foreach ($chunks as $chunk) {
-                AlQuranTranslation::insert($chunk);
-            }
+        }
+        $chunkSize = 1000;
+        $chunks = array_chunk($records, $chunkSize);
+        foreach ($chunks as $chunk) {
+            AlQuranTranslation::insert($chunk);
         }
         return 'save!';
     }
