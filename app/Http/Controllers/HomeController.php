@@ -669,7 +669,7 @@ class HomeController extends Controller
         ini_set("memory_limit", "-1");
 
         AlQuranTranslation::where('author_lang', '66470545d9ef5087b7f5b9b6')->delete();
-        AlQuranTranslation::where('author_lang', '6645e3646140f945123f4625')->delete();
+        AlQuranTranslation::where('author_lang', '664715f0d9ef5087b7f5b9b7')->delete();
 
         // return '1';
         $alQuran = AlQuran::get();
@@ -695,7 +695,7 @@ class HomeController extends Controller
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
-                        'author_lang' => '6645e3646140f945123f4625',
+                        'author_lang' => '664715f0d9ef5087b7f5b9b7',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];
