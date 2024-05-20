@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\DeletedAtScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
@@ -14,6 +15,10 @@ class Course extends Eloquent
     public function lessons()
     {
         return $this->hasMany(CourseLesson::class, 'course_id', 'id');
+    }
+    public function trashedCourse()
+    {
+        return $this->hasMany(CourseLesson::class, 'course_id', 'id')->withoutGlobalScope(DeletedAtScope::class)->whereNotNull('deleted_at');
     }
 
     public function getUserNameAttribute()

@@ -456,8 +456,106 @@
 
                                                             <td> <i class="fa fa-pencil pointer"
                                                                     onclick="editEpisodeModal({{ $key }})"></i>
-                                                                {{-- <i class="fa fa-trash pointer ml-2"
-                                                                    onclick=""></i> --}}
+                                                                <a
+                                                                    href="{{ url('/podcast/episode/delete/' . $con->_id) }}">
+                                                                    <i class="fa fa-trash pointer ml-2">
+
+                                                                    </i>
+                                                                </a>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    @empty
+                                                        <tr>
+                                                            <center><b>No Episode Added Yet !</b></center>
+                                                        </tr>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <h2 class="">
+                                                Deleted Episodes:</h2>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row d-flex justify-content-center">
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr style="text-align: center">
+                                                        <th class="">Title</th>
+                                                        <th class="">Description</th>
+                                                        <th>Host</th>
+                                                        <th>Guest</th>
+                                                        <th class="">Status</th>
+                                                        <th class="description-td">Content</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse ($book->trashedContent as $key=> $con)
+                                                        <tr>
+                                                            <input type="hidden" name=""
+                                                                id="episode_id{{ $key }}"
+                                                                value="{{ $con->_id }}">
+                                                            <input type="hidden" name=""
+                                                                id="sequence{{ $key }}"
+                                                                value="{{ $con->sequence }}">
+                                                            <td id="title{{ $key }}">{{ $con->title }}</td>
+                                                            <td id="description{{ $key }}">
+                                                                {{ @$con->description }}</td>
+                                                            <td id="host{{ $key }}">{{ @$con->host }}
+                                                            </td>
+                                                            <td id="guest{{ $key }}">{{ @$con->guest }}
+                                                            </td>
+                                                            <td class="">
+                                                                @if ($con->hls_conversion == 1)
+                                                                    <div class="chip chip-success">
+                                                                        <div class="chip-body">
+                                                                            <div class="chip-text">Published</div>
+                                                                        </div>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="chip chip-warning">
+                                                                        <div class="chip-body">
+                                                                            <div class="chip-text">Pending</div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </td>
+
+                                                            <td>
+                                                                @if ($con->type == 1)
+                                                                    <audio src="{{ $con->file }}" style=""
+                                                                        controls></audio>
+                                                                @else
+                                                                    <video style="width:300px;" src="{{ $con->file }}"
+                                                                        controls></video>
+                                                                @endif
+                                                            </td>
+
+                                                            <td>
+                                                                <a
+                                                                    href="{{ url('/podcast/episode/undo-delete/' . $con->_id) }}">
+                                                                    <i class="fa fa-undo pointer ml-2">
+
+                                                                    </i>
+                                                                </a>
                                                             </td>
 
                                                         </tr>
@@ -823,7 +921,7 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="episode_description"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Host</label>
                                                             <div class="custom-file">
@@ -835,8 +933,8 @@
                                                                 </div>
                                                             </div>
                                                         </fieldset>
-                                                    </div>
-                                                    <div class="col-md-12">
+                                                    </div> --}}
+                                                    {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Guest</label>
                                                             <div class="custom-file">
@@ -847,6 +945,22 @@
 
                                                                 </div>
                                                             </div>
+                                                        </fieldset>
+                                                    </div> --}}
+                                                    <div class="col-12">
+
+                                                        <label for="">Guest</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="guest"
+                                                                id="">
+                                                                <option value="" disabled selected>Select Guest
+                                                                </option>
+                                                                @foreach ($author as $auth)
+                                                                    <option value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">
@@ -984,7 +1098,7 @@
                                                                 name="episode_description"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-md-12">
+                                                    {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Host</label>
                                                             <div class="custom-file">
@@ -996,8 +1110,8 @@
                                                                 </div>
                                                             </div>
                                                         </fieldset>
-                                                    </div>
-                                                    <div class="col-md-12">
+                                                    </div> --}}
+                                                    {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile">Guest</label>
                                                             <div class="custom-file">
@@ -1008,6 +1122,22 @@
 
                                                                 </div>
                                                             </div>
+                                                        </fieldset>
+                                                    </div> --}}
+                                                    <div class="col-12">
+
+                                                        <label for="">Guest</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="guest"
+                                                                id="">
+                                                                <option value="" disabled selected>Select Guest
+                                                                </option>
+                                                                @foreach ($author as $auth)
+                                                                    <option value="{{ $auth->_id }}">
+                                                                        {{ $auth->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">
@@ -1067,10 +1197,3 @@
 
     <!-- END: Content-->
 @endsection
-<script>
-    $(document).ready(function() {
-        $(".select2").select2({
-            dropdownParent: $("#author-lang")
-        });
-    });
-</script>

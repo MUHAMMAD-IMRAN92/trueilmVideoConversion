@@ -13,6 +13,7 @@ use App\Models\ContentTag;
 use App\Models\Questionaire;
 use App\Models\QuestionaireOptions;
 use App\Models\QuizAttempts;
+use App\Models\Scopes\DeletedAtScope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Tag;
@@ -200,7 +201,7 @@ class CourseController extends Controller
     public function edit(Request $request, $id)
     {
 
-        $course = Course::where('_id', $id)->with('lessons')->first();
+         $course = Course::where('_id', $id)->with('lessons', 'trashedCourse')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $categories = Category::active()->get();
         $tags = Tag::all();
@@ -725,5 +726,19 @@ class CourseController extends Controller
         $boookContent = CourseLesson::where('_id', $request->content_id)->update(['title' => $request->name, 'sequence' => (int)$request->sequence]);
 
         return 'updated';
+    }
+    public function deleteLesson($id)
+    {
+        $bookContent = CourseLesson::where('_id', $id)->delete();
+
+        return redirect()->back()->with('msg', 'Lesson Deleted Successfully!');
+    }
+    public function UndoDeleteLesson($id)
+    {
+        $bookContent = CourseLesson::withoutGlobalScope(DeletedAtScope::class)->where('_id', $id)->update([
+            'deleted_at' => null
+        ]);
+
+        return redirect()->back()->with('msg', 'Lesson Reverted Successfully!');
     }
 }

@@ -17,6 +17,6 @@ class DeletedAtScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('deleted_at', null);
+        $builder->where('deleted_at', null)->orwhere('deleted_at', '');
     }
 }

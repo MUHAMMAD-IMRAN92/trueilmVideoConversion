@@ -2131,7 +2131,7 @@
              }],
              "order": false
          });
-         $('#admin-rejected-book-table').DataTable({
+         var rejectedContent = $('#admin-rejected-book-table').DataTable({
              "processing": true,
              "stateSave": true,
              "serverSide": true,
@@ -2281,6 +2281,136 @@
              }],
              "order": false
          });
+
+         var category;
+         var price;
+         var uncategorized = '';
+         var author = '';
+         var contentType = '';
+
+         $('#ajax-rejected-content-type-table').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-rejected-table-price').val() == null ? '' : $('#ajax-rejected-table-price')
+                 .val();
+             category = $('#ajax-rejected-table-category').val() == null ? '' : $(
+                 '#ajax-rejected-table-category').val();
+             contentType = $(this).val() == null ? '' : $(this).val();
+
+             if ($('#ajax-rejected-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             author = $('#ajax-rejected-table-author').val() == null ? '' : $(
+                 '#ajax-rejected-table-author').val();
+             // Update the DataTable's AJAX URL with the selected category value
+             rejectedContent.ajax.url('<?= url('all-admin-rejected-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-rejected-table-category').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-rejected-table-price').val() == null ? '' : $('#ajax-rejected-table-price')
+                 .val();
+             category = $(this).val() == null ? '' : $(this).val();
+             contentType = $('#ajax-rejected-content-type-table').val() == null ? '' : $(
+                 '#ajax-rejected-table-approval').val();
+
+             if ($('#ajax-rejected-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             author = $('#ajax-rejected-table-author').val() == null ? '' : $(
+                 '#ajax-rejected-table-author').val();
+             // Update the DataTable's AJAX URL with the selected category value
+             rejectedContent.ajax.url('<?= url('all-admin-rejected-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-rejected-table-price').on('change', function() {
+             // Get the selected category value
+             price = $(this).val() == null ? '' : $(this).val();
+             category = $('#ajax-rejected-table-category').val() == null ? '' : $(
+                 '#ajax-rejected-table-category').val();
+             contentType = $('#ajax-rejected-content-type-table').val() == null ? '' : $(
+                 '#ajax-rejected-table-approval').val();
+
+             author = $('#ajax-rejected-table-author').val() == null ? '' : $(
+                 '#ajax-rejected-table-author').val();
+             if ($('#ajax-rejected-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             // Update the DataTable's AJAX URL with the selected category value
+             rejectedContent.ajax.url('<?= url('all-admin-rejected-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+
+         $('#ajax-rejected-table-author').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-rejected-table-price').val() == null ? '' : $('#ajax-rejected-table-price')
+                 .val();
+             contentType = $('#ajax-rejected-content-type-table').val() == null ? '' : $(
+                 '#ajax-rejected-table-approval').val();
+             category = $('#ajax-rejected-table-category').val() == null ? '' : $(
+                 '#ajax-rejected-table-category').val();
+             author = $(this).val() == null ? '' : $(this).val();
+             if ($('#ajax-rejected-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+
+             // Update the DataTable's AJAX URL with the selected category value
+             rejectedContent.ajax.url('<?= url('all-admin-rejected-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-rejected-uncategorized').on('change', function() {
+             if ($(this).is(':checked')) {
+                 // Get the selected category value
+                 $('#ajax-rejected-table-category').prop('disabled', true);
+                 console.log($(this).val());
+                 price = $('#ajax-rejected-table-price').val() == null ? '' : $(
+                     '#ajax-rejected-table-price').val();
+                 category = '';
+                 contentType = $('#ajax-rejected-content-type-table').val() == null ? '' : $(
+                     '#ajax-rejected-table-approval').val();
+
+                 author = $('#ajax-rejected-table-author').val() == null ? '' : $(
+                     '#ajax-rejected-table-author').val();
+                 // Update the DataTable's AJAX URL with the selected category value
+                 rejectedContent.ajax.url('<?= url('all-admin-rejected-book') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + true + '&author=' +
+                         author +
+                         '&contentType=' + contentType)
+                     .load();
+             } else {
+                 $('#ajax-rejected-table-category').prop('disabled', false);
+                 price = $('#ajax-rejected-table-price').val() == null ? '' : $(
+                     '#ajax-rejected-table-price').val();
+                 category = $('#ajax-rejected-table-category').val() == null ? '' : $(
+                         '#ajax-rejected-table-category')
+                     .val();
+                 contentType = $('#ajax-rejected-content-type-table').val() == null ? '' : $(
+                     '#ajax-rejected-table-approval').val();
+
+                 author = $('#ajax-rejected-table-author').val() == null ? '' : $(
+                     '#ajax-rejected-table-author').val();
+
+                 // Update the DataTable's AJAX URL with the selected category value
+                 rejectedContent.ajax.url('<?= url('all-admin-rejected-book') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + false + '&author=' +
+                         author +
+                         '&contentType=' + contentType)
+                     .load();
+             }
+         });
          $('#rejected-book-table').DataTable({
              "processing": true,
              "stateSave": true,
@@ -2416,7 +2546,7 @@
              }],
              "order": false
          });
-         $('#approved-book-table').DataTable({
+         var adminApprovedContentTable = $('#approved-book-table').DataTable({
              "processing": true,
              "stateSave": true,
              "serverSide": true,
@@ -2554,6 +2684,142 @@
              }],
              "order": false
          });
+         var category;
+         var price;
+         var uncategorized = '';
+         var author = '';
+         var contentType = '';
+
+         $('#ajax-approved-content-type-table').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-approved-table-price').val() == null ? '' : $('#ajax-approved-table-price')
+                 .val();
+             category = $('#ajax-approved-table-category').val() == null ? '' : $(
+                 '#ajax-approved-table-category').val();
+             contentType = $(this).val() == null ? '' : $(this).val();
+
+             if ($('#ajax-approved-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             author = $('#ajax-approved-table-author').val() == null ? '' : $(
+                 '#ajax-approved-table-author').val();
+             // Update the DataTable's AJAX URL with the selected category value
+             adminApprovedContentTable.ajax.url('<?= url('all-approved-book') ?>?category=' +
+                     category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-approved-table-category').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-approved-table-price').val() == null ? '' : $('#ajax-approved-table-price')
+                 .val();
+             category = $(this).val() == null ? '' : $(this).val();
+             contentType = $('#ajax-approved-content-type-table').val() == null ? '' : $(
+                 '#ajax-approved-table-approval').val();
+
+             if ($('#ajax-approved-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             author = $('#ajax-approved-table-author').val() == null ? '' : $(
+                 '#ajax-approved-table-author').val();
+             // Update the DataTable's AJAX URL with the selected category value
+             adminApprovedContentTable.ajax.url('<?= url('all-approved-book') ?>?category=' +
+                     category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-approved-table-price').on('change', function() {
+             // Get the selected category value
+             price = $(this).val() == null ? '' : $(this).val();
+             category = $('#ajax-approved-table-category').val() == null ? '' : $(
+                 '#ajax-approved-table-category').val();
+             contentType = $('#ajax-approved-content-type-table').val() == null ? '' : $(
+                 '#ajax-approved-table-approval').val();
+
+             author = $('#ajax-approved-table-author').val() == null ? '' : $(
+                 '#ajax-approved-table-author').val();
+             if ($('#ajax-approved-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             // Update the DataTable's AJAX URL with the selected category value
+             adminApprovedContentTable.ajax.url('<?= url('all-approved-book') ?>?category=' +
+                     category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+
+         $('#ajax-approved-table-author').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-approved-table-price').val() == null ? '' : $('#ajax-approved-table-price')
+                 .val();
+             contentType = $('#ajax-approved-content-type-table').val() == null ? '' : $(
+                 '#ajax-approved-table-approval').val();
+             category = $('#ajax-approved-table-category').val() == null ? '' : $(
+                 '#ajax-approved-table-category').val();
+             author = $(this).val() == null ? '' : $(this).val();
+             if ($('#ajax-approved-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+
+             // Update the DataTable's AJAX URL with the selected category value
+             adminApprovedContentTable.ajax.url('<?= url('all-approved-book') ?>?category=' +
+                     category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-approved-uncategorized').on('change', function() {
+             if ($(this).is(':checked')) {
+                 // Get the selected category value
+                 $('#ajax-approved-table-category').prop('disabled', true);
+                 console.log($(this).val());
+                 price = $('#ajax-approved-table-price').val() == null ? '' : $(
+                     '#ajax-approved-table-price').val();
+                 category = '';
+                 contentType = $('#ajax-approved-content-type-table').val() == null ? '' : $(
+                     '#ajax-approved-table-approval').val();
+
+                 author = $('#ajax-approved-table-author').val() == null ? '' : $(
+                     '#ajax-approved-table-author').val();
+                 // Update the DataTable's AJAX URL with the selected category value
+                 adminApprovedContentTable.ajax.url(
+                         '<?= url('all-approved-book') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + true + '&author=' +
+                         author +
+                         '&contentType=' + contentType)
+                     .load();
+             } else {
+                 $('#ajax-approved-table-category').prop('disabled', false);
+                 price = $('#ajax-approved-table-price').val() == null ? '' : $(
+                     '#ajax-approved-table-price').val();
+                 category = $('#ajax-approved-table-category').val() == null ? '' : $(
+                         '#ajax-approved-table-category')
+                     .val();
+                 contentType = $('#ajax-approved-content-type-table').val() == null ? '' : $(
+                     '#ajax-approved-table-approval').val();
+
+                 author = $('#ajax-approved-table-author').val() == null ? '' : $(
+                     '#ajax-approved-table-author').val();
+
+                 // Update the DataTable's AJAX URL with the selected category value
+                 adminApprovedContentTable.ajax.url(
+                         '<?= url('all-approved-book') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + false + '&author=' +
+                         author +
+                         '&contentType=' + contentType)
+                     .load();
+             }
+         });
+
          var courseTable = $('#courses-table').DataTable({
              "processing": true,
              "stateSave": true,
@@ -2903,6 +3169,48 @@
              }],
              "order": false
          });
+         $('#app-versions-table').DataTable({
+             "processing": true,
+             "stateSave": true,
+             "serverSide": true,
+             "deferRender": true,
+             "language": {
+                 "searchPlaceholder": "Search here"
+             },
+             "ajax": {
+                 url: '<?= url('app/all-versions') ?>'
+             },
+             "columns": [{
+                     "mRender": function(data, type, row) {
+
+                         return '<td>' +
+                             row.app_version + '</td>'
+                     }
+                 }, {
+                     "mRender": function(data, type, row) {
+                         return '<td>' +
+                             row.andriod + '</td>'
+                     }
+                 },
+                 {
+                     "mRender": function(data, type, row) {
+                         return '<td>' +
+                             row.ios + '</td>'
+                     }
+                 }, {
+                     "mRender": function(data, type, row) {
+                         return '<td>' +
+                             new Date(row.created_at).toDateString() + '</td>'
+                     }
+                 }
+             ],
+             "columnDefs": [{
+
+                 "orderable": false
+             }],
+             "order": false
+         });
+
          $('#notification-table').DataTable({
              "processing": true,
              "stateSave": true,
@@ -5155,4 +5463,18 @@
 
          }
      }
+     //  $(".select2").select2({
+     //      dropdownParent: $("#add-episode")
+     //  });
+     //  $(".select2").select2({
+     //      dropdownParent: $("#edit-episode")
+     //  });
+     //  $(".select2").select2({
+     //      dropdownParent: $("#author-lang")
+     //  });
+     $('.select2').each(function() {
+         $(this).select2({
+             dropdownParent: $(this).parent()
+         });
+     })
  </script>

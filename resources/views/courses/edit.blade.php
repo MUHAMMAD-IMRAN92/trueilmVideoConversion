@@ -374,28 +374,7 @@
 
 
 
-                                                                    {{-- <td>
-                                                                        @if ($les->module_overview)
-                                                                            <a target="blank"
-                                                                                href="{{ $les->module_overview }}">
-                                                                                <i class="fa fa-eye"
-                                                                                    style="font-size:20px !important"></i>
-                                                                            </a>
-                                                                        @else
-                                                                            <span>NA</span>
-                                                                        @endif
-                                                                    </td> --}}
-                                                                    {{-- <td>
 
-                                                                        @if ($les->kwl_worksheet)
-                                                                            <a target="blank"
-                                                                                href="{{ $les->kwl_worksheet }}">
-                                                                                <i class="fa fa-eye"
-                                                                                    style="font-size:20px !important"></i></a>
-                                                                        @else
-                                                                            <span>NA</span>
-                                                                        @endif
-                                                                    </td> --}}
                                                                     <td style="text-align: center">
                                                                         @if ($les->lesson_notes)
                                                                             <a target="blank"
@@ -432,19 +411,148 @@
                                                                                 controls></video>
                                                                         @endif
                                                                     </td>
-                                                                    {{-- @if ($les->quiz == 0)
-                                                                <td> <a class="btn btn-primary"
-                                                                        href="{{ url('lesson/quiz/add/' . $course->_id . '/' . $les->_id) }}">Add
-                                                                        Quiz</a> </td>
-                                                            @else
-                                                                <td> <a class="btn btn-primary"
-                                                                        href="{{ url('lesson/quiz/edit/' . $course->_id . '/' . $les->_id) }}">
-                                                                        Edit
-                                                                        Quiz</a> </td>
-                                                            @endif --}}
+
                                                                     <td style="text-align: center"> <i
                                                                             class="fa fa-pencil pointer"
                                                                             onclick="editLessonModal({{ $key }})"></i>
+                                                                        <a
+                                                                            href="{{ url('/course/lesson/delete/' . $les->_id) }}">
+                                                                            <i class="fa fa-trash pointer ml-2">
+
+                                                                            </i>
+                                                                        </a>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            @empty
+                                                                <tr>
+                                                                    <center><b>No Episode Added Yet !</b></center>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <h2 class="">
+                                                        Deleted Lessons:</h2>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <div class="row d-flex justify-content-center">
+
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr style="text-align: center">
+                                                                <th class="">Title</th>
+                                                                {{-- <th class="description-td">Description</th> --}}
+                                                                {{-- <th>Module Overview</th> --}}
+                                                                {{-- <th>KWL Worksheet</th> --}}
+                                                                <th>Lesson Notes</th>
+                                                                <th>Status</th>
+                                                                <th>Content</th>
+                                                                {{-- <th>Quiz</th> --}}
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse ($course->trashedCourse as $key=> $les)
+                                                                <tr> <input type="hidden" name=""
+                                                                        id="episode_id{{ $key }}"
+                                                                        value="{{ $course->_id }}">
+                                                                    <input type="hidden" name=""
+                                                                        id="sequence{{ $key }}"
+                                                                        value="{{ $les->sequence }}">
+                                                                    <input type="hidden" name=""
+                                                                        id="kwl{{ $key }}"
+                                                                        value="{{ $les->is_kwl }}">
+                                                                    <input type="hidden" name=""
+                                                                        id="les_id{{ $key }}"
+                                                                        value="{{ $les->_id }}">
+                                                                    <td class="d-none" id="title{{ $key }}">
+                                                                        {{ $les->title }}
+                                                                    </td>
+                                                                    <td onclick="makeInput({{ $key }})">
+                                                                        <span id="name-span-{{ $key }}">
+                                                                            {{ str_replace('.mp3', '', $les->title) }}</span>
+                                                                        <div id="name-input-div-{{ $key }}"
+                                                                            style="display: none !important">
+                                                                            <input type="text" class="form-control"
+                                                                                name=""
+                                                                                value="{{ str_replace('.mp3', '', $les->title) }}"
+                                                                                id="input-{{ $key }}">
+                                                                            <input type="text"
+                                                                                class="form-control ml-1" name=""
+                                                                                value="{{ $les->sequence }}"
+                                                                                id="input-seq-{{ $key }}">
+                                                                            <span class="btn btn-success ml-1"
+                                                                                onclick="saveFileNameCourses('{{ $les->_id }}' ,  '{{ $key }}')">
+                                                                                <i class="fa fa-check "></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="d-none"
+                                                                        id="description{{ $key }}">
+                                                                        {{ $les->description }}</td>
+
+
+
+
+                                                                    <td style="text-align: center">
+                                                                        @if ($les->lesson_notes)
+                                                                            <a target="blank"
+                                                                                href="{{ $les->lesson_notes }}">
+                                                                                <i class="fa fa-eye"
+                                                                                    style="font-size:20px !important"></i></a>
+                                                                        @else
+                                                                            <span>NA</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    </td>
+                                                                    <td class="">
+                                                                        @if ($les->hls_conversion == 1)
+                                                                            <div class="chip chip-success">
+                                                                                <div class="chip-body">
+                                                                                    <div class="chip-text">Published</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @else
+                                                                            <div class="chip chip-warning">
+                                                                                <div class="chip-body">
+                                                                                    <div class="chip-text">Pending</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td style="text-align: center">
+                                                                        @if ($les->type == 1)
+                                                                            <audio src="{{ $les->file }}"
+                                                                                style="" controls></audio>
+                                                                        @else
+                                                                            <video style="width:300px;"
+                                                                                src="{{ $les->file }}"
+                                                                                controls></video>
+                                                                        @endif
+                                                                    </td>
+
+                                                                    <td style="text-align: center">
+                                                                        <a
+                                                                            href="{{ url('/course/lesson/undo-delete/' . $les->_id) }}">
+                                                                            <i class="fa fa-undo pointer ml-2"></i>
+                                                                        </a>
                                                                     </td>
 
                                                                 </tr>

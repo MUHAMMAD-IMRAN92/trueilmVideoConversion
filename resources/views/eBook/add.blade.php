@@ -111,7 +111,7 @@
                                                             <label for="basicInputFile" class="required">Cover Image</label>
                                                             <div class="custom-file">
                                                                 <input type="file" class="custom-file-input"
-                                                                    id="inputGroupFile01" name="cover" required>
+                                                                    id="inputGroupFile01" name="cover" accept="image/*" required>
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>

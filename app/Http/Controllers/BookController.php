@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Meilisearch\Client;
 use App\Models\Author;
 use App\Models\Reference;
+use App\Models\Scopes\DeletedAtScope;
 
 class BookController extends Controller
 {
@@ -683,8 +684,12 @@ class BookController extends Controller
     }
     public function approved()
     {
+        $categories = Category::active()->get();
+        $authors = Author::where('type', '1')->get();
         return view('eBook.approved', [
-            'type' => Session::get('type')
+            'type' => Session::get('type'),
+            'categories' => $categories,
+            'authors' => $authors,
         ]);
     }
     public function allApprovedBooks(Request $request)
@@ -699,19 +704,52 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::approved()->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::approved()->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($request->contentType, function ($query) use ($request) {
+            $query->where('type', $request->contentType);
         })->count();
-        $brands = Book::approved()->when($user_id, function ($query) use ($user_id) {
-        })->when($search, function ($q) use ($search) {
-            $q->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%");
+        $brands = Book::approved()->when($search, function ($query) use ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($request->contentType, function ($query) use ($request) {
+            $query->where('type', $request->contentType);
         })->with('author', 'user', 'approver', 'category')->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Book::approved()->when($user_id, function ($query) use ($user_id) {
-        })->when($search, function ($q) use ($search) {
-            $q->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%");
+        $brandsCount = Book::approved()->when($search, function ($query) use ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($request->contentType, function ($query) use ($request) {
+            $query->where('type', $request->contentType);
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
             'draw' => $draw,
@@ -725,9 +763,12 @@ class BookController extends Controller
 
     public function adminRejected()
     {
-
+        $categories = Category::active()->get();
+        $authors = Author::where('type', '1')->get();
         return view('eBook.admin_rejected', [
-            'type' => Session::get('type')
+            'type' => Session::get('type'),
+            'categories' => $categories,
+            'authors' => $authors,
         ]);
     }
     public function allAdminRejectedBooks(Request $request)
@@ -742,19 +783,53 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::rejected()->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Book::rejected()->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($request->contentType, function ($query) use ($request) {
+            $query->where('type', $request->contentType);
         })->count();
-        $brands = Book::rejected()->with('author', 'user', 'approver')->when($user_id, function ($query) use ($user_id) {
-        })->when($search, function ($q) use ($search) {
-            $q->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%");
+        $brands = Book::rejected()->with('author', 'user', 'approver')->when($search, function ($query) use ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($request->contentType, function ($query) use ($request) {
+            $query->where('type', $request->contentType);
         })->with('author', 'user', 'approver', 'category')->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::rejected()->when($user_id, function ($query) use ($user_id) {
-        })->when($search, function ($q) use ($search) {
-            $q->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%$search%");
+        })->when($search, function ($query) use ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($user_id, $request) {
+            $query->where('category_id', $request->category);
+        })->when($user_id, function ($query) use ($user_id) {
+            $query->where('added_by', $user_id);
+        })->when($request->price, function ($query) use ($user_id, $request) {
+            $query->where('p_type', $request->price);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($request->contentType, function ($query) use ($request) {
+            $query->where('type', $request->contentType);
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
             'draw' => $draw,
@@ -767,7 +842,7 @@ class BookController extends Controller
 
     public function podcastEdit($id)
     {
-        $book = Book::where('_id', $id)->with('content')->first();
+        $book = Book::where('_id', $id)->with('content', 'trashedContent')->first();
         $categories = Category::active()->get();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $tags = Tag::all();
@@ -809,6 +884,7 @@ class BookController extends Controller
                 $bookContent->type = 1;
             } else {
                 $bookContent->type = 2;
+                $bookContent->hls_conversion = 0;
             }
             $bookContent->book_name = $request->podcast_file->getClientOriginalName();
             $getID3 = new \JamesHeinrich\GetID3\GetID3;
@@ -831,7 +907,6 @@ class BookController extends Controller
         $bookContent->description = $request->episode_description;
         $bookContent->guest = $request->guest;
         $bookContent->sequence = (int)@$request->sequence ?? 0;
-        $bookContent->hls_conversion = 0;
 
         $bookContent->save();
         if ($book->approved == 1) {
@@ -858,6 +933,7 @@ class BookController extends Controller
                     $bookContent->type = 1;
                 } else {
                     $bookContent->type = 2;
+                    $bookContent->hls_conversion = 0;
                 }
                 $bookContent->book_name = $file->getClientOriginalName();
 
@@ -874,7 +950,6 @@ class BookController extends Controller
                 // Construct the duration in the format MM:SS
                 $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
                 $bookContent->file_duration = @$duration_minutes_seconds;
-                $bookContent->hls_conversion = 0;
 
                 $bookContent->save();
             }
@@ -923,5 +998,19 @@ class BookController extends Controller
         }
 
         return redirect()->back()->with('msg', 'Chapter Added!');
+    }
+    public function deleteEpisode($id)
+    {
+        $bookContent = BookContent::where('_id', $id)->delete();
+
+        return redirect()->back()->with('msg', 'Episode Deleted Successfully!');
+    }
+    public function undoDeleteEpisode($id)
+    {
+        $bookContent = BookContent::withoutGlobalScope(DeletedAtScope::class)->where('_id', $id)->update([
+            'deleted_at' => null
+        ]);
+
+        return redirect()->back()->with('msg', 'Lesson Reverted Successfully!');
     }
 }

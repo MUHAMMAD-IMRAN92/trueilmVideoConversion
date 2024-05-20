@@ -109,7 +109,7 @@ class UserController extends Controller
                 $from_email = env('MAIL_FROM_ADDRESS');
                 $template_id = "d-a894a8dd5b154f6987533cd1e1023864";
                 $template_vars = [
-                    'id' => $user->_id
+                    'id' => $user->_id,
                 ];
 
                 // Set the payload as a JSON string
