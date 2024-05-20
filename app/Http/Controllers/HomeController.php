@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs\SurahCombination as SurahCombinationJob;
+use App\Models\AppVersion;
 use App\Models\AuthorLanguage;
 use App\Models\Book;
 use App\Models\BookForSale;
@@ -758,5 +759,53 @@ class HomeController extends Controller
         }
 
         return 'done';
+    }
+    public function appVersions()
+    {
+        return view('app_version.index');
+    }
+    public function allVersions(Request $request)
+    {
+        // return 'imran';
+        $draw = $request->get('draw');
+        $start = $request->get('start');
+        $length = $request->get('length');
+        $search = $request->search['value'];
+        $totalBrands = AppVersion::when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('app_version', 'like', "%$search%");
+            });
+        })->count();
+        $brands = AppVersion::when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('app_version', 'like', "%$search%");
+            });
+        })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
+        $brandsCount = AppVersion::when($search, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('app_version', 'like', "%$search%");
+            });
+        })->skip((int) $start)->take((int) $length)->count();
+        $data = array(
+            'draw' => $draw,
+            'recordsTotal' => $totalBrands,
+            'recordsFiltered' => $brandsCount,
+            'data' => $brands,
+        );
+        return json_encode($data);
+    }
+    public function createVersion()
+    {
+        return view('app_version.add');
+    }
+    public function storeVersions(Request $request)
+    {
+        $version = new AppVersion();
+        $version->andriod = $request->andriod;
+        $version->ios = $request->ios;
+        $version->app_version = $request->app_version;
+        $version->save();
+
+        return redirect()->to('app/versions')->with('msg', 'App Version Added Succesfully!');
     }
 }
