@@ -668,8 +668,7 @@ class HomeController extends Controller
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
 
-        AlQuranTranslation::where('author_lang', '66470545d9ef5087b7f5b9b6')->delete();
-        AlQuranTranslation::where('author_lang', '664715f0d9ef5087b7f5b9b7')->delete();
+        AlQuranTranslation::where('author_lang', '664af8aed9ef5087b7f5b9b9')->delete();
 
         // return '1';
         $alQuran = AlQuran::get();
@@ -679,27 +678,17 @@ class HomeController extends Controller
             $response = json_decode($url->body());
             foreach ($response->tafsirs as $tafser) {
 
+                if ($tafser->resource_id == 164) {
+                    $records[] = [
+                        'translation' =>  $tafser->text,
+                        'ayat_id' => $verse->_id,
+                        'surah_id' => $verse->surah_id,
+                        'author_lang' => '664af8aed9ef5087b7f5b9b9',
+                        'type' => 2,
+                        'added_by' => '6447918217e6501d607f4943',
+                    ];
+                }
 
-                if ($tafser->resource_id == 381) {
-                    $records[] = [
-                        'translation' =>  $tafser->text,
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => '66470545d9ef5087b7f5b9b6',
-                        'type' => 2,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
-                if ($tafser->resource_id == 90) {
-                    $records[] = [
-                        'translation' =>  $tafser->text,
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => '664715f0d9ef5087b7f5b9b7',
-                        'type' => 2,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
             }
         }
         $chunkSize = 1000;
