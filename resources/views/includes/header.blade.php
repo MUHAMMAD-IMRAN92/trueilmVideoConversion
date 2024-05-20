@@ -650,7 +650,7 @@
                                 href="{{ url('app/versions') }}"><i class="fa fa-list-alt"></i>
                                 <span class="menu-item" data-i18n="Analytics">App Versions</span></a>
                         </li>
-                        <li class="@if (request()->is('activities*')) active @endif "><a
+                        <li class="@if (request()->is('activities*')) active @endif mb-2"><a
                                 href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                         </li>
