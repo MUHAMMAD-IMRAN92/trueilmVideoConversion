@@ -28,6 +28,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Jobs\SurahCombination as SurahCombinationJob;
 use App\Models\Course;
 use App\Models\CourseLesson;
+use App\Models\Scopes\DeletedAtScope;
 use App\Models\UserSubscription;
 use Carbon\Carbon;
 use MongoDB\Operation\Count;
@@ -155,9 +156,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('update/audio/name', [App\Http\Controllers\BookController::class, 'updateChapterName'])->name('book.audio.update.chapter');
     Route::post('add/audio/chapter', [App\Http\Controllers\BookController::class, 'addAudioChapter'])->name('book.audio.add.chapter');
 
+    //podcast
     Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
     Route::post('podcast/episode', [App\Http\Controllers\BookController::class, 'podcastEpisode'])->name('podcast.episode');
     Route::post('podcast/bulk/episode', [App\Http\Controllers\BookController::class, 'podcastBulkEpisode'])->name('podcast.bulk.episode');
+    Route::get('podcast/episode/delete/{id}', [App\Http\Controllers\BookController::class, 'deleteEpisode'])->name('podcast.episode.delete');
+
+    Route::get('podcast/episode/undo-delete/{id}', [App\Http\Controllers\BookController::class, 'undoDeleteEpisode'])->name('podcast.episode.undo-delete');
 
     //super admin revet
     Route::get('activities', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('book.activities');
@@ -215,6 +220,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
     Route::post('course/bulk/episode', [App\Http\Controllers\CourseController::class, 'courseBulkEpisode'])->name('course.bulk.episode');
     Route::get('update/lesson/title', [App\Http\Controllers\CourseController::class, 'updateLessonName'])->name('course.lesson.update.title');
+    Route::get('course/lesson/delete/{id}', [App\Http\Controllers\CourseController::class, 'deleteLesson'])->name('course.lesson.delete');
+    Route::get('course/lesson/undo-delete/{id}', [App\Http\Controllers\CourseController::class, 'UndoDeleteLesson'])->name('course.lesson.delete');
 
     //lesson quiz
     Route::get('lesson/quiz/add/{course_id}', [App\Http\Controllers\CourseController::class, 'addQuiz'])->name('quiz.add');
@@ -380,6 +387,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('family', [App\Http\Controllers\UserController::class, 'family'])->name('affiliate');
     Route::get('family/members/{id}', [App\Http\Controllers\UserController::class, 'members'])->name('family.members');
 
+    //app versions
+    Route::get('app/versions', [App\Http\Controllers\HomeController::class, 'appVersions'])->name('appVersions');
+    Route::get('app/all-versions', [App\Http\Controllers\HomeController::class, 'allVersions'])->name('allVersions.all');
+    Route::get('app/versions/create', [App\Http\Controllers\HomeController::class, 'createVersion'])->name('appVersions.create');
+    Route::post('app/versions', [App\Http\Controllers\HomeController::class, 'storeVersions'])->name('appVersions.store');
+
     //render api
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
@@ -422,6 +435,5 @@ Route::get('dev', function () {
     set_time_limit(0);
     ini_set('max_execution_time', 0);
     ini_set("memory_limit", "-1");
-
     return 'dev';
 });
