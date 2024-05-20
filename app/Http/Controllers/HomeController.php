@@ -668,7 +668,7 @@ class HomeController extends Controller
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
 
-        AlQuranTranslation::where('author_lang', '664b020fd9ef5087b7f5b9bf')->delete();
+        AlQuranTranslation::where('author_lang', '664b2cb0d9ef5087b7f5b9d0')->delete();
 
         // return '1';
         $alQuran = AlQuran::get();
@@ -678,17 +678,16 @@ class HomeController extends Controller
             $response = json_decode($url->body());
             foreach ($response->tafsirs as $tafser) {
 
-                if ($tafser->resource_id == 166) {
+                if ($tafser->resource_id == 804) {
                     $records[] = [
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
                         'surah_id' => $verse->surah_id,
-                        'author_lang' => '664b020fd9ef5087b7f5b9bf',
+                        'author_lang' => '664b2cb0d9ef5087b7f5b9d0',
                         'type' => 2,
                         'added_by' => '6447918217e6501d607f4943',
                     ];
                 }
-
             }
         }
         $chunkSize = 1000;
