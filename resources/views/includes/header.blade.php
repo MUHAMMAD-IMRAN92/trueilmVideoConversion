@@ -401,7 +401,7 @@
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Category</span></a>
                         <ul class="menu-content">
-                            <li class="@if (request()->is('categories') ||request()->is('category/*') ) active @endif ml-2"><a
+                            <li class="@if (request()->is('categories') || request()->is('category/*')) active @endif ml-2"><a
                                     href="{{ url('categories') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Category</span></a>
                             </li>
@@ -646,6 +646,10 @@
                         </li>
                     @endif --}}
                     @if (auth()->user()->hasRole('Super Admin'))
+                        <li class="@if (request()->is('version*')) active @endif "><a
+                                href="{{ url('app/versions') }}"><i class="fa fa-tasks"></i>
+                                <span class="menu-item" data-i18n="Analytics">App Versions</span></a>
+                        </li>
                         <li class="@if (request()->is('activities*')) active @endif "><a
                                 href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
