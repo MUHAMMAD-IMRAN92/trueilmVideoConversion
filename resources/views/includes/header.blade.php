@@ -647,7 +647,7 @@
                     @endif --}}
                     @if (auth()->user()->hasRole('Super Admin'))
                         <li class="@if (request()->is('version*')) active @endif "><a
-                                href="{{ url('app/versions') }}"><i class="fa fa-tasks"></i>
+                                href="{{ url('app/versions') }}"><i class="fa fa-list-alt"></i>
                                 <span class="menu-item" data-i18n="Analytics">App Versions</span></a>
                         </li>
                         <li class="@if (request()->is('activities*')) active @endif "><a
