@@ -45,7 +45,7 @@
                         <div class="mr-1">
                             <fieldset class="form-group" style="width: 10rem !important">
                                 <select class="select2 form-control" name="category" id="course-ajax-table-category"
-                                    style="width: 33rem">
+                                    >
                                     <option value=" " selected disabled>Category</option>
                                     @foreach ($categories as $cat)
                                         <option value="{{ $cat->_id }}">
@@ -58,7 +58,7 @@
                         <div class="mr-1">
                             <fieldset class="form-group" style="width: 10rem !important">
                                 <select class="select2 form-control" name="category" id="course-ajax-table-author"
-                                    style="width: 33rem">
+                                  >
                                     <option value=" " selected disabled>Author</option>
                                     @foreach ($authors as $auth)
                                         <option value="{{ $auth->_id }}">
