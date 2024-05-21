@@ -679,7 +679,7 @@ class HomeController extends Controller
             $response = json_decode($url->body());
             foreach ($response->tafsirs as $tafser) {
 
-                if ($tafser->resource_id == 804) {
+                if ($tafser->resource_id == 170) {
                     $records[] = [
                         'translation' =>  $tafser->text,
                         'ayat_id' => $verse->_id,
