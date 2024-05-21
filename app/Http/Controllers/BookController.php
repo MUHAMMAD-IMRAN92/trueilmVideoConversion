@@ -72,8 +72,10 @@ class BookController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($user_id, $request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->count();
@@ -92,8 +94,10 @@ class BookController extends Controller
             $query->where('approved', (int)$request->aproval);
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->with('author', 'user', 'approver', 'category')->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
 
         $brandsCount = Book::where('type', $request->type)->when($search, function ($q) use ($search) {
@@ -110,8 +114,10 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->aproval, function ($query) use ($user_id, $request) {
             $query->where('approved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->skip((int) $start)->take((int) $length)->count();
@@ -499,10 +505,7 @@ class BookController extends Controller
             $query->where('aproved', (int)$request->aproval);
         })->when($request->uncategorized, function ($query) use ($request) {
             if ($request->uncategorized == "true") {
-                // dd('true');
                 $query->whereDoesntHave('category');
-            } else {
-                // dd($request->uncategorized);
             }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
@@ -515,10 +518,7 @@ class BookController extends Controller
             $query->where('aproved', (int)$request->aproval);
         })->when($request->uncategorized, function ($query) use ($request) {
             if ($request->uncategorized == "true") {
-                // dd('true');
                 $query->whereDoesntHave('category');
-            } else {
-                // dd($request->uncategorized);
             }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
@@ -539,10 +539,7 @@ class BookController extends Controller
             $query->where('aproved', (int)$request->aproval);
         })->when($request->uncategorized, function ($query) use ($request) {
             if ($request->uncategorized == "true") {
-                // dd('true');
                 $query->whereDoesntHave('category');
-            } else {
-                // dd($request->uncategorized);
             }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
@@ -650,8 +647,10 @@ class BookController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->count();
@@ -663,8 +662,10 @@ class BookController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($search, function ($q) use ($search) {
@@ -680,8 +681,10 @@ class BookController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($search, function ($q) use ($search) {
@@ -792,8 +795,10 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($request->contentType, function ($query) use ($request) {
@@ -809,8 +814,10 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($request->contentType, function ($query) use ($request) {
@@ -826,8 +833,10 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($request->contentType, function ($query) use ($request) {
@@ -871,8 +880,10 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($request->contentType, function ($query) use ($request) {
@@ -888,8 +899,10 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($request->contentType, function ($query) use ($request) {
@@ -906,8 +919,10 @@ class BookController extends Controller
             $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($request->contentType, function ($query) use ($request) {
