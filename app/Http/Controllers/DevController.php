@@ -750,11 +750,15 @@ class DevController extends Controller
                 ->update(['completed' => $key + 1]);
         }
     }
-    public function cancelExpireSubscriptions()
+    public static function cancelExpireSubscriptions()
     {
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
         $startOfDayUTC = Carbon::tomorrow('UTC');
+        \DB::table('jobs')->insert(
+            ['value' => Carbon::now()->toDateString(), 'key' => 'cancellation_job']
+        );
+
         $userSubscriptions = UserSubscription::where('status', 'paid')
             ->where(function ($query) {
                 $query->where('stripeCancelled', 1)
