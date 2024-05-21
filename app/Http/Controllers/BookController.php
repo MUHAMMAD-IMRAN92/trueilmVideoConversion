@@ -476,8 +476,12 @@ class BookController extends Controller
     }
     public function pendingForApprove($type)
     {
+        $categories = Category::active()->get();
+        $authors = Author::where('type', '1')->get();
         return view('eBook.pending_index', [
-            'type' => $type
+            'type' => $type,
+            'categories' => $categories,
+            'authors' => $authors,
         ]);
     }
     public function allPendingForApprovalBooks(Request $request)
@@ -487,8 +491,28 @@ class BookController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Book::where('type', $type)->pendingApprove()->count();
-        $brands = Book::where('type', $type)->pendingApprove()->with('author', 'user', 'approver', 'category')->when($search, function ($q) use ($search) {
+        $totalBrands = Book::where('type', $type)->pendingApprove()->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->count();
+        $brands = Book::where('type', $type)->pendingApprove()->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->with('author', 'user', 'approver', 'category')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
@@ -497,6 +521,16 @@ class BookController extends Controller
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
+        })->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
             'draw' => $draw,
@@ -572,9 +606,12 @@ class BookController extends Controller
 
     public function rejected()
     {
-
+        $categories = Category::active()->get();
+        $authors = Author::where('type', '1')->get();
         return view('eBook.rejected', [
-            'type' => Session::get('type')
+            'type' => Session::get('type'),
+            'categories' => $categories,
+            'authors' => $authors,
         ]);
     }
     public function allRejectedBooks(Request $request)
@@ -592,9 +629,29 @@ class BookController extends Controller
         $totalBrands = Book::rejected()->when($user_id, function ($query) use ($user_id) {
 
             $query->where('added_by', $user_id);
+        })->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->count();
         $brands = Book::rejected()->with('author', 'user', 'approver', 'category')->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
+        })->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
@@ -602,6 +659,16 @@ class BookController extends Controller
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = Book::rejected()->when($user_id, function ($query) use ($user_id) {
             $query->where('added_by', $user_id);
+        })->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");

@@ -471,10 +471,10 @@
                             href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Author</span></a>
                     </li>
-                    <li class="@if (request()->is('book/rejected')) active @endif"><a
+                    {{-- <li class="@if (request()->is('book/rejected')) active @endif"><a
                             href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
-                    </li>
+                    </li> --}}
                 @endif
                 @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
 

@@ -201,7 +201,7 @@ class CourseController extends Controller
     public function edit(Request $request, $id)
     {
 
-         $course = Course::where('_id', $id)->with('lessons', 'trashedCourse')->first();
+        $course = Course::where('_id', $id)->with('lessons', 'trashedCourse')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
         $categories = Category::active()->get();
         $tags = Tag::all();
@@ -511,17 +511,47 @@ class CourseController extends Controller
         $start = $request->get('start');
         $length = $request->get('length');
         $search = $request->search['value'];
-        $totalBrands = Course::pendingapprove()->when($user_id, function ($query) use ($user_id) {
+        $totalBrands = Course::pendingapprove()->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($user_id, function ($query) use ($user_id) {
             // $query->where('added_by', $user_id);
         })->count();
-        $brands = Course::pendingapprove()->when($user_id, function ($query) use ($user_id) {
+        $brands = Course::pendingapprove()->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($user_id, function ($query) use ($user_id) {
             // $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%$search%");
             });
         })->orderBy('created_at', 'desc')->with('user', 'category')->skip((int) $start)->take((int) $length)->get();
-        $brandsCount = Course::pendingapprove()->when($user_id, function ($query) use ($user_id) {
+        $brandsCount = Course::pendingapprove()->when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })->when($request->price, function ($query) use ($request) {
+            $query->where('p_type', $request->price);
+        })->when($request->aproval, function ($query) use ($request) {
+            $query->where('aproved', (int)$request->aproval);
+        })->when($request->uncategorized, function ($query) {
+            $query->whereDoesntHave('category');
+        })->when($request->author, function ($query) use ($request) {
+            $query->where('author_id', $request->author);
+        })->when($user_id, function ($query) use ($user_id) {
             // $query->where('added_by', $user_id);
         })->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {

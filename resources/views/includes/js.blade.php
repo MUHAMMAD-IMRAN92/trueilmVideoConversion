@@ -407,6 +407,7 @@
              }],
              "order": false
          });
+
          var ebooktable = $('#ebook-table').DataTable({
              "processing": true,
              "stateSave": true,
@@ -435,6 +436,7 @@
                              row.title + '</td>'
                      }
                  },
+
                  //  {
                  //      "mRender": function(data, type, row) {
                  //          var des = '';
@@ -940,7 +942,7 @@
              }],
              "order": false
          });
-         $('#pending-book-table').DataTable({
+         var pendinBookTable = $('#pending-book-table').DataTable({
 
              "processing": true,
              "stateSave": true,
@@ -1068,7 +1070,10 @@
              }],
              "order": false
          });
-         $('#pending-courses-table').DataTable({
+
+
+
+         var pendingCoursesTable = $('#pending-courses-table').DataTable({
              "processing": true,
              "stateSave": true,
              "serverSide": true,
@@ -1154,6 +1159,165 @@
                  "orderable": false
              }],
              "order": false
+         });
+         var category;
+         var price;
+         var uncategorized = '';
+         var author = '';
+         var contentType = '';
+
+         $('#ajax-pending-content-type-table').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-pending-table-price').val() == null ? '' : $('#ajax-pending-table-price')
+                 .val();
+             category = $('#ajax-pending-table-category').val() == null ? '' : $(
+                 '#ajax-pending-table-category').val();
+             contentType = $(this).val() == null ? '' : $(this).val();
+
+             if ($('#ajax-pending-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             author = $('#ajax-pending-table-author').val() == null ? '' : $(
+                 '#ajax-pending-table-author').val();
+             // Update the DataTable's AJAX URL with the selected category value
+             pendinBookTable.ajax.url('<?= url('all-pending-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+             pendingCoursesTable.ajax.url('<?= url('all-pending-courses') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-pending-table-category').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-pending-table-price').val() == null ? '' : $('#ajax-pending-table-price')
+                 .val();
+             category = $(this).val() == null ? '' : $(this).val();
+             contentType = $('#ajax-pending-content-type-table').val() == null ? '' : $(
+                 '#ajax-pending-table-approval').val();
+
+             if ($('#ajax-pending-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             author = $('#ajax-pending-table-author').val() == null ? '' : $(
+                 '#ajax-pending-table-author').val();
+             // Update the DataTable's AJAX URL with the selected category value
+             pendinBookTable.ajax.url('<?= url('all-pending-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+             pendingCoursesTable.ajax.url('<?= url('all-pending-courses') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-pending-table-price').on('change', function() {
+             // Get the selected category value
+             price = $(this).val() == null ? '' : $(this).val();
+             category = $('#ajax-pending-table-category').val() == null ? '' : $(
+                 '#ajax-pending-table-category').val();
+             contentType = $('#ajax-pending-content-type-table').val() == null ? '' : $(
+                 '#ajax-pending-table-approval').val();
+
+             author = $('#ajax-pending-table-author').val() == null ? '' : $(
+                 '#ajax-pending-table-author').val();
+             if ($('#ajax-pending-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+             // Update the DataTable's AJAX URL with the selected category value
+             pendinBookTable.ajax.url('<?= url('all-pending-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+             pendingCoursesTable.ajax.url('<?= url('all-pending-courses') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+
+         $('#ajax-pending-table-author').on('change', function() {
+             // Get the selected category value
+             price = $('#ajax-pending-table-price').val() == null ? '' : $('#ajax-pending-table-price')
+                 .val();
+             contentType = $('#ajax-pending-content-type-table').val() == null ? '' : $(
+                 '#ajax-pending-table-approval').val();
+             category = $('#ajax-pending-table-category').val() == null ? '' : $(
+                 '#ajax-pending-table-category').val();
+             author = $(this).val() == null ? '' : $(this).val();
+             if ($('#ajax-pending-uncategorized').is(':checked')) {
+                 uncategorized = true
+             }
+
+             // Update the DataTable's AJAX URL with the selected category value
+             pendinBookTable.ajax.url('<?= url('all-pending-book') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+             pendingCoursesTable.ajax.url('<?= url('all-pending-courses') ?>?category=' + category +
+                     '&price=' + price +
+                     '&uncategorized=' + uncategorized + '&author=' + author +
+                     '&contentType=' + contentType)
+                 .load();
+         });
+         $('#ajax-pending-uncategorized').on('change', function() {
+             if ($(this).is(':checked')) {
+                 // Get the selected category value
+                 $('#ajax-pending-table-category').prop('disabled', true);
+                 console.log($(this).val());
+                 price = $('#ajax-pending-table-price').val() == null ? '' : $(
+                     '#ajax-pending-table-price').val();
+                 category = '';
+                 contentType = $('#ajax-pending-content-type-table').val() == null ? '' : $(
+                     '#ajax-pending-table-approval').val();
+
+                 author = $('#ajax-pending-table-author').val() == null ? '' : $(
+                     '#ajax-pending-table-author').val();
+                 // Update the DataTable's AJAX URL with the selected category value
+                 pendinBookTable.ajax.url('<?= url('all-pending-book') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + true + '&author=' +
+                         author +
+                         '&contentType=' + contentType)
+                     .load();
+                 pendingCoursesTable.ajax.url('<?= url('all-pending-courses') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + true + '&author=' + author +
+                         '&contentType=' + contentType)
+                     .load();
+             } else {
+                 $('#ajax-pending-table-category').prop('disabled', false);
+                 price = $('#ajax-pending-table-price').val() == null ? '' : $(
+                     '#ajax-pending-table-price').val();
+                 category = $('#ajax-pending-table-category').val() == null ? '' : $(
+                         '#ajax-pending-table-category')
+                     .val();
+                 contentType = $('#ajax-pending-content-type-table').val() == null ? '' : $(
+                     '#ajax-pending-table-approval').val();
+
+                 author = $('#ajax-pending-table-author').val() == null ? '' : $(
+                     '#ajax-pending-table-author').val();
+
+                 // Update the DataTable's AJAX URL with the selected category value
+                 pendinBookTable.ajax.url('<?= url('all-pending-book') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + false + '&author=' +
+                         author +
+                         '&contentType=' + contentType)
+                     .load();
+                 pendingCoursesTable.ajax.url('<?= url('all-pending-courses') ?>?category=' + category +
+                         '&price=' + price +
+                         '&uncategorized=' + false + '&author=' + author +
+                         '&contentType=' + contentType)
+                     .load();
+             }
          });
          $('#rejected-by-you-courses-table').DataTable({
              "processing": true,
