@@ -755,9 +755,16 @@ class DevController extends Controller
         ini_set('max_execution_time', 0);
         ini_set("memory_limit", "-1");
         $startOfDayUTC = Carbon::tomorrow('UTC');
-        $userSubscriptions = UserSubscription::where('status', 'paid')->where('stripeCancelled', 1)->whereDate('expiry_date', '<', $startOfDayUTC)->get();
+        $userSubscriptions = UserSubscription::where('status', 'paid')
+            ->where(function ($query) {
+                $query->where('stripeCancelled', 1)
+                    ->orWhere('istrail', 1);
+            })
+            ->whereDate('expiry_date', '<', $startOfDayUTC)
+            ->get();
         foreach ($userSubscriptions as $userSubscription) {
             $userSubscription->status = 'cancelled';
+            $userSubscription->testString = 'Cancelled By Cron Job';
             $userSubscription->save();
             $subscriptionCount = UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->count();
             if ($subscriptionCount == 0) {
@@ -769,6 +776,7 @@ class DevController extends Controller
                 $newuserSubscription->status = 'paid';
                 $newuserSubscription->plan_name = 'Freemium';
                 $newuserSubscription->plan_id = '65cf47c31b80a2d2b83f7128';
+                $newuserSubscription->testString = 'Attached By Cron Job';
                 $newuserSubscription->plan_type = 0;
                 $newuserSubscription->save();
             }
