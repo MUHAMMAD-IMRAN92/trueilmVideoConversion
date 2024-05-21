@@ -497,8 +497,13 @@ class BookController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                // dd('true');
+                $query->whereDoesntHave('category');
+            } else {
+                // dd($request->uncategorized);
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->count();
@@ -508,8 +513,13 @@ class BookController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                // dd('true');
+                $query->whereDoesntHave('category');
+            } else {
+                // dd($request->uncategorized);
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->with('author', 'user', 'approver', 'category')->when($search, function ($q) use ($search) {
@@ -527,8 +537,13 @@ class BookController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                // dd('true');
+                $query->whereDoesntHave('category');
+            } else {
+                // dd($request->uncategorized);
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->skip((int) $start)->take((int) $length)->count();
