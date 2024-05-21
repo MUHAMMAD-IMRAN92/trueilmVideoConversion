@@ -62,8 +62,10 @@ class CourseController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($user_id, $request) {
             $query->where('approved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->count();
@@ -80,8 +82,10 @@ class CourseController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($user_id, $request) {
             $query->where('approved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->orderBy('created_at', 'desc')->with('user', 'category')->skip((int) $start)->take((int) $length)->get();
@@ -99,8 +103,10 @@ class CourseController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($user_id, $request) {
             $query->where('approved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->skip((int) $start)->take((int) $length)->count();
@@ -517,8 +523,10 @@ class CourseController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($user_id, function ($query) use ($user_id) {
@@ -530,8 +538,10 @@ class CourseController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($user_id, function ($query) use ($user_id) {
@@ -547,8 +557,10 @@ class CourseController extends Controller
             $query->where('p_type', $request->price);
         })->when($request->aproval, function ($query) use ($request) {
             $query->where('aproved', (int)$request->aproval);
-        })->when($request->uncategorized, function ($query) {
-            $query->whereDoesntHave('category');
+        })->when($request->uncategorized, function ($query) use ($request) {
+            if ($request->uncategorized == "true") {
+                $query->whereDoesntHave('category');
+            }
         })->when($request->author, function ($query) use ($request) {
             $query->where('author_id', $request->author);
         })->when($user_id, function ($query) use ($user_id) {
