@@ -3708,7 +3708,21 @@
                      }
                  }, {
                      "mRender": function(data, type, row) {
-                         var status = row.status;
+                         $dropdown = $('#user-ajax-table-plan-type').val();
+                         var status = '';
+                         if ($dropdown == 1) {
+                             status = 'Individual';
+                         } else if ($dropdown == 2) {
+                             status = 'Family';
+                         } else if ($dropdown == 3) {
+                             status = 'Big Family';
+                         } else if ($dropdown == 4) {
+                             status = 'Individual (Trial)';
+                         } else {
+
+                             status = row.status;
+                         }
+
                          //  if (row.status == 0) {
                          //      status = 'Not Subscribed';
                          //  } else {

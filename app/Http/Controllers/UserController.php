@@ -265,9 +265,15 @@ class UserController extends Controller
         $totalBrands = User::whereNull('deleted_at')->when($request->unsubscribed, function ($query) {
             $query->whereDoesntHave('subscription');
         })->when($request->planType, function ($query) use ($request) {
-            $query->whereHas('subscription', function ($q) use ($request) {
-                $q->where('plan_type', (int) $request->planType);
-            });
+            if ($request->planType == '4') {
+                $query->whereHas('subscription', function ($q) use ($request) {
+                    $q->where('plan_type', 1)->where('istrail', 1);
+                });
+            } else {
+                $query->whereHas('subscription', function ($q) use ($request) {
+                    $q->where('plan_type', (int) $request->planType);
+                });
+            }
         })->count();
         $brands = User::whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
@@ -276,9 +282,15 @@ class UserController extends Controller
         })->when($request->unsubscribed, function ($query) {
             $query->whereDoesntHave('subscription');
         })->when($request->planType, function ($query) use ($request) {
-            $query->whereHas('subscription', function ($q) use ($request) {
-                $q->where('plan_type', (int) $request->planType);
-            });
+            if ($request->planType == '4') {
+                $query->whereHas('subscription', function ($q) use ($request) {
+                    $q->where('plan_type', 1)->where('istrail', 1);
+                });
+            } else {
+                $query->whereHas('subscription', function ($q) use ($request) {
+                    $q->where('plan_type', (int) $request->planType);
+                });
+            }
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
         $brandsCount = User::whereNull('deleted_at')->when($search, function ($q) use ($search) {
             $q->where(function ($q) use ($search) {
@@ -287,9 +299,15 @@ class UserController extends Controller
         })->when($request->unsubscribed, function ($query) {
             $query->whereDoesntHave('subscription');
         })->when($request->planType, function ($query) use ($request) {
-            $query->whereHas('subscription', function ($q) use ($request) {
-                $q->where('plan_type', (int) $request->planType);
-            });
+            if ($request->planType == '4') {
+                $query->whereHas('subscription', function ($q) use ($request) {
+                    $q->where('plan_type', 1)->where('istrail', 1);
+                });
+            } else {
+                $query->whereHas('subscription', function ($q) use ($request) {
+                    $q->where('plan_type', (int) $request->planType);
+                });
+            }
         })->skip((int) $start)->take((int) $length)->count();
         $data = array(
             'draw' => $draw,

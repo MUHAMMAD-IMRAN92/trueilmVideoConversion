@@ -56,10 +56,12 @@ class User extends Authenticatable
             return 'Big Family';
         } else if (@$userSubscription->plan_type == 2) {
             return 'Family';
+        } elseif (@$userSubscription->plan_type == 1 & @$userSubscription->istrail == 1) {
+            return 'Individual (Trial)';
+        } elseif (@$userSubscription->plan_type == 0) {
+            return 'Freemium';
         } elseif (@$userSubscription->plan_type == 1) {
             return 'Individual';
-        } elseif (@$userSubscription->plan_type == 0)  {
-            return 'Freemium';
         }
     }
 

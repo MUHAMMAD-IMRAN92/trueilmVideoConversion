@@ -44,6 +44,7 @@
                                 <select class="selct2 form-control mr-2" name="plan_type" id="user-ajax-table-plan-type">
 
                                     <option value="" selected disabled>Subscription Type</option>
+                                    <option value="4">Individual (Trial) </option>
                                     <option value="1">Individual
                                     </option>
                                     <option value="2">Family</option>
