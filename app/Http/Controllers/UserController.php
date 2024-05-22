@@ -271,7 +271,7 @@ class UserController extends Controller
                 });
             } else {
                 $query->whereHas('subscription', function ($q) use ($request) {
-                    $q->where('plan_type', (int) $request->planType);
+                    $q->where('plan_type', (int) $request->planType)->where('istrail', '!=', 1);
                 });
             }
         })->count();
@@ -288,7 +288,7 @@ class UserController extends Controller
                 });
             } else {
                 $query->whereHas('subscription', function ($q) use ($request) {
-                    $q->where('plan_type', (int) $request->planType);
+                    $q->where('plan_type', (int) $request->planType)->where('istrail', '!=', 1);
                 });
             }
         })->orderBy('created_at', 'desc')->skip((int) $start)->take((int) $length)->get();
@@ -305,7 +305,7 @@ class UserController extends Controller
                 });
             } else {
                 $query->whereHas('subscription', function ($q) use ($request) {
-                    $q->where('plan_type', (int) $request->planType);
+                    $q->where('plan_type', (int) $request->planType)->where('istrail', '!=', 1);
                 });
             }
         })->skip((int) $start)->take((int) $length)->count();
