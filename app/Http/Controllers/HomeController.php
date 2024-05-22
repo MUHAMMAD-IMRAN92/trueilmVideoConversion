@@ -30,6 +30,8 @@ use App\Models\Hadees;
 use App\Models\HadeesTranslation;
 use App\Models\Khatoot;
 use Berkayk\OneSignal\OneSignalFacade;
+use DOMDocument;
+use DOMXPath;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -667,8 +669,51 @@ class HomeController extends Controller
     public function AlQuranTafseer()
     {
         ini_set('max_execution_time', 0);
-        ini_set("memory_limit", "-1");
+    ini_set("memory_limit", "-1");
 
+        //QuranEnc
+        $url = 'https://quranenc.com/en/browse/arabic_mokhtasar/1';
+
+
+        // The URL you want to fetch the HTML from
+
+
+        try {
+            // Send a GET request to the URL
+
+            $response = Http::get($url);
+            // Get the HTML content as a string
+            $html = $response->getBody()->getContents();
+            $dom = new DOMDocument();
+
+            // Load the HTML content into the DOMDocument instance
+            // Suppress errors due to malformed HTML
+            @$dom->loadHTML($html);
+
+            // Create an empty array to hold the text content
+            $textArray = [];
+
+            // Get all elements with the specified class name
+            $finder = new DOMXPath($dom);
+            dd( @$finder  );
+            $nodes = $finder->query("//*[contains(@class, 'ttc')]");
+
+            // Loop through the nodes and extract the text content
+            foreach ($nodes as $node) {
+                $textArray[] = trim($node->textContent);
+            }
+            echo '<pre>';
+            print_r($textArray);
+            return 'ok';
+            // Return the HTML content (or you can process it as needed)
+            return response($html, 200)
+                ->header('Content-Type', 'text/html');
+        } catch (\Exception $e) {
+            // Handle exceptions such as network errors, invalid URLs, etc.
+            return response('Failed to fetch HTML: ' . $e->getMessage(), 500);
+        }
+
+        //Quran.com
         AlQuranTranslation::where('author_lang', '664c3e01d9ef5087b7f5b9e4')->delete();
 
         // return '1';

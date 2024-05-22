@@ -768,6 +768,7 @@ class DevController extends Controller
             ->get();
         foreach ($userSubscriptions as $userSubscription) {
             $userSubscription->status = 'cancelled';
+            $userSubscription->istrail = 0;
             $userSubscription->testString = 'Cancelled By Cron Job';
             $userSubscription->save();
             $subscriptionCount = UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->count();
