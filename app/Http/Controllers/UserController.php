@@ -611,16 +611,17 @@ class UserController extends Controller
     }
     public static function checkSubscriptionExpiry()
     {
-        \DB::table('test')->insert([
-            'key' => 'value'
-        ]);
+        $startOfDayUTC = Carbon::tomorrow('UTC');
+        \DB::table('jobs')->insert(
+            ['value' => Carbon::now()->toDateString(), 'key' => 'cancellation_job_userControler']
+        );
 
-        $now = Carbon::now();
-
-        $thirtyDaysAgo = $now->copy()->subDays(30);
-
-        $usersToEmail = UserSubscription::where('istrial', 1)
-            ->where('start_date', '<=', $thirtyDaysAgo)
+        $usersToEmail = UserSubscription::where('status', 'paid')
+            ->where(function ($query) {
+                $query->where('stripeCancelled', 1)
+                    ->orWhere('istrail', 1);
+            })
+            ->whereDate('expiry_date', '<', $startOfDayUTC)
             ->get();
         $api_key = env('MAIL_PASSWORD');
         $api_url = "https://api.sendgrid.com/v3/mail/send";
