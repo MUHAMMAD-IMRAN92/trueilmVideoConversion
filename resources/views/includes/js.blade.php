@@ -3696,7 +3696,7 @@
                              email = row.email
                          }
                          return '<td>' +
-                             row.email +
+                             email +
                              '</td>'
                      }
                  },
