@@ -669,10 +669,9 @@ class HomeController extends Controller
     public function AlQuranTafseer()
     {
         ini_set('max_execution_time', 0);
-    ini_set("memory_limit", "-1");
+        ini_set("memory_limit", "-1");
 
         //QuranEnc
-        $url = 'https://quranenc.com/en/browse/arabic_mokhtasar/1';
 
 
         // The URL you want to fetch the HTML from
@@ -680,67 +679,75 @@ class HomeController extends Controller
 
         try {
             // Send a GET request to the URL
+            $surah = Surah::get();
+            $records = [];
 
-            $response = Http::get($url);
-            // Get the HTML content as a string
-            $html = $response->getBody()->getContents();
-            $dom = new DOMDocument();
+            foreach ($surah as $s) {
 
-            // Load the HTML content into the DOMDocument instance
-            // Suppress errors due to malformed HTML
-            @$dom->loadHTML($html);
+                $url = 'https://quranenc.com/en/browse/arabic_mokhtasar/' . $s->sequence;
+                $response = Http::get($url);
+                // Get the HTML content as a string
+                $html = $response->getBody()->getContents();
+                $dom = new DOMDocument();
 
-            // Create an empty array to hold the text content
-            $textArray = [];
+                // Load the HTML content into the DOMDocument instance
+                // Suppress errors due to malformed HTML
+                @$dom->loadHTML($html);
 
-            // Get all elements with the specified class name
-            $finder = new DOMXPath($dom);
-            dd( @$finder  );
-            $nodes = $finder->query("//*[contains(@class, 'ttc')]");
+                // Create an empty array to hold the text content
+                $textArray = [];
 
-            // Loop through the nodes and extract the text content
-            foreach ($nodes as $node) {
-                $textArray[] = trim($node->textContent);
+                // Get all elements with the specified class name
+                $finder = new DOMXPath($dom);
+                // dd(@$finder);
+                $nodes = $finder->query("//*[contains(@class, 'ttc')]");
+                foreach ($nodes as $key => $node) {
+                    if ($key < count($nodes)) {
+
+
+                        // $textArray[] = trim($node->textContent);
+                        $alQuran = AlQuran::where('surah_id', $s->_id)->where('verse_number', $key + 1)->first();
+
+                        $records[] = [
+                            'translation' =>  trim($node->textContent),
+                            'ayat_id' => $alQuran->_id,
+                            'surah_id' => $s->_id,
+                            'author_lang' => '664f19cf601ed810afe770bc',
+                            'type' => 2,
+                            'added_by' => '6447918217e6501d607f4943',
+                        ];
+                    }
+                }
             }
-            echo '<pre>';
-            print_r($textArray);
-            return 'ok';
-            // Return the HTML content (or you can process it as needed)
-            return response($html, 200)
-                ->header('Content-Type', 'text/html');
+
+
+
+            return 'save!';
         } catch (\Exception $e) {
             // Handle exceptions such as network errors, invalid URLs, etc.
             return response('Failed to fetch HTML: ' . $e->getMessage(), 500);
         }
 
         //Quran.com
-        AlQuranTranslation::where('author_lang', '664c3e01d9ef5087b7f5b9e4')->delete();
+        // AlQuranTranslation::where('author_lang', '664f19cf601ed810afe770bc')->delete();
 
-        // return '1';
-        $alQuran = AlQuran::get();
-        $records = [];
-        foreach ($alQuran as $key => $verse) {
-            $url = Http::get("https://api.quran.com/api/v4/quran/tafsirs/160?verse_key=$verse->verse_key");
-            $response = json_decode($url->body());
-            foreach ($response->tafsirs as $tafser) {
+        // // return '1';
+        // $alQuran = AlQuran::get();
+        // $records = [];
+        // foreach ($alQuran as $key => $verse) {
+        //     $url = Http::get("https://api.quran.com/api/v4/quran/tafsirs/160?verse_key=$verse->verse_key");
+        //     $response = json_decode($url->body());
+        //     foreach ($response->tafsirs as $tafser) {
 
-                if ($tafser->resource_id == 170) {
-                    $records[] = [
-                        'translation' =>  $tafser->text,
-                        'ayat_id' => $verse->_id,
-                        'surah_id' => $verse->surah_id,
-                        'author_lang' => '664c3e01d9ef5087b7f5b9e4',
-                        'type' => 2,
-                        'added_by' => '6447918217e6501d607f4943',
-                    ];
-                }
-            }
-        }
-        $chunkSize = 1000;
-        $chunks = array_chunk($records, $chunkSize);
-        foreach ($chunks as $chunk) {
-            AlQuranTranslation::insert($chunk);
-        }
+        //         if ($tafser->resource_id == 170) {
+        //         }
+        //     }
+        // }
+        // $chunkSize = 1000;
+        // $chunks = array_chunk($records, $chunkSize);
+        // foreach ($chunks as $chunk) {
+        //     AlQuranTranslation::insert($chunk);
+        // }
         return 'save!';
     }
 
