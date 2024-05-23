@@ -792,7 +792,7 @@ class BookController extends Controller
         $totalBrands = Book::approved()->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id);
+            // $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
         })->when($request->uncategorized, function ($query) use ($request) {
@@ -811,7 +811,7 @@ class BookController extends Controller
         })->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id);
+            // $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
         })->when($request->uncategorized, function ($query) use ($request) {
@@ -830,7 +830,7 @@ class BookController extends Controller
         })->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id);
+            // $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
         })->when($request->uncategorized, function ($query) use ($request) {
@@ -877,7 +877,7 @@ class BookController extends Controller
         $totalBrands = Book::rejected()->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id);
+            // $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
         })->when($request->uncategorized, function ($query) use ($request) {
@@ -896,7 +896,7 @@ class BookController extends Controller
         })->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id);
+            // $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
         })->when($request->uncategorized, function ($query) use ($request) {
@@ -916,7 +916,7 @@ class BookController extends Controller
         })->when($request->category, function ($query) use ($user_id, $request) {
             $query->where('category_id', $request->category);
         })->when($user_id, function ($query) use ($user_id) {
-            $query->where('added_by', $user_id);
+            // $query->where('added_by', $user_id);
         })->when($request->price, function ($query) use ($user_id, $request) {
             $query->where('p_type', $request->price);
         })->when($request->uncategorized, function ($query) use ($request) {
