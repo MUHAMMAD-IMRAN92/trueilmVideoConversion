@@ -3690,7 +3690,11 @@
                  },
                  {
                      "mRender": function(data, type, row) {
+                        email = '--';
 
+                        if (row.email != null) {
+                             name = row.name
+                         }
                          return '<td>' +
                              row.email +
                              '</td>'
