@@ -145,7 +145,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
     Route::get('book/view/{id}', [App\Http\Controllers\BookController::class, 'viewBook'])->name('book.viewBook');
     Route::get('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
-    Route::get('book/approved', [App\Http\Controllers\BookController::class, 'apall-approved-bookproved'])->name('book.approved');
+    Route::get('book/approved', [App\Http\Controllers\BookController::class, 'all-approved-bookproved'])->name('book.approved');
     Route::get('all-approved-book', [App\Http\Controllers\BookController::class, 'allApprovedBooks'])->name('book.all-approved');
     Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
