@@ -33,9 +33,7 @@ use App\Models\UserSubscription;
 use Carbon\Carbon;
 use MongoDB\Operation\Count;
 
-use function PHPUnit\Framework\isEmpty;
-
-/*
+use function PHPUnit\Framework\isEm/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------s
@@ -437,12 +435,6 @@ Route::get('dev', function () {
     set_time_limit(0);
     ini_set('max_execution_time', 0);
     ini_set("memory_limit", "-1");
-
-    $userSubs = UserSubscription::where('plan_type', 3)->where('email', 'NOT LIKE', '%maili%')->where('status', 'paid')->get();
-    foreach ($userSubs as $sub) {
-        // return $sub->email;
-        echo '<pre>';
-        echo   addContactToSendGridList(@$sub->email, @$sub->plan_type);
-    }
-, 3)->count();
+  return  $userSub = UserSubscription::where('plan_type', 3)->count();
     return 'dev';
+});
