@@ -3693,7 +3693,7 @@
                         email = '--';
 
                         if (row.email != null) {
-                            email = row.name
+                             email = row.email
                          }
                          return '<td>' +
                              row.email +
