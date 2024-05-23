@@ -142,7 +142,7 @@ class UserController extends Controller
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
                 curl_close($ch);
-                return sendSuccess('Mail Has Been Sent!', []);
+                return sendSuccess("We'll email you a link to reset your password.", []);
             } catch (\Exception $e) {
                 return $e->getMessage();
             }

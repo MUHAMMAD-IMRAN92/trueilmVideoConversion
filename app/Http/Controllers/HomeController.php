@@ -679,7 +679,7 @@ class HomeController extends Controller
 
         try {
             // Send a GET request to the URL
-            $surah = Surah::get();
+            $surah = Surah::orderBy('sequence', 'ASC')->get();
             $records = [];
 
             foreach ($surah as $s) {
@@ -695,7 +695,7 @@ class HomeController extends Controller
                 @$dom->loadHTML($html);
 
                 // Create an empty array to hold the text content
-                $textArray = [];
+                // $textArray = [];
 
                 // Get all elements with the specified class name
                 $finder = new DOMXPath($dom);
@@ -703,15 +703,14 @@ class HomeController extends Controller
                 $nodes = $finder->query("//*[contains(@class, 'ttc')]");
                 foreach ($nodes as $key => $node) {
                     if ($key < count($nodes)) {
-
-
                         // $textArray[] = trim($node->textContent);
-                        $alQuran = AlQuran::where('surah_id', $s->_id)->where('verse_number', $key + 1)->first();
+                        $number = $key + 1;
+                        $alQuran = AlQuran::where('surah_id', $s->_id)->where('verse_number', $number)->first();
 
                         $records[] = [
                             'translation' =>  trim($node->textContent),
                             'ayat_id' => $alQuran->_id,
-                            'surah_id' => $s->_id,
+                            'surah_id' => $alQuran->surah_id,
                             'author_lang' => '664f19cf601ed810afe770bc',
                             'type' => 2,
                             'added_by' => '6447918217e6501d607f4943',
@@ -719,13 +718,17 @@ class HomeController extends Controller
                     }
                 }
             }
-
+            $chunkSize = 1000;
+            $chunks = array_chunk($records, $chunkSize);
+            foreach ($chunks as $chunk) {
+                AlQuranTranslation::insert($chunk);
+            }
 
 
             return 'save!';
         } catch (\Exception $e) {
             // Handle exceptions such as network errors, invalid URLs, etc.
-            return response('Failed to fetch HTML: ' . $e->getMessage(), 500);
+            return response('Failed to fetch HTML: ' . $e->getLine(), 500);
         }
 
         //Quran.com
