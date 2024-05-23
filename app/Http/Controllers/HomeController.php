@@ -860,8 +860,8 @@ class HomeController extends Controller
     {
         $version = new AppVersion();
         $version->andriod = $request->andriod;
-        $version->ios = $request->ios;
-        $version->app_version = $request->app_version;
+        $version->ios = @$request->ios;
+        $version->app_version = @$request->app_version;
         $version->save();
 
         return redirect()->to('app/versions')->with('msg', 'App Version Added Succesfully!');

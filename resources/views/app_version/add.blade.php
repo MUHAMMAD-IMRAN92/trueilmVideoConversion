@@ -65,7 +65,7 @@
                                                             <label for="">Andiord</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="andriod" placeholder="" required>
+                                                                    name="andriod" placeholder="" >
 
                                                             </div>
                                                         </div>
@@ -75,7 +75,7 @@
                                                             <label for="">IOS</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="ios" placeholder="" required>
+                                                                    name="ios" placeholder="" >
                                                             </div>
                                                         </div>
                                                     </div>

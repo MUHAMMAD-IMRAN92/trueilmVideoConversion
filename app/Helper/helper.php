@@ -10,6 +10,7 @@ use App\Models\BookForSale;
 use App\Models\Category;
 use App\Models\CourseLesson;
 use App\Models\Grant;
+use App\Models\User;
 use App\Models\UserSubscription;
 use Carbon\Carbon;
 use Meilisearch\Client;
@@ -187,20 +188,26 @@ function subscriptionEmail($userEmail, $plan, $template_id)
 }
 function addContactToSendGridList($email, $type)
 {
+    // return $email;
     $apiKey = getenv('MAIL_PASSWORD');
+    $user = User::where('email', $email)->first();
     $sg = new \SendGrid($apiKey);
     $list = '';
     if ($type == 3) {
         $list = 'ba9e0598-ac9f-49a3-a383-be02ecb8f2b3';
     } elseif ($type == 2) {
+        // dd($email);
         $list = 'a612123e-74e9-404e-a863-ea1a8163b58f';
     } else {
         $list = 'af6f628a-e024-4ce0-95a6-c72e2ef16df3';
     }
     $request_body = json_decode('{
+
                 "contacts": [
                     {
-                        "email": "' . $email . '"
+                        "email": "' . $user->email . '",
+                        "user_name" : "' . @$user->user_name . '",
+                        "phone_number" : "' . @$user->phone . '"
                     }
                 ],
                 "list_ids": [

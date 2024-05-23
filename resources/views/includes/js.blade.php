@@ -3399,6 +3399,15 @@
                      }
                  }, {
                      "mRender": function(data, type, row) {
+                         var link = '--';
+                         if (row.link != undefined) {
+                             link = row.link;
+                         }
+                         return '<td>' +
+                             link + '</td>'
+                     }
+                 }, {
+                     "mRender": function(data, type, row) {
                          // Create a new Date object from the timestamp string
                          const dateObject = new Date(row.created_at);
 
@@ -3690,9 +3699,9 @@
                  },
                  {
                      "mRender": function(data, type, row) {
-                        email = '--';
+                         email = '--';
 
-                        if (row.email != null) {
+                         if (row.email != null) {
                              email = row.email
                          }
                          return '<td>' +
@@ -5658,5 +5667,16 @@
          $(this).select2({
              dropdownParent: $(this).parent()
          });
+     });
+     $('select[name="notification-type"]').on('change', function() {
+         if ($(this).val() == 1) {
+             $('#notification-link').prop('readonly', false);
+             $('#notification-link').val('');
+
+         } else {
+             $('#notification-link').prop('readonly', true);
+             $('#notification-link').val('https://app.trueilm.com/subscription');
+
+         }
      })
  </script>

@@ -60,6 +60,7 @@
                                                 <tr>
                                                     <th>Heading</th>
                                                     <th>Notification</th>
+                                                    <th>Link</th>
                                                     <th>Sent At</th>
                                                 </tr>
                                             </thead>

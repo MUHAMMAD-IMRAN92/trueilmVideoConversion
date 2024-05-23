@@ -55,7 +55,7 @@
                                                             <label for="">Heading</label>
                                                             <div class="position-relative">
                                                                 <input type="text" id="" class="form-control"
-                                                                    name="heading"  placeholder="" required>
+                                                                    name="heading" placeholder="" required>
 
                                                             </div>
                                                         </div>
@@ -67,7 +67,29 @@
                                                             <textarea class="form-control" id="basicTextarea" rows="3" placeholder="" name="notification"></textarea>
                                                         </fieldset>
                                                     </div>
-                                                    <div class="col-12"  style="text-align: right">
+                                                    <div class="col-12">
+
+                                                        <label for="">Type</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="notification-type"
+                                                                id="basicSelect">
+                                                                <option selected value="1">Custom Link</option>
+                                                                <option value="2">Subscription Link
+                                                                </option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="">Link</label>
+                                                            <div class="position-relative">
+                                                                <input type="text" id="notification-link" class="form-control"
+                                                                    name="link" placeholder="" required>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12" style="text-align: right">
                                                         <button type="submit" class="btn btn-primary mr-1 mb-1"
                                                             id="submit-btn">Submit</button>
 

@@ -59,6 +59,7 @@ class NotificationController extends Controller
         $notification = new Notification();
         $notification->heading = $request->heading;
         $notification->notification = $request->notification;
+        $notification->link = $request->link;
         $notification->is_read = 0;
         $notification->send_to = 0;
         $notification->type = 0;
@@ -66,7 +67,7 @@ class NotificationController extends Controller
         $notification->save();
         \OneSignal::sendNotificationToAll(
             $request->notification,
-            null,
+            $url = $request->link,
             null,
             null,
             null,
@@ -74,11 +75,11 @@ class NotificationController extends Controller
             $request->heading,
             null
         );
-        // $userId = ['ccec9dfe-2cc2-48ab-920e-9c6be75ff315'];
+        // $userId = ['5c0e662d-06cd-4847-ad83-43325dac40e1'];
         // \OneSignal::sendNotificationToUser(
         //     $request->notification,
         //     $userId,
-        //     null,
+        //     $url = 'https://trueilm.com/',
         //     null,
         //     null,
         //     null,
