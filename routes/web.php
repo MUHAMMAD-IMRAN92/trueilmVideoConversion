@@ -33,6 +33,8 @@ use App\Models\UserSubscription;
 use Carbon\Carbon;
 use MongoDB\Operation\Count;
 
+use function PHPUnit\Framework\isEmpty;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -145,7 +147,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
     Route::get('book/view/{id}', [App\Http\Controllers\BookController::class, 'viewBook'])->name('book.viewBook');
     Route::get('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
-    Route::get('book/approved', [App\Http\Controllers\BookController::class, 'all-approved-bookproved'])->name('book.approved');
+    Route::get('book/approved', [App\Http\Controllers\BookController::class, 'approved'])->name('book.approved');
     Route::get('all-approved-book', [App\Http\Controllers\BookController::class, 'allApprovedBooks'])->name('book.all-approved');
     Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
@@ -435,6 +437,12 @@ Route::get('dev', function () {
     set_time_limit(0);
     ini_set('max_execution_time', 0);
     ini_set("memory_limit", "-1");
-  return  $userSub = UserSubscription::where('plan_type', 3)->count();
+
+    $userSubs = UserSubscription::where('plan_type', 3)->where('email', 'NOT LIKE', '%maili%')->where('status', 'paid')->get();
+    foreach ($userSubs as $sub) {
+        // return $sub->email;
+        echo '<pre>';
+        echo   addContactToSendGridList(@$sub->email, @$sub->plan_type);
+    }
+, 3)->count();
     return 'dev';
-});
