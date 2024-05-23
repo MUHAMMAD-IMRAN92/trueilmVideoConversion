@@ -147,7 +147,7 @@ class UserController extends Controller
                 return $e->getMessage();
             }
         } else {
-            return sendError('User Not Found!', []);
+            return sendError("A user doesn't exist with this email", []);
         }
     }
     public function saveToSendGrid(Request $request)
