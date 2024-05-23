@@ -701,22 +701,25 @@ class HomeController extends Controller
                 $finder = new DOMXPath($dom);
                 // dd(@$finder);
                 $nodes = $finder->query("//*[contains(@class, 'ttc')]");
+
                 foreach ($nodes as $key => $node) {
                     if ($key < count($nodes)) {
                         // $textArray[] = trim($node->textContent);
                         $number = $key + 1;
                         $alQuran = AlQuran::where('surah_id', $s->_id)->where('verse_number', $number)->first();
-
-                        $records[] = [
-                            'translation' =>  trim($node->textContent),
-                            'ayat_id' => $alQuran->_id,
-                            'surah_id' => $alQuran->surah_id,
-                            'author_lang' => '664f19cf601ed810afe770bc',
-                            'type' => 2,
-                            'added_by' => '6447918217e6501d607f4943',
-                        ];
+                        if ($alQuran) {
+                            $records[] = [
+                                'translation' =>  trim($node->textContent),
+                                'ayat_id' => $alQuran->_id,
+                                'surah_id' => $alQuran->surah_id,
+                                'author_lang' => '664f19cf601ed810afe770bc',
+                                'type' => 2,
+                                'added_by' => '6447918217e6501d607f4943',
+                            ];
+                        }
                     }
                 }
+                // return  $records;
             }
             $chunkSize = 1000;
             $chunks = array_chunk($records, $chunkSize);
@@ -728,7 +731,7 @@ class HomeController extends Controller
             return 'save!';
         } catch (\Exception $e) {
             // Handle exceptions such as network errors, invalid URLs, etc.
-            return response('Failed to fetch HTML: ' . $e->getLine(), 500);
+            return response('Failed to fetch HTML: ' . $e->getLine() . $e->getMessage(), 500);
         }
 
         //Quran.com
