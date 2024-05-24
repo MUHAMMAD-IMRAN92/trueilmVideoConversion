@@ -102,8 +102,8 @@
                                                 @empty
                                                     <td></td>
                                                     <td></td>
-                                                    <td></td>
                                                     <td style="align-content: center">No Data Found !</td>
+                                                    <td></td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
