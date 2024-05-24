@@ -471,6 +471,10 @@
                             href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Author</span></a>
                     </li>
+                    <li class="@if (request()->is('app-section')) active @endif"><a
+                            href="{{ url('app-section') }}"><i class="fa fa-list"></i>
+                            <span class="menu-item" data-i18n="Analytics">App Section</span></a>
+                    </li>
                     {{-- <li class="@if (request()->is('book/rejected')) active @endif"><a
                             href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
@@ -488,7 +492,7 @@
                             <span class="menu-item" data-i18n="Analytics">Admin Users</span></a>
                     </li>
 
-                    <li class="@if (request()->is('app*')) active @endif "><a
+                    <li class="@if (request()->is('app-users*')) active @endif "><a
                             href="{{ url('app-users') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">App Users</span></a>
                     </li>
@@ -549,6 +553,7 @@
                                     href="{{ url('book/pending-for-approval/6') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                             </li>
+
                             {{-- <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
                             href="{{ url('books/1') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">eBooks</span></a>

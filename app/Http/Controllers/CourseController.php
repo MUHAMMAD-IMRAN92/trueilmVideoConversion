@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendNotifications;
 use App\Models\Author;
+use App\Models\AppSectionContent;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\AppSection;
 use App\Models\CourseLesson;
 use App\Models\LessonVideo;
 use Illuminate\Http\Request;
@@ -123,11 +125,13 @@ class CourseController extends Controller
         $tags = Tag::all();
         $categories = Category::active()->get();
         $author = Author::where('type', '1')->get();
+        $section = AppSection::where('status', 1)->with('eBook', 'audioBook', 'podcast')->get();
 
         return view('courses.add', [
             'tags' => $tags,
             'categories' => $categories,
-            'author' => $author
+            'author' => $author,
+            'section' => $section
         ]);
     }
     public function store(Request $request)
@@ -200,6 +204,16 @@ class CourseController extends Controller
                 $courseLesson->save();
             }
         }
+        if ($request->section) {
+            foreach ($request->section as $key => $sec) {
+                $sectionContent = new AppSectionContent();
+                $sectionContent->content_id = $course->_id;
+                $sectionContent->section_id = $sec;
+                $sectionContent->order_no = (int)$request->$sec;
+                $sectionContent->content_type = (int)6;
+                $sectionContent->save();
+            }
+        }
         $courseIndex = $client->index('course')->addDocuments(array($course), '_id');
         return redirect()->to('/course/edit/' . $course->_id)->with('msg', 'Course Saved Successfully!');;
     }
@@ -212,14 +226,17 @@ class CourseController extends Controller
         $categories = Category::active()->get();
         $tags = Tag::all();
         $author = Author::where('type', '1')->get();
-
+        $section = AppSection::where('status', 1)->get();
+        $selectedSection = AppSectionContent::where('content_id', $course->id)->get(['section_id', 'order_no']);
         return view('courses.edit', [
             'course' => $course,
             'tags' => $tags,
             'contentTags' =>  $contentTag,
             'categories' => $categories,
             'author' => $author,
-            'pending_for_approval' => $request->pending_for_approval
+            'pending_for_approval' => $request->pending_for_approval,
+            'section' => $section,
+            'selectedSection' => $selectedSection
         ]);
     }
 
@@ -290,6 +307,19 @@ class CourseController extends Controller
                 }
                 $courseLesson->save();
             }
+        }
+        if ($request->section) {
+            AppSectionContent::where('content_id', $course->id)->delete();
+            foreach ($request->section as $key => $sec) {
+                $sectionContent = new AppSectionContent();
+                $sectionContent->content_id = $course->_id;
+                $sectionContent->section_id = $sec;
+                $sectionContent->order_no = (int)$request->$sec;
+                $sectionContent->content_type = (int)6;
+                $sectionContent->save();
+            }
+        } else {
+            AppSectionContent::where('content_id', $course->id)->delete();
         }
         if ($request->pending_for_approval == "true") {
             return redirect()->to('/book/pending-for-approval/6')->with('msg', 'Content Saved Successfully!');

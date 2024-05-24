@@ -75,8 +75,7 @@
 
                                                     <input type="hidden" name="pending_for_approval"
                                                         value="{{ $pending_for_approval }}">
-                                                    <input type="hidden" name="approved"
-                                                        value="{{ $approved }}">
+                                                    <input type="hidden" name="approved" value="{{ $approved }}">
                                                     <input type="hidden" name="rejected_by_you"
                                                         value="{{ $rejected_by_you }}">
                                                     <div class="col-12">
@@ -350,6 +349,93 @@
                                                             </div>
                                                         </fieldset>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h2>
+                                                            Show In Section
+                                                        </h2>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <table class="table table-bordered ">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>App Section</th>
+                                                                    <th>Content</th>
+                                                                    <th>Order No</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @forelse ($section as $s)
+                                                                    <tr>
+                                                                        <td>
+                                                                            <li class="d-inline-block mr-2">
+                                                                                <fieldset>
+                                                                                    <div
+                                                                                        class="vs-checkbox-con vs-checkbox-primary">
+                                                                                        <input type="checkbox"
+                                                                                            value="{{ $s->_id }}"
+                                                                                            name="section[]"
+                                                                                            class="section-checkbox"
+                                                                                            data-group=""
+                                                                                            id="checkbox{{ $s->_id }}"
+                                                                                            {{ @$selectedSection->where('section_id', $s->_id)->first()->section_id != null ? 'checked' : '' }}>
+                                                                                        <span class="vs-checkbox">
+                                                                                            <span
+                                                                                                class="vs-checkbox--check">
+                                                                                                <i
+                                                                                                    class="vs-icon feather icon-check"></i>
+                                                                                            </span>
+                                                                                        </span>
+                                                                                        <span>{{ $s->title }}</span>
+                                                                                    </div>
+                                                                                </fieldset>
+                                                                            </li>
+                                                                        </td>
+                                                                        <td>
+                                                                        <td>
+                                                                            <span>eBook : </span> <b>
+                                                                                {{ count($s->eBook) }}</b> <br>
+                                                                            <span>Audio Book : </span> <b>
+                                                                                {{ count($s->audioBook) }}</b> <br>
+                                                                            <span>Podcast : </span> <b>
+                                                                                {{ count($s->podcast) }}</b> <br>
+                                                                            <span>Course : </span> <b>
+                                                                                {{ count($s->course) }}</b> <br>
+                                                                        </td>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <label
+                                                                                    for="sequence{{ $s->_id }}"></label>
+                                                                                <div class="position-relative">
+                                                                                    <input type="text"
+                                                                                        id="sequence{{ $s->_id }}"
+                                                                                        class="form-control"
+                                                                                        name="{{ $s->_id }}"
+                                                                                        placeholder="" disabled
+                                                                                        value="{{ @$selectedSection->where('section_id', $s->_id)->first()->order_no }}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @empty
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td style="text-align: center">Not Section Added
+                                                                            Yet !</td>
+                                                                        <td></td>
+
+                                                                    </tr>
+                                                                @endforelse
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12">

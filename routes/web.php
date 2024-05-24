@@ -393,6 +393,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('app/versions/create', [App\Http\Controllers\HomeController::class, 'createVersion'])->name('appVersions.create');
     Route::post('app/versions', [App\Http\Controllers\HomeController::class, 'storeVersions'])->name('appVersions.store');
 
+    //section
+    Route::get('app-section', [App\Http\Controllers\AppSectionController::class, 'index'])->name('app-section');
+    Route::get('all-app-section', [App\Http\Controllers\AppSectionController::class, 'allSection'])->name('app-section.all');
+    Route::get('app-section/create', [App\Http\Controllers\AppSectionController::class, 'add'])->name('app-section.add');
+    Route::post('app-section/store', [App\Http\Controllers\AppSectionController::class, 'store'])->name('app-section.store');
+    Route::get('app-section/edit/{id}', [App\Http\Controllers\AppSectionController::class, 'edit'])->name('app-section.edit');
+    Route::post('app-section/update', [App\Http\Controllers\AppSectionController::class, 'update'])->name('app-section.update');
+    Route::get('app-section/update-status/{id}', [App\Http\Controllers\AppSectionController::class, 'updateSectionStatus'])->name('app-section.update.status');
+
     //render api
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 });
@@ -431,5 +440,8 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    return 'ok';
+    $email = 'imran@mailinator.com';
+    if( !str_contains( $email, 'mailinator')){
+        return 'here';
+    }
 });

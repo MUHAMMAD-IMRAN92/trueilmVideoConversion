@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookRequest;
 use App\Jobs\SendNotifications;
 use App\Models\Book;
+use App\Models\AppSection;
+use App\Models\AppSectionContent;
 use App\Models\BookContent;
 use App\Models\Category;
 use App\Models\ContentTag;
@@ -142,6 +144,7 @@ class BookController extends Controller
         $glossary = Glossory::all();
         $publisher = Publisher::all();
         $author = Author::where('type', '1')->get();
+        $section = AppSection::where('status', 1)->with('eBook', 'audioBook', 'podcast')->get();
         return view('eBook.add', [
             'type' => $type,
             'categories' => $categories,
@@ -149,15 +152,14 @@ class BookController extends Controller
             'suitbles' => $suitbles,
             'glossary' => $glossary,
             'publisher' => $publisher,
-            'author' => $author
+            'author' => $author,
+            'section' => $section
         ]);
     }
     public function store(Request $request)
     {
-
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
-
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
@@ -242,7 +244,16 @@ class BookController extends Controller
                 $contentTag = ContentGlossary::firstOrCreate(['glossary_id' =>  $g, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
         }
-
+        if ($request->section) {
+            foreach ($request->section as $key => $sec) {
+                $sectionContent = new AppSectionContent();
+                $sectionContent->content_id = $book->_id;
+                $sectionContent->section_id = $sec;
+                $sectionContent->order_no = (int)$request->$sec;
+                $sectionContent->content_type = (int)$book->type;
+                $sectionContent->save();
+            }
+        }
 
 
         if ($request->reference_file) {
@@ -274,6 +285,7 @@ class BookController extends Controller
         // if ($type == 7) {
         //     return redirect()->to('podcast/edit/' . $id);
         // }
+
         $categories = Category::active()->get();
         $book = Book::where('_id', $id)->with('content', 'author')->first();
         $contentTag = ContentTag::where('content_id', $id)->get();
@@ -283,6 +295,8 @@ class BookController extends Controller
         $publisher = Publisher::all();
         $contentGlossary = ContentGlossary::where('content_id', $id)->get();
         $author = Author::where('type', '1')->get();
+        $section = AppSection::where('status', 1)->get();
+        $selectedSection = AppSectionContent::where('content_id', $book->id)->get(['section_id', 'order_no']);
         $view = 'eBook.edit';
         if ($type == 7) {
             $view = 'eBook.podcast_edit';
@@ -300,7 +314,9 @@ class BookController extends Controller
             'author' => $author,
             'pending_for_approval' => $request->pending_for_approval,
             'approved' => $request->approved,
-            'rejected_by_you' => $request->rejected_by_you
+            'rejected_by_you' => $request->rejected_by_you,
+            'section' => $section,
+            'selectedSection' => $selectedSection
         ]);
     }
 
@@ -402,6 +418,19 @@ class BookController extends Controller
 
                 $contentTag = ContentTag::firstOrCreate(['tag_id' => $tag->id, 'content_id' => $book->id, 'content_type' => $request->type]);
             }
+        }
+        if ($request->section) {
+            AppSectionContent::where('content_id', $book->id)->delete();
+            foreach ($request->section as $key => $sec) {
+                $sectionContent = new AppSectionContent();
+                $sectionContent->content_id = $book->_id;
+                $sectionContent->section_id = $sec;
+                $sectionContent->order_no = (int)$request->$sec;
+                $sectionContent->content_type = (int)$book->type;
+                $sectionContent->save();
+            }
+        } else {
+            AppSectionContent::where('content_id', $book->id)->delete();
         }
         if ($request->glossary) {
             ContentGlossary::where('content_id', $book->id)->delete();
@@ -948,6 +977,8 @@ class BookController extends Controller
         $publisher = Publisher::all();
         $contentGlossary = ContentGlossary::where('content_id', $id)->get();
         $author = Author::where('type', '1')->get();
+        $section = AppSection::where('status', 1)->get();
+        $selectedSection = AppSectionContent::where('content_id', $book->id)->get(['section_id', 'order_no']);
         return view('eBook.podcast_edit', [
             'book' => $book,
             'type' => $book->type,
@@ -958,7 +989,9 @@ class BookController extends Controller
             'glossary' => $glossary,
             'contentGlossary' => $contentGlossary,
             'publisher' => $publisher,
-            'author' => $author
+            'author' => $author,
+            'section' => $section,
+            'selectedSection' => $selectedSection
         ]);
     }
     public function podcastEpisode(Request $request)

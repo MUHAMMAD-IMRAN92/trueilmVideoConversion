@@ -192,7 +192,83 @@
              }],
              "order": false
          });
+         $('#app-section-table').DataTable({
+             "processing": true,
+             "stateSave": true,
+             "serverSide": true,
+             "deferRender": true,
+             "language": {
+                 "searchPlaceholder": "Search here"
+             },
+             "ajax": {
+                 url: '<?= url('all-app-section') ?>'
+             },
+             "columns": [{
+                     "mRender": function(data, type, row) {
+                         return '<td>' +
+                             row.title + '</td>'
+                     }
+                 },
+                 {
+                     "mRender": function(data, type, row) {
+                         var sub_title = '';
+                         if (row.sub_title != null) {
+                             sub_title = row.sub_title;
+                         }
+                         return '<td>' +
+                             sub_title +
+                             '</td>'
+                     }
+                 },  {
+                     "mRender": function(data, type, row) {
+                         
+                         return '<td>' +
+                             sequence +
+                             '</td>'
+                     }
+                 }, 
+                 {
+                     "mRender": function(data, type, row) {
+                         var sequence = '';
+                         if (row.sequence != null) {
+                             sequence = row.sequence;
+                         }
+                         return '<td>' +
+                             sequence +
+                             '</td>'
+                     }
+                 }, {
+                     "mRender": function(data, type, row) {
+                         var user_name = '';
+                         if (row.user != null) {
+                             user_name = row.user.name;
+                         } else {
+                             user_name = '--'
+                         }
+                         return '<td>' +
+                             user_name + '</td>'
+                     }
+                 },
+                 {
+                     "mRender": function(data, type, row) {
+                         var eye = 'feather icon-eye';
+                         if (row.status == 0) {
+                             eye = 'feather icon-eye-off';
+                         }
+                         return `<td>
+                                <a  class="ml-2" href="{{ url('app-section/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                <a  class="ml-2" href="{{ url('app-section/update-status/`+row._id+`') }}"><i class="` +
+                             eye + `"></i></a>
+                                </td>`
+                     }
+                 },
+             ],
+             "columnDefs": [{
 
+                 "orderable": false
+             }],
+             "order": false
+         });
          $('#author-table').DataTable({
              "processing": true,
              "stateSave": true,
@@ -5616,4 +5692,35 @@
          //  console.log(category)
 
      }
+     document.addEventListener('DOMContentLoaded', function() {
+         // Function to toggle input field based on checkbox state
+         function toggleInput(checkbox) {
+             const inputField = document.getElementById('sequence' + checkbox.value);
+             inputField.disabled = !checkbox.checked;
+         }
+
+         // Attach event listeners and initialize state
+         function initializeCheckboxes() {
+             const checkboxes = document.querySelectorAll('.section-checkbox');
+             checkboxes.forEach(function(checkbox) {
+                 checkbox.addEventListener('change', function() {
+                     toggleInput(checkbox);
+                 });
+
+                 // Initialize the state of the input field
+                 toggleInput(checkbox);
+             });
+         }
+
+         // Manually trigger initialization for modals when they are opened
+         document.querySelectorAll('[data-toggle="modal"]').forEach(function(modalToggle) {
+             modalToggle.addEventListener('click', function() {
+                 setTimeout(initializeCheckboxes,
+                     500); // Delay to ensure modal content is fully loaded
+             });
+         });
+
+         // Initialize checkboxes for non-modal checkboxes
+         initializeCheckboxes();
+     });
  </script>
