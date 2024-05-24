@@ -271,7 +271,74 @@
                     </div>
                 @endif
                 <!-- Basic Tables end -->
+                <div class="modal fade bd-example-modal-lg" id="edit-book" tabindex="-1" role="dialog"
+                    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <form action="{{ route('podcast.episode') }}" method="POST" enctype="multipart/form-data">
+                            <div class="form-body">
+                                @csrf
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Quick Edit
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-md-12">
+                                            <fieldset class="form-group">
+                                                <label for="basicInputFile">Title</label>
+                                                <div class="custom-file">
+                                                    <div class="position-relative">
+                                                        <input type="hidden" id="" class="form-control"
+                                                            name="book_id" value="">
 
+                                                        <input type="text" id="modal-book-title" class="form-control"
+                                                            name="book_title" placeholder="" required>
+
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <fieldset class="form-group" >
+                                                <select class="select2 form-control" name="category"
+                                                    id="ajax-table-category">
+                                                    <option value=" " selected disabled>Category</option>
+                                                    @foreach ($categories as $cat)
+                                                        <option value="{{ $cat->_id }}">
+                                                            {{ $cat->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <fieldset class="form-group" >
+                                                <select class="select2 form-control" name="author"
+                                                    id="ajax-table-author">
+                                                    <option value=" " selected disabled>Author</option>
+                                                    @foreach ($authors as $auth)
+                                                        <option value="{{ $auth->_id }}">
+                                                            {{ $auth->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

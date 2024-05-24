@@ -430,3 +430,6 @@ Route::get('updateModel', function () {
 Route::get('phpinfo', function () {
     return phpinfo();
 });
+Route::get('dev', function () {
+    return 'ok';
+});

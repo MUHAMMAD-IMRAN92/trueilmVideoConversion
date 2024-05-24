@@ -407,7 +407,6 @@
              }],
              "order": false
          });
-
          var ebooktable = $('#ebook-table').DataTable({
              "processing": true,
              "stateSave": true,
@@ -416,178 +415,103 @@
              "language": {
                  "searchPlaceholder": "Search here"
              },
-
              "ajax": {
                  url: '<?= url('all-book') ?>',
-                 data: {
-                     'type': $('#ajax-table-type').val(),
-                 },
+                 data: function(d) {
+                     d.type = $('#ajax-table-type').val();
+                 }
              },
              "columns": [{
-                     "mRender": function(data, type, row) {
+                     "data": "image",
+                     "render": function(data, type, row) {
+                         return `<img class="td-img" src="${data}" />`;
+                     }
 
-                         return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
-                     }
-                 }, {
-                     "mRender": function(data, type, row) {
-                         return '<td>' +
-                             row.title + '</td>'
-                     }
                  },
-
-                 //  {
-                 //      "mRender": function(data, type, row) {
-                 //          var des = '';
-                 //          if (row.description != null) {
-                 //              des = row.description.slice(0, 50);
-                 //          } else {
-                 //              des = '--';
-                 //          }
-                 //          return '<td>' +
-                 //              des +
-                 //              '</td>'
-                 //      }
-                 //  },
                  {
-                     "mRender": function(data, type, row) {
-                         var category = '';
-                         if (row.category != null) {
-                             category = row.category.title;
-                         } else {
-                             category = '--'
-                         }
-                         return '<td>' +
-                             category + '</td>'
+                     "data": "title",
+                     "render": function(data, type, row) {
+                         return `<div id="ajax-book-title${row._id}">${data}</div>`;
                      }
                  },
                  {
-                     "mRender": function(data, type, row) {
-                         var author = '';
-                         if (row.author != null) {
-                             author = row.author.name;
-                         } else {
-                             author = '--'
-                         }
-                         return '<td>' +
-                             author + '</td>'
+                     "data": "category.title",
+                     "render": function(data, type, row) {
+                         var category = data != null ? data : '--';
+                         return `<div id="ajax-book-category${row._id}" data-category="${row.category_id}">${category}</div>`;
                      }
                  },
-                 //  {
-                 //      "mRender": function(data, type, row) {
-                 //          var type = '';
-                 //          if (row.type == 1) {
-                 //              type = 'eBook';
-                 //          }
-                 //          if (row.type == 2) {
-                 //              type = 'Audio Book';
-                 //          }
-                 //          if (row.type == 3) {
-                 //              type = 'Research Paper';
-                 //          }
-                 //          if (row.type == 7) {
-                 //              type = 'Podcast';
-                 //          }
-                 //          return '<td>' +
-                 //              type +
-                 //              '</td>'
-                 //      }
-                 //  },
                  {
-                     "mRender": function(data, type, row) {
+                     "data": "author.name",
+                     "render": function(data, type, row) {
+                         var author = data != null ? data : '--';
+                         return `<div id="ajax-book-author${row._id}" data-author="${row.author_id}">${author}</div>`;
+                     }
+                 },
+                 {
+                     "data": "approved",
+                     "render": function(data, type, row) {
                          var approved = '';
-                         if (row.approved == 0) {
+                         if (data == 0) {
                              approved = 'Pending For Approval';
-                         }
-                         if (row.approved == 2) {
+                         } else if (data == 2) {
                              approved = 'Rejected';
-                         }
-                         if (row.approved == 1) {
+                         } else if (data == 1) {
                              approved = 'Approved';
                          }
-                         return '<td>' +
-                             approved +
-                             '</td>'
-                     }
-                 }, {
-                     "mRender": function(data, type, row) {
-                         var ptype = '';
-                         if (row.p_type == "0") {
-                             ptype = "Freemium";
-                         } else {
-                             ptype = "Premium";
-                         }
-                         return '<td>' +
-                             ptype + '</td>'
-                     }
-                 }, {
-                     "mRender": function(data, type, row) {
-                         var user_name = '';
-                         if (row.user != null) {
-                             user_name = row.user.name;
-                         } else {
-                             user_name = '--'
-                         }
-                         return '<td>' +
-                             user_name + '</td>'
-                     }
-                 }, {
-                     "mRender": function(data, type, row) {
-                         var approver_name = '';
-                         if (row.approver != null) {
-                             approver_name = row.approver.name;
-                         } else {
-                             approver_name = '--'
-                         }
-                         return '<td>' +
-                             approver_name + '</td>'
+                         return `<div>${approved}</div>`;
                      }
                  },
-                 //    {
-                 //        "mRender": function(data, type, row) {
-                 //            return '<td>' +
-                 //                row.numberOfUser + '</td>'
-                 //        }
-                 //    },
                  {
-                     "mRender": function(data, type, row) {
-                         var eye = 'feather icon-eye';
+                     "data": "p_type",
+                     "render": function(data, type, row) {
+                         var ptype = data == "0" ? "Freemium" : "Premium";
+                         return `<div id="ajax-book-ptype${row._id}" data-ptype="${data}">${ptype}</div>`;
+                     }
+                 },
+                 {
+                     "data": "user.name",
+                     "render": function(data, type, row) {
+                         var user_name = data != null ? data : '--';
+                         return `<div>${user_name}</div>`;
+                     }
+                 },
+                 {
+                     "data": "approver.name",
+                     "render": function(data, type, row) {
+                         var approver_name = data != null ? data : '--';
+                         return `<div>${approver_name}</div>`;
+                     }
+                 },
+                 {
+                     "data": "status",
+                     "render": function(data, type, row) {
+                         var eye = data == 0 ? 'feather icon-eye-off' : 'feather icon-eye';
+                         var edit =
+                             `<a class="ml-2" href="{{ url('book/${row.type}/edit/${row._id}') }}"><i class="feather icon-edit-2"></i></a>`;
+                         var quickedit =
+                             `<span class="ml-2 pointer" onclick="quickEditModal('${row._id}')"><i class="feather icon-edit-2"></i></span>`;
                          var list = '';
-                         var edit = '';
-                         if (row.status == 0) {
-                             eye = 'feather icon-eye-off';
-                         }
-                         edit =
-                             ` <a  class="ml-2" href="{{ url('book/`+ row.type +`/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>`;
                          if (row.type == 2) {
                              list =
-                                 `<a class="ml-2" href="{{ url('book/`+ row.type +`/list/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
-
+                                 `<a class="ml-2" href="{{ url('book/${row.type}/list/${row._id}') }}"><i class="fa fa-list"></i></a>`;
                          }
                          if (row.type == 7) {
                              list =
-                                 `<a class="ml-2" href="{{ url('podcast/edit/`+row._id+`') }}"> <i class="fa fa-list"> </i></a>`;
-                             edit = ``;
+                                 `<a class="ml-2" href="{{ url('podcast/edit/${row._id}') }}"><i class="fa fa-list"></i></a>`;
+                             edit = '';
                          }
-                         return `<td>
-                            <div class="d-flex">
-                               ` + edit +
-                             list +
-                             `<a  class="ml-2" href="{{ url('book/update-status/`+row._id+`') }}"><i class="` +
-                             eye +
-                             `"></i></a>
-
-                                </div></td>`
+                         return `<div class="d-flex">${edit}${list}<a class="ml-2" href="{{ url('book/update-status/${row._id}') }}"><i class="${eye}"></i></a></div>`;
                      }
-                 },
+                 }
              ],
              "columnDefs": [{
-
                  "orderable": false
              }],
              "order": false
          });
+
+
          var category;
          var price;
          var aproval;
@@ -712,8 +636,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td>
-                                <a  class="ml-2" href="{{ url('hadith/book/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                </td>`
+                                 <a  class="ml-2" href="{{ url('hadith/book/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                 </td>`
                      }
                  },
              ],
@@ -785,10 +709,10 @@
 
                          return `<td>
 
-                                <a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                <a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a> ` +
+                                 <a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                 <a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a> ` +
                              a + `
-                                </td>`
+                                 </td>`
                      }
                  },
              ],
@@ -871,13 +795,13 @@
                              "{{ auth()->user()->hasRole('Super Admin') }}") {
                              a =
                                  `<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                   <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
+                                    <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
                                  eye + `"></i></a>`;
                          }
                          return `<td>
-                                ` + a + `
+                                 ` + a + `
 
-                                </td>`
+                                 </td>`
                      }
                  },
              ],
@@ -926,13 +850,13 @@
                              "{{ auth()->user()->hasRole('Super Admin') }}") {
                              a =
                                  `<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                   <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
+                                    <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
                                  eye + `"></i></a>`;
                          }
                          return `<td>
-                                ` + a + `
+                                 ` + a + `
 
-                                </td>`
+                                 </td>`
                      }
                  },
              ],
@@ -961,8 +885,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -1055,10 +979,10 @@
                                  `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                          }
                          return `<td class="d-flex">
-                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+                                 <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
                              a +
                              `
-                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                                 <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
                              anchor +
                              `</td>`
                      }
@@ -1088,8 +1012,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -1145,10 +1069,10 @@
                              "{{ auth()->user()->hasRole('Super Admin') }}") {
                              a =
                                  `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`?pending_for_approval=true') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
-                                   `;
+                                    `;
                          }
                          return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                            <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' , 2)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                             <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' , 2)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
                              a +
                              `</td>`
                      }
@@ -1334,8 +1258,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -1415,10 +1339,10 @@
                              "{{ auth()->user()->hasRole('Super Admin') }}") {
                              a =
                                  `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>
-                                   `;
+                                    `;
                          }
                          return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>
-                           ` +
+                            ` +
                              a +
                              `</td>`
                      }
@@ -1445,8 +1369,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -1502,7 +1426,7 @@
                              "{{ auth()->user()->hasRole('Super Admin') }}") {
                              a =
                                  `<a  class="ml-1" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>
-                                   `;
+                                    `;
                          }
                          return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i>` +
                              a +
@@ -1531,8 +1455,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -1600,10 +1524,10 @@
                              "{{ auth()->user()->hasRole('Super Admin') }}") {
                              a =
                                  `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a> <a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>
-                                   `;
+                                    `;
                          }
                          return `<td>
-                           ` +
+                            ` +
                              a +
                              `</td>`
                      }
@@ -1689,8 +1613,8 @@
                                  `<a  class="ml-2" target="_blank" href="{{ url('grant/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                          }
                          return `<td">
-                                <a  class="ml-2" href="{{ url('grant/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                                <a href="#" class="ml-2"><i class="fa fa-times" onclick="reasonModalForGrant('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                                 <a  class="ml-2" href="{{ url('grant/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
+                                 <a href="#" class="ml-2"><i class="fa fa-times" onclick="reasonModalForGrant('${row._id}')" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
                              anchor +
                              `</td>`
                      }
@@ -1823,7 +1747,7 @@
 
                          anchor =
                              `<a  class="ml-2"  href="{{ url('comment/approved/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                               <a  class="ml-2"  href="{{ url('comment/reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
+                                <a  class="ml-2"  href="{{ url('comment/reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
 
                          return `<td>` +
                              anchor +
@@ -1875,7 +1799,7 @@
 
                          anchor =
                              `<a  class="ml-2"  href="{{ url('comment/approved/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                               <a  class="ml-2"  href="{{ url('comment/reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
+                                <a  class="ml-2"  href="{{ url('comment/reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
 
                          return `<td>` +
                              anchor +
@@ -1987,7 +1911,7 @@
                                  `<a  class="ml-2" target="_blank" href="{{ url('grant/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                          }
                          return `<td">
-                                <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+                                 <a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
                              anchor +
                              `</td>`
                      }
@@ -2085,7 +2009,7 @@
                                  `<a  class="ml-2" target="_blank" href="{{ url('grant/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                          }
                          return `<td">
-                            ` +
+                             ` +
                              anchor +
                              `</td>`
                      }
@@ -2188,7 +2112,7 @@
                                  `<a  class="ml-2"  href="{{ url('review/`+row._id+`') }}"><i class="fa fa-comments-o"  style="font-size:24px"></i></a><a  class="ml-2" target="_blank" href="{{ url('review/book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                          }
                          return `<td">
-                            ` +
+                             ` +
                              anchor +
                              `</td>`
                      }
@@ -2280,7 +2204,7 @@
 
                          anchor =
                              `<a  class="ml-2"  href="{{ url('addition_review_approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
-                               <a  class="ml-2"  href="{{ url('addition_review_reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
+                                <a  class="ml-2"  href="{{ url('addition_review_reject/`+row._id+`') }}"><i class="fa fa-times" style="font-size:24px"></i></a>`;
 
                          return `<td>` +
                              anchor +
@@ -2310,8 +2234,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -2430,10 +2354,10 @@
                                  `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
                          }
                          return `<td class="d-flex">
-                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>` +
+                                 <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>` +
                              a +
                              `
-                                ` +
+                                 ` +
                              anchor +
                              `</td>`
                      }
@@ -2590,8 +2514,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -2699,8 +2623,8 @@
                                  `<a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
                          }
                          return `<td>
-                                    ${a}
-                                </td>`
+                                     ${a}
+                                 </td>`
                      }
                  },
              ],
@@ -2725,8 +2649,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -2837,7 +2761,7 @@
                              a +
 
                              `<a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)"  cursor:pointer"  data-href=""></i></a>
-                              </td>`
+                               </td>`
                      }
                  },
 
@@ -2999,8 +2923,8 @@
                      "mRender": function(data, type, row) {
 
                          return `<td><img class="td-img" src=
-                               ${row.image}
-                               /></td>`
+                                ${row.image}
+                                /></td>`
                      }
                  }, {
                      "mRender": function(data, type, row) {
@@ -3070,10 +2994,10 @@
                              eye = 'feather icon-eye-off';
                          }
                          return `<td>
-                                <a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list"></i></a>
-                                <a  class="ml-2" href="{{ url('course/update-status/`+row._id+`') }}"><i class="` +
+                                 <a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list"></i></a>
+                                 <a  class="ml-2" href="{{ url('course/update-status/`+row._id+`') }}"><i class="` +
                              eye + `"></i></a>
-                                </td>`
+                                 </td>`
                      }
                  },
              ],
@@ -3252,9 +3176,9 @@
                      "mRender": function(data, type, row) {
 
                          return `<td>
-                            <a  class="ml-2" href="{{ url('support/details/`+row._id+`') }}"><i class="fa  fa-info-circle" style="font-size:24px"></i></a>
-                            <a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa  fa-check" style="font-size:24px"></i></a>
-                                </td>`
+                             <a  class="ml-2" href="{{ url('support/details/`+row._id+`') }}"><i class="fa  fa-info-circle" style="font-size:24px"></i></a>
+                             <a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa  fa-check" style="font-size:24px"></i></a>
+                                 </td>`
                      }
                  },
              ],
@@ -3288,9 +3212,9 @@
                      "mRender": function(data, type, row) {
                          var route = `${row.revert_link}`;
                          return `<td>
-                             <a  class="ml-2" href="{{ url('${route}` +row.content_id+`/${row._id}') }}"><i class="fa fa-undo"></i></a>
+                              <a  class="ml-2" href="{{ url('${route}` +row.content_id+`/${row._id}') }}"><i class="fa fa-undo"></i></a>
 
-                                </td>`
+                                 </td>`
                      }
                  },
              ],
@@ -3321,9 +3245,9 @@
                      "mRender": function(data, type, row) {
 
                          return `<td>
-                                <a  class="ml-2" href="{{ url('glossary/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                 <a  class="ml-2" href="{{ url('glossary/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
 
-                                </td>`
+                                 </td>`
                      }
                  },
              ],
@@ -3500,10 +3424,10 @@
                          }
 
                          return `<td>
-                                <a  class="ml-2" href="{{ url('popup/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a> <a  class="ml-2" href="{{ url('popup/update-status/`+row._id+`') }}"><i class="` +
+                                 <a  class="ml-2" href="{{ url('popup/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a> <a  class="ml-2" href="{{ url('popup/update-status/`+row._id+`') }}"><i class="` +
                              eye + `"></i></a>
 
-                                </td>`
+                                 </td>`
                      }
                  },
              ],
@@ -3574,8 +3498,8 @@
                          let copyIcon =
                              `<a class="ml-2 copy-btn" data-toggle="tooltip" data-placement="top" data-clipboard-text="https://app.trueilm.com/sing-up?p_code=${row.p_code}" title="Copy URL"><i class="fa fa-copy" ></i></a>`
                          return `<td>
-                                <a  class="ml-2" href="{{ url('coupon/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
-                                </td>`
+                                 <a  class="ml-2" href="{{ url('coupon/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
+                                 </td>`
                      }
                  },
              ],
@@ -3591,27 +3515,27 @@
              var html;
              html =
                  `<div class="col-6">
-                            <label for="">Lesson Title</label>
-                            <input type="text" id=""  class="form-control" name="lessons[]" placeholder="" >
-                    </div>
-                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Video</label>
-                                                            <div class="custom-file">
-                                                                <input type="file"  class="custom-file-input"
-                                                                  id="file-upload-input" name="videos[]" accept="video/*"
-                                                                  onchange="fileSelect(event,${lenght})">
-                                                                <label class="custom-file-label" id="label-${lenght}"
-                                                                    for="">Choose
-                                                                    file</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div><div class="col-12">
-                            <label for="">Description</label>
-                            <fieldset class="form-group">
-                                <textarea class="summernote" name="descriptions[]"></textarea>
-                            </fieldset>
-                     </div>`;
+                             <label for="">Lesson Title</label>
+                             <input type="text" id=""  class="form-control" name="lessons[]" placeholder="" >
+                     </div>
+                     <div class="col-md-6">
+                                                         <fieldset class="form-group">
+                                                             <label for="basicInputFile">Video</label>
+                                                             <div class="custom-file">
+                                                                 <input type="file"  class="custom-file-input"
+                                                                   id="file-upload-input" name="videos[]" accept="video/*"
+                                                                   onchange="fileSelect(event,${lenght})">
+                                                                 <label class="custom-file-label" id="label-${lenght}"
+                                                                     for="">Choose
+                                                                     file</label>
+                                                             </div>
+                                                         </fieldset>
+                                                     </div><div class="col-12">
+                             <label for="">Description</label>
+                             <fieldset class="form-group">
+                                 <textarea class="summernote" name="descriptions[]"></textarea>
+                             </fieldset>
+                      </div>`;
 
              $('.append-inputs').append(html);
              $('.summernote').summernote();
@@ -3622,26 +3546,26 @@
 
              var html;
              html = ` <div class="col-12">
-                    <div class="card" >
-                    <div class="card-body">
-                            <p>Language</p>
-                            <fieldset class="form-group">
-                                <select class="form-control" name="taf_langs[]" id="basicSelect">
-                                    <option value="ar">Arabic</option>
-                                    <option value="en">English</option>
-                                    <option value="ur">Urud</option>
-                                    <option value="hi">Hindi</option>
-                                </select>
-                            </fieldset>
-                            </div>
-                            <div class="col-12">
-                                <label for="">Translation</label>
-                                <fieldset class="form-group">
-                                    <textarea class="summernote" name="tafseers[]"></textarea>
-                                </fieldset>
-                        </div>
-                    </div>
-                </div>`;
+                     <div class="card" >
+                     <div class="card-body">
+                             <p>Language</p>
+                             <fieldset class="form-group">
+                                 <select class="form-control" name="taf_langs[]" id="basicSelect">
+                                     <option value="ar">Arabic</option>
+                                     <option value="en">English</option>
+                                     <option value="ur">Urud</option>
+                                     <option value="hi">Hindi</option>
+                                 </select>
+                             </fieldset>
+                             </div>
+                             <div class="col-12">
+                                 <label for="">Translation</label>
+                                 <fieldset class="form-group">
+                                     <textarea class="summernote" name="tafseers[]"></textarea>
+                                 </fieldset>
+                         </div>
+                     </div>
+                 </div>`;
 
              $('.tafseer-append-inputs').append(html);
              //    $('.summernote').summernote({
@@ -3750,9 +3674,9 @@
                  {
                      "mRender": function(data, type, row) {
                          return `<td>
-                                <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
-                                <a  class="ml-2" href="{{ url('app-user/profile/`+row._id+`') }}"><i class="fa fa-user" style="font-size:24px"></i></a>
-                               </td>`;
+                                 <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
+                                 <a  class="ml-2" href="{{ url('app-user/profile/`+row._id+`') }}"><i class="fa fa-user" style="font-size:24px"></i></a>
+                                </td>`;
 
                      }
                  },
@@ -3835,8 +3759,8 @@
                  {
                      "mRender": function(data, type, row) {
                          return `<td>
-                                <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
-                               </td>`;
+                                 <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
+                                </td>`;
 
                      }
                  },
@@ -3900,8 +3824,8 @@
                  {
                      "mRender": function(data, type, row) {
                          return `<td>
-                                <a  class="ml-2" href="{{ url('institute/user/delete/`+row._id+`') }}"><i class="fa fa-trash" style="font-size:24px"></i></a>
-                               </td>`;
+                                 <a  class="ml-2" href="{{ url('institute/user/delete/`+row._id+`') }}"><i class="fa fa-trash" style="font-size:24px"></i></a>
+                                </td>`;
 
                      }
                  },
@@ -3956,10 +3880,10 @@
                          eye = 'feather icon-eye-off';
                      }
                      return `<td>
-                                <a  class="ml-2" href="{{ url('series/edit/`+row._id+`') }}"><i class="fa fa-pencil"></i></a>
-                                <a  class="ml-2" href="{{ url('series/update-status/`+row._id+`') }}"><i class="` +
+                                 <a  class="ml-2" href="{{ url('series/edit/`+row._id+`') }}"><i class="fa fa-pencil"></i></a>
+                                 <a  class="ml-2" href="{{ url('series/update-status/`+row._id+`') }}"><i class="` +
                          eye + `"></i></a>
-                                </td>`
+                                 </td>`
                  }
              },
          ],
@@ -4235,78 +4159,78 @@
                  })
                  var html;
                  html = `<div class="col-12 lang translation-div-${key }">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-8 ">
+                                                     <div class="card">
+                                                         <div class="card-body">
+                                                             <div class="row">
+                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="translation-saved-span-${key }"
-                                                                        style=""> <span
-                                                                            class="badge badge-success "><i
-                                                                                class="fa fa-check">Translation
-                                                                                Saved</i></span></h4>
-                                                                </div>
-                                                                <div class="col-4 d-flex">
-                                                                    <h4 onclick="editable('${ key }')"><span
-                                                                            class="badge badge-info ml-1"><i
-                                                                                class="fa fa-pencil">&nbspEdit</i></span>
-                                                                    </h4>
-                                                                    <h4
-                                                                        onclick="saveTranslation('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
-                                                                        <span class="badge badge-success ml-1"><i
-                                                                                class="fa fa-save">&nbspSave</i></span>
-                                                                    </h4>
+                                                                     <h4 id="translation-saved-span-${key }"
+                                                                         style=""> <span
+                                                                             class="badge badge-success "><i
+                                                                                 class="fa fa-check">Translation
+                                                                                 Saved</i></span></h4>
+                                                                 </div>
+                                                                 <div class="col-4 d-flex">
+                                                                     <h4 onclick="editable('${ key }')"><span
+                                                                             class="badge badge-info ml-1"><i
+                                                                                 class="fa fa-pencil">&nbspEdit</i></span>
+                                                                     </h4>
+                                                                     <h4
+                                                                         onclick="saveTranslation('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
+                                                                         <span class="badge badge-success ml-1"><i
+                                                                                 class="fa fa-save">&nbspSave</i></span>
+                                                                     </h4>
 
-                                                                    <h4
-                                                                        onclick="deleteTranslation('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
-                                                                        <span class="badge badge-danger ml-1"><i
-                                                                                class="fa fa-trash">&nbspDelete</i></span>
-                                                                    </h4>
-                                                                </div>
-                                                            </div>
+                                                                     <h4
+                                                                         onclick="deleteTranslation('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
+                                                                         <span class="badge badge-danger ml-1"><i
+                                                                                 class="fa fa-trash">&nbspDelete</i></span>
+                                                                     </h4>
+                                                                 </div>
+                                                             </div>
 
-                                                            <div class="row ml-1"
-                                                                id="non-editble-translation-${key}">
+                                                             <div class="row ml-1"
+                                                                 id="non-editble-translation-${key}">
 
-                                                                <p>Language :
-                                                                    <b id="non-edit-lang-select-${ key }">${response.ayat.lang_title }
-                                                                    </b>
-                                                                </p>
+                                                                 <p>Language :
+                                                                     <b id="non-edit-lang-select-${ key }">${response.ayat.lang_title }
+                                                                     </b>
+                                                                 </p>
 
-                                                                <div class="col-12">
+                                                                 <div class="col-12">
 
-                                                                    <span class=""
-                                                                        id="non-edit-para-des-${ key }"
-                                                                        style="margin-left:10px!important">
-                                                                         ${response.ayat.translation}</span>
-                                                                </div>
+                                                                     <span class=""
+                                                                         id="non-edit-para-des-${ key }"
+                                                                         style="margin-left:10px!important">
+                                                                          ${response.ayat.translation}</span>
+                                                                 </div>
 
-                                                            </div>
-                                                            <div class="row m-0 p-0" id="editble-${ key }"
-                                                                style="display:none">
-                                                                <label for="">Language</label>
-                                                                <fieldset class="form-group">
-                                                                    <select style="width:100%" class="select2 form-control" required name="langs[]"
-                                                                        id="lang-select-${ key }"
+                                                             </div>
+                                                             <div class="row m-0 p-0" id="editble-${ key }"
+                                                                 style="display:none">
+                                                                 <label for="">Language</label>
+                                                                 <fieldset class="form-group">
+                                                                     <select style="width:100%" class="select2 form-control" required name="langs[]"
+                                                                         id="lang-select-${ key }"
 
-                                                                        value =  ${ response.ayat.lang_title }
-                                                                        >
-                                                                        <option value="" >Please Select Language</option>
-                                                                        ${opt}
-                                                                    </select>
-                                                                </fieldset>
+                                                                         value =  ${ response.ayat.lang_title }
+                                                                         >
+                                                                         <option value="" >Please Select Language</option>
+                                                                         ${opt}
+                                                                     </select>
+                                                                 </fieldset>
 
-                                                                <div class="col-12 m-0 p-0">
-                                                                    <label for="">Translation</label>
+                                                                 <div class="col-12 m-0 p-0">
+                                                                     <label for="">Translation</label>
 
-                                                                    <fieldset class="form-group">
-                                                                        <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.ayat.translation }</textarea>
-                                                                    </fieldset>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`;
+                                                                     <fieldset class="form-group">
+                                                                         <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.ayat.translation }</textarea>
+                                                                     </fieldset>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>`;
 
                  //    $('#translation-saved-span-' + key).css('display', 'block');
                  setTimeout(() => {
@@ -4416,51 +4340,51 @@
                  var lang = div.length;
                  var html;
                  html = `
-                        <div class="col-12 tafseer-divs tafseer-div-${lang}">
+                         <div class="col-12 tafseer-divs tafseer-div-${lang}">
 
-                                    <div class="card" >
-                                    <div class="card-body">
-                                        <div class="row">
-                            <div class="col-8 ">
-                                <h4 id="tafseer-saved-span-${lang }"
-                                    style="display:none"> <span
-                                        class="badge badge-success "><i
-                                            class="fa fa-check">Translation
-                                            Saved</i></span></h4>
-                            </div>
-                            <div class="col-4 d-flex">
+                                     <div class="card" >
+                                     <div class="card-body">
+                                         <div class="row">
+                             <div class="col-8 ">
+                                 <h4 id="tafseer-saved-span-${lang }"
+                                     style="display:none"> <span
+                                         class="badge badge-success "><i
+                                             class="fa fa-check">Translation
+                                             Saved</i></span></h4>
+                             </div>
+                             <div class="col-4 d-flex">
 
-                                <h4
-                                    onclick="saveNewTafseer('${ayatId}','${lang }')">
-                                    <span class="badge badge-success ml-1"><i
-                                            class="fa fa-save">&nbspSave</i></span>
-                                </h4>
-                                <h4
-                                    onclick="deleteNewTafseer('${lang }')">
-                                    <span class="badge badge-danger ml-1"><i
-                                            class="fa fa-trash">&nbspDelete</i></span>
-                                </h4>
-                            </div>
-                        </div>
-                            <p>Language</p>
-                            <fieldset class="form-group">
-                                <select class="select2 form-control" name="taf_langs[]" required id="tafseer-new-lang-select-${lang}">
-                                    <option value="" selected>Please Select Language</option>
-                                   ${opt}
-                                </select>
-                            </fieldset>
-                            </div>
-                            <div class="col-12">
-                                <label for="">Tafseer</label>
-                                <fieldset class="form-group">
-                                    <textarea class="summernote" required name="tafseers[]" id="tafseer-new-description-${lang}"></textarea>
-                                </fieldset>
-                        </div>
-                    </div>
-                </div>
+                                 <h4
+                                     onclick="saveNewTafseer('${ayatId}','${lang }')">
+                                     <span class="badge badge-success ml-1"><i
+                                             class="fa fa-save">&nbspSave</i></span>
+                                 </h4>
+                                 <h4
+                                     onclick="deleteNewTafseer('${lang }')">
+                                     <span class="badge badge-danger ml-1"><i
+                                             class="fa fa-trash">&nbspDelete</i></span>
+                                 </h4>
+                             </div>
+                         </div>
+                             <p>Language</p>
+                             <fieldset class="form-group">
+                                 <select class="select2 form-control" name="taf_langs[]" required id="tafseer-new-lang-select-${lang}">
+                                     <option value="" selected>Please Select Language</option>
+                                    ${opt}
+                                 </select>
+                             </fieldset>
+                             </div>
+                             <div class="col-12">
+                                 <label for="">Tafseer</label>
+                                 <fieldset class="form-group">
+                                     <textarea class="summernote" required name="tafseers[]" id="tafseer-new-description-${lang}"></textarea>
+                                 </fieldset>
+                         </div>
+                     </div>
+                 </div>
 
-                </div>
-                `;
+                 </div>
+                 `;
 
                  $('.tafseer-append-inputs').append(html);
                  $('.summernote').summernote({
@@ -4523,77 +4447,77 @@
                  })
                  var html;
                  html = `<div class="col-12 tafseer-divs tafseer-div-${ key }">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-8 ">
+                                                     <div class="card">
+                                                         <div class="card-body">
+                                                             <div class="row">
+                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="tafseer-saved-span-${ key }"
-                                                                        style=""> <span
-                                                                            class="badge badge-success "><i
-                                                                                class="fa fa-check">Tafseer
-                                                                                Saved</i></span></h4>
-                                                                </div>
-                                                                <div class="col-4 d-flex">
-                                                                    <h4 onclick="editableTafseer('${ key }')"><span
-                                                                            class="badge badge-info ml-1"><i
-                                                                                class="fa fa-pencil">&nbspEdit</i></span>
-                                                                    </h4>
-                                                                    <h4
-                                                                        onclick="saveTafseer('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
-                                                                        <span class="badge badge-success ml-1"><i
-                                                                                class="fa fa-save">&nbspSave</i></span>
-                                                                    </h4>
+                                                                     <h4 id="tafseer-saved-span-${ key }"
+                                                                         style=""> <span
+                                                                             class="badge badge-success "><i
+                                                                                 class="fa fa-check">Tafseer
+                                                                                 Saved</i></span></h4>
+                                                                 </div>
+                                                                 <div class="col-4 d-flex">
+                                                                     <h4 onclick="editableTafseer('${ key }')"><span
+                                                                             class="badge badge-info ml-1"><i
+                                                                                 class="fa fa-pencil">&nbspEdit</i></span>
+                                                                     </h4>
+                                                                     <h4
+                                                                         onclick="saveTafseer('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
+                                                                         <span class="badge badge-success ml-1"><i
+                                                                                 class="fa fa-save">&nbspSave</i></span>
+                                                                     </h4>
 
-                                                                    <h4
-                                                                        onclick="deleteTafseer('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
-                                                                        <span class="badge badge-danger ml-1"><i
-                                                                                class="fa fa-trash">&nbspDelete</i></span>
-                                                                    </h4>
-                                                                </div>
-                                                            </div>
+                                                                     <h4
+                                                                         onclick="deleteTafseer('${response.ayat.ayat_id}','${response.ayat._id}','${key }')">
+                                                                         <span class="badge badge-danger ml-1"><i
+                                                                                 class="fa fa-trash">&nbspDelete</i></span>
+                                                                     </h4>
+                                                                 </div>
+                                                             </div>
 
-                                                            <div class="row ml-1"
-                                                                id="non-editble-tafseer-${key}">
+                                                             <div class="row ml-1"
+                                                                 id="non-editble-tafseer-${key}">
 
-                                                                <p>Language :
-                                                                    <b id="tafseer-non-edit-lang-select-${ key }">${response.ayat.lang_title }
-                                                                    </b>
-                                                                </p>
+                                                                 <p>Language :
+                                                                     <b id="tafseer-non-edit-lang-select-${ key }">${response.ayat.lang_title }
+                                                                     </b>
+                                                                 </p>
 
-                                                                <div class="col-12">
+                                                                 <div class="col-12">
 
-                                                                    <span class=""
-                                                                        id="tafseer-non-edit-para-des-${ key }"
-                                                                        style="margin-left:10px!important">
-                                                                         ${response.ayat.tafseer}</span>
-                                                                </div>
+                                                                     <span class=""
+                                                                         id="tafseer-non-edit-para-des-${ key }"
+                                                                         style="margin-left:10px!important">
+                                                                          ${response.ayat.tafseer}</span>
+                                                                 </div>
 
-                                                            </div>
-                                                            <div class="row m-0 p-0" id="tafseer-editble-${ key }"
-                                                                style="display:none">
-                                                                <label for="">Language</label>
-                                                                <fieldset class="form-group">
-                                                                    <select style="width:100%" class="select2 form-control" name="taf_langs[]"
-                                                                        id="tafseer-lang-select-${ key }"
-                                                                        required>
-                                                                        <option value="" selected>Please Select Language</option>
+                                                             </div>
+                                                             <div class="row m-0 p-0" id="tafseer-editble-${ key }"
+                                                                 style="display:none">
+                                                                 <label for="">Language</label>
+                                                                 <fieldset class="form-group">
+                                                                     <select style="width:100%" class="select2 form-control" name="taf_langs[]"
+                                                                         id="tafseer-lang-select-${ key }"
+                                                                         required>
+                                                                         <option value="" selected>Please Select Language</option>
 
-                                                                       ${opt}
-                                                                    </select>
-                                                                </fieldset>
+                                                                        ${opt}
+                                                                     </select>
+                                                                 </fieldset>
 
-                                                                <div class="col-12 m-0 p-0">
-                                                                    <label for="">Tafseer</label>
+                                                                 <div class="col-12 m-0 p-0">
+                                                                     <label for="">Tafseer</label>
 
-                                                                    <fieldset class="form-group">
-                                                                        <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]" required>${ response.ayat.tafseer }</textarea>
-                                                                    </fieldset>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`;
+                                                                     <fieldset class="form-group">
+                                                                         <textarea class="summernote" id="tafseer-trans-input-${key}" name="tafseers[]" required>${ response.ayat.tafseer }</textarea>
+                                                                     </fieldset>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>`;
                  setTimeout(() => {
                      $('#tafseer-saved-span-' + key).css('display', 'none');
 
@@ -4630,54 +4554,54 @@
          var lang = div.length;
          var html;
          html = `
-                        <div class="col-12 references reference-div-${lang}">
+                         <div class="col-12 references reference-div-${lang}">
 
-                                    <div class="card" >
-                                    <div class="card-body">
-                                        <div class="row">
-                                                <div class="col-8 ">
-                                                    <h4 id="reference-saved-span-${lang }"
-                                                        style="display:none"> <span
-                                                            class="badge badge-success "><i
-                                                                class="fa fa-check">Reference
-                                                                Attached</i></span>
-                                                    </h4>
-                                                </div>
-                                                <div class="col-4 d-flex">
+                                     <div class="card" >
+                                     <div class="card-body">
+                                         <div class="row">
+                                                 <div class="col-8 ">
+                                                     <h4 id="reference-saved-span-${lang }"
+                                                         style="display:none"> <span
+                                                             class="badge badge-success "><i
+                                                                 class="fa fa-check">Reference
+                                                                 Attached</i></span>
+                                                     </h4>
+                                                 </div>
+                                                 <div class="col-4 d-flex">
 
-                                                    <h4
-                                                        onclick="saveReference('${ayatId}','${lang}')">
-                                                        <span class="badge badge-success ml-1"><i
-                                                                class="fa fa-save">&nbspSave</i></span>
-                                                    </h4>
-                                                    <h4
-                                                        onclick="deleteNewReference('${lang}')">
-                                                        <span class="badge badge-danger ml-1"><i
-                                                                class="fa fa-trash">&nbspDelete</i></span>
-                                                    </h4>
-                                                </div>
-                                         </div>
-                            <p>Type</p>
-                            <fieldset class="form-group">
-                                <select class="selct2 form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}" required>
-                                    <option value="" selected>Please Select Reference</option>
-                                    <option value="1">eBook</option>
-                                    <option value="2">Audio</option>
-                                    <option value="3">Paper</option>
-                                </select>
-                            </fieldset>
-                                <label for="">File</label>
-                                <fieldset class="form-group">
-                                    <select class="selct2 form-control " name="file[]" id="file-new-lang-select-${lang}" required>
-                                    <option value="" selected>Please Select File</option>
+                                                     <h4
+                                                         onclick="saveReference('${ayatId}','${lang}')">
+                                                         <span class="badge badge-success ml-1"><i
+                                                                 class="fa fa-save">&nbspSave</i></span>
+                                                     </h4>
+                                                     <h4
+                                                         onclick="deleteNewReference('${lang}')">
+                                                         <span class="badge badge-danger ml-1"><i
+                                                                 class="fa fa-trash">&nbspDelete</i></span>
+                                                     </h4>
+                                                 </div>
+                                          </div>
+                             <p>Type</p>
+                             <fieldset class="form-group">
+                                 <select class="selct2 form-control reference-select" onchange="getFilesAjax('${lang}' )" name="reference_type[]" id="reference-new-lang-select-${lang}" required>
+                                     <option value="" selected>Please Select Reference</option>
+                                     <option value="1">eBook</option>
+                                     <option value="2">Audio</option>
+                                     <option value="3">Paper</option>
+                                 </select>
+                             </fieldset>
+                                 <label for="">File</label>
+                                 <fieldset class="form-group">
+                                     <select class="selct2 form-control " name="file[]" id="file-new-lang-select-${lang}" required>
+                                     <option value="" selected>Please Select File</option>
 
-                                    </select>
-                            </fieldset>
-                        </div>
-                    </div>
-                </div>
+                                     </select>
+                             </fieldset>
+                         </div>
+                     </div>
+                 </div>
 
-                </div> `;
+                 </div> `;
 
          $('.reference-append-inputs').append(html);
          $('.summernote').summernote();
@@ -4739,15 +4663,15 @@
                  $('.no-reference-tr').css('display', 'none');
 
                  html = `<tr class="ref-tr"
-                    id="ref-tr-${key }">
-                    <td>${ response.reference_title }
-                        </td>
-                        <td>${type}
-                            </td>
-                            <td><i class="fa fa-trash"
-                                onclick="deleteReference('${response.referal_id}', '${ response._id}' , '${ key }')"></i>
-                                </td>
-                                </tr>`;
+                     id="ref-tr-${key }">
+                     <td>${ response.reference_title }
+                         </td>
+                         <td>${type}
+                             </td>
+                             <td><i class="fa fa-trash"
+                                 onclick="deleteReference('${response.referal_id}', '${ response._id}' , '${ key }')"></i>
+                                 </td>
+                                 </tr>`;
                  $('.ref-table').append(html);
                  $('.reference-div-' + key).remove();
                  $('#reference-saved-span').css('display', 'block');
@@ -4850,78 +4774,78 @@
                  })
                  var html;
                  html = `<div class="col-12 lang translation-div-${key }">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-8 ">
+                                                     <div class="card">
+                                                         <div class="card-body">
+                                                             <div class="row">
+                                                                 <div class="col-8 ">
 
-                                                                    <h4 id="translation-saved-span-${key }"
-                                                                        style=""> <span
-                                                                            class="badge badge-success "><i
-                                                                                class="fa fa-check">Translation
-                                                                                Saved</i></span></h4>
-                                                                </div>
-                                                                <div class="col-4 d-flex">
-                                                                    <h4 onclick="editable('${ key }')"><span
-                                                                            class="badge badge-info ml-1"><i
-                                                                                class="fa fa-pencil">&nbspEdit</i></span>
-                                                                    </h4>
-                                                                    <h4
-                                                                        onclick="saveHadithTranslation('${response.hadees.hadees_id}','${response.hadees._id}','${key }')">
-                                                                        <span class="badge badge-success ml-1"><i
-                                                                                class="fa fa-save">&nbspSave</i></span>
-                                                                    </h4>
+                                                                     <h4 id="translation-saved-span-${key }"
+                                                                         style=""> <span
+                                                                             class="badge badge-success "><i
+                                                                                 class="fa fa-check">Translation
+                                                                                 Saved</i></span></h4>
+                                                                 </div>
+                                                                 <div class="col-4 d-flex">
+                                                                     <h4 onclick="editable('${ key }')"><span
+                                                                             class="badge badge-info ml-1"><i
+                                                                                 class="fa fa-pencil">&nbspEdit</i></span>
+                                                                     </h4>
+                                                                     <h4
+                                                                         onclick="saveHadithTranslation('${response.hadees.hadees_id}','${response.hadees._id}','${key }')">
+                                                                         <span class="badge badge-success ml-1"><i
+                                                                                 class="fa fa-save">&nbspSave</i></span>
+                                                                     </h4>
 
-                                                                    <h4
-                                                                        onclick="deleteHadithTranslation('${response.hadees.hadees_id}','${response.hadees._id}','${key }')">
-                                                                        <span class="badge badge-danger ml-1"><i
-                                                                                class="fa fa-trash">&nbspDelete</i></span>
-                                                                    </h4>
-                                                                </div>
-                                                            </div>
+                                                                     <h4
+                                                                         onclick="deleteHadithTranslation('${response.hadees.hadees_id}','${response.hadees._id}','${key }')">
+                                                                         <span class="badge badge-danger ml-1"><i
+                                                                                 class="fa fa-trash">&nbspDelete</i></span>
+                                                                     </h4>
+                                                                 </div>
+                                                             </div>
 
-                                                            <div class="row ml-1"
-                                                                id="non-editble-translation-${key}">
+                                                             <div class="row ml-1"
+                                                                 id="non-editble-translation-${key}">
 
-                                                                <p>Language :
-                                                                    <b id="non-edit-lang-select-${ key }">${response.hadees.lang_title }
-                                                                    </b>
-                                                                </p>
+                                                                 <p>Language :
+                                                                     <b id="non-edit-lang-select-${ key }">${response.hadees.lang_title }
+                                                                     </b>
+                                                                 </p>
 
-                                                                <div class="col-12">
+                                                                 <div class="col-12">
 
-                                                                    <span class=""
-                                                                        id="non-edit-para-des-${ key }"
-                                                                        style="margin-left:10px!important">
-                                                                         ${response.hadees.translation}</span>
-                                                                </div>
+                                                                     <span class=""
+                                                                         id="non-edit-para-des-${ key }"
+                                                                         style="margin-left:10px!important">
+                                                                          ${response.hadees.translation}</span>
+                                                                 </div>
 
-                                                            </div>
-                                                            <div class="row m-0 p-0" id="editble-${ key }"
-                                                                style="display:none">
-                                                                <label for="">Language</label>
-                                                                <fieldset class="form-group">
-                                                                    <select style="width:100%" class="select2 form-control" required name="langs[]"
-                                                                        id="lang-select-${ key }"
+                                                             </div>
+                                                             <div class="row m-0 p-0" id="editble-${ key }"
+                                                                 style="display:none">
+                                                                 <label for="">Language</label>
+                                                                 <fieldset class="form-group">
+                                                                     <select style="width:100%" class="select2 form-control" required name="langs[]"
+                                                                         id="lang-select-${ key }"
 
-                                                                        value =  ${ response.hadees.lang_title }
-                                                                        >
-                                                                        <option value="" >Please Select Language</option>
-                                                                        ${opt}
-                                                                    </select>
-                                                                </fieldset>
+                                                                         value =  ${ response.hadees.lang_title }
+                                                                         >
+                                                                         <option value="" >Please Select Language</option>
+                                                                         ${opt}
+                                                                     </select>
+                                                                 </fieldset>
 
-                                                                <div class="col-12 m-0 p-0">
-                                                                    <label for="">Translation</label>
+                                                                 <div class="col-12 m-0 p-0">
+                                                                     <label for="">Translation</label>
 
-                                                                    <fieldset class="form-group">
-                                                                        <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.hadees.translation }</textarea>
-                                                                    </fieldset>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`;
+                                                                     <fieldset class="form-group">
+                                                                         <textarea class="summernote" required id="trans-input-${key}" name="translations[]">${ response.hadees.translation }</textarea>
+                                                                     </fieldset>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>`;
 
                  //    $('#translation-saved-span-' + key).css('display', 'block');
                  setTimeout(() => {
@@ -5181,62 +5105,62 @@
          var html;
          html =
              ` <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Title</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="episode_title[]" placeholder=""
-                                                                        required>
+                                                         <fieldset class="form-group">
+                                                             <label for="basicInputFile">Title</label>
+                                                             <div class="custom-file">
+                                                                 <div class="position-relative">
+                                                                     <input type="text" id=""
+                                                                         class="form-control" name="episode_title[]" placeholder=""
+                                                                         required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>  <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Host</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="host[]" placeholder=""
-                                                                        required>
+                                                                 </div>
+                                                             </div>
+                                                         </fieldset>
+                                                     </div>  <div class="col-md-6">
+                                                         <fieldset class="form-group">
+                                                             <label for="basicInputFile">Host</label>
+                                                             <div class="custom-file">
+                                                                 <div class="position-relative">
+                                                                     <input type="text" id=""
+                                                                         class="form-control" name="host[]" placeholder=""
+                                                                         required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>  <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Guest</label>
-                                                            <div class="custom-file">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id=""
-                                                                        class="form-control" name="guest[]" placeholder=""
-                                                                        required>
+                                                                 </div>
+                                                             </div>
+                                                         </fieldset>
+                                                     </div>  <div class="col-md-6">
+                                                         <fieldset class="form-group">
+                                                             <label for="basicInputFile">Guest</label>
+                                                             <div class="custom-file">
+                                                                 <div class="position-relative">
+                                                                     <input type="text" id=""
+                                                                         class="form-control" name="guest[]" placeholder=""
+                                                                         required>
 
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <fieldset class="form-group">
-                                                            <label for="basicInputFile">Content</label>
-                                                            <div class="custom-file">
-                                                                <input type="file"  class="custom-file-input  episode-custom-file-input" id="fileinput` +
+                                                                 </div>
+                                                             </div>
+                                                         </fieldset>
+                                                     </div>
+                                                     <div class="col-md-6">
+                                                         <fieldset class="form-group">
+                                                             <label for="basicInputFile">Content</label>
+                                                             <div class="custom-file">
+                                                                 <input type="file"  class="custom-file-input  episode-custom-file-input" id="fileinput` +
              length + `" onchange="duration(` + length +
              `)"
-                                                                    onchange="" name="podcast_file[]" required
-                                                                    multiple>
-                                                                    <input type="hidden" name="duration[]" id="input-duration-` +
+                                                                     onchange="" name="podcast_file[]" required
+                                                                     multiple>
+                                                                     <input type="hidden" name="duration[]" id="input-duration-` +
              length + `" />
-                                                                    <span id="duration-info-` + length + `"></span>
-                                                                <label class="custom-file-label"
-                                                                    for="inputGroupFile01">Choose
-                                                                    file</label>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
+                                                                     <span id="duration-info-` + length + `"></span>
+                                                                 <label class="custom-file-label"
+                                                                     for="inputGroupFile01">Choose
+                                                                     file</label>
+                                                             </div>
+                                                         </fieldset>
+                                                     </div>
 
-                                                    `;
+                                                     `;
          $('.episode-append-inputs').append(html);
          $('.summernote').summernote();
      });
@@ -5375,124 +5299,124 @@
          var count = $('.question').length
          html = `<div class="card lessonAddQuestionDiv-` + count +
              `">
-                                        <div class="card-content">
-                                            <div class="card-body">
-                                                <div class="form-body">
-                                                    <div class="row append-inputs">
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                <div class="col-12">
+                                         <div class="card-content">
+                                             <div class="card-body">
+                                                 <div class="form-body">
+                                                     <div class="row append-inputs">
+                                                         <div class="col-12">
+                                                             <div class="form-group">
+                                                                 <div class="row">
+                                                                 <div class="col-12">
 
 
-                                                                            <span> <h6> Question :<i class="fa fa-trash" onclick="removelessondiv(` +
+                                                                             <span> <h6> Question :<i class="fa fa-trash" onclick="removelessondiv(` +
              count + `)"></i></h6></span>
 
 
-                                                                </div>
-                                                                </div>
+                                                                 </div>
+                                                                 </div>
 
-                                                                <div class="position-relative">
-                                                                    <input type="text" id="question"
-                                                                        class="form-control" name="question[]" required
-                                                                        placeholder="" required>
-                                                                </div>
-                                                                <br>
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <h6>Correct Options:</h6>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <h6>Incorrect Options:</h6>
-                                                                    </div>
+                                                                 <div class="position-relative">
+                                                                     <input type="text" id="question"
+                                                                         class="form-control" name="question[]" required
+                                                                         placeholder="" required>
+                                                                 </div>
+                                                                 <br>
+                                                                 <div class="row">
+                                                                     <div class="col-6">
+                                                                         <h6>Correct Options:</h6>
+                                                                     </div>
+                                                                     <div class="col-6">
+                                                                         <h6>Incorrect Options:</h6>
+                                                                     </div>
 
-                                                                </div>
-                                                                <div class="row col-12 m-0 p-0">
-                                                                    <div class="col-6 d-flex m-0 p-0">
-                                                                        <div class="col- m-0 p-0">
-                                                                            <input type="text" id="question"
-                                                                                class="form-control" name="correct-` +
+                                                                 </div>
+                                                                 <div class="row col-12 m-0 p-0">
+                                                                     <div class="col-6 d-flex m-0 p-0">
+                                                                         <div class="col- m-0 p-0">
+                                                                             <input type="text" id="question"
+                                                                                 class="form-control" name="correct-` +
              count +
              `[]"
-                                                                                required placeholder="" required>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <input type="text"
-                                                                                class="question form-control" name="correct-` +
+                                                                                 required placeholder="" required>
+                                                                         </div>
+                                                                         <div class="col-6">
+                                                                             <input type="text"
+                                                                                 class="question form-control" name="correct-` +
              count +
              `[]"
-                                                                                required placeholder="" required>
-                                                                        </div>
-                                                                    </div>
+                                                                                 required placeholder="" required>
+                                                                         </div>
+                                                                     </div>
 
-                                                                    <div class="col-6 m-0 p-0">
-                                                                        <div class="col-12  d-flex m-0 p-0">
-                                                                            <div class="col-6 ">
-                                                                                <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-` +
+                                                                     <div class="col-6 m-0 p-0">
+                                                                         <div class="col-12  d-flex m-0 p-0">
+                                                                             <div class="col-6 ">
+                                                                                 <input type="text" id="question"
+                                                                                     class="form-control" name="incorrect-` +
              count +
              `[]"
-                                                                                    required placeholder="" required>
-                                                                            </div>
-                                                                            <div class="col-6">
-                                                                                <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-` +
+                                                                                     required placeholder="" required>
+                                                                             </div>
+                                                                             <div class="col-6">
+                                                                                 <input type="text" id="question"
+                                                                                     class="form-control" name="incorrect-` +
              count +
              `[]"
-                                                                                    required placeholder="" required>
-                                                                            </div>
+                                                                                     required placeholder="" required>
+                                                                             </div>
 
 
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="col-12  d-flex m-0 p-0">
-                                                                            <div class="col-6 ">
-                                                                                <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-` +
+                                                                         </div>
+                                                                         <br>
+                                                                         <div class="col-12  d-flex m-0 p-0">
+                                                                             <div class="col-6 ">
+                                                                                 <input type="text" id="question"
+                                                                                     class="form-control" name="incorrect-` +
              count +
              `[]"
-                                                                                    required placeholder="" required>
-                                                                            </div>
-                                                                            <div class="col-6">
-                                                                                <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-` +
+                                                                                     required placeholder="" required>
+                                                                             </div>
+                                                                             <div class="col-6">
+                                                                                 <input type="text" id="question"
+                                                                                     class="form-control" name="incorrect-` +
              count +
              `[]"
-                                                                                    required placeholder="" required>
-                                                                            </div>
+                                                                                     required placeholder="" required>
+                                                                             </div>
 
 
-                                                                        </div> <br>
+                                                                         </div> <br>
 
-                                                                        <div class="col-12  d-flex m-0 p-0">
-                                                                            <div class="col-6">
-                                                                                <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-` +
+                                                                         <div class="col-12  d-flex m-0 p-0">
+                                                                             <div class="col-6">
+                                                                                 <input type="text" id="question"
+                                                                                     class="form-control" name="incorrect-` +
              count +
              `[]"
-                                                                                    required placeholder="" required>
-                                                                            </div>
-                                                                            <div class="col-6">
-                                                                                <input type="text" id="question"
-                                                                                    class="form-control" name="incorrect-` +
+                                                                                     required placeholder="" required>
+                                                                             </div>
+                                                                             <div class="col-6">
+                                                                                 <input type="text" id="question"
+                                                                                     class="form-control" name="incorrect-` +
              count + `[]"
-                                                                                    required placeholder="" required>
-                                                                            </div>
+                                                                                     required placeholder="" required>
+                                                                             </div>
 
 
-                                                                        </div>
+                                                                         </div>
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>
 
 
-                                        </div>
-                                    </div>`;
+                                         </div>
+                                     </div>`;
 
          $('.input_append').append(html);
      }
@@ -5679,4 +5603,17 @@
 
          }
      })
+
+     function quickEditModal(key) {
+         console.log('k')
+         $('#edit-book').modal('show');
+         //  var ptype = $('#ajax-book-ptype' + key).data('ptype');
+         var title = $('#ajax-book-title' + key).html();
+         //  var author = $('#ajax-book-author' + key).data('author');
+         //  var category = $('#ajax-book-category' + key).data('category');
+         $('#modal-book-title').val(title);
+         $('#book_id').val(key);
+         //  console.log(category)
+
+     }
  </script>
