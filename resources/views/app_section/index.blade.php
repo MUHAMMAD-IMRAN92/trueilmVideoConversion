@@ -67,7 +67,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($section as $sec)
+                                                @forelse ($section as $sec)
                                                     @php
                                                         $eye = 'feather icon-eye';
                                                         if ($sec->status == 0) {
@@ -99,7 +99,15 @@
                                                                     class="{{ $eye }}"></i></a>
                                                         </td>
                                                     </tr>
-                                                @endforeach
+                                                @empty
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td style="align-content: center">No Data Found !</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
