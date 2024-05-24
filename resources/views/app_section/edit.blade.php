@@ -193,7 +193,7 @@
                                                                     @forelse ($course as $c)
                                                                         <td>{{ $c->title }}</td>
                                                                         <td>{{ $c->category->title }}</td>
-                                                                        <td>{{ $c->author }}</td>
+                                                                        <td>{{ $c->author->name }}</td>
 
                                                                     @empty
                                                                     @endforelse
