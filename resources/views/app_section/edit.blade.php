@@ -148,8 +148,8 @@
                                                                     @forelse ($books as $book)
                                                                         <tr>
                                                                             <td>{{ $book->title }}</td>
-                                                                            <td>{{ $book->category }}</td>
-                                                                            <td>{{ $book->author }}</td>
+                                                                            <td>{{ $book->category->title }}</td>
+                                                                            <td>{{ $book->author->name }}</td>
                                                                             @if ($book->type == 1)
                                                                                 <td>Ebook</td>
                                                                             @elseif($book->type == 2)
