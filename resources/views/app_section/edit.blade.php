@@ -100,6 +100,116 @@
                                 </div>
                             </div>
                             <!-- Basic Tables start -->
+                            <div class="row" id="basic-table">
+                                <div class="col-12">
+
+                                    <div class="card">
+
+                                        <div class="card-content">
+                                            <div class="card-body">
+
+                                                <ul class="nav nav-pills nav-fill">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="books-tab-fill" data-toggle="pill"
+                                                            href="#books-fill" aria-expanded="true">Books & Podcasts {{'('.count($section->ebook)+count($section->audioBook)+count($section->podcast).')'}}</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="course-tab-fill" data-toggle="pill"
+                                                            href="#course-fill" aria-expanded="true">Courses {{'('.count($section->course).')'}}</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="books-fill"
+                                            aria-labelledby="books-tab-fill" aria-expanded="true">
+                                            <div class="card">
+
+                                                <div class="card-content">
+                                                    <div class="card-body">
+
+                                                        <!-- Table with outer spacing -->
+                                                        <div class="table-responsive">
+                                                            <table class="table w-100" id="">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="">Title</th>
+                                                                        <th class="">Category</th>
+                                                                        <th class="">Author</th>
+                                                                        <th class="">Type</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @forelse ($books as $book)
+                                                                        <tr>
+                                                                            <td>{{ $book->title }}</td>
+                                                                            <td>{{ $book->category }}</td>
+                                                                            <td>{{ $book->author }}</td>
+                                                                            @if ($book->type == 1)
+                                                                                <td>Ebook</td>
+                                                                            @elseif($book->type == 2)
+                                                                                <td>Audio</td>
+                                                                            @elseif($book->type == 7)
+                                                                                <td>Podcast</td>
+                                                                            @endif
+                                                                        </tr>
+                                                                    @empty
+                                                                    @endforelse
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Table with no outer spacing -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div role="tabpanel" class="tab-pane" id="course-fill"
+                                            aria-labelledby="course-tab-fill" aria-expanded="true">
+                                            <div class="card">
+
+                                                <div class="card-content">
+                                                    <div class="card-body">
+
+                                                        <!-- Table with outer spacing -->
+                                                        <div class="table-responsive">
+                                                            <table class="table w-100" id="">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="">Title</th>
+                                                                        <th class="">Category</th>
+                                                                        <th class="">Author</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @forelse ($course as $c)
+                                                                        <td>{{ $c->title }}</td>
+                                                                        <td>{{ $c->category->title }}</td>
+                                                                        <td>{{ $c->author }}</td>
+
+                                                                    @empty
+                                                                    @endforelse
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Table with no outer spacing -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Basic Tables end -->
                         </div>
                     </div>

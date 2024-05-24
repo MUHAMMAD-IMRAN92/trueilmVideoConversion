@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AppSection;
+use App\Models\AppSectionContent;
+use App\Models\Book;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,8 +74,15 @@ class AppSectionController extends Controller
     public function edit($id)
     {
         $section = AppSection::where('_id', $id)->with('appSectionContent.course', 'appSectionContent.books')->first();
+        $booksectionContent = AppSectionContent::where('section_id', $section->_id)->whereIn('content_type', [1, 2, 3, 7])->get()->pluck('content_id');
+        $books = Book::wherein('_id', $booksectionContent)->with('author', 'user', 'approver', 'category')->get();
+        $coursesectionContent = AppSectionContent::where('section_id', $section->_id)->whereIn('content_type', [6])->get()->pluck('content_id');
+
+        $course = Course::wherein('_id', $coursesectionContent)->get();
         return view('app_section.edit', [
-            'section' => $section
+            'section' => $section,
+            'course' => $course,
+            'books' => $books
         ]);
     }
 
