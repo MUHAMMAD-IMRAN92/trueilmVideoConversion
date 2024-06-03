@@ -206,7 +206,7 @@ class StripeController extends Controller
                     if ($subscription->cancel_at_period_end == true) {
                         $userSubscription->stripeCancelled = 1;
                         $userSubscription->canceled_at = Carbon::parse($subscription->canceled_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                        $userSubscription->testString = 'Statu Cancelled update if';
+                        $userSubscription->testString = 'Status Cancelled update if';
                         $userSubscription->save();
                         if (!str_contains(@$userSubscription->email, 'mailinator')) {
                             subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-8916f7b9d17747dab3925394287fa4f8');

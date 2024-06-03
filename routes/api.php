@@ -140,3 +140,13 @@ Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 
 Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
 Route::get('QuranEncTranslation',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);
+
+
+Route::middleware(['checkUserToken'])->prefix('v2')->group(function () {
+    Route::get('/', function () {
+        return 'test';
+    });
+    
+    Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
+    Route::post('send_email_to_childs',  [App\Http\Controllers\Api\UserController::class, 'emailToChilds']);
+});

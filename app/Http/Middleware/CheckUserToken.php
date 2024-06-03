@@ -20,7 +20,7 @@ class CheckUserToken
         $token = $request->header('Authorization');
 
         // Check if the token exists in the tokens table
-        $tokenExists = \DB::table('tokens')->where('token', $token)->exists();
+        $tokenExists = \DB::table('auth_tokens')->where('token', $token)->exists();
 
         if (!$tokenExists) {
             // If token is invalid, return a 401 unauthorized response
