@@ -440,8 +440,7 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    $email = 'imran@mailinator.com';
-    if( !str_contains( $email, 'mailinator')){
-        return 'here';
-    }
+    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    $user = User::where('email', 'ipatch.faraz@gmail.com')->first();
+   return $stripe->subscriptions->all(['customer' => 'cus_QDsKBCM4KRYD23']);
 });
