@@ -16,6 +16,95 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <h2 class="text-bold-700 mt-1"></h2>
+                                        <p class="mb-0">Trail End</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <h2 class="text-bold-700 mt-1"></h2>
+                                        <p class="mb-0">Subscription Expired</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <h2 class="text-bold-700 mt-1"></h2>
+                                        <p class="mb-0">Current Subscription</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <h2 class="text-bold-700 mt-1"></h2>
+                                        <p class="mb-0">Renewal</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        @endif
+
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Line Chart</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <canvas id="usersChart" width="400" height="200"></canvas>
+                                        <script>
+                                            fetch('/ajax/users-data')
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    var ctx = document.getElementById('usersChart').getContext('2d');
+                                                    var usersChart = new Chart(ctx, {
+                                                        type: 'line',
+                                                        data: {
+                                                            labels: data.days,
+                                                            datasets: [{
+                                                                label: 'Users Registered',
+                                                                data: data.registrations,
+                                                                borderColor: 'rgba(75, 192, 192, 1)',
+                                                                borderWidth: 1,
+                                                                fill: false
+                                                            }]
+                                                        },
+                                                        options: {
+                                                            scales: {
+                                                                y: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                        </script>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
                                         <div class="avatar bg-rgba-primary p-50 m-0">
                                             <div class="avatar-content">
                                                 <i class="fa fa-book text-primary font-medium-5"></i>
@@ -227,8 +316,8 @@
                                         <div class="col-12 d-flex ">
                                             <div class="col-10">
                                                 <div class="position-relative">
-                                                    <input type="text" id="myInput" class="form-control" name=""
-                                                        placeholder="" readonly="readonly"
+                                                    <input type="text" id="myInput" class="form-control"
+                                                        name="" placeholder="" readonly="readonly"
                                                         value="https://app.trueilm.com/sign-up/{{ auth()->user()->_id . '/' . auth()->user()->name }}">
 
                                                 </div>

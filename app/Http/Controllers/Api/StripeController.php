@@ -76,7 +76,14 @@ class StripeController extends Controller
             // if (count($lifeTimeSubscription) > 0 && $request->isAccount == 0) {
             //     return  sendSuccess('Checkout Session Url .', '');
             // } else {
-            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where('istrail', 0)->where('status', '!=', 'unpaid')->get();
+            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where(function ($query) {
+                $query->where('istrail', 0)
+                    ->where('status', 'cancelled')
+                    ->orWhere(function ($query) {
+                        $query->where('istrail', '!=', 0)
+                            ->whereNotIn('status', ['unpaid']);
+                    });
+            })->get();
 
             if (count($subscription) > 0) {
                 // return "checkout 1";

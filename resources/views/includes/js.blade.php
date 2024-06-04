@@ -219,14 +219,14 @@
                              sub_title +
                              '</td>'
                      }
-                 },  {
+                 }, {
                      "mRender": function(data, type, row) {
-                         
+
                          return '<td>' +
                              sequence +
                              '</td>'
                      }
-                 }, 
+                 },
                  {
                      "mRender": function(data, type, row) {
                          var sequence = '';
@@ -5723,4 +5723,32 @@
          // Initialize checkboxes for non-modal checkboxes
          initializeCheckboxes();
      });
+
+
+     $.ajax({
+         type: "GET",
+         url: "{{ url('ajax/users-data') }}",
+         dataType: "json",
+         success: function(response) {
+             console.log(response);
+         },
+     });
+     const ctx = document.getElementById('mychart');
+
+     const labels = ["j", "f", "m", "a", "m", "a", "1"]
+     const data = {
+         labels: labels,
+         datasets: [{
+             label: 'Users Data',
+             data: [65, 59, 80, 81, 56, 55, 40],
+             fill: false,
+             borderColor: 'rgb(000)',
+             tension: 0.1
+         }]
+     };
+     const config = {
+         type: 'line',
+         data: data,
+     };
+     new Chart(ctx, config)
  </script>
