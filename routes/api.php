@@ -141,8 +141,8 @@ Route::get('audioapi',  [App\Http\Controllers\HomeController::class, 'audios']);
 Route::get('translations_api_rendering', [App\Http\Controllers\HomeController::class, 'AlQuranTranslations']);
 Route::get('QuranEncTranslation',  [App\Http\Controllers\HomeController::class, 'QuranEncTranslation']);
 
-
-Route::middleware(['checkUserToken'])->prefix('v2')->group(function () {
+// middleware(['checkUserToken'])->
+Route::prefix('v2')->group(function () {
     Route::get('/', function () {
         return 'test';
     });
