@@ -110,6 +110,7 @@ class UserController extends Controller
                 $template_id = "d-a894a8dd5b154f6987533cd1e1023864";
                 $template_vars = [
                     'id' => $user->_id,
+                    'device' => $request->device,
                 ];
 
                 // Set the payload as a JSON string
