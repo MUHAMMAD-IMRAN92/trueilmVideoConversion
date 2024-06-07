@@ -608,7 +608,7 @@ class HomeController extends Controller
             } elseif ($r['indexUid'] == 'alQurantranslations') {
                 foreach ($r['hits'] as $h) {
                     // return $h;
-                    $AlQuran = AlQuran::where('_id',  $h['ayat_id'])->with('khatoot')->first();
+                    $AlQuran = AlQuran::where('_id',  $h['ayat_id'])->with('khatoot', 'surah')->first();
                     if ($AlQuran) {
                         $h['AlQuran'] = $AlQuran;
                     }
