@@ -9,5 +9,8 @@ class BookTrankingDetails extends Eloquent
 {
     use HasFactory;
     protected $table = "tracking_contents";
-    
+    public function tracking()
+    {
+        return $this->hasOne(BookTranking::class, '_id', 'track_id');
+    }
 }

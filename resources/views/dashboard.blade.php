@@ -9,9 +9,160 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
+                <div class="content-header-left col-md-12  d-flex" style="justify-content: end;">
+                    <div class="row d-flex">
+                        <form action="{{ url('book/during_period/') }}" method="GET" class="d-flex">
+                            @csrf
+                            <input class="form-control mr-2" type="date" name="s_date"
+                                value="{{ \Carbon\Carbon::now()->startOfMonth()->toDateString() }}" id="s_date_dashboard">
+                            <input class="form-control" type="date" name="e_date"
+                                value="{{ \Carbon\Carbon::now()->endOfMonth()->toDateString() }}" id="e_date_dashboard">
+                        </form>
+                    </div>
+                </div>
                 <!-- Dashboard Ecommerce Starts -->
                 <section id="dashboard-ecommerce">
+                    <div class="row">
+                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
 
+                                        <h2 class="text-bold-700 mt-1" id="trails"></h2>
+                                        <p class="mb-0">New Trial</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <h2 class="text-bold-700 mt-1" id="new-subscription"></h2>
+                                        <p class="mb-0">New Subscription</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <h2 class="text-bold-700 mt-1" id="expire-subscription"></h2>
+                                        <p class="mb-0">Expire Subscription</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex flex-column align-items-start pb-0">
+
+                                        <h2 class="text-bold-700 mt-1" id="renewal-subscription"></h2>
+                                        <p class="mb-0">Renewal</p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        @endif
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Users Registered </h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <canvas id="usersChart" width="900" height="300"></canvas>
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                        {{-- <script>
+                                            fetch('/ajax/users-data')
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    var ctx = document.getElementById('usersChart').getContext('2d');
+                                                    var usersChart = new Chart(ctx, {
+                                                        type: 'line',
+                                                        data: {
+                                                            labels: data.days,
+                                                            datasets: [{
+                                                                label: 'Users Registered',
+                                                                data: data.registrations,
+                                                                borderColor: 'rgb(75, 192, 192)',
+                                                                backgroundColor: 'rgb(75, 192, 192 , 0.3)',
+                                                                borderWidth: 2,
+                                                                fill: 'origin',
+                                                                tension: 0.1
+
+                                                            }]
+                                                        },
+                                                        options: {
+                                                            scales: {
+                                                                y: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                        </script> --}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Most Read Content </h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <canvas id="contentChart" width="900" height="300"></canvas>
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                        {{-- <script>
+                                            fetch('/ajax/users-data')
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    var ctx = document.getElementById('usersChart').getContext('2d');
+                                                    var usersChart = new Chart(ctx, {
+                                                        type: 'line',
+                                                        data: {
+                                                            labels: data.days,
+                                                            datasets: [{
+                                                                label: 'Users Registered',
+                                                                data: data.registrations,
+                                                                borderColor: 'rgb(75, 192, 192)',
+                                                                backgroundColor: 'rgb(75, 192, 192 , 0.3)',
+                                                                borderWidth: 2,
+                                                                fill: 'origin',
+                                                                tension: 0.1
+
+                                                            }]
+                                                        },
+                                                        options: {
+                                                            scales: {
+                                                                y: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                        </script> --}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                             <div class="col-lg-3 col-sm-6 col-12">

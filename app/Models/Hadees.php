@@ -26,4 +26,12 @@ class Hadees extends Eloquent
     {
         return $this->hasMany(HadeesTranslation::class, 'hadees_id', 'id');
     }
+    public function book()
+    {
+        return $this->hasOne(HadeesBooks::class, '_id', 'book_id');
+    }
+    public function chapter()
+    {
+        return $this->hasOne(HadithChapter::class, '_id', 'chapter_id');
+    }
 }

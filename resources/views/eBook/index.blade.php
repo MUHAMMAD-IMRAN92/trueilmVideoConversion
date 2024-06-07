@@ -49,19 +49,20 @@
                                 </fieldset>
                             </li>
                         </div>
-                        <div class="mr-1">
-                            <fieldset class="form-group" style="width: 10rem !important">
-                                <select class="select2 form-control" name="category" id="ajax-table-category">
-                                    <option value=" " selected disabled>Category</option>
-                                    @foreach ($categories as $cat)
-                                        <option value="{{ $cat->_id }}">
-                                            {{ $cat->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </fieldset>
+                        {{-- <div class="mr-1" > --}}
+                        <div class="form-label-group">
+                            <select class="select2 form-control " name="category" id="ajax-table-category">
+                                <option value="" selected disabled>Category</option>
+                                @foreach ($categories as $cat)
+                                    <option value="{{ $cat->_id }}">
+                                        {{ $cat->title }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="mr-1">
+                        {{-- </div> --}}
+
+                        <div class="mr-1 ml-1">
                             <fieldset class="form-group" style="width: 10rem !important">
                                 <select class="select2 form-control" name="author" id="ajax-table-author">
                                     <option value=" " selected disabled>Author</option>
@@ -125,6 +126,53 @@
                     </button>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Most Read Content </h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <canvas id="topReadBookChart" width="900" height="300"></canvas>
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                {{-- <script>
+                                    fetch('/ajax/users-data')
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            var ctx = document.getElementById('usersChart').getContext('2d');
+                                            var usersChart = new Chart(ctx, {
+                                                type: 'line',
+                                                data: {
+                                                    labels: data.days,
+                                                    datasets: [{
+                                                        label: 'Users Registered',
+                                                        data: data.registrations,
+                                                        borderColor: 'rgb(75, 192, 192)',
+                                                        backgroundColor: 'rgb(75, 192, 192 , 0.3)',
+                                                        borderWidth: 2,
+                                                        fill: 'origin',
+                                                        tension: 0.1
+
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
+                                </script> --}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row {{ $hidden_table == 1 ? 'd-none' : '' }}" id="basic-table">
@@ -271,7 +319,7 @@
                     </div>
                 @endif
                 <!-- Basic Tables end -->
-                <div class="modal fade bd-example-modal-lg" id="edit-book" tabindex="-1" role="dialog"
+                {{-- <div class="modal fade bd-example-modal-lg" id="edit-book" tabindex="-1" role="dialog"
                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <form action="{{ route('podcast.episode') }}" method="POST" enctype="multipart/form-data">
@@ -302,7 +350,7 @@
                                             </fieldset>
                                         </div>
                                         <div class="col-md-12">
-                                            <fieldset class="form-group" >
+                                            <fieldset class="form-group">
                                                 <select class="select2 form-control" name="category"
                                                     id="ajax-table-category">
                                                     <option value=" " selected disabled>Category</option>
@@ -315,7 +363,7 @@
                                             </fieldset>
                                         </div>
                                         <div class="col-md-12">
-                                            <fieldset class="form-group" >
+                                            <fieldset class="form-group">
                                                 <select class="select2 form-control" name="author"
                                                     id="ajax-table-author">
                                                     <option value=" " selected disabled>Author</option>
@@ -338,7 +386,7 @@
 
                         </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

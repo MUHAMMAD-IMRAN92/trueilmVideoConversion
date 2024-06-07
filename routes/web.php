@@ -57,6 +57,9 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('ajax/users-data', [App\Http\Controllers\DashboardController::class, 'ajaxUsersData'])->name('ajax.user.data');
+    Route::get('ajax/top-read-data', [App\Http\Controllers\DashboardController::class, 'topReadBooks'])->name('ajax.topread.data');
+    Route::get('ajax/subscription-data', [App\Http\Controllers\DashboardController::class, 'subscriptionData'])->name('ajax.subscription.data');
+    Route::get('ajax/top-read-book-data/{type}', [App\Http\Controllers\DashboardController::class, 'getTopReadBooksByType'])->name('ajax.most-read-book.data');
 
     //Al-Quran
     Route::get('ayat/create/{id}', [App\Http\Controllers\AlQuranController::class, 'add'])->name('ayat.add');
