@@ -8,7 +8,7 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class AppSectionContent extends Eloquent
 {
     use HasFactory;
-    protected $table = 'app_section_content';
+    protected $table = 'app_section_contents';
     public function course()
     {
         return $this->hasMany(Course::class, '_id', 'content_id');
