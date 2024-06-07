@@ -16,6 +16,6 @@ class HadithChapter extends Eloquent
     }
     public function parentChapter()
     {
-        return $this->hasOne(HadithChapter::class, 'parent_id', '_id');
+        return $this->hasOne(HadithChapter::class, '_id', 'parent_id');
     }
 }
