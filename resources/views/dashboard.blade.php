@@ -13,10 +13,10 @@
                     <div class="row d-flex">
                         <form action="{{ url('book/during_period/') }}" method="GET" class="d-flex">
                             @csrf
-                            <input class="form-control mr-2" type="date" name="s_date"
+                            {{-- <input class="form-control mr-2" type="date" name="s_date"
                                 value="{{ \Carbon\Carbon::now()->startOfMonth()->toDateString() }}" id="s_date_dashboard">
                             <input class="form-control" type="date" name="e_date"
-                                value="{{ \Carbon\Carbon::now()->endOfMonth()->toDateString() }}" id="e_date_dashboard">
+                                value="{{ \Carbon\Carbon::now()->endOfMonth()->toDateString() }}" id="e_date_dashboard"> --}}
                         </form>
                     </div>
                 </div>
