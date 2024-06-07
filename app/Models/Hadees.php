@@ -34,4 +34,5 @@ class Hadees extends Eloquent
     {
         return $this->hasOne(HadithChapter::class, '_id', 'chapter_id');
     }
+
 }

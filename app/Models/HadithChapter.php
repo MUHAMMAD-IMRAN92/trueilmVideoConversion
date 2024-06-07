@@ -14,4 +14,8 @@ class HadithChapter extends Eloquent
     {
         return $this->hasMany(Hadees::class, 'chapter_id', '_id');
     }
+    public function parentChapter()
+    {
+        return $this->hasOne(HadithChapter::class, 'parent_id', '_id');
+    }
 }
