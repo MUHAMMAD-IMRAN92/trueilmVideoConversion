@@ -126,7 +126,7 @@
                     </button>
                 </div>
             @endif
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -137,42 +137,13 @@
                                 <canvas id="topReadBookChart" width="900" height="300"></canvas>
                                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                                {{-- <script>
-                                    fetch('/ajax/users-data')
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            var ctx = document.getElementById('usersChart').getContext('2d');
-                                            var usersChart = new Chart(ctx, {
-                                                type: 'line',
-                                                data: {
-                                                    labels: data.days,
-                                                    datasets: [{
-                                                        label: 'Users Registered',
-                                                        data: data.registrations,
-                                                        borderColor: 'rgb(75, 192, 192)',
-                                                        backgroundColor: 'rgb(75, 192, 192 , 0.3)',
-                                                        borderWidth: 2,
-                                                        fill: 'origin',
-                                                        tension: 0.1
 
-                                                    }]
-                                                },
-                                                options: {
-                                                    scales: {
-                                                        y: {
-                                                            beginAtZero: true
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        });
-                                </script> --}}
                             </div>
 
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row {{ $hidden_table == 1 ? 'd-none' : '' }}" id="basic-table">
