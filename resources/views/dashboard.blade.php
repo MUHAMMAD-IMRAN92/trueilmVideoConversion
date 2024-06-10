@@ -13,16 +13,16 @@
                     <div class="row d-flex">
                         <form action="{{ url('book/during_period/') }}" method="GET" class="d-flex">
                             @csrf
-                            {{-- <input class="form-control mr-2" type="date" name="s_date"
+                            <input class="form-control mr-2" type="date" name="s_date"
                                 value="{{ \Carbon\Carbon::now()->startOfMonth()->toDateString() }}" id="s_date_dashboard">
                             <input class="form-control" type="date" name="e_date"
-                                value="{{ \Carbon\Carbon::now()->endOfMonth()->toDateString() }}" id="e_date_dashboard"> --}}
+                                value="{{ \Carbon\Carbon::now()->endOfMonth()->toDateString() }}" id="e_date_dashboard">
                         </form>
                     </div>
                 </div>
                 <!-- Dashboard Ecommerce Starts -->
                 <section id="dashboard-ecommerce">
-                    {{-- <div class="row">
+                    <div class="row">
                         @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
@@ -104,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr> --}}
+                    <hr>
                     <div class="row">
                         @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                             <div class="col-lg-3 col-sm-6 col-12">

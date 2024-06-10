@@ -126,7 +126,7 @@
                     </button>
                 </div>
             @endif
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-header">
@@ -143,7 +143,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row {{ $hidden_table == 1 ? 'd-none' : '' }}" id="basic-table">

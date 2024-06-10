@@ -63,20 +63,28 @@ Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexT
 
 Route::get('/quran/index/{id}', function ($id) {
     ini_set("memory_limit", "-1");
+    // $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
+
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     // $client->deleteIndex('alQurantranslations');
 
     // $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
 
 
-    $alQuran = AlQuranTranslation::where('author_lang', $id)->get();
+    // $alQuran = AlQuranTranslation::where('author_lang', $id)->get();
     // $book = Book::where('type', '7')->where('approved', 1)->where('status', 1)->get()->toArray();
-    $client->index('alQurantranslations')->addDocuments($alQuran->toArray());
-    // return $client->index('ebooks')->getDocument($book->_id, ['id', 'title']);
+    // $client->index('alQurantranslations')->addDocuments($alQuran->toArray());
+    // return $client->index('ebook')->getDocument($book->_id, ['id', 'title']);
 
-    // $book7 = Book::where('type', "7")->get()->toArray();
+    $book1 = Book::where('type', "1")->where('status', 1)->where('approved', 1)->get()->toArray();
+    $booksclient =  $client->index('ebook')->addDocuments($book1, '_id');
+    $book2 = Book::where('type', "2")->where('status', 1)->where('approved', 1)->get()->toArray();
+    $booksclient =  $client->index('audio')->addDocuments($book2, '_id');
+    $book7 = Book::where('type', "7")->where('status', 1)->where('approved', 1)->get()->toArray();
 
-    // $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
+    $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
+    $bookc = Course::where('status', 1)->where('approved', 1)->get()->toArray();
+    $booksclient =  $client->index('course')->addDocuments($bookc, '_id');
     return 'ok';
 });
 Route::get('/course/index', function () {

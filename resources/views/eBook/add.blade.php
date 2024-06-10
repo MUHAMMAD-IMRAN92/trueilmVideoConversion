@@ -256,6 +256,21 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
+
+                                                        <label for="">Language</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="lang_id"
+                                                                id="">
+                                                                <option disabled selected>Select Language</option>
+                                                                @foreach ($languages as $lang)
+                                                                    <option value="{{ $lang->_id }}">
+                                                                        {{ $lang->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="">Max Age</label>
                                                             <div class="position-relative">
@@ -384,8 +399,8 @@
                                                                                 {{ count($s->audioBook) }}</b> <br>
                                                                             <span>Podcast : </span> <b>
                                                                                 {{ count($s->podcast) }}</b> <br>
-                                                                                <span>Course : </span> <b>
-                                                                                    {{ count($s->course) }}</b> <br>
+                                                                            <span>Course : </span> <b>
+                                                                                {{ count($s->course) }}</b> <br>
                                                                         </td>
                                                                         <td>
                                                                             <div class="form-group">
@@ -401,12 +416,13 @@
                                                                             </div>
                                                                         </td>
                                                                     </tr>
-                                                                    @empty
+                                                                @empty
                                                                     <tr>
                                                                         <td></td>
-                                                                        <td style="text-align: center">Not Section Added Yet !</td>
+                                                                        <td style="text-align: center">Not Section Added
+                                                                            Yet !</td>
                                                                         <td></td>
-                                                                        
+
                                                                     </tr>
                                                                 @endforelse
 

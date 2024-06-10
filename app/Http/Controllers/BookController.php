@@ -22,6 +22,7 @@ use App\Models\Publisher;
 use Carbon\Carbon;
 use Meilisearch\Client;
 use App\Models\Author;
+use App\Models\Languages;
 use App\Models\Reference;
 use App\Models\Scopes\DeletedAtScope;
 
@@ -144,6 +145,7 @@ class BookController extends Controller
         $glossary = Glossory::all();
         $publisher = Publisher::all();
         $author = Author::where('type', '1')->get();
+        $languages = Languages::get();
         $section = AppSection::where('status', 1)->with('eBook', 'audioBook', 'podcast')->get();
         return view('eBook.add', [
             'type' => $type,
@@ -153,7 +155,8 @@ class BookController extends Controller
             'glossary' => $glossary,
             'publisher' => $publisher,
             'author' => $author,
-            'section' => $section
+            'section' => $section,
+            'languages' => $languages
         ]);
     }
     public function store(Request $request)
@@ -183,6 +186,7 @@ class BookController extends Controller
         $book->content_suitble = $request->suitble;
         $book->publisher_id = $request->publisher_id;
         $book->author_id = $request->author_id;
+        $book->lang_id = $request->lang_id;
         $book->p_type = $request->pRadio;
         $book->age = $request->age;
         if ($request->pRadio == 0) {
@@ -322,7 +326,6 @@ class BookController extends Controller
 
     public function update(Request $request)
     {
-
         ini_set('max_execution_time', '0');
         ini_set("memory_limit", "-1");
         // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
@@ -347,6 +350,7 @@ class BookController extends Controller
         $book->status =  $book->status;
         $book->approved =  $book->approved;
         $book->author_id = $request->author_id;
+        $book->lang_id = $request->lang_id;
         $book->book_pages = $request->pages;
         $book->serial_no = $request->sr_no;
         $book->content_suitble = $request->suitble;
