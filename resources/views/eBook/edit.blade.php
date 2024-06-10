@@ -236,6 +236,22 @@
                                                     </div>
                                                     <div class="col-6">
 
+                                                        <label for="">Language</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="lang_id"
+                                                                id="">
+                                                                <option disabled selected>Select Language</option>
+                                                                @foreach ($languages as $lang)
+                                                                    <option value="{{ $lang->_id }}"
+                                                                        {{ $book->lang_id == $lang->_id ? 'selected' : '' }}>
+                                                                        {{ $lang->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
+
                                                         <label for="">Publsiher</label>
                                                         <fieldset class="form-group">
                                                             <select class="select2 form-control" name="publisher_id"

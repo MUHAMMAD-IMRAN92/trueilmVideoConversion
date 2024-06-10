@@ -300,6 +300,8 @@ class BookController extends Controller
         $contentGlossary = ContentGlossary::where('content_id', $id)->get();
         $author = Author::where('type', '1')->get();
         $section = AppSection::where('status', 1)->get();
+        $languages = Languages::get();
+
         $selectedSection = AppSectionContent::where('content_id', $book->id)->get(['section_id', 'order_no']);
         $view = 'eBook.edit';
         if ($type == 7) {
@@ -320,7 +322,8 @@ class BookController extends Controller
             'approved' => $request->approved,
             'rejected_by_you' => $request->rejected_by_you,
             'section' => $section,
-            'selectedSection' => $selectedSection
+            'selectedSection' => $selectedSection,
+            'languages' => $languages
         ]);
     }
 
