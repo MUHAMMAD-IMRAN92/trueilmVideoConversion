@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ajax/top-read-data', [App\Http\Controllers\DashboardController::class, 'topReadBooks'])->name('ajax.topread.data');
     Route::get('ajax/subscription-data', [App\Http\Controllers\DashboardController::class, 'subscriptionData'])->name('ajax.subscription.data');
     Route::get('ajax/top-read-book-data/{type}', [App\Http\Controllers\DashboardController::class, 'getTopReadBooksByType'])->name('ajax.most-read-book.data');
+    Route::get('ajax/top-course-data/{type}', [App\Http\Controllers\DashboardController::class, 'getTopReadCourseData'])->name('ajax.most-read-course.data');
 
     //Al-Quran
     Route::get('ayat/create/{id}', [App\Http\Controllers\AlQuranController::class, 'add'])->name('ayat.add');

@@ -226,4 +226,42 @@ class DashboardController extends Controller
         $data['count'] = $count;
         return $data;
     }
+    public function getTopReadCourseData(Request $request, $type)
+    {
+        // return  $request->all();
+        $trackings = BookTranking::where('type', $type)->whereHas('course', function ($q) use ($request) {
+            $q->when($request->category, function ($query) use ($request) {
+                $query->where('category_id', $request->category);
+            })->when($request->price, function ($query) use ($request) {
+                $query->where('p_type', $request->price);
+            })->when($request->aproval, function ($query) use ($request) {
+                $query->where('aproved', (int)$request->aproval);
+            })->when($request->uncategorized, function ($query) use ($request) {
+                if ($request->uncategorized == "true") {
+                    $query->whereDoesntHave('category');
+                }
+            })->when($request->author, function ($query) use ($request) {
+                $query->where('author_id', $request->author);
+            });
+        })->with('book')
+            ->get()
+            ->groupBy('book_id')
+            ->map(function ($group, $bookId) {
+                return [
+                    'count' => $group->count(),
+                    'course' => @$group->first()->course->title
+                ];
+            })
+            ->sortByDesc('count')
+            ->take(10);
+        $book = [];
+        $count = [];
+        foreach ($trackings as $track) {
+            $book[] = $track['course'];
+            $count[] = $track['count'];
+        }
+        $data['book'] = $book;
+        $data['count'] = $count;
+        return $data;
+    }
 }

@@ -56,6 +56,6 @@ class BookTranking extends Eloquent
     }
     public function course()
     {
-        return $this->hasOne(Course::class, '_id', 'course_id');
+        return $this->hasOne(Course::class, '_id', 'book_id');
     }
 }

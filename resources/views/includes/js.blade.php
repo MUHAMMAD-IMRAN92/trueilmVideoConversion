@@ -3162,8 +3162,33 @@
                     courseAuthor
                 )
                 .load();
-        });
+            courseTableFiltersOnchange(coursePrice, courseCategory, courseAproval, courseAuthor,
+                courseUncategorized);
 
+        });
+        $('#course-ajax-table-price').on('change', function() {
+            // Get the selected category value
+            coursePrice = $(this).val() == null ? '' : $(this).val();;
+            courseCategory = $('#course-ajax-table-category').val() == null ? '' : $(
+                '#course-ajax-table-category').val();
+            courseAproval = $('#course-ajax-table-approval').val() == null ? '' : $(
+                '#course-ajax-table-approval').val();
+            courseAuthor = $('#course-ajax-table-author').val() == null ? '' : $(
+                '#course-ajax-table-author').val();
+            if ($('#course-ajax-uncategorized').is(':checked')) {
+                courseUncategorized = true
+            }
+            // Update the DataTable's AJAX URL with the selected category value
+            courseTable.ajax.url('<?= url('all-courses') ?>?category=' + courseCategory + '&price=' +
+                    coursePrice +
+                    '&aproval=' + courseAproval + '&uncategorized=' + courseUncategorized + '&author=' +
+                    courseAuthor
+                )
+                .load();
+            courseTableFiltersOnchange(coursePrice, courseCategory, courseAproval, courseAuthor,
+                courseUncategorized);
+
+        });
         $('#course-ajax-table-approval').on('change', function() {
             // Get the selected category value
             coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
@@ -3183,6 +3208,9 @@
                     courseAuthor
                 )
                 .load();
+            courseTableFiltersOnchange(coursePrice, courseCategory, courseAproval, courseAuthor,
+                courseUncategorized);
+
         });
         $('#course-ajax-table-author').on('change', function() {
             // Get the selected category value
@@ -3204,6 +3232,9 @@
                     courseAuthor
                 )
                 .load();
+            courseTableFiltersOnchange(coursePrice, courseCategory, courseAproval, courseAuthor,
+                courseUncategorized);
+
         });
         $('#course-ajax-uncategorized').on('change', function() {
             if ($(this).is(':checked')) {
@@ -3226,6 +3257,9 @@
                         courseAuthor
                     )
                     .load();
+                courseTableFiltersOnchange(coursePrice, courseCategory, courseAproval, courseAuthor,
+                    courseUncategorized = true);
+
             } else {
                 $('#course-ajax-table-category').prop('disabled', false);
                 coursePrice = $('#course-ajax-table-price').val() == null ? '' : $(
@@ -3246,7 +3280,91 @@
                         courseAuthor
                     )
                     .load();
+                courseTableFiltersOnchange(coursePrice, courseCategory, courseAproval, courseAuthor,
+                    courseUncategorized = false);
+
             }
+        });
+
+        function courseTableFiltersOnchange(price, category, aproval, author, uncategorized) {
+            // var type = bookType;
+            // console.log('this is sring' + type)
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('ajax/top-course-data/') }}/" + 6,
+                dataType: "json",
+                data: {
+                    price: price,
+                    category: category,
+                    aproval: aproval,
+                    author: author,
+                    uncategorized: uncategorized
+                },
+                success: function(response) {
+                    var existing_chart = Chart.getChart('topReadCourseChart');
+                    existing_chart.destroy();
+                    var ctx = document.getElementById('topReadCourseChart').getContext('2d');
+                    var usersChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: response.book,
+                            datasets: [{
+                                label: 'Most Read Courses',
+                                data: response.count,
+                                borderColor: 'rgb(75, 192, 192)',
+                                backgroundColor: 'rgb(75, 192, 192 , 0.3)',
+                                borderWidth: 2,
+                                fill: 'origin',
+                                tension: 0.1
+
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+            });
+
+        }
+        $.ajax({
+            type: "GET",
+            url: "{{ url('ajax/top-course-data/') }}/" + 6,
+            dataType: "json",
+
+            success: function(response) {
+                // var existing_chart = Chart.getChart('topReadCourseChart');
+                // existing_chart.destroy();
+                var ctx = document.getElementById('topReadCourseChart').getContext('2d');
+                var usersChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: response.book,
+                        datasets: [{
+                            label: 'Most Read Courses',
+                            data: response.count,
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgb(75, 192, 192 , 0.3)',
+                            borderWidth: 2,
+                            fill: 'origin',
+                            tension: 0.1
+
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
         });
         $('#support-table').DataTable({
             "processing": true,

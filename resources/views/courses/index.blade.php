@@ -44,8 +44,7 @@
                         </div>
                         <div class="mr-1">
                             <fieldset class="form-group" style="width: 10rem !important">
-                                <select class="select2 form-control" name="category" id="course-ajax-table-category"
-                                    >
+                                <select class="select2 form-control" name="category" id="course-ajax-table-category">
                                     <option value=" " selected disabled>Category</option>
                                     @foreach ($categories as $cat)
                                         <option value="{{ $cat->_id }}">
@@ -57,8 +56,7 @@
                         </div>
                         <div class="mr-1">
                             <fieldset class="form-group" style="width: 10rem !important">
-                                <select class="select2 form-control" name="category" id="course-ajax-table-author"
-                                  >
+                                <select class="select2 form-control" name="category" id="course-ajax-table-author">
                                     <option value=" " selected disabled>Author</option>
                                     @foreach ($authors as $auth)
                                         <option value="{{ $auth->_id }}">
@@ -117,6 +115,24 @@
                     </button>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Most Read Content </h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <canvas id="topReadCourseChart" width="900" height="300"></canvas>
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="content-body">
                 <!-- Basic Tables start -->
                 <div class="row" id="basic-table">
