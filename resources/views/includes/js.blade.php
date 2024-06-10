@@ -5962,6 +5962,103 @@
             },
         });
     });
+    $('#s_date_dashboard').on('change', function() {
+        console.log('ok');
+        var s_date = $(this).val();
+        var e_date = $('#e_date_dashboard').val();
+
+        $.ajax({
+            type: "GET",
+            url: "{{ url('ajax/subscription-data') }}",
+            dataType: "json",
+            data: {
+                's_date': s_date,
+                'e_date': e_date
+            },
+            success: function(response) {
+                console.log(response);
+                $('#trails').html(response.trails);
+                $('#new-subscription').html(response.new_subscription);
+                $('#expire-subscription').html(response.expire_subscription);
+                $('#renewal-subscription').html(response.expire_subscription);
+            },
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "{{ url('ajax/users-data') }}",
+            dataType: "json",
+            data: {
+                's_date': s_date,
+                'e_date': e_date
+            },
+            success: function(response) {
+                var existing_chart = Chart.getChart('usersChart')
+                existing_chart.destroy();
+                var ctx = document.getElementById('usersChart');
+                var usersChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: response.days,
+                        datasets: [{
+                            label: 'Users Registered',
+                            data: response.registrations,
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgb(75, 192, 192 , 0.3)',
+                            borderWidth: 2,
+                            fill: 'origin',
+                            tension: 0.1
+
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+        });
+        $.ajax({
+            type: "GET",
+            url: "{{ url('ajax/top-read-data') }}",
+            dataType: "json",
+            data: {
+                's_date': s_date,
+                'e_date': e_date
+            },
+            success: function(response) {
+                var existing_chart = Chart.getChart('contentChart');
+                existing_chart.destroy();
+                var ctx = document.getElementById('contentChart');
+                var usersChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: response.content,
+                        datasets: [{
+                            label: 'Most Read Content',
+                            data: response.percentage,
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgb(75, 192, 192 , 0.3)',
+                            borderWidth: 2,
+                            fill: 'origin',
+                            tension: 0.1
+
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+        });
+    });
     let type = `{{ session()->get('bookType') }}` ? `{{ session()->get('bookType') }}` : 1 ;
 
     // var type = a;
