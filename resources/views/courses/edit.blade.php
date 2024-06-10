@@ -184,6 +184,22 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
+
+                                                        <label for="">Language</label>
+                                                        <fieldset class="form-group">
+                                                            <select class="select2 form-control" name="lang_id"
+                                                                id="" disabled>
+                                                                <option disabled selected>Select Language</option>
+                                                                @foreach ($languages as $lang)
+                                                                    <option value="{{ $lang->_id }}"
+                                                                        {{ $course->lang_id == $lang->_id ? 'selected' : '' }}>
+                                                                        {{ $lang->title }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-6">
                                                         <div class="form-group">
                                                             <label for="">Max Age</label>
                                                             <div class="position-relative">
@@ -323,12 +339,13 @@
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
-                                                                        @empty
+                                                                    @empty
                                                                         <tr>
                                                                             <td></td>
-                                                                            <td style="text-align: center">Not Section Added Yet !</td>
+                                                                            <td style="text-align: center">Not Section
+                                                                                Added Yet !</td>
                                                                             <td></td>
-                                                                            
+
                                                                         </tr>
                                                                     @endforelse
 
@@ -897,6 +914,22 @@
 
                                                                     </select>
                                                                 </div>
+                                                            </div>
+                                                            <div class="col-6">
+
+                                                                <label for="">Language</label>
+                                                                <fieldset class="form-group">
+                                                                    <select class="select2 form-control" name="lang_id"
+                                                                        id="">
+                                                                        <option disabled selected>Select Language</option>
+                                                                        @foreach ($languages as $lang)
+                                                                            <option value="{{ $lang->_id }}"
+                                                                                {{ $course->lang_id == $lang->_id ? 'selected' : '' }}>
+                                                                                {{ $lang->title }}</option>
+                                                                        @endforeach
+
+                                                                    </select>
+                                                                </fieldset>
                                                             </div>
                                                             <div class="col-6">
                                                                 <div class="form-group">

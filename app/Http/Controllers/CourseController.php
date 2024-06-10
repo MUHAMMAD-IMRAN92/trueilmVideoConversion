@@ -12,6 +12,7 @@ use App\Models\CourseLesson;
 use App\Models\LessonVideo;
 use Illuminate\Http\Request;
 use App\Models\ContentTag;
+use App\Models\Languages;
 use App\Models\Questionaire;
 use App\Models\QuestionaireOptions;
 use App\Models\QuizAttempts;
@@ -126,12 +127,14 @@ class CourseController extends Controller
         $categories = Category::active()->get();
         $author = Author::where('type', '1')->get();
         $section = AppSection::where('status', 1)->with('eBook', 'audioBook', 'podcast')->get();
+        $languages = Languages::get();
 
         return view('courses.add', [
             'tags' => $tags,
             'categories' => $categories,
             'author' => $author,
-            'section' => $section
+            'section' => $section,
+            'languages' => $languages
         ]);
     }
     public function store(Request $request)
@@ -150,6 +153,7 @@ class CourseController extends Controller
         $course->p_type = $request->pRadio;
         $course->price = $request->price;
         $course->category_id = $request->category_id;
+        $course->lang_id = $request->lang_id;
         $course->inside = $request->inside;
         $course->author_id = $request->author_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
@@ -228,6 +232,8 @@ class CourseController extends Controller
         $author = Author::where('type', '1')->get();
         $section = AppSection::where('status', 1)->get();
         $selectedSection = AppSectionContent::where('content_id', $course->id)->get(['section_id', 'order_no']);
+        $languages = Languages::get();
+
         return view('courses.edit', [
             'course' => $course,
             'tags' => $tags,
@@ -236,7 +242,8 @@ class CourseController extends Controller
             'author' => $author,
             'pending_for_approval' => $request->pending_for_approval,
             'section' => $section,
-            'selectedSection' => $selectedSection
+            'selectedSection' => $selectedSection,
+            'languages' => $languages
         ]);
     }
 
@@ -255,6 +262,7 @@ class CourseController extends Controller
         $course->price = $request->price;
         $course->inside = $request->inside;
         $course->author_id = $request->author_id;
+        $course->lang_id = $request->lang_id;
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->has('image')) {
             $file = $request->file('image');

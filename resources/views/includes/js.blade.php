@@ -687,7 +687,7 @@
         });
 
         function bookTableFiltersOnchange(price, category, aproval, author, uncategorized) {
-          var  type =   `{{ session()->get('bookType') }}` ? `{{ session()->get('bookType') }}` : 1;
+            var type = `{{ session()->get('bookType') }}` ? `{{ session()->get('bookType') }}` : 1;
             // var type = bookType;
             // console.log('this is sring' + type)
             if (type) {
@@ -6059,7 +6059,7 @@
             },
         });
     });
-    let type = `{{ session()->get('bookType') }}` ? `{{ session()->get('bookType') }}` : 1 ;
+    let type = `{{ session()->get('bookType') }}` ? `{{ session()->get('bookType') }}` : 1;
 
     // var type = a;
 
