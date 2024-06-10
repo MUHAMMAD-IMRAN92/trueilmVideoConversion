@@ -986,6 +986,8 @@ class BookController extends Controller
         $author = Author::where('type', '1')->get();
         $section = AppSection::where('status', 1)->get();
         $selectedSection = AppSectionContent::where('content_id', $book->id)->get(['section_id', 'order_no']);
+        $languages = Languages::get();
+
         return view('eBook.podcast_edit', [
             'book' => $book,
             'type' => $book->type,
@@ -998,7 +1000,8 @@ class BookController extends Controller
             'publisher' => $publisher,
             'author' => $author,
             'section' => $section,
-            'selectedSection' => $selectedSection
+            'selectedSection' => $selectedSection,
+            'languages' => $languages
         ]);
     }
     public function podcastEpisode(Request $request)
