@@ -589,13 +589,48 @@ class HomeController extends Controller
                     $indexInstance = $client->index($arrIndex[$ar]);
                     $indexInstance->updateFilterableAttributes([
                         'book_id',
-                        'chapter_id'
+                        'chapter_id',
+                        'author_id',
+                        'lang_id',
+                        'type'
                     ]);
+                    if (!empty($request->book_id)) {
+                        $filters[] = 'book_id = ' . $request->book_id;
+                    }
+                    if (!empty($request->author_id)) {
+                        $filters[] = 'author_id = ' . $request->author_id;
+                    }
+                    if (!empty($request->lang_id)) {
+                        $filters[] = 'lang_id = ' . $request->lang_id;
+                    }
+
                     $queries[] = (new SearchQuery())
                         ->setIndexUid($arrIndex[$ar])
                         ->setQuery($request->search)
                         ->setOffset($request->offset)
-                        ->setLimit($request->limit)->setFilter(['book_id =' .  $request->book_id]);
+                        ->setLimit($request->limit)->setFilter($filters);
+                } else if ($ar == 4) {
+                    $indexInstance = $client->index($arrIndex[$ar]);
+                    $indexInstance->updateFilterableAttributes([
+                        'surah_id',
+                        'author_id',
+                        'lang_id',
+                        'type'
+                    ]);
+                    if (!empty($request->surah_id)) {
+                        $filters[] = 'surah_id = ' . $request->surah_id;
+                    }
+                    if (!empty($request->author_id)) {
+                        $filters[] = 'author_id = ' . $request->author_id;
+                    }
+                    if (!empty($request->lang_id)) {
+                        $filters[] = 'lang_id = ' . $request->lang_id;
+                    }
+                    $queries[] = (new SearchQuery())
+                        ->setIndexUid($arrIndex[$ar])
+                        ->setQuery($request->search)
+                        ->setOffset($request->offset)
+                        ->setLimit($request->limit)->setFilter($filters);
                 } else {
                     $queries[] = (new SearchQuery())
                         ->setIndexUid($arrIndex[$ar])

@@ -27,4 +27,11 @@ class HadeesTranslation extends Eloquent
     {
         return $this->belongsTo(Hadees::class, '_id', 'hadees_id');
     }
+    public  function mainChapter()
+    {
+        $chapterId = $this->chapter_id;
+        $chapter   =     HadithChapter::where('_id', $chapterId)->first();
+
+        return $chapter->parent_id;
+    }
 }

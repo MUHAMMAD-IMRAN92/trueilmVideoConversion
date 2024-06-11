@@ -67,7 +67,11 @@ Route::get('/quran/index/{id}', function ($id) {
 
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     // $client->deleteIndex('alQurantranslations');
+    return   $translation = HadeesTranslation::limit(10)->get()->map(function ($tran) {
+        $tran->main_chapter = $tran->mainChapter();
 
+        return $tran;
+    });
     // $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
 
 
@@ -76,15 +80,15 @@ Route::get('/quran/index/{id}', function ($id) {
     // $client->index('alQurantranslations')->addDocuments($alQuran->toArray());
     // return $client->index('ebook')->getDocument($book->_id, ['id', 'title']);
 
-    $book1 = Book::where('type', "1")->where('status', 1)->where('approved', 1)->get()->toArray();
-    $booksclient =  $client->index('ebook')->addDocuments($book1, '_id');
-    $book2 = Book::where('type', "2")->where('status', 1)->where('approved', 1)->get()->toArray();
-    $booksclient =  $client->index('audio')->addDocuments($book2, '_id');
-    $book7 = Book::where('type', "7")->where('status', 1)->where('approved', 1)->get()->toArray();
+    // $book1 = Book::where('type', "1")->where('status', 1)->where('approved', 1)->get()->toArray();
+    // $booksclient =  $client->index('ebook')->addDocuments($book1, '_id');
+    // $book2 = Book::where('type', "2")->where('status', 1)->where('approved', 1)->get()->toArray();
+    // $booksclient =  $client->index('audio')->addDocuments($book2, '_id');
+    // $book7 = Book::where('type', "7")->where('status', 1)->where('approved', 1)->get()->toArray();
 
-    $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
-    $bookc = Course::where('status', 1)->where('approved', 1)->get()->toArray();
-    $booksclient =  $client->index('course')->addDocuments($bookc, '_id');
+    // $booksclient =  $client->index('podcast')->addDocuments($book7, '_id');
+    // $bookc = Course::where('status', 1)->where('approved', 1)->get()->toArray();
+    // $booksclient =  $client->index('course')->addDocuments($bookc, '_id');
     return 'ok';
 });
 Route::get('/course/index', function () {
