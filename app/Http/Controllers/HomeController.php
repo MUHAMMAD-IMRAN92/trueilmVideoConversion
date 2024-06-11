@@ -583,7 +583,7 @@ class HomeController extends Controller
         // $arrIndex = [4 => 'alQurantranslations'];
         $queries = [];
         if ($request->type != "" || count($request->type) != 0) {
-            $filters=[];
+            $filters = [];
             // $arr = explode(',', $request->type);
             foreach ($request->type as $ar) {
                 if ($ar == 5) {
@@ -603,6 +603,12 @@ class HomeController extends Controller
                     }
                     if (!empty($request->lang_id)) {
                         $filters[] = 'lang_id = ' . $request->lang_id;
+                    }
+                    if (!empty($request->type)) {
+                        $filters[] = 'type = ' . $request->type;
+                    }
+                    if (!empty($request->chapter_id)) {
+                        $filters[] = 'chapter_id = ' . $request->chapter_id;
                     }
 
                     $queries[] = (new SearchQuery())
@@ -626,6 +632,9 @@ class HomeController extends Controller
                     }
                     if (!empty($request->lang_id)) {
                         $filters[] = 'lang_id = ' . $request->lang_id;
+                    }
+                    if (!empty($request->type)) {
+                        $filters[] = 'type = ' . $request->type;
                     }
                     $queries[] = (new SearchQuery())
                         ->setIndexUid($arrIndex[$ar])

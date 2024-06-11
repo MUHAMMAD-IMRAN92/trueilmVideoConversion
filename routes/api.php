@@ -66,14 +66,14 @@ Route::get('/quran/index/{id}', function ($id) {
     // $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
 
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
-    // $client->deleteIndex('alQurantranslations');
-    return   $translation = HadeesTranslation::limit(10)->get()->map(function ($tran) {
+    $client->createIndex('alHadeestranslations');
+    $translation = HadeesTranslation::limit(10)->get()->map(function ($tran) {
         $tran->main_chapter = $tran->mainChapter();
 
         return $tran;
     });
-    // $client->createIndex('alQurantranslations', ['primaryKey' => '_id']);
-
+    $client->index('alHadeestranslations')->addDocuments($translation->toArray(), '_id');
+    return 'ok';
 
     // $alQuran = AlQuranTranslation::where('author_lang', $id)->get();
     // $book = Book::where('type', '7')->where('approved', 1)->where('status', 1)->get()->toArray();
