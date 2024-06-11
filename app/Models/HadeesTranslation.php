@@ -35,4 +35,20 @@ class HadeesTranslation extends Eloquent
             return $chapter->parent_id;
         }
     }
+    public  function author()
+    {
+        $author_lang = $this->author_lang;
+        $author   =     AuthorLanguage::where('_id', $author_lang)->first();
+        if ($author) {
+            return $author->author_id;
+        }
+    }
+    public  function language()
+    {
+        $author_lang = $this->author_lang;
+        $author   =     AuthorLanguage::where('_id', $author_lang)->first();
+        if ($author) {
+            return $author->lang_id;
+        }
+    }
 }
