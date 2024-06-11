@@ -100,12 +100,12 @@
                                 </div>
                             </div>
 
-                            <div class="card-content">
+                            {{-- <div class="card-content">
                                 <div class="card-body" style="display: flex; flex-direction: row-reverse;">
                                     <a href="#" data-toggle="modal" data-target="#add-episode"
                                         class="btn btn-dark">Add Content</a>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row" id="basic-table">
                                 <div class="col-12">
