@@ -93,6 +93,7 @@ Route::get('/quran/index/{id}', function ($id) {
 });
 Route::get('/course/index', function () {
     ini_set("memory_limit", "-1");
+    set_time_limit(0);
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
     foreach ($arrIndex as $key => $arr) {

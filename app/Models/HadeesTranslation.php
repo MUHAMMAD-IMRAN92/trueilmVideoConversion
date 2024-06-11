@@ -31,7 +31,8 @@ class HadeesTranslation extends Eloquent
     {
         $chapterId = $this->chapter_id;
         $chapter   =     HadithChapter::where('_id', $chapterId)->first();
-
-        return $chapter->parent_id;
+        if ($chapter) {
+            return $chapter->parent_id;
+        }
     }
 }
