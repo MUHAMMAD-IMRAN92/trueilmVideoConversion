@@ -583,6 +583,7 @@ class HomeController extends Controller
         // $arrIndex = [4 => 'alQurantranslations'];
         $queries = [];
         if ($request->type != "" || count($request->type) != 0) {
+            $filters[];
             // $arr = explode(',', $request->type);
             foreach ($request->type as $ar) {
                 if ($ar == 5) {
