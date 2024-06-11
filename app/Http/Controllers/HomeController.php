@@ -604,8 +604,8 @@ class HomeController extends Controller
                     if (!empty($request->lang_id)) {
                         $filters[] = 'lang_id = ' . $request->lang_id;
                     }
-                    if (!empty($request->type)) {
-                        $filters[] = 'type = ' . $request->type;
+                    if (!empty($request->content_type)) {
+                        $filters[] = 'type = ' . $request->content_type;
                     }
 
                     if (!empty($request->main_chapter)) {
@@ -636,8 +636,8 @@ class HomeController extends Controller
                     if (!empty($request->lang_id)) {
                         $filters[] = 'lang_id = ' . $request->lang_id;
                     }
-                    if (!empty($request->type)) {
-                        $filters[] = 'type = ' . $request->type;
+                    if (!empty($request->content_type)) {
+                        $filters[] = 'type = ' . $request->content_type;
                     }
                     $queries[] = (new SearchQuery())
                         ->setIndexUid($arrIndex[$ar])
