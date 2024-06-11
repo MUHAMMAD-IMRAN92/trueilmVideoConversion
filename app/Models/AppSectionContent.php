@@ -11,10 +11,22 @@ class AppSectionContent extends Eloquent
     protected $table = 'app_section_contents';
     public function course()
     {
-        return $this->hasMany(Course::class, '_id', 'content_id');
+        return $this->hasOne(Course::class, '_id', 'content_id');
     }
     public function books()
     {
-        return $this->hasMany(Book::class, '_id', 'content_id');
+        return $this->hasOne(Book::class, '_id', 'content_id');
+    }
+    public function ebooks()
+    {
+        return $this->hasMany(Book::class, '_id', 'content_id')->where('type', '1');
+    }
+    public function audioBooks()
+    {
+        return $this->hasMany(Book::class, '_id', 'content_id')->where('type', '2');
+    }
+    public function podcast()
+    {
+        return $this->hasMany(Book::class, '_id', 'content_id')->where('type', '7');
     }
 }

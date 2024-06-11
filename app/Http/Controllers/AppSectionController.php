@@ -73,7 +73,7 @@ class AppSectionController extends Controller
 
     public function edit($id)
     {
-        $section = AppSection::where('_id', $id)->with('appSectionContent.course', 'appSectionContent.books')->first();
+        $section = AppSection::where('_id', $id)->with('course.course', 'ebook.books', 'audioBook.books', 'podcast.books')->first();
         $booksectionContent = AppSectionContent::where('section_id', $section->_id)->whereIn('content_type', [1, 2, 3, 7])->get()->pluck('content_id');
         $books = Book::wherein('_id', $booksectionContent)->with('author', 'user', 'approver', 'category')->get();
         $coursesectionContent = AppSectionContent::where('section_id', $section->_id)->whereIn('content_type', [6])->get()->pluck('content_id');

@@ -568,6 +568,71 @@ class HomeController extends Controller
     }
 
 
+    function searchTestV2(Request $request)
+    {
+        // return ;
+        ini_set("memory_limit", "-1");
+        $validator = Validator::make($request->all(), [
+            'type' => 'array',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+        $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
+        // $arrIndex = [4 => 'alQurantranslations'];
+        $queries = [];
+        if ($request->type != "" || count($request->type) != 0) {
+            // $arr = explode(',', $request->type);
+            foreach ($request->type as $ar) {
+                if ($ar == 5) {
+                    $queries[] = (new SearchQuery())
+                        ->setIndexUid($arrIndex[$ar])
+                        ->setQuery($request->search)
+                        ->setOffset($request->offset)
+                        ->setLimit($request->limit)->setFilter('book_id', '=', $request->book_id);
+                } else {
+                    $queries[] = (new SearchQuery())
+                        ->setIndexUid($arrIndex[$ar])
+                        ->setQuery($request->search)
+                        ->setOffset($request->offset)
+                        ->setLimit($request->limit);
+                }
+            }
+            $res = $client->multiSearch($queries);
+        }
+        $i = 0;
+        foreach ($res['results'] as $r) {
+            $myarray = [];
+            if ($r['indexUid'] == 'alHadeestranslations') {
+                foreach ($r['hits'] as $h) {
+                    // return $h;
+                    $Hadith = Hadees::where('_id',  $h['hadees_id'])->with('book', 'chapter.parentChapter')->first();
+                    if ($Hadith) {
+                        $h['Hadith'] = $Hadith;
+                    }
+                    $myarray[] = $h;
+                }
+            } elseif ($r['indexUid'] == 'alQurantranslations') {
+                foreach ($r['hits'] as $h) {
+                    // return $h;
+                    $AlQuran = AlQuran::where('_id',  $h['ayat_id'])->with('khatoot', 'surah')->first();
+                    if ($AlQuran) {
+                        $h['AlQuran'] = $AlQuran;
+                    }
+                    $myarray[] = $h;
+                }
+            } else {
+                $myarray = $r['hits'];
+            }
+            $res['results'][$i]['hits'] = $myarray;
+            $i++;
+
+            // echo '<pre>';
+            // print_r($myarray);exit;js
+        }
+        return response()->json($res);
+    }
     function searchTest(Request $request)
     {
         // return ;

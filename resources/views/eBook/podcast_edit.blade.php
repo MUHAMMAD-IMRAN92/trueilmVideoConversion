@@ -252,7 +252,7 @@
                                                                 <option disabled selected>Select Language</option>
                                                                 @foreach ($languages as $lang)
                                                                     <option value="{{ $lang->_id }}"
-                                                                        {{ $book->lang_id == $lang->_id ? 'selected' : '' }} >
+                                                                        {{ $book->lang_id == $lang->_id ? 'selected' : '' }}>
                                                                         {{ $lang->title }}</option>
                                                                 @endforeach
 
@@ -430,7 +430,8 @@
                                                                     @empty
                                                                         <tr>
                                                                             <td></td>
-                                                                            <td style="text-align: center">Not Section Added Yet !</td>
+                                                                            <td style="text-align: center">Not Section
+                                                                                Added Yet !</td>
                                                                             <td></td>
 
                                                                         </tr>
@@ -1058,7 +1059,8 @@
                                                                         @empty
                                                                             <tr>
                                                                                 <td></td>
-                                                                                <td style="text-align: center">Not Section Added Yet !</td>
+                                                                                <td style="text-align: center">Not Section
+                                                                                    Added Yet !</td>
                                                                                 <td></td>
 
                                                                             </tr>

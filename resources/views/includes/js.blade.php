@@ -6216,4 +6216,9 @@
             },
         });
     }
+
+    function getBooks() {
+        var type = $('#app-section-content-type').val();
+        console.log(type);
+    }
 </script>
