@@ -586,6 +586,11 @@ class HomeController extends Controller
             // $arr = explode(',', $request->type);
             foreach ($request->type as $ar) {
                 if ($ar == 5) {
+                    $indexInstance = $client->index($arrIndex[$ar]);
+                    $indexInstance->updateFilterableAttributes([
+                        'book_id',
+                        'chapter_id'
+                    ]);
                     $queries[] = (new SearchQuery())
                         ->setIndexUid($arrIndex[$ar])
                         ->setQuery($request->search)
