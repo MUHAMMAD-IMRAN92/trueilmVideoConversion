@@ -590,7 +590,7 @@ class HomeController extends Controller
                         ->setIndexUid($arrIndex[$ar])
                         ->setQuery($request->search)
                         ->setOffset($request->offset)
-                        ->setLimit($request->limit)->setFilter('book_id', '=', $request->book_id);
+                        ->setLimit($request->limit)->setFilter(['book_id', '=', $request->book_id]);
                 } else {
                     $queries[] = (new SearchQuery())
                         ->setIndexUid($arrIndex[$ar])
