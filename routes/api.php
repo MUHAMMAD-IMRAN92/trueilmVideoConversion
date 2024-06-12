@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController;
 use App\Models\AlQuran;
 use App\Models\AlQuranTranslation;
+use App\Models\AuthorLanguage;
 use App\Models\Book;
 use App\Models\BookContent;
 use App\Models\Course;
@@ -67,14 +68,18 @@ Route::get('/quran/index/{id}', function ($id) {
 
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     // $client->createIndex('alHadeestranslations');
-    $translation = AlQuranTranslation::get()->map(function ($tran) {
-        // $tran->main_chapter = $tran->mainChapter();
-        $tran->author_id = $tran->author();
-        $tran->lang_id = $tran->language();
+    $authorLanguages = AuthorLanguage::whereIn('type', [1, 2])->get();
+    foreach ($authorLanguages as $authorLang) {
 
-        return $tran;
-    });
-    $client->index('alQurantranslations')->addDocuments($translation->toArray(), '_id');
+        $translation = AlQuranTranslation::where('author_lang', $authorLang->_id)->get()->map(function ($tran) {
+            // $tran->main_chapter = $tran->mainChapter();
+            $tran->author_id = $tran->author();
+            $tran->lang_id = $tran->language();
+
+            return $tran;
+        });
+        $client->index('alQurantranslations')->addDocuments($translation->toArray(), '_id');
+    }
     return 'ok';
 
     // $alQuran = AlQuranTranslation::where('author_lang', $id)->get();
