@@ -67,14 +67,14 @@ Route::get('/quran/index/{id}', function ($id) {
 
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     // $client->createIndex('alHadeestranslations');
-    $translation = HadeesTranslation::get()->map(function ($tran) {
+    $translation = AlQuranTranslation::get()->map(function ($tran) {
         // $tran->main_chapter = $tran->mainChapter();
         $tran->author_id = $tran->author();
         $tran->lang_id = $tran->language();
 
         return $tran;
     });
-    $client->index('alHadeestranslations')->addDocuments($translation->toArray(), '_id');
+    $client->index('alQurantranslations')->addDocuments($translation->toArray(), '_id');
     return 'ok';
 
     // $alQuran = AlQuranTranslation::where('author_lang', $id)->get();

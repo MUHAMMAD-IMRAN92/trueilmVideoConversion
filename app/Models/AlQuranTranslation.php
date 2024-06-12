@@ -31,4 +31,20 @@ class AlQuranTranslation extends Eloquent
     {
         return $query->where('type', 2);
     }
+    public  function author()
+    {
+        $author_lang = $this->author_lang;
+        $author   =     AuthorLanguage::where('_id', $author_lang)->first();
+        if ($author) {
+            return $author->author_id;
+        }
+    }
+    public  function language()
+    {
+        $author_lang = $this->author_lang;
+        $author   =     AuthorLanguage::where('_id', $author_lang)->first();
+        if ($author) {
+            return $author->lang_id;
+        }
+    }
 }
