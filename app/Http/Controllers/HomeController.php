@@ -568,7 +568,7 @@ class HomeController extends Controller
     }
 
 
-    function searchTestV2(Request $request)
+    function searchV2(Request $request)
     {
         // return ;
         ini_set("memory_limit", "-1");

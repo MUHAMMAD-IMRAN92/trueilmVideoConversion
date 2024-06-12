@@ -167,9 +167,8 @@ Route::prefix('v2')->group(function () {
         return 'test';
     });
 
-    Route::post('search',  [App\Http\Controllers\HomeController::class, 'search']);
     Route::post('send_email_to_childs',  [App\Http\Controllers\Api\UserController::class, 'emailToChilds']);
     Route::post('reset-password-email',  [App\Http\Controllers\Api\UserController::class, 'resetPassword']);
 
-    Route::post('searchTest',  [App\Http\Controllers\HomeController::class, 'searchTestV2']);
+    Route::post('search',  [App\Http\Controllers\HomeController::class, 'searchV2']);
 });
