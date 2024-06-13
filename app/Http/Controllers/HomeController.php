@@ -596,7 +596,11 @@ class HomeController extends Controller
                         'type'
                     ]);
                     if (!empty($request->book_id)) {
-                        $filters[] = 'book_id = ' . $request->book_id;
+                        // $filters[] = 'book_id = ' . $request->book_id;
+                        $bookFilters = array_map(function ($book_id) {
+                            return 'book_id = ' . $book_id;
+                        }, $request->book_id);
+                        $filters[] = '(' . implode(' OR ', $bookFilters) . ')';
                     }
                     if (!empty($request->author_id)) {
                         $filters[] = 'author_id = ' . $request->author_id;
@@ -628,7 +632,11 @@ class HomeController extends Controller
                         'type'
                     ]);
                     if (!empty($request->surah_id)) {
-                        $filters[] = 'surah_id = ' . $request->surah_id;
+                        // $filters[] = 'surah_id = ' . $request->surah_id;
+                        $surahFilters = array_map(function ($surah_id) {
+                            return 'surah_id = ' . $surah_id;
+                        }, $request->surah_id);
+                        $filters[] = '(' . implode(' OR ', $surahFilters) . ')';
                     }
                     if (!empty($request->author_id)) {
                         $filters[] = 'author_id = ' . $request->author_id;
