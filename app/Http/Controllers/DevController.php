@@ -79,7 +79,7 @@ class DevController extends Controller
             foreach ($renditions as $index => $rendition) {
                 $filePath = $video->getRealPath();
                 $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
-                $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
+                $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 2 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
                 exec($command, $result, $status);
             }
 
@@ -446,7 +446,7 @@ class DevController extends Controller
         ini_set('max_execution_time', 0);
 
         $activeJob = \DB::table('jobs')->where('is_active', 1)->where('key', 'hls_conversion')->first();
-
+        $hls_conversion = 1;
         if ($activeJob) {
             return '0';
         } else {
@@ -456,7 +456,7 @@ class DevController extends Controller
             // $course = CourseLesson::where('hls_conversion', 0)->get();
 
             $book = Book::where('type', "7")->pluck('_id');
-            $course = BookContent::whereIn('book_id', $book)->where('type', 2)->where('hls_conversion', 0)->get();
+            $course = BookContent::whereIn('book_id', $book)->where('type', 2)->where('hls_conversion', $hls_conversion)->get();
             foreach ($course as $c) {
 
 
@@ -477,7 +477,7 @@ class DevController extends Controller
                     $filePath = $c->file;
                     // $filePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/SampleVideo_1280x720_1mb.mp4';
                     $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
-                    $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
+                    $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 2 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
                     exec($command, $result, $status);
                 }
 
@@ -486,7 +486,7 @@ class DevController extends Controller
                 foreach ($renditions as $index => $rendition) {
                     $resolution = $rendition['resolution'];
                     $bitrate = $rendition['bitrate'];
-                    $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/' . $c->_id . '/rendition_' . $index . '.m3u8';
+                    $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls2/' . $c->_id . '/rendition_' . $index . '.m3u8';
                     $masterPlaylist .= "#EXT-X-STREAM-INF:BANDWIDTH={$bitrate},RESOLUTION={$resolution}\n{$outputPath}\n";
                 }
                 $nameWithoutExtension = 'video_' . \Str::random(15);
@@ -500,7 +500,7 @@ class DevController extends Controller
                 // $filePath = $video->getRealPath();
                 // exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
                 $content =  file_get_contents(public_path('videos/' . $video_fileName));
-                $filePath = 'courses_videos_hls/' . $c->_id . '/'  . $video_fileName;
+                $filePath = 'courses_videos_hls2/' . $c->_id . '/'  . $video_fileName;
                 Storage::disk('s3')->put($filePath,  $content);
 
                 if ($status === 0) {
@@ -516,7 +516,7 @@ class DevController extends Controller
                     // Upload TS files to S3
                     foreach ($tsFiles as $tsFile) {
                         $tsFileName = pathinfo($tsFile, PATHINFO_BASENAME);
-                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
+                        $destinationPath = 'courses_videos_hls2/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
 
                         // Upload the TS file to the desired directory on S3
                         Storage::disk('s3')->put($destinationPath, file_get_contents($tsFile));
@@ -529,7 +529,7 @@ class DevController extends Controller
 
                     foreach ($renditionFiles as $renditionFile) {
                         $renditionFileName = pathinfo($renditionFile, PATHINFO_BASENAME);
-                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
+                        $destinationPath = 'courses_videos_hls2/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
 
                         // Upload the Rendition file to the desired directory on S3
                         Storage::disk('s3')->put($destinationPath, file_get_contents($renditionFile));
@@ -537,7 +537,7 @@ class DevController extends Controller
                         echo "Uploaded $renditionFileName to $destinationPath\n";
                     }
                 }
-                $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                $c->hls_video_url2 = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
 
@@ -545,7 +545,7 @@ class DevController extends Controller
                 \File::makeDirectory(public_path('videos'));
             }
 
-            $course = CourseLesson::where('hls_conversion', 0)->get();
+            $course = CourseLesson::where('hls_conversion', $hls_conversion)->get();
 
             foreach ($course as $c) {
 
@@ -567,7 +567,7 @@ class DevController extends Controller
                     $filePath = $c->file;
                     // $filePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/SampleVideo_1280x720_1mb.mp4';
                     $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
-                    $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
+                    $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 2 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
                     exec($command, $result, $status);
                 }
 
@@ -576,7 +576,7 @@ class DevController extends Controller
                 foreach ($renditions as $index => $rendition) {
                     $resolution = $rendition['resolution'];
                     $bitrate = $rendition['bitrate'];
-                    $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/' . $c->_id . '/rendition_' . $index . '.m3u8';
+                    $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls2/' . $c->_id . '/rendition_' . $index . '.m3u8';
                     $masterPlaylist .= "#EXT-X-STREAM-INF:BANDWIDTH={$bitrate},RESOLUTION={$resolution}\n{$outputPath}\n";
                 }
                 $nameWithoutExtension = 'video_' . \Str::random(15);
@@ -590,7 +590,7 @@ class DevController extends Controller
                 // $filePath = $video->getRealPath();
                 // exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
                 $content =  file_get_contents(public_path('videos/' . $video_fileName));
-                $filePath = 'courses_videos_hls/' . $c->_id . '/'  . $video_fileName;
+                $filePath = 'courses_videos_hls2/' . $c->_id . '/'  . $video_fileName;
                 Storage::disk('s3')->put($filePath,  $content);
 
                 if ($status === 0) {
@@ -606,7 +606,7 @@ class DevController extends Controller
                     // Upload TS files to S3
                     foreach ($tsFiles as $tsFile) {
                         $tsFileName = pathinfo($tsFile, PATHINFO_BASENAME);
-                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
+                        $destinationPath = 'courses_videos_hls2/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
 
                         // Upload the TS file to the desired directory on S3
                         Storage::disk('s3')->put($destinationPath, file_get_contents($tsFile));
@@ -619,7 +619,7 @@ class DevController extends Controller
 
                     foreach ($renditionFiles as $renditionFile) {
                         $renditionFileName = pathinfo($renditionFile, PATHINFO_BASENAME);
-                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
+                        $destinationPath = 'courses_videos_hls2/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
 
                         // Upload the Rendition file to the desired directory on S3
                         Storage::disk('s3')->put($destinationPath, file_get_contents($renditionFile));
@@ -627,7 +627,7 @@ class DevController extends Controller
                         echo "Uploaded $renditionFileName to $destinationPath\n";
                     }
                 }
-                $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                $c->hls_video_url2 = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
                 $course = Course::where('_id',  $c->course_id)->first();
@@ -636,7 +636,7 @@ class DevController extends Controller
                 \File::deleteDirectory(public_path('videos'));
                 \File::makeDirectory(public_path('videos'));
             }
-            $course = Course::where('hls_conversion', 0)->get();
+            $course = Course::where('hls_conversion', $hls_conversion)->get();
 
             foreach ($course as $c) {
 
@@ -658,7 +658,7 @@ class DevController extends Controller
                     $filePath = $c->introduction_video;
                     // $filePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/SampleVideo_1280x720_1mb.mp4';
                     $outputPath = $outputDirectory . '/rendition_' . $index . '.m3u8';
-                    $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 10 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
+                    $command = "ffmpeg -i $filePath -vf scale={$rendition['resolution']} -b:v {$rendition['bitrate']} -c:a copy -hls_time 2 -hls_playlist_type vod -hls_segment_filename {$outputPath}_segment_%03d.ts {$outputPath} 2>&1";
                     exec($command, $result, $status);
                 }
 
@@ -667,7 +667,7 @@ class DevController extends Controller
                 foreach ($renditions as $index => $rendition) {
                     $resolution = $rendition['resolution'];
                     $bitrate = $rendition['bitrate'];
-                    $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls/' . $c->_id . '/rendition_' . $index . '.m3u8';
+                    $outputPath = 'https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos_hls2/' . $c->_id . '/rendition_' . $index . '.m3u8';
                     $masterPlaylist .= "#EXT-X-STREAM-INF:BANDWIDTH={$bitrate},RESOLUTION={$resolution}\n{$outputPath}\n";
                 }
                 $nameWithoutExtension = 'video_' . \Str::random(15);
@@ -681,7 +681,7 @@ class DevController extends Controller
                 // $filePath = $video->getRealPath();
                 // exec("ffmpeg -i $filePath -strict -2 -vf scale=320:240 $fileDestination 2>&1", $result, $status);
                 $content =  file_get_contents(public_path('videos/' . $video_fileName));
-                $filePath = 'courses_videos_hls/' . $c->_id . '/'  . $video_fileName;
+                $filePath = 'courses_videos_hls2/' . $c->_id . '/'  . $video_fileName;
                 Storage::disk('s3')->put($filePath,  $content);
 
                 if ($status === 0) {
@@ -697,7 +697,7 @@ class DevController extends Controller
                     // Upload TS files to S3
                     foreach ($tsFiles as $tsFile) {
                         $tsFileName = pathinfo($tsFile, PATHINFO_BASENAME);
-                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
+                        $destinationPath = 'courses_videos_hls2/' . $c->_id . '/' . $tsFileName; // Adjust the destination directory as needed
 
                         // Upload the TS file to the desired directory on S3
                         Storage::disk('s3')->put($destinationPath, file_get_contents($tsFile));
@@ -710,7 +710,7 @@ class DevController extends Controller
 
                     foreach ($renditionFiles as $renditionFile) {
                         $renditionFileName = pathinfo($renditionFile, PATHINFO_BASENAME);
-                        $destinationPath = 'courses_videos_hls/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
+                        $destinationPath = 'courses_videos_hls2/' . $c->_id . '/'  . $renditionFileName; // Adjust the destination directory as needed
 
                         // Upload the Rendition file to the desired directory on S3
                         Storage::disk('s3')->put($destinationPath, file_get_contents($renditionFile));
@@ -718,7 +718,7 @@ class DevController extends Controller
                         echo "Uploaded $renditionFileName to $destinationPath\n";
                     }
                 }
-                $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                $c->hls_video_url2 = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
                 $course = Course::where('_id',  $c->course_id)->first();
