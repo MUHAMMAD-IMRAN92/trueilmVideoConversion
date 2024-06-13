@@ -2,6 +2,11 @@
 
 @section('content')
     <!-- BEGIN: Content-->
+    <style>
+        .select2 {
+            width: 100% !important;
+        }
+    </style>
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -100,12 +105,12 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="card-content">
+                            <div class="card-content">
                                 <div class="card-body" style="display: flex; flex-direction: row-reverse;">
                                     <a href="#" data-toggle="modal" data-target="#add-episode"
                                         class="btn btn-dark">Add Content</a>
                                 </div>
-                            </div> --}}
+                            </div>
 
                             <div class="row" id="basic-table">
                                 <div class="col-12">
@@ -159,23 +164,17 @@
                                                                         <th class="">Title</th>
                                                                         <th class="">Category</th>
                                                                         <th class="">Author</th>
-                                                                        <th class="">Type</th>
+
 
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     @forelse ($section->ebook as $book)
                                                                         <tr>
-                                                                            <td>{{ $book->books->title }}</td>
-                                                                            <td>{{ $book->books->category->title }}</td>
-                                                                            <td>{{ $book->books->author->name }}</td>
-                                                                            @if ($book->books->type == 1)
-                                                                                <td>Ebook</td>
-                                                                            @elseif($book->books->type == 2)
-                                                                                <td>Audio</td>
-                                                                            @elseif($book->books->type == 7)
-                                                                                <td>Podcast</td>
-                                                                            @endif
+                                                                            <td>{{ @$book->books->title }}</td>
+                                                                            <td>{{ @$book->books->category->title }}</td>
+                                                                            <td>{{ @$book->books->author->name }}</td>
+
                                                                         </tr>
                                                                     @empty
                                                                     @endforelse
@@ -204,23 +203,17 @@
                                                                         <th class="">Title</th>
                                                                         <th class="">Category</th>
                                                                         <th class="">Author</th>
-                                                                        <th class="">Type</th>
+
 
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     @forelse ($section->audioBook as $book)
                                                                         <tr>
-                                                                            <td>{{ $book->books->title }}</td>
-                                                                            <td>{{ $book->books->category->title }}</td>
-                                                                            <td>{{ $book->books->author->name }}</td>
-                                                                            @if ($book->books->type == 1)
-                                                                                <td>Ebook</td>
-                                                                            @elseif($book->books->type == 2)
-                                                                                <td>Audio</td>
-                                                                            @elseif($book->books->type == 7)
-                                                                                <td>Podcast</td>
-                                                                            @endif
+                                                                            <td>{{ @$book->books->title }}</td>
+                                                                            <td>{{ @$book->books->category->title }}</td>
+                                                                            <td>{{ @$book->books->author->name }}</td>
+
                                                                         </tr>
                                                                     @empty
                                                                     @endforelse
@@ -249,23 +242,17 @@
                                                                         <th class="">Title</th>
                                                                         <th class="">Category</th>
                                                                         <th class="">Author</th>
-                                                                        <th class="">Type</th>
+
 
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     @forelse ($section->podcast as $book)
                                                                         <tr>
-                                                                            <td>{{ $book->books->title }}</td>
-                                                                            <td>{{ $book->books->category->title }}</td>
-                                                                            <td>{{ $book->books->author->name }}</td>
-                                                                            @if ($book->books->type == 1)
-                                                                                <td>Ebook</td>
-                                                                            @elseif($book->books->type == 2)
-                                                                                <td>Audio</td>
-                                                                            @elseif($book->books->type == 7)
-                                                                                <td>Podcast</td>
-                                                                            @endif
+                                                                            <td>{{ @$book->books->title }}</td>
+                                                                            <td>{{ @$book->books->category->title }}</td>
+                                                                            <td>{{ @$book->books->author->name }}</td>
+
                                                                         </tr>
                                                                     @empty
                                                                     @endforelse
@@ -330,7 +317,7 @@
     <div class="modal fade bd-example-modal-lg" id="add-episode" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form action="{{ route('podcast.episode') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('app-section.content') }}" method="POST" enctype="multipart/form-data">
                 <div class="form-body">
                     @csrf
                     <div class="modal-content">
@@ -343,10 +330,11 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 ">
+                                    <input type="hidden" name="section_id" value="{{ $section->_id }}">
                                     <div class="form-label-group">
                                         <select class="select2 form-control" name="content_type"
-                                            id="app-section-content-type" onchange="getBooks()">
+                                            id="app-section-content-type" onchange="getBooks()" required>
                                             <option selected value="">
                                                 Content Type
                                             </option>
@@ -356,7 +344,7 @@
                                             <option value="2">
                                                 Audio Book
                                             </option>
-                                            <option value="3">
+                                            <option value="7">
                                                 Podcast
                                             </option>
                                             <option value="6">
@@ -368,12 +356,22 @@
                                 <div class="col-12">
                                     <div class="form-label-group">
                                         <select class="select2 form-control" name="content_type_data"
-                                            id="app-section-content-type-data">
+                                            id="app-section-content-type-data" required>
                                             <option selected>
                                                 Select Content
                                             </option>
 
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="">Sequence</label>
+                                        <div class="position-relative">
+                                            <input type="number" id="" class="form-control" name="sequence"
+                                                placeholder="" required>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>

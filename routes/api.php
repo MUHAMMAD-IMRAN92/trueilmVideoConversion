@@ -171,4 +171,5 @@ Route::prefix('v2')->group(function () {
     Route::post('reset-password-email',  [App\Http\Controllers\Api\UserController::class, 'resetPassword']);
 
     Route::post('search',  [App\Http\Controllers\HomeController::class, 'searchV2']);
+    Route::get('books_courses/{type}',  [App\Http\Controllers\HomeController::class, 'getBooksCourses']);
 });

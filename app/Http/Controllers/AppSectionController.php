@@ -108,4 +108,14 @@ class AppSectionController extends Controller
 
         return redirect()->to('/app-section')->with('msg', 'Section Status Updated Successfully!');
     }
+    public function sectionContent(Request $request)
+    {
+        $section = new AppSectionContent();
+        $section->section_id = $request->section_id;
+        $section->content_type =  (int)$request->content_type;
+        $section->content_id = $request->content_type_data;
+        $section->order_no = (int)$request->sequence ?? 0;
+        $section->save();
+        return redirect()->back()->with('msg', 'Section Content Updated Successfully!');
+    }
 }

@@ -407,6 +407,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('app-section/update', [App\Http\Controllers\AppSectionController::class, 'update'])->name('app-section.update');
     Route::get('app-section/update-status/{id}', [App\Http\Controllers\AppSectionController::class, 'updateSectionStatus'])->name('app-section.update.status');
 
+    Route::post('app-section/content', [App\Http\Controllers\AppSectionController::class, 'sectionContent'])->name('app-section.content');
     //render api
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 });

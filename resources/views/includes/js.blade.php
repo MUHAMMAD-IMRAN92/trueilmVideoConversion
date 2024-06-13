@@ -6219,6 +6219,18 @@
 
     function getBooks() {
         var type = $('#app-section-content-type').val();
-        console.log(type);
+        $.ajax({
+            type: "GET",
+            url: "{{ url('api/v2/books_courses/') }}/" + type,
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                var option;
+                response.forEach(function(item) {
+                    option += `<option value="` + item._id + `">` + item.title + `</option>`
+                });
+                $('#app-section-content-type-data').html(option);
+            },
+        });
     }
 </script>

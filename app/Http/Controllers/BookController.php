@@ -629,11 +629,13 @@ class BookController extends Controller
 
     public function list(Request $request, $type, $id)
     {
+        $book = Book::where('_id', $id)->first();
         $content = BookContent::where('book_id', $id)->orderBy('sequence', 'asc')->get();
         return view('eBook.book_list', [
             'book_id' => $id,
             'content' => $content,
-            'pending_for_approval' => $request->pending_for_approval
+            'pending_for_approval' => $request->pending_for_approval,
+            'book' => $book
         ]);
     }
     public function updateSequence(Request $request)

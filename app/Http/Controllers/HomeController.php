@@ -992,4 +992,12 @@ class HomeController extends Controller
 
         return redirect()->to('app/versions')->with('msg', 'App Version Added Succesfully!');
     }
+    public function getBooksCourses($type)
+    {
+        if ($type != 6) {
+            return $book =   Book::where('status', 1)->where('approved', 1)->where('type', $type)->get(['_id', 'title']);
+        } else {
+            return $courses =   Course::where('status', 1)->where('approved', 1)->get(['_id', 'title']);
+        }
+    }
 }
