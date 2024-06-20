@@ -397,7 +397,9 @@ class CourseController extends Controller
             Storage::disk('s3')->setVisibility($path, 'public');
 
             // Store the file path and type in the database
-            $basePath = 'https://your-s3-bucket-url/'; // Replace with your S3 bucket URL
+            // $basePath = 'https://your-s3-bucket-url/'; // Replace with your S3 bucket URL
+            $basePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+
             $courseLesson->file = $basePath . $path;
             $courseLesson->type = ($fileExtension === 'mp3') ? 1 : 2;
             $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
