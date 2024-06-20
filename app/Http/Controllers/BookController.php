@@ -25,9 +25,6 @@ use App\Models\Author;
 use App\Models\Languages;
 use App\Models\Reference;
 use App\Models\Scopes\DeletedAtScope;
-use GuzzleHttp\Psr7\CachingStream;
-use GuzzleHttp\Psr7\Utils;
-use JamesHeinrich\GetID3\GetID3;
 
 class BookController extends Controller
 {
@@ -204,27 +201,21 @@ class BookController extends Controller
             }
         }
         $book->save();
+
         if ($request->file) {
             foreach ($request->file as $key => $file) {
+                // return $file;
                 $bookContent = new BookContent();
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
-
-                // Open the file and wrap it in a CachingStream to make it seekable
-                $stream = Utils::streamFor(fopen($file->getPathname(), 'r'));
-                $seekableStream = new CachingStream($stream);
-
-                // Store the seekable stream in S3
-                $path = Storage::disk('s3')->put('files/' . $file_name, $seekableStream);
-
+                $path =   $file->storeAs('files', $file_name, 's3');
                 Storage::disk('s3')->setVisibility($path, 'public');
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
                 $bookContent->book_name = $file->getClientOriginalName();
-
                 if ($book->type == 2) {
-                    $getID3 = new GetID3;
-                    $fileInfo = $getID3->analyze($file->getPathname());
-                    $duration = date('H:i:s', $fileInfo['playtime_seconds']);
+                    $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                    $file = $getID3->analyze(@$file);
+                    $duration = date('H:i:s', $file['playtime_seconds']);
                     list($hours, $minutes, $seconds) = explode(':', $duration);
 
                     // Calculate total duration in minutes
@@ -232,44 +223,15 @@ class BookController extends Controller
 
                     // Construct the duration in the format MM:SS
                     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-                    $bookContent->file_duration = $duration_minutes_seconds;
+                    $bookContent->file_duration = @$duration_minutes_seconds;
                 }
 
+                // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = (int)$key;
                 $book->type = $request->type;
                 $bookContent->save();
             }
         }
-        // if ($request->file) {
-        //     foreach ($request->file as $key => $file) {
-        //         // return $file;
-        //         $bookContent = new BookContent();
-        //         $file_name = time() . '.' . $file->getClientOriginalExtension();
-        //         $path =   $file->storeAs('files', $file_name, 's3');
-        //         Storage::disk('s3')->setVisibility($path, 'public');
-        //         $bookContent->file = $base_path . $path;
-        //         $bookContent->book_id = $book->id;
-        //         $bookContent->book_name = $file->getClientOriginalName();
-        //         if ($book->type == 2) {
-        //             $getID3 = new \JamesHeinrich\GetID3\GetID3;
-        //             $file = $getID3->analyze(@$file);
-        //             $duration = date('H:i:s', $file['playtime_seconds']);
-        //             list($hours, $minutes, $seconds) = explode(':', $duration);
-
-        //             // Calculate total duration in minutes
-        //             $total_minutes = $hours * 60 + $minutes;
-
-        //             // Construct the duration in the format MM:SS
-        //             $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-        //             $bookContent->file_duration = @$duration_minutes_seconds;
-        //         }
-
-        //         // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
-        //         $bookContent->sequence = (int)$key;
-        //         $book->type = $request->type;
-        //         $bookContent->save();
-        //     }
-        // }
         if ($request->tags) {
             foreach ($request->tags as $key => $tag) {
 
