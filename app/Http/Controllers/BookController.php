@@ -204,7 +204,7 @@ class BookController extends Controller
 
         if ($request->file) {
             foreach ($request->file as $key => $file) {
-
+                // return $file;
                 $bookContent = new BookContent();
                 $file_name = time() . '.' . $file->getClientOriginalExtension();
                 $path =   $file->storeAs('files', $file_name, 's3');
@@ -214,7 +214,7 @@ class BookController extends Controller
                 $bookContent->book_name = $file->getClientOriginalName();
                 if ($book->type == 2) {
                     $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                    $file = $getID3->analyze(@$request->podcast_file);
+                    $file = $getID3->analyze(@$file);
                     $duration = date('H:i:s', $file['playtime_seconds']);
                     list($hours, $minutes, $seconds) = explode(':', $duration);
 
