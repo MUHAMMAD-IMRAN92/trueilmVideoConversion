@@ -447,6 +447,6 @@ Route::get('phpinfo', function () {
 });
 Route::get('dev', function () {
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    $user = User::where('email', 'ipatch.faraz@gmail.com')->first();
+    return  $userSubscription = UserSubscription::whereNull('istrail')->where('plan_name', '!=', 'Freemium')->where('status', 'paid')->first();
     return $stripe->subscriptions->all(['customer' => 'cus_QDsKBCM4KRYD23']);
 });
