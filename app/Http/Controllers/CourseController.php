@@ -363,69 +363,69 @@ class CourseController extends Controller
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
 
-        // if ($request->podcast_file) {
-        //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-        //     $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
-        //     Storage::disk('s3')->setVisibility($path, 'public');
-        //     $courseLesson->file = $base_path . $path;
-        //     if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
-        //         $courseLesson->type = 1;
-        //     } else {
-        //         $courseLesson->type = 2;
-        //     }
-        //     $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-        //     $getID3 = new \JamesHeinrich\GetID3\GetID3;
-        //     $file = $getID3->analyze(@$request->podcast_file);
-        //     $duration = date('H:i:s', $file['playtime_seconds']);
-        //     list($hours, $minutes, $seconds) = explode(':', $duration);
-
-        //     // Calculate total duration in minutes
-        //     $total_minutes = $hours * 60 + $minutes;
-
-        //     // Construct the duration in the format MM:SS
-        //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-        //     $courseLesson->file_duration = @$duration_minutes_seconds;
-        // }
-        if ($request->hasFile('podcast_file')) {        // Generate a unique file name
-            $fileExtension = $request->podcast_file->getClientOriginalExtension();
-            $fileName = time() . '.' . $fileExtension;
-
-            // Store the file in the S3 bucket
-            $path = $request->podcast_file->storeAs('courses_videos', $fileName, 's3');
-
-            // Set the file visibility to public
+        if ($request->podcast_file) {
+            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+            $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
             Storage::disk('s3')->setVisibility($path, 'public');
-
-            // Store the file path and type in the database
-            // $basePath = 'https://your-s3-bucket-url/'; // Replace with your S3 bucket URL
-            $basePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-
-            $courseLesson->file = $basePath . $path;
-            $courseLesson->type = ($fileExtension === 'mp3') ? 1 : 2;
-            $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-
-            // Analyze the file for duration
-            $getID3 = new GetID3();
-            $fileAnalysis = $getID3->analyze($request->podcast_file->getPathname());
-
-            // Calculate the duration
-            if (isset($fileAnalysis['playtime_seconds'])) {
-                $duration = $fileAnalysis['playtime_seconds'];
-                $hours = floor($duration / 3600);
-                $minutes = floor(($duration / 60) % 60);
-                $seconds = floor($duration % 60);
-
-                // Calculate total duration in minutes and format as MM:SS
-                $totalMinutes = $hours * 60 + $minutes;
-                $durationFormatted = sprintf("%02d:%02d", $totalMinutes, $seconds);
-                $courseLesson->file_duration = $durationFormatted;
+            $courseLesson->file = $base_path . $path;
+            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+                $courseLesson->type = 1;
             } else {
-                $courseLesson->file_duration = '00:00';
+                $courseLesson->type = 2;
             }
+            $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+            $getID3 = new \JamesHeinrich\GetID3\GetID3;
+            $file = $getID3->analyze(@$request->podcast_file);
+            $duration = date('H:i:s', $file['playtime_seconds']);
+            list($hours, $minutes, $seconds) = explode(':', $duration);
 
-            // Save the course lesson details to the database
-            $courseLesson->save();
+            // Calculate total duration in minutes
+            $total_minutes = $hours * 60 + $minutes;
+
+            // Construct the duration in the format MM:SS
+            $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+            $courseLesson->file_duration = @$duration_minutes_seconds;
         }
+        // if ($request->hasFile('podcast_file')) {        // Generate a unique file name
+        //     $fileExtension = $request->podcast_file->getClientOriginalExtension();
+        //     $fileName = time() . '.' . $fileExtension;
+
+        //     // Store the file in the S3 bucket
+        //     $path = $request->podcast_file->storeAs('courses_videos', $fileName, 's3');
+
+        //     // Set the file visibility to public
+        //     Storage::disk('s3')->setVisibility($path, 'public');
+
+        //     // Store the file path and type in the database
+        //     // $basePath = 'https://your-s3-bucket-url/'; // Replace with your S3 bucket URL
+        //     $basePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+
+        //     $courseLesson->file = $basePath . $path;
+        //     $courseLesson->type = ($fileExtension === 'mp3') ? 1 : 2;
+        //     $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+
+        //     // Analyze the file for duration
+        //     $getID3 = new GetID3();
+        //     $fileAnalysis = $getID3->analyze($request->podcast_file->getPathname());
+
+        //     // Calculate the duration
+        //     if (isset($fileAnalysis['playtime_seconds'])) {
+        //         $duration = $fileAnalysis['playtime_seconds'];
+        //         $hours = floor($duration / 3600);
+        //         $minutes = floor(($duration / 60) % 60);
+        //         $seconds = floor($duration % 60);
+
+        //         // Calculate total duration in minutes and format as MM:SS
+        //         $totalMinutes = $hours * 60 + $minutes;
+        //         $durationFormatted = sprintf("%02d:%02d", $totalMinutes, $seconds);
+        //         $courseLesson->file_duration = $durationFormatted;
+        //     } else {
+        //         $courseLesson->file_duration = '00:00';
+        //     }
+
+        //     // Save the course lesson details to the database
+        //     $courseLesson->save();
+        // }
 
         if ($request->lesson_notes) {
             $file_name = time() . '.' . $request->lesson_notes->getClientOriginalExtension();
