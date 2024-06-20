@@ -24,6 +24,8 @@ use Carbon\Carbon;
 use Meilisearch\Client;
 use JamesHeinrich\GetID3\GetID3;
 use GuzzleHttp\Psr7\Utils;
+use GuzzleHttp\Client as GuzzleClient;
+
 
 class CourseController extends Controller
 {
@@ -390,7 +392,7 @@ class CourseController extends Controller
         if ($request->podcast_file) {
             $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
             $tempPath = $request->podcast_file->getPathname();
-            $client = new Client();
+            $client = new GuzzleClient();
 
             // Open the file and read its content
             $fileContent = file_get_contents($tempPath);
