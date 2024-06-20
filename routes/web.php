@@ -448,5 +448,6 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
     // return  $userSubscription = UserSubscription::whereNull('istrail')->orWhere('istrail', 0)->where('plan_name', '!=', 'Freemium')->where('status', 'paid')-where('email' , 'ipatch.faraz@gmail.com')->get();
-    return $stripe->subscriptions->retrieve('sub_1PBKLTAQpnlOGBUJtOsBhZXg', []);
+    $statusJson =  $stripe->subscriptions->retrieve('sub_1PBKLTAQpnlOGBUJtOsBhZXg', []);
+    return $statusJson->status;
 });
