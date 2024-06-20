@@ -204,6 +204,21 @@ class StripeController extends Controller
                     deleteOtherSubscriptions($userSubscription);
                     addContactToSendGridList(@$userSubscription->email, @$userSubscription->plan_type);
                 }
+            case 'customer.subscription.deleted':
+                $subscription = $event->data->object;
+
+                $userSubscription  = UserSubscription::where('subscription_id',  $subscription->id)->first();
+
+                if ($userSubscription) {
+                    $userSubscription->status = 'cancelled';
+                    $userSubscription->stripeCancelled = 1;
+                    $userSubscription->canceled_at = Carbon::parse($subscription->canceled_at)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                    $userSubscription->testString = 'Status Cancelled deleted if';
+                    $userSubscription->save();
+                    if (!str_contains(@$userSubscription->email, 'mailinator')) {
+                        subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-8916f7b9d17747dab3925394287fa4f8');
+                    }
+                }
             case 'customer.subscription.updated':
                 $subscription = $event->data->object;
 
@@ -232,6 +247,7 @@ class StripeController extends Controller
                         }
                     }
                 }
+
 
             default:
                 echo 'Received unknown event type ' . $event->type;
