@@ -388,28 +388,32 @@ class CourseController extends Controller
         //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
         //     $courseLesson->file_duration = @$duration_minutes_seconds;
         // }
-        if ($request->podcast_file) {
-            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+        if ($request->hasFile('podcast_file')) {
+            $file = $request->file('podcast_file');
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
 
             // Open the file and wrap it in a CachingStream to make it seekable
-            $stream = Utils::streamFor(fopen($request->podcast_file->getPathname(), 'r'));
+            $stream = Utils::streamFor(fopen($file->getPathname(), 'r'));
             $seekableStream = new CachingStream($stream);
 
             // Store the seekable stream in S3
             $path = Storage::disk('s3')->put('courses_videos/' . $file_name, $seekableStream);
             Storage::disk('s3')->setVisibility($path, 'public');
 
+            // Ensure $base_path is defined or use a default value
+            $base_path = env('AWS_URL') . '/';  // or any other base path for your S3 bucket
+
             $courseLesson->file = $base_path . $path;
-            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+            if ($file->getClientOriginalExtension() == 'mp3') {
                 $courseLesson->type = 1;
             } else {
                 $courseLesson->type = 2;
             }
-            $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+            $courseLesson->book_name = $file->getClientOriginalName();
 
             // Analyze the file using getID3
             $getID3 = new GetID3;
-            $fileInfo = $getID3->analyze($request->podcast_file->getPathname());
+            $fileInfo = $getID3->analyze($file->getPathname());
             if (isset($fileInfo['playtime_seconds'])) {
                 $duration = date('H:i:s', $fileInfo['playtime_seconds']);
                 list($hours, $minutes, $seconds) = explode(':', $duration);
