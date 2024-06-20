@@ -447,6 +447,6 @@ Route::get('phpinfo', function () {
 });
 Route::get('dev', function () {
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    return  $userSubscription = UserSubscription::whereNull('istrail')->where('plan_name', '!=', 'Freemium')->where('status', 'paid')->get();
+    return  $userSubscription = UserSubscription::whereNull('istrail')->orWhere('istrail', 0)->where('plan_name', '!=', 'Freemium')->where('status', 'paid')->get();
     return $stripe->subscriptions->all(['customer' => 'cus_QDsKBCM4KRYD23']);
 });
