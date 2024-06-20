@@ -23,6 +23,7 @@ use App\Models\Tag;
 use Carbon\Carbon;
 use Meilisearch\Client;
 use JamesHeinrich\GetID3\GetID3;
+use GuzzleHttp\Psr7\Utils;
 
 class CourseController extends Controller
 {
@@ -363,20 +364,65 @@ class CourseController extends Controller
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
 
+        // if ($request->podcast_file) {
+        //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+        //     $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
+        //     Storage::disk('s3')->setVisibility($path, 'public');
+        //     $courseLesson->file = $base_path . $path;
+        //     if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+        //         $courseLesson->type = 1;
+        //     } else {
+        //         $courseLesson->type = 2;
+        //     }
+        //     $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+        //     $getID3 = new \JamesHeinrich\GetID3\GetID3;
+        //     $file = $getID3->analyze(@$request->podcast_file);
+        //     $duration = date('H:i:s', $file['playtime_seconds']);
+        //     list($hours, $minutes, $seconds) = explode(':', $duration);
+
+        //     // Calculate total duration in minutes
+        //     $total_minutes = $hours * 60 + $minutes;
+
+        //     // Construct the duration in the format MM:SS
+        //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+        //     $courseLesson->file_duration = @$duration_minutes_seconds;
+        // }
         if ($request->podcast_file) {
             $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-            $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
-            $courseLesson->file = $base_path . $path;
+            $tempPath = $request->podcast_file->getPathname();
+            $client = new Client();
+
+            // Open the file and read its content
+            $fileContent = file_get_contents($tempPath);
+
+            // Calculate MD5 and SHA256 checksums
+            $contentMD5 = base64_encode(md5($fileContent, true));
+            $contentSHA256 = base64_encode(hash('sha256', $fileContent, true));
+
+            // Upload the file to S3 with the calculated checksums
+            $response = $client->request('PUT', Storage::disk('s3')->url('courses_videos/' . $file_name), [
+                'headers' => [
+                    'ContentMD5' => $contentMD5,
+                    'ContentSHA256' => $contentSHA256,
+                ],
+                'body' => Utils::streamFor($fileContent),
+            ]);
+
+            // Set file visibility to public
+            Storage::disk('s3')->setVisibility('courses_videos/' . $file_name, 'public');
+
+            $courseLesson->file = $base_path . 'courses_videos/' . $file_name;
             if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
                 $courseLesson->type = 1;
             } else {
                 $courseLesson->type = 2;
             }
             $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-            $getID3 = new \JamesHeinrich\GetID3\GetID3;
-            $file = $getID3->analyze(@$request->podcast_file);
-            $duration = date('H:i:s', $file['playtime_seconds']);
+
+            // Analyze the file for duration
+            $getID3 = new GetID3();
+            $fileAnalysis = $getID3->analyze($tempPath);
+            $duration = date('H:i:s', $fileAnalysis['playtime_seconds']);
             list($hours, $minutes, $seconds) = explode(':', $duration);
 
             // Calculate total duration in minutes
@@ -384,7 +430,7 @@ class CourseController extends Controller
 
             // Construct the duration in the format MM:SS
             $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-            $courseLesson->file_duration = @$duration_minutes_seconds;
+            $courseLesson->file_duration = $duration_minutes_seconds;
         }
         // if ($request->hasFile('podcast_file')) {        // Generate a unique file name
         //     $fileExtension = $request->podcast_file->getClientOriginalExtension();
