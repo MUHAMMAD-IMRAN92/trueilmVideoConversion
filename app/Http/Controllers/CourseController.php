@@ -26,10 +26,7 @@ use JamesHeinrich\GetID3\GetID3;
 use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\CachingStream;
-use Aws\Exception\MultipartUploadException;
-use Aws\S3\MultipartUploader;
-use Aws\S3\ObjectUploader;
-use Aws\S3\S3Client;
+
 
 class CourseController extends Controller
 {
@@ -370,27 +367,32 @@ class CourseController extends Controller
         $courseLesson->description = $request->description ?? '';
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
-        $s3Client = new S3Client([
-            'profile' => 'default',
-            'region' => env('AWS_DEFAULT_REGION'),
-            // 'version' => '2023-03-07'
-        ]);
+        if ($request->podcast_file) {
+            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+            $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $courseLesson->file = $base_path . $path;
+            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+                $courseLesson->type = 1;
+            } else {
+                $courseLesson->type = 2;
+            }
+            $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+            $getID3 = new \JamesHeinrich\GetID3\GetID3;
+            $file = $getID3->analyze(@$request->podcast_file);
+            $duration = date('H:i:s', $file['playtime_seconds']);
+            list($hours, $minutes, $seconds) = explode(':', $duration);
 
-        // Use multipart upload
-        $source = $request->podcast_file;
-        $uploader = new MultipartUploader($s3Client, $source, [
-            'bucket' => env('AWS_BUCKET'),
-            'key' => env('AWS_SECRET_ACCESS_KEY'),
-        ]);
+            // Calculate total duration in minutes
+            $total_minutes = $hours * 60 + $minutes;
 
-        try {
-            $result = $uploader->upload();
-            echo "Upload complete: {$result['ObjectURL']}\n";
-        } catch (MultipartUploadException $e) {
-            echo $e->getMessage() . "\n";
+            // Construct the duration in the format MM:SS
+            $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+            $courseLesson->file_duration = @$duration_minutes_seconds;
         }
 
-        dd('working on it');
+
+
         // if ($request->podcast_file) {
         //     // return 'here';
         //     $originalFile = $request->file('podcast_file');
@@ -443,7 +445,7 @@ class CourseController extends Controller
         //     return response()->json(['error' => 'No file uploaded.'], 400);
         // }
 
-        dd('working on it');
+        // dd('working on it');
 
         if ($request->lesson_notes) {
             $file_name = time() . '.' . $request->lesson_notes->getClientOriginalExtension();
