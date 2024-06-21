@@ -367,6 +367,58 @@ class CourseController extends Controller
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
 
+        if ($request->hasFile('podcast_file')) {
+            $originalFile = $request->file('podcast_file');
+            $fileExtension = $originalFile->getClientOriginalExtension();
+            $fileName = time() . '.' . $fileExtension;
+
+            // Define paths
+            $originalPath = $originalFile->getPathname();
+            $compressedFilePath = storage_path('app/temp/') . $fileName; // Temporary storage for the compressed file
+
+            // Create temporary directory if it doesn't exist
+            if (!file_exists(storage_path('app/temp'))) {
+                mkdir(storage_path('app/temp'), 0755, true);
+            }
+
+            // Compress video if it's not an MP3 file
+            if ($fileExtension != 'mp3') {
+                // FFmpeg command to compress the video
+                $ffmpegCommand = "ffmpeg -i $originalPath -vcodec libx264 -crf 28 -preset slow -acodec aac -b:a 128k -vf scale=320:240 $compressedFilePath";
+                exec($ffmpegCommand, $output, $status);
+
+                if ($status !== 0) {
+                    return response()->json(['error' => 'Video compression failed.'], 500);
+                }
+
+                // Use the compressed file path for upload
+                $path = Storage::disk('s3')->putFileAs('uploads', new \Illuminate\Http\File($compressedFilePath), $fileName);
+            } else {
+                // Directly use the original file for upload if it's an MP3 file
+                $path = Storage::disk('s3')->putFileAs('uploads', $originalFile, $fileName);
+            }
+
+            // Set visibility to public
+            Storage::disk('s3')->setVisibility($path, 'public');
+
+            // Store file path and other information in the database
+            $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/'; // Adjust this to your actual base path
+            $courseLesson->file = $base_path . $path;
+            $courseLesson->type = $fileExtension == 'mp3' ? 1 : 2;
+            $courseLesson->book_name = $originalFile->getClientOriginalName();
+            $courseLesson->save();
+
+            // Clean up temporary file
+            if (file_exists($compressedFilePath)) {
+                unlink($compressedFilePath);
+            }
+
+            return response()->json(['success' => 'File uploaded successfully.']);
+        } else {
+            return response()->json(['error' => 'No file uploaded.'], 400);
+        }
+
+        dd('working on it');
         // if ($request->podcast_file) {
         //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
         //     $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
@@ -390,36 +442,6 @@ class CourseController extends Controller
         //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
         //     $courseLesson->file_duration = @$duration_minutes_seconds;
         // }
-        $file = $request->file('podcast_file');
-
-        if (!$file->isValid()) {
-            return response()->json(['error' => 'File is not valid.'], 400);
-        }
-
-        // Open a stream to the uploaded file
-        $fileStream = fopen($file->getRealPath(), 'r');
-
-        if ($fileStream === false) {
-            return response()->json(['error' => 'File could not be opened.'], 500);
-        }
-
-        // Wrap the stream in a CachingStream to make it seekable
-        $cachingStream = new CachingStream(Utils::streamFor($fileStream));
-
-        // Define the file path in S3
-        $filePath = 'uploads/' . $file->getClientOriginalName();
-
-        try {
-            // Upload the file to S3
-            Storage::disk('s3')->put($filePath, $cachingStream, [
-                'visibility' => 'public',
-                'ContentType' => $file->getMimeType(),
-            ]);
-            dd('done');
-        } catch (\Exception $e) {
-            fclose($fileStream);
-            return response()->json(['error' => 'File upload failed: ' . $e->getMessage()], 500);
-        }
 
         // if ($request->podcast_file) {
         //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
