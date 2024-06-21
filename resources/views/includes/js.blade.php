@@ -35,7 +35,6 @@
 <script src="{{ asset('app-assets/js/scripts/ui/data-list-view.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
@@ -6233,4 +6232,101 @@
             },
         });
     }
+    // var r = new Resumable({
+    //     target: '/upload-chunks',
+    //     query: {
+    //         _token: '{{ csrf_token() }}'
+    //     }, // Laravel CSRF token
+    //     chunkSize: 1 * 1024 * 1024, // 1MB chunks
+    //     simultaneousUploads: 3,
+    //     testChunks: false,
+    //     throttleProgressCallbacks: 1
+    // });
+
+    // r.assignDrop(document.getElementById('file-upload'));
+    // r.assignBrowse(document.getElementById('file-upload'));
+
+    // r.on('fileAdded', function(file) {
+    //     r.upload();
+    // });
+
+    // r.on('fileSuccess', function(file, message) {
+    //     console.log('File uploaded successfully');
+    // });
+
+    // r.on('fileError', function(file, message) {
+    //     console.log('File upload error');
+    // });
+    // Initialize Resumable.js
+    // Initialize Resumable.js
+    var r = new Resumable({
+        target: '/upload-chunks',
+        query: {
+            _token: '{{ csrf_token() }}'
+        }, // Laravel CSRF token
+        chunkSize: 1 * 1024 * 1024, // 1MB chunks
+        simultaneousUploads: 30,
+        testChunks: false,
+        throttleProgressCallbacks: 1
+    });
+
+    var fileUploadInput = document.getElementById('file-upload-input');
+    var fileInfoContainer = document.getElementById('file-info');
+
+    // When files are selected, add them to Resumable.js
+    fileUploadInput.addEventListener('change', function(event) {
+        var files = event.target.files;
+        if (files.length > 0) {
+            r.addFiles(files); // add the files to resumable.js
+        }
+    });
+
+    // Display file info and start upload
+    r.on('fileAdded', function(file) {
+        var fileElement = document.createElement('div');
+        fileElement.id = 'file-' + file.uniqueIdentifier;
+        fileElement.innerHTML = `
+        <p>${file.fileName}</p>
+        <div class="progress-container">
+            <progress value="0" max="100"></progress>
+            <span class="progress-percentage">0%</span>
+        </div>
+    `;
+        fileInfoContainer.appendChild(fileElement);
+        r.upload();
+    });
+
+    // Update progress bar and percentage for each file
+    r.on('fileProgress', function(file) {
+        var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+        var progress = Math.floor(file.progress() * 100);
+        fileElement.querySelector('progress').value = progress;
+        fileElement.querySelector('.progress-percentage').textContent = progress + '%';
+    });
+
+    // Handle upload success
+    r.on('fileSuccess', function(file, message) {
+        var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+        fileElement.querySelector('.progress-percentage').textContent = 'Upload complete';
+        // Optionally, you can remove the file element or show a success message
+        console.log(file + '---------->' + message)
+        var currentValue = $('#file-names-from-s3').val();
+        var newValues = message;
+        // Append new values
+        if (currentValue === '') {
+            // If empty, just join the new values with a comma
+            var updatedValue = newValues;
+        } else {
+            // If not empty, append new values with a preceding comma
+            var updatedValue = currentValue + ',' + newValues;
+        }
+        $('#file-names-from-s3').val(updatedValue);
+    });
+
+    // Handle upload error
+    r.on('fileError', function(file, message) {
+        var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+        fileElement.querySelector('.progress-percentage').textContent = 'Upload error';
+        // Optionally, you can show an error message
+    });
 </script>

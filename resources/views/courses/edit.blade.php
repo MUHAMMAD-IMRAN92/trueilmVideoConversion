@@ -7,6 +7,7 @@
             width: 100% !important;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/resumablejs/resumable.js"></script>
     <div class="app-content content">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -1129,12 +1130,10 @@
                                                 <div class="modal-body">
 
                                                     <div class="col-md-12">
-                                                        <fieldset class="form-group">
+                                                        {{-- <fieldset class="form-group">
                                                             <label for="basicInputFile">Content</label>
                                                             <div class="custom-file">
-                                                                <input type="hidden" id="" class="form-control"
-                                                                    name="course_id" placeholder=""
-                                                                    value={{ $course->_id }}>
+
 
                                                                 <input type="file"
                                                                     class="file-input custom-file-input  episode-custom-file-input"
@@ -1145,7 +1144,33 @@
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
                                                             </div>
+                                                        </fieldset> --}}
+                                                         <input type="hidden" id="" class="form-control"
+                                                                    name="course_id" placeholder=""
+                                                                    value={{ $course->_id }}>
+                                                        <input type="hidden" class="file-input " id="file-names-from-s3"
+                                                            name="podcast_file">
+
+                                                        <fieldset class="form-group">
+                                                            <label for="basicInputFile" class="required">Content</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" id="file-upload-input"
+                                                                    class="file-input custom-file-input episode-custom-file-input"
+                                                                    id="inputGroupFile01" multiple>
+
+                                                                <label class="custom-file-label"
+                                                                    for="inputGroupFile01">Choose
+                                                                    file</label>
+                                                            </div>
                                                         </fieldset>
+                                                        <div id="file-info">
+                                                            <p id="file-name"></p>
+                                                            <div id="progress-container" style="display: none;">
+                                                                <progress id="file-progress" value="0"
+                                                                    max="100"></progress>
+                                                                <span id="progress-percentage">0%</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -1218,21 +1243,31 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12">
+
+                                                        <input type="hidden" class="file-input " id="file-names-from-s3"
+                                                            name="podcast_file">
+
                                                         <fieldset class="form-group">
-                                                            <label for="basicInputFile">Content</label>
+                                                            <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
-                                                                <input type="file"
-                                                                    class="file-input custom-file-input  episode-custom-file-input"
-                                                                    id="fileinput-0" onchange="multiduration(0)"
-                                                                    name="podcast_file" required>
-                                                                <input type="hidden" name="duration[]"
-                                                                    id="input-duration-0" required />
-                                                                <span id="duration-info-0"></span>
+                                                                <input type="file" id="file-upload-input"
+                                                                    class="file-input custom-file-input episode-custom-file-input"
+                                                                    id="inputGroupFile01">
+
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
                                                             </div>
                                                         </fieldset>
+                                                        <div id="file-info">
+                                                            <p id="file-name"></p>
+                                                            <div id="progress-container" style="display: none;">
+                                                                <progress id="file-progress" value="0"
+                                                                    max="100"></progress>
+                                                                <span id="progress-percentage">0%</span>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                     {{-- <div class="col-md-12">
                                                         <fieldset class="form-group">

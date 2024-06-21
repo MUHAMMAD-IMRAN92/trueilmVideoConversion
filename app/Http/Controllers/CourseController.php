@@ -352,7 +352,6 @@ class CourseController extends Controller
     }
     public function courseLessons(Request $request)
     {
-
         ini_set("memory_limit", "-1");
         ini_set('max_execution_time', '0');
 
@@ -369,27 +368,30 @@ class CourseController extends Controller
         $courseLesson->added_by = $this->user->id;
 
         if ($request->podcast_file) {
-            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-            $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
+            // $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+            // $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
+            // Storage::disk('s3')->setVisibility($path, 'public');
+            $path =   'ChunkFiles/' . $request->podcast_file;
+            // Storage::disk('s3')->setVisibility($path, 'public');
             $courseLesson->file = $base_path . $path;
-            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+
+            if (strpos($request->podcast_file, '.mp3')) {
                 $courseLesson->type = 1;
             } else {
                 $courseLesson->type = 2;
             }
-            $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-            $getID3 = new \JamesHeinrich\GetID3\GetID3;
-            $file = $getID3->analyze(@$request->podcast_file);
-            $duration = date('H:i:s', $file['playtime_seconds']);
-            list($hours, $minutes, $seconds) = explode(':', $duration);
+            // $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+            // $getID3 = new \JamesHeinrich\GetID3\GetID3;
+            // $file = $getID3->analyze(@$request->podcast_file);
+            // $duration = date('H:i:s', $file['playtime_seconds']);
+            // list($hours, $minutes, $seconds) = explode(':', $duration);
 
-            // Calculate total duration in minutes
-            $total_minutes = $hours * 60 + $minutes;
+            // // Calculate total duration in minutes
+            // $total_minutes = $hours * 60 + $minutes;
 
-            // Construct the duration in the format MM:SS
-            $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-            $courseLesson->file_duration = @$duration_minutes_seconds;
+            // // Construct the duration in the format MM:SS
+            // $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+            // $courseLesson->file_duration = @$duration_minutes_seconds;
         }
 
         if ($request->lesson_notes) {
@@ -776,30 +778,31 @@ class CourseController extends Controller
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
 
         if ($request->podcast_file) {
-            foreach ($request->podcast_file as $file) {
+            foreach (explode(',', $request->podcast_file) as $file) {
                 $bookContent = new CourseLesson();
-                $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $path =   $file->storeAs('files', $file_name, 's3');
-                Storage::disk('s3')->setVisibility($path, 'public');
+                // $file_name = time() . '.' . $file->getClientOriginalExtension();
+                // $path =   $file->storeAs('files', $file_name, 's3');
+                // Storage::disk('s3')->setVisibility($path, 'public');
+                $path = 'ChunkFiles/' . $file;
                 $bookContent->file = $base_path . $path;
 
-                $bookContent->book_name = $file->getClientOriginalName();
+                $bookContent->book_name = $file;
 
                 $bookContent->course_id = $course->_id;
                 $bookContent->title = \Str::beforelast($bookContent->book_name, '.');
 
-                $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                $file = $getID3->analyze(@$file);
-                $duration = date('H:i:s', $file['playtime_seconds']);
-                list($hours, $minutes, $seconds) = explode(':', $duration);
+                // $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                // $file = $getID3->analyze(@$file);
+                // $duration = date('H:i:s', $file['playtime_seconds']);
+                // list($hours, $minutes, $seconds) = explode(':', $duration);
 
-                // Calculate total duration in minutes
-                $total_minutes = $hours * 60 + $minutes;
+                // // Calculate total duration in minutes
+                // $total_minutes = $hours * 60 + $minutes;
 
-                // Construct the duration in the format MM:SS
-                $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-                $bookContent->file_duration = @$duration_minutes_seconds;
-                $bookContent->hls_conversion = 0;
+                // // Construct the duration in the format MM:SS
+                // $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+                // $bookContent->file_duration = @$duration_minutes_seconds;
+                // $bookContent->hls_conversion = 0;
 
                 $bookContent->save();
             }

@@ -206,25 +206,26 @@ class BookController extends Controller
             foreach ($request->file as $key => $file) {
                 // return $file;
                 $bookContent = new BookContent();
-                $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $path =   $file->storeAs('files', $file_name, 's3');
-                Storage::disk('s3')->setVisibility($path, 'public');
+                // $file_name = time() . '.' . $file->getClientOriginalExtension();
+                // $path =   $file->storeAs('files', $file_name, 's3');
+                $path =   'ChunkFiles/' . $file;
+                // Storage::disk('s3')->setVisibility($path, 'public');
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
-                $bookContent->book_name = $file->getClientOriginalName();
-                if ($book->type == 2) {
-                    $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                    $file = $getID3->analyze(@$file);
-                    $duration = date('H:i:s', $file['playtime_seconds']);
-                    list($hours, $minutes, $seconds) = explode(':', $duration);
+                // $bookContent->book_name = $file->getClientOriginalName();
+                // if ($book->type == 2) {
+                //     $getID3 = new \JamesHeinrich\GetID3\GetID3;
+                //     $file = $getID3->analyze(@$file);
+                //     $duration = date('H:i:s', $file['playtime_seconds']);
+                //     list($hours, $minutes, $seconds) = explode(':', $duration);
 
-                    // Calculate total duration in minutes
-                    $total_minutes = $hours * 60 + $minutes;
+                //     // Calculate total duration in minutes
+                //     $total_minutes = $hours * 60 + $minutes;
 
-                    // Construct the duration in the format MM:SS
-                    $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-                    $bookContent->file_duration = @$duration_minutes_seconds;
-                }
+                //     // Construct the duration in the format MM:SS
+                //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+                //     $bookContent->file_duration = @$duration_minutes_seconds;
+                // }
 
                 // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = (int)$key;

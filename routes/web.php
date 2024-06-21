@@ -410,6 +410,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('app-section/content', [App\Http\Controllers\AppSectionController::class, 'sectionContent'])->name('app-section.content');
     //render api
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
+
+    //chunks
+    Route::post('/upload-chunks',  [App\Http\Controllers\FileUploadController::class, 'uploadChunks']);
 });
 Route::get('file/upload',  [App\Http\Controllers\DevController::class, 'uploadFile'])->name('file.upload');
 Route::post('file/upload',  [App\Http\Controllers\DevController::class, 'post'])->name('file.upload');
