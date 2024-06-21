@@ -449,28 +449,6 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    $userSubscription = UserSubscription::whereNull('istrail')->orWhere('istrail', 0)->where('plan_name', '!=', 'Freemium')->where('status', 'paid')->where('email', 'ipatch.faraz@gmail.com')->get();
-    foreach ($userSubscription as $subscription) {
-        $statusJson =  $stripe->subscriptions->retrieve($subscription->subscription_id, []);
-        if ($statusJson->status == 'canceled') {
-            $subscription->status = 'cancelled';
-            $subscription->save();
-        }
-        $subscriptionCount = UserSubscription::where('email', $subscription->email)->where('status', 'paid')->count();
-        if ($subscriptionCount == 0) {
-            $newuserSubscription = new UserSubscription();
-            $newuserSubscription->user_id = $subscription->user_id;
-            $newuserSubscription->email = $subscription->email;
-            $newuserSubscription->customer = $subscription->customer;
-            $newuserSubscription->price_id = '0';
-            $newuserSubscription->status = 'paid';
-            $newuserSubscription->plan_name = 'Freemium';
-            $newuserSubscription->plan_id = '65cf47c31b80a2d2b83f7128';
-            $newuserSubscription->testString = 'web dev route update';
-            $newuserSubscription->plan_type = 0;
-            $newuserSubscription->save();
-        }
-    }
-    return ' ok';
+    \File::deleteDirectory(public_path('videos'), 0775, true, true);
+    return 'ok';
 });
