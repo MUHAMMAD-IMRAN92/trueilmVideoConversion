@@ -6326,7 +6326,7 @@
     // Handle upload error
     r.on('fileError', function(file, message) {
         var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
-        fileElement.querySelector('.progress-percentage').textContent = 'Upload error';
+        fileElement.querySelector('.progress-percentage').textContent = 'Please refresh and try again. ';
         // Optionally, you can show an error message
     });
 </script>
