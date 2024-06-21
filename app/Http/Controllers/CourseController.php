@@ -25,6 +25,7 @@ use Meilisearch\Client;
 use JamesHeinrich\GetID3\GetID3;
 use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\CachingStream;
 
 
 class CourseController extends Controller
@@ -392,7 +393,20 @@ class CourseController extends Controller
         $file = $request->file('podcast_file');
         // Open a stream to the uploaded file
         $fileStream = fopen($file->getRealPath(), 'r');
-        dd($fileStream);
+        $cachingStream = new CachingStream(Utils::streamFor($fileStream));
+
+        // Define the file path in S3
+        $filePath = 'uploads/' . $file->getClientOriginalName();
+
+        // Upload the file to S3
+        $path = Storage::disk('s3')->put($filePath, $cachingStream, [
+            'visibility' => 'public',
+            'ContentType' => $file->getMimeType(),
+        ]);
+
+        // Close the file stream
+        fclose($fileStream);
+        dd('done');
         // if ($request->podcast_file) {
         //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
         //     $tempPath = $request->podcast_file->getPathname();
