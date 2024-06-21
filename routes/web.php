@@ -449,7 +449,6 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    \File::deleteDirectory(public_path('videos'));
-    // \File::makeDirectory(public_path('videos'), 0775, true, true);
+   
     return 'ok';
 });

@@ -542,7 +542,7 @@ class DevController extends Controller
                 $c->save();
 
                 \File::deleteDirectory(public_path('videos'));
-                \File::makeDirectory(public_path('videos'));
+                \File::makeDirectory(public_path('videos'), 0775, true, true);
             }
 
             $course = CourseLesson::where('hls_conversion', $hls_conversion)->get();
@@ -634,7 +634,7 @@ class DevController extends Controller
                 $course->lesson_count = $course->lesson_count + 1;
                 $course->save();
                 \File::deleteDirectory(public_path('videos'));
-                \File::makeDirectory(public_path('videos'));
+                \File::makeDirectory(public_path('videos'), 0775, true, true);
             }
             $course = Course::where('hls_conversion', $hls_conversion)->get();
 
@@ -725,7 +725,7 @@ class DevController extends Controller
                 $course->lesson_count = $course->lesson_count + 1;
                 $course->save();
                 \File::deleteDirectory(public_path('videos'));
-                \File::makeDirectory(public_path('videos'));
+                \File::makeDirectory(public_path('videos'), 0775, true, true);
             }
             \DB::table('jobs')
                 ->where('is_active', 1)
