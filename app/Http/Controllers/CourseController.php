@@ -367,51 +367,30 @@ class CourseController extends Controller
         $courseLesson->description = $request->description ?? '';
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
+
         if ($request->podcast_file) {
-
-            $client = Storage::disk('s3')->getClient();
-            $filenameRequest = $request->input('podcast_file');
-            $fileExtension = pathinfo($filenameRequest, PATHINFO_EXTENSION);
-            $folder = $base_path . 'uploads/';
-            $key = $folder . \Str::ulid() . '.' . $fileExtension;
-
-            try {
-                $result = $client->createMultipartUpload([
-                    'Bucket'             => env('AWS_BUCKET'),
-                    'Key'                => env('STRIPE_SECRET'),
-                    'ContentType'        => "video",
-                    'ContentDisposition' => 'inline',
-                ]);
-            } catch (\Throwable  $exception) {
-                return response()
-                    ->json([
-                        'message' => $exception->getMessage(),
-                    ], $exception->getStatusCode());
+            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
+            $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
+            Storage::disk('s3')->setVisibility($path, 'public');
+            $courseLesson->file = $base_path . $path;
+            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+                $courseLesson->type = 1;
+            } else {
+                $courseLesson->type = 2;
             }
+            $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
+            $getID3 = new \JamesHeinrich\GetID3\GetID3;
+            $file = $getID3->analyze(@$request->podcast_file);
+            $duration = date('H:i:s', $file['playtime_seconds']);
+            list($hours, $minutes, $seconds) = explode(':', $duration);
+
+            // Calculate total duration in minutes
+            $total_minutes = $hours * 60 + $minutes;
+
+            // Construct the duration in the format MM:SS
+            $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
+            $courseLesson->file_duration = @$duration_minutes_seconds;
         }
-        // if ($request->podcast_file) {
-        //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-        //     $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
-        //     Storage::disk('s3')->setVisibility($path, 'public');
-        //     $courseLesson->file = $base_path . $path;
-        //     if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
-        //         $courseLesson->type = 1;
-        //     } else {
-        //         $courseLesson->type = 2;
-        //     }
-        //     $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-        //     $getID3 = new \JamesHeinrich\GetID3\GetID3;
-        //     $file = $getID3->analyze(@$request->podcast_file);
-        //     $duration = date('H:i:s', $file['playtime_seconds']);
-        //     list($hours, $minutes, $seconds) = explode(':', $duration);
-
-        //     // Calculate total duration in minutes
-        //     $total_minutes = $hours * 60 + $minutes;
-
-        //     // Construct the duration in the format MM:SS
-        //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-        //     $courseLesson->file_duration = @$duration_minutes_seconds;
-        // }
 
         if ($request->lesson_notes) {
             $file_name = time() . '.' . $request->lesson_notes->getClientOriginalExtension();
