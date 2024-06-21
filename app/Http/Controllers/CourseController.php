@@ -369,10 +369,10 @@ class CourseController extends Controller
         $courseLesson->added_by = $this->user->id;
         if ($request->podcast_file) {
 
-           $client = Storage::disk('s3')->getClient();
+            $client = Storage::disk('s3')->getClient();
             $filenameRequest = $request->input('podcast_file');
             $fileExtension = pathinfo($filenameRequest, PATHINFO_EXTENSION);
-            $folder = config('uppy-s3-multipart-upload.s3.bucket.folder') ? config('uppy-s3-multipart-upload.s3.bucket.folder') . '/' : '';
+            $folder = $base_path . 'uploads/';
             $key = $folder . \Str::ulid() . '.' . $fileExtension;
 
             try {
