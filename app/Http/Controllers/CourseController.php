@@ -26,7 +26,10 @@ use JamesHeinrich\GetID3\GetID3;
 use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\CachingStream;
-
+use Aws\Exception\MultipartUploadException;
+use Aws\S3\MultipartUploader;
+use Aws\S3\ObjectUploader;
+use Aws\S3\S3Client;
 
 class CourseController extends Controller
 {
@@ -352,6 +355,7 @@ class CourseController extends Controller
     }
     public function courseLessons(Request $request)
     {
+
         ini_set("memory_limit", "-1");
         ini_set('max_execution_time', '0');
 
@@ -366,168 +370,80 @@ class CourseController extends Controller
         $courseLesson->description = $request->description ?? '';
         $courseLesson->course_id = $request->course_id;
         $courseLesson->added_by = $this->user->id;
+        $s3Client = new S3Client([
+            'profile' => 'default',
+            'region' => env('AWS_DEFAULT_REGION'),
+            'version' => '2024-01-01'
+        ]);
 
-        if ($request->hasFile('podcast_file')) {
-            $originalFile = $request->file('podcast_file');
-            $fileExtension = $originalFile->getClientOriginalExtension();
-            $fileName = time() . '.' . $fileExtension;
+        // Use multipart upload
+        $source = $request->podcast_file;
+        $uploader = new MultipartUploader($s3Client, $source, [
+            'bucket' => env('AWS_BUCKET'),
+            'key' => env('AWS_SECRET_ACCESS_KEY'),
+        ]);
 
-            // Define paths
-            $originalPath = $originalFile->getPathname();
-            $compressedFilePath = storage_path('app/temp/') . $fileName; // Temporary storage for the compressed file
-
-            // Create temporary directory if it doesn't exist
-            if (!file_exists(storage_path('app/temp'))) {
-                mkdir(storage_path('app/temp'), 0755, true);
-            }
-
-            // Compress video if it's not an MP3 file
-            if ($fileExtension != 'mp3') {
-                // FFmpeg command to compress the video
-                $ffmpegCommand = "ffmpeg -i $originalPath -vcodec libx264 -crf 28 -preset slow -acodec aac -b:a 128k $compressedFilePath";
-                exec($ffmpegCommand, $output, $status);
-
-                if ($status !== 0) {
-                    return response()->json(['error' => 'Video compression failed.'], 500);
-                }
-
-                // Use the compressed file path for upload
-                $path = Storage::disk('s3')->putFileAs('uploads', new \Illuminate\Http\File($compressedFilePath), $fileName);
-            } else {
-                // Directly use the original file for upload if it's an MP3 file
-                $path = Storage::disk('s3')->putFileAs('uploads', $originalFile, $fileName);
-            }
-
-            // Set visibility to public
-            Storage::disk('s3')->setVisibility($path, 'public');
-
-            // Store file path and other information in the database
-            $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/'; // Adjust this to your actual base path
-            $courseLesson->file = $base_path . $path;
-            $courseLesson->type = $fileExtension == 'mp3' ? 1 : 2;
-            $courseLesson->book_name = $originalFile->getClientOriginalName();
-            $courseLesson->save();
-
-            // Clean up temporary file
-            if (file_exists($compressedFilePath)) {
-                unlink($compressedFilePath);
-            }
-
-            return response()->json(['success' => 'File uploaded successfully.']);
-        } else {
-            return response()->json(['error' => 'No file uploaded.'], 400);
+        try {
+            $result = $uploader->upload();
+            echo "Upload complete: {$result['ObjectURL']}\n";
+        } catch (MultipartUploadException $e) {
+            echo $e->getMessage() . "\n";
         }
 
         dd('working on it');
         // if ($request->podcast_file) {
-        //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-        //     $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
-        //     Storage::disk('s3')->setVisibility($path, 'public');
-        //     $courseLesson->file = $base_path . $path;
-        //     if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
-        //         $courseLesson->type = 1;
-        //     } else {
-        //         $courseLesson->type = 2;
-        //     }
-        //     $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-        //     $getID3 = new \JamesHeinrich\GetID3\GetID3;
-        //     $file = $getID3->analyze(@$request->podcast_file);
-        //     $duration = date('H:i:s', $file['playtime_seconds']);
-        //     list($hours, $minutes, $seconds) = explode(':', $duration);
-
-        //     // Calculate total duration in minutes
-        //     $total_minutes = $hours * 60 + $minutes;
-
-        //     // Construct the duration in the format MM:SS
-        //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-        //     $courseLesson->file_duration = @$duration_minutes_seconds;
-        // }
-
-        // if ($request->podcast_file) {
-        //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-        //     $tempPath = $request->podcast_file->getPathname();
-        //     $client = new GuzzleClient();
-
-        //     // Open the file and read its content
-        //     $fileContent = file_get_contents($tempPath);
-
-        //     // Calculate MD5 and SHA256 checksums
-        //     $contentMD5 = base64_encode(md5($fileContent, true));
-        //     $contentSHA256 = base64_encode(hash('sha256', $fileContent, true));
-
-        //     // Upload the file to S3 with the calculated checksums
-        //     $response = $client->request('PUT', Storage::disk('s3')->url('courses_videos/' . $file_name), [
-        //         'headers' => [
-        //             'ContentMD5' => $contentMD5,
-        //             'ContentSHA256' => $contentSHA256,
-        //         ],
-        //         'body' => Utils::streamFor($fileContent),
-        //     ]);
-
-        //     // Set file visibility to public
-        //     Storage::disk('s3')->setVisibility('courses_videos/' . $file_name, 'public');
-
-        //     $courseLesson->file = $base_path . 'courses_videos/' . $file_name;
-        //     if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
-        //         $courseLesson->type = 1;
-        //     } else {
-        //         $courseLesson->type = 2;
-        //     }
-        //     $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-
-        //     // Analyze the file for duration
-        //     $getID3 = new GetID3();
-        //     $fileAnalysis = $getID3->analyze($tempPath);
-        //     $duration = date('H:i:s', $fileAnalysis['playtime_seconds']);
-        //     list($hours, $minutes, $seconds) = explode(':', $duration);
-
-        //     // Calculate total duration in minutes
-        //     $total_minutes = $hours * 60 + $minutes;
-
-        //     // Construct the duration in the format MM:SS
-        //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-        //     $courseLesson->file_duration = $duration_minutes_seconds;
-        // }
-        // if ($request->hasFile('podcast_file')) {        // Generate a unique file name
-        //     $fileExtension = $request->podcast_file->getClientOriginalExtension();
+        //     // return 'here';
+        //     $originalFile = $request->file('podcast_file');
+        //     $fileExtension = $originalFile->getClientOriginalExtension();
         //     $fileName = time() . '.' . $fileExtension;
 
-        //     // Store the file in the S3 bucket
-        //     $path = $request->podcast_file->storeAs('courses_videos', $fileName, 's3');
+        //     // Define paths
+        //     $originalPath = $originalFile->getPathname();
+        //     $compressedFilePath = storage_path('app/temp/') . $fileName; // Temporary storage for the compressed file
 
-        //     // Set the file visibility to public
-        //     Storage::disk('s3')->setVisibility($path, 'public');
-
-        //     // Store the file path and type in the database
-        //     // $basePath = 'https://your-s3-bucket-url/'; // Replace with your S3 bucket URL
-        //     $basePath = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-
-        //     $courseLesson->file = $basePath . $path;
-        //     $courseLesson->type = ($fileExtension === 'mp3') ? 1 : 2;
-        //     $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-
-        //     // Analyze the file for duration
-        //     $getID3 = new GetID3();
-        //     $fileAnalysis = $getID3->analyze($request->podcast_file->getPathname());
-
-        //     // Calculate the duration
-        //     if (isset($fileAnalysis['playtime_seconds'])) {
-        //         $duration = $fileAnalysis['playtime_seconds'];
-        //         $hours = floor($duration / 3600);
-        //         $minutes = floor(($duration / 60) % 60);
-        //         $seconds = floor($duration % 60);
-
-        //         // Calculate total duration in minutes and format as MM:SS
-        //         $totalMinutes = $hours * 60 + $minutes;
-        //         $durationFormatted = sprintf("%02d:%02d", $totalMinutes, $seconds);
-        //         $courseLesson->file_duration = $durationFormatted;
-        //     } else {
-        //         $courseLesson->file_duration = '00:00';
+        //     // Create temporary directory if it doesn't exist
+        //     if (!file_exists(storage_path('app/temp'))) {
+        //         mkdir(storage_path('app/temp'), 0755, true);
         //     }
 
-        //     // Save the course lesson details to the database
+        //     // Compress video if it's not an MP3 file
+        //     if ($fileExtension != 'mp3') {
+        //         // FFmpeg command to compress the video
+        //         $ffmpegCommand = "ffmpeg -i $originalPath -vcodec libx264 -crf 28 -preset slow -acodec aac -b:a 128k $compressedFilePath";
+        //         exec($ffmpegCommand, $output, $status);
+
+        //         if ($status !== 0) {
+        //             return response()->json(['error' => 'Video compression failed.'], 500);
+        //         }
+
+        //         // Use the compressed file path for upload
+        //         $path = Storage::disk('s3')->putFileAs('uploads', new \Illuminate\Http\File($compressedFilePath), $fileName);
+        //     } else {
+        //         // Directly use the original file for upload if it's an MP3 file
+        //         $path = Storage::disk('s3')->putFileAs('uploads', $originalFile, $fileName);
+        //     }
+
+        //     // Set visibility to public
+        //     Storage::disk('s3')->setVisibility($path, 'public');
+
+        //     // Store file path and other information in the database
+        //     $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/'; // Adjust this to your actual base path
+        //     $courseLesson->file = $base_path . $path;
+        //     $courseLesson->type = $fileExtension == 'mp3' ? 1 : 2;
+        //     $courseLesson->book_name = $originalFile->getClientOriginalName();
         //     $courseLesson->save();
+
+        //     // Clean up temporary file
+        //     if (file_exists($compressedFilePath)) {
+        //         unlink($compressedFilePath);
+        //     }
+
+        //     return response()->json(['success' => 'File uploaded successfully.']);
+        // } else {
+        //     return response()->json(['error' => 'No file uploaded.'], 400);
         // }
+
+        dd('working on it');
 
         if ($request->lesson_notes) {
             $file_name = time() . '.' . $request->lesson_notes->getClientOriginalExtension();
