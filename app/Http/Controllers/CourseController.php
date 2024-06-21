@@ -373,7 +373,7 @@ class CourseController extends Controller
         $s3Client = new S3Client([
             'profile' => 'default',
             'region' => env('AWS_DEFAULT_REGION'),
-            'version' => '2024-01-01'
+            'version' => '2023-03-07'
         ]);
 
         // Use multipart upload
