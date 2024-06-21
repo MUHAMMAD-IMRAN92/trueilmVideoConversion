@@ -390,9 +390,9 @@ class CourseController extends Controller
         //     $courseLesson->file_duration = @$duration_minutes_seconds;
         // }
         $file = $request->file('podcast_file');
-        dd($file);
         // Open a stream to the uploaded file
         $fileStream = fopen($file->getRealPath(), 'r');
+        dd($fileStream);
         // if ($request->podcast_file) {
         //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
         //     $tempPath = $request->podcast_file->getPathname();
