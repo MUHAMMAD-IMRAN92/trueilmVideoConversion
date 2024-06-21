@@ -391,22 +391,36 @@ class CourseController extends Controller
         //     $courseLesson->file_duration = @$duration_minutes_seconds;
         // }
         $file = $request->file('podcast_file');
+
+        if (!$file->isValid()) {
+            return response()->json(['error' => 'File is not valid.'], 400);
+        }
+
         // Open a stream to the uploaded file
         $fileStream = fopen($file->getRealPath(), 'r');
+
+        if ($fileStream === false) {
+            return response()->json(['error' => 'File could not be opened.'], 500);
+        }
+
+        // Wrap the stream in a CachingStream to make it seekable
         $cachingStream = new CachingStream(Utils::streamFor($fileStream));
 
         // Define the file path in S3
         $filePath = 'uploads/' . $file->getClientOriginalName();
 
-        // Upload the file to S3
-        $path = Storage::disk('s3')->put($filePath, $cachingStream, [
-            'visibility' => 'public',
-            'ContentType' => $file->getMimeType(),
-        ]);
+        try {
+            // Upload the file to S3
+            Storage::disk('s3')->put($filePath, $cachingStream, [
+                'visibility' => 'public',
+                'ContentType' => $file->getMimeType(),
+            ]);
+            dd('done');
+        } catch (\Exception $e) {
+            fclose($fileStream);
+            return response()->json(['error' => 'File upload failed: ' . $e->getMessage()], 500);
+        }
 
-        // Close the file stream
-        fclose($fileStream);
-        dd('done');
         // if ($request->podcast_file) {
         //     $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
         //     $tempPath = $request->podcast_file->getPathname();
