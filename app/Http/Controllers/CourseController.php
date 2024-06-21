@@ -384,7 +384,7 @@ class CourseController extends Controller
             // Compress video if it's not an MP3 file
             if ($fileExtension != 'mp3') {
                 // FFmpeg command to compress the video
-                $ffmpegCommand = "ffmpeg -i $originalPath -vcodec libx264 -crf 28 -preset slow -acodec aac -b:a 128k -vf scale=320:240 $compressedFilePath";
+                $ffmpegCommand = "ffmpeg -i $originalPath -vcodec libx264 -crf 28 -preset slow -acodec aac -b:a 128k $compressedFilePath";
                 exec($ffmpegCommand, $output, $status);
 
                 if ($status !== 0) {
