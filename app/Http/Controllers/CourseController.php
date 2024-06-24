@@ -352,6 +352,7 @@ class CourseController extends Controller
     }
     public function courseLessons(Request $request)
     {
+        return $request->all();
         ini_set("memory_limit", "-1");
         ini_set('max_execution_time', '0');
 
@@ -392,6 +393,13 @@ class CourseController extends Controller
             // // Construct the duration in the format MM:SS
             // $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
             // $courseLesson->file_duration = @$duration_minutes_seconds;
+
+            // $durationArr = explode(',', $request->file_durations);
+
+            // $courseLesson->file_duration = $request->file_durations;
+            // $courseLesson->hls_conversion = 0;
+
+            // $courseLesson->save();
         }
 
         if ($request->lesson_notes) {
@@ -772,13 +780,13 @@ class CourseController extends Controller
     }
     public function  courseBulkEpisode(Request $request)
     {
-
+        // return $request->all();
         $course = Course::where('_id', $request->course_id)->first();
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
 
         if ($request->podcast_file) {
-            foreach (explode(',', $request->podcast_file) as $file) {
+            foreach (explode(',', $request->podcast_file)  as $key => $file) {
                 $bookContent = new CourseLesson();
                 // $file_name = time() . '.' . $file->getClientOriginalExtension();
                 // $path =   $file->storeAs('files', $file_name, 's3');
@@ -802,7 +810,10 @@ class CourseController extends Controller
                 // // Construct the duration in the format MM:SS
                 // $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
                 // $bookContent->file_duration = @$duration_minutes_seconds;
-                // $bookContent->hls_conversion = 0;
+                $durationArr = explode(',', $request->file_durations);
+
+                $bookContent->file_duration = $durationArr[$key];
+                $bookContent->hls_conversion = 0;
 
                 $bookContent->save();
             }

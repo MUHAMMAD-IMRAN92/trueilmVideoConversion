@@ -6321,12 +6321,50 @@
             var updatedValue = currentValue + ',' + newValues;
         }
         $('#file-names-from-s3').val(updatedValue);
+
+        if (file.file.type.startsWith('video/') || file.file.type.startsWith('audio/')) {
+            var mediaElement = document.createElement(file.file.type.startsWith('video/') ? 'video' : 'audio');
+            mediaElement.src = URL.createObjectURL(file.file);
+            mediaElement.addEventListener('loadedmetadata', function() {
+                var duration = mediaElement.duration;
+                var durationElement = document.createElement('p');
+                durationElement.textContent = 'Duration: ' + formatDuration(duration);
+                fileElement.appendChild(durationElement);
+                URL.revokeObjectURL(mediaElement.src);
+
+                // Store the duration in a variable named duration
+                var fileDuration = duration; // Store the duration in the variable
+                var currentValue = $('#file-durations').val();
+                var newValues = formatDuration(duration);
+                // Append new values
+                if (currentValue === '') {
+                    // If empty, just join the new values with a comma
+                    var updatedValue = newValues;
+                } else {
+                    // If not empty, append new values with a preceding comma
+                    var updatedValue = currentValue + ',' + newValues;
+                }
+                $('#file-durations').val(updatedValue);
+            });
+        }
     });
 
     // Handle upload error
     r.on('fileError', function(file, message) {
         var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
-        fileElement.querySelector('.progress-percentage').textContent = 'Something went wrong.Please refresh and try again. ';
+        fileElement.querySelector('.progress-percentage').textContent =
+            'Something went wrong.Please refresh and try again. ';
         // Optionally, you can show an error message
     });
+
+    function formatDuration(seconds) {
+        var hours = Math.floor(seconds / 3600);
+        var minutes = Math.floor((seconds % 3600) / 60);
+        var seconds = Math.floor(seconds % 60);
+        return [
+            hours,
+            minutes.toString().padStart(2, '0'),
+            seconds.toString().padStart(2, '0')
+        ].join(':');
+    }
 </script>

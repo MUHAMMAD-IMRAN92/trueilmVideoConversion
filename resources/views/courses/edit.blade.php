@@ -1145,12 +1145,12 @@
                                                                     file</label>
                                                             </div>
                                                         </fieldset> --}}
-                                                         <input type="hidden" id="" class="form-control"
-                                                                    name="course_id" placeholder=""
-                                                                    value={{ $course->_id }}>
+                                                        <input type="hidden" id="" class="form-control"
+                                                            name="course_id" placeholder="" value={{ $course->_id }}>
                                                         <input type="hidden" class="file-input " id="file-names-from-s3"
                                                             name="podcast_file">
-
+                                                        <input type="hidden" class="file-input " id="file-durations"
+                                                            name="file_durations">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
@@ -1246,7 +1246,8 @@
 
                                                         <input type="hidden" class="file-input " id="file-names-from-s3"
                                                             name="podcast_file">
-
+                                                        <input type="hidden" class="file-input " id="file-durations"
+                                                            name="file_durations">
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
