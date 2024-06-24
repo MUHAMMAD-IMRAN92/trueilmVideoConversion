@@ -230,6 +230,11 @@ class BookController extends Controller
                 // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
                 $bookContent->sequence = (int)$key;
                 $book->type = $request->type;
+
+                $durationArr = explode(',', $request->file_durations);
+
+                $bookContent->file_duration = $durationArr[$key];
+
                 $bookContent->save();
             }
         }

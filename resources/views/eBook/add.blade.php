@@ -108,7 +108,8 @@
                                                         <div class="col-md-6">
                                                             <input type="hidden" class="file-input "
                                                                 id="file-names-from-s3" name="file[]">
-
+                                                            <input type="hidden" class="file-input " id="file-durations"
+                                                                name="file_durations">
                                                             <fieldset class="form-group">
                                                                 <label for="basicInputFile" class="required">Content</label>
                                                                 <div class="custom-file">
