@@ -444,6 +444,7 @@ class DevController extends Controller
     {
         ini_set('memory_limit', '-1');
         ini_set('max_execution_time', 0);
+        \File::makeDirectory(public_path('videos'), 0775, true, true);
 
         $activeJob = \DB::table('jobs')->where('is_active', 1)->where('key', 'hls_conversion')->first();
         $hls_conversion = 0;
