@@ -590,8 +590,9 @@ class HomeController extends Controller
                     $indexInstance = $client->index($arrIndex[$ar]);
                     $indexInstance->updateFilterableAttributes([
                         'book_id',
-                        'chapter_id',
                         'author_id',
+                        'chapter_id',
+                        'main_chapter',
                         'lang_id',
                         'type'
                     ]);
