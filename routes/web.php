@@ -459,13 +459,16 @@ Route::get('/indexing', function () {
 
     $client->createIndex('alHadeestranslations');
     $books = HadeesBooks::first();
+    if ($books) {
+        // Fetch the translations for the book
+        $data = HadeesTranslation::where('book_id', $books->_id)->get()->map(function ($tran) {
+            $tran->main_chapter = $tran->mainChapter();
+            return $tran;
+        });
 
-    $data = HadeesTranslation::where('book_id', $books->_id)->map(function ($tran) use ($client) {
-        $tran->main_chapter = $tran->mainChapter();
-        return $tran;
-    });
-    return  $data;
-    $client->index('alHadeestranslations')->addDocuments($data->toArray(), '_id');
+        // Add documents to the index
+        $client->index('alHadeestranslations')->addDocuments($data->toArray(), '_id');
+    }
 
     return 'ok';
 });
