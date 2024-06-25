@@ -462,14 +462,17 @@ Route::get('/quran/index/{id}', function ($id) {
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
     $client->createIndex('alHadeestranslations');
+    $books = HadeesBooks::get();
+    foreach ($books as $book) {
+        HadeesTranslation::where('book_id', $book->_id)->chunk(10, function ($translations) use ($client) {
+            $data = $translations->map(function ($tran) {
+                $tran->main_chapter = $tran->mainChapter();
+                return $tran;
+            });
 
-    HadeesTranslation::chunk(1000, function ($translations) use ($client) {
-        $data = $translations->map(function ($tran) {
-            $tran->main_chapter = $tran->mainChapter();
-            return $tran;
+            $client->index('alHadeestranslations')->addDocuments($data->toArray(), '_id');
         });
+    }
 
-        $client->index('alHadeestranslations')->addDocuments($data->toArray(), '_id');
-    });
     return 'ok';
 });
