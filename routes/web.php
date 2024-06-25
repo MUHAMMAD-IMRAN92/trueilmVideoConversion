@@ -458,7 +458,7 @@ Route::get('/indexing', function () {
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
     $client->createIndex('alHadeestranslations');
-    $books = HadeesBooks::where('_id', '656f3eb8b85aa464aa6c9932')->first();
+    $books = HadeesBooks::where('_id', '655f47441c3df94998007a1a')->first();
     if ($books) {
         // Fetch the translations for the book
         $data = HadeesTranslation::where('book_id', $books->_id)->get()->map(function ($tran) {
