@@ -452,13 +452,13 @@ Route::get('dev', function () {
 
     return 'ok';
 });
-Route::get('/indexing', function () {
+Route::get('/indexing/{id}', function ($id) {
     ini_set('max_execution_time', '0');
     ini_set("memory_limit", "-1");
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
     $client->createIndex('alHadeestranslations');
-    $books = HadeesBooks::where('_id', '65ce0923e08adee9f4146f27')->first();
+    $books = HadeesBooks::where('_id', $id)->first();
     if ($books) {
         // Fetch the translations for the book
         $data = HadeesTranslation::where('book_id', $books->_id)->get()->map(function ($tran) {
