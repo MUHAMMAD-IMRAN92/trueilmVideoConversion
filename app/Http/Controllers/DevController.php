@@ -447,7 +447,7 @@ class DevController extends Controller
         \File::makeDirectory(public_path('videos'), 0775, true, true);
 
         $activeJob = \DB::table('jobs')->where('is_active', 1)->where('key', 'hls_conversion')->first();
-        $hls_conversion = 0;
+        $hls_conversion = 1;
         if ($activeJob) {
             return '0';
         } else {
@@ -538,7 +538,7 @@ class DevController extends Controller
                         echo "Uploaded $renditionFileName to $destinationPath\n";
                     }
                 }
-                $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                $c->hls_video_url2 = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
 
@@ -628,7 +628,7 @@ class DevController extends Controller
                         echo "Uploaded $renditionFileName to $destinationPath\n";
                     }
                 }
-                $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                $c->hls_video_url2 = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
                 $course = Course::where('_id',  $c->course_id)->first();
@@ -719,7 +719,7 @@ class DevController extends Controller
                         echo "Uploaded $renditionFileName to $destinationPath\n";
                     }
                 }
-                $c->hls_video_url = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
+                $c->hls_video_url2 = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $filePath;
                 $c->hls_conversion = 1;
                 $c->save();
                 $course = Course::where('_id',  $c->course_id)->first();
