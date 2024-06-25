@@ -452,7 +452,7 @@ Route::get('dev', function () {
 
     return 'ok';
 });
-Route::get('/indexing', function ($id) {
+Route::get('/indexing', function () {
     ini_set('max_execution_time', '0');
     set_time_limit(0);
 
