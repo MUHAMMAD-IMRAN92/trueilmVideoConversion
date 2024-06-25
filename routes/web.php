@@ -461,7 +461,7 @@ Route::get('/quran/index/{id}', function ($id) {
 
     $client->createIndex('alHadeestranslations');
 
-    HadeesTranslation::chunk(10, function ($translations) use ($client) {
+    HadeesTranslation::chunk(1000, function ($translations) use ($client) {
         $data = $translations->map(function ($tran) {
             $tran->main_chapter = $tran->mainChapter();
             return $tran;
