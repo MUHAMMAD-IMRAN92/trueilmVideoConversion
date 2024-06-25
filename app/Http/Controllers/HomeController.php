@@ -615,7 +615,8 @@ class HomeController extends Controller
 
                     if (!empty($request->main_chapter)) {
                         $filters[] = 'main_chapter = ' . $request->main_chapter;
-                    } elseif (!empty($request->chapter_id)) {
+                    }
+                    if (!empty($request->chapter_id)) {
                         $filters[] = 'chapter_id = ' . $request->chapter_id;
                     }
 
