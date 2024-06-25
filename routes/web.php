@@ -464,6 +464,7 @@ Route::get('/indexing', function () {
         $tran->main_chapter = $tran->mainChapter();
         return $tran;
     });
+    return  $data;
     $client->index('alHadeestranslations')->addDocuments($data->toArray(), '_id');
 
     return 'ok';
