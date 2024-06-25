@@ -63,7 +63,7 @@ Route::post('send_email_to_childs',  [App\Http\Controllers\Api\UserController::c
 Route::get('search/index',  [App\Http\Controllers\HomeController::class, 'indexTranslation']);
 // 65c9f0991d686f043b027302
 Route::get('/quran/index/{id}', function ($id) {
-    ini_set('max_execution_time', '0');
+    set_time_limit(0);
     ini_set("memory_limit", "-1");
     // $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
 
