@@ -449,9 +449,10 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-
+    \File::deleteDirectory(public_path('videos'));
+    return 'ok';
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    return  $stripe->coupons->retrieve('LAUNCH', []);
+    return  $stripe->coupons->retrieve('QO3huApM', []);
 });
 Route::get('/indexing/{id}', function ($id) {
     ini_set('max_execution_time', '0');
