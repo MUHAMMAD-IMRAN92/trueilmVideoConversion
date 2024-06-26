@@ -449,7 +449,7 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-    \File::deleteDirectory(public_path('videos'), 0775, true, true);
+    rmdir(public_path('videos'), 0775, true, true);
     return 'ok';
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
     return  $stripe->coupons->retrieve('QO3huApM', []);
