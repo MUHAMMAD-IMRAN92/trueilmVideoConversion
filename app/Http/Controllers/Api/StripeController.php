@@ -300,7 +300,6 @@ class StripeController extends Controller
                     'discounts' => $discounts,
                     'mode' => 'subscription',
                     'customer' => $customer,
-                    'allow_promotion_codes' => true,
                     'success_url' =>  $request->success_url,
                     'cancel_url' =>  $request->cancel_url,
 
