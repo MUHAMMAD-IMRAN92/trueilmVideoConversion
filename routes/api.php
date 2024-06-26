@@ -85,7 +85,7 @@ Route::get('/quran/index/{id}', function ($id) {
 
     // $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
     // // $client->createIndex('alHadeestranslations');
-    // $authorLanguages = AuthorLanguage::whereIn('type', [1, 2])->get();
+    // $authorLanguages = AuthorLanguage::whereIn('type', [1`, 2])->get();
     // foreach ($authorLanguages as $authorLang) {
 
     //     $translation = AlQuranTranslation::where('author_lang', $authorLang->_id)->get()->map(function ($tran) {
@@ -115,7 +115,7 @@ Route::get('/quran/index/{id}', function ($id) {
     // $booksclient =  $client->index('course')->addDocuments($bookc, '_id');
     return 'ok';
 });
-Route::get('/course/index', function () {
+Route::get('/search/index', function () {
     ini_set("memory_limit", "-1");
     set_time_limit(0);
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');

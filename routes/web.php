@@ -450,7 +450,8 @@ Route::get('phpinfo', function () {
 });
 Route::get('dev', function () {
 
-    return 'ok';
+    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    return  $stripe->coupons->retrieve('LAUNCH', []);
 });
 Route::get('/indexing/{id}', function ($id) {
     ini_set('max_execution_time', '0');
