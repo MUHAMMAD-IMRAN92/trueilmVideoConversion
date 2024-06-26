@@ -68,43 +68,46 @@
                         @endif
 
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Users Registered </h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <canvas id="usersChart" width="900" height="300"></canvas>
-                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Users Registered </h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <canvas id="usersChart" width="900" height="300"></canvas>
+                                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+                                        </div>
 
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Most Read Content </h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <canvas id="contentChart" width="900" height="300"></canvas>
-                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Most Read Content </h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <canvas id="contentChart" width="900" height="300"></canvas>
+                                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+                                        </div>
 
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
+                    @endif
+
                     <div class="row">
                         @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                             <div class="col-lg-3 col-sm-6 col-12">

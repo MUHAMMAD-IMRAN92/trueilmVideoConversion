@@ -449,6 +449,28 @@ Route::get('phpinfo', function () {
     return phpinfo();
 });
 Route::get('dev', function () {
-   
+    rmdir(public_path('videos'), 0775, true, true);
+    return 'ok';
+    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+    return  $stripe->coupons->retrieve('QO3huApM', []);
+});
+Route::get('/indexing/{id}', function ($id) {
+    ini_set('max_execution_time', '0');
+    ini_set("memory_limit", "-1");
+    $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
+
+    $client->createIndex('alHadeestranslations');
+    $books = HadeesBooks::where('_id', $id)->first();
+    if ($books) {
+        // Fetch the translations for the book
+        $data = HadeesTranslation::where('book_id', $books->_id)->get()->map(function ($tran) {
+            $tran->main_chapter = $tran->mainChapter();
+            return $tran;
+        });
+
+        // Add documents to the index
+        $client->index('alHadeestranslations')->addDocuments($data->toArray(), '_id');
+    }
+
     return 'ok';
 });
