@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\CustomerCard;
 use App\Models\Subscription;
 use App\Models\User;
@@ -93,6 +94,15 @@ class StripeController extends Controller
                 ]);
                 return  sendSuccess('Billing Portal Url .', $session->url);
             } else {
+                // $discounts = [];
+                // if ($request->discount) {
+                //     $coupon =  Coupon::where('coupon', $request->discount)->first();
+                //     $discounts = [
+                //         [
+                //             'coupon' => $coupon->coupon_id,
+                //         ],
+                //     ];
+                // }
 
                 Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -102,7 +112,7 @@ class StripeController extends Controller
                         'price' => $request->price,
                         'quantity' => 1, // Set the quantity to 1 for a standard subscription
                     ]],
-                    // 'discounts' => ["QO3huApM"],
+                    // 'discounts' => $discounts,
                     'mode' => 'subscription',
                     'customer' => $customer,
                     'allow_promotion_codes' => true,
@@ -284,11 +294,15 @@ class StripeController extends Controller
                 ]);
                 return  sendSuccess('Billing Portal Url .', $session->url);
             } else {
-                $discounts = [
-                    [
-                        'coupon' => "QO3huApM",
-                    ],
-                ];
+                $discounts = [];
+                if ($request->discount) {
+                    $coupon =  Coupon::where('coupon', $request->discount)->first();
+                    $discounts = [
+                        [
+                            'coupon' => $coupon->coupon_id,
+                        ],
+                    ];
+                }
                 Stripe::setApiKey(env('STRIPE_SECRET'));
 
                 $session = \Stripe\Checkout\Session::create([
