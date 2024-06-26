@@ -297,7 +297,6 @@ class StripeController extends Controller
                         'price' => $request->price,
                         'quantity' => 1, // Set the quantity to 1 for a standard subscription
                     ]],
-                    'allow_promotion_codes' => true,
                     'discounts' => $discounts,
                     'mode' => 'subscription',
                     'customer' => $customer,
