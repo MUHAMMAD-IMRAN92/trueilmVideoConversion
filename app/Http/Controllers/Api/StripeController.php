@@ -94,15 +94,15 @@ class StripeController extends Controller
                 ]);
                 return  sendSuccess('Billing Portal Url .', $session->url);
             } else {
-                // $discounts = [];
-                // if ($request->discount) {
-                //     $coupon =  Coupon::where('coupon', $request->discount)->first();
-                //     $discounts = [
-                //         [
-                //             'coupon' => $coupon->coupon_id,
-                //         ],
-                //     ];
-                // }
+                $discounts = [];
+                if ($request->discount) {
+                    $coupon =  Coupon::where('coupon', $request->discount)->first();
+                    $discounts = [
+                        [
+                            'coupon' => $coupon->coupon_id,
+                        ],
+                    ];
+                }
 
                 Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -112,7 +112,7 @@ class StripeController extends Controller
                         'price' => $request->price,
                         'quantity' => 1, // Set the quantity to 1 for a standard subscription
                     ]],
-                    // 'discounts' => $discounts,
+                    'discounts' => $discounts,
                     'mode' => 'subscription',
                     'customer' => $customer,
                     'allow_promotion_codes' => true,
@@ -262,105 +262,6 @@ class StripeController extends Controller
 
             default:
                 echo 'Received unknown event type ' . $event->type;
-        }
-    }
-
-    public function sessionUrlTest(Request $request)
-    {
-        // return 'imran';
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            $customer =   $user->customer;
-            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            $lifeTimeSubscription = UserSubscription::where('email', $request->email)->where('type', 3)->where('status', 'paid')->get();
-
-            // if (count($lifeTimeSubscription) > 0 && $request->isAccount == 0) {
-            //     return  sendSuccess('Checkout Session Url .', '');
-            // } else {
-            $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where(function ($query) {
-                $query->where('istrail', 0)
-                    ->where('status', 'cancelled')
-                    ->orWhere(function ($query) {
-                        $query->where('istrail', '!=', 0)
-                            ->whereNotIn('status', ['unpaid']);
-                    });
-            })->get();
-
-            if (count($subscription) > 0) {
-                // return "checkout 1";
-                $session = $stripe->billingPortal->sessions->create([
-                    'customer' => $customer,
-                    'return_url' =>   $request->return_url,
-                ]);
-                return  sendSuccess('Billing Portal Url .', $session->url);
-            } else {
-                $discounts = [];
-                if ($request->discount) {
-                    $coupon =  Coupon::where('coupon', $request->discount)->first();
-                    $discounts = [
-                        [
-                            'coupon' => $coupon->coupon_id,
-                        ],
-                    ];
-                }
-                Stripe::setApiKey(env('STRIPE_SECRET'));
-
-                $session = \Stripe\Checkout\Session::create([
-                    'payment_method_types' => ['card'],
-                    'line_items' => [[
-                        'price' => $request->price,
-                        'quantity' => 1, // Set the quantity to 1 for a standard subscription
-                    ]],
-                    'discounts' => $discounts,
-                    'mode' => 'subscription',
-                    'customer' => $customer,
-                    'success_url' =>  $request->success_url,
-                    'cancel_url' =>  $request->cancel_url,
-
-                ]);
-
-                $plan = Subscription::where('price_id', $request->price)->where('status', 1)->first();
-                $mtype = 4;
-
-                if ($plan->product_title == 'Individual') {
-                    $mtype = 1;
-                } elseif ($plan->product_title == 'Family') {
-                    $mtype = 2;
-                } elseif ($plan->product_title == 'Big Family') {
-                    $mtype = 3;
-                }
-
-                $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
-
-                $userSubscription = new UserSubscription();
-                $userSubscription->user_id = $user->_id;
-                $userSubscription->email = $user->email;
-                $userSubscription->customer = $user->customer;
-                $userSubscription->price_id =  $request->price;
-                $userSubscription->status = $session->payment_status;
-                $userSubscription->plan_name = @$plan->product_title;
-                $userSubscription->plan_type = $mtype;
-                $userSubscription->type = @$plan->type;
-                if ($mtype == 1 && $request->trail == 1) {
-                    $userSubscription->istrail = 1;
-                    $userSubscription->status = 'paid';
-                    $userSubscription->expiry_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                    UserSubscription::where('user_id',  @$userSubscription->user_id)->where('plan_name', 'Freemium')->delete();
-                }
-                $userSubscription->seats = @$plan->seats;
-                $userSubscription->plan_id = @$plan->_id;
-                $userSubscription->checkout_id = $session->id;
-                $userSubscription->start_date = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-
-
-                $userSubscription->save();
-
-
-                return  sendSuccess('Checkout Session Url .', $session->url);
-            }
-            // }
-        } else {
-            return sendError('Something went wrong !', []);
         }
     }
 }
