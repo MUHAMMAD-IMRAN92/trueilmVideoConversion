@@ -257,6 +257,7 @@ class StripeController extends Controller
 
     public function sessionUrlTest(Request $request)
     {
+        return 'imran';
         $user = User::where('email', $request->email)->first();
         if ($user) {
             $customer =   $user->customer;
