@@ -284,7 +284,11 @@ class StripeController extends Controller
                 ]);
                 return  sendSuccess('Billing Portal Url .', $session->url);
             } else {
-
+                $discounts = [
+                    [
+                        'coupon' => "QO3huApM",
+                    ],
+                ];
                 Stripe::setApiKey(env('STRIPE_SECRET'));
 
                 $session = \Stripe\Checkout\Session::create([
@@ -293,7 +297,8 @@ class StripeController extends Controller
                         'price' => $request->price,
                         'quantity' => 1, // Set the quantity to 1 for a standard subscription
                     ]],
-                    'discount' => "QO3huApM",
+                    'allow_promotion_codes' => true,
+                    'discounts' => $discounts,
                     'mode' => 'subscription',
                     'customer' => $customer,
                     'allow_promotion_codes' => true,
