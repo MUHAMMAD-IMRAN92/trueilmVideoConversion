@@ -305,6 +305,7 @@ class StripeController extends Controller
                 // Determine trial period
                 $trial_period_days = $request->trail ? 7 : 0;
 
+                Stripe::setApiKey(env('STRIPE_SECRET'));
                 // Create Stripe Checkout Session
                 $session =  \Stripe\Checkout\Session::create([
                     'payment_method_types' => ['card'],
@@ -321,6 +322,8 @@ class StripeController extends Controller
                         'trial_period_days' => 7,
                     ],
                 ]);
+
+
 
                 // Fetch the subscription plan
                 $plan = Subscription::where('price_id', $request->price)->where('status', 1)->first();
