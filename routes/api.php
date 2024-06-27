@@ -180,12 +180,9 @@ Route::get('QuranEncTranslation',  [App\Http\Controllers\HomeController::class, 
 
 // middleware(['checkUserToken'])->
 Route::prefix('v2')->group(function () {
-    Route::get('/', function () {
-        return 'test';
-    });
-
     Route::post('send_email_to_childs',  [App\Http\Controllers\Api\UserController::class, 'emailToChilds']);
     Route::post('reset-password-email',  [App\Http\Controllers\Api\UserController::class, 'resetPassword']);
+    Route::post('stripe/session_url', [App\Http\Controllers\Api\StripeController::class, 'sessionUrl']);
 
     Route::post('search',  [App\Http\Controllers\HomeController::class, 'searchV2']);
     Route::get('books_courses/{type}',  [App\Http\Controllers\HomeController::class, 'getBooksCourses']);

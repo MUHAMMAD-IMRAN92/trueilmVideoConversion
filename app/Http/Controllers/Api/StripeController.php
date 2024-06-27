@@ -294,7 +294,7 @@ class StripeController extends Controller
             } else {
                 $discounts = [];
                 if ($request->discount) {
-                    $coupon =  Coupon::where('coupon', $request->discount)->first();
+                    $coupon = Coupon::where('coupon', $request->discount)->first();
                     $discounts = [
                         [
                             'coupon' => $coupon->coupon_id,
@@ -302,9 +302,11 @@ class StripeController extends Controller
                     ];
                 }
 
-                Stripe::setApiKey(env('STRIPE_SECRET'));
+                // Determine trial period
+                $trial_period_days = $request->trail ? 7 : 0;
 
-                $session = \Stripe\Checkout\Session::create([
+                // Create Stripe Checkout Session
+                $session = Session::create([
                     'payment_method_types' => ['card'],
                     'line_items' => [[
                         'price' => $request->price,
@@ -313,12 +315,14 @@ class StripeController extends Controller
                     'discounts' => $discounts,
                     'mode' => 'subscription',
                     'customer' => $customer,
-                    'allow_promotion_codes' => true,
-                    'success_url' =>  $request->success_url,
-                    'cancel_url' =>  $request->cancel_url,
-
+                    'success_url' => $request->success_url,
+                    'cancel_url' => $request->cancel_url,
+                    'subscription_data' => [
+                        'trial_period_days' => $trial_period_days,
+                    ],
                 ]);
 
+                // Fetch the subscription plan
                 $plan = Subscription::where('price_id', $request->price)->where('status', 1)->first();
                 $mtype = 4;
 
@@ -330,28 +334,37 @@ class StripeController extends Controller
                     $mtype = 3;
                 }
 
-                $existing = UserSubscription::where('user_id',  $user->_id)->where('price_id', $request->price)->where('status', 'unpaid')->where('plan_name', $plan->product_title)->where('type', $plan->type)->where('plan_type', $mtype)->delete();
+                // Remove existing unpaid subscriptions
+                UserSubscription::where('user_id', $user->_id)
+                    ->where('price_id', $request->price)
+                    ->where('status', 'unpaid')
+                    ->where('plan_name', $plan->product_title)
+                    ->where('type', $plan->type)
+                    ->where('plan_type', $mtype)
+                    ->delete();
 
+                // Create new user subscription
                 $userSubscription = new UserSubscription();
                 $userSubscription->user_id = $user->_id;
                 $userSubscription->email = $user->email;
                 $userSubscription->customer = $user->customer;
-                $userSubscription->price_id =  $request->price;
+                $userSubscription->price_id = $request->price;
                 $userSubscription->status = $session->payment_status;
                 $userSubscription->plan_name = @$plan->product_title;
                 $userSubscription->plan_type = $mtype;
                 $userSubscription->type = @$plan->type;
-                if ($mtype == 1 && $request->trail == 1) {
-                    $userSubscription->istrail = 1;
+
+                if ($trial_period_days > 0) {
+                    $userSubscription->is_trail = 1;
                     $userSubscription->status = 'paid';
-                    $userSubscription->expiry_date = Carbon::now()->addDays(15)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                    UserSubscription::where('user_id',  @$userSubscription->user_id)->where('plan_name', 'Freemium')->delete();
+                    $userSubscription->expiry_date = Carbon::now()->addDays($trial_period_days)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                    UserSubscription::where('user_id', @$userSubscription->user_id)->where('plan_name', 'Freemium')->delete();
                 }
+
                 $userSubscription->seats = @$plan->seats;
                 $userSubscription->plan_id = @$plan->_id;
                 $userSubscription->checkout_id = $session->id;
                 $userSubscription->start_date = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-
 
                 $userSubscription->save();
 
