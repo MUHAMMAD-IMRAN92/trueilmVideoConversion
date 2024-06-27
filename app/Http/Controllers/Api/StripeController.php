@@ -270,7 +270,6 @@ class StripeController extends Controller
         if ($user) {
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-            dd($stripe);
             $lifeTimeSubscription = UserSubscription::where('email', $request->email)->where('type', 3)->where('status', 'paid')->get();
 
             // if (count($lifeTimeSubscription) > 0 && $request->isAccount == 0) {
