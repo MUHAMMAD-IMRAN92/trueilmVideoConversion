@@ -301,13 +301,11 @@ class StripeController extends Controller
                         ],
                     ];
                 }
-
-                // Determine trial period
                 $trial_period_days = $request->trail ? 7 : 0;
 
-                Stripe::setApiKey(env('STRIPE_SECRET'));
+                // Determine trial period
                 // Create Stripe Checkout Session
-                $session =  \Stripe\Checkout\Session::create([
+                $session_data = [
                     'payment_method_types' => ['card'],
                     'line_items' => [[
                         'price' => $request->price,
@@ -318,10 +316,16 @@ class StripeController extends Controller
                     'customer' => $customer,
                     'success_url' => $request->success_url,
                     'cancel_url' => $request->cancel_url,
-                    'subscription_data' => [
+                ];
+
+                if ($trial_period_days > 0) {
+                    $session_data['subscription_data'] = [
                         'trial_period_days' => $trial_period_days,
-                    ],
-                ]);
+                    ];
+                }
+
+                $session = \Stripe\Checkout\Session::create($session_data);
+
 
 
 
