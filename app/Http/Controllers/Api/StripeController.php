@@ -319,7 +319,7 @@ class StripeController extends Controller
                     'success_url' => $request->success_url,
                     'cancel_url' => $request->cancel_url,
                     'subscription_data' => [
-                        'trial_period_days' => 7,
+                        'trial_period_days' => $trial_period_days,
                     ],
                 ]);
 
