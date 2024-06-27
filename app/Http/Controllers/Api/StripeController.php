@@ -306,7 +306,7 @@ class StripeController extends Controller
                 $trial_period_days = $request->trail ? 7 : 0;
 
                 // Create Stripe Checkout Session
-                $session = Session::create([
+                $session =  \Stripe\Checkout\Session::create([
                     'payment_method_types' => ['card'],
                     'line_items' => [[
                         'price' => $request->price,
