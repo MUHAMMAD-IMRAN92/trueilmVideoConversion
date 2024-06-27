@@ -182,7 +182,7 @@ Route::get('QuranEncTranslation',  [App\Http\Controllers\HomeController::class, 
 Route::prefix('v2')->group(function () {
     Route::post('send_email_to_childs',  [App\Http\Controllers\Api\UserController::class, 'emailToChilds']);
     Route::post('reset-password-email',  [App\Http\Controllers\Api\UserController::class, 'resetPassword']);
-    Route::post('stripe/session_url', [App\Http\Controllers\Api\StripeController::class, 'sessionUrl']);
+    Route::post('stripe/session_url', [App\Http\Controllers\Api\StripeController::class, 'sessionUrlV2']);
 
     Route::post('search',  [App\Http\Controllers\HomeController::class, 'searchV2']);
     Route::get('books_courses/{type}',  [App\Http\Controllers\HomeController::class, 'getBooksCourses']);

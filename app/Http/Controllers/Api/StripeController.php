@@ -266,7 +266,7 @@ class StripeController extends Controller
 
     public function sessionUrlV2(Request $request)
     {
-      return  $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
         if ($user) {
             $customer =   $user->customer;
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
