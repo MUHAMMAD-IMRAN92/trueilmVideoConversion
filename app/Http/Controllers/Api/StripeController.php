@@ -363,7 +363,7 @@ class StripeController extends Controller
                 $userSubscription->type = @$plan->type;
 
                 if ($trial_period_days > 0) {
-                    $userSubscription->is_trail = 1;
+                    $userSubscription->istrail = 1;
                     // $userSubscription->status = 'paid';
                     $userSubscription->expiry_date = Carbon::now()->addDays($trial_period_days)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                     // UserSubscription::where('user_id', @$userSubscription->user_id)->where('plan_name', 'Freemium')->delete();
