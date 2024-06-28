@@ -204,8 +204,8 @@ class UserController extends Controller
         $sg = new \SendGrid($apiKey);
         $parent = User::where('_id', $request->parent_id)->first();
         // $arr = collect();
-        $password = "password";
         if ($parent) {
+            $password = "password";
             foreach ($request->emails as $email) {
                 $exitingUser = User::where('email', $email)->first();
                 if (!$exitingUser) {
