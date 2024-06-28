@@ -339,7 +339,6 @@ class StripeController extends Controller
                         'price' => $request->price,
                         'quantity' => 1, // Set the quantity to 1 for a standard subscription
                     ]],
-                    'discounts' => $discounts,
                     'mode' => 'subscription',
                     'customer' => $customer,
                     'success_url' => $request->success_url,
@@ -350,6 +349,11 @@ class StripeController extends Controller
                     $session_data['subscription_data'] = [
                         'trial_period_days' => $trial_period_days,
                     ];
+                }
+                if ($request->discount) {
+                    $session_data['discounts'] =  $discounts;
+                } else {
+                    $session_data['allow_promotion_codes'] = true;
                 }
 
                 $session = \Stripe\Checkout\Session::create($session_data);
