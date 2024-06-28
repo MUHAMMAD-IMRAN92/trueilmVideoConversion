@@ -208,7 +208,7 @@ class StripeController extends Controller
                     $uSubscription = $stripe->subscriptions->retrieve($session->subscription, []);
                     $userSubscription->expiry_date = Carbon::parse(@$uSubscription->current_period_end)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                     $userSubscription->start_date = Carbon::parse(@$uSubscription->current_period_start)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
-                    $userSubscription->istrail = 0;
+                    // $userSubscription->istrail = 0;
                     $userSubscription->testString = 'Status complete if';
                     $userSubscription->save();
                     deleteOtherSubscriptions($userSubscription);
@@ -283,7 +283,7 @@ class StripeController extends Controller
                     $userSubscription = UserSubscription::where('subscription_id', $subscription_id)->first();
                     if ($userSubscription) {
                         $userSubscription->status = 'cancelled';
-                        $userSubscription->stripeCancelled = 1;
+                        // $userSubscription->stripeCancelled = 1;
                         $userSubscription->canceled_at = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
                         $userSubscription->save();
                         if (!str_contains(@$userSubscription->email, 'mailinator')) {
