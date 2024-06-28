@@ -302,6 +302,7 @@ class StripeController extends Controller
                     ];
                 }
                 $trial_period_days = $request->trail ? 7 : 0;
+                Stripe::setApiKey(env('STRIPE_SECRET'));
 
                 // Determine trial period
                 // Create Stripe Checkout Session
