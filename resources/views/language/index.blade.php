@@ -21,8 +21,10 @@
                         </div>
                     </div>
                 </div>
+                @permission('language-create')
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
+                        
                         <div class="dropdown">
                             <a href="{{ url('language/create') }}"> <button
                                     class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
@@ -30,8 +32,10 @@
                                 </button></a>
 
                         </div>
+                       
                     </div>
                 </div>
+                @endpermission
                 <div class="content-header-right text-md-right col-md-2  d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         {{-- <div class="dropdown">
@@ -122,7 +126,7 @@
                                                     <th class="description-td">Language</th>
                                                     <th class="">Direction</th>
                                                     <th class="">Added By</th>
-                                                    <th>Action</th>
+                                                    @permission('language-edit')<th>Action</th> @endpermission
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -131,10 +135,10 @@
                                                         <td>{{ $language->title }}</td>
                                                         <td>{{ $language->direction }}</td>
                                                         <td>{{ @$language->user->name }}</td>
-                                                        <td> <a href="{{ url('language/edit/' . $language->_id) }}">
+                                                        @permission('language-edit')<td> <a href="{{ url('language/edit/' . $language->_id) }}">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                        </td>
+                                                        </td>@endpermission
                                                     </tr>
                                                 @empty
                                                     <tr>

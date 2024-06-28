@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\RoleAndPermissinController;
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Jobs\SurahCombination as SurahCombinationJob;
@@ -50,6 +51,11 @@ Route::group(['domain' => 'trueilm.com'], function () {
     });
     Route::post('/', [App\Http\Controllers\HomeController::class, 'saveEmail']);
 });
+
+
+Route::view('/roles', 'roles');
+Route::view('/ permission', ' permission');
+Route::post('role-save', [RoleAndPermissinController::class, 'roleSave'])->name('role.aave');
 
 Route::get('sendEmailToPrevoius',  [App\Http\Controllers\HomeController::class, 'sendEmailToPrevoius']);
 Auth::routes();
@@ -377,7 +383,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     //languages
-    Route::get('language', [App\Http\Controllers\LanguageController::class, 'index']);
+    Route::get('language', [App\Http\Controllers\LanguageController::class, 'index'])->middleware('permission:language-view');
     Route::get('language/create', [App\Http\Controllers\LanguageController::class, 'create'])->name('language.create');
     Route::post('language', [App\Http\Controllers\LanguageController::class, 'store'])->name('language.store');
     Route::get('language/edit/{id}', [App\Http\Controllers\LanguageController::class, 'edit'])->name('language.edit');

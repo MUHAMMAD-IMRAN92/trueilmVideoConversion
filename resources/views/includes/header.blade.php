@@ -364,10 +364,14 @@
                             request()->is('surah/translations/2*')) active @endif "><a
                             href="{{ url('all_surah_translations/2') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Surah Tafseers</span></a> </li>
-                    <li class="@if (request()->is('language*')) active @endif "><a href="{{ url('/language') }}"><i
+                    @allpermission('language-view,language-create,language-edit')
+
+                    
+                            <li class="@if (request()->is('language*')) active @endif "><a href="{{ url('/language') }}"><i
                                 class="fa fa-language"></i>
                             <span class="menu-item" data-i18n="Analytics">Language</span></a>
-                    </li>
+                            </li>
+                    @endallpermission
                     {{-- <li class="@if (request()->is('all_surah_translations/6') || request()->is('surah_translations/6*') || request()->is('surah/translations/6*')) active @endif "><a
                                     href="{{ url('all_surah_translations/6') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surah Recitations</span></a> </li> --}}
@@ -490,6 +494,11 @@
                     <li class="@if (request()->is('user*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Admin Users</span></a>
+                    </li>
+
+                    <li class="@if (request()->is('roles')  || request()->is('permission')) active @endif "><a
+                            href="{{ url('roles') }}"><i class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">Role</span></a>
                     </li>
 
                     <li class="@if (request()->is('app-users*')) active @endif "><a

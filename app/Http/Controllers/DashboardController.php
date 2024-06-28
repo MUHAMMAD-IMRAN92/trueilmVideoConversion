@@ -18,6 +18,8 @@ class DashboardController extends Controller
     public $user;
     public function __construct()
     {
+
+        
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
 
@@ -26,6 +28,7 @@ class DashboardController extends Controller
     }
     public function index()
     {
+
         return view('dashboard');
     }
     public function ajaxUsersData(Request $request)
