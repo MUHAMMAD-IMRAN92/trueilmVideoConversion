@@ -36,6 +36,13 @@ class HadeesController extends Controller
     }
     public function index(Request $request, $type)
     {
+
+       
+        if(intval($type) == 3){
+            cheakPermission('hadith-translations-view');
+        }else{
+            cheakPermission('hadith-Tafseer-view');
+        }
         $hadeesBookCombination = HadeesBookCombination::when($request->book_id, function ($q) use ($request) {
             $q->where('book_id', $request->book_id);
         })->paginate(10);
@@ -326,6 +333,12 @@ class HadeesController extends Controller
 
     public function hadithCombination(Request $request, $type, $id)
     {
+
+        if(intval($type) == 3){
+            cheakPermission('hadith-translations-view');
+        }else{
+            cheakPermission('hadith-Tafseer-view');
+        }
         if ($type == 3) {
             $tranlation_type = 5;
         } else {
@@ -354,6 +367,11 @@ class HadeesController extends Controller
     // 651d74c5904d3d1f6703f01d
     public function Hadiths(Request $request, $type, $book_id, $combination_id)
     {
+        if(intval($type) == 3){
+            cheakPermission('hadith-translations-view');
+        }else{
+            cheakPermission('hadith-Tafseer-view');
+        }
         if ($type == 3) {
             $tranlation_type = 5;
         } else {

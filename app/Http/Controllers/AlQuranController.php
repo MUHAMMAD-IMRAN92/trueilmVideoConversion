@@ -23,6 +23,7 @@ use App\Jobs\SurahCombination as SurahCombinationJob;
 use App\Models\RecitationCombination;
 use App\Models\SurahCombinations;
 use Meilisearch\Client;
+use Illuminate\Support\Facades\Gate;
 
 class AlQuranController extends Controller
 {
@@ -121,6 +122,19 @@ class AlQuranController extends Controller
     }
     public function authorLanguage(Request $request)
     {
+
+        if(intval($request->combination_type) == 1){
+            cheakPermission('surah-translations-combination-add');
+        }
+        elseif(intval($request->combination_type) == 2){
+            cheakPermission('surah-translations-combination-add');
+        }
+        elseif(intval($request->combination_type) == 3){
+            cheakPermission('hadith-translations-combination-add');
+        }
+        else{
+            cheakPermission('hadith-Tafseer-combination-add');
+        }
         // return $request->all();
         $author = Author::where('_id', $request->author)->first();
         if (!$author) {
@@ -263,6 +277,11 @@ class AlQuranController extends Controller
     }
     public function deleteTranslation(Request $request)
     {
+        if(intval($request->type) == 1){
+            cheakPermission('add-surah-translations');
+        }else{
+            cheakPermission('add-surah-Tafseer');
+        }
         $alQuranTranslationSurah = AlQuranTranslation::where('_id', $request->transId)->first();
         SurahCombinationJob::dispatch($alQuranTranslationSurah->surah_id);
         $alQuranTranslation = AlQuranTranslation::where('_id', $request->transId)->delete();
@@ -272,6 +291,12 @@ class AlQuranController extends Controller
 
     public function updateTranslation(Request $request)
     {
+
+        if(intval($request->type) == 1){
+            cheakPermission('add-surah-translations');
+        }else{
+            cheakPermission('add-surah-Tafseer');
+        }
         ini_set("memory_limit", "-1");
         $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
         // return $request->all();
@@ -363,8 +388,17 @@ class AlQuranController extends Controller
     {
         return Book::where('type', $request->type)->get();
     }
+    
     public  function newAllSurah(Request $request, $type)
     {
+        
+        if(intval($type) == 1){
+            cheakPermission('surah-translations-view');
+        }else{
+            cheakPermission('surah-Tafseer-view');
+        }
+
+
 
         $surahs =   SurahCombinations::when($request->surah, function ($q) use ($request) {
             $q->where('surah_id', $request->surah);
@@ -387,6 +421,13 @@ class AlQuranController extends Controller
     }
     public function surah(Request $request, $type,  $id)
     {
+        if(intval($type) == 1){
+            cheakPermission('surah-translations-view');
+        }else{
+            cheakPermission('surah-Tafseer-view');
+        }
+
+
         $surah = Surah::where('_id', $id)->first();
         $languages = Languages::all();
         $author = Author::all();
@@ -421,6 +462,13 @@ class AlQuranController extends Controller
     }
     public function surahAyats(Request $request, $type, $surah_id, $combination_id)
     {
+        if(intval($type) == 1){
+            cheakPermission('surah-translations-view');
+        }else{
+            cheakPermission('surah-Tafseer-view');
+        }
+
+        
         $surah = Surah::where('_id', $surah_id)
             ->with([
                 'ayats',
@@ -479,6 +527,19 @@ class AlQuranController extends Controller
     public function disableCombination($id)
     {
         $combination = AuthorLanguage::where('_id', $id)->first();
+
+        if(intval($combination->type) == 1){
+            cheakPermission('surah-translations-combination-action');
+        }
+        elseif(intval($combination->type) == 2){
+            cheakPermission('surah-translations-combination-action');
+        }
+        elseif(intval($combination->type) == 3){
+            cheakPermission('hadith-translations-combination-action');
+        }
+        else{
+            cheakPermission('hadith-Tafseer-combination-action');
+        }
         if ($combination->status == 1) {
             $combination->status = 0;
             $combination->save();

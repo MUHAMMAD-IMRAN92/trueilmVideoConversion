@@ -123,6 +123,7 @@ class User extends Authenticatable
     
     public function checkPermission($permission)
     {
+
         
         return $this->getmyrole && $this->getmyrole->permissions->contains('name', $permission);
 

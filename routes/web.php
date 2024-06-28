@@ -24,6 +24,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\RoleAndPermissinController;
+Use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AlQuranController;
+use App\Http\Controllers\HadeesController;
+use App\Http\Controllers\CategoryController;
+
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Jobs\SurahCombination as SurahCombinationJob;
@@ -69,42 +74,55 @@ Route::middleware(['auth'])->group(function () {
     Route::get('ajax/top-course-data/{type}', [App\Http\Controllers\DashboardController::class, 'getTopReadCourseData'])->name('ajax.most-read-course.data');
 
     //Al-Quran
-    Route::get('ayat/create/{id}', [App\Http\Controllers\AlQuranController::class, 'add'])->name('ayat.add');
-    Route::post('ayat/store', [App\Http\Controllers\AlQuranController::class, 'store'])->name('ayat.store');
-    Route::get('ayat/edit/{surah_id}/{ayat_id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('ayat.edit');
-    Route::post('ayat/update', [App\Http\Controllers\AlQuranController::class, 'update'])->name('ayat.update');
+    // Route::get('ayat/create/{id}', [App\Http\Controllers\AlQuranController::class, 'add'])->name('ayat.add');
+    // Route::post('ayat/store', [App\Http\Controllers\AlQuranController::class, 'store'])->name('ayat.store');
+    // Route::get('ayat/edit/{surah_id}/{ayat_id}', [App\Http\Controllers\AlQuranController::class, 'edit'])->name('ayat.edit');
+    // Route::post('ayat/update', [App\Http\Controllers\AlQuranController::class, 'update'])->name('ayat.update');
+    
+    ////Proteted/////
     Route::post('author_lang', [App\Http\Controllers\AlQuranController::class, 'authorLanguage'])->name('ayat.author_language');
     Route::get('disable/author_lang/{id}', [App\Http\Controllers\AlQuranController::class, 'disableCombination']);
+    ////Proteted/////
+
 
     //Ayat Translations
+    ////Proteted/////
+    
+    
     Route::get('ayat/translation/delete', [App\Http\Controllers\AlQuranController::class, 'deleteTranslation'])->name('ayat.translaton.delete');
     Route::post('ayat/translation/update', [App\Http\Controllers\AlQuranController::class, 'updateTranslation'])->name('ayat.translaton.update');
-    Route::post('ayat/translation/save', [App\Http\Controllers\AlQuranController::class, 'saveTranslation'])->name('ayat.translaton.save');
+    
+    
+    ////Proteted/////
+    
+    //Route::post('ayat/translation/save', [App\Http\Controllers\AlQuranController::class, 'saveTranslation'])->name('ayat.translaton.save');
 
+
+    
     //Ayat Tafseer
-    Route::get('ayat/tafseer/delete', [App\Http\Controllers\AlQuranController::class, 'deleteTafseer'])->name('ayat.tafseer.delete');
-    Route::post('ayat/tafseer/update', [App\Http\Controllers\AlQuranController::class, 'updateTafseer'])->name('ayat.tafseer.update');
-    Route::post('ayat/tafseer/save', [App\Http\Controllers\AlQuranController::class, 'saveTafseer'])->name('ayat.tafseer.save');
+    // Route::get('ayat/tafseer/delete', [App\Http\Controllers\AlQuranController::class, 'deleteTafseer'])->name('ayat.tafseer.delete');
+    // Route::post('ayat/tafseer/update', [App\Http\Controllers\AlQuranController::class, 'updateTafseer'])->name('ayat.tafseer.update');
+    // Route::post('ayat/tafseer/save', [App\Http\Controllers\AlQuranController::class, 'saveTafseer'])->name('ayat.tafseer.save');
 
     //Ayat Reference
     Route::get('referene/get_files', [App\Http\Controllers\AlQuranController::class, 'getFiles'])->name('ayat.reference.files');
     Route::get('reference/delete', [App\Http\Controllers\ReferenceController::class, 'delete'])->name('ayat.reference.delete');
 
     //juz
-    Route::get('juz', [App\Http\Controllers\JuzController::class, 'index'])->name('juz');
-    Route::get('all-juz', [App\Http\Controllers\JuzController::class, 'allJuz'])->name('juz.all');
-    Route::get('juz/create', [App\Http\Controllers\JuzController::class, 'add'])->name('juz.add');
-    Route::post('juz/store', [App\Http\Controllers\JuzController::class, 'store'])->name('juz.store');
-    Route::get('juz/edit/{id}', [App\Http\Controllers\JuzController::class, 'edit'])->name('juz.edit');
-    Route::post('juz/update', [App\Http\Controllers\JuzController::class, 'update'])->name('juz.update');
+    // Route::get('juz', [App\Http\Controllers\JuzController::class, 'index'])->name('juz');
+    // Route::get('all-juz', [App\Http\Controllers\JuzController::class, 'allJuz'])->name('juz.all');
+    // Route::get('juz/create', [App\Http\Controllers\JuzController::class, 'add'])->name('juz.add');
+    // Route::post('juz/store', [App\Http\Controllers\JuzController::class, 'store'])->name('juz.store');
+    // Route::get('juz/edit/{id}', [App\Http\Controllers\JuzController::class, 'edit'])->name('juz.edit');
+    // Route::post('juz/update', [App\Http\Controllers\JuzController::class, 'update'])->name('juz.update');
 
     //Surah
-    Route::get('al-Quran', [App\Http\Controllers\SurahController::class, 'index'])->name('al-Quran');
-    Route::get('all-surah', [App\Http\Controllers\SurahController::class, 'allSurah'])->name('surah');
-    Route::get('surah/create', [App\Http\Controllers\SurahController::class, 'add'])->name('surah.add');
-    Route::post('surah/store', [App\Http\Controllers\SurahController::class, 'store'])->name('surah.store');
-    Route::get('surah/edit/{id}', [App\Http\Controllers\SurahController::class, 'edit'])->name('surah.edit');
-    Route::post('surah/update', [App\Http\Controllers\SurahController::class, 'update'])->name('surah.update');
+    // Route::get('al-Quran', [App\Http\Controllers\SurahController::class, 'index'])->name('al-Quran');
+    // Route::get('all-surah', [App\Http\Controllers\SurahController::class, 'allSurah'])->name('surah');
+    // Route::get('surah/create', [App\Http\Controllers\SurahController::class, 'add'])->name('surah.add');
+    // Route::post('surah/store', [App\Http\Controllers\SurahController::class, 'store'])->name('surah.store');
+    // Route::get('surah/edit/{id}', [App\Http\Controllers\SurahController::class, 'edit'])->name('surah.edit');
+    // Route::post('surah/update', [App\Http\Controllers\SurahController::class, 'update'])->name('surah.update');
 
     //publisher
     Route::get('publisher', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
@@ -117,29 +135,32 @@ Route::middleware(['auth'])->group(function () {
 
     //Hadith
     Route::get('hadith/books/{type}', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');
-    Route::get('all-hadith-books', [App\Http\Controllers\HadeesController::class, 'allBook'])->name('hadith.books');
-    Route::get('hadith/book/create/{type}', [App\Http\Controllers\HadeesController::class, 'addBook'])->name('hadith.book.add');
-    Route::post('hadith/book/create', [App\Http\Controllers\HadeesController::class, 'storeBook'])->name('hadith.book.store');
-    Route::get('hadith/create/{type}/{id}/{combination}', [App\Http\Controllers\HadeesController::class, 'add'])->name('hadith.add');
-    Route::post('hadith/store', [App\Http\Controllers\HadeesController::class, 'store'])->name('hadith.store');
-    Route::get('hadith/edit/{bookId}/{hadeesId}', [App\Http\Controllers\HadeesController::class, 'edit'])->name('hadith.edit');
-    Route::post('hadith/update', [App\Http\Controllers\HadeesController::class, 'update'])->name('hadith.update');
-    Route::get('hadith/book/edit/{id}', [App\Http\Controllers\HadeesController::class, 'editBook'])->name('hadith.book.edit');
+    Route::get('hadith/book/create/{type}', [HadeesController::class, 'addBook'])->middleware('permission:add-hadith-book');
+    Route::post('hadith/book/create', [HadeesController::class, 'storeBook'])->middleware('permission:add-hadith-book');
+    Route::get('hadith/create/{type}/{id}/{combination}', [HadeesController::class, 'add'])->middleware('permission:add-hadith');
+    Route::post('hadith/store', [HadeesController::class, 'store'])->name('hadith.store')->middleware('permission:add-hadith');
+    //Route::get('all-hadith-books', [App\Http\Controllers\HadeesController::class, 'allBook'])->name('hadith.books');
+    // Route::get('hadith/edit/{bookId}/{hadeesId}', [HadeesController::class, 'edit'])->name('hadith.edit');
+    // Route::post('hadith/update', [HadeesController::class, 'update'])->name('hadith.update');
+    // Route::get('hadith/book/edit/{id}', [HadeesController::class, 'editBook'])->name('hadith.book.edit');
 
-    Route::get('hadith/translation/delete', [App\Http\Controllers\HadeesController::class, 'deleteTranslation'])->name('hadith.translaton.delete');
-    Route::post('hadith/translation/update', [App\Http\Controllers\HadeesController::class, 'updateTranslation'])->name('hadith.translaton.update');
-    Route::post('hadith/add_chapter', [App\Http\Controllers\HadeesController::class, 'addChapter'])->name('hadith.addChapter');
+    Route::get('hadith/translation/delete', [HadeesController::class, 'deleteTranslation'])->name('hadith.translaton.delete');
+    Route::post('hadith/translation/update', [HadeesController::class, 'updateTranslation'])->name('hadith.translaton.update');
+    Route::post('hadith/add_chapter', [HadeesController::class, 'addChapter'])->name('hadith.addChapter');
 
     //author
-    Route::get('authors/{type?}', [App\Http\Controllers\AuthorController::class, 'index'])->name('author');
-    Route::get('all-author', [App\Http\Controllers\AuthorController::class, 'allauthor'])->name('author.all');
-    Route::get('author/create/{type?}', [App\Http\Controllers\AuthorController::class, 'add'])->name('author.add');
-    Route::post('author/store', [App\Http\Controllers\AuthorController::class, 'store'])->name('author.store');
-    Route::get('author/edit/{id}', [App\Http\Controllers\AuthorController::class, 'edit'])->name('author.edit');
-    Route::post('author/update', [App\Http\Controllers\AuthorController::class, 'update'])->name('author.update');
-
+    ////Proteted/////
+    Route::get('authors/{type?}', [AuthorController::class, 'index'])->name('author');
+    Route::get('all-author', [AuthorController::class, 'allauthor'])->name('author.all');
+    Route::get('author/create/{type?}', [AuthorController::class, 'add'])->name('author.add');
+    Route::post('author/store', [AuthorController::class, 'store'])->name('author.store');
+    Route::get('author/edit/{id}', [AuthorController::class, 'edit'])->name('author.edit');
+    Route::post('author/update', [AuthorController::class, 'update'])->name('author.update');
+    ////Proteted/////
     //books
-    Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books');
+
+
+    Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books')->middleware('contentPermission:view');
     Route::get('all-book', [App\Http\Controllers\BookController::class, 'allBooks'])->name('book.all');
     Route::get('book/{type}/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');
     Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store');
@@ -203,17 +224,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all/cancel_subscriptions', [App\Http\Controllers\UserController::class, 'allCancelSubscription'])->name('all.cancelsubscription');
 
     //categories
-    Route::get('categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
-    Route::get('all-category', [App\Http\Controllers\CategoryController::class, 'allCategory'])->name('category.all');
-    Route::get('categories/inactive', [App\Http\Controllers\CategoryController::class, 'inActive'])->name('inactive.categories');
-    Route::get('all-inactive-category', [App\Http\Controllers\CategoryController::class, 'allInactiveCategory'])->name('inactive-category.all');
-    Route::get('category/create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category.add');
-    Route::post('category/store', [App\Http\Controllers\CategoryController::class, 'store'])->name('category.store');
-    Route::get('category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('categroy/update', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
-    Route::get('category/update-status/{id}', [App\Http\Controllers\CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
-    Route::post('category/change_content_category', [App\Http\Controllers\CategoryController::class, 'updateContentCategory'])->name('category.update.contentCategory');
-
+    Route::get('categories', [CategoryController::class, 'index'])->middleware('permission:category-view');
+    Route::get('categories/inactive', [CategoryController::class, 'inActive'])->middleware('permission:category-view');
+    Route::get('category/create', [CategoryController::class, 'create'])->name('category.add')->middleware('permission:category-create');
+    Route::post('category/store', [CategoryController::class, 'store'])->name('category.store')->middleware('permission:category-create');
+    Route::get('category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit')->middleware('permission:category-edit');
+    Route::post('categroy/update', [CategoryController::class, 'update'])->name('category.update')->middleware('permission:category-edit');
+    Route::get('category/update-status/{id}', [CategoryController::class, 'updateStatus'])->name('category.statusUpdate');
+    Route::post('category/change_content_category', [CategoryController::class, 'updateContentCategory'])->name('category.update.contentCategory');
+    
+    
+    Route::get('all-inactive-category', [CategoryController::class, 'allInactiveCategory'])->name('inactive-category.all');
+    Route::get('all-category', [CategoryController::class, 'allCategory'])->name('category.all');
     //courses
     Route::get('courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
     Route::get('all-courses', [App\Http\Controllers\CourseController::class, 'allCourses'])->name('courses.all');
@@ -370,23 +392,29 @@ Route::middleware(['auth'])->group(function () {
 
 
     //New AL-Quran Module
-    Route::get('all_surah_translations/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllSurah']);
-    Route::get('surah_translations/{type}/{id}', [App\Http\Controllers\AlQuranController::class, 'surah']);
-    Route::get('surah/translations/{type}/{surah_id}/{combination}', [App\Http\Controllers\AlQuranController::class, 'surahAyats']);
+
+    ////Proteted/////
+    Route::get('all_surah_translations/{type}', [AlQuranController::class, 'newAllSurah']);
+    Route::get('surah_translations/{type}/{id}', [AlQuranController::class, 'surah']);
+    Route::get('surah/translations/{type}/{surah_id}/{combination}', [AlQuranController::class, 'surahAyats']);
+    ////Proteted/////
+
+
+    
     //Al-Quran Recitations
-    Route::get('all_surah_recitations', [App\Http\Controllers\AlQuranController::class, 'surahRecitation']);
+    //Route::get('all_surah_recitations', [App\Http\Controllers\AlQuranController::class, 'surahRecitation']);
 
     //New Hadith
-    Route::get('all_hadith_books/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllBooks']);
-    Route::get('hadith/books/combination/{type}/{id}', [App\Http\Controllers\HadeesController::class, 'hadithCombination']);
-    Route::get('/hadith/books/combination/{type}/{book_id}/{combination}', [App\Http\Controllers\HadeesController::class, 'Hadiths']);
+    //Route::get('all_hadith_books/{type}', [App\Http\Controllers\AlQuranController::class, 'newAllBooks']);
+    Route::get('hadith/books/combination/{type}/{id}', [HadeesController::class, 'hadithCombination']);
+    Route::get('/hadith/books/combination/{type}/{book_id}/{combination}', [HadeesController::class, 'Hadiths']);
 
-
+    
     //languages
     Route::get('language', [App\Http\Controllers\LanguageController::class, 'index'])->middleware('permission:language-view');
-    Route::get('language/create', [App\Http\Controllers\LanguageController::class, 'create'])->name('language.create');
+    Route::get('language/create', [App\Http\Controllers\LanguageController::class, 'create'])->name('language.create')->middleware('permission:language-create');
     Route::post('language', [App\Http\Controllers\LanguageController::class, 'store'])->name('language.store');
-    Route::get('language/edit/{id}', [App\Http\Controllers\LanguageController::class, 'edit'])->name('language.edit');
+    Route::get('language/edit/{id}', [App\Http\Controllers\LanguageController::class, 'edit'])->name('language.edit')->middleware('permission:language-edit');
 
     //affiliate
     Route::get('affiliate', [App\Http\Controllers\UserController::class, 'affiliate'])->name('affiliate');

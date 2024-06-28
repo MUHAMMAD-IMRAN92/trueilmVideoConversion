@@ -105,11 +105,26 @@
                                             class="btn btn-dark">
                                             Clear</a>
                                     </div>
-                                    <div style="width: 201px" class="mt-1">
-                                        <span style="width: 201px" class="btn btn-dark " data-toggle="modal"
-                                            data-target="#author-lang"> Add
-                                            New</span>
-                                    </div>
+
+                                        @php
+                                            $permission_pass=''; 
+                                            if( intval($type) === 1){
+                                                $permission_pass='surah-translations-combination-add'; 
+
+                                            }else{
+                                                $permission_pass='surah-Tafseer-combination-add'; 
+
+                                            }
+                                        @endphp
+                                            
+
+                                        @permission($permission_pass)
+                                            <div style="width: 201px" class="mt-1">
+                                                <span style="width: 201px" class="btn btn-dark " data-toggle="modal"
+                                                    data-target="#author-lang"> Add
+                                                    New</span>
+                                            </div>
+                                        @endpermission    
 
                                 </div>
 
@@ -170,6 +185,21 @@
                                             <span class="action-edit"><i class="fa fa-external-link"></i></span>
 
                                         </td>
+
+                                        @php
+                                            $permission_pass=''; 
+                                            if( intval($type) === 1){
+                                                $permission_pass='surah-translations-combination-action'; 
+
+                                            }else{
+                                                $permission_pass='surah-Tafseer-combination-action'; 
+
+                                            }
+                                        @endphp
+                                            
+
+                                        @permission($permission_pass)
+
                                         <td class="product-action">
                                             <span class="action-edit"><a class="btn btn-dark"
                                                     href="{{ url('disable/author_lang/' . $combination->_id) }}">
@@ -181,6 +211,7 @@
 
                                                 </a></span>
                                         </td>
+                                        @endpermission
                                     </tr>
                                 @empty
                                     <tr>

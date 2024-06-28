@@ -220,9 +220,13 @@
                                         <button class="btn btn-dark" type="submit"> Search</button>
                                         <a href="{{ url('hadith/books/combination/' . $type . '/' . $book->_id . '/' . $currentCombination->_id) }}"
                                             class="btn btn-dark">Clear</i></a>
-                                        <a href="{{ url('hadith/create/' . $type . '/' . $book->_id . '/' . $currentCombination->_id) }}"
+                                        
+                                        @permission('add-hadith') 
+                                            <a href="{{ url('hadith/create/' . $type . '/' . $book->_id . '/' . $currentCombination->_id) }}"
                                             class="btn btn-dark">Add
                                             Hadith</i></a>
+                                        @endpermission    
+                                        
                                     </div>
 
 
@@ -372,11 +376,26 @@
                                                 </div>
 
                                                 <div class="row d-flex">
+
+                                                @php
+                                                    $permission_pass=''; 
+                                                    if( intval($type) === 1){
+                                                        $permission_pass='add-hadith-translations'; 
+
+                                                    }else{
+                                                        $permission_pass='add-hadith-Tafseer'; 
+
+                                                    }
+                                                @endphp
+                                                    
+
+                                                @permission($permission_pass)
                                                     <h4 id="edit-button-{{ $key }}"
                                                         onclick="editable('{{ $key }}')">
                                                         <span class="badge badge-info ml-1"><i class="fa fa-pencil"
                                                                 style="cursor: pointer;">&nbspEdit Translation</i></span>
                                                     </h4>
+                                                
                                                     @if ($type == 4)
                                                         <h4 id="revelation-edit-button-{{ $key }}"
                                                             onclick="editableRevelation('{{ $key }}')">
@@ -423,14 +442,15 @@
                                                                     class="fa fa-trash">&nbspDelete</i></span>
                                                         </h4>
                                                     @endif
-                                                    @php
-                                                        $tranlation_type = 1;
-                                                        if ($type == 3) {
-                                                            $tranlation_type = 5;
-                                                        } else {
-                                                            $tranlation_type = 6;
-                                                        }
-                                                    @endphp
+                                                @endpermission    
+                                                        @php
+                                                            $tranlation_type = 1;
+                                                            if ($type == 3) {
+                                                                $tranlation_type = 5;
+                                                            } else {
+                                                                $tranlation_type = 6;
+                                                            }
+                                                        @endphp
                                                     <h4
                                                         onclick="saveHadithTranslation('{{ $currentCombination->_id }}','{{ $key }}', {{ $tranlation_type }})">
                                                         <span class="badge badge-success ml-1"

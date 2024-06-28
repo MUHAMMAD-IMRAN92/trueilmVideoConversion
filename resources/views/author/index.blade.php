@@ -21,18 +21,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                    <div class="form-group breadcrum-right">
-                        <div class="dropdown">
-                            <a href="{{ url('author/create?type=' . $type) }}"> <button
-                                    class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
-                                        class="add-brand-font">Add Author</span> <i class="fa fa-plus"
-                                        aria-hidden="true"></i>
-                                </button></a>
 
+                
+                @php
+                $permission_pass=''; 
+                if( $type === null){
+                    $permission_pass='translations-author-create'; 
+
+                }else{
+                    $permission_pass='author-create'; 
+
+                }
+                @endphp
+                 
+
+                    @permission($permission_pass)
+                    <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+                        <div class="form-group breadcrum-right">
+                            <div class="dropdown">
+                                <a href="{{ url('author/create?type=' . $type) }}"> <button
+                                        class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"><span
+                                            class="add-brand-font">Add Author</span> <i class="fa fa-plus"
+                                            aria-hidden="true"></i>
+                                    </button></a>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    @endpermission
+                    
+                  
             </div>
             @if (\Session::has('msg'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -61,7 +80,9 @@
                                                 <tr>
                                                     <th>Name</th>
                                                     {{-- <th class="description-td">Detail</th> --}}
-                                                    <th>Action</th>
+                                                   
+                                                    <th>Action</th>   
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>

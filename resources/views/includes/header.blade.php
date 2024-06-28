@@ -350,15 +350,23 @@
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                     </li> --}}
+                    @allpermission('translations-author-view,translations-author-create,translations-author-edit')
                     <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a href="{{ url('authors') }}"><i
                                 class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Translations Author</span></a>
                     </li>
+                    @endallpermission
+
+
+
+                    @allpermission('surah-translations-view')
                     <li class="@if (request()->is('all_surah_translations/1') ||
                             request()->is('surah_translations/1*') ||
                             request()->is('surah/translations/1*')) active @endif "><a
                             href="{{ url('all_surah_translations/1') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Surah Translations</span></a> </li>
+                    
+                    @endallpermission
                     <li class="@if (request()->is('all_surah_translations/2') ||
                             request()->is('surah_translations/2*') ||
                             request()->is('surah/translations/2*')) active @endif "><a
@@ -388,20 +396,27 @@
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Hadith</span></a> --}}
                     {{-- <ul class="menu-content"> --}}
+                    @allpermission('hadith-translations-view')
 
                     <li class="@if (request()->is('hadith/books/3*') || request()->is('hadith/books/3') || request()->is('hadith/books/combination/3*')) active @endif "><a
                             href="{{ url('hadith/books/3') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith Translations</span></a>
+
+                    @endallpermission
+                    @allpermission('hadith-Tafseer-view')
                     <li class="@if (request()->is('hadith/4*') || request()->is('hadith/books/4') || request()->is('hadith/books/combination/4*')) active @endif "><a
                             href="{{ url('hadith/books/4') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith Tafseer</span></a>
                         {{-- </ul> --}}
                     </li>
+                    @endallpermission
                     <hr>
                 @endif
                 @if (auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                     <li class=" navigation-header"><span>Content</span>
                     </li>
+
+                    @allpermission('category-view,category-create')
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Category</span></a>
                         <ul class="menu-content">
@@ -422,6 +437,7 @@
 
                         </ul>
                     </li>
+                    @endallpermission
                     <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif "><a href="{{ url('books/1') }}"><i
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">eBooks</span></a>

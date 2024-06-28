@@ -49,6 +49,7 @@
                     </div>
                 </div>
                 <div class="content-header-right text-md-right col-md-2 col-2 d-md-block d-none">
+                    @allpermission('add-hadith-book') 
                     <div class="form-group breadcrum-right mr-1">
 
                         <div class="dropdown">
@@ -60,6 +61,7 @@
 
                         </div>
                     </div>
+                    @endallpermission
                 </div>
             </div>
             @if (\Session::has('msg'))
