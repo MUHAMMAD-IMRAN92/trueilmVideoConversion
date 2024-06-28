@@ -257,7 +257,41 @@ class StripeController extends Controller
                         }
                     }
                 }
+            case 'customer.subscription.trial_will_end':
+                $subscription = $event->data->object;
+                // Notify user their trial is ending
+                $userSubscription = UserSubscription::where('subscription_id', $subscription->id)->first();
+                if ($userSubscription) {
+                    // Send notification about trial ending
+                    if (!str_contains(@$userSubscription->email, 'mailinator')) {
+                        // subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-your-trial-ending-template-id');
+                    }
+                }
+                break;
+            case 'invoice.payment_failed':
+                $invoice = $event->data->object;
+                $subscription_id = $invoice->subscription;
+                $subscription = \Stripe\Subscription::retrieve($subscription_id);
 
+                // Check if the subscription is still in trial period
+                if ($subscription->status === 'past_due' && $subscription->trial_end && $subscription->trial_end < time()) {
+                    // Cancel the subscription
+                    \Stripe\Subscription::update($subscription_id, [
+                        'cancel_at_period_end' => true,
+                    ]);
+
+                    $userSubscription = UserSubscription::where('subscription_id', $subscription_id)->first();
+                    if ($userSubscription) {
+                        $userSubscription->status = 'cancelled';
+                        $userSubscription->stripeCancelled = 1;
+                        $userSubscription->canceled_at = Carbon::now()->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
+                        $userSubscription->save();
+                        if (!str_contains(@$userSubscription->email, 'mailinator')) {
+                            // subscriptionEmail(@$userSubscription->email, @$userSubscription->plan_name, 'd-subscription-cancelled-template-id');
+                        }
+                    }
+                }
+                break;
 
             default:
                 echo 'Received unknown event type ' . $event->type;

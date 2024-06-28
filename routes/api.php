@@ -73,7 +73,8 @@ Route::get('/quran/index/{id}', function ($id) {
 
     HadeesTranslation::chunk(10, function ($translations) use ($client) {
         $data = $translations->map(function ($tran) {
-            $tran->main_chapter = $tran->mainChapter();
+            $tran->lang_id = $tran->language();
+            $tran->author_id = $tran->author();
             return $tran;
         });
 
