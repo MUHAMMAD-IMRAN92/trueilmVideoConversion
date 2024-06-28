@@ -208,19 +208,18 @@ class UserController extends Controller
             $password = "password";
             foreach ($request->emails as $email) {
                 $exitingUser = User::where('email', $email)->first();
-                if (!$exitingUser) {
+                if ($exitingUser) {
+                    $exitingUser->parentId = $parent->_id;
+                    $exitingUser->save();
+                    $password = 'Please login with your old password! ';
+                } else {
+
                     $user = new User();
                     $user->email = $email;
                     $user->password = Hash::make('password');
                     $user->parentId = $parent->_id;
                     $user->is_reset = 0;
                     $user->save();
-                } else {
-                    $exitingUser->parentId = $parent->_id;
-                    // $exitingUser->is_reset = 0;
-                    $exitingUser->save();
-                    $password = 'Please login with your old password! ';
-                    // $arr->push($email);
                 }
 
 
