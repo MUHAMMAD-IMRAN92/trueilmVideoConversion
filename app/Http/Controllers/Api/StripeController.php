@@ -310,9 +310,7 @@ class StripeController extends Controller
             //     return  sendSuccess('Checkout Session Url .', '');
             // } else {
             $subscription = UserSubscription::where('customer', $customer)->where('price_id',  $request->price)->where(function ($query) {
-                $query->where('istrail', 0)
-                    ->where('status', 'cancelled')
-                    ->orWhere(function ($query) {
+                $query->orWhere(function ($query) {
                         $query->where('istrail', '!=', 0)
                             ->whereNotIn('status', ['unpaid']);
                     });
