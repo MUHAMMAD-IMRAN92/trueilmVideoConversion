@@ -71,7 +71,7 @@ Route::get('/quran/index/{id}', function ($id) {
 
     $client->createIndex('alHadeestranslations');
 
-    HadeesTranslation::chunk(100, function ($translations) use ($client) {
+    HadeesTranslation::where('book_id', $id)->chunk(10, function ($translations) use ($client) {
         $data = $translations->map(function ($tran) {
             // $tran->lang_id = $tran->language();
             // $tran->author_id = $tran->author();
