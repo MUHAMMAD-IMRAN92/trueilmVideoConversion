@@ -75,6 +75,7 @@ Route::get('/quran/index/{id}', function ($id) {
         $data = $translations->map(function ($tran) {
             $tran->lang_id = $tran->language();
             $tran->author_id = $tran->author();
+            $tran->author_id = $tran->mainChapter();
 
             return $tran;
         });
