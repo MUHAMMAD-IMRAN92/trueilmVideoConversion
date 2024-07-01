@@ -28,6 +28,9 @@ Use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\AlQuranController;
 use App\Http\Controllers\HadeesController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\AppSectionController;
+use App\Http\Controllers\CourseController;
 
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -125,13 +128,13 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('surah/update', [App\Http\Controllers\SurahController::class, 'update'])->name('surah.update');
 
     //publisher
-    Route::get('publisher', [App\Http\Controllers\PublisherController::class, 'index'])->name('publisher');
-    Route::get('all-publisher', [App\Http\Controllers\PublisherController::class, 'allPublisher'])->name('publisher.all');
-    Route::get('publisher/create', [App\Http\Controllers\PublisherController::class, 'add'])->name('publisher.add');
-    Route::post('publisher/store', [App\Http\Controllers\PublisherController::class, 'store'])->name('publisher.store');
-    Route::get('publisher/edit/{id}', [App\Http\Controllers\PublisherController::class, 'edit'])->name('publisher.edit');
-    Route::post('publisher/update', [App\Http\Controllers\PublisherController::class, 'update'])->name('publisher.update');
-    Route::get('publisher/books_reading_details/{id}', [App\Http\Controllers\PublisherController::class, 'publisherBookReadingDetail'])->name('publisher.bookReadingDetail');
+    Route::get('publisher', [PublisherController::class, 'index'])->name('publisher')->middleware('permission:publisher-view');
+    Route::get('all-publisher', [PublisherController::class, 'allPublisher'])->name('publisher.all');
+    Route::get('publisher/create', [PublisherController::class, 'add'])->name('publisher.add')->middleware('permission:publisher-create');
+    Route::post('publisher/store', [PublisherController::class, 'store'])->name('publisher.store')->middleware('permission:publisher-create');
+    Route::get('publisher/edit/{id}', [PublisherController::class, 'edit'])->name('publisher.edit')->middleware('permission:publisher-edit');
+    Route::post('publisher/update', [PublisherController::class, 'update'])->name('publisher.update')->middleware('permission:publisher-edit');
+    Route::get('publisher/books_reading_details/{id}', [PublisherController::class, 'publisherBookReadingDetail'])->name('publisher.bookReadingDetail');
 
     //Hadith
     Route::get('hadith/books/{type}', [App\Http\Controllers\HadeesController::class, 'index'])->name('hadith');
@@ -162,12 +165,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('books/{type}', [App\Http\Controllers\BookController::class, 'index'])->name('books')->middleware('contentPermission:view');
     Route::get('all-book', [App\Http\Controllers\BookController::class, 'allBooks'])->name('book.all');
-    Route::get('book/{type}/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add');
-    Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store');
-    Route::get('book/{type}/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('book.edit');
+    Route::get('book/{type}/create', [App\Http\Controllers\BookController::class, 'add'])->name('book.add')->middleware('contentPermission:create');
+    Route::post('book/store', [App\Http\Controllers\BookController::class, 'store'])->name('book.store')->middleware('contentPermission:create');
+    Route::get('book/{type}/edit/{id}', [App\Http\Controllers\BookController::class, 'edit'])->name('book.edit')->middleware('contentPermission:edit');
     Route::get('book/{type}/list/{id}', [App\Http\Controllers\BookController::class, 'list'])->name('book.list');
-    Route::post('book/update/sequence', [App\Http\Controllers\BookController::class, 'updateSequence'])->name('book.sequence');
-    Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update');
+    Route::post('book/update/sequence', [App\Http\Controllers\BookController::class, 'updateSequence'])->name('book.sequence')->middleware('permission:edit-audio-book-chapter');
+    Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update')->middleware('contentPermission:edit');
     Route::get('book/update-status/{id}', [App\Http\Controllers\BookController::class, 'updateStatus'])->name('book.statusUpdate');
     Route::get('book/pending-for-approval/{type}', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove');
     Route::get('all-pending-book', [App\Http\Controllers\BookController::class, 'allPendingForApprovalBooks'])->name('book.all-panding');
@@ -184,17 +187,17 @@ Route::middleware(['auth'])->group(function () {
 
     //delete audio chapter
 
-    Route::get('delete/audio/{id}', [App\Http\Controllers\BookController::class, 'deleteAudioChapter'])->name('book.audio.delete.chapter');
-    Route::get('update/audio/name', [App\Http\Controllers\BookController::class, 'updateChapterName'])->name('book.audio.update.chapter');
-    Route::post('add/audio/chapter', [App\Http\Controllers\BookController::class, 'addAudioChapter'])->name('book.audio.add.chapter');
+    Route::get('delete/audio/{id}', [App\Http\Controllers\BookController::class, 'deleteAudioChapter'])->name('book.audio.delete.chapter')->middleware('permission:delete-audio-book-chapter');
+    Route::get('update/audio/name', [App\Http\Controllers\BookController::class, 'updateChapterName'])->name('book.audio.update.chapter')->middleware('permission:edit-audio-book-chapter');
+    Route::post('add/audio/chapter', [App\Http\Controllers\BookController::class, 'addAudioChapter'])->name('book.audio.add.chapter')->middleware('permission:add-audio-book-chapter');
 
     //podcast
-    Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit');
+    Route::get('podcast/edit/{id}', [App\Http\Controllers\BookController::class, 'podcastEdit'])->name('podcast.edit')->middleware('permission:podcast-edit');
     Route::post('podcast/episode', [App\Http\Controllers\BookController::class, 'podcastEpisode'])->name('podcast.episode');
     Route::post('podcast/bulk/episode', [App\Http\Controllers\BookController::class, 'podcastBulkEpisode'])->name('podcast.bulk.episode');
-    Route::get('podcast/episode/delete/{id}', [App\Http\Controllers\BookController::class, 'deleteEpisode'])->name('podcast.episode.delete');
+    Route::get('podcast/episode/delete/{id}', [App\Http\Controllers\BookController::class, 'deleteEpisode'])->name('podcast.episode.delete')->middleware('permission:delete-podcast-episode');
 
-    Route::get('podcast/episode/undo-delete/{id}', [App\Http\Controllers\BookController::class, 'undoDeleteEpisode'])->name('podcast.episode.undo-delete');
+    Route::get('podcast/episode/undo-delete/{id}', [App\Http\Controllers\BookController::class, 'undoDeleteEpisode'])->name('podcast.episode.undo-delete')->middleware('permission:delete-podcast-episode');
 
     //super admin revet
     Route::get('activities', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('book.activities');
@@ -237,41 +240,41 @@ Route::middleware(['auth'])->group(function () {
     Route::get('all-inactive-category', [CategoryController::class, 'allInactiveCategory'])->name('inactive-category.all');
     Route::get('all-category', [CategoryController::class, 'allCategory'])->name('category.all');
     //courses
-    Route::get('courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses');
-    Route::get('all-courses', [App\Http\Controllers\CourseController::class, 'allCourses'])->name('courses.all');
-    Route::get('course/create', [App\Http\Controllers\CourseController::class, 'add'])->name('course.add');
-    Route::post('course/store', [App\Http\Controllers\CourseController::class, 'store'])->name('course.store');
-    Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
-    Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
-    Route::get('course/update-status/{id}', [App\Http\Controllers\CourseController::class, 'updateStatus'])->name('course.statusUpdate');
-    Route::get('all-pending-courses', [App\Http\Controllers\CourseController::class, 'allPendingCourses'])->name('courses.pending.all');
-    Route::get('course/approve/{id}', [App\Http\Controllers\CourseController::class, 'approveCourse'])->name('course.approve');
-    Route::get('course/reject/{id}', [App\Http\Controllers\CourseController::class, 'rejectCourse'])->name('course.reject');
-    Route::get('all-rejected-by-you-courses', [App\Http\Controllers\CourseController::class, 'allRejectedByYouCourses'])->name('courses.rejected.all');
-    Route::get('all-approved-by-you-courses', [App\Http\Controllers\CourseController::class, 'allApprovedByYouCourses'])->name('courses.approved.all');
-    Route::get('all-rejected-courses', [App\Http\Controllers\CourseController::class, 'allRejectedCourses'])->name('courses.rejected.all');
-    Route::post('course/lessons', [App\Http\Controllers\CourseController::class, 'courseLessons'])->name('course.lessons');
-    Route::post('course/bulk/episode', [App\Http\Controllers\CourseController::class, 'courseBulkEpisode'])->name('course.bulk.episode');
-    Route::get('update/lesson/title', [App\Http\Controllers\CourseController::class, 'updateLessonName'])->name('course.lesson.update.title');
-    Route::get('course/lesson/delete/{id}', [App\Http\Controllers\CourseController::class, 'deleteLesson'])->name('course.lesson.delete');
-    Route::get('course/lesson/undo-delete/{id}', [App\Http\Controllers\CourseController::class, 'UndoDeleteLesson'])->name('course.lesson.delete');
+    Route::get('courses', [CourseController::class, 'index'])->name('courses')->middleware('permission:course-view');
+    Route::get('all-courses', [CourseController::class, 'allCourses'])->name('courses.all');
+    Route::get('course/create', [CourseController::class, 'add'])->name('course.add')->middleware('permission:course-create');
+    Route::post('course/store', [CourseController::class, 'store'])->name('course.store')->middleware('permission:course-create');
+    Route::get('course/edit/{id}', [CourseController::class, 'edit'])->name('course.edit')->middleware('permission:course-edit');
+    Route::post('course/update', [CourseController::class, 'update'])->name('course.update')->middleware('permission:course-edit');
+    Route::get('course/update-status/{id}', [CourseController::class, 'updateStatus'])->name('course.statusUpdate')->middleware('permission:course-toggle');
+    Route::get('all-pending-courses', [CourseController::class, 'allPendingCourses'])->name('courses.pending.all');
+    Route::get('course/approve/{id}', [CourseController::class, 'approveCourse'])->name('course.approve');
+    Route::get('course/reject/{id}', [CourseController::class, 'rejectCourse'])->name('course.reject');
+    Route::get('all-rejected-by-you-courses', [CourseController::class, 'allRejectedByYouCourses'])->name('courses.rejected.all');
+    Route::get('all-approved-by-you-courses', [CourseController::class, 'allApprovedByYouCourses'])->name('courses.approved.all');
+    Route::get('all-rejected-courses', [CourseController::class, 'allRejectedCourses'])->name('courses.rejected.all');
+    Route::post('course/lessons', [CourseController::class, 'courseLessons'])->name('course.lessons');
+    Route::post('course/bulk/episode', [CourseController::class, 'courseBulkEpisode'])->name('course.bulk.episode')->middleware('permission:edit-course-lesson');
+    Route::get('update/lesson/title', [CourseController::class, 'updateLessonName'])->name('course.lesson.update.title')->middleware('permission:edit-course-lesson');
+    Route::get('course/lesson/delete/{id}', [CourseController::class, 'deleteLesson'])->name('course.lesson.delete')->middleware('permission:delete-course-lesson');
+    Route::get('course/lesson/undo-delete/{id}', [CourseController::class, 'UndoDeleteLesson'])->name('course.lesson.delete')->middleware('permission:delete-course-lesson');
 
     //lesson quiz
-    Route::get('lesson/quiz/add/{course_id}', [App\Http\Controllers\CourseController::class, 'addQuiz'])->name('quiz.add');
-    Route::post('lesson/quiz/post', [App\Http\Controllers\CourseController::class, 'postQuiz'])->name('quiz.post');
-    Route::get('lesson/quiz/edit/{course_id}/{id}', [App\Http\Controllers\CourseController::class, 'manageQuiz'])->name('quiz.add');
-    Route::post('lesson/quiz/update', [App\Http\Controllers\CourseController::class, 'updateQuiz'])->name('quiz.update');
-    Route::get('lesson/quiz/results/{course_id}/{id}', [App\Http\Controllers\CourseController::class, 'quizResults'])->name('quiz.results');
-    Route::get('lesson/quiz/results/{user_id}', [App\Http\Controllers\CourseController::class, 'userAttemptsResults'])->name('quiz.user.results');
+    Route::get('lesson/quiz/add/{course_id}', [CourseController::class, 'addQuiz'])->name('quiz.add');
+    Route::post('lesson/quiz/post', [CourseController::class, 'postQuiz'])->name('quiz.post');
+    Route::get('lesson/quiz/edit/{course_id}/{id}', [CourseController::class, 'manageQuiz'])->name('quiz.add');
+    Route::post('lesson/quiz/update', [CourseController::class, 'updateQuiz'])->name('quiz.update');
+    Route::get('lesson/quiz/results/{course_id}/{id}', [CourseController::class, 'quizResults'])->name('quiz.results');
+    Route::get('lesson/quiz/results/{user_id}', [CourseController::class, 'userAttemptsResults'])->name('quiz.user.results');
 
     //course series
-    Route::get('series', [App\Http\Controllers\CourseSeriesController::class, 'seriesIndex'])->name('series');
-    Route::get('all-series', [App\Http\Controllers\CourseSeriesController::class, 'allSeries'])->name('series.all');
-    Route::get('series/create', [App\Http\Controllers\CourseSeriesController::class, 'add'])->name('series.add');
-    Route::post('series/store', [App\Http\Controllers\CourseSeriesController::class, 'store'])->name('series.store');
-    Route::get('series/edit/{id}', [App\Http\Controllers\CourseSeriesController::class, 'edit'])->name('series.edit');
-    Route::post('series/update', [App\Http\Controllers\CourseSeriesController::class, 'update'])->name('series.update');
-    Route::get('series/update-status/{id}', [App\Http\Controllers\CourseSeriesController::class, 'updateStatus'])->name('series.statusUpdate');
+    Route::get('series', [CourseSeriesController::class, 'seriesIndex'])->name('series');
+    Route::get('all-series', [CourseSeriesController::class, 'allSeries'])->name('series.all');
+    Route::get('series/create', [CourseSeriesController::class, 'add'])->name('series.add');
+    Route::post('series/store', [CourseSeriesController::class, 'store'])->name('series.store');
+    Route::get('series/edit/{id}', [CourseSeriesController::class, 'edit'])->name('series.edit');
+    Route::post('series/update', [CourseSeriesController::class, 'update'])->name('series.update');
+    Route::get('series/update-status/{id}', [CourseSeriesController::class, 'updateStatus'])->name('series.statusUpdate');
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');
@@ -433,15 +436,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('app/versions', [App\Http\Controllers\HomeController::class, 'storeVersions'])->name('appVersions.store');
 
     //section
-    Route::get('app-section', [App\Http\Controllers\AppSectionController::class, 'index'])->name('app-section');
-    Route::get('all-app-section', [App\Http\Controllers\AppSectionController::class, 'allSection'])->name('app-section.all');
-    Route::get('app-section/create', [App\Http\Controllers\AppSectionController::class, 'add'])->name('app-section.add');
-    Route::post('app-section/store', [App\Http\Controllers\AppSectionController::class, 'store'])->name('app-section.store');
-    Route::get('app-section/edit/{id}', [App\Http\Controllers\AppSectionController::class, 'edit'])->name('app-section.edit');
-    Route::post('app-section/update', [App\Http\Controllers\AppSectionController::class, 'update'])->name('app-section.update');
-    Route::get('app-section/update-status/{id}', [App\Http\Controllers\AppSectionController::class, 'updateSectionStatus'])->name('app-section.update.status');
+    Route::get('app-section', [AppSectionController::class, 'index'])->name('app-section')->middleware('permission:app-section-view');
+    Route::get('all-app-section', [AppSectionController::class, 'allSection'])->name('app-section.all');
+    Route::get('app-section/create', [AppSectionController::class, 'add'])->name('app-section.add')->middleware('permission:app-section-create');
+    Route::post('app-section/store', [AppSectionController::class, 'store'])->name('app-section.store')->middleware('permission:app-section-create');
+    Route::get('app-section/edit/{id}', [AppSectionController::class, 'edit'])->name('app-section.edit')->middleware('permission:app-section-edit');
+    Route::post('app-section/update', [AppSectionController::class, 'update'])->name('app-section.update')->middleware('permission:app-section-edit');
+    Route::get('app-section/update-status/{id}', [AppSectionController::class, 'updateSectionStatus'])->name('app-section.update.status')->middleware('permission:app-section-toggle');
 
-    Route::post('app-section/content', [App\Http\Controllers\AppSectionController::class, 'sectionContent'])->name('app-section.content');
+    Route::post('app-section/content', [AppSectionController::class, 'sectionContent'])->name('app-section.content')->middleware('permission:add-content');
     //render api
     Route::get('renderApi',  [App\Http\Controllers\HomeController::class, 'renderApi']);
 

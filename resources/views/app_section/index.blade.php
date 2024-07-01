@@ -22,6 +22,7 @@
                     </div>
                 </div>
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+                @permission('app-section-create')
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
                             <a href="{{ route('app-section.add') }}"> <button
@@ -33,6 +34,7 @@
                         </div>
                     </div>
                 </div>
+                @endpermission
             </div>
             @if (\Session::has('msg'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -91,12 +93,17 @@
                                                         <td>{{ $sec->sequence }}</td>
                                                         <td>{{ $sec->user->name }}</td>
                                                         <td>
+                                                            @permission('app-section-edit')
                                                             <a class="ml-2"
                                                                 href="{{ url("app-section/edit/$sec->_id") }}"><i
                                                                     class="feather icon-edit-2"></i></a>
+                                                            @endpermission
+                                                            @permission('app-section-toggle')
+
                                                             <a class="ml-2"
                                                                 href="{{ url("app-section/update-status/$sec->_id") }}"><i
                                                                     class="{{ $eye }}"></i></a>
+                                                            @endpermission
                                                         </td>
                                                     </tr>
                                                 @empty

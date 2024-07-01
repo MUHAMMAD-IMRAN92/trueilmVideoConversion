@@ -402,6 +402,8 @@
                                                     <h2 class="">
                                                         Lessons:</h2>
                                                 </div>
+
+                                                @permission('add-course-lesson')
                                                 <div class="col-4">
                                                     <span class="btn btn-primary" data-toggle="modal"
                                                         data-target="#add-bulk">Bulk Upload</span>
@@ -412,6 +414,7 @@
                                                     <span class="btn btn-primary" data-toggle="modal"
                                                         data-target="#add-episode">Add Lesson</span>
                                                 </div> --}}
+                                                @endpermission
                                             </div>
                                         </div>
                                     </div>

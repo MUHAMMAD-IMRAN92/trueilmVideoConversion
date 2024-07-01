@@ -39,7 +39,6 @@ class AppServiceProvider extends ServiceProvider
 
 
         Gate::define('hasPermission', function ($user, $permission) {
-            
             return auth()->check() && auth()->user()->checkPermission($permission);
         });
 

@@ -104,6 +104,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @permission('add-content')
 
                             <div class="card-content">
                                 <div class="card-body" style="display: flex; flex-direction: row-reverse;">
@@ -111,6 +112,7 @@
                                         class="btn btn-dark">Add Content</a>
                                 </div>
                             </div>
+                            @endpermission
 
                             <div class="row" id="basic-table">
                                 <div class="col-12">

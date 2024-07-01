@@ -25,6 +25,7 @@ use App\Models\Author;
 use App\Models\Languages;
 use App\Models\Reference;
 use App\Models\Scopes\DeletedAtScope;
+use Illuminate\Support\Facades\Gate;
 
 class BookController extends Controller
 {
@@ -1018,8 +1019,17 @@ class BookController extends Controller
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->episode_id) {
+
+            if(!Gate::allows('hasPermission', 'edit-podcast-episode')) {
+                abort(403, 'Unauthorized action.');
+            }
             $bookContent = BookContent::where('_id', $request->episode_id)->first();
         } else {
+
+            if(!Gate::allows('hasPermission', 'add-podcast-episode')) {
+                abort(403, 'Unauthorized action.');
+            }
+
 
             $bookContent = new BookContent();
         }

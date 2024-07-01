@@ -35,7 +35,17 @@ class PermissionTableSeeder extends Seeder
             'category-view','category-create','category-edit', 'category-toggle',
             'eBook-view','eBook-create','eBook-edit', 'eBook-toggle',
             'audio-book-view','audio-book-create','audio-book-edit', 'audio-book-toggle',
-            
+            'add-audio-book-chapter','edit-audio-book-chapter','delete-audio-book-chapter',
+            'papers-view','papers-create','papers-edit', 'papers-toggle',
+            'podcast-view','podcast-create','podcast-edit', 'podcast-toggle',
+            'add-podcast-episode','edit-podcast-episode','delete-podcast-episode',
+            'course-view','course-create','course-edit', 'course-toggle',
+            'add-course-lesson','edit-course-lesson','delete-course-lesson',
+            'course-series-view','course-series-create','course-series-edit', 'course-series-toggle',
+            'publisher-view','publisher-create','publisher-edit',
+            'app-section-view','app-section-create','app-section-edit','add-content','app-section-toggle'
+
+
             
          ];
       
