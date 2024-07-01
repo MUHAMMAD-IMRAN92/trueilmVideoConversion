@@ -31,6 +31,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\AppSectionController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseSeriesController;
 
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -172,7 +173,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('book/update/sequence', [App\Http\Controllers\BookController::class, 'updateSequence'])->name('book.sequence')->middleware('permission:edit-audio-book-chapter');
     Route::post('book/update', [App\Http\Controllers\BookController::class, 'update'])->name('book.update')->middleware('contentPermission:edit');
     Route::get('book/update-status/{id}', [App\Http\Controllers\BookController::class, 'updateStatus'])->name('book.statusUpdate');
-    Route::get('book/pending-for-approval/{type}', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove');
+    
+    
+    
+    Route::get('book/pending-for-approval/{type}', [App\Http\Controllers\BookController::class, 'pendingForApprove'])->name('book.pendingForApprove')->middleware('approvalPermission');
     Route::get('all-pending-book', [App\Http\Controllers\BookController::class, 'allPendingForApprovalBooks'])->name('book.all-panding');
     Route::get('book/rejected', [App\Http\Controllers\BookController::class, 'rejected'])->name('book.rejected');
     Route::get('all-rejected-book', [App\Http\Controllers\BookController::class, 'allRejectedBooks'])->name('book.all-rejected');
@@ -180,9 +184,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('book/reject/{id}', [App\Http\Controllers\BookController::class, 'rejectBook'])->name('book.approveBook');
     Route::get('book/view/{id}', [App\Http\Controllers\BookController::class, 'viewBook'])->name('book.viewBook');
     Route::get('book/during_period/{type}', [App\Http\Controllers\BookController::class, 'bookDuringPeriod'])->name('bookduringPeriod');
-    Route::get('book/approved', [App\Http\Controllers\BookController::class, 'approved'])->name('book.approved');
+    Route::get('book/approved', [App\Http\Controllers\BookController::class, 'approved'])->name('book.approved')->middleware('permission:approved-content');
     Route::get('all-approved-book', [App\Http\Controllers\BookController::class, 'allApprovedBooks'])->name('book.all-approved');
-    Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected');
+    Route::get('book/rejected_by_you', [App\Http\Controllers\BookController::class, 'adminRejected'])->name('book.admin.rejected')->middleware('permission:rejected-content');
     Route::get('all-admin-rejected-book', [App\Http\Controllers\BookController::class, 'allAdminRejectedBooks'])->name('book.all-admin-rejected');
 
     //delete audio chapter
@@ -268,13 +272,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('lesson/quiz/results/{user_id}', [CourseController::class, 'userAttemptsResults'])->name('quiz.user.results');
 
     //course series
-    Route::get('series', [CourseSeriesController::class, 'seriesIndex'])->name('series');
+    Route::get('series', [CourseSeriesController::class, 'seriesIndex'])->name('series')->middleware('permission:course-series-view');
     Route::get('all-series', [CourseSeriesController::class, 'allSeries'])->name('series.all');
-    Route::get('series/create', [CourseSeriesController::class, 'add'])->name('series.add');
-    Route::post('series/store', [CourseSeriesController::class, 'store'])->name('series.store');
-    Route::get('series/edit/{id}', [CourseSeriesController::class, 'edit'])->name('series.edit');
-    Route::post('series/update', [CourseSeriesController::class, 'update'])->name('series.update');
-    Route::get('series/update-status/{id}', [CourseSeriesController::class, 'updateStatus'])->name('series.statusUpdate');
+    Route::get('series/create', [CourseSeriesController::class, 'add'])->name('series.add')->middleware('permission:course-series-create');
+    Route::post('series/store', [CourseSeriesController::class, 'store'])->name('series.store')->middleware('permission:course-series-create');
+    Route::get('series/edit/{id}', [CourseSeriesController::class, 'edit'])->name('series.edit')->middleware('permission:course-series-edit');
+    Route::post('series/update', [CourseSeriesController::class, 'update'])->name('series.update')->middleware('permission:course-series-edit');
+    Route::get('series/update-status/{id}', [CourseSeriesController::class, 'updateStatus'])->name('series.statusUpdate')->middleware('permission:course-series-toggle');
 
     Route::get('referene/add', [App\Http\Controllers\ReferenceController::class, 'add'])->name('reference.add');
     Route::get('languages', [App\Http\Controllers\LanguageController::class, 'allLanguage'])->name('languages');

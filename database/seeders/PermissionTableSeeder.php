@@ -43,7 +43,9 @@ class PermissionTableSeeder extends Seeder
             'add-course-lesson','edit-course-lesson','delete-course-lesson',
             'course-series-view','course-series-create','course-series-edit', 'course-series-toggle',
             'publisher-view','publisher-create','publisher-edit',
-            'app-section-view','app-section-create','app-section-edit','add-content','app-section-toggle'
+            'app-section-view','app-section-create','app-section-edit','add-content','app-section-toggle',
+
+            'pending-eBook','pending-audio-book','pending-papers','pending-podcast','pending-course','rejected-content','approved-content'
 
 
             

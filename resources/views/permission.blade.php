@@ -260,10 +260,9 @@
                                         <td>
                                             <div class="d-flex">
                                             
-
                                                 <div class="custom-control mr-3 custom-checkbox">
                                                     <input type="checkbox" id="eBooks-checkbox1" class="custom-control-input content_checkAll">
-                                                    <label class="custom-control-label" for="eBooks-checkbox1">Read</label>
+                                                    <label class="custom-control-label" for="eBooks-checkbox1">View</label>
                                                 </div>
                                                 <div class="custom-control mr-3 custom-checkbox">
                                                     <input type="checkbox" id="eBooks-checkbox2" class="custom-control-input content_checkAll">
@@ -272,6 +271,10 @@
                                                 <div class="custom-control mr-3 custom-checkbox">
                                                     <input type="checkbox" id="eBooks-checkbox3" class="custom-control-input content_checkAll">
                                                     <label class="custom-control-label" for="eBooks-checkbox3">Edit</label>
+                                                </div>
+                                                <div class="custom-control mr-3 custom-checkbox">
+                                                    <input type="checkbox" id="eBooks-checkbox3" class="custom-control-input content_checkAll">
+                                                    <label class="custom-control-label" for="eBooks-checkbox3">Enable/Disable</label>
                                                 </div>
                                             
                                             

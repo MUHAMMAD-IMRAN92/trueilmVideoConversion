@@ -361,9 +361,16 @@ class CourseController extends Controller
         if ($request->les_id) {
 
             
+            if(!Gate::allows('hasPermission', 'edit-course-lesson')) {
+                abort(403, 'Unauthorized action.');
+            }
 
             $courseLesson = CourseLesson::where('_id', $request->les_id)->first();
         } else {
+            if(!Gate::allows('hasPermission', 'add-course-lesson')) {
+                abort(403, 'Unauthorized action.');
+            }
+
            
 
             $courseLesson = new CourseLesson();

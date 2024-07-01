@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         'checkUserToken' => \App\Http\Middleware\CheckUserToken::class,
         'permission' => \App\Http\Middleware\Permissions::class,
         'contentPermission' => \App\Http\Middleware\contentPermission::class,
+        'approvalPermission' => \App\Http\Middleware\approvalPermission::class,
 
 
     ];

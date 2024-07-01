@@ -1175,8 +1175,25 @@
                     "mRender": function(data, type, row) {
                         var anchor;
                         var a = '';
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+                        var edit_per='';
+
+                        if (row.type == 1) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('eBook-edit')}}";
+
+                        }
+                        if (row.type == 2) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('audio-book-edit')}}";
+
+                        }
+                        if (row.type == 3) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('papers-edit')}}";
+
+                        }
+                        if (row.type == 7) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('podcast-edit')}}";
+                        }
+
+                        if(edit_per){ 
                             a =
                                 `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?pending_for_approval=true') }}"><i class="fa fa-pencil" style="font-size:20px"></i></a>`;
                         }
@@ -1271,14 +1288,16 @@
                 {
                     "mRender": function(data, type, row) {
                         var eye = 'feather icon-eye';
+                        
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+                        if ("{{ auth()->user()->anycheckPermission('course-edit')}}") {
                             a =
                                 `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`?pending_for_approval=true') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
                                    `;
+                        }else{
+                            a ='';
                         }
                         return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
                             <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' , 2)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
@@ -1541,17 +1560,25 @@
                 {
                     "mRender": function(data, type, row) {
                         var eye = 'feather icon-eye';
+                        var b='';
+                        var a='';
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+
+                       
+                        if ("{{ auth()->user()->anycheckPermission('course-edit')}}") {
                             a =
                                 `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>
                                    `;
                         }
-                        return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>
-                           ` +
+
+                        if ("{{ auth()->user()->anycheckPermission('pending-course')}}") {
+                            b =
+                                `<a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>`;
+                        }
+                        return `<td>
+                           ` +b+
                             a +
                             `</td>`
                     }
@@ -1726,18 +1753,31 @@
                 {
                     "mRender": function(data, type, row) {
                         var eye = 'feather icon-eye';
+                        let a="";
+                        let b="";
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+
+                        
+                            edit_per = "{{ auth()->user()->anycheckPermission('course-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-course')}}";
+                        
+                        if (edit_per) {
                             a =
-                                `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a> <a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>
-                                   `;
+                                `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>`;
                         }
+
+                        if (approve_per) {
+                            b =
+                                `<a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>`;
+                        }
+                         
+
+                       
                         return `<td>
                            ` +
-                            a +
+                            a + b+
                             `</td>`
                     }
                 },
@@ -2546,8 +2586,34 @@
                     "mRender": function(data, type, row) {
                         var anchor;
                         var a = '';
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+
+
+                        var edit_per='';
+                        var approve_per='';
+
+                        if (row.type == 1) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('eBook-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-eBook')}}";
+                           
+
+                        }
+                        if (row.type == 2) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('audio-book-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-audio-book')}}";
+
+                        }
+                        if (row.type == 3) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('papers-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-papers')}}";
+
+                        }
+                        if (row.type == 7) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('podcast-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-podcast')}}";
+                        }
+
+                        if(edit_per){ 
+                        
                             a =
                                 `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?rejected_by_you=true') }}"><i class="fa fa-pencil" ></i></a>`;
                         }
@@ -2562,8 +2628,11 @@
                             anchor =
                                 `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
                         }
-                        return `<td class="d-flex">
-                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>` +
+                        if(approve_per){
+                            var b=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>`;
+
+                        }
+                        return `<td class="d-flex">` +b+
                             a +
                             `
                                 ` +
@@ -2950,11 +3019,41 @@
                     "mRender": function(data, type, row) {
                         var anchor;
                         var a = '';
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+                        var b = '';
+
+                        var edit_per='';
+                        var approve_per='';
+
+                        if (row.type == 1) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('eBook-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-eBook')}}";
+                           
+
+                        }
+                        if (row.type == 2) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('audio-book-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-audio-book')}}";
+
+                        }
+                        if (row.type == 3) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('papers-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-papers')}}";
+
+                        }
+                        if (row.type == 7) {
+                            edit_per = "{{ auth()->user()->anycheckPermission('podcast-edit')}}";
+                            approve_per = "{{ auth()->user()->anycheckPermission('pending-podcast')}}";
+                        }
+                        if (edit_per) {
                             a =
                                 `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?approved=true') }}"><i class="fa fa-pencil" ></i></a>`;
                         }
+
+                        if (approve_per) {
+                            b =
+                                `<a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)"  cursor:pointer"  data-href=""></i></a>`;
+                        }
+
                         if (row.type == 2) {
                             anchor =
                                 `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?approved=true') }}"> <i class="fa fa-list"  > </i></a>`;
@@ -2967,9 +3066,9 @@
                                 `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
                         }
                         return `<td class="d-flex" width:"150px !important;">  ` + anchor +
-                            a +
+                            a +b+
 
-                            `<a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)"  cursor:pointer"  data-href=""></i></a>
+                            `
                               </td>`
                     }
                 },
@@ -4211,14 +4310,23 @@
             {
                 "mRender": function(data, type, row) {
                     var eye = 'feather icon-eye';
+
+                    var edit='';
+                    var toggle='';
                     if (row.status == 0) {
                         eye = 'feather icon-eye-off';
                     }
-                    return `<td>
-                                <a  class="ml-2" href="{{ url('series/edit/`+row._id+`') }}"><i class="fa fa-pencil"></i></a>
-                                <a  class="ml-2" href="{{ url('series/update-status/`+row._id+`') }}"><i class="` +
-                        eye + `"></i></a>
-                                </td>`
+                    if ("{{ auth()->user()->anycheckPermission('course-series-edit')}}") { 
+                        edit=`<a  class="ml-2" href="{{ url('series/edit/`+row._id+`') }}"><i class="fa fa-pencil"></i></a>`;
+
+                    }
+                    if ("{{ auth()->user()->anycheckPermission('course-series-toggle')}}") { 
+                        toggle=`  <a  class="ml-2" href="{{ url('series/update-status/`+row._id+`') }}"><i class="` +
+                        eye + `"></i></a>`;
+
+                    }
+                    return `<td>${edit} ${toggle}</td>`
+                 
                 }
             },
         ],

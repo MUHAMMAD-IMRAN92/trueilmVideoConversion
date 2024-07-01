@@ -577,30 +577,43 @@
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
                     </li> --}}
+
+                    @allpermission( 'pending-eBook,pending-audio-book,pending-papers,pending-podcast,rejected-content,approved-content')
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Pending for Approval</span></a>
                         <ul class="menu-content">
+                        @allpermission('pending-eBook')
 
                             <li class="@if (request()->is('book/pending-for-approval/1')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/1') }}"><i class="ffa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Ebook</span></a>
                             </li>
+                        @endallpermission    
+                        @allpermission( 'pending-audio-book')                            
                             <li class="@if (request()->is('book/pending-for-approval/2')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/2') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Audio Book</span></a>
                             </li>
+                        @endallpermission
+                        @allpermission( 'pending-papers')
                             <li class="@if (request()->is('book/pending-for-approval/3')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/3') }}"><i class="fa fa-file"></i>
                                     <span class="menu-item" data-i18n="Analytics">Papers</span></a>
                             </li>
+                        @endallpermission 
+                        @allpermission( 'pending-podcast')
                             <li class="@if (request()->is('book/pending-for-approval/7')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/7') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
                             </li>
+                        @endallpermission
+                        
+                        @allpermission( 'pending-course')
                             <li class="@if (request()->is('book/pending-for-approval/6')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/6') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                             </li>
+                        @endallpermission 
 
                             {{-- <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
                             href="{{ url('books/1') }}"><i class="fa fa-book"></i>
@@ -609,14 +622,19 @@
 
                         </ul>
                     </li>
+                    @endallpermission
+                    @allpermission( 'rejected-content')
                     <li class="@if (request()->is('book/rejected_by_you')) active @endif "><a
                             href="{{ url('book/rejected_by_you') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected Content</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission( 'approved-content')
                     <li class="@if (request()->is('book/approved*')) active @endif "><a
                             href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Approved Content</span></a>
                     </li>
+                    @endallpermission
 
                     {{-- </ul>
                         </li> --}}
