@@ -6273,9 +6273,17 @@
     var fileUploadInput = document.getElementById('file-upload-input');
     var fileInfoContainer = document.getElementById('file-info');
     var submitButton = document.getElementById('submit-book-form');
+    var coursesubmitButton = document.getElementById('submit-btn');
     var totalFiles = 0;
     var uploadedFiles = 0;
-    submitButton.disabled = true;
+    if(submitButton){
+
+        submitButton.disabled = true;
+    }
+    if(coursesubmitButton){
+
+        coursesubmitButton.disabled = true;
+    }
 
     // When files are selected, add them to Resumable.js
     fileUploadInput.addEventListener('change', function(event) {
@@ -6360,6 +6368,8 @@
         if (uploadedFiles === totalFiles) {
             // Enable the submit button
             submitButton.disabled = false;
+            coursesubmitButton.disabled = false;
+
         }
     });
 

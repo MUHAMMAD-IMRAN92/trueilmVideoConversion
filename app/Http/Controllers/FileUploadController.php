@@ -47,10 +47,22 @@ class FileUploadController extends Controller
             }
 
             fclose($finalFile);
-            $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/ChunkFiles';
+
+            $previousUrl = url()->previous();
+
+            // Define the new variable
+            $newVariable = '';
+
+            // Check if the previous URL includes the word "book"
+            if (strpos($previousUrl, 'book') !== false) {
+                $newVariable = 'files';
+            } else {
+                $newVariable = 'courses_videos';
+            }
+            $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/' . $newVariable;
             // Upload the combined file to S3
-            $path = Storage::disk('s3')->put('ChunkFiles/' . $filename, fopen($finalFilePath, 'r+'));
-            // Storage::disk('s3')->setVisibility($base_path. $filename, 'public');
+            $path = Storage::disk('s3')->put($newVariable . '/' . $filename, fopen($finalFilePath, 'r+'));
+            Storage::disk('s3')->setVisibility($newVariable . '/' . $filename, 'public');
             unlink($finalFilePath);
 
             return $filename;
