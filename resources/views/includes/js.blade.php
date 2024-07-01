@@ -6276,11 +6276,11 @@
     var coursesubmitButton = document.getElementById('submit-btn');
     var totalFiles = 0;
     var uploadedFiles = 0;
-    if(submitButton){
+    if (submitButton) {
 
         submitButton.disabled = true;
     }
-    if(coursesubmitButton){
+    if (coursesubmitButton) {
 
         coursesubmitButton.disabled = true;
     }
@@ -6367,8 +6367,14 @@
         // Check if all files are uploaded
         if (uploadedFiles === totalFiles) {
             // Enable the submit button
-            submitButton.disabled = false;
-            coursesubmitButton.disabled = false;
+            if (submitButton != null) {
+
+                submitButton.disabled = false;
+            }
+            if (coursesubmitButton != null) {
+
+                coursesubmitButton.disabled = false;
+            }
 
         }
     });
