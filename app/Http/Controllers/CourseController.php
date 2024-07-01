@@ -150,7 +150,7 @@ class CourseController extends Controller
 
         $course = new Course();
         $course->title = $request->title;
-        $course->description = $request->description;
+        $course->description = $request->description ?? '';
         $course->added_by = $this->user->id;
         $course->status = 1;
         $course->approved = 0;
