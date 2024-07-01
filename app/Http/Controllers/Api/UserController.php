@@ -30,6 +30,7 @@ class UserController extends Controller
         if ($user) {
             $token = \Hash::make(rand(1, 10));
             $user->verification_token = $token;
+            $user->is_verified = 0;
             $user->save();
             $userEmail = $user->email;
             // Mail::to($userEmail)->send(new UserVarification($user));
@@ -203,23 +204,22 @@ class UserController extends Controller
         $sg = new \SendGrid($apiKey);
         $parent = User::where('_id', $request->parent_id)->first();
         // $arr = collect();
-        $password = "password";
         if ($parent) {
+            $password = "password";
             foreach ($request->emails as $email) {
                 $exitingUser = User::where('email', $email)->first();
-                if (!$exitingUser) {
+                if ($exitingUser) {
+                    $exitingUser->parentId = $parent->_id;
+                    $exitingUser->save();
+                    $password = 'Please login with your old password! ';
+                } else {
+
                     $user = new User();
                     $user->email = $email;
                     $user->password = Hash::make('password');
                     $user->parentId = $parent->_id;
                     $user->is_reset = 0;
                     $user->save();
-                } else {
-                    $exitingUser->parentId = $parent->_id;
-                    // $exitingUser->is_reset = 0;
-                    $exitingUser->save();
-                    $password = 'Please login with your old password! ';
-                    // $arr->push($email);
                 }
 
 
