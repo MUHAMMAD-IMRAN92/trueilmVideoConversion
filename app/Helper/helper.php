@@ -253,10 +253,10 @@ function deleteOtherSubscriptions($userSubscription)
         'testString' =>  'updated by type Free'
     ]);
     UserSubscription::where('email', $userSubscription->email)->where('plan_name', 'Freemium')->delete();
-    UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->update([
-        'testString' =>  'updated by type1'
-    ]);
-    UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->delete();
+    // UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->update([
+    //     'testString' =>  'updated by type1'
+    // ]);
+    // UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('istrail', 1)->delete();
     UserSubscription::where('email', $userSubscription->email)->where('status', 'paid')->where('type', 3)->update([
         'testString' =>  'updated by type3'
     ]);
