@@ -1155,7 +1155,7 @@
                                                             <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" id="file-upload-input"
-                                                                    class="file-input custom-file-input episode-custom-file-input"
+                                                                    class="file-input file-upload-input custom-file-input episode-custom-file-input"
                                                                     id="inputGroupFile01" multiple>
 
                                                                 <label class="custom-file-label"
@@ -1252,7 +1252,7 @@
                                                             <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" id="file-upload-input"
-                                                                    class="file-input custom-file-input episode-custom-file-input"
+                                                                    class="file-input file-upload-input custom-file-input episode-custom-file-input"
                                                                     id="inputGroupFile01">
 
                                                                 <label class="custom-file-label"

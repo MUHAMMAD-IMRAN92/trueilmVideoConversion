@@ -6270,7 +6270,7 @@
         throttleProgressCallbacks: 1
     });
 
-    var fileUploadInput = document.getElementById('file-upload-input');
+    var fileUploadInput = document.getElementsByClassName('file-upload-input');
     var fileInfoContainer = document.getElementById('file-info');
     var submitButton = document.getElementById('submit-book-form');
     var coursesubmitButton = document.getElementById('submit-btn');
@@ -6287,6 +6287,7 @@
 
     // When files are selected, add them to Resumable.js
     fileUploadInput.addEventListener('change', function(event) {
+        alert('rr');
         var files = event.target.files;
         if (files.length > 0) {
             totalFiles += files.length;
