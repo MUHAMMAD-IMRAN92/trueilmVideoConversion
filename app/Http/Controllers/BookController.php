@@ -202,42 +202,30 @@ class BookController extends Controller
         }
         $book->save();
 
-        if ($request->file) {
-            foreach ($request->file as $key => $file) {
-                // return $file;
-                $bookContent = new BookContent();
-                // $file_name = time() . '.' . $file->getClientOriginalExtension();
-                // $path =   $file->storeAs('files', $file_name, 's3');
-                $path =   'ChunkFiles/' . $file;
-                // Storage::disk('s3')->setVisibility($path, 'public');
-                $bookContent->file = $base_path . $path;
-                $bookContent->book_id = $book->id;
-                // $bookContent->book_name = $file->getClientOriginalName();
-                // if ($book->type == 2) {
-                //     $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                //     $file = $getID3->analyze(@$file);
-                //     $duration = date('H:i:s', $file['playtime_seconds']);
-                //     list($hours, $minutes, $seconds) = explode(':', $duration);
+        $getfiles = explode(',', $request->file);
+        $durationArr = explode(',', $request->file_durations);
 
-                //     // Calculate total duration in minutes
-                //     $total_minutes = $hours * 60 + $minutes;
 
-                //     // Construct the duration in the format MM:SS
-                //     $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-                //     $bookContent->file_duration = @$duration_minutes_seconds;
-                // }
+        foreach ($getfiles as $key => $file) {
 
-                // $bookContent->file_duration = @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
-                $bookContent->sequence = (int)$key;
-                $book->type = $request->type;
+            // return $file;
+            $bookContent = new BookContent();
+            
+            $path =   'files/' . $file;
+            $bookContent->file = $base_path . $path;
+            $bookContent->book_id = $book->id;
+            $bookContent->book_name = $file;
 
-                $durationArr = explode(',', $request->file_durations);
+            $bookContent->sequence = (int)$key;
+            $book->type = $request->type;
 
-                $bookContent->file_duration = $durationArr[$key];
+            
 
-                $bookContent->save();
-            }
+            $bookContent->file_duration = $durationArr[$key];
+
+            $bookContent->save();
         }
+        
         if ($request->tags) {
             foreach ($request->tags as $key => $tag) {
 
@@ -379,18 +367,12 @@ class BookController extends Controller
             }
         }
         $book->save();
-        // if ($request->type == "1") {
-        //     $bookIndex = $client->index('ebooks')->addDocuments(array($book), '_id');
-        // } else  if ($request->type == "2") {
-        //     $bookIndex = $client->index('audio')->addDocuments(array($book), '_id');
-        // } else  if ($request->type == "3") {
-        //     $bookIndex = $client->index('papers')->addDocuments(array($book), '_id');
-        // } else  if ($request->type == "4") {
-        //     $bookIndex = $client->index('podcast')->addDocuments(array($book), '_id');
-        // }
         if ($request->file) {
-            foreach ($request->file as $key => $file) {
-                $duration = $request->duration;
+            $getfiles = explode(',', $request->file);
+            $durationArr = explode(',', $request->file_durations);
+            foreach ($getfiles as $key => $file) {
+                
+ 
 
                 $count = BookContent::where('book_id', $book->_id)->count();
                 if ($key == 0) {
@@ -399,28 +381,17 @@ class BookController extends Controller
                     $seq = $count + $key;
                 }
                 $bookContent = new BookContent();
-                $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $path =   $file->storeAs('files', $file_name, 's3');
-                Storage::disk('s3')->setVisibility($path, 'public');
+
+                $path =   'files/' . $file;
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $book->id;
-                $bookContent->book_name = $file->getClientOriginalName();
-                if ($book->type == 2) {
-                    $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                    $file = $getID3->analyze(@$file);
-                    $duration = date('H:i:s', $file['playtime_seconds']);
-                    list($hours, $minutes, $seconds) = explode(':', $duration);
+                $bookContent->book_name = $file;
+                $bookContent->file_duration = $durationArr[$key];
 
-                    // Calculate total duration in minutes
-                    $total_minutes = $hours * 60 + $minutes;
-
-                    // Construct the duration in the format MM:SS
-                    $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-                    $bookContent->file_duration = @$duration_minutes_seconds;
-                }
-                // $bookContent->file_duration =    @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
+                
                 $bookContent->sequence = (int)$seq;
                 $bookContent->save();
+
             }
         }
         if ($request->tags) {
@@ -1023,29 +994,25 @@ class BookController extends Controller
 
             $bookContent = new BookContent();
         }
-        if ($request->podcast_file) {
-            $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-            $path =   $request->podcast_file->storeAs('files', $file_name, 's3');
-            Storage::disk('s3')->setVisibility($path, 'public');
+        if ($request->file) {
+
+            $getfiles    =    $request->file;
+            $durationArr =    $request->file_durations;
+           
+            $path = 'files/' . $getfiles;
             $bookContent->file = $base_path . $path;
-            if ($request->podcast_file->getClientOriginalExtension() == 'mp3') {
+            $bookContent->file = $base_path . $path;
+            if (str_contains($request->file_type, 'audio')) {
                 $bookContent->type = 1;
             } else {
                 $bookContent->type = 2;
                 $bookContent->hls_conversion = 0;
             }
-            $bookContent->book_name = $request->podcast_file->getClientOriginalName();
-            $getID3 = new \JamesHeinrich\GetID3\GetID3;
-            $file = $getID3->analyze(@$request->podcast_file);
-            $duration = date('H:i:s', $file['playtime_seconds']);
-            list($hours, $minutes, $seconds) = explode(':', $duration);
+            $bookContent->book_name = $request->file;
 
-            // Calculate total duration in minutes
-            $total_minutes = $hours * 60 + $minutes;
 
             // Construct the duration in the format MM:SS
-            $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-            $bookContent->file_duration = @$duration_minutes_seconds;
+            $bookContent->file_duration = @$durationArr;
         }
 
 
@@ -1069,35 +1036,34 @@ class BookController extends Controller
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
 
-        if ($request->podcast_file) {
-            foreach ($request->podcast_file as $file) {
+        if ($request->file) {
+
+            $getfiles = explode(',', $request->file);
+            $durationArr = explode(',', $request->file_durations);
+
+
+            foreach ($getfiles as $key => $file) {
 
                 $bookContent = new BookContent();
-                $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $path =   $file->storeAs('files', $file_name, 's3');
-                Storage::disk('s3')->setVisibility($path, 'public');
+                // $file_name = time() . '.' . $file->getClientOriginalExtension();
+                // $path =   $file->storeAs('files', $file_name, 's3');
+                // Storage::disk('s3')->setVisibility($path, 'public');
+
+                $path = 'files/' . $file;
                 $bookContent->file = $base_path . $path;
-                if ($file->getClientOriginalExtension() == 'mp3') {
+
+                if (str_contains($request->file_type, 'audio')) {
+
                     $bookContent->type = 1;
                 } else {
                     $bookContent->type = 2;
                     $bookContent->hls_conversion = 0;
                 }
-                $bookContent->book_name = $file->getClientOriginalName();
+
+                $bookContent->book_name = $file;
 
                 $bookContent->book_id = $book->_id;
-                $bookContent->title = \Str::beforelast($bookContent->book_name, '.');
-                $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                $file = $getID3->analyze(@$file);
-                $duration = date('H:i:s', $file['playtime_seconds']);
-                list($hours, $minutes, $seconds) = explode(':', $duration);
-
-                // Calculate total duration in minutes
-                $total_minutes = $hours * 60 + $minutes;
-
-                // Construct the duration in the format MM:SS
-                $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-                $bookContent->file_duration = @$duration_minutes_seconds;
+                $bookContent->file_duration = $durationArr[$key];
 
                 $bookContent->save();
             }
@@ -1122,26 +1088,34 @@ class BookController extends Controller
     }
     public function addAudioChapter(Request $request)
     {
-        if ($request->file) {
-            $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
-            foreach ($request->file as $key => $file) {
-                $count = BookContent::where('book_id', $request->book_id)->count();
-                $seq = $count + $key;
+        
 
+        if ($request->file) {
+            $getfiles    = explode(',', $request->file);
+            $durationArr = explode(',', $request->file_durations);
+            foreach ($getfiles as $key => $file) {
+                
+ 
+
+                $count = BookContent::where('book_id', $request->book_id)->count();
+                if ($key == 0) {
+                    $seq = $count + 1;
+                } else {
+                    $seq = $count + $key;
+                }
                 $bookContent = new BookContent();
-                $file_name = time() . '.' . $file->getClientOriginalExtension();
-                $path =   $file->storeAs('files', $file_name, 's3');
-                Storage::disk('s3')->setVisibility($path, 'public');
+                $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
+
+                $path =   'files/' . $file;
                 $bookContent->file = $base_path . $path;
                 $bookContent->book_id = $request->book_id;
-                $bookContent->book_name = $file->getClientOriginalName();
-                $getID3 = new \JamesHeinrich\GetID3\GetID3;
-                $file = $getID3->analyze(@$file);
-                $duration = date('i:s', $file['playtime_seconds']);
-                $bookContent->file_duration = @$duration;
-                // $bookContent->file_duration =    @$durations[$key]['minutes'] . ':' .  @$durations[$key]['seconds'];
+                $bookContent->book_name = $file;
+                $bookContent->file_duration = $durationArr[$key];
+
+                
                 $bookContent->sequence = (int)$seq;
                 $bookContent->save();
+
             }
         }
 

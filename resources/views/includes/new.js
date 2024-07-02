@@ -38,7 +38,6 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/resumablejs/resumable.js"></script>
 
 <script>
     //  $("#author_edit").select2({
@@ -5480,31 +5479,31 @@
         return Promise.all(durationPromises);
     }
 
-    // async function multiduration() {
-    //     var fileInputs = $('.file-input');
-    //     console.log(fileInputs);
+    async function multiduration() {
+        var fileInputs = $('.file-input');
+        console.log(fileInputs);
 
-    //     var durationPromises = [];
+        var durationPromises = [];
 
-    //     fileInputs.each(function(index, fileInput) {
-    //         const files = fileInput.files;
+        fileInputs.each(function(index, fileInput) {
+            const files = fileInput.files;
 
-    //         if (files.length > 0) {
-    //             durationPromises.push(calculateDurations(files));
-    //         }
-    //     });
+            if (files.length > 0) {
+                durationPromises.push(calculateDurations(files));
+            }
+        });
 
-    //     // Wait for all promises to resolve
-    //     var durations = await Promise.all(durationPromises);
+        // Wait for all promises to resolve
+        var durations = await Promise.all(durationPromises);
 
-    //     console.log(durations);
+        console.log(durations);
 
-    //     // Flatten the array of arrays to a single array of durations
-    //     durations = durations.flat();
+        // Flatten the array of arrays to a single array of durations
+        durations = durations.flat();
 
-    //     // Set the array of durations in the hidden input
-    //     $('[name="duration[]"]').val(JSON.stringify(durations));
-    // }
+        // Set the array of durations in the hidden input
+        $('[name="duration[]"]').val(JSON.stringify(durations));
+    }
 
 
 
@@ -6260,239 +6259,236 @@
     // });
     // Initialize Resumable.js
     // Initialize Resumable.js
+    // var r = new Resumable({
+    //     target: '/upload-chunks',
+    //     query: {
+    //         _token: '{{ csrf_token() }}'
+    //     }, // Laravel CSRF token
+    //     chunkSize: 1 * 1024 * 1024, // 1MB chunks
+    //     simultaneousUploads: 30,
+    //     testChunks: false,
+    //     throttleProgressCallbacks: 1
+    // });
+
+    // var fileUploadInput = document.getElementById('file-upload-input');
+    // var fileInfoContainer = document.getElementById('file-info');
+
+    // // When files are selected, add them to Resumable.js
+    // fileUploadInput.addEventListener('change', function(event) {
+    //     var files = event.target.files;
+    //     if (files.length > 0) {
+    //         r.addFiles(files); // add the files to resumable.js
+    //     }
+    // });
+
+    // // Display file info and start upload
+    // r.on('fileAdded', function(file) {
+    //     var fileElement = document.createElement('div');
+    //     fileElement.id = 'file-' + file.uniqueIdentifier;
+    //     fileElement.innerHTML = `
+    //     <p>${file.fileName}</p>
+    //     <div class="progress-container">
+    //         <progress value="0" max="100"></progress>
+    //         <span class="progress-percentage">0%</span>
+    //     </div>
+    // `;
+    //     fileInfoContainer.appendChild(fileElement);
+    //     r.upload();
+    // });
+
+    // // Update progress bar and percentage for each file
+    // r.on('fileProgress', function(file) {
+    //     var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+    //     var progress = Math.floor(file.progress() * 100);
+    //     fileElement.querySelector('progress').value = progress;
+    //     fileElement.querySelector('.progress-percentage').textContent = progress + '%';
+    // });
+
+    // // Handle upload success
+    // r.on('fileSuccess', function(file, message) {
+    //     var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+    //     fileElement.querySelector('.progress-percentage').textContent = 'Upload complete';
+    //     // Optionally, you can remove the file element or show a success message
+    //     console.log(file + '---------->' + message)
+    //     var currentValue = $('#file-names-from-s3').val();
+    //     var newValues = message;
+    //     // Append new values
+    //     if (currentValue === '') {
+    //         // If empty, just join the new values with a comma
+    //         var updatedValue = newValues;
+    //     } else {
+    //         // If not empty, append new values with a preceding comma
+    //         var updatedValue = currentValue + ',' + newValues;
+    //     }
+    //     $('#file-names-from-s3').val(updatedValue);
+
+    //     if (file.file.type.startsWith('video/') || file.file.type.startsWith('audio/')) {
+    //         var mediaElement = document.createElement(file.file.type.startsWith('video/') ? 'video' : 'audio');
+    //         mediaElement.src = URL.createObjectURL(file.file);
+    //         mediaElement.addEventListener('loadedmetadata', function() {
+    //             var duration = mediaElement.duration;
+    //             var durationElement = document.createElement('p');
+    //             durationElement.textContent = 'Duration: ' + formatDuration(duration);
+    //             fileElement.appendChild(durationElement);
+    //             URL.revokeObjectURL(mediaElement.src);
+
+    //             // Store the duration in a variable named duration
+    //             var fileDuration = duration; // Store the duration in the variable
+    //             var currentValue = $('#file-durations').val();
+    //             var newValues = formatDuration(duration);
+    //             // Append new values
+    //             if (currentValue === '') {
+    //                 // If empty, just join the new values with a comma
+    //                 var updatedValue = newValues;
+    //             } else {
+    //                 // If not empty, append new values with a preceding comma
+    //                 var updatedValue = currentValue + ',' + newValues;
+    //             }
+    //             $('#file-durations').val(updatedValue);
+    //         });
+    //     }
+    // });
+
+    // // Handle upload error
+    // r.on('fileError', function(file, message) {
+    //     var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+    //     fileElement.querySelector('.progress-percentage').textContent =
+    //         'Something went wrong.Please refresh and try again. ';
+    //     // Optionally, you can show an error message
+    // });
+
+    // function formatDuration(seconds) {
+    //     var hours = Math.floor(seconds / 3600);
+    //     var minutes = Math.floor((seconds % 3600) / 60);
+    //     var seconds = Math.floor(seconds % 60);
+    //     return [
+    //         hours,
+    //         minutes.toString().padStart(2, '0'),
+    //         seconds.toString().padStart(2, '0')
+    //     ].join(':');
+    // }
 
 
-    
-    var upload_type='';
+    // Initialize Resumable
+   var r = new Resumable({
+    target: '/upload-chunks',
+    query: {
+        _token: '{{ csrf_token() }}'
+    }, // Laravel CSRF token
+    chunkSize: 1 * 1024 * 1024, // 1MB chunks
+    simultaneousUploads: 30,
+    testChunks: false,
+    throttleProgressCallbacks: 1
+});
 
-   
-    var r = new Resumable({
-        target: '/upload-chunks',
-        query: {
-            _token: '{{ csrf_token() }}',
-        }, // Laravel CSRF token
-        chunkSize: 1 * 1024 * 1024, // 1MB chunks
-        simultaneousUploads: 30,
-        testChunks: false,
-        throttleProgressCallbacks: 1
-    });
+// Function to initialize file upload for each input and info container
+function initializeFileUpload(fileUploadInputClass, fileInfoContainerClass) {
+    var fileUploadInputs = document.querySelectorAll('.' + fileUploadInputClass);
+    var fileInfoContainers = document.querySelectorAll('.' + fileInfoContainerClass);
 
-   
-    
-    var get_this='';
-    var fileInfoContainer = '';
-    var submitButton = $('#submit-book-form');
-    var coursesubmitButton = $('#submit-btn');
-    var episubmitButton = $('#submit-epi-btn');
+    fileUploadInputs.forEach((fileUploadInput, index) => {
+        var fileInfoContainer = fileInfoContainers[index];
 
-    if (episubmitButton.length) {
-        episubmitButton.prop('disabled', true);
-    }
-    if (coursesubmitButton.length) {
-        coursesubmitButton.prop('disabled', true);
-    }
-    var totalFiles = 0;
-    var uploadedFiles = 0;
-    var file_names_from_s3="";
-    var file_durations="";
-    if (submitButton.length) {
-        submitButton.prop('disabled', true);
-    }
+        // Create a new Resumable instance for each input to avoid event conflicts
+        var resumable = new Resumable({
+            target: '/upload-chunks',
+            query: {
+                _token: '{{ csrf_token() }}'
+            }, // Laravel CSRF token
+            chunkSize: 1 * 1024 * 1024, // 1MB chunks
+            simultaneousUploads: 30,
+            testChunks: false,
+            throttleProgressCallbacks: 1
+        });
 
-   
-    // When files are selected, add them to Resumable.js
-    $('.file-upload-input').on('change', function(event) {
-        var files = event.target.files;
-        var get_this=$(this);
-
-        r.opts.query.upload_type = "course";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        get_this.parent().find('.file_type').val(files[0]['type']);
-        fileInfoContainer=$(this).parent().parent().next();
-
-        coursesubmitButton=$(this).closest('.modal-body').next().find('.submit-btn');
-
-        if (coursesubmitButton.length) {
-            coursesubmitButton.prop('disabled', true);   
-        }
-        
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-
-    $('.podcast-upload-input').on('change', function(event) {
-        var files = event.target.files;
-        var get_this=$(this);
-
-        r.opts.query.upload_type = "book";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        get_this.parent().find('.file_type').val(files[0]['type']);
-        fileInfoContainer=$(this).parent().parent().next();
-
-        coursesubmitButton=$(this).closest('.modal-body').next().find('.submit-btn');
-
-        if (coursesubmitButton.length) {
-            coursesubmitButton.prop('disabled', true);   
-        }
-        
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-
-    $('.book-upload-input').on('change', function(event) {
-
-        var files = event.target.files;
-        var get_this=$(this);
-        r.opts.query.upload_type = "book";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        fileInfoContainer=$(this).parent().parent().next();
-
-        coursesubmitButton=submitButton;
-
-        
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-
-    $('.book-edit-upload-input').on('change', function(event) {
-
-        var files = event.target.files;
-        var get_this=$(this);
-        r.opts.query.upload_type = "book";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        fileInfoContainer=$(this).parent().parent().next();
-        coursesubmitButton=$("#submit-edit-book-form");
-        if (coursesubmitButton.length) {
-            coursesubmitButton.prop('disabled', true);   
-        }
-
-
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-   
-
-    
-
-
-
-    // Display file info and start upload
-    r.on('fileAdded', function(file) {
-        var fileElement = $('<div>', { id: 'file-' + file.uniqueIdentifier });
-        fileElement.html(`
-            <p>${file.fileName}</p>
-            <div class="progress-container">
-                <progress value="0" max="100"></progress>
-                <span class="progress-percentage">0%</span>
-            </div>
-        `);
-        fileInfoContainer.append(fileElement);
-        r.upload();
-    });
-
-    // Update progress bar and percentage for each file
-    r.on('fileProgress', function(file) {
-        var fileElement = $('#file-' + file.uniqueIdentifier);
-        var progress = Math.floor(file.progress() * 100);
-        fileElement.find('progress').val(progress);
-        fileElement.find('.progress-percentage').text(progress + '%');
-    });
-
-    // Handle upload success
-    r.on('fileSuccess', function(file, message) {
-        var fileElement = $('#file-' + file.uniqueIdentifier);
-        fileElement.find('.progress-percentage').text('Upload complete');
-        // Optionally, you can remove the file element or show a success message
-        console.log(file + '---------->' + message)
-        var currentValue = file_names_from_s3.val();
-        var newValues = message;
-        // Append new values
-        if (currentValue === '') {
-            // If empty, just join the new values with a comma
-            var updatedValue = newValues;
-        } else {
-            // If not empty, append new values with a preceding comma
-            var updatedValue = currentValue + ',' + newValues;
-        }
-        file_names_from_s3.val(updatedValue);
-
-        if (file.file.type.startsWith('video/') || file.file.type.startsWith('audio/')) {
-            var mediaElement = document.createElement(file.file.type.startsWith('video/') ? 'video' : 'audio');
-            mediaElement.src = URL.createObjectURL(file.file);
-            mediaElement.addEventListener('loadedmetadata', function() {
-                var duration = mediaElement.duration;
-                var durationElement = $('<p>').text('Duration: ' + formatDuration(duration));
-                fileElement.append(durationElement);
-                URL.revokeObjectURL(mediaElement.src);
-
-                // Store the duration in a variable named duration
-                var fileDuration = duration; // Store the duration in the variable
-                var currentValue = file_durations.val();
-                var newValues = formatDuration(duration);
-                // Append new values
-                if (currentValue === '') {
-                    // If empty, just join the new values with a comma
-                    var updatedValue = newValues;
-                } else {
-                    // If not empty, append new values with a preceding comma
-                    var updatedValue = currentValue + ',' + newValues;
-                }
-                file_durations.val(updatedValue);
-            
-            });
-        }
-        uploadedFiles++;
-
-        // Check if all files are uploaded
-        if (uploadedFiles === totalFiles) {
-            // Enable the submit button
-            if (submitButton.length) {
-                submitButton.prop('disabled', false);
+        // When files are selected, add them to Resumable.js
+        fileUploadInput.addEventListener('change', function(event) {
+            var files = event.target.files;
+            if (files.length > 0) {
+                resumable.addFiles(files); // add the files to resumable.js
             }
-            if (coursesubmitButton.length) {
-                coursesubmitButton.prop('disabled', false);
+        });
+
+        // Display file info and start upload
+        resumable.on('fileAdded', function(file) {
+            var fileElement = document.createElement('div');
+            fileElement.id = 'file-' + file.uniqueIdentifier;
+            fileElement.innerHTML = `
+                <p>${file.fileName}</p>
+                <div class="progress-container">
+                    <progress value="0" max="100"></progress>
+                    <span class="progress-percentage">0%</span>
+                </div>
+            `;
+            fileInfoContainer.appendChild(fileElement);
+            resumable.upload();
+        });
+
+        // Update progress bar and percentage for each file
+        resumable.on('fileProgress', function(file) {
+            var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+            var progress = Math.floor(file.progress() * 100);
+            fileElement.querySelector('progress').value = progress;
+            fileElement.querySelector('.progress-percentage').textContent = progress + '%';
+        });
+
+        // Handle upload success
+        resumable.on('fileSuccess', function(file, message) {
+            var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+            fileElement.querySelector('.progress-percentage').textContent = 'Upload complete';
+            // Optionally, you can remove the file element or show a success message
+            console.log(file + '---------->' + message);
+            var currentFileNames = document.getElementById('file-names-from-s3').value;
+            var newFileName = message;
+            // Append new values
+            var updatedFileNames = currentFileNames === '' ? newFileName : currentFileNames + ',' + newFileName;
+            document.getElementById('file-names-from-s3').value = updatedFileNames;
+
+            if (file.file.type.startsWith('video/') || file.file.type.startsWith('audio/')) {
+                var mediaElement = document.createElement(file.file.type.startsWith('video/') ? 'video' : 'audio');
+                mediaElement.src = URL.createObjectURL(file.file);
+                mediaElement.addEventListener('loadedmetadata', function() {
+                    var duration = mediaElement.duration;
+                    var durationElement = document.createElement('p');
+                    durationElement.textContent = 'Duration: ' + formatDuration(duration);
+                    fileElement.appendChild(durationElement);
+                    URL.revokeObjectURL(mediaElement.src);
+
+                    // Store the duration in a variable named duration
+                    var currentDurations = document.getElementById('file-durations').value;
+                    var newDuration = formatDuration(duration);
+                    // Append new values
+                    var updatedDurations = currentDurations === '' ? newDuration : currentDurations + ',' + newDuration;
+                    document.getElementById('file-durations').value = updatedDurations;
+                });
             }
-        }
+        });
 
-        
+        // Handle upload error
+        resumable.on('fileError', function(file, message) {
+            var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+            fileElement.querySelector('.progress-percentage').textContent =
+                'Something went wrong. Please refresh and try again.';
+            // Optionally, you can show an error message
+        });
     });
+}
 
-    // Handle upload error
-    r.on('fileError', function(file, message) {
-        var fileElement = $('#file-' + file.uniqueIdentifier);
-        fileElement.find('.progress-percentage').text('Something went wrong. Please refresh and try again.');
-        // Optionally, you can show an error message
-    });
+// Utility function to format duration
+function formatDuration(seconds) {
+    var hours = Math.floor(seconds / 3600);
+    var minutes = Math.floor((seconds % 3600) / 60);
+    var seconds = Math.floor(seconds % 60);
+    return [
+        hours,
+        minutes.toString().padStart(2, '0'),
+        seconds.toString().padStart(2, '0')
+    ].join(':');
+}
 
-    function formatDuration(seconds) {
-        var hours = Math.floor(seconds / 3600);
-        var minutes = Math.floor((seconds % 3600) / 60);
-        var seconds = Math.floor(seconds % 60);
-        return [
-            hours,
-            minutes.toString().padStart(2, '0'),
-            seconds.toString().padStart(2, '0')
-        ].join(':');
-    }
+// Initialize file upload for elements with the specified classes
+initializeFileUpload('file-upload-inputs', 'file-info');
+
+
 
 </script>

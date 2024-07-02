@@ -1147,20 +1147,23 @@
                                                         </fieldset> --}}
                                                         <input type="hidden" id="" class="form-control"
                                                             name="course_id" placeholder="" value={{ $course->_id }}>
-                                                        <input type="hidden" class="file-input " id="file-names-from-s3"
-                                                            name="podcast_file">
-                                                        <input type="hidden" class="file-input " id="file-durations"
-                                                            name="file_durations">
+                                                       
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" id="file-upload-input"
                                                                     class="file-input file-upload-input custom-file-input episode-custom-file-input"
-                                                                    id="inputGroupFile01" multiple>
+                                                                    id="inputGroupFile01" multiple
+                                                                    accept="video/mp4,video/x-m4v,video/*"
+                                                                    >
 
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
+                                                                    <input type="hidden" class="file-input file_name" id="file-names-from-s3"
+                                                                        name="podcast_file">
+                                                                    <input type="hidden" class="file-input  file_durations" id="file-durations"
+                                                                        name="file_durations">
                                                             </div>
                                                         </fieldset>
                                                         <div id="file-info">
@@ -1176,7 +1179,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary mr-1" id="submit-btn">
+                                                    <button type="submit" class="btn submit-btn submit-btn btn-primary mr-1" id="submit-btn">
                                                         <span class="spinner-border mr-1 ml-1"
                                                             style="display: none"></span>
                                                         <span class="submit-text">Submit</span>
@@ -1244,20 +1247,23 @@
                                                     </div>
                                                     <div class="col-md-12">
 
-                                                        <input type="hidden" class="file-input " id="file-names-from-s3"
-                                                            name="podcast_file">
-                                                        <input type="hidden" class="file-input " id="file-durations"
-                                                            name="file_durations">
+                                                       
                                                         <fieldset class="form-group">
                                                             <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" id="file-upload-input"
                                                                     class="file-input file-upload-input custom-file-input episode-custom-file-input"
-                                                                    id="inputGroupFile01">
+                                                                    id="inputGroupFile01" required
+                                                                    accept="video/mp4,video/x-m4v,video/*"
+                                                                    >
 
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
+                                                                <input type="hidden" class="file-input file_name" id="file-names-from-s3"
+                                                                    name="podcast_file">
+                                                                <input type="hidden" class="file-input file_durations" id="file-durations"
+                                                                    name="file_durations">
                                                             </div>
                                                         </fieldset>
                                                         <div id="file-info">
@@ -1349,7 +1355,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">
+                                                    <button type="submit" class="btn submit-btn btn-primary">
                                                         <span class="spinner-border mr-1 ml-1"
                                                             style="display: none"></span>
                                                         <span class="submit-text">Save</span></button>
@@ -1394,6 +1400,7 @@
                                                             </div>
                                                         </div>
                                                     </fieldset>
+
                                                 </div>
 
                                                 <div class="col-12">
@@ -1409,7 +1416,7 @@
                                                         </label>
                                                         <div class="custom-file">
                                                             <input type="file"
-                                                                class="custom-file-input  episode-custom-file-input"
+                                                                class="custom-file-input   episode-custom-file-input"
                                                                 id="fileinput" name="thumbnail">
 
                                                             <label class="custom-file-label" for="inputGroupFile01">Choose
@@ -1421,17 +1428,27 @@
                                                     <fieldset class="form-group">
                                                         <label for="basicInputFile">Content</label>
                                                         <div class="custom-file">
+                                                           
                                                             <input type="file"
-                                                                class="file-input custom-file-input  episode-custom-file-input"
-                                                                id="fileinput-0" onchange="multiduration(0)"
-                                                                name="podcast_file">
-                                                            <input type="hidden" name="duration[]"
-                                                                id="input-duration-0" />
-                                                            <span id="duration-info-0"></span>
-                                                            <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                                class="custom-file-input file-upload-input   episode-custom-file-input"
+                                                                id="inputGroupFile012" name="thumbnail">
+
+                                                            <label class="custom-file-label" for="inputGroupFile012">Choose
                                                                 file</label>
+                                                                <input type="hidden" class="file-input file_name" id="file-names-from-s3"
+                                                                        name="podcast_file">
+                                                                <input type="hidden" class="file-input  file_durations" id="file-durations"
+                                                                    name="file_durations">
                                                         </div>
                                                     </fieldset>
+                                                    <div id="file-info">
+                                                        <p id="file-name"></p>
+                                                        <div id="progress-container" style="display: none;">
+                                                            <progress id="file-progress" value="0"
+                                                                max="100"></progress>
+                                                            <span id="progress-percentage">0%</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 {{-- <div class="col-md-12">
                                                     <fieldset class="form-group">
@@ -1511,8 +1528,8 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary"><span
-                                                        class="spinner-border mr-1 ml-1" style="display: none"></span>
+                                                <button type="submit" class="submit-btn btn btn-primary"><span
+                                                        class="spinner-border  mr-1 ml-1" style="display: none"></span>
                                                     <span class="submit-text">Save</span></button>
                                             </div>
                                         </div>

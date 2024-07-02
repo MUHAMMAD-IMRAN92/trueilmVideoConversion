@@ -95,16 +95,28 @@
                                                             <label for="basicInputFile" class="">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file"
-                                                                    class="file-input custom-file-input episode-custom-file-input"
-                                                                    id="inputGroupFile01" name="file[]"
-                                                                    onchange="multiduration()" multiple>
-                                                                <input type="hidden" name="duration[]"
-                                                                    id="input-duration-0" />
+                                                                    class="file-input book-edit-upload-input"
+                                                                    id="inputGroupFile01" name=""
+                                                                    multiple>
+                                                                
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
+                                                                <input type="hidden" class="file-input file_name"
+                                                                    id="file-names-from-s3" name="file">
+                                                                <input type="hidden" class="file-input file_durations" id="file-durations"
+                                                                    name="file_durations">
                                                             </div>
+                                                            
                                                         </fieldset>
+                                                        <div id="file-info">
+                                                            <p id="file-name"></p>
+                                                            <div id="progress-container" style="display: none;">
+                                                                <progress id="file-progress" value="0"
+                                                                    max="100"></progress>
+                                                                <span id="progress-percentage">0%</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <fieldset class="form-group">
@@ -550,7 +562,7 @@
                                                             class="btn btn-primary mr-1 mb-1">Add
                                                             Episode</span>
                                                     @endif
-                                                    <button type="submit"
+                                                    <button type="submit" id="submit-edit-book-form"
                                                         class="btn btn-primary mr-1 mb-1">Submit</button>
 
                                                 </div>
