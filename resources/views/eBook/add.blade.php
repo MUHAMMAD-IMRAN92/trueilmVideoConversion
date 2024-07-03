@@ -106,21 +106,24 @@
                                                                 </div>
                                                             </fieldset> --}}
                                                         <div class="col-md-6">
-                                                            <input type="hidden" class="file-input "
-                                                                id="file-names-from-s3" name="file[]">
-                                                            <input type="hidden" class="file-input " id="file-durations"
-                                                                name="file_durations">
+                                                            
                                                             <fieldset class="form-group">
                                                                 <label for="basicInputFile" class="required">Content</label>
                                                                 <div class="custom-file">
-                                                                    <input type="file" id="file-upload-input"
-                                                                        class="file-input custom-file-input episode-custom-file-input"
+                                                                    <input type="file" 
+                                                                        class="book-upload-input episode-custom-file-input"
                                                                         id="inputGroupFile01" {{ $validation }} multiple>
 
                                                                     <label class="custom-file-label"
                                                                         for="inputGroupFile01">Choose
                                                                         file</label>
+                                                                    <input type="hidden" class="file-input file_name"
+                                                                        id="file-names-from-s3" name="file">
+                                                                    <input type="hidden" class="file-input file_durations" id="file-durations"
+                                                                        name="file_durations">
+                                                                    
                                                                 </div>
+                                                                
                                                             </fieldset>
                                                             <div id="file-info">
                                                                 <p id="file-name"></p>

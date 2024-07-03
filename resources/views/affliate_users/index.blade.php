@@ -62,7 +62,7 @@
                                                     <th class="">Phone</th>
                                                     <th class="">Reffered</th>
                                                     <th class="">Subscription</th>
-                                                    <th>Action</th>
+                                                    @permission('affiliate-child-users') <th>Action</th>@endpermission
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -75,9 +75,10 @@
                                                         <td>
                                                            {{$user->status}}
                                                         </td>
+                                                        @permission('affiliate-child-users')
                                                         <td> <a href="{{ url('affiliate/reffered/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
-                                                                    style="font-size:24px"></i></a> </td>
+                                                                    style="font-size:24px"></i></a> </td>@endpermission
                                                     </tr>
                                                 @empty
                                                     <tr>

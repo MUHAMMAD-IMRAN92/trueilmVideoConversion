@@ -1,6 +1,7 @@
 @extends('layouts.default_layout')
 
 @section('content')
+
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>
@@ -168,7 +169,7 @@
                                                         <th class="">Author</th>
                                                         <th class="">Type</th>
                                                         <th class="">Added By</th>
-                                                        <th style="width:150px">Action</th>
+                                                        <th style="width:175px">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

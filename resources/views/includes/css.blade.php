@@ -413,6 +413,14 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
         text-rendering: optimizeLegibility !important;
         font-synthesis: none;
     }
+    .red-undo{
+        color: red;
+
+    }
+    .green-undo{
+        color: green;
+
+    }
 
     /*.rating start*/
 </style>

@@ -176,24 +176,38 @@
                                                                             <label for="basicInputFile">Content</label>
                                                                             <div class="custom-file">
                                                                                 <input type="file"
-                                                                                    class="file-input custom-file-input  episode-custom-file-input"
-                                                                                    id="fileinput-0" name="file[]"
+                                                                                    class="file-input file-upload-input custom-file-input  episode-custom-file-input"
+                                                                                    id="fileinput-0" name=""
                                                                                     multiple required>
 
                                                                                 <span id="duration-info-0"></span>
                                                                                 <label class="custom-file-label"
                                                                                     for="inputGroupFile01">Choose
                                                                                     file</label>
+                                                                                <input type="hidden" class="file-input file_name" id="file-names-from-s3"
+                                                                                    name="file">
+                                                                                <input type="hidden" class="file-input  file_durations" id="file-durations"
+                                                                                    name="file_durations">
+                                                                               
                                                                             </div>
+                                                                            
                                                                         </fieldset>
+                                                                        <div id="file-info">
+                                                                            <p id="file-name"></p>
+                                                                            <div id="progress-container" style="display: none;">
+                                                                                <progress id="file-progress" value="0"
+                                                                                    max="100"></progress>
+                                                                                <span id="progress-percentage">0%</span>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
 
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
+                                                                    <button type="button"  class="btn btn-secondary"
                                                                         data-dismiss="modal">Close</button>
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Save</button>
+                                                                    <button type="submit" id="submit-btn"
+                                                                        class="btn submit-btn btn-primary">Save</button>
                                                                 </div>
                                                             </div>
                                                         </div>

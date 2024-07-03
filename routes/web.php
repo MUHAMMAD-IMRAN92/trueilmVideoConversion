@@ -32,6 +32,7 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\AppSectionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseSeriesController;
+use App\Http\Controllers\UserController;
 
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -204,31 +205,31 @@ Route::middleware(['auth'])->group(function () {
     Route::get('podcast/episode/undo-delete/{id}', [App\Http\Controllers\BookController::class, 'undoDeleteEpisode'])->name('podcast.episode.undo-delete')->middleware('permission:delete-podcast-episode');
 
     //super admin revet
-    Route::get('activities', [App\Http\Controllers\ActivitiesController::class, 'index'])->name('book.activities');
-    Route::get('all-activities', [App\Http\Controllers\ActivitiesController::class, 'allActivities'])->name('book.all-activities');
-    Route::get('content/revert/{id}/{activity_id}', [App\Http\Controllers\ActivitiesController::class, 'revert'])->name('book.revet');
-    Route::get('book/update-status/{id}/{activity_id}', [App\Http\Controllers\ActivitiesController::class, 'updateStatusActivity'])->name('book.superadmin.statusUpdate');
+    Route::get('activities', [ActivitiesController::class, 'index'])->name('book.activities');
+    Route::get('all-activities', [ActivitiesController::class, 'allActivities'])->name('book.all-activities');
+    Route::get('content/revert/{id}/{activity_id}', [ActivitiesController::class, 'revert'])->name('book.revet');
+    Route::get('book/update-status/{id}/{activity_id}', [ActivitiesController::class, 'updateStatusActivity'])->name('book.superadmin.statusUpdate');
     //admin users
-    Route::get('user-management', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
-    Route::get('all-user', [App\Http\Controllers\UserController::class, 'allUser'])->name('user.all');
-    Route::get('user/create', [App\Http\Controllers\UserController::class, 'add'])->name('user.add');
-    Route::post('user/store', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
-    Route::get('user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
-    Route::post('user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
-    Route::get('user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
+    Route::get('user-management', [UserController::class, 'index'])->name('user.index');
+    Route::get('all-user', [UserController::class, 'allUser'])->name('user.all');
+    Route::get('user/create', [UserController::class, 'add'])->name('user.add');
+    Route::post('user/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('user/update', [UserController::class, 'update'])->name('user.update');
+    Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
 
-    Route::post('reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('reset.password');
+    Route::post('reset-password', [UserController::class, 'resetPassword'])->name('reset.password');
 
     //app users
-    Route::get('app-users', [App\Http\Controllers\UserController::class, 'appUsers'])->name('app.user');
-    Route::get('all-app-user', [App\Http\Controllers\UserController::class, 'allAppUser'])->name('all.app.user');
-    Route::get('app-user/profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('app.user.profile');
-    Route::post('app-user/subscription', [App\Http\Controllers\UserController::class, 'giveSubscription'])->name('app.user.subscription');
-    Route::get('app-user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
-    Route::get('affiliate/app-user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
-    Route::get('family/app-user/books_reading_details/{id}', [App\Http\Controllers\UserController::class, 'userBookReadingDetail'])->name('user.books-readings');
-    Route::get('cancel_subscriptions', [App\Http\Controllers\UserController::class, 'cancelSubscription'])->name('user.cancelsubscription');
-    Route::get('all/cancel_subscriptions', [App\Http\Controllers\UserController::class, 'allCancelSubscription'])->name('all.cancelsubscription');
+    Route::get('app-users', [UserController::class, 'appUsers'])->name('app.user')->middleware('permission:app-user-view');
+    Route::get('all-app-user', [UserController::class, 'allAppUser'])->name('all.app.user');
+    Route::get('app-user/profile/{id}', [UserController::class, 'profile'])->name('app.user.profile')->middleware('permission:app-user-profile');
+    Route::post('app-user/subscription', [UserController::class, 'giveSubscription'])->name('app.user.subscription');
+    Route::get('app-user/books_reading_details/{id}', [UserController::class, 'userBookReadingDetail'])->name('user.books-readings')->middleware('permission:app-user-details');
+    Route::get('affiliate/app-user/books_reading_details/{id}', [UserController::class, 'userBookReadingDetail'])->name('user.books-readings')->middleware('permission:affiliate-users-detail');
+    Route::get('family/app-user/books_reading_details/{id}', [UserController::class, 'userBookReadingDetail'])->name('user.books-readings')->middleware('permission:family-members-detail');
+    Route::get('cancel_subscriptions', [UserController::class, 'cancelSubscription'])->name('user.cancelsubscription');
+    Route::get('all/cancel_subscriptions', [UserController::class, 'allCancelSubscription'])->name('all.cancelsubscription');
 
     //categories
     Route::get('categories', [CategoryController::class, 'index'])->middleware('permission:category-view');
@@ -424,14 +425,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('language/edit/{id}', [App\Http\Controllers\LanguageController::class, 'edit'])->name('language.edit')->middleware('permission:language-edit');
 
     //affiliate
-    Route::get('affiliate', [App\Http\Controllers\UserController::class, 'affiliate'])->name('affiliate');
-    Route::get('affiliate/reffered/{id}', [App\Http\Controllers\UserController::class, 'reffered'])->name('affiliate.reffered');
+    Route::get('affiliate', [App\Http\Controllers\UserController::class, 'affiliate'])->name('affiliate')->middleware('permission:affiliate-users');
+    Route::get('affiliate/reffered/{id}', [App\Http\Controllers\UserController::class, 'reffered'])->name('affiliate.reffered')->middleware('permission:affiliate-child-users');
 
 
 
     //family
-    Route::get('family', [App\Http\Controllers\UserController::class, 'family'])->name('affiliate');
-    Route::get('family/members/{id}', [App\Http\Controllers\UserController::class, 'members'])->name('family.members');
+    Route::get('family', [App\Http\Controllers\UserController::class, 'family'])->name('affiliate')->middleware('permission:family');
+    Route::get('family/members/{id}', [App\Http\Controllers\UserController::class, 'members'])->name('family.members')->middleware('permission:family-members');
 
     //app versions
     Route::get('app/versions', [App\Http\Controllers\HomeController::class, 'appVersions'])->name('appVersions');

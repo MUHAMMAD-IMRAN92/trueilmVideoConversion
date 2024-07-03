@@ -38,31 +38,12 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/resumablejs/resumable.js"></script>
 
 <script>
     //  $("#author_edit").select2({
     //      'tags': true
     //  });
     $(document).ready(function() {
-
-
-
-        $(document).on('click', '.search_hadith', function() {
-            let ayat=$(".get_ayat").val();
-            $(".all_hide").css('display','none');
-            $(".show_"+ayat).css('display','block');
-
-        });
-        $(document).on('click', '.search_clear', function() {
-            $(".all_hide").css('display','block');
-            $('.get_ayat').select2();
-
-            $('.get_ayat').val('All').trigger('change');
-
-        });
-
-        
 
 
         $('.summernote').summernote({
@@ -196,15 +177,9 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-                        let edit='';
- 
-                        if ("{{ auth()->user()->anycheckPermission('publisher-edit')}}") {
-                            edit=`<a  class="ml-2" href="{{ url('publisher/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>`;
-
-                        }
 
                         return `<td>
-                               ${edit}
+                               <a  class="ml-2" href="{{ url('publisher/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
                                <a  class="ml-2" href="{{ url('publisher/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
                                </td>`
                     }
@@ -313,20 +288,23 @@
                             row.name + '</td>'
                     }
                 },
-                
+                //  {
+                //      "mRender": function(data, type, row) {
+                //          var des = '';
+                //          if (row.description != null) {
+                //              des = row.description;
+                //          }
+                //          return '<td>' +
+                //              des +
+                //              '</td>'
+                //      }
+                //  },
                 {
                     "mRender": function(data, type, row) {
-                        if(row.action === true)
-                        {
-                            return `<td>
+
+                        return `<td>
                                <a  class="ml-2" href="{{ url('author/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                               </td>`;
-
-                        }else{
-                            return ``;
-                        }
-
-                        
+                               </td>`
                     }
                 },
             ],
@@ -584,96 +562,21 @@
                     "data": "status",
                     "render": function(data, type, row) {
                         var eye = data == 0 ? 'feather icon-eye-off' : 'feather icon-eye';
-                        let permission_toggle='';
-                        let permission_edit='';
-                        let get_type=parseInt(row.type);
-
-                        if(get_type == 1)
-                        {
-                            permission_edit='eBook-edit';
-                            permission_toggle='eBook-toggle';
-
-                        }
-                        if(get_type == 2)
-                        {
-                            permission_edit='audio-book-edit';
-                            permission_toggle='audio-book-toggle';
-                        }
-                        if(get_type == 3)
-                        {
-                            permission_edit='papers-edit';
-                            permission_toggle='papers-toggle';
-                        }
-                        if(get_type == 7)
-                        {
-                            permission_edit='podcast-edit';
-                            permission_toggle='podcast-toggle';
-                        }
-
-                        let toggle_eye='';
-
-                       
-                        var edit ='';
+                        var edit =
+                            `<a class="ml-2" href="{{ url('book/${row.type}/edit/${row._id}') }}"><i class="feather icon-edit-2"></i></a>`;
                         var quickedit =
                             `<span class="ml-2 pointer" onclick="quickEditModal('${row._id}')"><i class="feather icon-edit-2"></i></span>`;
                         var list = '';
-
-                        if (row.type == 1) {
-
-                            if ("{{ auth()->user()->anycheckPermission('eBook-edit')}}") {
-
-                                edit=`<a class="ml-2" href="{{ url('book/${row.type}/edit/${row._id}') }}"><i class="feather icon-edit-2"></i></a>`;
-                   
-                            }
-                            if ("{{ auth()->user()->anycheckPermission('eBook-toggle')}}") {
-                                toggle_eye=`<a class="ml-2" href="{{ url('book/update-status/${row._id}') }}"><i class="${eye}"></i></a>`;
-                            }
-
-                        }
                         if (row.type == 2) {
-                            if ("{{ auth()->user()->anycheckPermission('audio-book-edit')}}") {
-
-                                edit=`<a class="ml-2" href="{{ url('book/${row.type}/edit/${row._id}') }}"><i class="feather icon-edit-2"></i></a>`;
-
-                            }
-                            
                             list =
                                 `<a class="ml-2" href="{{ url('book/${row.type}/list/${row._id}') }}"><i class="fa fa-list"></i></a>`;
-                            if ("{{ auth()->user()->anycheckPermission('audio-book-toggle')}}") {
-                                toggle_eye=`<a class="ml-2" href="{{ url('book/update-status/${row._id}') }}"><i class="${eye}"></i></a>`;
-                            }
-
-                        }
-                        if (row.type == 3) {
-                            if ("{{ auth()->user()->anycheckPermission('papers-edit')}}") {
-
-                                edit=`<a class="ml-2" href="{{ url('book/${row.type}/edit/${row._id}') }}"><i class="feather icon-edit-2"></i></a>`;
-
-                            }
-
-                            if ("{{ auth()->user()->anycheckPermission('papers-toggle')}}") {
-                                toggle_eye=`<a class="ml-2" href="{{ url('book/update-status/${row._id}') }}"><i class="${eye}"></i></a>`;
-                            }
-
                         }
                         if (row.type == 7) {
-                            if ("{{ auth()->user()->anycheckPermission('podcast-edit')}}") {
-
-                                list =
+                            list =
                                 `<a class="ml-2" href="{{ url('podcast/edit/${row._id}') }}"><i class="fa fa-list"></i></a>`;
-                                edit = '';
-                            }
-                            
-                            if ("{{ auth()->user()->anycheckPermission('podcast-toggle')}}") {
-                                toggle_eye=`<a class="ml-2" href="{{ url('book/update-status/${row._id}') }}"><i class="${eye}"></i></a>`;
-                            }
+                            edit = '';
                         }
-                        
-
-                        
-                        
-                       
-                        return `<div class="d-flex">${edit}${list}${toggle_eye}</div>`;
+                        return `<div class="d-flex">${edit}${list}<a class="ml-2" href="{{ url('book/update-status/${row._id}') }}"><i class="${eye}"></i></a></div>`;
                     }
                 }
             ],
@@ -1018,16 +921,15 @@
                             eye = 'feather icon-eye-off';
                         }
                         var a = '';
-                        var  b= '';
-                        if ("{{ auth()->user()->anycheckPermission('category-edit')}}") {
-                               a =`<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>`;
-                        }       
-                        if ("{{ auth()->user()->anycheckPermission('category-toggle')}}") {      
-                               b= `<a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
+                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+                            a =
+                                `<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                                   <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
                                 eye + `"></i></a>`;
                         }
                         return `<td>
-                                ${a} ${b}
+                                ` + a + `
 
                                 </td>`
                     }
@@ -1194,64 +1096,24 @@
                     "mRender": function(data, type, row) {
                         var anchor;
                         var a = '';
-                        var edit_per='';
-
-                        if (row.type == 1) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('eBook-edit')}}";
-
-                        }
-                        if (row.type == 2) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('audio-book-edit')}}";
-
-                        }
-                        if (row.type == 3) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('papers-edit')}}";
-
-                        }
-                        if (row.type == 7) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('podcast-edit')}}";
-                        }
-
-                        if(edit_per){ 
+                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                            "{{ auth()->user()->hasRole('Super Admin') }}") {
                             a =
                                 `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?pending_for_approval=true') }}"><i class="fa fa-pencil" style="font-size:20px"></i></a>`;
                         }
                         if (row.type == 2) {
                             anchor =
-                                `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?pending_for_approval=true') }}"> <i class="fa fa-list"  style="font-size:20px"> </i></a>`;
+                                `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?pending_for_approval=true') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
                         } else {
                             anchor =
-                                `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:20px"></i></a>`;
+                                `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
                         }
-
-                        var approve='';
-                        var is_view=``;
-
-                        if(row.type == 1){
-                            if(row.is_viewed  && row.is_viewed ==1)
-                            {
-                                approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:20px"></i></a>`;
-                                is_view=`<i class="fa fa-undo green-undo pointer ml-2" style="font-size:20px; cursor:pointer"></i>`;
-                            }
-                            else{
-                                approve=``;
-                                is_view=`<i class="fa fa-undo red-undo pointer ml-2" style="font-size:20px; cursor:pointer"></i>`;
-
-                            }
-                            
-
-                        }else{
-                            approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:20px"></i></a>`;
-
-                        }
-
-                        
-                        return `<td class="d-flex" style="width: 17%;">
-                                ` +approve +
+                        return `<td class="d-flex">
+                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
                             a +
                             `
-                                <a href="#" class="ml-1"><i class="fa fa-times  sd" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
-                            anchor + is_view +
+                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                            anchor +
                             `</td>`
                     }
                 },
@@ -1330,16 +1192,14 @@
                 {
                     "mRender": function(data, type, row) {
                         var eye = 'feather icon-eye';
-                        
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-                        if ("{{ auth()->user()->anycheckPermission('course-edit')}}") {
+                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                            "{{ auth()->user()->hasRole('Super Admin') }}") {
                             a =
                                 `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`?pending_for_approval=true') }}"><i class=" fa fa-list" style="font-size:24px"> </i></a>
                                    `;
-                        }else{
-                            a ='';
                         }
                         return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>
                             <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' , 2)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
@@ -1602,25 +1462,17 @@
                 {
                     "mRender": function(data, type, row) {
                         var eye = 'feather icon-eye';
-                        var b='';
-                        var a='';
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-
-                       
-                        if ("{{ auth()->user()->anycheckPermission('course-edit')}}") {
+                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                            "{{ auth()->user()->hasRole('Super Admin') }}") {
                             a =
                                 `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>
                                    `;
                         }
-
-                        if ("{{ auth()->user()->anycheckPermission('pending-course')}}") {
-                            b =
-                                `<a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>`;
-                        }
-                        return `<td>
-                           ` +b+
+                        return `<td><a  class="ml-1" href="{{ url('course/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>
+                           ` +
                             a +
                             `</td>`
                     }
@@ -1795,31 +1647,18 @@
                 {
                     "mRender": function(data, type, row) {
                         var eye = 'feather icon-eye';
-                        let a="";
-                        let b="";
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-
-                        
-                            edit_per = "{{ auth()->user()->anycheckPermission('course-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-course')}}";
-                        
-                        if (edit_per) {
+                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                            "{{ auth()->user()->hasRole('Super Admin') }}") {
                             a =
-                                `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>`;
+                                `<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a> <a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>
+                                   `;
                         }
-
-                        if (approve_per) {
-                            b =
-                                `<a><i class="fa fa-times ml-1"  onclick="reasonModal('${row._id}' , 2)"  cursor:pointer"  data-href=""></i></a>`;
-                        }
-                         
-
-                       
                         return `<td>
                            ` +
-                            a + b+
+                            a +
                             `</td>`
                     }
                 },
@@ -2628,59 +2467,8 @@
                     "mRender": function(data, type, row) {
                         var anchor;
                         var a = '';
-
-
-                        var edit_per='';
-                        var approve_per='';
-
-                        var approve='';
-                        var is_view=``;
-
-                        
-                    
-
-                        if (row.type == 1) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('eBook-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-eBook')}}";
-                           
-
-                        }
-                        if (row.type == 2) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('audio-book-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-audio-book')}}";
-
-                        }
-                        if (row.type == 3) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('papers-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-papers')}}";
-
-                        }
-                        if (row.type == 7) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('podcast-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-podcast')}}";
-                        }
-
-
-                        if(row.type == 1){
-                            if(row.is_viewed  && row.is_viewed ==1 && approve_per)
-                            {
-                                approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>`;
-                                is_view=`<i class="fa fa-undo green-undo pointer ml-1" ></i>`;
-                            }
-                            else{
-                                approve=``;
-                                is_view=`<i class="fa fa-undo red-undo pointer ml-1" style=""></i>`;
-
-                            }
-                            
-
-                        }else{
-                            approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>`;
-
-                        }
-
-                        if(edit_per){ 
-                        
+                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                            "{{ auth()->user()->hasRole('Super Admin') }}") {
                             a =
                                 `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?rejected_by_you=true') }}"><i class="fa fa-pencil" ></i></a>`;
                         }
@@ -2695,13 +2483,12 @@
                             anchor =
                                 `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
                         }
-                       
                         return `<td class="d-flex">
-                                ` +approve +
+                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>` +
                             a +
                             `
                                 ` +
-                            anchor + is_view +
+                            anchor +
                             `</td>`
                     }
                 },
@@ -3084,41 +2871,11 @@
                     "mRender": function(data, type, row) {
                         var anchor;
                         var a = '';
-                        var b = '';
-
-                        var edit_per='';
-                        var approve_per='';
-
-                        if (row.type == 1) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('eBook-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-eBook')}}";
-                           
-
-                        }
-                        if (row.type == 2) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('audio-book-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-audio-book')}}";
-
-                        }
-                        if (row.type == 3) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('papers-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-papers')}}";
-
-                        }
-                        if (row.type == 7) {
-                            edit_per = "{{ auth()->user()->anycheckPermission('podcast-edit')}}";
-                            approve_per = "{{ auth()->user()->anycheckPermission('pending-podcast')}}";
-                        }
-                        if (edit_per) {
+                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                            "{{ auth()->user()->hasRole('Super Admin') }}") {
                             a =
                                 `<a  class="ml-1" href="{{ url('book/`+ row.type +`/edit/`+row._id+`?approved=true') }}"><i class="fa fa-pencil" ></i></a>`;
                         }
-
-                        if (approve_per) {
-                            b =
-                                `<a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)"  cursor:pointer"  data-href=""></i></a>`;
-                        }
-
                         if (row.type == 2) {
                             anchor =
                                 `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?approved=true') }}"> <i class="fa fa-list"  > </i></a>`;
@@ -3131,9 +2888,9 @@
                                 `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
                         }
                         return `<td class="d-flex" width:"150px !important;">  ` + anchor +
-                            a +b+
+                            a +
 
-                            `
+                            `<a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)"  cursor:pointer"  data-href=""></i></a>
                               </td>`
                     }
                 },
@@ -3363,22 +3120,14 @@
                 {
                     "mRender": function(data, type, row) {
                         var eye = 'feather icon-eye';
-                        var edit='';
-                        var toggle='';
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-
-                        if ("{{ auth()->user()->anycheckPermission('course-edit')}}") { 
-                            edit=`<a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list"></i></a>`;
-
-                        }
-                        if ("{{ auth()->user()->anycheckPermission('course-toggles')}}") { 
-                            toggle=`<a  class="ml-2" href="{{ url('course/update-status/`+row._id+`') }}"><i class="` +
-                            eye + `"></i></a>`;
-
-                        }
-                        return `<td>${edit} ${toggle}</td>`
+                        return `<td>
+                                <a  class="ml-2" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list"></i></a>
+                                <a  class="ml-2" href="{{ url('course/update-status/`+row._id+`') }}"><i class="` +
+                            eye + `"></i></a>
+                                </td>`
                     }
                 },
             ],
@@ -4172,26 +3921,10 @@
                 },
                 {
                     "mRender": function(data, type, row) {
-
-                        let app_user_detail = "{{ auth()->user()->anycheckPermission('app-user-detail')}}";
-                        let app_user_profile = "{{ auth()->user()->anycheckPermission('app-user-profile')}}";
-                        let a="";
-                        let b="";
-                        if(app_user_detail){
-
-                            a=` <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>`
-
-                        }
-                        if(app_user_profile){
-                            b=`<a  class="ml-2" href="{{ url('app-user/profile/`+row._id+`') }}"><i class="fa fa-user" style="font-size:24px"></i></a>`;
-
-
-                        }
-                        return `<td>`
-                               +a+b+
-
-                                
-                               `</td>`;
+                        return `<td>
+                                <a  class="ml-2" href="{{ url('app-user/books_reading_details/`+row._id+`') }}"><i class="fa fa-info-circle" style="font-size:24px"></i></a>
+                                <a  class="ml-2" href="{{ url('app-user/profile/`+row._id+`') }}"><i class="fa fa-user" style="font-size:24px"></i></a>
+                               </td>`;
 
                     }
                 },
@@ -4391,23 +4124,14 @@
             {
                 "mRender": function(data, type, row) {
                     var eye = 'feather icon-eye';
-
-                    var edit='';
-                    var toggle='';
                     if (row.status == 0) {
                         eye = 'feather icon-eye-off';
                     }
-                    if ("{{ auth()->user()->anycheckPermission('course-series-edit')}}") { 
-                        edit=`<a  class="ml-2" href="{{ url('series/edit/`+row._id+`') }}"><i class="fa fa-pencil"></i></a>`;
-
-                    }
-                    if ("{{ auth()->user()->anycheckPermission('course-series-toggle')}}") { 
-                        toggle=`  <a  class="ml-2" href="{{ url('series/update-status/`+row._id+`') }}"><i class="` +
-                        eye + `"></i></a>`;
-
-                    }
-                    return `<td>${edit} ${toggle}</td>`
-                 
+                    return `<td>
+                                <a  class="ml-2" href="{{ url('series/edit/`+row._id+`') }}"><i class="fa fa-pencil"></i></a>
+                                <a  class="ml-2" href="{{ url('series/update-status/`+row._id+`') }}"><i class="` +
+                        eye + `"></i></a>
+                                </td>`
                 }
             },
         ],
@@ -5755,31 +5479,31 @@
         return Promise.all(durationPromises);
     }
 
-    // async function multiduration() {
-    //     var fileInputs = $('.file-input');
-    //     console.log(fileInputs);
+    async function multiduration() {
+        var fileInputs = $('.file-input');
+        console.log(fileInputs);
 
-    //     var durationPromises = [];
+        var durationPromises = [];
 
-    //     fileInputs.each(function(index, fileInput) {
-    //         const files = fileInput.files;
+        fileInputs.each(function(index, fileInput) {
+            const files = fileInput.files;
 
-    //         if (files.length > 0) {
-    //             durationPromises.push(calculateDurations(files));
-    //         }
-    //     });
+            if (files.length > 0) {
+                durationPromises.push(calculateDurations(files));
+            }
+        });
 
-    //     // Wait for all promises to resolve
-    //     var durations = await Promise.all(durationPromises);
+        // Wait for all promises to resolve
+        var durations = await Promise.all(durationPromises);
 
-    //     console.log(durations);
+        console.log(durations);
 
-    //     // Flatten the array of arrays to a single array of durations
-    //     durations = durations.flat();
+        // Flatten the array of arrays to a single array of durations
+        durations = durations.flat();
 
-    //     // Set the array of durations in the hidden input
-    //     $('[name="duration[]"]').val(JSON.stringify(durations));
-    // }
+        // Set the array of durations in the hidden input
+        $('[name="duration[]"]').val(JSON.stringify(durations));
+    }
 
 
 
@@ -6535,240 +6259,236 @@
     // });
     // Initialize Resumable.js
     // Initialize Resumable.js
+    // var r = new Resumable({
+    //     target: '/upload-chunks',
+    //     query: {
+    //         _token: '{{ csrf_token() }}'
+    //     }, // Laravel CSRF token
+    //     chunkSize: 1 * 1024 * 1024, // 1MB chunks
+    //     simultaneousUploads: 30,
+    //     testChunks: false,
+    //     throttleProgressCallbacks: 1
+    // });
+
+    // var fileUploadInput = document.getElementById('file-upload-input');
+    // var fileInfoContainer = document.getElementById('file-info');
+
+    // // When files are selected, add them to Resumable.js
+    // fileUploadInput.addEventListener('change', function(event) {
+    //     var files = event.target.files;
+    //     if (files.length > 0) {
+    //         r.addFiles(files); // add the files to resumable.js
+    //     }
+    // });
+
+    // // Display file info and start upload
+    // r.on('fileAdded', function(file) {
+    //     var fileElement = document.createElement('div');
+    //     fileElement.id = 'file-' + file.uniqueIdentifier;
+    //     fileElement.innerHTML = `
+    //     <p>${file.fileName}</p>
+    //     <div class="progress-container">
+    //         <progress value="0" max="100"></progress>
+    //         <span class="progress-percentage">0%</span>
+    //     </div>
+    // `;
+    //     fileInfoContainer.appendChild(fileElement);
+    //     r.upload();
+    // });
+
+    // // Update progress bar and percentage for each file
+    // r.on('fileProgress', function(file) {
+    //     var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+    //     var progress = Math.floor(file.progress() * 100);
+    //     fileElement.querySelector('progress').value = progress;
+    //     fileElement.querySelector('.progress-percentage').textContent = progress + '%';
+    // });
+
+    // // Handle upload success
+    // r.on('fileSuccess', function(file, message) {
+    //     var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+    //     fileElement.querySelector('.progress-percentage').textContent = 'Upload complete';
+    //     // Optionally, you can remove the file element or show a success message
+    //     console.log(file + '---------->' + message)
+    //     var currentValue = $('#file-names-from-s3').val();
+    //     var newValues = message;
+    //     // Append new values
+    //     if (currentValue === '') {
+    //         // If empty, just join the new values with a comma
+    //         var updatedValue = newValues;
+    //     } else {
+    //         // If not empty, append new values with a preceding comma
+    //         var updatedValue = currentValue + ',' + newValues;
+    //     }
+    //     $('#file-names-from-s3').val(updatedValue);
+
+    //     if (file.file.type.startsWith('video/') || file.file.type.startsWith('audio/')) {
+    //         var mediaElement = document.createElement(file.file.type.startsWith('video/') ? 'video' : 'audio');
+    //         mediaElement.src = URL.createObjectURL(file.file);
+    //         mediaElement.addEventListener('loadedmetadata', function() {
+    //             var duration = mediaElement.duration;
+    //             var durationElement = document.createElement('p');
+    //             durationElement.textContent = 'Duration: ' + formatDuration(duration);
+    //             fileElement.appendChild(durationElement);
+    //             URL.revokeObjectURL(mediaElement.src);
+
+    //             // Store the duration in a variable named duration
+    //             var fileDuration = duration; // Store the duration in the variable
+    //             var currentValue = $('#file-durations').val();
+    //             var newValues = formatDuration(duration);
+    //             // Append new values
+    //             if (currentValue === '') {
+    //                 // If empty, just join the new values with a comma
+    //                 var updatedValue = newValues;
+    //             } else {
+    //                 // If not empty, append new values with a preceding comma
+    //                 var updatedValue = currentValue + ',' + newValues;
+    //             }
+    //             $('#file-durations').val(updatedValue);
+    //         });
+    //     }
+    // });
+
+    // // Handle upload error
+    // r.on('fileError', function(file, message) {
+    //     var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+    //     fileElement.querySelector('.progress-percentage').textContent =
+    //         'Something went wrong.Please refresh and try again. ';
+    //     // Optionally, you can show an error message
+    // });
+
+    // function formatDuration(seconds) {
+    //     var hours = Math.floor(seconds / 3600);
+    //     var minutes = Math.floor((seconds % 3600) / 60);
+    //     var seconds = Math.floor(seconds % 60);
+    //     return [
+    //         hours,
+    //         minutes.toString().padStart(2, '0'),
+    //         seconds.toString().padStart(2, '0')
+    //     ].join(':');
+    // }
 
 
-    
-    var upload_type='';
+    // Initialize Resumable
+   var r = new Resumable({
+    target: '/upload-chunks',
+    query: {
+        _token: '{{ csrf_token() }}'
+    }, // Laravel CSRF token
+    chunkSize: 1 * 1024 * 1024, // 1MB chunks
+    simultaneousUploads: 30,
+    testChunks: false,
+    throttleProgressCallbacks: 1
+});
 
-   
-    var r = new Resumable({
-        target: '/upload-chunks',
-        query: {
-            _token: '{{ csrf_token() }}',
-        }, // Laravel CSRF token
-        chunkSize: 1 * 1024 * 1024, // 1MB chunks
-        simultaneousUploads: 30,
-        testChunks: false,
-        throttleProgressCallbacks: 1
-    });
+// Function to initialize file upload for each input and info container
+function initializeFileUpload(fileUploadInputClass, fileInfoContainerClass) {
+    var fileUploadInputs = document.querySelectorAll('.' + fileUploadInputClass);
+    var fileInfoContainers = document.querySelectorAll('.' + fileInfoContainerClass);
 
-   
-    
-    var get_this='';
-    var fileInfoContainer = '';
-    var submitButton = $('#submit-book-form');
-    var coursesubmitButton = $('#submit-btn');
-    var episubmitButton = $('#submit-epi-btn');
+    fileUploadInputs.forEach((fileUploadInput, index) => {
+        var fileInfoContainer = fileInfoContainers[index];
 
-    if (episubmitButton.length) {
-        episubmitButton.prop('disabled', true);
-    }
-    if (coursesubmitButton.length) {
-        coursesubmitButton.prop('disabled', true);
-    }
-    var totalFiles = 0;
-    var uploadedFiles = 0;
-    var file_names_from_s3="";
-    var file_durations="";
-    if (submitButton.length) {
-        submitButton.prop('disabled', true);
-    }
+        // Create a new Resumable instance for each input to avoid event conflicts
+        var resumable = new Resumable({
+            target: '/upload-chunks',
+            query: {
+                _token: '{{ csrf_token() }}'
+            }, // Laravel CSRF token
+            chunkSize: 1 * 1024 * 1024, // 1MB chunks
+            simultaneousUploads: 30,
+            testChunks: false,
+            throttleProgressCallbacks: 1
+        });
 
-   
-    // When files are selected, add them to Resumable.js
-    $('.file-upload-input').on('change', function(event) {
-        var files = event.target.files;
-        var get_this=$(this);
-
-        r.opts.query.upload_type = "course";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        get_this.parent().find('.file_type').val(files[0]['type']);
-        fileInfoContainer=$(this).parent().parent().next();
-
-        coursesubmitButton=$(this).closest('.modal-body').next().find('.submit-btn');
-
-        if (coursesubmitButton.length) {
-            coursesubmitButton.prop('disabled', true);   
-        }
-        
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-
-    $('.podcast-upload-input').on('change', function(event) {
-        var files = event.target.files;
-        var get_this=$(this);
-
-        r.opts.query.upload_type = "book";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        get_this.parent().find('.file_type').val(files[0]['type']);
-        fileInfoContainer=$(this).parent().parent().next();
-
-        coursesubmitButton=$(this).closest('.modal-body').next().find('.submit-btn');
-
-        if (coursesubmitButton.length) {
-            coursesubmitButton.prop('disabled', true);   
-        }
-        
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-
-    $('.book-upload-input').on('change', function(event) {
-
-        var files = event.target.files;
-        var get_this=$(this);
-        r.opts.query.upload_type = "book";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        fileInfoContainer=$(this).parent().parent().next();
-
-        coursesubmitButton=submitButton;
-
-        
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-
-    $('.book-edit-upload-input').on('change', function(event) {
-
-        var files = event.target.files;
-        var get_this=$(this);
-        r.opts.query.upload_type = "book";
-
-
-        file_names_from_s3  = get_this.parent().find('.file_name');
-        file_durations      = get_this.parent().find('.file_durations');
-        fileInfoContainer=$(this).parent().parent().next();
-        coursesubmitButton=$("#submit-edit-book-form");
-        if (coursesubmitButton.length) {
-            coursesubmitButton.prop('disabled', true);   
-        }
-
-
-        if (files.length > 0) {
-            totalFiles += files.length;
-            r.addFiles(files); // add the files to resumable.js
-        }
-    });
-   
-
-    
-
-
-
-    // Display file info and start upload
-    r.on('fileAdded', function(file) {
-        var fileElement = $('<div>', { id: 'file-' + file.uniqueIdentifier });
-        fileElement.html(`
-            <p>${file.fileName}</p>
-            <div class="progress-container">
-                <progress value="0" max="100"></progress>
-                <span class="progress-percentage">0%</span>
-            </div>
-        `);
-        fileInfoContainer.append(fileElement);
-        r.upload();
-    });
-
-    // Update progress bar and percentage for each file
-    r.on('fileProgress', function(file) {
-        var fileElement = $('#file-' + file.uniqueIdentifier);
-        var progress = Math.floor(file.progress() * 100);
-        fileElement.find('progress').val(progress);
-        fileElement.find('.progress-percentage').text(progress + '%');
-    });
-
-    // Handle upload success
-    r.on('fileSuccess', function(file, message) {
-        var fileElement = $('#file-' + file.uniqueIdentifier);
-        fileElement.find('.progress-percentage').text('Upload complete');
-        // Optionally, you can remove the file element or show a success message
-        console.log(file + '---------->' + message)
-        var currentValue = file_names_from_s3.val();
-        var newValues = message;
-        // Append new values
-        if (currentValue === '') {
-            // If empty, just join the new values with a comma
-            var updatedValue = newValues;
-        } else {
-            // If not empty, append new values with a preceding comma
-            var updatedValue = currentValue + ',' + newValues;
-        }
-        file_names_from_s3.val(updatedValue);
-
-        if (file.file.type.startsWith('video/') || file.file.type.startsWith('audio/')) {
-            var mediaElement = document.createElement(file.file.type.startsWith('video/') ? 'video' : 'audio');
-            mediaElement.src = URL.createObjectURL(file.file);
-            mediaElement.addEventListener('loadedmetadata', function() {
-                var duration = mediaElement.duration;
-                var durationElement = $('<p>').text('Duration: ' + formatDuration(duration));
-                fileElement.append(durationElement);
-                URL.revokeObjectURL(mediaElement.src);
-
-                // Store the duration in a variable named duration
-                var fileDuration = duration; // Store the duration in the variable
-                var currentValue = file_durations.val();
-                var newValues = formatDuration(duration);
-                // Append new values
-                if (currentValue === '') {
-                    // If empty, just join the new values with a comma
-                    var updatedValue = newValues;
-                } else {
-                    // If not empty, append new values with a preceding comma
-                    var updatedValue = currentValue + ',' + newValues;
-                }
-                file_durations.val(updatedValue);
-            
-            });
-        }
-        uploadedFiles++;
-
-        // Check if all files are uploaded
-        if (uploadedFiles === totalFiles) {
-            // Enable the submit button
-            if (submitButton.length) {
-                submitButton.prop('disabled', false);
+        // When files are selected, add them to Resumable.js
+        fileUploadInput.addEventListener('change', function(event) {
+            var files = event.target.files;
+            if (files.length > 0) {
+                resumable.addFiles(files); // add the files to resumable.js
             }
-            if (coursesubmitButton.length) {
-                coursesubmitButton.prop('disabled', false);
+        });
+
+        // Display file info and start upload
+        resumable.on('fileAdded', function(file) {
+            var fileElement = document.createElement('div');
+            fileElement.id = 'file-' + file.uniqueIdentifier;
+            fileElement.innerHTML = `
+                <p>${file.fileName}</p>
+                <div class="progress-container">
+                    <progress value="0" max="100"></progress>
+                    <span class="progress-percentage">0%</span>
+                </div>
+            `;
+            fileInfoContainer.appendChild(fileElement);
+            resumable.upload();
+        });
+
+        // Update progress bar and percentage for each file
+        resumable.on('fileProgress', function(file) {
+            var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+            var progress = Math.floor(file.progress() * 100);
+            fileElement.querySelector('progress').value = progress;
+            fileElement.querySelector('.progress-percentage').textContent = progress + '%';
+        });
+
+        // Handle upload success
+        resumable.on('fileSuccess', function(file, message) {
+            var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+            fileElement.querySelector('.progress-percentage').textContent = 'Upload complete';
+            // Optionally, you can remove the file element or show a success message
+            console.log(file + '---------->' + message);
+            var currentFileNames = document.getElementById('file-names-from-s3').value;
+            var newFileName = message;
+            // Append new values
+            var updatedFileNames = currentFileNames === '' ? newFileName : currentFileNames + ',' + newFileName;
+            document.getElementById('file-names-from-s3').value = updatedFileNames;
+
+            if (file.file.type.startsWith('video/') || file.file.type.startsWith('audio/')) {
+                var mediaElement = document.createElement(file.file.type.startsWith('video/') ? 'video' : 'audio');
+                mediaElement.src = URL.createObjectURL(file.file);
+                mediaElement.addEventListener('loadedmetadata', function() {
+                    var duration = mediaElement.duration;
+                    var durationElement = document.createElement('p');
+                    durationElement.textContent = 'Duration: ' + formatDuration(duration);
+                    fileElement.appendChild(durationElement);
+                    URL.revokeObjectURL(mediaElement.src);
+
+                    // Store the duration in a variable named duration
+                    var currentDurations = document.getElementById('file-durations').value;
+                    var newDuration = formatDuration(duration);
+                    // Append new values
+                    var updatedDurations = currentDurations === '' ? newDuration : currentDurations + ',' + newDuration;
+                    document.getElementById('file-durations').value = updatedDurations;
+                });
             }
-        }
+        });
 
-        
+        // Handle upload error
+        resumable.on('fileError', function(file, message) {
+            var fileElement = document.getElementById('file-' + file.uniqueIdentifier);
+            fileElement.querySelector('.progress-percentage').textContent =
+                'Something went wrong. Please refresh and try again.';
+            // Optionally, you can show an error message
+        });
     });
+}
 
-    // Handle upload error
-    r.on('fileError', function(file, message) {
-        var fileElement = $('#file-' + file.uniqueIdentifier);
-        fileElement.find('.progress-percentage').text('Something went wrong. Please refresh and try again.');
-        // Optionally, you can show an error message
-    });
+// Utility function to format duration
+function formatDuration(seconds) {
+    var hours = Math.floor(seconds / 3600);
+    var minutes = Math.floor((seconds % 3600) / 60);
+    var seconds = Math.floor(seconds % 60);
+    return [
+        hours,
+        minutes.toString().padStart(2, '0'),
+        seconds.toString().padStart(2, '0')
+    ].join(':');
+}
 
-    function formatDuration(seconds) {
-        var hours = Math.floor(seconds / 3600);
-        var minutes = Math.floor((seconds % 3600) / 60);
-        var seconds = Math.floor(seconds % 60);
-        return [
-            hours,
-            minutes.toString().padStart(2, '0'),
-            seconds.toString().padStart(2, '0')
-        ].join(':');
-    }
+// Initialize file upload for elements with the specified classes
+initializeFileUpload('file-upload-inputs', 'file-info');
+
+
+
 </script>
-
-

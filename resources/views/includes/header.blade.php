@@ -539,19 +539,25 @@
                             href="{{ url('roles') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Role</span></a>
                     </li>
-
+                    @allpermission( 'app-user-view')
                     <li class="@if (request()->is('app-users*')) active @endif "><a
                             href="{{ url('app-users') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">App Users</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission( 'affiliate-users')
                     <li class="@if (request()->is('affiliate*')) active @endif "><a
                             href="{{ url('/affiliate ') }}"><i class="fa fa-id-card"></i>
                             <span class="menu-item" data-i18n="Analytics">Affiliate </span></a>
                     </li>
+                    @endallpermission
+                    
+                    @allpermission('family')
                     <li class="@if (request()->is('family*')) active @endif "><a href="{{ url('/family ') }}"><i
                                 class="fa fa-users"></i>
                             <span class="menu-item" data-i18n="Analytics">Family </span></a>
                     </li>
+                    @endallpermission
                     <li class="@if (request()->is('cancel_subscriptions')) active @endif "><a
                             href="{{ url('cancel_subscriptions') }}"><i class="fa fa-times"></i>
                             <span class="menu-item" data-i18n="Analytics">Cancel Subscription</span></a>

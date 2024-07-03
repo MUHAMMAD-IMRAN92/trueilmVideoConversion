@@ -54,7 +54,12 @@ class FileUploadController extends Controller
             $newVariable = '';
 
             // Check if the previous URL includes the word "book"
-            if (strpos($previousUrl, 'book') !== false) {
+            // if (strpos($previousUrl, 'book') !== false) {
+            //     $newVariable = 'files';
+            // } else {
+            //     $newVariable = 'courses_videos';
+            // }
+            if ( $request->upload_type == "book") {
                 $newVariable = 'files';
             } else {
                 $newVariable = 'courses_videos';

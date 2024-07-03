@@ -151,7 +151,7 @@ class CourseController extends Controller
 
         $course = new Course();
         $course->title = $request->title;
-        $course->description = $request->description;
+        $course->description = $request->description ?? '';
         $course->added_by = $this->user->id;
         $course->status = 1;
         $course->approved = 0;
@@ -382,11 +382,10 @@ class CourseController extends Controller
         $courseLesson->added_by = $this->user->id;
 
         if ($request->podcast_file) {
-            // $file_name = time() . '.' . $request->podcast_file->getClientOriginalExtension();
-            // $path =   $request->podcast_file->storeAs('courses_videos', $file_name, 's3');
-            // Storage::disk('s3')->setVisibility($path, 'public');
-            $path =   'ChunkFiles/' . $request->podcast_file;
-            // Storage::disk('s3')->setVisibility($path, 'public');
+            
+
+            $path =   'courses_videos/' . $request->podcast_file;
+
             $courseLesson->file = $base_path . $path;
 
             if (strpos($request->podcast_file, '.mp3')) {
@@ -394,25 +393,9 @@ class CourseController extends Controller
             } else {
                 $courseLesson->type = 2;
             }
-            // $courseLesson->book_name = $request->podcast_file->getClientOriginalName();
-            // $getID3 = new \JamesHeinrich\GetID3\GetID3;
-            // $file = $getID3->analyze(@$request->podcast_file);
-            // $duration = date('H:i:s', $file['playtime_seconds']);
-            // list($hours, $minutes, $seconds) = explode(':', $duration);
+          
+          
 
-            // // Calculate total duration in minutes
-            // $total_minutes = $hours * 60 + $minutes;
-
-            // // Construct the duration in the format MM:SS
-            // $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
-            // $courseLesson->file_duration = @$duration_minutes_seconds;
-
-            // $durationArr = explode(',', $request->file_durations);
-
-            // $courseLesson->file_duration = $request->file_durations;
-            // $courseLesson->hls_conversion = 0;
-
-            // $courseLesson->save();
         }
 
         if ($request->lesson_notes) {
@@ -433,6 +416,8 @@ class CourseController extends Controller
         }
         $courseLesson->sequence = (int) @$request->sequence ?? 0;
         $courseLesson->is_kwl = $request->is_kwl;
+        $courseLesson->file_duration = $request->file_durations;
+
         $courseLesson->hls_conversion = @$courseLesson->hls_conversion ?? 0;
 
         $courseLesson->save();
@@ -798,13 +783,17 @@ class CourseController extends Controller
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
 
+
+        
         if ($request->podcast_file) {
             foreach (explode(',', $request->podcast_file)  as $key => $file) {
                 $bookContent = new CourseLesson();
                 // $file_name = time() . '.' . $file->getClientOriginalExtension();
                 // $path =   $file->storeAs('files', $file_name, 's3');
                 // Storage::disk('s3')->setVisibility($path, 'public');
-                $path = 'ChunkFiles/' . $file;
+                //$path = 'ChunkFiles/' . $file;
+
+                $path = 'courses_videos/' . $file;
                 $bookContent->file = $base_path . $path;
 
                 $bookContent->book_name = $file;
