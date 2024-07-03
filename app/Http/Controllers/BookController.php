@@ -717,9 +717,30 @@ class BookController extends Controller
     }
     public function viewBook($book_id)
     {
+
+        $get_book             = Book::find($book_id);
+
+        $get                  = $get_book->is_viewed;
+        $get_book->is_viewed  = intval(1);
+        $get_book->save();
+        $render ='';
+        if($get == null){
+            $render=1;
+
+        }
+        if($get == 1){
+            $render=0;
+
+        }
+
+
+        
+
+       
         return view('eBook.view_book', [
             'book_id' => $book_id,
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
+            'render'  => $render 
         ]);
     }
     public function bookDuringPeriod(Request $request)

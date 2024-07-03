@@ -47,6 +47,24 @@
     $(document).ready(function() {
 
 
+
+        $(document).on('click', '.search_hadith', function() {
+            let ayat=$(".get_ayat").val();
+            $(".all_hide").css('display','none');
+            $(".show_"+ayat).css('display','block');
+
+        });
+        $(document).on('click', '.search_clear', function() {
+            $(".all_hide").css('display','block');
+            $('.get_ayat').select2();
+
+            $('.get_ayat').val('All').trigger('change');
+
+        });
+
+        
+
+
         $('.summernote').summernote({
             height: 150,
             codemirror: {
@@ -1104,17 +1122,40 @@
                         }
                         if (row.type == 2) {
                             anchor =
-                                `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?pending_for_approval=true') }}"> <i class="fa fa-list"  style="font-size:24px"> </i></a>`;
+                                `<a class="ml-1" target="_blank" href="{{ url('book/`+ row.type +`/list/`+row._id+`?pending_for_approval=true') }}"> <i class="fa fa-list"  style="font-size:20px"> </i></a>`;
                         } else {
                             anchor =
-                                `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>`;
+                                `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" style="font-size:20px"></i></a>`;
                         }
-                        return `<td class="d-flex">
-                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>` +
+
+                        var approve='';
+                        var is_view=``;
+
+                        if(row.type == 1){
+                            if(row.is_viewed  && row.is_viewed ==1)
+                            {
+                                approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:20px"></i></a>`;
+                                is_view=`<i class="fa fa-undo green-undo pointer ml-2" style="font-size:20px; cursor:pointer"></i>`;
+                            }
+                            else{
+                                approve=``;
+                                is_view=`<i class="fa fa-undo red-undo pointer ml-2" style="font-size:20px; cursor:pointer"></i>`;
+
+                            }
+                            
+
+                        }else{
+                            approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:20px"></i></a>`;
+
+                        }
+
+                        
+                        return `<td class="d-flex" style="width: 17%;">
+                                ` +approve +
                             a +
                             `
-                                <a href="#" class="ml-1"><i class="fa fa-times" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
-                            anchor +
+                                <a href="#" class="ml-1"><i class="fa fa-times  sd" onclick="reasonModal('${row._id}' ,1)" style="font-size:24px; cursor:pointer"  data-href=""></i></a>` +
+                            anchor + is_view +
                             `</td>`
                     }
                 },
@@ -2468,6 +2509,27 @@
                     "mRender": function(data, type, row) {
                         var anchor;
                         var a = '';
+
+                        var approve='';
+                        var is_view=``;
+
+                        if(row.type == 1){
+                            if(row.is_viewed  && row.is_viewed ==1)
+                            {
+                                approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>`;
+                                is_view=`<i class="fa fa-undo green-undo pointer ml-1" ></i>`;
+                            }
+                            else{
+                                approve=``;
+                                is_view=`<i class="fa fa-undo red-undo pointer ml-1" style=""></i>`;
+
+                            }
+                            
+
+                        }else{
+                            approve=`<a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>`;
+
+                        }
                         if ("{{ auth()->user()->hasRole('Admin') }}" ||
                             "{{ auth()->user()->hasRole('Super Admin') }}") {
                             a =
@@ -2485,11 +2547,11 @@
                                 `<a  class="ml-1" target="_blank" href="{{ url('book/view/`+row._id+`') }}"><i class="fa fa-eye" ></i></a>`;
                         }
                         return `<td class="d-flex">
-                                <a  class="ml-1" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" ></i></a>` +
+                                ` +approve +
                             a +
                             `
                                 ` +
-                            anchor +
+                            anchor + is_view +
                             `</td>`
                     }
                 },

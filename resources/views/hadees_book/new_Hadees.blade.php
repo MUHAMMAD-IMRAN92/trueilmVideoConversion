@@ -200,12 +200,11 @@
                                 action="{{ url('hadith/books/combination/' . $type . '/' . $book->_id . '/' . $currentCombination->_id) }}"
                                 method="GET">
                                 <div class="form-label-group">
-                                    <select class="select2 form-control" name="ayat_id" id="">
+                                    <select class="select2 form-control get_ayat" name="ayat_id" id="">
                                         <option selected disabled>Select
                                             Hadith
                                         </option>
-                                        <option value="">All
-                                        </option>
+                                        <option value="All">All</option>
                                         @foreach ($hadiths as $hadith)
                                             <option style="height: fit-content;width:inherit" class="   "
                                                 value="{{ $hadith->_id }}"
@@ -217,9 +216,10 @@
 
                                     </select>
                                     <div class="mt-2">
-                                        <button class="btn btn-dark" type="submit"> Search</button>
-                                        <a href="{{ url('hadith/books/combination/' . $type . '/' . $book->_id . '/' . $currentCombination->_id) }}"
-                                            class="btn btn-dark">Clear</i></a>
+                                        <button class="btn btn-dark search_hadith" type="button"> Search</button>
+                                        <button class="btn btn-dark search_clear" type="button"> Clear</button>
+                                        <!-- <a href="{{ url('hadith/books/combination/' . $type . '/' . $book->_id . '/' . $currentCombination->_id) }}"
+                                            class="btn btn-dark">Clear</i></a> -->
                                         <a href="{{ url('hadith/create/' . $type . '/' . $book->_id . '/' . $currentCombination->_id) }}"
                                             class="btn btn-dark">Add
                                             Hadith</i></a>
@@ -354,7 +354,7 @@
                                     </div>
                                 @endif
                                 @foreach ($hadiths as $key => $hadith)
-                                    <div class="col-12 lang translation-div-{{ $key }}">
+                                    <div class="col-12 lang all_hide show_{{$hadith->_id}}  translation-div-{{ $key }}">
                                         <div class="card">
                                             <div class="card-body">
 
