@@ -102,6 +102,8 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->my_role_id = $request->input('role');
+
         $user->password = Hash::make($request->password);
         $user->added_by = $this->user->id;
         $user->type = $type;
@@ -165,7 +167,7 @@ class UserController extends Controller
             $subscription->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $subscription->save();
         }
-        $user->assignRole($request->input('role'));
+        //$user->assignRole($request->input('role'));
 
         return redirect()->to('/user-management')->with('msg', 'User Saved Successfully!');;
     }
@@ -207,6 +209,8 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->added_by = $this->user->id;
+            $user->my_role_id = $request->input('role');
+
             $user->type = $type;
 
             if ($type == 3) {

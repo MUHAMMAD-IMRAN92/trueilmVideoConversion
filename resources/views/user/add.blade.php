@@ -93,7 +93,7 @@
                                                             <select class="form-control" id="role-dropdown" name="role"
                                                                 required onchange="showType()">
                                                                 @foreach ($roles as $role)
-                                                                    <option value="{{ $role->name }}">{{ $role->name }}
+                                                                    <option value="{{ $role->_id }}">{{ $role->name }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>

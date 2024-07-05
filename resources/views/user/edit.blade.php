@@ -97,9 +97,12 @@
                                                         <fieldset class="form-group">
                                                             <select class="form-control" id="" name="role"
                                                                 required>
+                                                                <option>Select Role
+                                                                        
+                                                                    </option>
                                                                 @foreach ($roles as $role)
-                                                                    <option value="{{ $role->name }}"
-                                                                        {{ $user->hasRole($role->name) == true ? 'selected' : '' }}>
+                                                                    <option value="{{ $role->_id }}"
+                                                                        {{ $user->my_role_id == $role->_id ? 'selected' : '' }}>
                                                                         {{ $role->name }}
                                                                     </option>
                                                                 @endforeach
