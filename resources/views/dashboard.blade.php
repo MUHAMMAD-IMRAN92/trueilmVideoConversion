@@ -25,7 +25,8 @@
                     <div class="row">
 
                     
-                          <div class="col-lg-3 col-sm-6 col-12">
+                        @if (auth()->user()->email == env('super_admin_email'))
+                            <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
 
@@ -66,10 +67,10 @@
                                     <br>
                                 </div>
                             </div>
-                        
+                        @endif
 
                     </div>
-                    @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+                    @if (auth()->user()->email == env('super_admin_email'))
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <div class="card">
@@ -110,7 +111,7 @@
                     @endif
 
                     <div class="row">
-                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+                        @if (auth()->user()->email == env('super_admin_email'))
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -140,8 +141,7 @@
                                     <br>
                                 </div>
                             </div>
-                        @endif
-                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Super Admin'))
+                        
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -151,7 +151,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                            {{ App\Models\Book::when(!auth()->user()->email == env('super_admin_email') , function ($query) {
                                                 $query->where('added_by', auth()->user()->id);
                                             })->count() }}
                                         </h2>
@@ -174,12 +174,12 @@
                                                 ->count();
                                         @endphp --}}
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::pendingApprove()->when(auth()->user()->hasRole('Publisher'), function ($query) {
+                                            {{ App\Models\Book::pendingApprove()->when(!auth()->user()->email == env('super_admin_email'), function ($query) {
                                                     $query->where('added_by', auth()->user()->id);
                                                 })->count() }}
                                         </h2>
                                         <p class="mb-0">Pending For Approval Book <u style="font-size: 10px">
-                                                @if (auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Admin'))
+                                                @if (auth()->user()->email == env('super_admin_email'))
                                                     <a href="{{ url('book/pending-for-approval/1') }}">Click</a>
                                                 @endif
                                             </u>
@@ -198,7 +198,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::rejected()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                            {{ App\Models\Book::rejected()->when(!auth()->user()->email == env('super_admin_email'), function ($query) {
                                                     $query->where('added_by', auth()->user()->id);
                                                 })->count() }}
                                         </h2>
@@ -220,7 +220,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->ebook()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                            {{ App\Models\Book::approved()->ebook()->when(!auth()->user()->email == env('super_admin_email'), function ($query) {
                                                     $query->where('added_by', auth()->user()->id);
                                                 })->count() }}
                                         </h2>
@@ -242,7 +242,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->audio()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                            {{ App\Models\Book::approved()->audio()->when(!auth()->user()->email == env('super_admin_email'), function ($query) {
                                                     $query->where('added_by', auth()->user()->id);
                                                 })->count() }}
                                         </h2>
@@ -264,7 +264,7 @@
                                             </div>
                                         </div>
                                         <h2 class="text-bold-700 mt-1">
-                                            {{ App\Models\Book::approved()->paper()->when(!auth()->user()->hasRole('Super Admin'), function ($query) {
+                                            {{ App\Models\Book::approved()->paper()->when(!auth()->user()->email == env('super_admin_email'), function ($query) {
                                                     $query->where('added_by', auth()->user()->id);
                                                 })->count() }}
                                         </h2>
