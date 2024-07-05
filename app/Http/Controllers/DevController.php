@@ -455,7 +455,8 @@ class DevController extends Controller
                 ['is_active' => 1, 'key' => 'hls_conversion']
             );
             // $course = CourseLesson::where('hls_conversion', 0)->get();
-            $course = CourseLesson::where('hls_conversion', $hls_conversion)->whereNull('hls_conversion2')->get();
+            //$course = CourseLesson::where('hls_conversion', $hls_conversion)->whereNull('hls_video_url2')->get();
+            $course = CourseLesson::whereNull('hls_video_url2')->get();
 
             foreach ($course as $c) {
 
@@ -547,7 +548,9 @@ class DevController extends Controller
                 \File::makeDirectory(public_path('videos'), 0775, true, true);
             }
             $book = Book::where('type', "7")->pluck('_id');
-            $course = BookContent::whereIn('book_id', $book)->where('type', 2)->where('hls_conversion', $hls_conversion)->whereNull('hls_conversion2')->get();
+            //$course = BookContent::whereIn('book_id', $book)->where('type', 2)->where('hls_conversion', $hls_conversion)->whereNull('hls_conversion2')->get();
+            $course = BookContent::whereIn('book_id', $book)->where('type', 2)->whereNull('hls_video_url2')->get();
+
             foreach ($course as $c) {
 
 
@@ -637,7 +640,8 @@ class DevController extends Controller
             }
 
 
-            $course = Course::where('hls_conversion', $hls_conversion)->whereNull('hls_conversion2')->get();
+            //$course = Course::where('hls_conversion', $hls_conversion)->whereNull('hls_conversion2')->get();
+            $course = Course::whereNull('hls_video_url2')->get();
 
             foreach ($course as $c) {
 
