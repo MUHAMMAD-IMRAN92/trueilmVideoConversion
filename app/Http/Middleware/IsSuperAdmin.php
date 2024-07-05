@@ -9,7 +9,7 @@ class IsSuperAdmin
 {
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() || !auth()->user()->email == env('super_admin_email')) {
+        if (!Auth::check() || auth()->user()->email != env('super_admin_email')) {
             abort(403, 'Unauthorized');
         }
 
