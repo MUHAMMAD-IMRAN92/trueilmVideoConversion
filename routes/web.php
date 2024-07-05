@@ -452,6 +452,9 @@ Route::get('phpinfo', function () {
 Route::get('dev', function () {
     // \File::makeDirectory(public_path('videos'), 777, true, true);
     // \File::deleteDirectory(public_path('videos'), 777, true, true);
+
+   
+
     system("rm -rf ".escapeshellarg(public_path('videos')));
     return 'ok';
     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
