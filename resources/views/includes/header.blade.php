@@ -335,7 +335,6 @@
                 </li> --}}
                 {{-- <i class="fa-solid fa-book-quran"></i> --}}
 
-                @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                     <li class=" navigation-header"><span>Al Quran</span>
                     </li>
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
@@ -411,8 +410,7 @@
                     </li>
                     @endallpermission
                     <hr>
-                @endif
-                @if (auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+               
                     <li class=" navigation-header"><span>Content</span>
                     </li>
 
@@ -522,8 +520,7 @@
                             href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
                     </li> --}}
-                @endif
-                @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
+                
 
                     <li class=" navigation-header"><span>User Management</span>
                     </li>
@@ -765,7 +762,7 @@
                         </li>
                     @endallpermission   
                    
-                @endif
+                
 
                 @if (auth()->user()->hasRole('Institute'))
                     <li class="@if (request()->is('institute*') || request()->is('app-user*')) active @endif "><a
