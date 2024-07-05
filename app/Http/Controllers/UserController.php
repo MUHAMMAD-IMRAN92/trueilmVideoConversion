@@ -167,7 +167,8 @@ class UserController extends Controller
             $subscription->expiry_date  =  Carbon::parse($request->expiry_date)->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP');
             $subscription->save();
         }
-        //$user->assignRole($request->input('role'));
+        $setrole=Role::where('_id' ,$request->input('role'))->first();
+        $user->assignRole($setrole->name);
 
         return redirect()->to('/user-management')->with('msg', 'User Saved Successfully!');;
     }

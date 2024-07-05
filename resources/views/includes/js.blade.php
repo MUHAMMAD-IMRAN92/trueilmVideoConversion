@@ -6141,7 +6141,7 @@
 
     function showType() {
         var role = $('#role-dropdown').val();
-        if (role == 'Institute') {
+        if (role == '64479158c005cd0ab928c074') {
             console.log(role);
             $('.radio_for_institute_type').css('display', 'block')
             $('#bulk_plan_form').css('display', 'block')
