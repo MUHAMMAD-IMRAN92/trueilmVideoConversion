@@ -71,6 +71,7 @@ class Kernel extends HttpKernel
         'permission' => \App\Http\Middleware\Permissions::class,
         'contentPermission' => \App\Http\Middleware\contentPermission::class,
         'approvalPermission' => \App\Http\Middleware\approvalPermission::class,
+        'IsSuperAdmin' => \App\Http\Middleware\IsSuperAdmin::class,
 
 
     ];

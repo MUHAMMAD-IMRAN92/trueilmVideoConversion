@@ -537,10 +537,13 @@
                     </li>
                     @endallpermission
 
+                    @if(auth()->user()->email == env('super_admin_email'))
+
                     <li class="@if (request()->is('roles')  || request()->is('permission')) active @endif "><a
                             href="{{ url('roles') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Role</span></a>
                     </li>
+                    @endif
                     @allpermission('app-user-view')
                     <li class="@if (request()->is('app-users*')) active @endif "><a
                             href="{{ url('app-users') }}"><i class="fa fa-user"></i>

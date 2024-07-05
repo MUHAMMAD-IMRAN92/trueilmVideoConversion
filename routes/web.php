@@ -37,6 +37,7 @@ use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\GrantController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\GlossoryController;
+
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Jobs\SurahCombination as SurahCombinationJob;
@@ -502,9 +503,7 @@ Route::get('dev', function () {
     // \File::makeDirectory(public_path('videos'), 777, true, true);
     // \File::deleteDirectory(public_path('videos'), 777, true, true);
 
-    $client = new GuzzleHttp\Client();
-    $res = $client->get('https://061c-119-155-3-197.ngrok-free.app/epub-viewer/666eb7f6f84f7b7b170ac482?auth_token=64e5c4512b52c001692b61d2&render=1');
-    return $res->getStatusCode();
+   
 
     system("rm -rf ".escapeshellarg(public_path('videos')));
     return 'ok';
