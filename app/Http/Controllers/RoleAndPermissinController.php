@@ -69,10 +69,22 @@ class RoleAndPermissinController extends Controller
 
     public function editPermission($id)
     { 
-        $get_permission=Permission::where('_id',$id)->get();
+        $get_permission=Permission::where('role_id',$id)->pluck('name')->toArray();
+        $role=Role::where('_id',$id)->first();
 
-        $permission=$this->getAllPermission();
-        return view('edit-permission' ,compact('permission','get_permission'));
+        $total=Permission::where('role_id',$id)->count();
+        $permission      =$this->getAllPermission();
+
+        $getAlQuran                    =$this->totalPermission($id,1);
+        $getHadith                     =$this->totalPermission($id,2);
+        $getContent                    =$this->totalPermission($id,3);
+        $getUserManagement             =$this->totalPermission($id,4);
+        $getContentforApproval         =$this->totalPermission($id,5);
+        $getReview                     =$this->totalPermission($id,6);
+        $getGrant                      =$this->totalPermission($id,7);
+        $getGenral                     =$this->totalPermission($id,8);
+       
+        return view('edit-permission' ,compact('role','permission','get_permission','getAlQuran','getHadith','getContent','getUserManagement','getContentforApproval','getReview','getGrant','getGenral','total'));
 
     }
     public function getAllPermission(){
@@ -185,7 +197,7 @@ class RoleAndPermissinController extends Controller
 
         ];
 
-        $PendingGrant              =['pending-grant']; 
+        $PendingGrant              =['grant']; 
         $ApprovedGrant             =['approved-grant']; 
         $RejectedGrant             =['rejected-grant']; 
 
@@ -243,6 +255,88 @@ class RoleAndPermissinController extends Controller
         ];
 
         return  $permission;
+
+    }
+    public function totalPermission($id,$module)
+    {
+        if($module ==1)
+        {
+            $perm=['translations-author-view','translations-author-create',
+            'translations-author-edit','surah-translations-view','surah-translations-combination-add',
+            'surah-translations-combination-action','add-surah-translations','surah-Tafseer-view','surah-Tafseer-combination-add',
+            'surah-Tafseer-combination-action','add-surah-Tafseer','language-view','language-create','language-edit'];
+        }
+        if($module ==2)
+        {
+            $perm=['add-hadith','add-hadith-book','hadith-translations-view',
+                    'hadith-translations-combination-add',
+                    'hadith-translations-combination-action','add-hadith-translations',
+                    'hadith-Tafseer-view','hadith-Tafseer-combination-add',
+                    'hadith-Tafseer-combination-action','add-hadith-Tafseer'];
+        }
+        if($module ==3)
+        {
+
+            $perm=['category-view','category-create','category-edit', 'category-toggle',
+             'eBook-view','eBook-create','eBook-edit','eBook-toggle',
+             'audio-book-view','audio-book-create','audio-book-edit', 'audio-book-toggle',
+             'add-audio-book-chapter','edit-audio-book-chapter','delete-audio-book-chapter',
+             'papers-view','papers-create','papers-edit', 'papers-toggle','podcast-view',
+             'podcast-create','podcast-edit', 'podcast-toggle','add-podcast-episode',
+             'edit-podcast-episode','delete-podcast-episode','course-view','course-create',
+             'course-edit', 'course-toggle','add-course-lesson','edit-course-lesson',
+             'delete-course-lesson','course-series-view','course-series-create','course-series-edit',
+             'course-series-toggle','publisher-view','publisher-create','publisher-edit',
+             'author-view','author-create','author-edit','app-section-view','app-section-create',
+             'app-section-edit','add-content','app-section-toggle'];
+        }
+        if($module ==4)
+        {
+
+            $perm= ['view-admin-user','create-admin-user','edit-admin-user',
+                    'delete-admin-user','reset-password-admin-user','app-user-view',
+                    'app-user-detail','app-user-profile','affiliate-users','affiliate-child-users',
+                    'affiliate-users-detail','family','family-members','family-members-detail',
+                    'view-cancel-subscription'];
+        }
+        if($module ==5)
+        {
+
+            $perm= [
+                'pending-eBook','pending-audio-book','pending-papers','pending-podcast',
+                'pending-course','approved-content','rejected-content' 
+            ];
+        }
+        if($module ==6)
+        {
+
+            $perm= [ 'review-book','reflections','book-mistakes'];
+        }
+        if($module ==7)
+        {
+
+            $perm= [ 'grant','approved-grant','rejected-grant'];
+        }
+        if($module ==8)
+        {
+            $perm= ['notifications-view','notifications-create','books-for-sale',
+                    'books-for-sale-create','books-for-sale-edit',
+                    'email-subscriptions' ,'email-subscriptions-export',
+                    'glossory-view','glossory-create','glossory-edit',
+                    'support-view','support-detail','support-approve',
+                    'coupon-view','coupon-create','coupon-delete',
+                    'app-versions-view','app-versions-create',
+                    'activities_view','activities_undo'];
+        }
+       
+       
+        $count=Permission::where('role_id',$id)->whereIn('name',$perm)->count();
+
+        return $count;
+
+
+       
+
 
     }
     

@@ -52,6 +52,7 @@ class PermissionTableSeeder extends Seeder
             'affiliate-users','affiliate-child-users','affiliate-users-detail',
             'family','family-members','family-members-detail',
             'view-cancel-subscription',
+            'review-book','reflections','book-mistakes',
             'grant','approved-grant','rejected-grant',
             'notifications-view','notifications-create',
             'books-for-sale','books-for-sale-create','books-for-sale-edit',
