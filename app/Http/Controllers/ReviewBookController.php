@@ -88,7 +88,7 @@ class ReviewBookController extends Controller
     public function allBookAddtionaReview(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;

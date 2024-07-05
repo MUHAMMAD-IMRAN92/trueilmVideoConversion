@@ -65,10 +65,17 @@ class UserController extends Controller
     }
     public function add()
     {
-        if (auth()->user()->hasRole('Super Admin')) {
+        // if (auth()->user()->hasRole('Super Admin')) {
+        //     $roles = Role::all();
+        // } else {
+        //     $roles = Role::whereIn('name', ['Admin', 'Publisher', 'Institute'])->get();
+        // }
+
+        if(auth()->user()->email == env('super_admin_email')) {
             $roles = Role::all();
         } else {
             $roles = Role::whereIn('name', ['Admin', 'Publisher', 'Institute'])->get();
+            
         }
 
         return view('user.add', [

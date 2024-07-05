@@ -1094,15 +1094,16 @@
                             eye = 'feather icon-eye-off';
                         }
                         var a = '';
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
-                            a =
-                                `<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                   <a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
+                        var  b= '';
+                        if ("{{ auth()->user()->anycheckPermission('category-edit')}}") {
+                               a =`<a  class="ml-2" href="{{ url('category/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>`;
+                        }       
+                        if ("{{ auth()->user()->anycheckPermission('category-toggle')}}") {      
+                               b= `<a  class="ml-2" href="{{ url('category/update-status/`+row._id+`') }}"><i class="` +
                                 eye + `"></i></a>`;
                         }
                         return `<td>
-                                ` + a + `
+                                ${a} ${b}
 
                                 </td>`
                     }

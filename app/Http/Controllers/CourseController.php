@@ -53,7 +53,7 @@ class CourseController extends Controller
     public function allCourses(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -559,7 +559,7 @@ class CourseController extends Controller
     public function allPendingCourses(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -633,7 +633,7 @@ class CourseController extends Controller
     public function allRejectedByYouCourses(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -668,7 +668,7 @@ class CourseController extends Controller
     public function allApprovedByYouCourses(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -704,11 +704,11 @@ class CourseController extends Controller
     public function allRejectedCourses(Request $request)
     {
         $user_id = auth()->user()->id;
-        // if (auth()->user()->hasRole('Super Admin')) {
-        //     $user_id = '';
-        // } else {
-        //     $user_id = auth()->user()->id;
-        // }
+        if(auth()->user()->email == env('super_admin_email')) {
+            $user_id = '';
+        } else {
+            $user_id = auth()->user()->id;
+        }
 
         $draw = $request->get('draw');
         $start = $request->get('start');

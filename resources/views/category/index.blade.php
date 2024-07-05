@@ -69,12 +69,12 @@
                                                         <th>Name</th>
                                                         <th class="description-td">Detail</th>
 
-                                                        @if (auth()->user()->hasRole('Admin') ||
-                                                                auth()->user()->hasRole('Super Admin'))
+                                                        <!-- @if (auth()->user()->hasRole('Admin') ||
+                                                                auth()->user()->hasRole('Super Admin')) -->
                                                             <th>Action</th>
-                                                        @else
+                                                        <!-- @else
                                                             <th></th>
-                                                        @endif
+                                                        @endif -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>

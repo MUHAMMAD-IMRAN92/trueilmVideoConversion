@@ -55,7 +55,7 @@ class BookController extends Controller
     public function allBooks(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -645,7 +645,7 @@ class BookController extends Controller
     public function allRejectedBooks(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -748,7 +748,7 @@ class BookController extends Controller
     {
         // return $request->all();
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -817,7 +817,7 @@ class BookController extends Controller
     public function allApprovedBooks(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
@@ -902,7 +902,7 @@ class BookController extends Controller
     public function allAdminRejectedBooks(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
+        if(auth()->user()->email == env('super_admin_email')) {
             $user_id = '';
         } else {
             $user_id = auth()->user()->id;
