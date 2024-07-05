@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class IsSuperAdmin
 {
-    public function handle($request, Closure $next, $permission)
+    public function handle($request, Closure $next)
     {
 
         if (!Auth::check() || !Auth::user()->email == env('super_admin_email')) {
