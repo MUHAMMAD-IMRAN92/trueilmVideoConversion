@@ -15,6 +15,8 @@ use App\Models\UserSubscription;
 use Carbon\Carbon;
 use Meilisearch\Client;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+
 
 function sendSuccess($msg, $data = null)
 {
@@ -496,4 +498,14 @@ function getCountryNameFromCode($code)
     } else {
         return "Country not found";
     }
+}
+function cheakPermission($name)
+{
+   
+    if(!Gate::allows('hasPermission', $name)) {
+        abort(403, 'Unauthorized action.');
+    }
+    
+
+
 }

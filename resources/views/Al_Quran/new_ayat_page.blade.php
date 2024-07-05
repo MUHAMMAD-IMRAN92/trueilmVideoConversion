@@ -79,7 +79,7 @@
                                     <div class="col-6 ">
                                         <select class="select2 form-control" name="lang" id="">
                                             <option selected disabled>Select
-                                                Language
+                                                Languagess
                                             </option>
                                             <option value="">All
                                             </option>
@@ -399,18 +399,35 @@
                                                 </div>
 
                                                 <div class="row d-flex">
+
+                                                @php
+                                                    $permission_pass=''; 
+                                                    if( $type === 1){
+                                                        $permission_pass='add-surah-translations'; 
+
+                                                    }else{
+                                                        $permission_pass='add-surah-Tafseer'; 
+
+                                                    }
+                                                @endphp
+                                                
+
+                                                    @permission($permission_pass)
                                                     <h4 id="edit-button-{{ $key }}"
                                                         onclick="editable('{{ $key }}')">
                                                         <span class="badge badge-info ml-1"><i class="fa fa-pencil"
                                                                 style="cursor: pointer;">&nbspEdit Translation</i></span>
                                                     </h4>
+                                                    @endpermission
                                                     @if ($type == 2)
+                                                        @permission('add-surah-Tafseer')
                                                         <h4 id="revelation-edit-button-{{ $key }}"
                                                             onclick="editableRevelation('{{ $key }}')">
                                                             <span class="badge badge-info ml-1"><i class="fa fa-pencil"
                                                                     style="cursor: pointer;">&nbspEdit
                                                                     Revelation</i></span>
                                                         </h4>
+                                                        @endpermission
                                                         <h4
                                                             onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', '4')">
                                                             <span class="badge badge-success ml-1"
@@ -428,12 +445,14 @@
                                                         </h4>
                                                     @endif
                                                     @if ($type == 1)
+                                                        @permission('add-surah-translations')
                                                         <h4 id="notes-edit-button-{{ $key }}"
                                                             onclick="editableNotes('{{ $key }}')">
                                                             <span class="badge badge-info ml-1"><i class="fa fa-pencil"
                                                                     style="cursor: pointer;">&nbspEdit
                                                                     Notes</i></span>
                                                         </h4>
+                                                        @endpermission
                                                         <h4
                                                             onclick="saveTranslation('{{ $currentCombination->_id }}','{{ $key }}', '3')">
                                                             <span class="badge badge-success ml-1"

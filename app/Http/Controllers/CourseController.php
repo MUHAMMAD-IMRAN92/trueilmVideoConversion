@@ -26,6 +26,7 @@ use JamesHeinrich\GetID3\GetID3;
 use GuzzleHttp\Psr7\Utils;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\CachingStream;
+use Illuminate\Support\Facades\Gate;
 
 
 class CourseController extends Controller
@@ -358,8 +359,20 @@ class CourseController extends Controller
 
         $base_path = 'https://trueilm.s3.eu-north-1.amazonaws.com/';
         if ($request->les_id) {
+
+            
+            if(!Gate::allows('hasPermission', 'edit-course-lesson')) {
+                abort(403, 'Unauthorized action.');
+            }
+
             $courseLesson = CourseLesson::where('_id', $request->les_id)->first();
         } else {
+            if(!Gate::allows('hasPermission', 'add-course-lesson')) {
+                abort(403, 'Unauthorized action.');
+            }
+
+           
+
             $courseLesson = new CourseLesson();
         }
 

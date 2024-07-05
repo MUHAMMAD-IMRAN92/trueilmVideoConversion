@@ -93,6 +93,8 @@
                 </div>
 
                 <div class="content-header-right text-md-right col-md-2  d-md-block d-none">
+                @permission('course-create')
+
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
                             <a href="{{ url('course/create') }}"> <button
@@ -103,6 +105,7 @@
 
                         </div>
                     </div>
+                @endpermission
                 </div>
             </div>
             @if (\Session::has('msg'))

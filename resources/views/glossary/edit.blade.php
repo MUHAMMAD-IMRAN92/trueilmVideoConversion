@@ -95,7 +95,7 @@
                                                     </div>
                                                     <div class="col-12"  style="text-align: right">
                                                         <button type="submit" class="btn btn-primary mr-1 mb-1"
-                                                            id="submit-btn">Submit</button>
+                                                            id="-btn">Submit</button>
 
                                                     </div>
                                                 </div>

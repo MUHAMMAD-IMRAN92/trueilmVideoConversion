@@ -402,6 +402,8 @@
                                                     <h2 class="">
                                                         Lessons:</h2>
                                                 </div>
+
+                                                @permission('add-course-lesson')
                                                 <div class="col-4">
                                                     <span class="btn btn-primary" data-toggle="modal"
                                                         data-target="#add-bulk">Bulk Upload</span>
@@ -412,6 +414,7 @@
                                                     <span class="btn btn-primary" data-toggle="modal"
                                                         data-target="#add-episode">Add Lesson</span>
                                                 </div> --}}
+                                                @endpermission
                                             </div>
                                         </div>
                                     </div>
@@ -515,15 +518,18 @@
                                                                         @endif
                                                                     </td>
 
-                                                                    <td style="text-align: center"> <i
+                                                                    <td style="text-align: center">
+                                                                    @permission('edit-course-lesson') 
+                                                                        <i
                                                                             class="fa fa-pencil pointer"
                                                                             onclick="editLessonModal({{ $key }})"></i>
-                                                                        <a
+                                                                            @endpermission
+                                                                            @permission('delete-course-lesson') <a
                                                                             href="{{ url('/course/lesson/delete/' . $les->_id) }}">
                                                                             <i class="fa fa-trash pointer ml-2">
 
                                                                             </i>
-                                                                        </a>
+                                                                            </a>@endpermission
                                                                     </td>
 
                                                                 </tr>

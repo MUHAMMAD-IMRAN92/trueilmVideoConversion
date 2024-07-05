@@ -61,7 +61,7 @@
                                                     <th class="description-td">Email</th>
                                                     <th class="">Phone</th>
                                                     <th class="">Members</th>
-                                                    <th>Action</th>
+                                                    @permission('family-members')<th>Action</th>@endpermission
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -71,9 +71,11 @@
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ $user->phone }}</td>
                                                         <td>{{ count($user->family) }}</td>
+
+                                                        @permission('family-members')
                                                         <td> <a href="{{ url('family/members/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
-                                                                    style="font-size:24px"></i></a> </td>
+                                                                    style="font-size:24px"></i></a> </td>@endpermission
                                                     </tr>
                                                 @empty
                                                     <tr>

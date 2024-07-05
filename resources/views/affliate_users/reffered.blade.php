@@ -62,7 +62,7 @@
                                                     <th class="">Phone</th>
                                                     <th class="">Subscriptions</th>
 
-                                                    <th>Action</th>
+                                                    @permission('affiliate-users-detail')<th>Action</th>@endpermission
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -74,10 +74,12 @@
                                                         <td>
                                                             {{ $user->status }}
                                                         </td>
-                                                        <td> <a
+                                                        @permission('affiliate-users-detail') <td> 
+                                                            
+                                                               <a
                                                                 href="{{ url('affiliate/app-user/books_reading_details/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
-                                                                    style="font-size:24px"></i></a> </td>
+                                                                    style="font-size:24px"></i></a> </td> @endpermission
                                                     </tr>
                                                 @empty
                                                     <tr>

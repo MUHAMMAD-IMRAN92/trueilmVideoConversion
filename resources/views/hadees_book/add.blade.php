@@ -44,7 +44,7 @@
 
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="{{ route('hadith.book.store') }}"
+                                        <form class="form form-vertical" action="{{ url('hadith/book/create') }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">

@@ -350,24 +350,36 @@
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                     </li> --}}
+                    @allpermission('translations-author-view,translations-author-create,translations-author-edit')
                     <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a href="{{ url('authors') }}"><i
                                 class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Translations Author</span></a>
                     </li>
+                    @endallpermission
+
+
+
+                    @allpermission('surah-translations-view')
                     <li class="@if (request()->is('all_surah_translations/1') ||
                             request()->is('surah_translations/1*') ||
                             request()->is('surah/translations/1*')) active @endif "><a
                             href="{{ url('all_surah_translations/1') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Surah Translations</span></a> </li>
+                    
+                    @endallpermission
                     <li class="@if (request()->is('all_surah_translations/2') ||
                             request()->is('surah_translations/2*') ||
                             request()->is('surah/translations/2*')) active @endif "><a
                             href="{{ url('all_surah_translations/2') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Surah Tafseers</span></a> </li>
-                    <li class="@if (request()->is('language*')) active @endif "><a href="{{ url('/language') }}"><i
+                    @allpermission('language-view,language-create,language-edit')
+
+                    
+                            <li class="@if (request()->is('language*')) active @endif "><a href="{{ url('/language') }}"><i
                                 class="fa fa-language"></i>
                             <span class="menu-item" data-i18n="Analytics">Language</span></a>
-                    </li>
+                            </li>
+                    @endallpermission
                     {{-- <li class="@if (request()->is('all_surah_translations/6') || request()->is('surah_translations/6*') || request()->is('surah/translations/6*')) active @endif "><a
                                     href="{{ url('all_surah_translations/6') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Surah Recitations</span></a> </li> --}}
@@ -384,20 +396,27 @@
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Hadith</span></a> --}}
                     {{-- <ul class="menu-content"> --}}
+                    @allpermission('hadith-translations-view')
 
                     <li class="@if (request()->is('hadith/books/3*') || request()->is('hadith/books/3') || request()->is('hadith/books/combination/3*')) active @endif "><a
                             href="{{ url('hadith/books/3') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith Translations</span></a>
+
+                    @endallpermission
+                    @allpermission('hadith-Tafseer-view')
                     <li class="@if (request()->is('hadith/4*') || request()->is('hadith/books/4') || request()->is('hadith/books/combination/4*')) active @endif "><a
                             href="{{ url('hadith/books/4') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Hadith Tafseer</span></a>
                         {{-- </ul> --}}
                     </li>
+                    @endallpermission
                     <hr>
                 @endif
                 @if (auth()->user()->hasRole('Publisher') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
                     <li class=" navigation-header"><span>Content</span>
                     </li>
+
+                    @allpermission('category-view,category-create')
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Category</span></a>
                         <ul class="menu-content">
@@ -418,40 +437,57 @@
 
                         </ul>
                     </li>
+                    @endallpermission
+                    @allpermission('eBook-view,eBook-create,eBook-edit')
+
                     <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif "><a href="{{ url('books/1') }}"><i
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">eBooks</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('audio-book-view,audio-book-create,audio-book-edit')
+
                     <li class="@if (request()->is('books/2') || request()->is('book/2*') || request()->is('book/during_period/2*')) active @endif "><a href="{{ url('books/2') }}"><i
                                 class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Audio Books</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('papers-view,papers-create,papers-edit')
+
                     <li class="@if (request()->is('books/3*') || request()->is('book/3*') || request()->is('book/during_period/3*')) active @endif "><a href="{{ url('books/3') }}"><i
                                 class="fa fa-file"></i>
                             <span class="menu-item" data-i18n="Analytics">Papers</span></a>
                     </li>
+                    @endallpermission
 
+
+                    @allpermission('podcast-view,podcast-create,podcast-edit')
 
                     <li class="@if (request()->is('books/7*') || request()->is('book/7*') || request()->is('book/during_period/7*')) active @endif "><a href="{{ url('books/7') }}"><i
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
                     </li>
+                    @endallpermission
                     {{-- <li class="@if (request()->is('course*') || request()->is('lesson/quiz*')) active @endif  "><a
                             href="{{ url('/courses') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                     </li> --}}
-
+                    @allpermission('course-view,course-series-view')
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Courses</span></a>
                         <ul class="menu-content">
+                            @allpermission('course-view')
                             <li class="@if (request()->is('course/*') || request()->is('courses*') || request()->is('lesson/quiz*')) active @endif  "><a
                                     href="{{ url('/courses') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                             </li>
+                            @endallpermission
+                            @allpermission('course-series-view')
                             <li class="@if (request()->is('series*')) active @endif "><a
                                     href="{{ url('series') }}"><i class="fa fa-list-alt"></i>
                                     <span class="menu-item" data-i18n="Analytics">Course Series</span></a>
                             </li>
+                            @endallpermission
 
 
                             {{-- <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
@@ -461,20 +497,27 @@
 
                         </ul>
                     </li>
+                    @endallpermission
 
-
+                    @allpermission('publisher-view,publisher-create,publisher-edit')
                     <li class="@if (request()->is('publisher*')) active @endif"><a href="{{ url('publisher') }}"><i
                                 class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Publishers</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('author-view,author-create,author-edit')
                     <li class="@if (request()->input('type') == 1 && request()->is('authors')) active @endif"><a
                             href="{{ url('authors?type=1') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Author</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('app-section-view,app-section-create,app-section-edit')
                     <li class="@if (request()->is('app-section')) active @endif"><a
                             href="{{ url('app-section') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">App Section</span></a>
                     </li>
+                    @endallpermission
+                    
                     {{-- <li class="@if (request()->is('book/rejected')) active @endif"><a
                             href="{{ url('book/rejected') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected</span></a>
@@ -487,27 +530,43 @@
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                     data-i18n="Ecommerce">User Management</span></a> --}}
                     {{-- <ul class="menu-content"> --}}
+
+                    @allpermission('view-admin-user')
                     <li class="@if (request()->is('user*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Admin Users</span></a>
                     </li>
+                    @endallpermission
 
+                    <li class="@if (request()->is('roles')  || request()->is('permission')) active @endif "><a
+                            href="{{ url('roles') }}"><i class="fa fa-user"></i>
+                            <span class="menu-item" data-i18n="Analytics">Role</span></a>
+                    </li>
+                    @allpermission('app-user-view')
                     <li class="@if (request()->is('app-users*')) active @endif "><a
                             href="{{ url('app-users') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">App Users</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('affiliate-users')
                     <li class="@if (request()->is('affiliate*')) active @endif "><a
                             href="{{ url('/affiliate ') }}"><i class="fa fa-id-card"></i>
                             <span class="menu-item" data-i18n="Analytics">Affiliate </span></a>
                     </li>
+                    @endallpermission
+                    
+                    @allpermission('family')
                     <li class="@if (request()->is('family*')) active @endif "><a href="{{ url('/family ') }}"><i
                                 class="fa fa-users"></i>
                             <span class="menu-item" data-i18n="Analytics">Family </span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('view-cancel-subscription')
                     <li class="@if (request()->is('cancel_subscriptions')) active @endif "><a
                             href="{{ url('cancel_subscriptions') }}"><i class="fa fa-times"></i>
                             <span class="menu-item" data-i18n="Analytics">Cancel Subscription</span></a>
                     </li>
+                    @endallpermission
                     {{-- </ul>
                         </li> --}}
                     {{-- <li class="@if (request()->is('user*')) active @endif "><a
@@ -529,30 +588,43 @@
                             href="{{ url('book/pending-for-approval') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
                     </li> --}}
+
+                    @allpermission('pending-eBook,pending-audio-book,pending-papers,pending-podcast,rejected-content,approved-content')
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Pending for Approval</span></a>
                         <ul class="menu-content">
+                        @allpermission('pending-eBook')
 
                             <li class="@if (request()->is('book/pending-for-approval/1')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/1') }}"><i class="ffa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Ebook</span></a>
                             </li>
+                        @endallpermission    
+                        @allpermission('pending-audio-book')                            
                             <li class="@if (request()->is('book/pending-for-approval/2')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/2') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Audio Book</span></a>
                             </li>
+                        @endallpermission
+                        @allpermission('pending-papers')
                             <li class="@if (request()->is('book/pending-for-approval/3')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/3') }}"><i class="fa fa-file"></i>
                                     <span class="menu-item" data-i18n="Analytics">Papers</span></a>
                             </li>
+                        @endallpermission 
+                        @allpermission('pending-podcast')
                             <li class="@if (request()->is('book/pending-for-approval/7')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/7') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
                             </li>
+                        @endallpermission
+                        
+                        @allpermission( 'pending-course')
                             <li class="@if (request()->is('book/pending-for-approval/6')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/6') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Courses</span></a>
                             </li>
+                        @endallpermission 
 
                             {{-- <li class="@if (request()->is('books/1*') || request()->is('book/1*') || request()->is('book/during_period/1')) active @endif ml-2"><a
                             href="{{ url('books/1') }}"><i class="fa fa-book"></i>
@@ -561,14 +633,19 @@
 
                         </ul>
                     </li>
+                    @endallpermission
+                    @allpermission('rejected-content')
                     <li class="@if (request()->is('book/rejected_by_you')) active @endif "><a
                             href="{{ url('book/rejected_by_you') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected Content</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('approved-content')
                     <li class="@if (request()->is('book/approved*')) active @endif "><a
                             href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Approved Content</span></a>
                     </li>
+                    @endallpermission
 
                     {{-- </ul>
                         </li> --}}
@@ -590,51 +667,75 @@
                     </li>
                     <li class=" navigation-header"><span>Grant</span>
                     </li>
+                    @allpermission('grant')
                     <li class="@if (request()->is('*grant')) active @endif "><a href="{{ url('/grant') }}"><i
                                 class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Pending Grant</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission( 'approved-grant')
                     <li class="@if (request()->is('grant/approved*')) active @endif "><a
                             href="{{ url('/grant/approved') }}"><i class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Approved Grant</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('rejected-grant')
                     <li class="@if (request()->is('grant/rejected*')) active @endif "><a
                             href="{{ url('/grant/rejected') }}"><i class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected Grant</span></a>
                     </li>
+                    @endallpermission
 
                     <hr>
+
+                    
+                    @allpermission( 'notifications-view')
                     <li class="@if (request()->is('notification*')) active @endif "><a
                             href="{{ url('/notification') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Notification</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('books-for-sale')
 
                     <li class="@if (request()->is('*for_sale*')) active @endif "><a
                             href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>
                     </li>
+                    @endallpermission
+                    
+                    @allpermission('email-subscriptions')
                     <li class="@if (request()->is('subscription_email*')) active @endif "><a
                             href="{{ url('/subscription_email') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Email Subscriptions</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('glossory-view')
+
                     <li class="@if (request()->is('glossary*')) active @endif "><a
                             href="{{ url('/glossary') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Glossary</span></a>
                     </li>
-
+                    @endallpermission
+                    
+                    @allpermission('support-view')
                     <li class="@if (request()->is('support*')) active @endif "><a href="{{ url('/support') }}"><i
                                 class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Support</span></a>
                     </li>
+                    @endallpermission
+                   
+                    @allpermission('coupon-view')
                     <li class="@if (request()->is('coupon*')) active @endif "><a href="{{ url('/coupon') }}"><i
                                 class="fa fa-percent"></i>
                             <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
                     </li>
-
+                    @endallpermission
+                    @allpermission('order-view')
                     <li class="@if (request()->is('order*')) active @endif "><a href="{{ url('/order') }}"><i
                                 class="fa fa-line-chart"></i>
                             <span class="menu-item" data-i18n="Analytics">Order</span></a>
                     </li>
+                    @endallpermission
 
                     {{--
                         <li class="@if (request()->is('addition_review')) active @endif "><a
@@ -650,16 +751,20 @@
                             </ul>
                         </li>
                     @endif --}}
-                    @if (auth()->user()->hasRole('Super Admin'))
+                    
+                    @allpermission('app-versions-view')
                         <li class="@if (request()->is('version*')) active @endif "><a
                                 href="{{ url('app/versions') }}"><i class="fa fa-list-alt"></i>
                                 <span class="menu-item" data-i18n="Analytics">App Versions</span></a>
                         </li>
+                    @endallpermission
+                    @allpermission('activities_view')
                         <li class="@if (request()->is('activities*')) active @endif mb-2"><a
                                 href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                         </li>
-                    @endif
+                    @endallpermission   
+                   
                 @endif
 
                 @if (auth()->user()->hasRole('Institute'))

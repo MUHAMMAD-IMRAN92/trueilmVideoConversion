@@ -24,10 +24,12 @@
 
                             </div>
                         </div>
+                        @permission('podcast-edit')
                         <div class="col-2  d-flex justify-content-end">
                             <i class="fa fa-pencil mr-1 pointer" data-toggle="modal" data-target="#author-lang"></i>
 
                         </div>
+                        @endpermission
                     </div>
                 </div>
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
@@ -489,12 +491,15 @@
                                             <h2 class="">
                                                 Episodes:</h2>
                                         </div>
+
+                                        @permission('add-podcast-episode')
                                         <div class="col-4">
                                             <span class="btn btn-primary" data-toggle="modal"
                                                 data-target="#add-bulk">Bulk Upload</span>
                                             <span class="btn btn-primary" data-toggle="modal"
                                                 data-target="#add-episode">Add Episode</span>
                                         </div>
+                                        @endpermission
                                     </div>
                                 </div>
                             </div>
@@ -557,14 +562,18 @@
                                                                 @endif
                                                             </td>
 
-                                                            <td> <i class="fa fa-pencil pointer"
-                                                                    onclick="editEpisodeModal({{ $key }})"></i>
-                                                                <a
+                                                            <td> 
+                                                                @permission('edit-podcast-episode')
+                                                                <i class="fa fa-pencil pointer"
+                                                                    onclick="editEpisodeModal({{ $key }})"></i>@endpermission
+                                                                @permission('delete-podcast-episode')
+                                                                   <a
                                                                     href="{{ url('/podcast/episode/delete/' . $con->_id) }}">
                                                                     <i class="fa fa-trash pointer ml-2">
 
                                                                     </i>
-                                                                </a>
+                                                                    </a>
+                                                                @endpermission    
                                                             </td>
 
                                                         </tr>

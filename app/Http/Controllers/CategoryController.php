@@ -10,6 +10,9 @@ use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+
+
 
 class CategoryController extends Controller
 {
@@ -38,6 +41,10 @@ class CategoryController extends Controller
         if (Session::get('type') == 'undefined') {
             Session::put('type', "1");
         }
+
+        $category_edit_action=Gate::allows('hasPermission', 'category-edit');
+        $category_edit_toggle=Gate::allows('hasPermission', 'category-toggle');
+
         $draw = $request->get('draw');
         $start = $request->get('start');
         $length = $request->get('length');
@@ -58,6 +65,8 @@ class CategoryController extends Controller
             'recordsTotal' => $totalBrands,
             'recordsFiltered' => $brandsCount,
             'data' => $brands,
+            'category_edit_toggle'=>$category_edit_toggle,
+            'category_edit_action'=>$category_edit_action,
         );
         return json_encode($data);
     }

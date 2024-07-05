@@ -15,11 +15,13 @@
 
                             </div>
                         </div>
+                        @permission('add-audio-book-chapter')
                         <div class="col-2">
                             <button class="btn btn-dark" data-toggle="modal" data-target="#add-episode"> Add
                                 Chapter</button>
 
                         </div>
+                        @endpermission
                     </div>
                 </div>
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
@@ -76,7 +78,7 @@
                                                                                     <th>Chapter</th>
                                                                                     <th>Sequence</th>
                                                                                     <th>Content</th>
-                                                                                    <th>Action</th>
+                                                                                    @permission('delete-audio-book-chapter') <th>Action</th>@endpermission
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -90,20 +92,23 @@
                                                                                             <span
                                                                                                 id="name-span-{{ $key }}">
                                                                                                 {{ str_replace('.mp3', '', $c->book_name) }}</span>
-                                                                                            <div id="name-input-div-{{ $key }}"
+                                                                                            
+                                                                                                <div id="name-input-div-{{ $key }}"
                                                                                                 style="display: none !important">
                                                                                                 <input type="text"
                                                                                                     class="form-control"
                                                                                                     name=""
                                                                                                     value="{{ str_replace('.mp3', '', $c->book_name) }}"
                                                                                                     id="input-{{ $key }}">
-                                                                                                <span
+                                                                                                @permission('edit-audio-book-chapter')<span
                                                                                                     class="btn btn-success ml-1"
                                                                                                     onclick="saveFileName('{{ $c->_id }}' ,  '{{ $key }}')">
                                                                                                     <i
                                                                                                         class="fa fa-check "></i>
                                                                                                 </span>
+                                                                                                 @endpermission
                                                                                             </div>
+                                                                                           
                                                                                         </td>
                                                                                         <td> <input type="hidden"
                                                                                                 value="{{ $c->_id }}"
@@ -121,11 +126,12 @@
                                                                                                 </audio></span>
 
                                                                                         </td>
+                                                                                        @permission('delete-audio-book-chapter')
                                                                                         <td><span class="ml-2"> <a
                                                                                                     href="{{ url('delete/audio/' . $c->_id) }}">
                                                                                                     <i class="fa fa-trash "
                                                                                                         style="font-size:24px;"></i></a></span>
-                                                                                        </td>
+                                                                                        </td>@endpermission
                                                                                     </tr>
                                                                                 @endforeach
                                                                             </tbody>
@@ -135,8 +141,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        @permission('edit-audio-book-chapter')
                                                         <button type="submit" class="btn btn-dark"
-                                                            style="float:right">Submit</button>
+                                                            style="float:right">Submit</button> @endpermission
                                                     </form>
                                                 </div>
                                             </div>

@@ -61,7 +61,7 @@
                                                     <th class="description-td">Email</th>
                                                     <th class="">Phone</th>
 
-                                                    <th>Action</th>
+                                                    @permission('family-members-detail')<th>Action</th>@endpermission
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -71,10 +71,10 @@
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ $user->phone ?? '--' }}</td>
 
-                                                        <td> <a
+                                                        @permission('family-members-detail') <td> <a
                                                                 href="{{ url('family/app-user/books_reading_details/' . $user->id) }}"><i
                                                                     class="fa fa-info-circle"
-                                                                    style="font-size:24px"></i></a> </td>
+                                                                    style="font-size:24px"></i></a> </td>@endpermission
                                                     </tr>
                                                 @empty
                                                     <tr>

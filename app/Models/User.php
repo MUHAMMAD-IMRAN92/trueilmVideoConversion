@@ -112,4 +112,48 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserSubscription::class, 'user_id', '_id')->where('plan_name', '!=', 'Freemium')->where('status', 'paid');
     }
+
+
+    public function getmyrole()
+    {
+        return $this->hasOne(Role::class,'_id','my_role_id');
+
+    }
+
+    
+    public function checkPermission($permission)
+    {
+
+        
+        return $this->getmyrole && $this->getmyrole->permissions->contains('name', $permission);
+
+    }
+
+    public function anycheckPermission($permission)
+    {
+        
+        $all=explode(",",$permission);
+
+        $check = 0;
+        foreach( $all as $row){
+
+            if($this->getmyrole && $this->getmyrole->permissions->contains('name', $row) ){
+
+                $check = 1;
+
+            }
+
+            
+
+        }
+        if($check == 1 ){
+            return true;
+        }else{
+            return false;
+        }
+        
+
+    }
+
+    
 }

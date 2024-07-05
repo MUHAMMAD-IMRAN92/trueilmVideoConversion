@@ -101,7 +101,39 @@
                 </div>
 
 
+                @php
+                $permission_pass=''; 
+                $permission_edit='';
+                $permission_toggle='';
+                if($type == 1)
+                {
+                    $permission_pass='eBook-create';
+                    $permission_edit='eBook-edit';
+                    $permission_toggle='eBook-toggle';
 
+                }
+                if($type == 2)
+                {
+                    $permission_pass='audio-book-create';
+                    $permission_edit='audio-book-edit';
+                    $permission_toggle='audio-book-toggle';
+                }
+                if($type == 3)
+                {
+                    $permission_pass='papers-create';
+                    $permission_edit='papers-edit';
+                    $permission_toggle='papers-toggle';
+                }
+                if($type == 7)
+                {
+                    $permission_pass='podcast-create';
+                    $permission_edit='podcast-edit';
+                    $permission_toggle='podcast-toggle';
+                }
+                @endphp
+                 
+
+                @permission($permission_pass)
                 <div class="content-header-right text-md-right col-md-2  d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
@@ -115,6 +147,7 @@
                         </div>
                     </div>
                 </div>
+                @endpermission
             </div>
             @if (\Session::has('msg'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -262,7 +295,7 @@
                                                             <td>{{ $p_type }}</td>
                                                             <td>{{ @$b->user_name ?? '--' }}</td>
                                                             <td>{{ @$b->approver_name ?? '--' }}</td>
-                                                            <td>{{ $b->numberOfUser }}</td>
+                                                            <td>{{ $b->numberOfUser }} ttt</td>
                                                             <td>
                                                                 <a class="ml-2"
                                                                     href="{{ url('book/' . $b->type . '/edit/' . $b->_id) }}"><i
