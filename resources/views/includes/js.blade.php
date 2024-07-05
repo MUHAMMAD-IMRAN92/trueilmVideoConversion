@@ -1721,8 +1721,9 @@
                         if (row.status == 0) {
                             eye = 'feather icon-eye-off';
                         }
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+                        // if ("{{ auth()->user()->hasRole('Admin') }}" ||
+                        //     "{{ auth()->user()->hasRole('Super Admin') }}") {
+                        if ("{{ auth()->user()->email == env('super_admin_email') }}") {
                             a =
                                 `<a  class="ml-1" href="{{ url('course/edit/`+row._id+`') }}"><i class=" fa fa-list" > </i></a>
                                    `;
@@ -2981,8 +2982,7 @@
                 {
                     "mRender": function(data, type, row) {
                         var a = '';
-                        if ("{{ auth()->user()->hasRole('Admin') }}" ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
+                        if ("{{ auth()->user()->email == env('super_admin_email') }}") {
                             a =
                                 `<a  class="ml-2" href="{{ url('book/approve/`+row._id+`') }}"><i class="fa fa-check" style="font-size:24px"></i></a>`;
                         }

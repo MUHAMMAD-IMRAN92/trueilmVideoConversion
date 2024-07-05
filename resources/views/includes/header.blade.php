@@ -349,6 +349,7 @@
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                     </li> --}}
+                @if (!auth()->user()->hasRole('Institute'))
                     @allpermission('translations-author-view,translations-author-create,translations-author-edit')
                     <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a href="{{ url('authors') }}"><i
                                 class="fa fa-user"></i>
@@ -366,11 +367,13 @@
                             <span class="menu-item" data-i18n="Analytics">Surah Translations</span></a> </li>
                     
                     @endallpermission
+                    @allpermission('surah-Tafseer-view')
                     <li class="@if (request()->is('all_surah_translations/2') ||
                             request()->is('surah_translations/2*') ||
                             request()->is('surah/translations/2*')) active @endif "><a
                             href="{{ url('all_surah_translations/2') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Surah Tafseers</span></a> </li>
+                    @endallpermission
                     @allpermission('language-view,language-create,language-edit')
 
                     
@@ -734,20 +737,7 @@
                     </li>
                     @endallpermission
 
-                    {{--
-                        <li class="@if (request()->is('addition_review')) active @endif "><a
-                                href="{{ url('/addition_review') }}"><i class="fa fa-book"></i>
-                                <span class="menu-item" data-i18n="Analytics">Book Addition Review</span></a>
-                        </li> --}}
-
-                    {{-- @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin') || auth()->user()->hasRole('Publisher'))
-                        <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span
-                                    class="menu-title" data-i18n="Ecommerce">Content Management</span></a>
-                            <ul class="menu-content">
-
-                            </ul>
-                        </li>
-                    @endif --}}
+                    
                     
                     @allpermission('app-versions-view')
                         <li class="@if (request()->is('version*')) active @endif "><a
@@ -760,7 +750,8 @@
                                 href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                         </li>
-                    @endallpermission   
+                    @endallpermission
+                @endif       
                    
                 
 
