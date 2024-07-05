@@ -409,7 +409,7 @@ class CourseController extends Controller
 
         $courseLesson->save();
 
-        $count = CourseLesson::where('course_id', $courseLesson->course_id)->count();
+        $count = CourseLesson::where('course_id', $courseLesson->course_id)->whrere('hls_conversion',1)->count();
 
         $course = Course::where('_id',  $courseLesson->course_id)->first();
         $course->lesson_count = $count;
@@ -691,11 +691,11 @@ class CourseController extends Controller
     public function allRejectedCourses(Request $request)
     {
         $user_id = auth()->user()->id;
-        if (auth()->user()->hasRole('Super Admin')) {
-            $user_id = '';
-        } else {
-            $user_id = auth()->user()->id;
-        }
+        // if (auth()->user()->hasRole('Super Admin')) {
+        //     $user_id = '';
+        // } else {
+        //     $user_id = auth()->user()->id;
+        // }
 
         $draw = $request->get('draw');
         $start = $request->get('start');
@@ -818,15 +818,34 @@ class CourseController extends Controller
     }
     public function deleteLesson($id)
     {
+
+        $courseLesson= CourseLesson::where('_id', $id)->first();
         $bookContent = CourseLesson::where('_id', $id)->delete();
+
+
+        $count = CourseLesson::where('course_id', $courseLesson->course_id)->where('hls_conversion',1)->count();
+
+        $course = Course::where('_id',  $courseLesson->course_id)->first();
+        $course->lesson_count = $count;
+        $course->save();
 
         return redirect()->back()->with('msg', 'Lesson Deleted Successfully!');
     }
     public function UndoDeleteLesson($id)
     {
+        
         $bookContent = CourseLesson::withoutGlobalScope(DeletedAtScope::class)->where('_id', $id)->update([
             'deleted_at' => null
         ]);
+
+        $courseLesson= CourseLesson::where('_id', $id)->first();
+
+
+        $count = CourseLesson::where('course_id', $courseLesson->course_id)->where('hls_conversion',1)->count();
+
+        $course = Course::where('_id',  $courseLesson->course_id)->first();
+        $course->lesson_count = $count;
+        $course->save();
 
         return redirect()->back()->with('msg', 'Lesson Reverted Successfully!');
     }
