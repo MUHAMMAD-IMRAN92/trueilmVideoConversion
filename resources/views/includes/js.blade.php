@@ -490,9 +490,16 @@
                 {
                     "mRender": function(data, type, row) {
 
-                        return `<td>
+                        let edit_book = "{{ auth()->user()->anycheckPermission('books-for-sale-edit')}}";
+                        let a='';
+                        if(edit_book){
+                            a=`<a  class="ml-2" href="{{ url('book_for_sale/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>`;
+                        }
 
-                               <a  class="ml-2" href="{{ url('book_for_sale/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a></td>`
+
+                        return `<td>`+a+
+
+                               `</td>`
                     }
                 },
             ],
@@ -925,21 +932,34 @@
                     }
                 }, {
                     "mRender": function(data, type, row) {
-                        var a = "";
-                        if ("{{ auth()->user()->email }}" == row.email ||
-                            "{{ auth()->user()->hasRole('Super Admin') }}") {
 
+
+                        let edit_user = "{{ auth()->user()->anycheckPermission('edit-admin-user')}}";
+                        let delete_user = "{{ auth()->user()->anycheckPermission('delete-admin-user')}}";
+                        let reset_password = "{{ auth()->user()->anycheckPermission('reset-password-admin-user')}}";
+
+                        let a="";
+                        let b="";
+                        let c="";
+                        if(reset_password){
                             a = `<a href="#" class="reset-password ml-2" data-user-id="` + row
                                 ._id +
                                 `"><i class="fa fa-key"></i></a>`;
+
+                        }
+                        if(edit_user){
+                            b=`<a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>`;
+
+
+                        }
+                        if(delete_user){
+                            c=`<a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>`;
+
                         }
 
-                        return `<td>
+                       
 
-                                <a  class="ml-2" href="{{ url('user/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
-                                <a  class="ml-2" href="{{ url('user/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a> ` +
-                            a + `
-                                </td>`
+                        return `<td>` + a + b + c +`</td>`;
                     }
                 },
             ],
@@ -3674,10 +3694,18 @@
                 {
                     "mRender": function(data, type, row) {
 
-                        return `<td>
-                            <a  class="ml-2" href="{{ url('support/details/`+row._id+`') }}"><i class="fa  fa-info-circle" style="font-size:24px"></i></a>
-                            <a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa  fa-check" style="font-size:24px"></i></a>
-                                </td>`
+                        let approve = "{{ auth()->user()->anycheckPermission('support-approve')}}";
+                        let detail = "{{ auth()->user()->anycheckPermission('support-detail')}}";
+                        let a='';
+                        let b='';
+                        if(approve){
+                            a=`<a  class="ml-2" href="{{ url('support/approve/`+row._id+`') }}"><i class="fa  fa-check" style="font-size:24px"></i></a>`;
+                        }
+                        if(detail){
+                            b=`<a  class="ml-2" href="{{ url('support/details/`+row._id+`') }}"><i class="fa  fa-info-circle" style="font-size:24px"></i></a>`;
+                        }
+
+                        return `<td>`+a+b+`</td>`
                     }
                 },
             ],
@@ -3710,8 +3738,15 @@
                 {
                     "mRender": function(data, type, row) {
                         var route = `${row.revert_link}`;
-                        return `<td>
-                             <a  class="ml-2" href="{{ url('${route}` +row.content_id+`/${row._id}') }}"><i class="fa fa-undo"></i></a>
+
+                        let activities_undo = "{{ auth()->user()->anycheckPermission('activities_undo')}}";
+                        let a='';
+                        if(activities_undo){
+                            a=`<a  class="ml-2" href="{{ url('${route}` +row.content_id+`/${row._id}') }}"><i class="fa fa-undo"></i></a>`;
+
+                        }
+                        return `<td>`+a+`
+                             
 
                                 </td>`
                     }
@@ -3743,10 +3778,17 @@
                 {
                     "mRender": function(data, type, row) {
 
-                        return `<td>
-                                <a  class="ml-2" href="{{ url('glossary/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>
+                        let edit_glosery = "{{ auth()->user()->anycheckPermission('glossory-edit')}}";
+                        let a='';
+                        if(edit_glosery){
+                            a=`<a  class="ml-2" href="{{ url('glossary/edit/`+row._id+`') }}"><i class="feather icon-edit-2"></i></a>`;
 
-                                </td>`
+                        }
+
+                        return `<td>`+a+
+                                
+
+                                `</td>`
                     }
                 },
             ],
@@ -3994,11 +4036,17 @@
                 },
                 {
                     "mRender": function(data, type, row) {
+
+                        let activities_undo = "{{ auth()->user()->anycheckPermission('coupon-delete')}}";
+                        let b='';
+                        if(activities_undo){
+                            b=`<a  class="ml-2" href="{{ url('coupon/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>`;
+
+                        }
                         let copyIcon =
                             `<a class="ml-2 copy-btn" data-toggle="tooltip" data-placement="top" data-clipboard-text="https://app.trueilm.com/sing-up?p_code=${row.p_code}" title="Copy URL"><i class="fa fa-copy" ></i></a>`
-                        return `<td>
-                                <a  class="ml-2" href="{{ url('coupon/delete/`+row._id+`') }}"><i class="fa fa-trash"></i></a>
-                                </td>`
+                        return `<td> `
+                        +b+`</td>`
                     }
                 },
             ],

@@ -33,7 +33,10 @@ use App\Http\Controllers\AppSectionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseSeriesController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ActivitiesController;
+use App\Http\Controllers\GrantController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\GlossoryController;
 use Meilisearch\Client;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Jobs\SurahCombination as SurahCombinationJob;
@@ -64,7 +67,9 @@ Route::group(['domain' => 'trueilm.com'], function () {
 
 
 Route::view('/roles', 'roles');
-Route::view('/ permission', ' permission');
+
+Route::get('permission', [RoleAndPermissinController::class, 'permission'])->name('role.permission');
+
 Route::post('role-save', [RoleAndPermissinController::class, 'roleSave'])->name('role.aave');
 
 Route::get('sendEmailToPrevoius',  [App\Http\Controllers\HomeController::class, 'sendEmailToPrevoius']);
@@ -205,20 +210,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('podcast/episode/undo-delete/{id}', [App\Http\Controllers\BookController::class, 'undoDeleteEpisode'])->name('podcast.episode.undo-delete')->middleware('permission:delete-podcast-episode');
 
     //super admin revet
-    Route::get('activities', [ActivitiesController::class, 'index'])->name('book.activities');
+    Route::get('activities', [ActivitiesController::class, 'index'])->name('book.activities')->middleware('permission:activities_view');;
     Route::get('all-activities', [ActivitiesController::class, 'allActivities'])->name('book.all-activities');
-    Route::get('content/revert/{id}/{activity_id}', [ActivitiesController::class, 'revert'])->name('book.revet');
+    Route::get('content/revert/{id}/{activity_id}', [ActivitiesController::class, 'revert'])->name('book.revet')->middleware('permission:activities_undo');;
     Route::get('book/update-status/{id}/{activity_id}', [ActivitiesController::class, 'updateStatusActivity'])->name('book.superadmin.statusUpdate');
     //admin users
-    Route::get('user-management', [UserController::class, 'index'])->name('user.index');
+    Route::get('user-management', [UserController::class, 'index'])->name('user.index')->middleware('permission:view-admin-user');
     Route::get('all-user', [UserController::class, 'allUser'])->name('user.all');
-    Route::get('user/create', [UserController::class, 'add'])->name('user.add');
-    Route::post('user/store', [UserController::class, 'store'])->name('user.store');
-    Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::post('user/update', [UserController::class, 'update'])->name('user.update');
-    Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+    Route::get('user/create', [UserController::class, 'add'])->name('user.add')->middleware('permission:create-admin-user');
+    Route::post('user/store', [UserController::class, 'store'])->name('user.store')->middleware('permission:create-admin-user');
+    Route::get('user/edit/{id}', [UserController::class, 'edit'])->name('user.edit')->middleware('permission:edit-admin-user');
+    Route::post('user/update', [UserController::class, 'update'])->name('user.update')->middleware('permission:edit-admin-user');
+    Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.delete')->middleware('permission:delete-admin-user');;
 
-    Route::post('reset-password', [UserController::class, 'resetPassword'])->name('reset.password');
+    Route::post('reset-password', [UserController::class, 'resetPassword'])->name('reset.password')->middleware('permission:reset-password-admin-user');
 
     //app users
     Route::get('app-users', [UserController::class, 'appUsers'])->name('app.user')->middleware('permission:app-user-view');
@@ -228,7 +233,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('app-user/books_reading_details/{id}', [UserController::class, 'userBookReadingDetail'])->name('user.books-readings')->middleware('permission:app-user-details');
     Route::get('affiliate/app-user/books_reading_details/{id}', [UserController::class, 'userBookReadingDetail'])->name('user.books-readings')->middleware('permission:affiliate-users-detail');
     Route::get('family/app-user/books_reading_details/{id}', [UserController::class, 'userBookReadingDetail'])->name('user.books-readings')->middleware('permission:family-members-detail');
-    Route::get('cancel_subscriptions', [UserController::class, 'cancelSubscription'])->name('user.cancelsubscription');
+    Route::get('cancel_subscriptions', [UserController::class, 'cancelSubscription'])->name('user.cancelsubscription')->middleware('permission:view-cancel-subscription');
     Route::get('all/cancel_subscriptions', [UserController::class, 'allCancelSubscription'])->name('all.cancelsubscription');
 
     //categories
@@ -293,61 +298,61 @@ Route::middleware(['auth'])->group(function () {
     Route::post('support/reply', [App\Http\Controllers\SupportController::class, 'reply'])->name('support.reply');
 
     //subcription email
-    Route::get('subscription_email', [App\Http\Controllers\HomeController::class, 'allEmails'])->name('subscription');
+    Route::get('subscription_email', [App\Http\Controllers\HomeController::class, 'allEmails'])->name('subscription')->middleware('permission:email-subscriptions');
     Route::get('all_subcription_email', [App\Http\Controllers\HomeController::class, 'allSubscriptionEmail'])->name('subscription.all');
-    Route::get('export_email', [App\Http\Controllers\HomeController::class, 'exportEmail'])->name('export');
+    Route::get('export_email', [App\Http\Controllers\HomeController::class, 'exportEmail'])->name('export')->middleware('permission:email-subscriptions-export');
 
     //Glossory
-    Route::get('glossary', [App\Http\Controllers\GlossoryController::class, 'index'])->name('glossary');
-    Route::get('all-glossary', [App\Http\Controllers\GlossoryController::class, 'allglossory'])->name('glossary.all');
-    Route::get('glossary/create', [App\Http\Controllers\GlossoryController::class, 'add'])->name('glossary.add');
-    Route::post('glossary/store', [App\Http\Controllers\GlossoryController::class, 'store'])->name('glossary.store');
-    Route::get('glossary/edit/{id}', [App\Http\Controllers\GlossoryController::class, 'edit'])->name('glossary.edit');
-    Route::post('glossary/update', [App\Http\Controllers\GlossoryController::class, 'update'])->name('glossary.update');
+    Route::get('glossary', [GlossoryController::class, 'index'])->name('glossary')->middleware('permission:glossory-view');
+    Route::get('all-glossary', [GlossoryController::class, 'allglossory'])->name('glossary.all');
+    Route::get('glossary/create', [GlossoryController::class, 'add'])->name('glossary.add')->middleware('permission:glossory-create');
+    Route::post('glossary/store', [GlossoryController::class, 'store'])->name('glossary.store')->middleware('permission:glossory-create');
+    Route::get('glossary/edit/{id}', [GlossoryController::class, 'edit'])->name('glossary.edit')->middleware('permission:glossory-edit');
+    Route::post('glossary/update', [GlossoryController::class, 'update'])->name('glossary.update')->middleware('permission:glossory-edit');
 
     //Notifications
-    Route::get('notification', [App\Http\Controllers\NotificationController::class, 'index'])->name('notification');
-    Route::get('all-notification', [App\Http\Controllers\NotificationController::class, 'allNotifications'])->name('notification.all');
-    Route::get('notification/create', [App\Http\Controllers\NotificationController::class, 'add'])->name('notification.add');
-    Route::post('notification/store', [App\Http\Controllers\NotificationController::class, 'store'])->name('notification.store');
+    Route::get('notification', [NotificationController::class, 'index'])->name('notification')->middleware('permission:notifications-view');
+    Route::get('all-notification', [NotificationController::class, 'allNotifications'])->name('notification.all');
+    Route::get('notification/create', [NotificationController::class, 'add'])->name('notification.add')->middleware('permission:notifications-create');
+    Route::post('notification/store', [NotificationController::class, 'store'])->name('notification.store')->middleware('permission:notifications-create');
 
     //Popups
-    Route::get('popups', [App\Http\Controllers\NotificationController::class, 'popupIndex'])->name('popup');
-    Route::get('all-popup', [App\Http\Controllers\NotificationController::class, 'allPopup'])->name('popup.all');
-    Route::get('popup/create', [App\Http\Controllers\NotificationController::class, 'addPopup'])->name('popup.add');
-    Route::post('popup/store', [App\Http\Controllers\NotificationController::class, 'storePopup'])->name('popup.store');
-    Route::get('popup/edit/{id}', [App\Http\Controllers\NotificationController::class, 'editPopup'])->name('popup.edit');
-    Route::post('popup/updatePopup', [App\Http\Controllers\NotificationController::class, 'updatePopup'])->name('popup.update');
-    Route::get('popup/update-status/{id}', [App\Http\Controllers\NotificationController::class, 'popupStatusUpdate'])->name('popup.statusUpdate');
+    Route::get('popups', [NotificationController::class, 'popupIndex'])->name('popup');
+    Route::get('all-popup', [NotificationController::class, 'allPopup'])->name('popup.all');
+    Route::get('popup/create', [NotificationController::class, 'addPopup'])->name('popup.add');
+    Route::post('popup/store', [NotificationController::class, 'storePopup'])->name('popup.store');
+    Route::get('popup/edit/{id}', [NotificationController::class, 'editPopup'])->name('popup.edit');
+    Route::post('popup/updatePopup', [NotificationController::class, 'updatePopup'])->name('popup.update');
+    Route::get('popup/update-status/{id}', [NotificationController::class, 'popupStatusUpdate'])->name('popup.statusUpdate');
 
     //book for sale
-    Route::get('books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'index'])->name('books_for_sale');
+    Route::get('books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'index'])->name('books_for_sale')->middleware('permission:books-for-sale');
     Route::get('all_books_for_sale', [App\Http\Controllers\BookForSaleController::class, 'allBookForSale'])->name('books_for_sale.all');
-    Route::get('book_for_sale/create', [App\Http\Controllers\BookForSaleController::class, 'add'])->name('book_for_sale.add');
-    Route::post('book_for_sale/store', [App\Http\Controllers\BookForSaleController::class, 'store'])->name('book_for_sale.store');
-    Route::get('book_for_sale/edit/{id}', [App\Http\Controllers\BookForSaleController::class, 'edit'])->name('book_for_sale.edit');
-    Route::post('book_for_sale/update', [App\Http\Controllers\BookForSaleController::class, 'update'])->name('book_for_sale.update');
+    Route::get('book_for_sale/create', [App\Http\Controllers\BookForSaleController::class, 'add'])->name('book_for_sale.add')->middleware('permission:books-for-sale-create');
+    Route::post('book_for_sale/store', [App\Http\Controllers\BookForSaleController::class, 'store'])->name('book_for_sale.store')->middleware('permission:books-for-sale-create');
+    Route::get('book_for_sale/edit/{id}', [App\Http\Controllers\BookForSaleController::class, 'edit'])->name('book_for_sale.edit')->middleware('permission:books-for-sale-edit');
+    Route::post('book_for_sale/update', [App\Http\Controllers\BookForSaleController::class, 'update'])->name('book_for_sale.update')->middleware('permission:books-for-sale-edit');
 
     Route::get('/cities', [App\Http\Controllers\BookForSaleController::class, 'cities'])->name('cities');
     //Grant
-    Route::get('grant', [App\Http\Controllers\GrantController::class, 'index'])->name('grant');
-    Route::get('all-grants', [App\Http\Controllers\GrantController::class, 'allgrants'])->name('grant.all');
-    Route::get('grant/rejected', [App\Http\Controllers\GrantController::class, 'rejected'])->name('grant.rejected');
-    Route::get('all-grants-rejected', [App\Http\Controllers\GrantController::class, 'allRejectedGrants'])->name('grant.all.rejected');
-    Route::get('grant/approved', [App\Http\Controllers\GrantController::class, 'approved'])->name('grant.approved');
-    Route::get('all-grants-approved', [App\Http\Controllers\GrantController::class, 'allApprovedGrants'])->name('grant.all.approved');
+    Route::get('grant', [GrantController::class, 'index'])->name('grant')->middleware('permission:grant');
+    Route::get('all-grants', [GrantController::class, 'allgrants'])->name('grant.all');
+    Route::get('grant/rejected', [GrantController::class, 'rejected'])->name('grant.rejected')->middleware('permission:approved-grant');
+    Route::get('all-grants-rejected', [GrantController::class, 'allRejectedGrants'])->name('grant.all.rejected');
+    Route::get('grant/approved', [GrantController::class, 'approved'])->name('grant.approved')->middleware('permission:rejected-grant');
+    Route::get('all-grants-approved', [GrantController::class, 'allApprovedGrants'])->name('grant.all.approved');
 
-    Route::get('grant/approve/{id}', [App\Http\Controllers\GrantController::class, 'approveGrant'])->name('grant.approve');
-    Route::get('grant/reject/{id}', [App\Http\Controllers\GrantController::class, 'rejectGrant'])->name('grant.reject');
-    Route::get('grant/book/view/{id}', [App\Http\Controllers\GrantController::class, 'viewBook'])->name('grant.book.view');
-    Route::get('grant/update/status/{id}', [App\Http\Controllers\GrantController::class, 'statusUpdate'])->name('grant.status');
+    Route::get('grant/approve/{id}', [GrantController::class, 'approveGrant'])->name('grant.approve');
+    Route::get('grant/reject/{id}', [GrantController::class, 'rejectGrant'])->name('grant.reject');
+    Route::get('grant/book/view/{id}', [GrantController::class, 'viewBook'])->name('grant.book.view');
+    Route::get('grant/update/status/{id}', [GrantController::class, 'statusUpdate'])->name('grant.status');
 
     //coupon
-    Route::get('coupon', [App\Http\Controllers\CouponController::class, 'index'])->name('coupon');
+    Route::get('coupon', [App\Http\Controllers\CouponController::class, 'index'])->name('coupon')->middleware('permission:coupon-view');
     Route::get('all-coupon', [App\Http\Controllers\CouponController::class, 'allcoupon'])->name('coupon.all');
-    Route::get('coupon/create', [App\Http\Controllers\CouponController::class, 'add'])->name('coupon.add');
-    Route::post('coupon/store', [App\Http\Controllers\CouponController::class, 'store'])->name('coupon.store');
-    Route::get('coupon/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->name('coupon.edit');
+    Route::get('coupon/create', [App\Http\Controllers\CouponController::class, 'add'])->name('coupon.add')->middleware('permission:coupon-create');
+    Route::post('coupon/store', [App\Http\Controllers\CouponController::class, 'store'])->name('coupon.store')->middleware('permission:coupon-create');
+    Route::get('coupon/delete/{id}', [App\Http\Controllers\CouponController::class, 'delete'])->name('coupon.edit')->middleware('permission:coupon-delete');
     Route::post('coupon/update', [App\Http\Controllers\CouponController::class, 'update'])->name('coupon.update');
 
     //institue user
@@ -435,10 +440,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('family/members/{id}', [App\Http\Controllers\UserController::class, 'members'])->name('family.members')->middleware('permission:family-members');
 
     //app versions
-    Route::get('app/versions', [App\Http\Controllers\HomeController::class, 'appVersions'])->name('appVersions');
+    Route::get('app/versions', [App\Http\Controllers\HomeController::class, 'appVersions'])->name('appVersions')->middleware('permission:app-versions-view');
     Route::get('app/all-versions', [App\Http\Controllers\HomeController::class, 'allVersions'])->name('allVersions.all');
-    Route::get('app/versions/create', [App\Http\Controllers\HomeController::class, 'createVersion'])->name('appVersions.create');
-    Route::post('app/versions', [App\Http\Controllers\HomeController::class, 'storeVersions'])->name('appVersions.store');
+    Route::get('app/versions/create', [App\Http\Controllers\HomeController::class, 'createVersion'])->name('appVersions.create')->middleware('permission:app-versions-create');
+    Route::post('app/versions', [App\Http\Controllers\HomeController::class, 'storeVersions'])->name('appVersions.store')->middleware('permission:app-versions-create');
 
     //section
     Route::get('app-section', [AppSectionController::class, 'index'])->name('app-section')->middleware('permission:app-section-view');

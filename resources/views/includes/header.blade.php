@@ -530,22 +530,25 @@
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list"></i><span class="menu-title"
                                     data-i18n="Ecommerce">User Management</span></a> --}}
                     {{-- <ul class="menu-content"> --}}
+
+                    @allpermission('view-admin-user')
                     <li class="@if (request()->is('user*')) active @endif "><a
                             href="{{ url('user-management') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Admin Users</span></a>
                     </li>
+                    @endallpermission
 
                     <li class="@if (request()->is('roles')  || request()->is('permission')) active @endif "><a
                             href="{{ url('roles') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Role</span></a>
                     </li>
-                    @allpermission( 'app-user-view')
+                    @allpermission('app-user-view')
                     <li class="@if (request()->is('app-users*')) active @endif "><a
                             href="{{ url('app-users') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">App Users</span></a>
                     </li>
                     @endallpermission
-                    @allpermission( 'affiliate-users')
+                    @allpermission('affiliate-users')
                     <li class="@if (request()->is('affiliate*')) active @endif "><a
                             href="{{ url('/affiliate ') }}"><i class="fa fa-id-card"></i>
                             <span class="menu-item" data-i18n="Analytics">Affiliate </span></a>
@@ -558,10 +561,12 @@
                             <span class="menu-item" data-i18n="Analytics">Family </span></a>
                     </li>
                     @endallpermission
+                    @allpermission('view-cancel-subscription')
                     <li class="@if (request()->is('cancel_subscriptions')) active @endif "><a
                             href="{{ url('cancel_subscriptions') }}"><i class="fa fa-times"></i>
                             <span class="menu-item" data-i18n="Analytics">Cancel Subscription</span></a>
                     </li>
+                    @endallpermission
                     {{-- </ul>
                         </li> --}}
                     {{-- <li class="@if (request()->is('user*')) active @endif "><a
@@ -584,7 +589,7 @@
                             <span class="menu-item" data-i18n="Analytics">Pending for Approval</span></a>
                     </li> --}}
 
-                    @allpermission( 'pending-eBook,pending-audio-book,pending-papers,pending-podcast,rejected-content,approved-content')
+                    @allpermission('pending-eBook,pending-audio-book,pending-papers,pending-podcast,rejected-content,approved-content')
                     <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
                                 data-i18n="Ecommerce">Pending for Approval</span></a>
                         <ul class="menu-content">
@@ -595,19 +600,19 @@
                                     <span class="menu-item" data-i18n="Analytics">Ebook</span></a>
                             </li>
                         @endallpermission    
-                        @allpermission( 'pending-audio-book')                            
+                        @allpermission('pending-audio-book')                            
                             <li class="@if (request()->is('book/pending-for-approval/2')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/2') }}"><i class="fa fa-book"></i>
                                     <span class="menu-item" data-i18n="Analytics">Audio Book</span></a>
                             </li>
                         @endallpermission
-                        @allpermission( 'pending-papers')
+                        @allpermission('pending-papers')
                             <li class="@if (request()->is('book/pending-for-approval/3')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/3') }}"><i class="fa fa-file"></i>
                                     <span class="menu-item" data-i18n="Analytics">Papers</span></a>
                             </li>
                         @endallpermission 
-                        @allpermission( 'pending-podcast')
+                        @allpermission('pending-podcast')
                             <li class="@if (request()->is('book/pending-for-approval/7')) active @endif ml-2"><a
                                     href="{{ url('book/pending-for-approval/7') }}"><i class="fa fa-list"></i>
                                     <span class="menu-item" data-i18n="Analytics">Podcast</span></a>
@@ -629,13 +634,13 @@
                         </ul>
                     </li>
                     @endallpermission
-                    @allpermission( 'rejected-content')
+                    @allpermission('rejected-content')
                     <li class="@if (request()->is('book/rejected_by_you')) active @endif "><a
                             href="{{ url('book/rejected_by_you') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected Content</span></a>
                     </li>
                     @endallpermission
-                    @allpermission( 'approved-content')
+                    @allpermission('approved-content')
                     <li class="@if (request()->is('book/approved*')) active @endif "><a
                             href="{{ url('book/approved') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Approved Content</span></a>
@@ -662,51 +667,75 @@
                     </li>
                     <li class=" navigation-header"><span>Grant</span>
                     </li>
+                    @allpermission('grant')
                     <li class="@if (request()->is('*grant')) active @endif "><a href="{{ url('/grant') }}"><i
                                 class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Pending Grant</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission( 'approved-grant')
                     <li class="@if (request()->is('grant/approved*')) active @endif "><a
                             href="{{ url('/grant/approved') }}"><i class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Approved Grant</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('rejected-grant')
                     <li class="@if (request()->is('grant/rejected*')) active @endif "><a
                             href="{{ url('/grant/rejected') }}"><i class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Rejected Grant</span></a>
                     </li>
+                    @endallpermission
 
                     <hr>
+
+                    
+                    @allpermission( 'notifications-view')
                     <li class="@if (request()->is('notification*')) active @endif "><a
                             href="{{ url('/notification') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Notification</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('books-for-sale')
 
                     <li class="@if (request()->is('*for_sale*')) active @endif "><a
                             href="{{ url('/books_for_sale') }}"><i class="fa fa-book"></i>
                             <span class="menu-item" data-i18n="Analytics">Books For Sale</span></a>
                     </li>
+                    @endallpermission
+                    
+                    @allpermission('email-subscriptions')
                     <li class="@if (request()->is('subscription_email*')) active @endif "><a
                             href="{{ url('/subscription_email') }}"><i class="fa fa-user"></i>
                             <span class="menu-item" data-i18n="Analytics">Email Subscriptions</span></a>
                     </li>
+                    @endallpermission
+                    @allpermission('glossory-view')
+
                     <li class="@if (request()->is('glossary*')) active @endif "><a
                             href="{{ url('/glossary') }}"><i class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Glossary</span></a>
                     </li>
-
+                    @endallpermission
+                    
+                    @allpermission('support-view')
                     <li class="@if (request()->is('support*')) active @endif "><a href="{{ url('/support') }}"><i
                                 class="fa fa-question"></i>
                             <span class="menu-item" data-i18n="Analytics">Support</span></a>
                     </li>
+                    @endallpermission
+                   
+                    @allpermission('coupon-view')
                     <li class="@if (request()->is('coupon*')) active @endif "><a href="{{ url('/coupon') }}"><i
                                 class="fa fa-percent"></i>
                             <span class="menu-item" data-i18n="Analytics">Coupon</span></a>
                     </li>
-
+                    @endallpermission
+                    @allpermission('order-view')
                     <li class="@if (request()->is('order*')) active @endif "><a href="{{ url('/order') }}"><i
                                 class="fa fa-line-chart"></i>
                             <span class="menu-item" data-i18n="Analytics">Order</span></a>
                     </li>
+                    @endallpermission
 
                     {{--
                         <li class="@if (request()->is('addition_review')) active @endif "><a
@@ -722,16 +751,20 @@
                             </ul>
                         </li>
                     @endif --}}
-                    @if (auth()->user()->hasRole('Super Admin'))
+                    
+                    @allpermission('app-versions-view')
                         <li class="@if (request()->is('version*')) active @endif "><a
                                 href="{{ url('app/versions') }}"><i class="fa fa-list-alt"></i>
                                 <span class="menu-item" data-i18n="Analytics">App Versions</span></a>
                         </li>
+                    @endallpermission
+                    @allpermission('activities_view')
                         <li class="@if (request()->is('activities*')) active @endif mb-2"><a
                                 href="{{ url('activities') }}"><i class="fa fa-tasks"></i>
                                 <span class="menu-item" data-i18n="Analytics">Activities</span></a>
                         </li>
-                    @endif
+                    @endallpermission   
+                   
                 @endif
 
                 @if (auth()->user()->hasRole('Institute'))

@@ -21,6 +21,8 @@
                         </div>
                     </div>
                 </div>
+                
+                @permission( 'books-for-sale-create')
                 <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
                     <div class="form-group breadcrum-right">
                         <div class="dropdown">
@@ -32,6 +34,7 @@
                         </div>
                     </div>
                 </div>
+                @endpermission
             </div>
             @if (\Session::has('msg'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
