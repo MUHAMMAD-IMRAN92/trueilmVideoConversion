@@ -28,11 +28,11 @@
                       </div>
                       <div class="col-sm-7">
                         <div class="card-body text-sm-end text-center ps-sm-0">
-                          <button
+                          <a
                             href="{{url('permission')}}"
                             class="btn btn-primary mb-2 text-nowrap add-new-role">
                             Add New Role
-                          </button>
+                          </a>
                           <p class="mb-0 mt-1">Add role, if it does not exist</p>
                         </div>
                       </div>
@@ -40,58 +40,34 @@
                   </div>
                 </div>
                
-                
+                @foreach($get_role as $role)
                 <div class="col-xl-4 col-lg-6 col-md-6">
                   <div class="card">
                     <div class="card-body">
                       <div class="d-flex justify-content-between">
-                        <h6 class="fw-normal mb-2">Total 2 users</h6>
-                        <ul class="list-unstyled users-list m-0  d-flex align-items-center">
-                            <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Vinnie Mostowy" class="avatar pull-up">
-                                <img class="media-object rounded-circle" src="{{asset('app-assets/images/portrait/small/avatar-s-5.jpg')}}" alt="Avatar" height="30" width="30">
-                            </li>
-                            <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Elicia Rieske" class="avatar pull-up">
-                                <img class="media-object rounded-circle" src="{{asset('app-assets/images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
-                            </li>
-                            <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Julee Rossignol" class="avatar pull-up">
-                                <img class="media-object rounded-circle" src="{{asset('app-assets/images/portrait/small/avatar-s-10.jpg')}}" alt="Avatar" height="30" width="30">
-                            </li>
-                            <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Darcey Nooner" class="avatar pull-up">
-                                <img class="media-object rounded-circle" src="{{asset('app-assets/images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" height="30" width="30">
-                            </li>
-                            <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Elicia Rieske" class="avatar pull-up">
-                                <img class="media-object rounded-circle" src="{{asset('app-assets/images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
-                            </li>
-                            <li class="d-inline-block pl-50">
-                                <span>+264 more</span>
-                            </li>
-                        </ul>
+                        <h4 class="fw-normal">{{$role->name}}</h6>
+                        <a href="{{url('edit-permission/' .$role->_id)}}" class="role-edit-modal"><span>Edit Role</span></a>
+                        
                       </div>
-                        <div class="mt-1"  style="margin-top: 1.4rem !important;">
-                            <div class="role-heading">
+                      <div class=""  style="margin-top: 1.4rem !important;">
+                          <div class="role-heading">
                             <div class="d-flex"  style="justify-content: space-between;">
-                                <h4 class="mb-1">Restricted User</h4>
+                                
                                 <h4 class="mb-1">Total Permission</h4>
+                                <h6 class="mb-1">{{$role->permissions->count()}}</h6>
                             </div>
                             <div class="d-flex"  style="justify-content: space-between;">
-                            <a
-                               href="{{url('permission')}}"
-                                class="role-edit-modal"
-                                ><span>Edit Role</span></a
-                            >
-                            <a
-                                hrefavascript:;"
-                                data-toggle="modal"
-                                data-target="#addRoleModal"
-                                class="role-edit-modal"
-                                ><span>0</span></a
-                            >
+                                
+                                <h4 class="mb-1">Total Assign User</h4>
+                                <h6 class="mb-1">{{$role->RoleUser->count()}}</h6>
                             </div>
-                        </div>
+                         
+                          </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                @endforeach
                 
               
               </div>

@@ -51,8 +51,32 @@ class RoleAndPermissinController extends Controller
         
 
     }
+    public function roles()
+    { 
+        $get_role=Role::where('name','!=','Institute')->with('RoleUser')->get();
+
+        return view('roles' ,compact('get_role'));
+
+
+    }
     public function permission(Request $request)
     {   
+        
+        $permission=$this->getAllPermission();
+        return view('permission' ,compact('permission'));
+
+    }
+
+    public function editPermission($id)
+    { 
+        $get_permission=Permission::where('_id',$id)->get();
+
+        $permission=$this->getAllPermission();
+        return view('edit-permission' ,compact('permission','get_permission'));
+
+    }
+    public function getAllPermission(){
+
         $Translations_Author         =['translations-author-view','translations-author-create',
                                        'translations-author-edit'];
         $Surah_Translations          =['surah-translations-view','surah-translations-combination-add',
@@ -218,7 +242,7 @@ class RoleAndPermissinController extends Controller
 
         ];
 
-        return view('permission' ,compact('permission'));
+        return  $permission;
 
     }
     

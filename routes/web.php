@@ -66,9 +66,11 @@ Route::group(['domain' => 'trueilm.com'], function () {
 });
 
 
-Route::view('/roles', 'roles');
+Route::get('roles', [RoleAndPermissinController::class, 'roles'])->name('allRole');
 
 Route::get('permission', [RoleAndPermissinController::class, 'permission'])->name('role.permission');
+Route::get('edit-permission/{id}', [RoleAndPermissinController::class, 'editPermission'])->name('role.editPermission');
+
 
 Route::post('role-save', [RoleAndPermissinController::class, 'roleSave'])->name('role.aave');
 

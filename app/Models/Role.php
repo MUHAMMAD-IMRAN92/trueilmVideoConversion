@@ -14,4 +14,9 @@ class Role extends Eloquent
     {
         return $this->belongsToMany(Permission::class ,'_id','role_id');
     }
+
+    public function RoleUser()
+    {
+        return $this->hasMany(User::class ,'my_role_id','_id');
+    }
 }
