@@ -25,8 +25,7 @@
                     <div class="row">
 
                     
-                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))
-                            <div class="col-lg-3 col-sm-6 col-12">
+                          <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex flex-column align-items-start pb-0">
 
@@ -67,7 +66,7 @@
                                     <br>
                                 </div>
                             </div>
-                        @endif
+                        
 
                     </div>
                     @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Super Admin'))

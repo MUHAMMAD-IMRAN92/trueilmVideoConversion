@@ -16,7 +16,7 @@
 
 <body oncontextmenu="return false">
     @if (auth()->user())
-        <iframe src="https://061c-119-155-3-197.ngrok-free.app/{{ $book_id }}?auth_token={{auth()->user()->_id}}&render={{$render}}" frameborder="0"></iframe>
+        <iframe src="https://061c-119-155-3-197.ngrok-free.app/epub-viewer/{{ $book_id }}?auth_token={{auth()->user()->_id}}&render={{$render}}" frameborder="0"></iframe>
     @else
         <strong>
             <center>
