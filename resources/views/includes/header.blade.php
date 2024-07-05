@@ -333,8 +333,7 @@
                         </li>
                     </ul>
                 </li> --}}
-                {{-- <i class="fa-solid fa-book-quran"></i> --}}
-
+                @if (!auth()->user()->hasRole('Institute'))
                     <li class=" navigation-header"><span>Al Quran</span>
                     </li>
                     {{-- <li class=" nav-item"><a href="#"><i class="fa fa-list-alt"></i><span class="menu-title"
@@ -349,7 +348,7 @@
                                 class="fa fa-list"></i>
                             <span class="menu-item" data-i18n="Analytics">Juz</span></a>
                     </li> --}}
-                @if (!auth()->user()->hasRole('Institute'))
+               
                     @allpermission('translations-author-view,translations-author-create,translations-author-edit')
                     <li class="@if (request()->is('authors') && request()->input('type') == '') active @endif "><a href="{{ url('authors') }}"><i
                                 class="fa fa-user"></i>
