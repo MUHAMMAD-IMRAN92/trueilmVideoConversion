@@ -67,10 +67,10 @@ Route::group(['domain' => 'trueilm.com'], function () {
 });
 
 
-Route::get('roles', [RoleAndPermissinController::class, 'roles'])->name('allRole');
+Route::get('roles', [RoleAndPermissinController::class, 'roles'])->name('allRole')->middleware('IsSuperAdmin');
 
-Route::get('permission', [RoleAndPermissinController::class, 'permission'])->name('role.permission');
-Route::get('edit-permission/{id}', [RoleAndPermissinController::class, 'editPermission'])->name('role.editPermission');
+Route::get('permission', [RoleAndPermissinController::class, 'permission'])->name('role.permission')->middleware('IsSuperAdmin');
+Route::get('edit-permission/{id}', [RoleAndPermissinController::class, 'editPermission'])->name('role.editPermission')->middleware('IsSuperAdmin');
 
 
 Route::post('role-save', [RoleAndPermissinController::class, 'roleSave'])->name('role.aave');
