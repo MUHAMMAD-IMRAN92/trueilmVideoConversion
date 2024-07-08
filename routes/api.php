@@ -69,19 +69,21 @@ Route::get('/quran/index/{id}', function ($id) {
 
     $client = new  Client('http://localhost:7700', '3bc7ba18215601c4de218ef53f0f90e830a7f144');
 
-    $client->createIndex('alHadeestranslations');
+    // $client->createIndex('alHadeestranslations');
+    $authorLang = AuthorLanguage::where('type', 1)->get();
+    foreach ($authorLang as $authlang) {
 
-    HadeesTranslation::where('book_id', $id)->chunk(100, function ($translations) use ($client) {
-        $data = $translations->map(function ($tran) {
-            $tran->lang_id = $tran->language();
-            $tran->author_id = $tran->author();
-            $tran->main_chapter = $tran->mainChapter();
+        AlQuranTranslation::where('author_lang', $authlang->_id)->chunk(100, function ($translations) use ($client) {
+            $data = $translations->map(function ($tran) {
+                $tran->lang_id = $tran->language();
+                $tran->author_id = $tran->author();
 
-            return $tran;
+                return $tran;
+            });
+
+            $client->index('alQurantranslations')->addDocuments($data->toArray(), '_id');
         });
-
-        $client->index('alHadeestranslations')->addDocuments($data->toArray(), '_id');
-    });
+    }
     return 'ok';
     // ini_set("memory_limit", "-1");
     // // $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
