@@ -73,13 +73,16 @@ Route::get('/quran/index/{id}', function ($id) {
     $authorLang = AuthorLanguage::where('type', 1)->get();
     foreach ($authorLang as $authlang) {
 
-        $translation =   AlQuranTranslation::where('author_lang', $authlang->_id)->map(function ($tran) {
-            $tran->lang_id = $tran->language();
-            $tran->author_id = $tran->author();
+        AlQuranTranslation::where('author_lang', $authlang->_id)->chunk(1000, function ($translations) use ($client) {
+            $data = $translations->map(function ($tran) {
+                $tran->lang_id = $tran->language();
+                $tran->author_id = $tran->author();
 
-            return $tran;
+                return $tran;
+            });
+
+            $client->index('alQurantranslations')->addDocuments($data->toArray(), '_id');
         });
-        $client->index('alQurantranslations')->addDocuments($translation->toArray(), '_id');
     }
     return 'ok';
     // ini_set("memory_limit", "-1");
