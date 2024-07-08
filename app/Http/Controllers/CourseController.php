@@ -422,7 +422,7 @@ class CourseController extends Controller
 
         $courseLesson->save();
 
-        $count = CourseLesson::where('course_id', $courseLesson->course_id)->whrere('hls_conversion',1)->count();
+        $count = CourseLesson::where('course_id', $courseLesson->course_id)->where('hls_conversion',1)->count();
 
         $course = Course::where('_id',  $courseLesson->course_id)->first();
         $course->lesson_count = $count;
