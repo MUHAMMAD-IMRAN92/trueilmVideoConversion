@@ -51,6 +51,60 @@ class RoleAndPermissinController extends Controller
         
 
     }
+    public function updatePermission(Request $request)
+    {
+
+        $get_permission=[];
+
+        $get_request = $request->all();
+        foreach($get_request as $key =>$value){
+            if( $key  != "_token"  && $key  != "roleName"  && $key  != "id"){
+                $get_permission[] = $key;
+
+            }
+
+            
+
+
+        }
+
+
+        
+        $add_role              = Role::where("_id",$request->id)->first();
+        $add_role->guard_name  = 'web';
+        $add_role->name        = $request->roleName;
+        $add_role->save();
+
+
+
+
+        $currentPermissions = Permission::where('role_id', $add_role->_id)->pluck('name')->toArray();
+
+        foreach ($get_permission as $permission) {
+            Permission::updateOrCreate(
+                [
+                    'role_id' => $add_role->_id,
+                    'name' => $permission
+                ],
+                [
+                    'role_id' => $add_role->_id,
+                    'name' => $permission
+                ]
+            );
+        }
+
+        $permissionsToDelete = array_diff($currentPermissions, $get_permission);
+
+        // Delete old permissions
+        Permission::where('role_id', $add_role->_id)
+                ->whereIn('name', $permissionsToDelete)
+                ->delete();
+
+        return redirect()->to('/roles')->with('success', 'Role Added Successfully!');;
+
+        
+
+    }
     public function roles()
     { 
         $get_role=Role::where('name','!=','Institute')->with('RoleUser')->get();

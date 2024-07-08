@@ -918,15 +918,12 @@
                 {
                     "mRender": function(data, type, row) {
                         var type;
-                        if (row.type == 1) {
-                            type = 'Admin';
-                        } else if (row.type == 2) {
-                            type = 'Publisher';
-                        } else if (row.type == 3) {
-                            type = 'Institute';
-                        } else {
-                            type = 'Super Admin';
-                        }
+                       
+                            type =row.role;
+
+                        
+                       
+                        
                         return '<td>' +
                             type + '</td>'
                     }

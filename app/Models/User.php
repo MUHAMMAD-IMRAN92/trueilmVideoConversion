@@ -154,6 +154,12 @@ class User extends Authenticatable
         
 
     }
+    public function GetRole($id)
+    {
+        $get=Role::where('_id' ,$id)->first();
+        return $get->name;
+ 
+    }
 
     
 }

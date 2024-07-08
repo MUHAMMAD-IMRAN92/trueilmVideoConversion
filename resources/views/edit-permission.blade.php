@@ -26,7 +26,7 @@
               <div class="row g-4">
                 <div class="col-xl-12">
                   <div class="card p-3 p-md-5">
-                    <form id="" class="row g-3"  method="post" action="{{url('update-save')}}">
+                    <form id="" class="row g-3"  method="post" action="{{url('update-permission')}}">
                     @csrf  
                     <div class="col-12 mb-4">
                       <label class="form-label" for="modalRoleName">Role Name</label>
@@ -35,6 +35,16 @@
                           id="modalRoleName"
                           name="roleName"
                           value="{{$role->name}}"
+                          class="form-control"
+                          placeholder="Enter a role name"
+                          tabindex="-1" 
+                          required  
+                        />
+                        <input
+                          type="hidden"
+                          
+                          name="id"
+                          value="{{$role->_id}}"
                           class="form-control"
                           placeholder="Enter a role name"
                           tabindex="-1" 

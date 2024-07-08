@@ -55,11 +55,38 @@ class UserController extends Controller
                 $q->where('name', 'like', "%$search%")->orWhere('email', 'like',  "%$search%");;
             });
         })->skip((int) $start)->take((int) $length)->count();
+
+
+        $new_brand=[];
+
+        foreach( $brands as  $brands){
+            $role="-";
+            if($brands->my_role_id != null)
+            {
+                $role=$brands->GetRole($brands->my_role_id);
+            }
+            
+            $new_brand[]=[
+
+
+                "added_by"      =>  $brands->added_by ,
+                "created_at"    =>  $brands->created_at,
+                "updated_at"    =>  $brands->updated_at,
+                "email"         =>  $brands->email,
+                "name"          =>  $brands->name,
+                "type"          =>  $brands->type,
+                "phone"         =>  $brands->phone,
+                "status"        =>  $brands->status,
+                "role"          =>  $role,
+                "_id"           =>  $brands->_id,
+            ];
+
+        }
         $data = array(
             'draw' => $draw,
             'recordsTotal' => $totalBrands,
             'recordsFiltered' => $brandsCount,
-            'data' => $brands,
+            'data' => $new_brand,
         );
         return json_encode($data);
     }

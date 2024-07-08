@@ -73,7 +73,8 @@ Route::get('permission', [RoleAndPermissinController::class, 'permission'])->nam
 Route::get('edit-permission/{id}', [RoleAndPermissinController::class, 'editPermission'])->name('role.editPermission')->middleware('IsSuperAdmin');
 
 
-Route::post('role-save', [RoleAndPermissinController::class, 'roleSave'])->name('role.aave');
+Route::post('role-save', [RoleAndPermissinController::class, 'roleSave'])->name('role.save');
+Route::post('update-permission', [RoleAndPermissinController::class, 'updatePermission'])->name('role.updatePermission');
 
 Route::get('sendEmailToPrevoius',  [App\Http\Controllers\HomeController::class, 'sendEmailToPrevoius']);
 Auth::routes();
