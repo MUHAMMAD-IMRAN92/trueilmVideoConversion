@@ -1158,6 +1158,7 @@
                                                             <label for="basicInputFile" class="required">Content</label>
                                                             <div class="custom-file">
                                                                 <input type="file" id="file-upload-input"
+                                                                name="file[]"
                                                                     class="file-input file-upload-input custom-file-input episode-custom-file-input"
                                                                     id="inputGroupFile01" multiple
                                                                     accept="video/mp4,video/x-m4v,video/*"
@@ -1166,10 +1167,12 @@
                                                                 <label class="custom-file-label"
                                                                     for="inputGroupFile01">Choose
                                                                     file</label>
-                                                                    <input type="hidden" class="file-input file_name" id="file-names-from-s3"
+                                                                    <input type="hidden" class="file-input get_lesson_name file_name" id="file-names-from-s3"
                                                                         name="podcast_file">
                                                                     <input type="hidden" class="file-input  file_durations" id="file-durations"
                                                                         name="file_durations">
+                                                                    <input type="hidden" class="file-input  get_file_durations" id="file-durations"
+                                                                        name="get_file_durations">
                                                             </div>
                                                         </fieldset>
                                                         <div id="file-info">
@@ -1185,7 +1188,12 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn submit-btn submit-btn btn-primary mr-1" id="submit-btn">
+                                                    <button type="button" class="btn submit-btn submit-lesson submit-btn btn-primary mr-1" id="submit-btn">
+                                                        <span class="spinner-border mr-1 ml-1"
+                                                            style="display: none"></span>
+                                                        <span class="submit-text">Submit</span>
+                                                    </button>
+                                                    <button type="submit" class="btn d-none lesson-save">
                                                         <span class="spinner-border mr-1 ml-1"
                                                             style="display: none"></span>
                                                         <span class="submit-text">Submit</span>

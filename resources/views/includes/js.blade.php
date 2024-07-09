@@ -46,7 +46,86 @@
     //  });
     $(document).ready(function() {
 
+        
 
+        $(document).on('click', '.submit-lesson', function() {
+            const base_url = "https://trueilm.s3.eu-north-1.amazonaws.com/courses_videos";
+            const inputUrls = $(".get_lesson_name").val();
+            const arrayUrls = inputUrls.split(",").map(url => url.trim());
+            $(this).prop('disabled', true);
+
+            let durationsArray = [];
+
+            // Function to load a single video's metadata
+            function loadVideoMetadata(videoUrl) {
+                return new Promise((resolve, reject) => {
+                    const video = document.createElement('video');
+                    video.src = base_url + '/' + videoUrl.trim(); // Ensure each URL is trimmed
+
+                    video.addEventListener('loadedmetadata', function() {
+                        const duration = video.duration;
+                        const hours = Math.floor(duration / 3600);
+                        const minutes = Math.floor((duration % 3600) / 60);
+                        const seconds = Math.floor(duration % 60);
+
+                        let durationString = '';
+
+                        // Format hours
+                        if (hours > 0) {
+                            durationString += hours.toString().padStart(2, '0') + ':';
+                        } else {
+                            durationString += '0:';
+                        }
+
+                        // Format minutes
+                        if (minutes > 0) {
+                            durationString += minutes.toString().padStart(2, '0') + ':';
+                        } else {
+                            durationString += '00:';
+                        }
+
+                        // Format seconds
+                        durationString += seconds.toString().padStart(2, '0');
+
+                        durationsArray.push(durationString);
+                        resolve();
+                    });
+
+                    video.addEventListener('error', function() {
+                        reject(new Error('Failed to load video metadata'));
+                    });
+
+                    video.load();
+                });
+            }
+
+            // Function to load metadata for all videos and trigger the click event
+            async function processVideosAndClick() {
+                try {
+                    // Wait for all video metadata to be loaded
+                    await Promise.all(arrayUrls.map(videoUrl => loadVideoMetadata(videoUrl)));
+
+                    // Join durationsArray into a single string with comma separation
+                    const durationsString = durationsArray.join(',');
+
+                    // Update the input field with the durations string
+                    $(".get_file_durations").val(durationsString);
+
+                    // Alert the durations string
+
+                    // Trigger the click event
+                    $(".lesson-save").click();
+                } catch (error) {
+                    console.error('Error processing videos:', error);
+                } finally {
+                    // Re-enable the submit button
+                    $(this).prop('disabled', false);
+                }
+            }
+
+            // Run the function
+            processVideosAndClick();
+        });
 
         $(document).on('click', '.search_hadith', function() {
             let ayat=$(".get_ayat").val();
@@ -61,6 +140,8 @@
             $('.get_ayat').val('All').trigger('change');
 
         });
+
+
 
         
 
