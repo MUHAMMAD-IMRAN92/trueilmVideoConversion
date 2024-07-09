@@ -10,7 +10,7 @@ class AlQuranTranslation extends Eloquent
     use HasFactory;
     protected $connection = 'mongodb';
     protected $table = 'al_quran_translations';
-    protected $appends = ['lang_title'];
+    protected $appends = ['lang_title' , 'lang_id' , 'author_id'];
 
     public function getLangTitleAttribute()
     {
@@ -18,6 +18,22 @@ class AlQuranTranslation extends Eloquent
         $lang = Languages::where('_id', $this->lang)->first();
 
         return @$lang->title;
+    }
+    public function getLangIdAttribute()
+    {
+        $author_lang = $this->author_lang;
+        $author   =     AuthorLanguage::where('_id', $author_lang)->first();
+        if ($author) {
+            return $author->lang_id;
+        }
+    }
+    public function getAuthorIdAttribute()
+    {
+        $author_lang = $this->author_lang;
+        $author   =     AuthorLanguage::where('_id', $author_lang)->first();
+        if ($author) {
+            return $author->author_id;
+        }
     }
     public function ayats()
     {
