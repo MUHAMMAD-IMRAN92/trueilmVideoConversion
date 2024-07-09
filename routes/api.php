@@ -71,13 +71,13 @@ Route::get('/quran/index/{id}', function ($id) {
 
     // $client->createIndex('alHadeestranslations');
     $authorLang = AuthorLanguage::where('type', 1)->get();
-    $arr = collect();
+    // $arr = collect();
     foreach ($authorLang as $authlang) {
 
         $data =   AlQuranTranslation::where('author_lang', $authlang->_id)->get();
-        $arr->push($data);
+        // $arr->push($data);
+        $client->index('alQurantranslations')->addDocuments($data->toArray(), '_id');
     }
-    $client->index('alQurantranslations')->addDocuments($arr->toArray(), '_id');
     return 'ok';
     // ini_set("memory_limit", "-1");
     // // $arrIndex = [1 => 'ebook', 2 => 'audio', 3 => 'paper', 4 => 'alQurantranslations', 5 => 'alHadeestranslations', 6 =>  'course', 7 => 'podcast', 10 => "courseLesson", 11 => "podcastEpisode", 12 => "audioChapter"];
