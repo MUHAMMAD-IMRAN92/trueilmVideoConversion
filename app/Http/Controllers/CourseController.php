@@ -778,6 +778,8 @@ class CourseController extends Controller
     }
     public function  courseBulkEpisode(Request $request)
     {
+
+        
         // return $request->all();
         $course = Course::where('_id', $request->course_id)->first();
 
@@ -812,9 +814,13 @@ class CourseController extends Controller
                 // // Construct the duration in the format MM:SS
                 // $duration_minutes_seconds = sprintf("%02d:%02d", $total_minutes, $seconds);
                 // $bookContent->file_duration = @$duration_minutes_seconds;
-                $durationArr = explode(',', $request->file_durations);
+                $durationArr = explode(',', $request->get_file_durations);
+                $file_duration='';
+                if(isset($durationArr[$key])){
+                    $file_duration=$durationArr[$key];
+                }
 
-                $bookContent->file_duration = $durationArr[$key];
+                $bookContent->file_duration = @$file_duration;
                 $bookContent->hls_conversion = 0;
 
                 $bookContent->save();
